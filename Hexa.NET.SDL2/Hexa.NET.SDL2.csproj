@@ -20,8 +20,8 @@
 		<PackageTags>SDL SDL2 Hexa HexaGen Source Generator C# .NET DotNet Sharp Windows macOS Android Bindings Wrapper Native</PackageTags>
 		<Authors>Juna Meinhold</Authors>
 		<Copyright>Copyright (c) 2023 Juna Meinhold</Copyright>
-		<PackageProjectUrl>https://github.com/JunaMeinhold/HexaGen</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/JunaMeinhold/HexaGen</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/HexaEngine/Hexa.NET.SDL2</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/HexaEngine/Hexa.NET.SDL2</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.NET.SDL2", "Hexa.NET.SDL2\Hexa.NET.SDL2.csproj", "{B2F0ECD6-E976-4F95-8995-3419023436BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexa.NET.SDL2", "Hexa.NET.SDL2\Hexa.NET.SDL2.csproj", "{B2F0ECD6-E976-4F95-8995-3419023436BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "Generator\Generator.csproj", "{E23DD7CA-8C27-4B28-A04C-323F85301CDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Generator.csproj", "{E23DD7CA-8C27-4B28-A04C-323F85301CDB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{FD826B07-B533-4229-AF02-6D1734E64044}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleImGui", "ExampleImGui\ExampleImGui.csproj", "{38502E55-8C18-4B2B-851D-D3533AE25003}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FD826B07-B533-4229-AF02-6D1734E64044}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD826B07-B533-4229-AF02-6D1734E64044}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD826B07-B533-4229-AF02-6D1734E64044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38502E55-8C18-4B2B-851D-D3533AE25003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38502E55-8C18-4B2B-851D-D3533AE25003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38502E55-8C18-4B2B-851D-D3533AE25003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38502E55-8C18-4B2B-851D-D3533AE25003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
