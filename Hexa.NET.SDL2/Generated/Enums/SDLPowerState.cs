@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// The basic state for the system's power supply.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PowerState")]
+	[Flags]
 	public enum SDLPowerState : int
 	{
 		/// <summary>

@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Flags used when creating a rendering context<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_RendererFlags")]
+	[Flags]
 	public enum SDLRendererFlags : int
 	{
 		/// <summary>

@@ -60,14 +60,14 @@
         {
             BackendData* bd = GetBackendData();
             if (bd->ClipboardTextData != null)
-                SDL.SDLFree(bd->ClipboardTextData);
-            bd->ClipboardTextData = SDL.SDLGetClipboardText();
+                SDL.Free(bd->ClipboardTextData);
+            bd->ClipboardTextData = SDL.GetClipboardText();
             return bd->ClipboardTextData;
         }
 
         private static unsafe void SetClipboardText(void* data, byte* text)
         {
-            SDL.SDLSetClipboardText(text);
+            SDL.SetClipboardText(text);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@
             if (data->WantVisible == 1)
             {
                 SDLRect r = new((int)data->InputPos.X, (int)data->InputPos.Y, 1, (int)data->InputLineHeight);
-                SDL.SDLSetTextInputRect(&r);
+                SDL.SetTextInputRect(&r);
             }
         }
 
@@ -172,16 +172,16 @@
                 SDLKeyCode.Ralt => ImGuiKey.RightAlt,
                 SDLKeyCode.Rgui => ImGuiKey.RightSuper,
                 SDLKeyCode.Application => ImGuiKey.Menu,
-                SDLKeyCode.Sdlk0 => ImGuiKey.Key0,
-                SDLKeyCode.Sdlk1 => ImGuiKey.Key1,
-                SDLKeyCode.Sdlk2 => ImGuiKey.Key2,
-                SDLKeyCode.Sdlk3 => ImGuiKey.Key3,
-                SDLKeyCode.Sdlk4 => ImGuiKey.Key4,
-                SDLKeyCode.Sdlk5 => ImGuiKey.Key5,
-                SDLKeyCode.Sdlk6 => ImGuiKey.Key6,
-                SDLKeyCode.Sdlk7 => ImGuiKey.Key7,
-                SDLKeyCode.Sdlk8 => ImGuiKey.Key8,
-                SDLKeyCode.Sdlk9 => ImGuiKey.Key9,
+                SDLKeyCode.K0 => ImGuiKey.Key0,
+                SDLKeyCode.K1 => ImGuiKey.Key1,
+                SDLKeyCode.K2 => ImGuiKey.Key2,
+                SDLKeyCode.K3 => ImGuiKey.Key3,
+                SDLKeyCode.K4 => ImGuiKey.Key4,
+                SDLKeyCode.K5 => ImGuiKey.Key5,
+                SDLKeyCode.K6 => ImGuiKey.Key6,
+                SDLKeyCode.K7 => ImGuiKey.Key7,
+                SDLKeyCode.K8 => ImGuiKey.Key8,
+                SDLKeyCode.K9 => ImGuiKey.Key9,
                 SDLKeyCode.A => ImGuiKey.A,
                 SDLKeyCode.B => ImGuiKey.B,
                 SDLKeyCode.C => ImGuiKey.C,
@@ -256,7 +256,7 @@
                         if ((io.ConfigFlags & ImGuiConfigFlags.ViewportsEnable) != 0)
                         {
                             int window_x, window_y;
-                            SDL.SDLGetWindowPosition(SDL.SDLGetWindowFromID(env.Motion.WindowID), &window_x, &window_y);
+                            SDL.GetWindowPosition(SDL.GetWindowFromID(env.Motion.WindowID), &window_x, &window_y);
                             mouse_pos.X += window_x;
                             mouse_pos.Y += window_y;
                         }
@@ -344,7 +344,7 @@
 
                         if (window_event == SDLWindowEventID.Close || window_event == SDLWindowEventID.Moved || window_event == SDLWindowEventID.SizeChanged)
                         {
-                            ImGuiViewport* viewport = ImGui.FindViewportByPlatformHandle(SDL.SDLGetWindowFromID(env.Window.WindowID));
+                            ImGuiViewport* viewport = ImGui.FindViewportByPlatformHandle(SDL.GetWindowFromID(env.Window.WindowID));
 
                             if (viewport != null)
                             {
@@ -380,7 +380,7 @@
             Program.AddHook(ProcessEvent);
 
             bool mouse_can_use_global_state = false;
-            string sdl_backend = SDL.SDLGetCurrentVideoDriverS();
+            string sdl_backend = SDL.GetCurrentVideoDriverS();
             string[] global_mouse_whitelist = { "windows", "cocoa", "x11", "DIVE", "VMAN" };
             for (int n = 0; n < global_mouse_whitelist.Length; n++)
                 if (sdl_backend == global_mouse_whitelist[n])
@@ -416,15 +416,15 @@
             io.PlatformOpenInShellFn = (void*)Marshal.GetFunctionPointerForDelegate<PlatformOpenInShellFn>(OpenPlatformInShell);
 
             bd->MouseCursors = (SDLCursor**)AllocArray((uint)ImGuiMouseCursor.Count);
-            bd->MouseCursors[(int)ImGuiMouseCursor.Arrow] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Arrow);
-            bd->MouseCursors[(int)ImGuiMouseCursor.TextInput] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Ibeam);
-            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeAll] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Sizeall);
-            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeNs] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Sizens);
-            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeEw] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Sizewe);
-            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeNesw] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Sizenesw);
-            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeNwse] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Sizenwse);
-            bd->MouseCursors[(int)ImGuiMouseCursor.Hand] = SDL.SDLCreateSystemCursor(SDLSystemCursor.Hand);
-            bd->MouseCursors[(int)ImGuiMouseCursor.NotAllowed] = SDL.SDLCreateSystemCursor(SDLSystemCursor.No);
+            bd->MouseCursors[(int)ImGuiMouseCursor.Arrow] = SDL.CreateSystemCursor(SDLSystemCursor.Arrow);
+            bd->MouseCursors[(int)ImGuiMouseCursor.TextInput] = SDL.CreateSystemCursor(SDLSystemCursor.Ibeam);
+            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeAll] = SDL.CreateSystemCursor(SDLSystemCursor.Sizeall);
+            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeNs] = SDL.CreateSystemCursor(SDLSystemCursor.Sizens);
+            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeEw] = SDL.CreateSystemCursor(SDLSystemCursor.Sizewe);
+            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeNesw] = SDL.CreateSystemCursor(SDLSystemCursor.Sizenesw);
+            bd->MouseCursors[(int)ImGuiMouseCursor.ResizeNwse] = SDL.CreateSystemCursor(SDLSystemCursor.Sizenwse);
+            bd->MouseCursors[(int)ImGuiMouseCursor.Hand] = SDL.CreateSystemCursor(SDLSystemCursor.Hand);
+            bd->MouseCursors[(int)ImGuiMouseCursor.NotAllowed] = SDL.CreateSystemCursor(SDLSystemCursor.No);
 
             // Set platform dependent data in viewport
             // Our mouse update function expect PlatformHandle to be filled for the main viewport
@@ -432,8 +432,8 @@
             main_viewport->PlatformHandle = window;
             main_viewport->PlatformHandleRaw = null;
             SDLSysWMInfo info;
-            SDL.SDLGetVersion(&info.Version);
-            if (SDL.SDLGetWindowWMInfo(window, &info) == SDLBool.True)
+            SDL.GetVersion(&info.Version);
+            if (SDL.GetWindowWMInfo(window, &info) == SDLBool.True)
             {
                 if (sdl_backend == "windows")
                 {
@@ -450,15 +450,15 @@
             // (This is unfortunately a global SDL setting, so enabling it might have a side-effect on your application.
             // It is unlikely to make a difference, but if your app absolutely needs to ignore the initial on-focus click:
             // you can ignore SDL_MOUSEBUTTONDOWN events coming right after a SDL_WINDOWEVENT_FOCUS_GAINED)
-            SDL.SDLSetHint(SDL.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+            SDL.SetHint(SDL.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
 
             // From 2.0.18: Enable native IME.
             // IMPORTANT: This is used at the time of SDL_CreateWindow() so this will only affects secondary windows, if any.
             // For the main window to be affected, your application needs to call this manually before calling SDL_CreateWindow().
-            SDL.SDLSetHint(SDL.SDL_HINT_IME_SHOW_UI, "1");
+            SDL.SetHint(SDL.SDL_HINT_IME_SHOW_UI, "1");
 
             // From 2.0.22: Disable auto-capture, this is preventing drag and drop across multiple windows (see #5710)
-            SDL.SDLSetHint(SDL.SDL_HINT_MOUSE_AUTO_CAPTURE, "0");
+            SDL.SetHint(SDL.SDL_HINT_MOUSE_AUTO_CAPTURE, "0");
 
             // We need SDL_CaptureMouse(), SDL_GetGlobalMouseState() from SDL 2.0.4+ to support multiple viewports.
             // We left the call to ImGui_ImplSDL2_InitPlatformInterface() outside of #ifdef to avoid unused-function warnings.
@@ -507,9 +507,9 @@
             ShutdownPlatformInterface();
 
             if (bd->ClipboardTextData != null)
-                SDL.SDLFree(bd->ClipboardTextData);
+                SDL.Free(bd->ClipboardTextData);
             for (ImGuiMouseCursor cursor_n = 0; cursor_n < ImGuiMouseCursor.Count; cursor_n++)
-                SDL.SDLFreeCursor(bd->MouseCursors[(int)cursor_n]);
+                SDL.FreeCursor(bd->MouseCursors[(int)cursor_n]);
             Free(bd->MouseCursors);
             CloseGamepads();
 
@@ -524,8 +524,8 @@
             var bd = GetBackendData();
             var io = ImGui.GetIO();
 
-            SDL.SDLCaptureMouse(bd->MouseButtonsDown != 0 ? SDLBool.True : SDLBool.False);
-            SDLWindow* focused_window = SDL.SDLGetKeyboardFocus();
+            SDL.CaptureMouse(bd->MouseButtonsDown != 0 ? SDLBool.True : SDLBool.False);
+            SDLWindow* focused_window = SDL.GetKeyboardFocus();
             bool isAppFocused = focused_window != null && (bd->Window == focused_window || !ImGui.FindViewportByPlatformHandle(focused_window).IsNull);
 
             if (isAppFocused)
@@ -535,11 +535,11 @@
                     // (Optional) Set OS mouse position from Dear ImGui if requested (rarely used, only when ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
                     if ((io.ConfigFlags & ImGuiConfigFlags.ViewportsEnable) != 0)
                     {
-                        SDL.SDLWarpMouseGlobal((int)io.MousePos.X, (int)io.MousePos.Y);
+                        SDL.WarpMouseGlobal((int)io.MousePos.X, (int)io.MousePos.Y);
                     }
                     else
                     {
-                        SDL.SDLWarpMouseInWindow(focused_window, (int)io.MousePos.X, (int)io.MousePos.Y);
+                        SDL.WarpMouseInWindow(focused_window, (int)io.MousePos.X, (int)io.MousePos.Y);
                     }
                 }
 
@@ -549,12 +549,12 @@
                     // Single-viewport mode: mouse position in client window coordinates (io.MousePos is (0,0) when the mouse is on the upper-left corner of the app window)
                     // Multi-viewport mode: mouse position in OS absolute coordinates (io.MousePos is (0,0) when the mouse is on the upper-left of the primary monitor)
                     int gx, gy;
-                    SDL.SDLGetGlobalMouseState(&gx, &gy);
+                    SDL.GetGlobalMouseState(&gx, &gy);
                     var global = new Vector2(gx, gy);
                     if ((io.ConfigFlags & ImGuiConfigFlags.ViewportsEnable) == 0)
                     {
                         int x, y;
-                        SDL.SDLGetWindowPosition(focused_window, &x, &y);
+                        SDL.GetWindowPosition(focused_window, &x, &y);
                         global.X -= x;
                         global.Y -= y;
                     }
@@ -572,7 +572,7 @@
             if ((io.BackendFlags & ImGuiBackendFlags.HasMouseHoveredViewport) != 0)
             {
                 uint mouse_viewport_id = 0;
-                SDLWindow* sdl_mouse_window = SDL.SDLGetWindowFromID(bd->MouseWindowID);
+                SDLWindow* sdl_mouse_window = SDL.GetWindowFromID(bd->MouseWindowID);
                 if (sdl_mouse_window != null)
                 {
                     ImGuiViewport* mouse_viewport = ImGui.FindViewportByPlatformHandle(sdl_mouse_window);
@@ -600,7 +600,7 @@
             if (io.MouseDrawCursor || imgui_cursor == ImGuiMouseCursor.None)
             {
                 // Hide OS mouse cursor if imgui is drawing it or if it wants no cursor
-                SDL.SDLShowCursor((int)SDLBool.False);
+                SDL.ShowCursor((int)SDLBool.False);
             }
             else
             {
@@ -608,10 +608,10 @@
                 SDLCursor* expected_cursor = bd->MouseCursors[(int)imgui_cursor] != null ? bd->MouseCursors[(int)imgui_cursor] : bd->MouseCursors[(int)ImGuiMouseCursor.Arrow];
                 if (bd->LastMouseCursor != expected_cursor)
                 {
-                    SDL.SDLSetCursor(expected_cursor); // SDL function doesn't have an early out (see #6113)
+                    SDL.SetCursor(expected_cursor); // SDL function doesn't have an early out (see #6113)
                     bd->LastMouseCursor = expected_cursor;
                 }
-                SDL.SDLShowCursor((int)SDLBool.True);
+                SDL.ShowCursor((int)SDLBool.True);
             }
         }
 
@@ -623,7 +623,7 @@
                 for (int i = 0; i < bd->Gamepads.Size; i++)
                 {
                     SDLGameController* gamepad = bd->Gamepads[i];
-                    SDL.SDLGameControllerClose(gamepad);
+                    SDL.GameControllerClose(gamepad);
                 }
             }
 
@@ -654,7 +654,7 @@
             for (int i = 0; i < bd->Gamepads.Size; i++)
             {
                 SDLGameController* gamepad = bd->Gamepads[i];
-                merged_value |= SDL.SDLGameControllerGetButton(gamepad, button_no) != 0;
+                merged_value |= SDL.GameControllerGetButton(gamepad, button_no) != 0;
             }
 
             io->AddKeyEvent(key, merged_value);
@@ -672,7 +672,7 @@
             for (int i = 0; i < bd->Gamepads.Size; i++)
             {
                 SDLGameController* gamepad = bd->Gamepads[i];
-                float vn = Saturate((float)(SDL.SDLGameControllerGetAxis(gamepad, axis_no) - v0) / (float)(v1 - v0));
+                float vn = Saturate((float)(SDL.GameControllerGetAxis(gamepad, axis_no) - v0) / (float)(v1 - v0));
                 if (merged_value < vn)
                     merged_value = vn;
             }
@@ -688,12 +688,12 @@
             if (bd->WantUpdateGamepadsList && bd->GamepadMode != GamepadMode.Manual)
             {
                 CloseGamepads();
-                int joystick_count = SDL.SDLNumJoysticks();
+                int joystick_count = SDL.NumJoysticks();
                 for (int n = 0; n < joystick_count; n++)
                 {
-                    if (SDL.SDLIsGameController(n) == SDLBool.True)
+                    if (SDL.IsGameController(n) == SDLBool.True)
                     {
-                        SDLGameController* gamepad = SDL.SDLGameControllerOpen(n);
+                        SDLGameController* gamepad = SDL.GameControllerOpen(n);
                         if (gamepad != null)
                         {
                             bd->Gamepads.PushBack(gamepad);
@@ -754,22 +754,22 @@
             ImVector<ImGuiPlatformMonitor>* monitors = &platform_io->Monitors;
             monitors->Resize(0);
             bd->WantUpdateMonitors = false;
-            int display_count = SDL.SDLGetNumVideoDisplays();
+            int display_count = SDL.GetNumVideoDisplays();
             for (int n = 0; n < display_count; n++)
             {
                 // Warning: the validity of monitor DPI information on Windows depends on the application DPI awareness settings, which generally needs to be set in the manifest or at runtime.
                 ImGuiPlatformMonitor monitor = default;
                 SDLRect r;
-                SDL.SDLGetDisplayBounds(n, &r);
+                SDL.GetDisplayBounds(n, &r);
                 monitor.MainPos = monitor.WorkPos = new Vector2(r.X, r.Y);
                 monitor.MainSize = monitor.WorkSize = new Vector2(r.W, r.H);
 
-                SDL.SDLGetDisplayUsableBounds(n, &r);
+                SDL.GetDisplayUsableBounds(n, &r);
                 monitor.WorkPos = new(r.X, r.Y);
                 monitor.WorkSize = new(r.W, r.H);
 
                 float dpi;
-                SDL.SDLGetDisplayDPI(n, &dpi, null, null);
+                SDL.GetDisplayDPI(n, &dpi, null, null);
                 monitor.DpiScale = dpi / 96.0f;
 
                 monitors->PushBack(monitor);
@@ -781,18 +781,18 @@
             var bd = GetBackendData();
             var io = ImGui.GetIO();
             int w, h, displayW, displayH;
-            SDL.SDLGetWindowSize(bd->Window, &w, &h);
-            if (((SDLWindowFlags)SDL.SDLGetWindowFlags(bd->Window) & SDLWindowFlags.Minimized) != 0)
+            SDL.GetWindowSize(bd->Window, &w, &h);
+            if (((SDLWindowFlags)SDL.GetWindowFlags(bd->Window) & SDLWindowFlags.Minimized) != 0)
             {
                 w = h = 0;
             }
             if (bd->Renderer != null)
             {
-                SDL.SDLGetRendererOutputSize(bd->Renderer, &displayW, &displayH);
+                SDL.GetRendererOutputSize(bd->Renderer, &displayW, &displayH);
             }
             else
             {
-                SDL.SDLGLGetDrawableSize(bd->Window, &displayW, &displayH);
+                SDL.GLGetDrawableSize(bd->Window, &displayW, &displayH);
             }
 
             io.DisplaySize = new(w, h);
@@ -855,36 +855,36 @@
             SDLGLContext backup_context = default;
             if (use_opengl)
             {
-                backup_context = SDL.SDLGLGetCurrentContext();
-                SDL.SDLGLSetAttribute(SDLGLattr.GlShareWithCurrentContext, 1);
-                SDL.SDLGLMakeCurrent(main_viewport_data->Window, main_viewport_data->GLContext);
+                backup_context = SDL.GLGetCurrentContext();
+                SDL.GLSetAttribute(SDLGLattr.GlShareWithCurrentContext, 1);
+                SDL.GLMakeCurrent(main_viewport_data->Window, main_viewport_data->GLContext);
             }
 
             SDLWindowFlags sdl_flags = 0;
             sdl_flags |= use_opengl ? SDLWindowFlags.Opengl : bd->UseVulkan ? SDLWindowFlags.Vulkan : 0;
-            sdl_flags |= (SDLWindowFlags)SDL.SDLGetWindowFlags(bd->Window) & SDLWindowFlags.AllowHighdpi;
+            sdl_flags |= (SDLWindowFlags)SDL.GetWindowFlags(bd->Window) & SDLWindowFlags.AllowHighdpi;
             sdl_flags |= SDLWindowFlags.Hidden;
             sdl_flags |= (viewport->Flags & ImGuiViewportFlags.NoDecoration) != 0 ? SDLWindowFlags.Borderless : 0;
             sdl_flags |= (viewport->Flags & ImGuiViewportFlags.NoDecoration) != 0 ? 0 : SDLWindowFlags.Resizable;
             sdl_flags |= (viewport->Flags & ImGuiViewportFlags.NoTaskBarIcon) != 0 ? SDLWindowFlags.SkipTaskbar : 0;
             sdl_flags |= (viewport->Flags & ImGuiViewportFlags.TopMost) != 0 ? SDLWindowFlags.AlwaysOnTop : 0;
 
-            vd->Window = SDL.SDLCreateWindow("No Title Yet", (int)viewport->Pos.X, (int)viewport->Pos.Y, (int)viewport->Size.X, (int)viewport->Size.Y, (uint)sdl_flags);
+            vd->Window = SDL.CreateWindow("No Title Yet", (int)viewport->Pos.X, (int)viewport->Pos.Y, (int)viewport->Size.X, (int)viewport->Size.Y, (uint)sdl_flags);
             vd->WindowOwned = true;
             if (use_opengl)
             {
-                vd->GLContext = SDL.SDLGLCreateContext(vd->Window);
-                SDL.SDLGLSetSwapInterval(0);
+                vd->GLContext = SDL.GLCreateContext(vd->Window);
+                SDL.GLSetSwapInterval(0);
             }
             if (use_opengl && !backup_context.IsNull)
-                SDL.SDLGLMakeCurrent(vd->Window, backup_context);
+                SDL.GLMakeCurrent(vd->Window, backup_context);
 
             viewport->PlatformHandle = vd->Window;
             viewport->PlatformHandleRaw = null;
-            var sdl_backend = SDL.SDLGetCurrentVideoDriverS();
+            var sdl_backend = SDL.GetCurrentVideoDriverS();
             SDLSysWMInfo info;
-            SDL.SDLGetVersion(&info.Version);
-            if (SDL.SDLGetWindowWMInfo(vd->Window, &info) == SDLBool.True)
+            SDL.GetVersion(&info.Version);
+            if (SDL.GetWindowWMInfo(vd->Window, &info) == SDLBool.True)
             {
                 if (sdl_backend == "windows")
                 {
@@ -903,9 +903,9 @@
             if (vd != null)
             {
                 if (!vd->GLContext.IsNull && vd->WindowOwned)
-                    SDL.SDLGLDeleteContext(vd->GLContext);
+                    SDL.GLDeleteContext(vd->GLContext);
                 if (vd->Window != null && vd->WindowOwned)
-                    SDL.SDLDestroyWindow(vd->Window);
+                    SDL.DestroyWindow(vd->Window);
                 vd->GLContext = default;
                 vd->Window = null;
                 Free(vd);
@@ -916,50 +916,50 @@
         private static unsafe void ShowWindow(ImGuiViewport* viewport)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            SDL.SDLShowWindow(vd->Window);
+            SDL.ShowWindow(vd->Window);
         }
 
         private static unsafe void SetWindowPos(ImGuiViewport* viewport, Vector2 pos)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            SDL.SDLSetWindowPosition(vd->Window, (int)pos.X, (int)pos.Y);
+            SDL.SetWindowPosition(vd->Window, (int)pos.X, (int)pos.Y);
         }
 
         private static unsafe void SetWindowSize(ImGuiViewport* viewport, Vector2 size)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            SDL.SDLSetWindowSize(vd->Window, (int)size.X, (int)size.Y);
+            SDL.SetWindowSize(vd->Window, (int)size.X, (int)size.Y);
         }
 
         private static unsafe void SetWindowTitle(ImGuiViewport* viewport, byte* title)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            SDL.SDLSetWindowTitle(vd->Window, title);
+            SDL.SetWindowTitle(vd->Window, title);
         }
 
         private static unsafe void SetWindowAlpha(ImGuiViewport* viewport, float alpha)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            SDL.SDLSetWindowOpacity(vd->Window, alpha);
+            SDL.SetWindowOpacity(vd->Window, alpha);
         }
 
         private static unsafe void SetWindowFocus(ImGuiViewport* viewport)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            SDL.SDLRaiseWindow(vd->Window);
+            SDL.RaiseWindow(vd->Window);
         }
 
         private static unsafe byte GetWindowFocus(ImGuiViewport* viewport)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            var focused = ((SDLWindowFlags)SDL.SDLGetWindowFlags(vd->Window) & SDLWindowFlags.InputFocus) != 0;
+            var focused = ((SDLWindowFlags)SDL.GetWindowFlags(vd->Window) & SDLWindowFlags.InputFocus) != 0;
             return (byte)(focused ? 1 : 0);
         }
 
         private static unsafe byte GetWindowMinimized(ImGuiViewport* viewport)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            var minimized = ((SDLWindowFlags)SDL.SDLGetWindowFlags(vd->Window) & SDLWindowFlags.Minimized) != 0;
+            var minimized = ((SDLWindowFlags)SDL.GetWindowFlags(vd->Window) & SDLWindowFlags.Minimized) != 0;
             return (byte)(minimized ? 1 : 0);
         }
 
@@ -967,7 +967,7 @@
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
             if (!vd->GLContext.IsNull)
-                SDL.SDLGLMakeCurrent(vd->Window, vd->GLContext);
+                SDL.GLMakeCurrent(vd->Window, vd->GLContext);
         }
 
         private static unsafe void SwapBuffers(ImGuiViewport* viewport, void* unknown)
@@ -975,15 +975,15 @@
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
             if (!vd->GLContext.IsNull)
             {
-                SDL.SDLGLMakeCurrent(vd->Window, vd->GLContext);
-                SDL.SDLGLSwapWindow(vd->Window);
+                SDL.GLMakeCurrent(vd->Window, vd->GLContext);
+                SDL.GLSwapWindow(vd->Window);
             }
         }
 
         private static unsafe int CreateVkSurface(ImGuiViewport* viewport, ulong vk_instance, void* vk_allocator, ulong* out_vk_surface)
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
-            SDLBool ret = SDL.SDLVulkanCreateSurface(vd->Window, *(VkInstance*)&vk_instance, (VkSurfaceKHR*)out_vk_surface);
+            SDLBool ret = SDL.VulkanCreateSurface(vd->Window, *(VkInstance*)&vk_instance, (VkSurfaceKHR*)out_vk_surface);
             return ret == SDLBool.True ? 0 : 1; // ret ? VK_SUCCESS : VK_NOT_READY
         }
 
@@ -991,7 +991,7 @@
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
             int w = 0, h = 0;
-            SDL.SDLGetWindowSize(vd->Window, &w, &h);
+            SDL.GetWindowSize(vd->Window, &w, &h);
             *size = new Vector2(w, h);
             return size;
         }
@@ -1000,7 +1000,7 @@
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
             int x = 0, y = 0;
-            SDL.SDLGetWindowPosition(vd->Window, &x, &y);
+            SDL.GetWindowPosition(vd->Window, &x, &y);
             *size = new Vector2(x, y);
             return size;
         }
@@ -1009,7 +1009,7 @@
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
             int w = 0, h = 0;
-            SDL.SDLGetWindowSize(vd->Window, &w, &h);
+            SDL.GetWindowSize(vd->Window, &w, &h);
             var size = new Vector2(w, h);
             return size;
         }
@@ -1018,7 +1018,7 @@
         {
             ViewportData* vd = (ViewportData*)viewport->PlatformUserData;
             int x = 0, y = 0;
-            SDL.SDLGetWindowPosition(vd->Window, &x, &y);
+            SDL.GetWindowPosition(vd->Window, &x, &y);
             var size = new Vector2(x, y);
             return size;
         }
@@ -1061,7 +1061,7 @@
             ViewportData* vd = AllocT<ViewportData>();
             ZeroMemoryT(vd);
             vd->Window = window;
-            vd->WindowID = SDL.SDLGetWindowID(window);
+            vd->WindowID = SDL.GetWindowID(window);
             vd->WindowOwned = false;
             vd->GLContext = sdl_gl_context;
             main_viewport->PlatformUserData = vd;

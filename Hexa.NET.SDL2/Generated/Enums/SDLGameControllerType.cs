@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_GameControllerType")]
+	[Flags]
 	public enum SDLGameControllerType : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_TYPE_UNKNOWN")]

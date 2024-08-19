@@ -17,6 +17,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_WindowFlags")]
+	[Flags]
 	public enum SDLWindowFlags : int
 	{
 		/// <summary>

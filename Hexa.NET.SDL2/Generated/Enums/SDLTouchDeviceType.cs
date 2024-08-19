@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_TouchDeviceType")]
+	[Flags]
 	public enum SDLTouchDeviceType : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_TOUCH_DEVICE_INVALID")]

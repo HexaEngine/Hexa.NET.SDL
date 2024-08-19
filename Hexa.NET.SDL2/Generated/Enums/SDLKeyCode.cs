@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_KeyCode")]
+	[Flags]
 	public enum SDLKeyCode : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDLK_UNKNOWN")]
@@ -80,34 +81,34 @@ namespace Hexa.NET.SDL2
 		Slash = unchecked((int)'/'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_0")]
 		[NativeName(NativeNameType.Value, "'0'")]
-		Sdlk0 = unchecked((int)'0'),
+		K0 = unchecked((int)'0'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_1")]
 		[NativeName(NativeNameType.Value, "'1'")]
-		Sdlk1 = unchecked((int)'1'),
+		K1 = unchecked((int)'1'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_2")]
 		[NativeName(NativeNameType.Value, "'2'")]
-		Sdlk2 = unchecked((int)'2'),
+		K2 = unchecked((int)'2'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_3")]
 		[NativeName(NativeNameType.Value, "'3'")]
-		Sdlk3 = unchecked((int)'3'),
+		K3 = unchecked((int)'3'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_4")]
 		[NativeName(NativeNameType.Value, "'4'")]
-		Sdlk4 = unchecked((int)'4'),
+		K4 = unchecked((int)'4'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_5")]
 		[NativeName(NativeNameType.Value, "'5'")]
-		Sdlk5 = unchecked((int)'5'),
+		K5 = unchecked((int)'5'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_6")]
 		[NativeName(NativeNameType.Value, "'6'")]
-		Sdlk6 = unchecked((int)'6'),
+		K6 = unchecked((int)'6'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_7")]
 		[NativeName(NativeNameType.Value, "'7'")]
-		Sdlk7 = unchecked((int)'7'),
+		K7 = unchecked((int)'7'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_8")]
 		[NativeName(NativeNameType.Value, "'8'")]
-		Sdlk8 = unchecked((int)'8'),
+		K8 = unchecked((int)'8'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_9")]
 		[NativeName(NativeNameType.Value, "'9'")]
-		Sdlk9 = unchecked((int)'9'),
+		K9 = unchecked((int)'9'),
 		[NativeName(NativeNameType.EnumItem, "SDLK_COLON")]
 		[NativeName(NativeNameType.Value, "':'")]
 		Colon = unchecked((int)':'),

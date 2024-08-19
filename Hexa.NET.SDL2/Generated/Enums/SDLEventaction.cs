@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL2
 	/// { <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_eventaction")]
+	[Flags]
 	public enum SDLEventaction : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_ADDEVENT")]

@@ -57,8 +57,8 @@ namespace ExampleImGui
 
         public static void SetupRenderState(SDLRenderer* renderer)
         {
-            SDLRenderSetViewport(renderer, null);
-            SDLRenderSetClipRect(renderer, null);
+            RenderSetViewport(renderer, null);
+            RenderSetClipRect(renderer, null);
         }
 
         public static void NewFrame()
@@ -84,7 +84,7 @@ namespace ExampleImGui
             // to SDL_RenderGeometryRaw() by that scale factor. In that case we don't want to be also scaling it ourselves here.
             float rsx = 1.0f;
             float rsy = 1.0f;
-            SDLRenderGetScale(renderer, &rsx, &rsy);
+            RenderGetScale(renderer, &rsx, &rsy);
             Vector2 render_scale;
             render_scale.X = (rsx == 1.0f) ? draw_data->FramebufferScale.X : 1.0f;
             render_scale.Y = (rsy == 1.0f) ? draw_data->FramebufferScale.Y : 1.0f;
@@ -98,9 +98,9 @@ namespace ExampleImGui
             // Backup SDL_Renderer state that will be modified to restore it afterwards
 
             BackupSDLRendererState old = default;
-            old.ClipEnabled = SDLRenderIsClipEnabled(renderer) == SDLBool.True;
-            SDLRenderGetViewport(renderer, &old.Viewport);
-            SDLRenderGetClipRect(renderer, &old.ClipRect);
+            old.ClipEnabled = RenderIsClipEnabled(renderer) == SDLBool.True;
+            RenderGetViewport(renderer, &old.Viewport);
+            RenderGetClipRect(renderer, &old.ClipRect);
 
             // Will project scissor/clipping rectangles into framebuffer space
             Vector2 clip_off = draw_data->DisplayPos;         // (0,0) unless using multi-viewports
@@ -139,7 +139,7 @@ namespace ExampleImGui
                             continue;
 
                         SDLRect r = new((int)(clip_min.X), (int)(clip_min.Y), (int)(clip_max.X - clip_min.X), (int)(clip_max.Y - clip_min.Y));
-                        SDLRenderSetClipRect(renderer, &r);
+                        RenderSetClipRect(renderer, &r);
 
                         float* xy = (float*)(void*)((byte*)(vtx_buffer + pcmd.VtxOffset) + posOffset);
                         float* uv = (float*)(void*)((byte*)(vtx_buffer + pcmd.VtxOffset) + uvOffset);
@@ -151,7 +151,7 @@ namespace ExampleImGui
 
                         // Bind texture, Draw
                         SDLTexture* tex = (SDLTexture*)pcmd.GetTexID().Handle;
-                        SDLRenderGeometryRaw(renderer, tex,
+                        RenderGeometryRaw(renderer, tex,
                             xy, sizeof(ImDrawVert),
                             color, sizeof(ImDrawVert),
                             uv, sizeof(ImDrawVert),
@@ -162,8 +162,8 @@ namespace ExampleImGui
             }
 
             // Restore modified SDL_Renderer state
-            SDLRenderSetViewport(renderer, &old.Viewport);
-            SDLRenderSetClipRect(renderer, old.ClipEnabled ? &old.ClipRect : null);
+            RenderSetViewport(renderer, &old.Viewport);
+            RenderSetClipRect(renderer, old.ClipEnabled ? &old.ClipRect : null);
         }
 
         const int posOffset = 0;      // Offset von Pos (erster Member)
@@ -182,15 +182,15 @@ namespace ExampleImGui
 
             // Upload texture to graphics system
             // (Bilinear sampling is required by default. Set 'io.Fonts->Flags |= ImFontAtlasFlags_NoBakedLines' or 'style.AntiAliasedLinesUseTex = false' to allow point/nearest sampling)
-            bd->FontTexture = SDLCreateTexture(bd->Renderer, (int)SDLPixelFormatEnum.Abgr8888, (int)SDLTextureAccess.Static, width, height);
+            bd->FontTexture = CreateTexture(bd->Renderer, (int)SDLPixelFormatEnum.Abgr8888, (int)SDLTextureAccess.Static, width, height);
             if (bd->FontTexture == null)
             {
-                SDLLog("error creating texture");
+                Log("error creating texture");
                 return false;
             }
-            SDLUpdateTexture(bd->FontTexture, null, pixels, 4 * width);
-            SDLSetTextureBlendMode(bd->FontTexture, SDLBlendMode.Blend);
-            SDLSetTextureScaleMode(bd->FontTexture, SDLScaleMode.Linear);
+            UpdateTexture(bd->FontTexture, null, pixels, 4 * width);
+            SetTextureBlendMode(bd->FontTexture, SDLBlendMode.Blend);
+            SetTextureScaleMode(bd->FontTexture, SDLScaleMode.Linear);
 
             // Store our identifier
             io.Fonts.SetTexID((ImTextureID)(nint)bd->FontTexture);
@@ -205,7 +205,7 @@ namespace ExampleImGui
             if (bd->FontTexture != null)
             {
                 io.Fonts.SetTexID(0);
-                SDLDestroyTexture(bd->FontTexture);
+                DestroyTexture(bd->FontTexture);
                 bd->FontTexture = null;
             }
         }

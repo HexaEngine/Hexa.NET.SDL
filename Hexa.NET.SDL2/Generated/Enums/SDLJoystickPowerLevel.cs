@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_JoystickPowerLevel")]
+	[Flags]
 	public enum SDLJoystickPowerLevel : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_UNKNOWN")]

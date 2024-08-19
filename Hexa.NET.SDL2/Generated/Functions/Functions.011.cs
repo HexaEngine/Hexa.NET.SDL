@@ -32,11 +32,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxisFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerAxis")]
-		public static SDLGameControllerAxis SDLGameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> str)
+		public static SDLGameControllerAxis GameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
-				SDLGameControllerAxis ret = SDLGameControllerGetAxisFromStringNative((byte*)pstr);
+				SDLGameControllerAxis ret = GameControllerGetAxisFromStringNative((byte*)pstr);
 				return ret;
 			}
 		}
@@ -56,7 +56,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxisFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerAxis")]
-		public static SDLGameControllerAxis SDLGameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] string str)
+		public static SDLGameControllerAxis GameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -75,7 +75,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLGameControllerAxis ret = SDLGameControllerGetAxisFromStringNative(pStr0);
+			SDLGameControllerAxis ret = GameControllerGetAxisFromStringNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -92,7 +92,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetStringForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerGetStringForAxisNative([NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		internal static byte* GameControllerGetStringForAxisNative([NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameControllerAxis, byte*>)vt[583])(axis);
@@ -110,9 +110,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetStringForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetStringForAxis([NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static byte* GameControllerGetStringForAxis([NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
-			byte* ret = SDLGameControllerGetStringForAxisNative(axis);
+			byte* ret = GameControllerGetStringForAxisNative(axis);
 			return ret;
 		}
 
@@ -125,9 +125,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetStringForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetStringForAxisS([NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static string GameControllerGetStringForAxisS([NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerGetStringForAxisNative(axis));
+			string ret = Utils.DecodeStringUTF8(GameControllerGetStringForAxisNative(axis));
 			return ret;
 		}
 
@@ -139,7 +139,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetBindForAxis")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButtonBind")]
-		internal static SDLGameControllerButtonBind SDLGameControllerGetBindForAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		internal static SDLGameControllerButtonBind GameControllerGetBindForAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerAxis, SDLGameControllerButtonBind>)vt[584])(gamecontroller, axis);
@@ -156,9 +156,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetBindForAxis")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButtonBind")]
-		public static SDLGameControllerButtonBind SDLGameControllerGetBindForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static SDLGameControllerButtonBind GameControllerGetBindForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
-			SDLGameControllerButtonBind ret = SDLGameControllerGetBindForAxisNative(gamecontroller, axis);
+			SDLGameControllerButtonBind ret = GameControllerGetBindForAxisNative(gamecontroller, axis);
 			return ret;
 		}
 
@@ -170,11 +170,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetBindForAxis")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButtonBind")]
-		public static SDLGameControllerButtonBind SDLGameControllerGetBindForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static SDLGameControllerButtonBind GameControllerGetBindForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLGameControllerButtonBind ret = SDLGameControllerGetBindForAxisNative((SDLGameController*)pgamecontroller, axis);
+				SDLGameControllerButtonBind ret = GameControllerGetBindForAxisNative((SDLGameController*)pgamecontroller, axis);
 				return ret;
 			}
 		}
@@ -188,7 +188,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasAxis")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerHasAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		internal static SDLBool GameControllerHasAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerAxis, SDLBool>)vt[585])(gamecontroller, axis);
@@ -206,9 +206,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasAxis")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static SDLBool GameControllerHasAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
-			SDLBool ret = SDLGameControllerHasAxisNative(gamecontroller, axis);
+			SDLBool ret = GameControllerHasAxisNative(gamecontroller, axis);
 			return ret;
 		}
 
@@ -221,11 +221,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasAxis")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static SDLBool GameControllerHasAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerHasAxisNative((SDLGameController*)pgamecontroller, axis);
+				SDLBool ret = GameControllerHasAxisNative((SDLGameController*)pgamecontroller, axis);
 				return ret;
 			}
 		}
@@ -245,7 +245,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxis")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
-		internal static short SDLGameControllerGetAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		internal static short GameControllerGetAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerAxis, short>)vt[586])(gamecontroller, axis);
@@ -269,9 +269,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxis")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
-		public static short SDLGameControllerGetAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static short GameControllerGetAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
-			short ret = SDLGameControllerGetAxisNative(gamecontroller, axis);
+			short ret = GameControllerGetAxisNative(gamecontroller, axis);
 			return ret;
 		}
 
@@ -290,11 +290,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxis")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
-		public static short SDLGameControllerGetAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static short GameControllerGetAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				short ret = SDLGameControllerGetAxisNative((SDLGameController*)pgamecontroller, axis);
+				short ret = GameControllerGetAxisNative((SDLGameController*)pgamecontroller, axis);
 				return ret;
 			}
 		}
@@ -310,7 +310,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButtonFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButton")]
-		internal static SDLGameControllerButton SDLGameControllerGetButtonFromStringNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		internal static SDLGameControllerButton GameControllerGetButtonFromStringNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, SDLGameControllerButton>)vt[587])(str);
@@ -330,9 +330,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButtonFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButton")]
-		public static SDLGameControllerButton SDLGameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		public static SDLGameControllerButton GameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
 		{
-			SDLGameControllerButton ret = SDLGameControllerGetButtonFromStringNative(str);
+			SDLGameControllerButton ret = GameControllerGetButtonFromStringNative(str);
 			return ret;
 		}
 
@@ -347,11 +347,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButtonFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButton")]
-		public static SDLGameControllerButton SDLGameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ref byte str)
+		public static SDLGameControllerButton GameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
-				SDLGameControllerButton ret = SDLGameControllerGetButtonFromStringNative((byte*)pstr);
+				SDLGameControllerButton ret = GameControllerGetButtonFromStringNative((byte*)pstr);
 				return ret;
 			}
 		}
@@ -367,11 +367,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButtonFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButton")]
-		public static SDLGameControllerButton SDLGameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> str)
+		public static SDLGameControllerButton GameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
-				SDLGameControllerButton ret = SDLGameControllerGetButtonFromStringNative((byte*)pstr);
+				SDLGameControllerButton ret = GameControllerGetButtonFromStringNative((byte*)pstr);
 				return ret;
 			}
 		}
@@ -387,7 +387,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButtonFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButton")]
-		public static SDLGameControllerButton SDLGameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] string str)
+		public static SDLGameControllerButton GameControllerGetButtonFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -406,7 +406,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLGameControllerButton ret = SDLGameControllerGetButtonFromStringNative(pStr0);
+			SDLGameControllerButton ret = GameControllerGetButtonFromStringNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -423,7 +423,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetStringForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerGetStringForButtonNative([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		internal static byte* GameControllerGetStringForButtonNative([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameControllerButton, byte*>)vt[588])(button);
@@ -441,9 +441,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetStringForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetStringForButton([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static byte* GameControllerGetStringForButton([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
-			byte* ret = SDLGameControllerGetStringForButtonNative(button);
+			byte* ret = GameControllerGetStringForButtonNative(button);
 			return ret;
 		}
 
@@ -456,9 +456,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetStringForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetStringForButtonS([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static string GameControllerGetStringForButtonS([NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerGetStringForButtonNative(button));
+			string ret = Utils.DecodeStringUTF8(GameControllerGetStringForButtonNative(button));
 			return ret;
 		}
 
@@ -470,7 +470,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetBindForButton")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButtonBind")]
-		internal static SDLGameControllerButtonBind SDLGameControllerGetBindForButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		internal static SDLGameControllerButtonBind GameControllerGetBindForButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerButton, SDLGameControllerButtonBind>)vt[589])(gamecontroller, button);
@@ -487,9 +487,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetBindForButton")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButtonBind")]
-		public static SDLGameControllerButtonBind SDLGameControllerGetBindForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static SDLGameControllerButtonBind GameControllerGetBindForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
-			SDLGameControllerButtonBind ret = SDLGameControllerGetBindForButtonNative(gamecontroller, button);
+			SDLGameControllerButtonBind ret = GameControllerGetBindForButtonNative(gamecontroller, button);
 			return ret;
 		}
 
@@ -501,11 +501,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetBindForButton")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerButtonBind")]
-		public static SDLGameControllerButtonBind SDLGameControllerGetBindForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static SDLGameControllerButtonBind GameControllerGetBindForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLGameControllerButtonBind ret = SDLGameControllerGetBindForButtonNative((SDLGameController*)pgamecontroller, button);
+				SDLGameControllerButtonBind ret = GameControllerGetBindForButtonNative((SDLGameController*)pgamecontroller, button);
 				return ret;
 			}
 		}
@@ -519,7 +519,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasButton")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerHasButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		internal static SDLBool GameControllerHasButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerButton, SDLBool>)vt[590])(gamecontroller, button);
@@ -537,9 +537,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasButton")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static SDLBool GameControllerHasButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
-			SDLBool ret = SDLGameControllerHasButtonNative(gamecontroller, button);
+			SDLBool ret = GameControllerHasButtonNative(gamecontroller, button);
 			return ret;
 		}
 
@@ -552,11 +552,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasButton")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static SDLBool GameControllerHasButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerHasButtonNative((SDLGameController*)pgamecontroller, button);
+				SDLBool ret = GameControllerHasButtonNative((SDLGameController*)pgamecontroller, button);
 				return ret;
 			}
 		}
@@ -569,7 +569,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButton")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		internal static byte SDLGameControllerGetButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		internal static byte GameControllerGetButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerButton, byte>)vt[591])(gamecontroller, button);
@@ -586,9 +586,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButton")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLGameControllerGetButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static byte GameControllerGetButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
-			byte ret = SDLGameControllerGetButtonNative(gamecontroller, button);
+			byte ret = GameControllerGetButtonNative(gamecontroller, button);
 			return ret;
 		}
 
@@ -600,11 +600,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetButton")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLGameControllerGetButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static byte GameControllerGetButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				byte ret = SDLGameControllerGetButtonNative((SDLGameController*)pgamecontroller, button);
+				byte ret = GameControllerGetButtonNative((SDLGameController*)pgamecontroller, button);
 				return ret;
 			}
 		}
@@ -615,7 +615,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetNumTouchpads")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerGetNumTouchpadsNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static int GameControllerGetNumTouchpadsNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int>)vt[592])(gamecontroller);
@@ -630,9 +630,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetNumTouchpads")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetNumTouchpads([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static int GameControllerGetNumTouchpads([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			int ret = SDLGameControllerGetNumTouchpadsNative(gamecontroller);
+			int ret = GameControllerGetNumTouchpadsNative(gamecontroller);
 			return ret;
 		}
 
@@ -642,11 +642,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetNumTouchpads")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetNumTouchpads([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static int GameControllerGetNumTouchpads([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerGetNumTouchpadsNative((SDLGameController*)pgamecontroller);
+				int ret = GameControllerGetNumTouchpadsNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -658,7 +658,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetNumTouchpadFingers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerGetNumTouchpadFingersNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
+		internal static int GameControllerGetNumTouchpadFingersNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int, int>)vt[593])(gamecontroller, touchpad);
@@ -674,9 +674,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetNumTouchpadFingers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetNumTouchpadFingers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
+		public static int GameControllerGetNumTouchpadFingers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
 		{
-			int ret = SDLGameControllerGetNumTouchpadFingersNative(gamecontroller, touchpad);
+			int ret = GameControllerGetNumTouchpadFingersNative(gamecontroller, touchpad);
 			return ret;
 		}
 
@@ -687,11 +687,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetNumTouchpadFingers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetNumTouchpadFingers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
+		public static int GameControllerGetNumTouchpadFingers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerGetNumTouchpadFingersNative((SDLGameController*)pgamecontroller, touchpad);
+				int ret = GameControllerGetNumTouchpadFingersNative((SDLGameController*)pgamecontroller, touchpad);
 				return ret;
 			}
 		}
@@ -702,7 +702,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerGetTouchpadFingerNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		internal static int GameControllerGetTouchpadFingerNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int, int, byte*, float*, float*, float*, int>)vt[594])(gamecontroller, touchpad, finger, state, x, y, pressure);
@@ -717,9 +717,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
-			int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, pressure);
+			int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, pressure);
 			return ret;
 		}
 
@@ -729,11 +729,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, pressure);
+				int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, pressure);
 				return ret;
 			}
 		}
@@ -744,11 +744,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
-				int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
 				return ret;
 			}
 		}
@@ -759,13 +759,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
 				fixed (byte* pstate = &state)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, pressure);
 					return ret;
 				}
 			}
@@ -777,11 +777,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (float* px = &x)
 			{
-				int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, pressure);
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, pressure);
 				return ret;
 			}
 		}
@@ -792,13 +792,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
 				fixed (float* px = &x)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, pressure);
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, pressure);
 					return ret;
 				}
 			}
@@ -810,13 +810,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
 				fixed (float* px = &x)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
 					return ret;
 				}
 			}
@@ -828,7 +828,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -836,7 +836,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* px = &x)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, pressure);
 						return ret;
 					}
 				}
@@ -849,11 +849,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (float* py = &y)
 			{
-				int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, pressure);
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, pressure);
 				return ret;
 			}
 		}
@@ -864,13 +864,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
 				fixed (float* py = &y)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, pressure);
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, pressure);
 					return ret;
 				}
 			}
@@ -882,13 +882,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
 				fixed (float* py = &y)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
 					return ret;
 				}
 			}
@@ -900,7 +900,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -908,7 +908,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py = &y)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, pressure);
 						return ret;
 					}
 				}
@@ -921,13 +921,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (float* px = &x)
 			{
 				fixed (float* py = &y)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
 					return ret;
 				}
 			}
@@ -939,7 +939,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -947,7 +947,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py = &y)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, pressure);
 						return ret;
 					}
 				}
@@ -960,7 +960,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
@@ -968,7 +968,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py = &y)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
 						return ret;
 					}
 				}
@@ -981,7 +981,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] float* pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -991,7 +991,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* py = &y)
 						{
-							int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, pressure);
 							return ret;
 						}
 					}
@@ -1005,11 +1005,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (float* ppressure = &pressure)
 			{
-				int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
+				int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
 				return ret;
 			}
 		}
@@ -1020,13 +1020,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
 				fixed (float* ppressure = &pressure)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
+					int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, y, (float*)ppressure);
 					return ret;
 				}
 			}
@@ -1038,13 +1038,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
 				fixed (float* ppressure = &pressure)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
 					return ret;
 				}
 			}
@@ -1056,7 +1056,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1064,7 +1064,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* ppressure = &pressure)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, y, (float*)ppressure);
 						return ret;
 					}
 				}
@@ -1077,13 +1077,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (float* px = &x)
 			{
 				fixed (float* ppressure = &pressure)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
 					return ret;
 				}
 			}
@@ -1095,7 +1095,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1103,7 +1103,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* ppressure = &pressure)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, y, (float*)ppressure);
 						return ret;
 					}
 				}
@@ -1116,7 +1116,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
@@ -1124,7 +1124,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* ppressure = &pressure)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
 						return ret;
 					}
 				}
@@ -1137,7 +1137,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] float* y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1147,7 +1147,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* ppressure = &pressure)
 						{
-							int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, y, (float*)ppressure);
 							return ret;
 						}
 					}
@@ -1161,13 +1161,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (float* py = &y)
 			{
 				fixed (float* ppressure = &pressure)
 				{
-					int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
+					int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
 					return ret;
 				}
 			}
@@ -1179,7 +1179,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1187,7 +1187,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* ppressure = &pressure)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
+						int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, x, (float*)py, (float*)ppressure);
 						return ret;
 					}
 				}
@@ -1200,7 +1200,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
@@ -1208,7 +1208,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* ppressure = &pressure)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
 						return ret;
 					}
 				}
@@ -1221,7 +1221,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1231,7 +1231,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* ppressure = &pressure)
 						{
-							int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, x, (float*)py, (float*)ppressure);
 							return ret;
 						}
 					}
@@ -1245,7 +1245,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (float* px = &x)
 			{
@@ -1253,7 +1253,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* ppressure = &pressure)
 					{
-						int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
+						int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
 						return ret;
 					}
 				}
@@ -1266,7 +1266,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] byte* state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1276,7 +1276,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* ppressure = &pressure)
 						{
-							int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
+							int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, state, (float*)px, (float*)py, (float*)ppressure);
 							return ret;
 						}
 					}
@@ -1290,7 +1290,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (byte* pstate = &state)
 			{
@@ -1300,7 +1300,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* ppressure = &pressure)
 						{
-							int ret = SDLGameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
+							int ret = GameControllerGetTouchpadFingerNative(gamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
 							return ret;
 						}
 					}
@@ -1314,7 +1314,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetTouchpadFinger")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
+		public static int GameControllerGetTouchpadFinger([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "touchpad")] [NativeName(NativeNameType.Type, "int")] int touchpad, [NativeName(NativeNameType.Param, "finger")] [NativeName(NativeNameType.Type, "int")] int finger, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte state, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float*")] ref float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float*")] ref float y, [NativeName(NativeNameType.Param, "pressure")] [NativeName(NativeNameType.Type, "float*")] ref float pressure)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1326,7 +1326,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (float* ppressure = &pressure)
 							{
-								int ret = SDLGameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
+								int ret = GameControllerGetTouchpadFingerNative((SDLGameController*)pgamecontroller, touchpad, finger, (byte*)pstate, (float*)px, (float*)py, (float*)ppressure);
 								return ret;
 							}
 						}
@@ -1342,7 +1342,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasSensor")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerHasSensorNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		internal static SDLBool GameControllerHasSensorNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool>)vt[595])(gamecontroller, type);
@@ -1358,9 +1358,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasSensor")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasSensor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		public static SDLBool GameControllerHasSensor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
-			SDLBool ret = SDLGameControllerHasSensorNative(gamecontroller, type);
+			SDLBool ret = GameControllerHasSensorNative(gamecontroller, type);
 			return ret;
 		}
 
@@ -1371,11 +1371,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasSensor")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasSensor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		public static SDLBool GameControllerHasSensor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerHasSensorNative((SDLGameController*)pgamecontroller, type);
+				SDLBool ret = GameControllerHasSensorNative((SDLGameController*)pgamecontroller, type);
 				return ret;
 			}
 		}
@@ -1387,7 +1387,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetSensorEnabled")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerSetSensorEnabledNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
+		internal static int GameControllerSetSensorEnabledNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool, int>)vt[596])(gamecontroller, type, enabled);
@@ -1403,9 +1403,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetSensorEnabled")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerSetSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
+		public static int GameControllerSetSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
 		{
-			int ret = SDLGameControllerSetSensorEnabledNative(gamecontroller, type, enabled);
+			int ret = GameControllerSetSensorEnabledNative(gamecontroller, type, enabled);
 			return ret;
 		}
 
@@ -1416,11 +1416,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetSensorEnabled")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerSetSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
+		public static int GameControllerSetSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerSetSensorEnabledNative((SDLGameController*)pgamecontroller, type, enabled);
+				int ret = GameControllerSetSensorEnabledNative((SDLGameController*)pgamecontroller, type, enabled);
 				return ret;
 			}
 		}
@@ -1432,7 +1432,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerIsSensorEnabled")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerIsSensorEnabledNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		internal static SDLBool GameControllerIsSensorEnabledNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, SDLBool>)vt[597])(gamecontroller, type);
@@ -1448,9 +1448,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerIsSensorEnabled")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerIsSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		public static SDLBool GameControllerIsSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
-			SDLBool ret = SDLGameControllerIsSensorEnabledNative(gamecontroller, type);
+			SDLBool ret = GameControllerIsSensorEnabledNative(gamecontroller, type);
 			return ret;
 		}
 
@@ -1461,11 +1461,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerIsSensorEnabled")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerIsSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		public static SDLBool GameControllerIsSensorEnabled([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerIsSensorEnabledNative((SDLGameController*)pgamecontroller, type);
+				SDLBool ret = GameControllerIsSensorEnabledNative((SDLGameController*)pgamecontroller, type);
 				return ret;
 			}
 		}
@@ -1478,7 +1478,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataRate")]
 		[return: NativeName(NativeNameType.Type, "float")]
-		internal static float SDLGameControllerGetSensorDataRateNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		internal static float GameControllerGetSensorDataRateNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, float>)vt[598])(gamecontroller, type);
@@ -1495,9 +1495,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataRate")]
 		[return: NativeName(NativeNameType.Type, "float")]
-		public static float SDLGameControllerGetSensorDataRate([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		public static float GameControllerGetSensorDataRate([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
-			float ret = SDLGameControllerGetSensorDataRateNative(gamecontroller, type);
+			float ret = GameControllerGetSensorDataRateNative(gamecontroller, type);
 			return ret;
 		}
 
@@ -1509,11 +1509,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataRate")]
 		[return: NativeName(NativeNameType.Type, "float")]
-		public static float SDLGameControllerGetSensorDataRate([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
+		public static float GameControllerGetSensorDataRate([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				float ret = SDLGameControllerGetSensorDataRateNative((SDLGameController*)pgamecontroller, type);
+				float ret = GameControllerGetSensorDataRateNative((SDLGameController*)pgamecontroller, type);
 				return ret;
 			}
 		}
@@ -1527,7 +1527,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerGetSensorDataNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		internal static int GameControllerGetSensorDataNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, float*, int, int>)vt[599])(gamecontroller, type, data, numValues);
@@ -1545,9 +1545,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
-			int ret = SDLGameControllerGetSensorDataNative(gamecontroller, type, data, numValues);
+			int ret = GameControllerGetSensorDataNative(gamecontroller, type, data, numValues);
 			return ret;
 		}
 
@@ -1560,11 +1560,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, data, numValues);
+				int ret = GameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, data, numValues);
 				return ret;
 			}
 		}
@@ -1578,11 +1578,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (float* pdata = &data)
 			{
-				int ret = SDLGameControllerGetSensorDataNative(gamecontroller, type, (float*)pdata, numValues);
+				int ret = GameControllerGetSensorDataNative(gamecontroller, type, (float*)pdata, numValues);
 				return ret;
 			}
 		}
@@ -1596,13 +1596,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorData([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
 				fixed (float* pdata = &data)
 				{
-					int ret = SDLGameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, (float*)pdata, numValues);
+					int ret = GameControllerGetSensorDataNative((SDLGameController*)pgamecontroller, type, (float*)pdata, numValues);
 					return ret;
 				}
 			}
@@ -1618,7 +1618,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerGetSensorDataWithTimestampNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		internal static int GameControllerGetSensorDataWithTimestampNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLSensorType, ulong*, float*, int, int>)vt[600])(gamecontroller, type, timestamp, data, numValues);
@@ -1637,9 +1637,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
-			int ret = SDLGameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, data, numValues);
+			int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, data, numValues);
 			return ret;
 		}
 
@@ -1653,11 +1653,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, data, numValues);
+				int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, data, numValues);
 				return ret;
 			}
 		}
@@ -1672,11 +1672,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (ulong* ptimestamp = &timestamp)
 			{
-				int ret = SDLGameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, data, numValues);
+				int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, data, numValues);
 				return ret;
 			}
 		}
@@ -1691,13 +1691,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
 				fixed (ulong* ptimestamp = &timestamp)
 				{
-					int ret = SDLGameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, data, numValues);
+					int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, data, numValues);
 					return ret;
 				}
 			}
@@ -1713,11 +1713,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (float* pdata = &data)
 			{
-				int ret = SDLGameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, (float*)pdata, numValues);
+				int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, timestamp, (float*)pdata, numValues);
 				return ret;
 			}
 		}
@@ -1732,13 +1732,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
 				fixed (float* pdata = &data)
 				{
-					int ret = SDLGameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, (float*)pdata, numValues);
+					int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, timestamp, (float*)pdata, numValues);
 					return ret;
 				}
 			}
@@ -1754,13 +1754,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (ulong* ptimestamp = &timestamp)
 			{
 				fixed (float* pdata = &data)
 				{
-					int ret = SDLGameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
+					int ret = GameControllerGetSensorDataWithTimestampNative(gamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
 					return ret;
 				}
 			}
@@ -1776,7 +1776,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSensorDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int GameControllerGetSensorDataWithTimestamp([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_SensorType")] SDLSensorType type, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
@@ -1784,7 +1784,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* pdata = &data)
 					{
-						int ret = SDLGameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
+						int ret = GameControllerGetSensorDataWithTimestampNative((SDLGameController*)pgamecontroller, type, (ulong*)ptimestamp, (float*)pdata, numValues);
 						return ret;
 					}
 				}
@@ -1801,7 +1801,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerRumble")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerRumbleNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		internal static int GameControllerRumbleNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort, ushort, uint, int>)vt[601])(gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
@@ -1820,9 +1820,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerRumble")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int GameControllerRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
-			int ret = SDLGameControllerRumbleNative(gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			int ret = GameControllerRumbleNative(gamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
 			return ret;
 		}
 
@@ -1836,11 +1836,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerRumble")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int GameControllerRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerRumbleNative((SDLGameController*)pgamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
+				int ret = GameControllerRumbleNative((SDLGameController*)pgamecontroller, lowFrequencyRumble, highFrequencyRumble, durationMs);
 				return ret;
 			}
 		}
@@ -1859,7 +1859,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerRumbleTriggersNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		internal static int GameControllerRumbleTriggersNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort, ushort, uint, int>)vt[602])(gamecontroller, leftRumble, rightRumble, durationMs);
@@ -1882,9 +1882,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int GameControllerRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
-			int ret = SDLGameControllerRumbleTriggersNative(gamecontroller, leftRumble, rightRumble, durationMs);
+			int ret = GameControllerRumbleTriggersNative(gamecontroller, leftRumble, rightRumble, durationMs);
 			return ret;
 		}
 
@@ -1902,11 +1902,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int GameControllerRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerRumbleTriggersNative((SDLGameController*)pgamecontroller, leftRumble, rightRumble, durationMs);
+				int ret = GameControllerRumbleTriggersNative((SDLGameController*)pgamecontroller, leftRumble, rightRumble, durationMs);
 				return ret;
 			}
 		}
@@ -1918,7 +1918,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasLED")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerHasLEDNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static SDLBool GameControllerHasLEDNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)vt[603])(gamecontroller);
@@ -1934,9 +1934,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasLED")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static SDLBool GameControllerHasLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			SDLBool ret = SDLGameControllerHasLEDNative(gamecontroller);
+			SDLBool ret = GameControllerHasLEDNative(gamecontroller);
 			return ret;
 		}
 
@@ -1947,11 +1947,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasLED")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static SDLBool GameControllerHasLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerHasLEDNative((SDLGameController*)pgamecontroller);
+				SDLBool ret = GameControllerHasLEDNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -1964,7 +1964,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasRumble")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerHasRumbleNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static SDLBool GameControllerHasRumbleNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)vt[604])(gamecontroller);
@@ -1981,9 +1981,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasRumble")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static SDLBool GameControllerHasRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			SDLBool ret = SDLGameControllerHasRumbleNative(gamecontroller);
+			SDLBool ret = GameControllerHasRumbleNative(gamecontroller);
 			return ret;
 		}
 
@@ -1995,11 +1995,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasRumble")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static SDLBool GameControllerHasRumble([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerHasRumbleNative((SDLGameController*)pgamecontroller);
+				SDLBool ret = GameControllerHasRumbleNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -2012,7 +2012,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerHasRumbleTriggersNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static SDLBool GameControllerHasRumbleTriggersNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)vt[605])(gamecontroller);
@@ -2029,9 +2029,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static SDLBool GameControllerHasRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			SDLBool ret = SDLGameControllerHasRumbleTriggersNative(gamecontroller);
+			SDLBool ret = GameControllerHasRumbleTriggersNative(gamecontroller);
 			return ret;
 		}
 
@@ -2043,11 +2043,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerHasRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerHasRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static SDLBool GameControllerHasRumbleTriggers([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerHasRumbleTriggersNative((SDLGameController*)pgamecontroller);
+				SDLBool ret = GameControllerHasRumbleTriggersNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -2059,7 +2059,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetLED")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerSetLEDNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		internal static int GameControllerSetLEDNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, byte, byte, byte, int>)vt[606])(gamecontroller, red, green, blue);
@@ -2075,9 +2075,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetLED")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerSetLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		public static int GameControllerSetLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
 		{
-			int ret = SDLGameControllerSetLEDNative(gamecontroller, red, green, blue);
+			int ret = GameControllerSetLEDNative(gamecontroller, red, green, blue);
 			return ret;
 		}
 
@@ -2088,11 +2088,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetLED")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerSetLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		public static int GameControllerSetLED([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerSetLEDNative((SDLGameController*)pgamecontroller, red, green, blue);
+				int ret = GameControllerSetLEDNative((SDLGameController*)pgamecontroller, red, green, blue);
 				return ret;
 			}
 		}
@@ -2104,7 +2104,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSendEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerSendEffectNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		internal static int GameControllerSendEffectNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, void*, int, int>)vt[607])(gamecontroller, data, size);
@@ -2120,9 +2120,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSendEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerSendEffect([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		public static int GameControllerSendEffect([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
-			int ret = SDLGameControllerSendEffectNative(gamecontroller, data, size);
+			int ret = GameControllerSendEffectNative(gamecontroller, data, size);
 			return ret;
 		}
 
@@ -2133,11 +2133,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSendEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerSendEffect([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		public static int GameControllerSendEffect([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerSendEffectNative((SDLGameController*)pgamecontroller, data, size);
+				int ret = GameControllerSendEffectNative((SDLGameController*)pgamecontroller, data, size);
 				return ret;
 			}
 		}
@@ -2150,7 +2150,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGameControllerCloseNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static void GameControllerCloseNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLGameController*, void>)vt[608])(gamecontroller);
@@ -2167,9 +2167,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGameControllerClose([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static void GameControllerClose([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			SDLGameControllerCloseNative(gamecontroller);
+			GameControllerCloseNative(gamecontroller);
 		}
 
 		/// <summary>
@@ -2180,11 +2180,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGameControllerClose([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static void GameControllerClose([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLGameControllerCloseNative((SDLGameController*)pgamecontroller);
+				GameControllerCloseNative((SDLGameController*)pgamecontroller);
 			}
 		}
 
@@ -2197,7 +2197,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerGetAppleSFSymbolsNameForButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		internal static byte* GameControllerGetAppleSFSymbolsNameForButtonNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerButton, byte*>)vt[609])(gamecontroller, button);
@@ -2215,9 +2215,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static byte* GameControllerGetAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
-			byte* ret = SDLGameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button);
+			byte* ret = GameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button);
 			return ret;
 		}
 
@@ -2230,9 +2230,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static string GameControllerGetAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button));
+			string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForButtonNative(gamecontroller, button));
 			return ret;
 		}
 
@@ -2245,11 +2245,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static byte* GameControllerGetAppleSFSymbolsNameForButton([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				byte* ret = SDLGameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button);
+				byte* ret = GameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button);
 				return ret;
 			}
 		}
@@ -2263,11 +2263,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForButton")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
+		public static string GameControllerGetAppleSFSymbolsNameForButtonS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "SDL_GameControllerButton")] SDLGameControllerButton button)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button));
+				string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForButtonNative((SDLGameController*)pgamecontroller, button));
 				return ret;
 			}
 		}
@@ -2281,7 +2281,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerGetAppleSFSymbolsNameForAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		internal static byte* GameControllerGetAppleSFSymbolsNameForAxisNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerAxis, byte*>)vt[610])(gamecontroller, axis);
@@ -2299,9 +2299,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static byte* GameControllerGetAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
-			byte* ret = SDLGameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis);
+			byte* ret = GameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis);
 			return ret;
 		}
 
@@ -2314,9 +2314,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static string GameControllerGetAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis));
+			string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForAxisNative(gamecontroller, axis));
 			return ret;
 		}
 
@@ -2329,11 +2329,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static byte* GameControllerGetAppleSFSymbolsNameForAxis([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				byte* ret = SDLGameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis);
+				byte* ret = GameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis);
 				return ret;
 			}
 		}
@@ -2347,11 +2347,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAppleSFSymbolsNameForAxis")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
+		public static string GameControllerGetAppleSFSymbolsNameForAxisS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "SDL_GameControllerAxis")] SDLGameControllerAxis axis)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis));
+				string ret = Utils.DecodeStringUTF8(GameControllerGetAppleSFSymbolsNameForAxisNative((SDLGameController*)pgamecontroller, axis));
 				return ret;
 			}
 		}
@@ -2369,7 +2369,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumTouchDevices")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetNumTouchDevicesNative()
+		internal static int GetNumTouchDevicesNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[611])();
@@ -2391,9 +2391,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumTouchDevices")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetNumTouchDevices()
+		public static int GetNumTouchDevices()
 		{
-			int ret = SDLGetNumTouchDevicesNative();
+			int ret = GetNumTouchDevicesNative();
 			return ret;
 		}
 
@@ -2405,7 +2405,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_TouchID")]
-		internal static long SDLGetTouchDeviceNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		internal static long GetTouchDeviceNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, long>)vt[612])(index);
@@ -2422,9 +2422,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_TouchID")]
-		public static long SDLGetTouchDevice([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		public static long GetTouchDevice([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			long ret = SDLGetTouchDeviceNative(index);
+			long ret = GetTouchDeviceNative(index);
 			return ret;
 		}
 
@@ -2435,7 +2435,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGetTouchNameNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		internal static byte* GetTouchNameNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[613])(index);
@@ -2451,9 +2451,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetTouchName([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		public static byte* GetTouchName([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			byte* ret = SDLGetTouchNameNative(index);
+			byte* ret = GetTouchNameNative(index);
 			return ret;
 		}
 
@@ -2464,9 +2464,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetTouchNameS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		public static string GetTouchNameS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetTouchNameNative(index));
+			string ret = Utils.DecodeStringUTF8(GetTouchNameNative(index));
 			return ret;
 		}
 
@@ -2476,7 +2476,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
 		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
-		internal static SDLTouchDeviceType SDLGetTouchDeviceTypeNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		internal static SDLTouchDeviceType GetTouchDeviceTypeNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<long, SDLTouchDeviceType>)vt[614])(touchID);
@@ -2491,9 +2491,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchDeviceType")]
 		[return: NativeName(NativeNameType.Type, "SDL_TouchDeviceType")]
-		public static SDLTouchDeviceType SDLGetTouchDeviceType([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		public static SDLTouchDeviceType GetTouchDeviceType([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
 		{
-			SDLTouchDeviceType ret = SDLGetTouchDeviceTypeNative(touchID);
+			SDLTouchDeviceType ret = GetTouchDeviceTypeNative(touchID);
 			return ret;
 		}
 
@@ -2505,7 +2505,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumTouchFingers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetNumTouchFingersNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		internal static int GetNumTouchFingersNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<long, int>)vt[615])(touchID);
@@ -2522,9 +2522,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumTouchFingers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetNumTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
+		public static int GetNumTouchFingers([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID)
 		{
-			int ret = SDLGetNumTouchFingersNative(touchID);
+			int ret = GetNumTouchFingersNative(touchID);
 			return ret;
 		}
 
@@ -2537,7 +2537,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchFinger")]
 		[return: NativeName(NativeNameType.Type, "SDL_Finger*")]
-		internal static SDLFinger* SDLGetTouchFingerNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		internal static SDLFinger* GetTouchFingerNative([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<long, int, SDLFinger*>)vt[616])(touchID, index);
@@ -2555,9 +2555,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTouchFinger")]
 		[return: NativeName(NativeNameType.Type, "SDL_Finger*")]
-		public static SDLFinger* SDLGetTouchFinger([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		public static SDLFinger* GetTouchFinger([NativeName(NativeNameType.Param, "touchID")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchID, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			SDLFinger* ret = SDLGetTouchFingerNative(touchID, index);
+			SDLFinger* ret = GetTouchFingerNative(touchID, index);
 			return ret;
 		}
 
@@ -2571,7 +2571,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RecordGesture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRecordGestureNative([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId)
+		internal static int RecordGestureNative([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<long, int>)vt[617])(touchId);
@@ -2590,9 +2590,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RecordGesture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRecordGesture([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId)
+		public static int RecordGesture([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId)
 		{
-			int ret = SDLRecordGestureNative(touchId);
+			int ret = RecordGestureNative(touchId);
 			return ret;
 		}
 
@@ -2604,7 +2604,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveAllDollarTemplates")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSaveAllDollarTemplatesNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
+		internal static int SaveAllDollarTemplatesNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)vt[618])(dst);
@@ -2621,9 +2621,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveAllDollarTemplates")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveAllDollarTemplates([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
+		public static int SaveAllDollarTemplates([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
 		{
-			int ret = SDLSaveAllDollarTemplatesNative(dst);
+			int ret = SaveAllDollarTemplatesNative(dst);
 			return ret;
 		}
 
@@ -2635,11 +2635,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveAllDollarTemplates")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveAllDollarTemplates([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst)
+		public static int SaveAllDollarTemplates([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				int ret = SDLSaveAllDollarTemplatesNative((SDLRWops*)pdst);
+				int ret = SaveAllDollarTemplatesNative((SDLRWops*)pdst);
 				return ret;
 			}
 		}
@@ -2652,7 +2652,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveDollarTemplate")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSaveDollarTemplateNative([NativeName(NativeNameType.Param, "gestureId")] [NativeName(NativeNameType.Type, "SDL_GestureID")] long gestureId, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
+		internal static int SaveDollarTemplateNative([NativeName(NativeNameType.Param, "gestureId")] [NativeName(NativeNameType.Type, "SDL_GestureID")] long gestureId, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<long, SDLRWops*, int>)vt[619])(gestureId, dst);
@@ -2669,9 +2669,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveDollarTemplate")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveDollarTemplate([NativeName(NativeNameType.Param, "gestureId")] [NativeName(NativeNameType.Type, "SDL_GestureID")] long gestureId, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
+		public static int SaveDollarTemplate([NativeName(NativeNameType.Param, "gestureId")] [NativeName(NativeNameType.Type, "SDL_GestureID")] long gestureId, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst)
 		{
-			int ret = SDLSaveDollarTemplateNative(gestureId, dst);
+			int ret = SaveDollarTemplateNative(gestureId, dst);
 			return ret;
 		}
 
@@ -2683,11 +2683,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveDollarTemplate")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveDollarTemplate([NativeName(NativeNameType.Param, "gestureId")] [NativeName(NativeNameType.Type, "SDL_GestureID")] long gestureId, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst)
+		public static int SaveDollarTemplate([NativeName(NativeNameType.Param, "gestureId")] [NativeName(NativeNameType.Type, "SDL_GestureID")] long gestureId, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				int ret = SDLSaveDollarTemplateNative(gestureId, (SDLRWops*)pdst);
+				int ret = SaveDollarTemplateNative(gestureId, (SDLRWops*)pdst);
 				return ret;
 			}
 		}
@@ -2700,7 +2700,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadDollarTemplates")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLLoadDollarTemplatesNative([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static int LoadDollarTemplatesNative([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<long, SDLRWops*, int>)vt[620])(touchId, src);
@@ -2717,9 +2717,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadDollarTemplates")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLLoadDollarTemplates([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static int LoadDollarTemplates([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			int ret = SDLLoadDollarTemplatesNative(touchId, src);
+			int ret = LoadDollarTemplatesNative(touchId, src);
 			return ret;
 		}
 
@@ -2731,11 +2731,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadDollarTemplates")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLLoadDollarTemplates([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static int LoadDollarTemplates([NativeName(NativeNameType.Param, "touchId")] [NativeName(NativeNameType.Type, "SDL_TouchID")] long touchId, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				int ret = SDLLoadDollarTemplatesNative(touchId, (SDLRWops*)psrc);
+				int ret = LoadDollarTemplatesNative(touchId, (SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -2758,7 +2758,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLPumpEventsNative()
+		internal static void PumpEventsNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[621])();
@@ -2785,9 +2785,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PumpEvents")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLPumpEvents()
+		public static void PumpEvents()
 		{
-			SDLPumpEventsNative();
+			PumpEventsNative();
 		}
 
 		/// <summary>
@@ -2811,7 +2811,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLPeepEventsNative([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_eventaction")] SDLEventaction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		internal static int PeepEventsNative([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_eventaction")] SDLEventaction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, SDLEventaction, uint, uint, int>)vt[622])(events, numevents, action, minType, maxType);
@@ -2841,9 +2841,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLPeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_eventaction")] SDLEventaction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_eventaction")] SDLEventaction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
-			int ret = SDLPeepEventsNative(events, numevents, action, minType, maxType);
+			int ret = PeepEventsNative(events, numevents, action, minType, maxType);
 			return ret;
 		}
 
@@ -2868,11 +2868,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PeepEvents")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLPeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_eventaction")] SDLEventaction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		public static int PeepEvents([NativeName(NativeNameType.Param, "events")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent events, [NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents, [NativeName(NativeNameType.Param, "action")] [NativeName(NativeNameType.Type, "SDL_eventaction")] SDLEventaction action, [NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
 			fixed (SDLEvent* pevents = &events)
 			{
-				int ret = SDLPeepEventsNative((SDLEvent*)pevents, numevents, action, minType, maxType);
+				int ret = PeepEventsNative((SDLEvent*)pevents, numevents, action, minType, maxType);
 				return ret;
 			}
 		}
@@ -2887,7 +2887,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		internal static SDLBool HasEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, SDLBool>)vt[623])(type);
@@ -2906,9 +2906,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasEvent")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		public static SDLBool HasEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
 		{
-			SDLBool ret = SDLHasEventNative(type);
+			SDLBool ret = HasEventNative(type);
 			return ret;
 		}
 
@@ -2921,7 +2921,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		internal static SDLBool HasEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, uint, SDLBool>)vt[624])(minType, maxType);
@@ -2939,9 +2939,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasEvents")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		public static SDLBool HasEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
-			SDLBool ret = SDLHasEventsNative(minType, maxType);
+			SDLBool ret = HasEventsNative(minType, maxType);
 			return ret;
 		}
 
@@ -2961,7 +2961,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFlushEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		internal static void FlushEventNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, void>)vt[625])(type);
@@ -2986,9 +2986,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FlushEvent")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFlushEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
+		public static void FlushEvent([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
 		{
-			SDLFlushEventNative(type);
+			FlushEventNative(type);
 		}
 
 		/// <summary>
@@ -3007,7 +3007,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFlushEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		internal static void FlushEventsNative([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, uint, void>)vt[626])(minType, maxType);
@@ -3032,9 +3032,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FlushEvents")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFlushEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
+		public static void FlushEvents([NativeName(NativeNameType.Param, "minType")] [NativeName(NativeNameType.Type, "Uint32")] uint minType, [NativeName(NativeNameType.Param, "maxType")] [NativeName(NativeNameType.Type, "Uint32")] uint maxType)
 		{
-			SDLFlushEventsNative(minType, maxType);
+			FlushEventsNative(minType, maxType);
 		}
 
 		/// <summary>
@@ -3069,7 +3069,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLPollEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
+		internal static int PollEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)vt[627])(evnt);
@@ -3110,9 +3110,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLPollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
+		public static int PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
 		{
-			int ret = SDLPollEventNative(evnt);
+			int ret = PollEventNative(evnt);
 			return ret;
 		}
 
@@ -3148,11 +3148,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PollEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLPollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt)
+		public static int PollEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt)
 		{
 			fixed (SDLEvent* pevnt = &evnt)
 			{
-				int ret = SDLPollEventNative((SDLEvent*)pevnt);
+				int ret = PollEventNative((SDLEvent*)pevnt);
 				return ret;
 			}
 		}
@@ -3169,7 +3169,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLWaitEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
+		internal static int WaitEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)vt[628])(evnt);
@@ -3190,9 +3190,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLWaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
+		public static int WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
 		{
-			int ret = SDLWaitEventNative(evnt);
+			int ret = WaitEventNative(evnt);
 			return ret;
 		}
 
@@ -3208,11 +3208,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLWaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt)
+		public static int WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt)
 		{
 			fixed (SDLEvent* pevnt = &evnt)
 			{
-				int ret = SDLWaitEventNative((SDLEvent*)pevnt);
+				int ret = WaitEventNative((SDLEvent*)pevnt);
 				return ret;
 			}
 		}
@@ -3230,7 +3230,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLWaitEventTimeoutNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "int")] int timeout)
+		internal static int WaitEventTimeoutNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "int")] int timeout)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, int>)vt[629])(evnt, timeout);
@@ -3252,9 +3252,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLWaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "int")] int timeout)
+		public static int WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "int")] int timeout)
 		{
-			int ret = SDLWaitEventTimeoutNative(evnt, timeout);
+			int ret = WaitEventTimeoutNative(evnt, timeout);
 			return ret;
 		}
 
@@ -3271,11 +3271,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLWaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "int")] int timeout)
+		public static int WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "int")] int timeout)
 		{
 			fixed (SDLEvent* pevnt = &evnt)
 			{
-				int ret = SDLWaitEventTimeoutNative((SDLEvent*)pevnt, timeout);
+				int ret = WaitEventTimeoutNative((SDLEvent*)pevnt, timeout);
 				return ret;
 			}
 		}
@@ -3301,7 +3301,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLPushEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
+		internal static int PushEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int>)vt[630])(evnt);
@@ -3331,9 +3331,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLPushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
+		public static int PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt)
 		{
-			int ret = SDLPushEventNative(evnt);
+			int ret = PushEventNative(evnt);
 			return ret;
 		}
 
@@ -3358,11 +3358,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLPushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt)
+		public static int PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] ref SDLEvent evnt)
 		{
 			fixed (SDLEvent* pevnt = &evnt)
 			{
-				int ret = SDLPushEventNative((SDLEvent*)pevnt);
+				int ret = PushEventNative((SDLEvent*)pevnt);
 				return ret;
 			}
 		}
@@ -3396,7 +3396,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void SetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)vt[631])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
@@ -3434,9 +3434,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void SetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			SDLSetEventFilterNative(filter, userdata);
+			SetEventFilterNative(filter, userdata);
 		}
 
 		/// <summary>
@@ -3449,7 +3449,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter*")] delegate*<void*, SDLEvent*, int>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
+		internal static SDLBool GetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter*")] delegate*<void*, SDLEvent*, int>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>*, void**, SDLBool>)vt[632])(filter, userdata);
@@ -3468,9 +3468,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter*")] delegate*<void*, SDLEvent*, int>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
+		public static SDLBool GetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter*")] delegate*<void*, SDLEvent*, int>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
 		{
-			SDLBool ret = SDLGetEventFilterNative(filter, userdata);
+			SDLBool ret = GetEventFilterNative(filter, userdata);
 			return ret;
 		}
 
@@ -3493,7 +3493,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLAddEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void AddEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)vt[633])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
@@ -3521,9 +3521,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void AddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			SDLAddEventWatchNative(filter, userdata);
+			AddEventWatchNative(filter, userdata);
 		}
 
 		/// <summary>
@@ -3536,7 +3536,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelEventWatch")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLDelEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void DelEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)vt[634])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
@@ -3555,9 +3555,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelEventWatch")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLDelEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void DelEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			SDLDelEventWatchNative(filter, userdata);
+			DelEventWatchNative(filter, userdata);
 		}
 
 		/// <summary>
@@ -3572,7 +3572,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFilterEventsNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void FilterEventsNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)vt[635])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
@@ -3593,9 +3593,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void FilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			SDLFilterEventsNative(filter, userdata);
+			FilterEventsNative(filter, userdata);
 		}
 
 		/// <summary>
@@ -3611,7 +3611,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EventState")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		internal static byte SDLEventStateNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
+		internal static byte EventStateNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, int, byte>)vt[636])(type, state);
@@ -3633,9 +3633,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EventState")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLEventState([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
+		public static byte EventState([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
 		{
-			byte ret = SDLEventStateNative(type, state);
+			byte ret = EventStateNative(type, state);
 			return ret;
 		}
 
@@ -3654,7 +3654,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLRegisterEventsNative([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
+		internal static uint RegisterEventsNative([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, uint>)vt[637])(numevents);
@@ -3678,9 +3678,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLRegisterEvents([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
+		public static uint RegisterEvents([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
 		{
-			uint ret = SDLRegisterEventsNative(numevents);
+			uint ret = RegisterEventsNative(numevents);
 			return ret;
 		}
 
@@ -3717,7 +3717,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGetBasePathNative()
+		internal static byte* GetBasePathNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*>)vt[638])();
@@ -3759,9 +3759,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetBasePath()
+		public static byte* GetBasePath()
 		{
-			byte* ret = SDLGetBasePathNative();
+			byte* ret = GetBasePathNative();
 			return ret;
 		}
 
@@ -3798,9 +3798,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetBasePathS()
+		public static string GetBasePathS()
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetBasePathNative());
+			string ret = Utils.DecodeStringUTF8(GetBasePathNative());
 			return ret;
 		}
 
@@ -3857,7 +3857,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGetPrefPathNative([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		internal static byte* GetPrefPathNative([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)vt[639])(org, app);
@@ -3919,9 +3919,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
-			byte* ret = SDLGetPrefPathNative(org, app);
+			byte* ret = GetPrefPathNative(org, app);
 			return ret;
 		}
 
@@ -3978,9 +3978,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative(org, app));
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
 			return ret;
 		}
 
@@ -4037,11 +4037,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
 			fixed (byte* porg = &org)
 			{
-				byte* ret = SDLGetPrefPathNative((byte*)porg, app);
+				byte* ret = GetPrefPathNative((byte*)porg, app);
 				return ret;
 			}
 		}
@@ -4099,11 +4099,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
 			fixed (byte* porg = &org)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative((byte*)porg, app));
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
 				return ret;
 			}
 		}
@@ -4161,11 +4161,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
 			fixed (byte* porg = org)
 			{
-				byte* ret = SDLGetPrefPathNative((byte*)porg, app);
+				byte* ret = GetPrefPathNative((byte*)porg, app);
 				return ret;
 			}
 		}
@@ -4223,11 +4223,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
 			fixed (byte* porg = org)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative((byte*)porg, app));
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
 				return ret;
 			}
 		}
@@ -4285,7 +4285,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4304,7 +4304,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte* ret = SDLGetPrefPathNative(pStr0, app);
+			byte* ret = GetPrefPathNative(pStr0, app);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4365,7 +4365,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] byte* app)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4384,7 +4384,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative(pStr0, app));
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, app));
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4445,11 +4445,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
 		{
 			fixed (byte* papp = &app)
 			{
-				byte* ret = SDLGetPrefPathNative(org, (byte*)papp);
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
 				return ret;
 			}
 		}
@@ -4507,11 +4507,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
 		{
 			fixed (byte* papp = &app)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative(org, (byte*)papp));
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
 				return ret;
 			}
 		}
@@ -4569,11 +4569,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
 		{
 			fixed (byte* papp = app)
 			{
-				byte* ret = SDLGetPrefPathNative(org, (byte*)papp);
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
 				return ret;
 			}
 		}
@@ -4631,11 +4631,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
 		{
 			fixed (byte* papp = app)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative(org, (byte*)papp));
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
 				return ret;
 			}
 		}
@@ -4693,7 +4693,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4712,7 +4712,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte* ret = SDLGetPrefPathNative(org, pStr0);
+			byte* ret = GetPrefPathNative(org, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4773,7 +4773,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4792,7 +4792,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative(org, pStr0));
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4853,13 +4853,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
 		{
 			fixed (byte* porg = &org)
 			{
 				fixed (byte* papp = &app)
 				{
-					byte* ret = SDLGetPrefPathNative((byte*)porg, (byte*)papp);
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
 					return ret;
 				}
 			}
@@ -4918,13 +4918,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
 		{
 			fixed (byte* porg = &org)
 			{
 				fixed (byte* papp = &app)
 				{
-					string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative((byte*)porg, (byte*)papp));
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
 					return ret;
 				}
 			}
@@ -4983,13 +4983,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
 		{
 			fixed (byte* porg = org)
 			{
 				fixed (byte* papp = app)
 				{
-					byte* ret = SDLGetPrefPathNative((byte*)porg, (byte*)papp);
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
 					return ret;
 				}
 			}
@@ -5048,13 +5048,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
 		{
 			fixed (byte* porg = org)
 			{
 				fixed (byte* papp = app)
 				{
-					string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative((byte*)porg, (byte*)papp));
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
 					return ret;
 				}
 			}

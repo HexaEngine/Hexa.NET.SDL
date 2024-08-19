@@ -8,17 +8,20 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HexaGen" Version="1.0.1" />
+		<PackageReference Include="HexaGen" Version="1.1.4" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <None Update="generator.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="include\begin_code.h">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="include\close_code.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\main.h">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="include\SDL.h">
@@ -43,6 +46,51 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="include\SDL_config.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config.h.cmake">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config.h.in">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_android.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_emscripten.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_iphoneos.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_macosx.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_minimal.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_ngage.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_os2.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_pandora.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_windows.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_wingdk.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_winrt.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_config_xbox.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_copying.h">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="include\SDL_cpuinfo.h">
@@ -163,6 +211,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="include\SDL_revision.h">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="include\SDL_revision.h.cmake">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="include\SDL_rwops.h">

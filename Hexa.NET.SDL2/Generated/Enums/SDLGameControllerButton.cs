@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// The list of buttons available from a controller<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_GameControllerButton")]
+	[Flags]
 	public enum SDLGameControllerButton : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_BUTTON_INVALID")]

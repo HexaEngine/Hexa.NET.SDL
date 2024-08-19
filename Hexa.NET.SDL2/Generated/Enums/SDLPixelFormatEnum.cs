@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Note: If you modify this list, update SDL_GetPixelFormatName() <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PixelFormatEnum")]
+	[Flags]
 	public enum SDLPixelFormatEnum : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_UNKNOWN")]

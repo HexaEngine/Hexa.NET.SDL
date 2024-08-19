@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL2
 	/// in the <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_Scancode")]
+	[Flags]
 	public enum SDLScancode : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_UNKNOWN")]

@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Flip constants for SDL_RenderCopyEx<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_RendererFlip")]
+	[Flags]
 	public enum SDLRendererFlip : int
 	{
 		/// <summary>

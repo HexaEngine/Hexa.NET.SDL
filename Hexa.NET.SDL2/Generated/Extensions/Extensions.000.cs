@@ -20,49 +20,49 @@ namespace Hexa.NET.SDL2
 		[return: NativeName(NativeNameType.Type, "int")]
 		public static int Close(this SDLIconv cd)
 		{
-			int ret = SDL.SDLIconvCloseNative(cd);
+			int ret = SDL.IconvCloseNative(cd);
 			return ret;
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
-			ulong ret = SDL.SDLIconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
+			ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
 			return ret;
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
-				ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, outbytesleft);
+				ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, outbytesleft);
 				return ret;
 			}
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
-				ulong ret = SDL.SDLIconvNative(cd, inbuf, (ulong*)pinbytesleft, outbuf, outbytesleft);
+				ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, outbuf, outbytesleft);
 				return ret;
 			}
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
 				fixed (nuint* pinbytesleft = &inbytesleft)
 				{
-					ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, outbuf, outbytesleft);
+					ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, outbuf, outbytesleft);
 					return ret;
 				}
 			}
@@ -70,24 +70,24 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
-				ulong ret = SDL.SDLIconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
+				ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
 				return ret;
 			}
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
 				fixed (byte** poutbuf = &outbuf)
 				{
-					ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
+					ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
 					return ret;
 				}
 			}
@@ -95,13 +95,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
 				fixed (byte** poutbuf = &outbuf)
 				{
-					ulong ret = SDL.SDLIconvNative(cd, inbuf, (ulong*)pinbytesleft, (byte**)poutbuf, outbytesleft);
+					ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, (byte**)poutbuf, outbytesleft);
 					return ret;
 				}
 			}
@@ -109,7 +109,7 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -117,7 +117,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte** poutbuf = &outbuf)
 					{
-						ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, (byte**)poutbuf, outbytesleft);
+						ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, (byte**)poutbuf, outbytesleft);
 						return ret;
 					}
 				}
@@ -126,24 +126,24 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (nuint* poutbytesleft = &outbytesleft)
 			{
-				ulong ret = SDL.SDLIconvNative(cd, inbuf, inbytesleft, outbuf, (ulong*)poutbytesleft);
+				ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, outbuf, (ulong*)poutbytesleft);
 				return ret;
 			}
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
 				fixed (nuint* poutbytesleft = &outbytesleft)
 				{
-					ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, (ulong*)poutbytesleft);
+					ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, (ulong*)poutbytesleft);
 					return ret;
 				}
 			}
@@ -151,13 +151,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
 				fixed (nuint* poutbytesleft = &outbytesleft)
 				{
-					ulong ret = SDL.SDLIconvNative(cd, inbuf, (ulong*)pinbytesleft, outbuf, (ulong*)poutbytesleft);
+					ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, outbuf, (ulong*)poutbytesleft);
 					return ret;
 				}
 			}
@@ -165,7 +165,7 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -173,7 +173,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (nuint* poutbytesleft = &outbytesleft)
 					{
-						ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, outbuf, (ulong*)poutbytesleft);
+						ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, outbuf, (ulong*)poutbytesleft);
 						return ret;
 					}
 				}
@@ -182,13 +182,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
 				fixed (nuint* poutbytesleft = &outbytesleft)
 				{
-					ulong ret = SDL.SDLIconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+					ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
 					return ret;
 				}
 			}
@@ -196,7 +196,7 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -204,7 +204,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (nuint* poutbytesleft = &outbytesleft)
 					{
-						ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+						ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
 						return ret;
 					}
 				}
@@ -213,7 +213,7 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -221,7 +221,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (nuint* poutbytesleft = &outbytesleft)
 					{
-						ulong ret = SDL.SDLIconvNative(cd, inbuf, (ulong*)pinbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+						ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
 						return ret;
 					}
 				}
@@ -230,7 +230,7 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_iconv")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLIconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -240,7 +240,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (nuint* poutbytesleft = &outbytesleft)
 						{
-							ulong ret = SDL.SDLIconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+							ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
 							return ret;
 						}
 					}
@@ -256,9 +256,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_DeleteContext")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SdlglDeleteContext(this SDLGLContext context)
+		public static void DeleteContext(this SDLGLContext context)
 		{
-			SDL.SDLGLDeleteContextNative(context);
+			SDL.GLDeleteContextNative(context);
 		}
 
 		/// <summary>
@@ -272,7 +272,7 @@ namespace Hexa.NET.SDL2
 		[return: NativeName(NativeNameType.Type, "void")]
 		public static void DestroyView(this SDLMetalView view)
 		{
-			SDL.SDLMetalDestroyViewNative(view);
+			SDL.MetalDestroyViewNative(view);
 		}
 
 		/// <summary>
@@ -284,7 +284,7 @@ namespace Hexa.NET.SDL2
 		[return: NativeName(NativeNameType.Type, "void*")]
 		public static void* GetLayer(this SDLMetalView view)
 		{
-			void* ret = SDL.SDLMetalGetLayerNative(view);
+			void* ret = SDL.MetalGetLayerNative(view);
 			return ret;
 		}
 

@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Packed component order, high bit -> low bit. <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PackedOrder")]
+	[Flags]
 	public enum SDLPackedOrder : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_PACKEDORDER_NONE")]

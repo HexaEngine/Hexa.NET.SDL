@@ -20,6 +20,7 @@ namespace Hexa.NET.SDL2
 	/// { <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_AudioStatus")]
+	[Flags]
 	public enum SDLAudioStatus : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_STOPPED")]

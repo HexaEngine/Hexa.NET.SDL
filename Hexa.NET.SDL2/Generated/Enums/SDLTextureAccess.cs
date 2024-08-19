@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// The access pattern allowed for a texture.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_TextureAccess")]
+	[Flags]
 	public enum SDLTextureAccess : int
 	{
 		/// <summary>

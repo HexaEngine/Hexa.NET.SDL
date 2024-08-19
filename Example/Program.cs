@@ -3,19 +3,19 @@ using Hexa.NET.SDL2;
 
 unsafe
 {
-    SDL.SDLSetHint(SDL.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
-    SDL.SDLInit(SDL.SDL_INIT_EVENTS | SDL.SDL_INIT_VIDEO);
+    SDL.SetHint(SDL.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+    SDL.Init(SDL.SDL_INIT_EVENTS | SDL.SDL_INIT_VIDEO);
 
-    var window = SDL.SDLCreateWindow("Test Window", 32, 32, 1280, 720, (uint)SDLWindowFlags.Resizable);
-    var windowId = SDL.SDLGetWindowID(window);
+    var window = SDL.CreateWindow("Test Window", 32, 32, 1280, 720, (uint)SDLWindowFlags.Resizable);
+    var windowId = SDL.GetWindowID(window);
 
     SDLEvent sdlEvent = default;
     bool exiting = false;
     while (!exiting)
     {
-        SDL.SDLPumpEvents();
+        SDL.PumpEvents();
 
-        while ((SDLBool)SDL.SDLPollEvent(ref sdlEvent) == SDLBool.True)
+        while ((SDLBool)SDL.PollEvent(ref sdlEvent) == SDLBool.True)
         {
             switch ((SDLEventType)sdlEvent.Type)
             {
@@ -41,5 +41,5 @@ unsafe
         }
     }
 
-    SDL.SDLQuit();
+    SDL.Quit();
 }

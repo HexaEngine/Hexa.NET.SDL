@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// SDL_MessageBox flags. If supported will display warning icon, etc.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_MessageBoxFlags")]
+	[Flags]
 	public enum SDLMessageBoxFlags : int
 	{
 		/// <summary>

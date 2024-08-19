@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL2
 	/// !!! FIXME:  SDL_PACKEDORDER_*, so we can simplify SDL_ISPIXELFORMAT_ALPHA <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_ArrayOrder")]
+	[Flags]
 	public enum SDLArrayOrder : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_ARRAYORDER_NONE")]

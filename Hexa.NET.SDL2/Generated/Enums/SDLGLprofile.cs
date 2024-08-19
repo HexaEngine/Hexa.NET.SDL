@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_GLprofile")]
+	[Flags]
 	public enum SDLGLprofile : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_PROFILE_CORE")]

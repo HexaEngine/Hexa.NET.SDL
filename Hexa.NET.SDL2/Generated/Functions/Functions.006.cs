@@ -31,13 +31,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pb = &b)
 			{
 				fixed (byte* pa = &a)
 				{
-					SDLGetRGBANative(pixel, format, r, g, (byte*)pb, (byte*)pa);
+					GetRGBANative(pixel, format, r, g, (byte*)pb, (byte*)pa);
 				}
 			}
 		}
@@ -56,7 +56,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -64,7 +64,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, (byte*)pa);
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, (byte*)pa);
 					}
 				}
 			}
@@ -84,7 +84,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -92,7 +92,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						SDLGetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						GetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, (byte*)pa);
 					}
 				}
 			}
@@ -112,7 +112,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -122,7 +122,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, (byte*)pa);
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, (byte*)pa);
 						}
 					}
 				}
@@ -143,7 +143,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pg = &g)
 			{
@@ -151,7 +151,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						SDLGetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, (byte*)pa);
 					}
 				}
 			}
@@ -171,7 +171,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -181,7 +181,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, (byte*)pa);
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, (byte*)pa);
 						}
 					}
 				}
@@ -202,7 +202,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -212,7 +212,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							SDLGetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
 						}
 					}
 				}
@@ -233,7 +233,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -245,7 +245,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (byte* pa = &a)
 							{
-								SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+								GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
 							}
 						}
 					}
@@ -261,7 +261,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CalculateGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLCalculateGammaRampNative([NativeName(NativeNameType.Param, "gamma")] [NativeName(NativeNameType.Type, "float")] float gamma, [NativeName(NativeNameType.Param, "ramp")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* ramp)
+		internal static void CalculateGammaRampNative([NativeName(NativeNameType.Param, "gamma")] [NativeName(NativeNameType.Type, "float")] float gamma, [NativeName(NativeNameType.Param, "ramp")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* ramp)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<float, ushort*, void>)vt[292])(gamma, ramp);
@@ -278,9 +278,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CalculateGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLCalculateGammaRamp([NativeName(NativeNameType.Param, "gamma")] [NativeName(NativeNameType.Type, "float")] float gamma, [NativeName(NativeNameType.Param, "ramp")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* ramp)
+		public static void CalculateGammaRamp([NativeName(NativeNameType.Param, "gamma")] [NativeName(NativeNameType.Type, "float")] float gamma, [NativeName(NativeNameType.Param, "ramp")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* ramp)
 		{
-			SDLCalculateGammaRampNative(gamma, ramp);
+			CalculateGammaRampNative(gamma, ramp);
 		}
 
 		/// <summary>
@@ -291,11 +291,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CalculateGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLCalculateGammaRamp([NativeName(NativeNameType.Param, "gamma")] [NativeName(NativeNameType.Type, "float")] float gamma, [NativeName(NativeNameType.Param, "ramp")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort ramp)
+		public static void CalculateGammaRamp([NativeName(NativeNameType.Param, "gamma")] [NativeName(NativeNameType.Type, "float")] float gamma, [NativeName(NativeNameType.Param, "ramp")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort ramp)
 		{
 			fixed (ushort* pramp = &ramp)
 			{
-				SDLCalculateGammaRampNative(gamma, (ushort*)pramp);
+				CalculateGammaRampNative(gamma, (ushort*)pramp);
 			}
 		}
 
@@ -308,7 +308,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersection")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasIntersectionNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b)
+		internal static SDLBool HasIntersectionNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLBool>)vt[293])(a, b);
@@ -326,9 +326,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersection")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b)
+		public static SDLBool HasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b)
 		{
-			SDLBool ret = SDLHasIntersectionNative(a, b);
+			SDLBool ret = HasIntersectionNative(a, b);
 			return ret;
 		}
 
@@ -341,11 +341,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersection")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b)
+		public static SDLBool HasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b)
 		{
 			fixed (SDLRect* pa = &a)
 			{
-				SDLBool ret = SDLHasIntersectionNative((SDLRect*)pa, b);
+				SDLBool ret = HasIntersectionNative((SDLRect*)pa, b);
 				return ret;
 			}
 		}
@@ -359,11 +359,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersection")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b)
+		public static SDLBool HasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b)
 		{
 			fixed (SDLRect* pb = &b)
 			{
-				SDLBool ret = SDLHasIntersectionNative(a, (SDLRect*)pb);
+				SDLBool ret = HasIntersectionNative(a, (SDLRect*)pb);
 				return ret;
 			}
 		}
@@ -377,13 +377,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersection")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b)
+		public static SDLBool HasIntersection([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b)
 		{
 			fixed (SDLRect* pa = &a)
 			{
 				fixed (SDLRect* pb = &b)
 				{
-					SDLBool ret = SDLHasIntersectionNative((SDLRect*)pa, (SDLRect*)pb);
+					SDLBool ret = HasIntersectionNative((SDLRect*)pa, (SDLRect*)pb);
 					return ret;
 				}
 			}
@@ -398,7 +398,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLIntersectRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		internal static SDLBool IntersectRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, SDLBool>)vt[294])(a, b, result);
@@ -416,9 +416,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
-			SDLBool ret = SDLIntersectRectNative(a, b, result);
+			SDLBool ret = IntersectRectNative(a, b, result);
 			return ret;
 		}
 
@@ -431,11 +431,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
-				SDLBool ret = SDLIntersectRectNative((SDLRect*)pa, b, result);
+				SDLBool ret = IntersectRectNative((SDLRect*)pa, b, result);
 				return ret;
 			}
 		}
@@ -449,11 +449,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLRect* pb = &b)
 			{
-				SDLBool ret = SDLIntersectRectNative(a, (SDLRect*)pb, result);
+				SDLBool ret = IntersectRectNative(a, (SDLRect*)pb, result);
 				return ret;
 			}
 		}
@@ -467,13 +467,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
 				fixed (SDLRect* pb = &b)
 				{
-					SDLBool ret = SDLIntersectRectNative((SDLRect*)pa, (SDLRect*)pb, result);
+					SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, result);
 					return ret;
 				}
 			}
@@ -488,11 +488,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* presult = &result)
 			{
-				SDLBool ret = SDLIntersectRectNative(a, b, (SDLRect*)presult);
+				SDLBool ret = IntersectRectNative(a, b, (SDLRect*)presult);
 				return ret;
 			}
 		}
@@ -506,13 +506,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
 				fixed (SDLRect* presult = &result)
 				{
-					SDLBool ret = SDLIntersectRectNative((SDLRect*)pa, b, (SDLRect*)presult);
+					SDLBool ret = IntersectRectNative((SDLRect*)pa, b, (SDLRect*)presult);
 					return ret;
 				}
 			}
@@ -527,13 +527,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* pb = &b)
 			{
 				fixed (SDLRect* presult = &result)
 				{
-					SDLBool ret = SDLIntersectRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
+					SDLBool ret = IntersectRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
 					return ret;
 				}
 			}
@@ -548,7 +548,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool IntersectRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
@@ -556,7 +556,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* presult = &result)
 					{
-						SDLBool ret = SDLIntersectRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
+						SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
 						return ret;
 					}
 				}
@@ -570,7 +570,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLUnionRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		internal static void UnionRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, void>)vt[295])(a, b, result);
@@ -586,9 +586,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
-			SDLUnionRectNative(a, b, result);
+			UnionRectNative(a, b, result);
 		}
 
 		/// <summary>
@@ -598,11 +598,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
-				SDLUnionRectNative((SDLRect*)pa, b, result);
+				UnionRectNative((SDLRect*)pa, b, result);
 			}
 		}
 
@@ -613,11 +613,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLRect* pb = &b)
 			{
-				SDLUnionRectNative(a, (SDLRect*)pb, result);
+				UnionRectNative(a, (SDLRect*)pb, result);
 			}
 		}
 
@@ -628,13 +628,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
 				fixed (SDLRect* pb = &b)
 				{
-					SDLUnionRectNative((SDLRect*)pa, (SDLRect*)pb, result);
+					UnionRectNative((SDLRect*)pa, (SDLRect*)pb, result);
 				}
 			}
 		}
@@ -646,11 +646,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* presult = &result)
 			{
-				SDLUnionRectNative(a, b, (SDLRect*)presult);
+				UnionRectNative(a, b, (SDLRect*)presult);
 			}
 		}
 
@@ -661,13 +661,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
 				fixed (SDLRect* presult = &result)
 				{
-					SDLUnionRectNative((SDLRect*)pa, b, (SDLRect*)presult);
+					UnionRectNative((SDLRect*)pa, b, (SDLRect*)presult);
 				}
 			}
 		}
@@ -679,13 +679,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* pb = &b)
 			{
 				fixed (SDLRect* presult = &result)
 				{
-					SDLUnionRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
+					UnionRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
 				}
 			}
 		}
@@ -697,7 +697,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static void UnionRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* pa = &a)
 			{
@@ -705,7 +705,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* presult = &result)
 					{
-						SDLUnionRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
+						UnionRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
 					}
 				}
 			}
@@ -720,7 +720,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLEnclosePointsNative([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		internal static SDLBool EnclosePointsNative([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLPoint*, int, SDLRect*, SDLRect*, SDLBool>)vt[296])(points, count, clip, result);
@@ -738,9 +738,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
-			SDLBool ret = SDLEnclosePointsNative(points, count, clip, result);
+			SDLBool ret = EnclosePointsNative(points, count, clip, result);
 			return ret;
 		}
 
@@ -753,11 +753,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLPoint* ppoints = &points)
 			{
-				SDLBool ret = SDLEnclosePointsNative((SDLPoint*)ppoints, count, clip, result);
+				SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, clip, result);
 				return ret;
 			}
 		}
@@ -771,11 +771,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLRect* pclip = &clip)
 			{
-				SDLBool ret = SDLEnclosePointsNative(points, count, (SDLRect*)pclip, result);
+				SDLBool ret = EnclosePointsNative(points, count, (SDLRect*)pclip, result);
 				return ret;
 			}
 		}
@@ -789,13 +789,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* result)
 		{
 			fixed (SDLPoint* ppoints = &points)
 			{
 				fixed (SDLRect* pclip = &clip)
 				{
-					SDLBool ret = SDLEnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, result);
+					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, result);
 					return ret;
 				}
 			}
@@ -810,11 +810,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* presult = &result)
 			{
-				SDLBool ret = SDLEnclosePointsNative(points, count, clip, (SDLRect*)presult);
+				SDLBool ret = EnclosePointsNative(points, count, clip, (SDLRect*)presult);
 				return ret;
 			}
 		}
@@ -828,13 +828,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLPoint* ppoints = &points)
 			{
 				fixed (SDLRect* presult = &result)
 				{
-					SDLBool ret = SDLEnclosePointsNative((SDLPoint*)ppoints, count, clip, (SDLRect*)presult);
+					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, clip, (SDLRect*)presult);
 					return ret;
 				}
 			}
@@ -849,13 +849,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLRect* pclip = &clip)
 			{
 				fixed (SDLRect* presult = &result)
 				{
-					SDLBool ret = SDLEnclosePointsNative(points, count, (SDLRect*)pclip, (SDLRect*)presult);
+					SDLBool ret = EnclosePointsNative(points, count, (SDLRect*)pclip, (SDLRect*)presult);
 					return ret;
 				}
 			}
@@ -870,7 +870,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnclosePoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
+		public static SDLBool EnclosePoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect result)
 		{
 			fixed (SDLPoint* ppoints = &points)
 			{
@@ -878,7 +878,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* presult = &result)
 					{
-						SDLBool ret = SDLEnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, (SDLRect*)presult);
+						SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, (SDLRect*)presult);
 						return ret;
 					}
 				}
@@ -897,7 +897,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLIntersectRectAndLineNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		internal static SDLBool IntersectRectAndLineNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRect*, int*, int*, int*, int*, SDLBool>)vt[297])(rect, x1, y1, x2, y2);
@@ -918,9 +918,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
-			SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, y1, x2, y2);
+			SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, y2);
 			return ret;
 		}
 
@@ -936,11 +936,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, y2);
+				SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, y2);
 				return ret;
 			}
 		}
@@ -957,11 +957,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (int* px1 = &x1)
 			{
-				SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, y1, x2, y2);
+				SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, y2);
 				return ret;
 			}
 		}
@@ -978,13 +978,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
 				fixed (int* px1 = &x1)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, y2);
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, y2);
 					return ret;
 				}
 			}
@@ -1002,11 +1002,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (int* py1 = &y1)
 			{
-				SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, (int*)py1, x2, y2);
+				SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, y2);
 				return ret;
 			}
 		}
@@ -1023,13 +1023,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
 				fixed (int* py1 = &y1)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, y2);
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, y2);
 					return ret;
 				}
 			}
@@ -1047,13 +1047,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (int* px1 = &x1)
 			{
 				fixed (int* py1 = &y1)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, y2);
+					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, y2);
 					return ret;
 				}
 			}
@@ -1071,7 +1071,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1079,7 +1079,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py1 = &y1)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, y2);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, y2);
 						return ret;
 					}
 				}
@@ -1098,11 +1098,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (int* px2 = &x2)
 			{
-				SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, y1, (int*)px2, y2);
+				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, y2);
 				return ret;
 			}
 		}
@@ -1119,13 +1119,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
 				fixed (int* px2 = &x2)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, y2);
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, y2);
 					return ret;
 				}
 			}
@@ -1143,13 +1143,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (int* px1 = &x1)
 			{
 				fixed (int* px2 = &x2)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, y2);
+					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, y2);
 					return ret;
 				}
 			}
@@ -1167,7 +1167,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1175,7 +1175,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* px2 = &x2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, y2);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, y2);
 						return ret;
 					}
 				}
@@ -1194,13 +1194,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (int* py1 = &y1)
 			{
 				fixed (int* px2 = &x2)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, y2);
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, y2);
 					return ret;
 				}
 			}
@@ -1218,7 +1218,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1226,7 +1226,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* px2 = &x2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
 						return ret;
 					}
 				}
@@ -1245,7 +1245,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (int* px1 = &x1)
 			{
@@ -1253,7 +1253,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* px2 = &x2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, y2);
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, y2);
 						return ret;
 					}
 				}
@@ -1272,7 +1272,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] int* y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1282,7 +1282,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* px2 = &x2)
 						{
-							SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
 							return ret;
 						}
 					}
@@ -1302,11 +1302,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* py2 = &y2)
 			{
-				SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, y1, x2, (int*)py2);
+				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, (int*)py2);
 				return ret;
 			}
 		}
@@ -1323,13 +1323,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
 				fixed (int* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
 					return ret;
 				}
 			}
@@ -1347,13 +1347,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* px1 = &x1)
 			{
 				fixed (int* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, y1, x2, (int*)py2);
+					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, (int*)py2);
 					return ret;
 				}
 			}
@@ -1371,7 +1371,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1379,7 +1379,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
 						return ret;
 					}
 				}
@@ -1398,13 +1398,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* py1 = &y1)
 			{
 				fixed (int* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, (int*)py1, x2, (int*)py2);
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, (int*)py2);
 					return ret;
 				}
 			}
@@ -1422,7 +1422,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1430,7 +1430,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
 						return ret;
 					}
 				}
@@ -1449,7 +1449,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* px1 = &x1)
 			{
@@ -1457,7 +1457,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, (int*)py2);
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, (int*)py2);
 						return ret;
 					}
 				}
@@ -1476,7 +1476,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] int* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1486,7 +1486,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
 							return ret;
 						}
 					}
@@ -1506,13 +1506,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* px2 = &x2)
 			{
 				fixed (int* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, y1, (int*)px2, (int*)py2);
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, (int*)py2);
 					return ret;
 				}
 			}
@@ -1530,7 +1530,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1538,7 +1538,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
 						return ret;
 					}
 				}
@@ -1557,7 +1557,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* px1 = &x1)
 			{
@@ -1565,7 +1565,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, (int*)py2);
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, (int*)py2);
 						return ret;
 					}
 				}
@@ -1584,7 +1584,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] int* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1594,7 +1594,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
 							return ret;
 						}
 					}
@@ -1614,7 +1614,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* py1 = &y1)
 			{
@@ -1622,7 +1622,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, (int*)py2);
+						SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, (int*)py2);
 						return ret;
 					}
 				}
@@ -1641,7 +1641,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] int* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1651,7 +1651,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
 							return ret;
 						}
 					}
@@ -1671,7 +1671,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (int* px1 = &x1)
 			{
@@ -1681,7 +1681,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
+							SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
 							return ret;
 						}
 					}
@@ -1701,7 +1701,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
+		public static SDLBool IntersectRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "int*")] ref int x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "int*")] ref int y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "int*")] ref int x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "int*")] ref int y2)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
@@ -1713,7 +1713,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (int* py2 = &y2)
 							{
-								SDLBool ret = SDLIntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
+								SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
 								return ret;
 							}
 						}
@@ -1731,7 +1731,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersectionF")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasIntersectionFNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b)
+		internal static SDLBool HasIntersectionFNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLBool>)vt[298])(a, b);
@@ -1749,9 +1749,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersectionF")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b)
+		public static SDLBool HasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b)
 		{
-			SDLBool ret = SDLHasIntersectionFNative(a, b);
+			SDLBool ret = HasIntersectionFNative(a, b);
 			return ret;
 		}
 
@@ -1764,11 +1764,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersectionF")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b)
+		public static SDLBool HasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
-				SDLBool ret = SDLHasIntersectionFNative((SDLFRect*)pa, b);
+				SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, b);
 				return ret;
 			}
 		}
@@ -1782,11 +1782,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersectionF")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b)
+		public static SDLBool HasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
-				SDLBool ret = SDLHasIntersectionFNative(a, (SDLFRect*)pb);
+				SDLBool ret = HasIntersectionFNative(a, (SDLFRect*)pb);
 				return ret;
 			}
 		}
@@ -1800,13 +1800,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasIntersectionF")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b)
+		public static SDLBool HasIntersectionF([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* pb = &b)
 				{
-					SDLBool ret = SDLHasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)pb);
+					SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)pb);
 					return ret;
 				}
 			}
@@ -1821,7 +1821,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLIntersectFRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		internal static SDLBool IntersectFRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, SDLBool>)vt[299])(a, b, result);
@@ -1839,9 +1839,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
-			SDLBool ret = SDLIntersectFRectNative(a, b, result);
+			SDLBool ret = IntersectFRectNative(a, b, result);
 			return ret;
 		}
 
@@ -1854,11 +1854,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
-				SDLBool ret = SDLIntersectFRectNative((SDLFRect*)pa, b, result);
+				SDLBool ret = IntersectFRectNative((SDLFRect*)pa, b, result);
 				return ret;
 			}
 		}
@@ -1872,11 +1872,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
-				SDLBool ret = SDLIntersectFRectNative(a, (SDLFRect*)pb, result);
+				SDLBool ret = IntersectFRectNative(a, (SDLFRect*)pb, result);
 				return ret;
 			}
 		}
@@ -1890,13 +1890,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* pb = &b)
 				{
-					SDLBool ret = SDLIntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
+					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
 					return ret;
 				}
 			}
@@ -1911,11 +1911,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* presult = &result)
 			{
-				SDLBool ret = SDLIntersectFRectNative(a, b, (SDLFRect*)presult);
+				SDLBool ret = IntersectFRectNative(a, b, (SDLFRect*)presult);
 				return ret;
 			}
 		}
@@ -1929,13 +1929,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = SDLIntersectFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
+					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -1950,13 +1950,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = SDLIntersectFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
+					SDLBool ret = IntersectFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -1971,7 +1971,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool IntersectFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
@@ -1979,7 +1979,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* presult = &result)
 					{
-						SDLBool ret = SDLIntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
+						SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
 						return ret;
 					}
 				}
@@ -1993,7 +1993,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLUnionFRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		internal static void UnionFRectNative([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, void>)vt[300])(a, b, result);
@@ -2009,9 +2009,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
-			SDLUnionFRectNative(a, b, result);
+			UnionFRectNative(a, b, result);
 		}
 
 		/// <summary>
@@ -2021,11 +2021,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
-				SDLUnionFRectNative((SDLFRect*)pa, b, result);
+				UnionFRectNative((SDLFRect*)pa, b, result);
 			}
 		}
 
@@ -2036,11 +2036,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
-				SDLUnionFRectNative(a, (SDLFRect*)pb, result);
+				UnionFRectNative(a, (SDLFRect*)pb, result);
 			}
 		}
 
@@ -2051,13 +2051,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* pb = &b)
 				{
-					SDLUnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
+					UnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
 				}
 			}
 		}
@@ -2069,11 +2069,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* presult = &result)
 			{
-				SDLUnionFRectNative(a, b, (SDLFRect*)presult);
+				UnionFRectNative(a, b, (SDLFRect*)presult);
 			}
 		}
 
@@ -2084,13 +2084,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLUnionFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
+					UnionFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
 				}
 			}
 		}
@@ -2102,13 +2102,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* pb = &b)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLUnionFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
+					UnionFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
 				}
 			}
 		}
@@ -2120,7 +2120,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnionFRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static void UnionFRect([NativeName(NativeNameType.Param, "A")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect a, [NativeName(NativeNameType.Param, "B")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect b, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* pa = &a)
 			{
@@ -2128,7 +2128,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* presult = &result)
 					{
-						SDLUnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
+						UnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
 					}
 				}
 			}
@@ -2144,7 +2144,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLEncloseFPointsNative([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		internal static SDLBool EncloseFPointsNative([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLFPoint*, int, SDLFRect*, SDLFRect*, SDLBool>)vt[301])(points, count, clip, result);
@@ -2163,9 +2163,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
-			SDLBool ret = SDLEncloseFPointsNative(points, count, clip, result);
+			SDLBool ret = EncloseFPointsNative(points, count, clip, result);
 			return ret;
 		}
 
@@ -2179,11 +2179,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
-				SDLBool ret = SDLEncloseFPointsNative((SDLFPoint*)ppoints, count, clip, result);
+				SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, clip, result);
 				return ret;
 			}
 		}
@@ -2198,11 +2198,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFRect* pclip = &clip)
 			{
-				SDLBool ret = SDLEncloseFPointsNative(points, count, (SDLFRect*)pclip, result);
+				SDLBool ret = EncloseFPointsNative(points, count, (SDLFRect*)pclip, result);
 				return ret;
 			}
 		}
@@ -2217,13 +2217,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] SDLFRect* result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
 				fixed (SDLFRect* pclip = &clip)
 				{
-					SDLBool ret = SDLEncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, result);
+					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, result);
 					return ret;
 				}
 			}
@@ -2239,11 +2239,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* presult = &result)
 			{
-				SDLBool ret = SDLEncloseFPointsNative(points, count, clip, (SDLFRect*)presult);
+				SDLBool ret = EncloseFPointsNative(points, count, clip, (SDLFRect*)presult);
 				return ret;
 			}
 		}
@@ -2258,13 +2258,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = SDLEncloseFPointsNative((SDLFPoint*)ppoints, count, clip, (SDLFRect*)presult);
+					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, clip, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -2280,13 +2280,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFRect* pclip = &clip)
 			{
 				fixed (SDLFRect* presult = &result)
 				{
-					SDLBool ret = SDLEncloseFPointsNative(points, count, (SDLFRect*)pclip, (SDLFRect*)presult);
+					SDLBool ret = EncloseFPointsNative(points, count, (SDLFRect*)pclip, (SDLFRect*)presult);
 					return ret;
 				}
 			}
@@ -2302,7 +2302,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EncloseFPoints")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLEncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
+		public static SDLBool EncloseFPoints([NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "clip")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect clip, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_FRect*")] ref SDLFRect result)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
@@ -2310,7 +2310,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* presult = &result)
 					{
-						SDLBool ret = SDLEncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, (SDLFRect*)presult);
+						SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, (SDLFRect*)presult);
 						return ret;
 					}
 				}
@@ -2330,7 +2330,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLIntersectFRectAndLineNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		internal static SDLBool IntersectFRectAndLineNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLFRect*, float*, float*, float*, float*, SDLBool>)vt[302])(rect, x1, y1, x2, y2);
@@ -2352,9 +2352,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
-			SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, y1, x2, y2);
+			SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, x2, y2);
 			return ret;
 		}
 
@@ -2371,11 +2371,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
-				SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, x2, y2);
+				SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, x2, y2);
 				return ret;
 			}
 		}
@@ -2393,11 +2393,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
-				SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, y1, x2, y2);
+				SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, x2, y2);
 				return ret;
 			}
 		}
@@ -2415,13 +2415,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
 				fixed (float* px1 = &x1)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, x2, y2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, x2, y2);
 					return ret;
 				}
 			}
@@ -2440,11 +2440,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (float* py1 = &y1)
 			{
-				SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, (float*)py1, x2, y2);
+				SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, x2, y2);
 				return ret;
 			}
 		}
@@ -2462,13 +2462,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
 				fixed (float* py1 = &y1)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, x2, y2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, x2, y2);
 					return ret;
 				}
 			}
@@ -2487,13 +2487,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
 				fixed (float* py1 = &y1)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, y2);
+					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, y2);
 					return ret;
 				}
 			}
@@ -2512,7 +2512,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2520,7 +2520,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py1 = &y1)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, y2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, y2);
 						return ret;
 					}
 				}
@@ -2540,11 +2540,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (float* px2 = &x2)
 			{
-				SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, y1, (float*)px2, y2);
+				SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, (float*)px2, y2);
 				return ret;
 			}
 		}
@@ -2562,13 +2562,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
 				fixed (float* px2 = &x2)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, (float*)px2, y2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, (float*)px2, y2);
 					return ret;
 				}
 			}
@@ -2587,13 +2587,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
 				fixed (float* px2 = &x2)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, y2);
+					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, y2);
 					return ret;
 				}
 			}
@@ -2612,7 +2612,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2620,7 +2620,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* px2 = &x2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, y2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, y2);
 						return ret;
 					}
 				}
@@ -2640,13 +2640,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (float* py1 = &y1)
 			{
 				fixed (float* px2 = &x2)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, y2);
+					SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, y2);
 					return ret;
 				}
 			}
@@ -2665,7 +2665,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2673,7 +2673,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* px2 = &x2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, y2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, y2);
 						return ret;
 					}
 				}
@@ -2693,7 +2693,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -2701,7 +2701,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* px2 = &x2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, y2);
+						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, y2);
 						return ret;
 					}
 				}
@@ -2721,7 +2721,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] float* y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2731,7 +2731,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* px2 = &x2)
 						{
-							SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, y2);
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, y2);
 							return ret;
 						}
 					}
@@ -2752,11 +2752,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* py2 = &y2)
 			{
-				SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, y1, x2, (float*)py2);
+				SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, x2, (float*)py2);
 				return ret;
 			}
 		}
@@ -2774,13 +2774,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
 				fixed (float* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, x2, (float*)py2);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, x2, (float*)py2);
 					return ret;
 				}
 			}
@@ -2799,13 +2799,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
 				fixed (float* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, y1, x2, (float*)py2);
+					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, x2, (float*)py2);
 					return ret;
 				}
 			}
@@ -2824,7 +2824,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2832,7 +2832,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, x2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, x2, (float*)py2);
 						return ret;
 					}
 				}
@@ -2852,13 +2852,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* py1 = &y1)
 			{
 				fixed (float* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, (float*)py1, x2, (float*)py2);
+					SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, x2, (float*)py2);
 					return ret;
 				}
 			}
@@ -2877,7 +2877,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2885,7 +2885,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, x2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, x2, (float*)py2);
 						return ret;
 					}
 				}
@@ -2905,7 +2905,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -2913,7 +2913,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, (float*)py2);
 						return ret;
 					}
 				}
@@ -2933,7 +2933,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] float* x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2943,7 +2943,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, (float*)py2);
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, (float*)py2);
 							return ret;
 						}
 					}
@@ -2964,13 +2964,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* px2 = &x2)
 			{
 				fixed (float* py2 = &y2)
 				{
-					SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, y1, (float*)px2, (float*)py2);
+					SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, (float*)px2, (float*)py2);
 					return ret;
 				}
 			}
@@ -2989,7 +2989,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -2997,7 +2997,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, (float*)px2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, (float*)px2, (float*)py2);
 						return ret;
 					}
 				}
@@ -3017,7 +3017,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -3025,7 +3025,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, (float*)py2);
 						return ret;
 					}
 				}
@@ -3045,7 +3045,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] float* y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -3055,7 +3055,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, (float*)py2);
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, (float*)py2);
 							return ret;
 						}
 					}
@@ -3076,7 +3076,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* py1 = &y1)
 			{
@@ -3084,7 +3084,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* py2 = &y2)
 					{
-						SDLBool ret = SDLIntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, (float*)py2);
+						SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, (float*)py2);
 						return ret;
 					}
 				}
@@ -3104,7 +3104,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] float* x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -3114,7 +3114,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, (float*)py2);
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, (float*)py2);
 							return ret;
 						}
 					}
@@ -3135,7 +3135,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (float* px1 = &x1)
 			{
@@ -3145,7 +3145,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (float* py2 = &y2)
 						{
-							SDLBool ret = SDLIntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
+							SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
 							return ret;
 						}
 					}
@@ -3166,7 +3166,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IntersectFRectAndLine")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
+		public static SDLBool IntersectFRectAndLine([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect, [NativeName(NativeNameType.Param, "X1")] [NativeName(NativeNameType.Type, "float*")] ref float x1, [NativeName(NativeNameType.Param, "Y1")] [NativeName(NativeNameType.Type, "float*")] ref float y1, [NativeName(NativeNameType.Param, "X2")] [NativeName(NativeNameType.Type, "float*")] ref float x2, [NativeName(NativeNameType.Param, "Y2")] [NativeName(NativeNameType.Type, "float*")] ref float y2)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
@@ -3178,7 +3178,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (float* py2 = &y2)
 							{
-								SDLBool ret = SDLIntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
+								SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
 								return ret;
 							}
 						}
@@ -3249,7 +3249,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ComposeCustomBlendMode")]
 		[return: NativeName(NativeNameType.Type, "SDL_BlendMode")]
-		internal static SDLBlendMode SDLComposeCustomBlendModeNative([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
+		internal static SDLBlendMode ComposeCustomBlendModeNative([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendMode>)vt[303])(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
@@ -3320,9 +3320,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ComposeCustomBlendMode")]
 		[return: NativeName(NativeNameType.Type, "SDL_BlendMode")]
-		public static SDLBlendMode SDLComposeCustomBlendMode([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
+		public static SDLBlendMode ComposeCustomBlendMode([NativeName(NativeNameType.Param, "srcColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcColorFactor, [NativeName(NativeNameType.Param, "dstColorFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstColorFactor, [NativeName(NativeNameType.Param, "colorOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation colorOperation, [NativeName(NativeNameType.Param, "srcAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor srcAlphaFactor, [NativeName(NativeNameType.Param, "dstAlphaFactor")] [NativeName(NativeNameType.Type, "SDL_BlendFactor")] SDLBlendFactor dstAlphaFactor, [NativeName(NativeNameType.Param, "alphaOperation")] [NativeName(NativeNameType.Type, "SDL_BlendOperation")] SDLBlendOperation alphaOperation)
 		{
-			SDLBlendMode ret = SDLComposeCustomBlendModeNative(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
+			SDLBlendMode ret = ComposeCustomBlendModeNative(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
 			return ret;
 		}
 
@@ -3351,7 +3351,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* SDLCreateRGBSurfaceNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		internal static SDLSurface* CreateRGBSurfaceNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, uint, uint, SDLSurface*>)vt[304])(flags, width, height, depth, rmask, gmask, bmask, amask);
@@ -3385,9 +3385,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLCreateRGBSurface([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		public static SDLSurface* CreateRGBSurface([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
-			SDLSurface* ret = SDLCreateRGBSurfaceNative(flags, width, height, depth, rmask, gmask, bmask, amask);
+			SDLSurface* ret = CreateRGBSurfaceNative(flags, width, height, depth, rmask, gmask, bmask, amask);
 			return ret;
 		}
 
@@ -3402,7 +3402,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurfaceWithFormat")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* SDLCreateRGBSurfaceWithFormatNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
+		internal static SDLSurface* CreateRGBSurfaceWithFormatNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, SDLSurface*>)vt[305])(flags, width, height, depth, format);
@@ -3422,9 +3422,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurfaceWithFormat")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLCreateRGBSurfaceWithFormat([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
+		public static SDLSurface* CreateRGBSurfaceWithFormat([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
-			SDLSurface* ret = SDLCreateRGBSurfaceWithFormatNative(flags, width, height, depth, format);
+			SDLSurface* ret = CreateRGBSurfaceWithFormatNative(flags, width, height, depth, format);
 			return ret;
 		}
 
@@ -3441,7 +3441,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurfaceFrom")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* SDLCreateRGBSurfaceFromNative([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		internal static SDLSurface* CreateRGBSurfaceFromNative([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, int, int, int, int, uint, uint, uint, uint, SDLSurface*>)vt[306])(pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
@@ -3463,9 +3463,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurfaceFrom")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLCreateRGBSurfaceFrom([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		public static SDLSurface* CreateRGBSurfaceFrom([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
-			SDLSurface* ret = SDLCreateRGBSurfaceFromNative(pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
+			SDLSurface* ret = CreateRGBSurfaceFromNative(pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
 			return ret;
 		}
 
@@ -3483,7 +3483,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurfaceWithFormatFrom")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* SDLCreateRGBSurfaceWithFormatFromNative([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
+		internal static SDLSurface* CreateRGBSurfaceWithFormatFromNative([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, int, int, int, int, uint, SDLSurface*>)vt[307])(pixels, width, height, depth, pitch, format);
@@ -3506,9 +3506,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRGBSurfaceWithFormatFrom")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLCreateRGBSurfaceWithFormatFrom([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
+		public static SDLSurface* CreateRGBSurfaceWithFormatFrom([NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "int")] int depth, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
-			SDLSurface* ret = SDLCreateRGBSurfaceWithFormatFromNative(pixels, width, height, depth, pitch, format);
+			SDLSurface* ret = CreateRGBSurfaceWithFormatFromNative(pixels, width, height, depth, pitch, format);
 			return ret;
 		}
 
@@ -3521,7 +3521,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeSurface")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFreeSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		internal static void FreeSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)vt[308])(surface);
@@ -3539,9 +3539,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeSurface")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static void FreeSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
-			SDLFreeSurfaceNative(surface);
+			FreeSurfaceNative(surface);
 		}
 
 		/// <summary>
@@ -3553,11 +3553,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeSurface")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static void FreeSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLFreeSurfaceNative((SDLSurface*)psurface);
+				FreeSurfaceNative((SDLSurface*)psurface);
 			}
 		}
 
@@ -3569,7 +3569,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		internal static int SetSurfacePaletteNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*, int>)vt[309])(surface, palette);
@@ -3586,9 +3586,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		public static int SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
-			int ret = SDLSetSurfacePaletteNative(surface, palette);
+			int ret = SetSurfacePaletteNative(surface, palette);
 			return ret;
 		}
 
@@ -3600,11 +3600,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		public static int SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLSetSurfacePaletteNative((SDLSurface*)psurface, palette);
+				int ret = SetSurfacePaletteNative((SDLSurface*)psurface, palette);
 				return ret;
 			}
 		}
@@ -3617,11 +3617,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
+		public static int SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				int ret = SDLSetSurfacePaletteNative(surface, (SDLPalette*)ppalette);
+				int ret = SetSurfacePaletteNative(surface, (SDLPalette*)ppalette);
 				return ret;
 			}
 		}
@@ -3634,13 +3634,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfacePalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
+		public static int SetSurfacePalette([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (SDLPalette* ppalette = &palette)
 				{
-					int ret = SDLSetSurfacePaletteNative((SDLSurface*)psurface, (SDLPalette*)ppalette);
+					int ret = SetSurfacePaletteNative((SDLSurface*)psurface, (SDLPalette*)ppalette);
 					return ret;
 				}
 			}
@@ -3661,7 +3661,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLLockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		internal static int LockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int>)vt[310])(surface);
@@ -3685,9 +3685,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLLockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static int LockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
-			int ret = SDLLockSurfaceNative(surface);
+			int ret = LockSurfaceNative(surface);
 			return ret;
 		}
 
@@ -3706,11 +3706,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLLockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static int LockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLLockSurfaceNative((SDLSurface*)psurface);
+				int ret = LockSurfaceNative((SDLSurface*)psurface);
 				return ret;
 			}
 		}
@@ -3723,7 +3723,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLUnlockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		internal static void UnlockSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)vt[311])(surface);
@@ -3740,9 +3740,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static void UnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
-			SDLUnlockSurfaceNative(surface);
+			UnlockSurfaceNative(surface);
 		}
 
 		/// <summary>
@@ -3753,11 +3753,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockSurface")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static void UnlockSurface([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLUnlockSurfaceNative((SDLSurface*)psurface);
+				UnlockSurfaceNative((SDLSurface*)psurface);
 			}
 		}
 
@@ -3774,7 +3774,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* SDLLoadBMPRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		internal static SDLSurface* LoadBMPRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLSurface*>)vt[312])(src, freesrc);
@@ -3796,9 +3796,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLLoadBMPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		public static SDLSurface* LoadBMPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
-			SDLSurface* ret = SDLLoadBMPRWNative(src, freesrc);
+			SDLSurface* ret = LoadBMPRWNative(src, freesrc);
 			return ret;
 		}
 
@@ -3815,11 +3815,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLLoadBMPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		public static SDLSurface* LoadBMPRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				SDLSurface* ret = SDLLoadBMPRWNative((SDLRWops*)psrc, freesrc);
+				SDLSurface* ret = LoadBMPRWNative((SDLRWops*)psrc, freesrc);
 				return ret;
 			}
 		}
@@ -3837,7 +3837,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSaveBMPRWNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		internal static int SaveBMPRWNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRWops*, int, int>)vt[313])(surface, dst, freedst);
@@ -3859,9 +3859,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
-			int ret = SDLSaveBMPRWNative(surface, dst, freedst);
+			int ret = SaveBMPRWNative(surface, dst, freedst);
 			return ret;
 		}
 
@@ -3878,11 +3878,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLSaveBMPRWNative((SDLSurface*)psurface, dst, freedst);
+				int ret = SaveBMPRWNative((SDLSurface*)psurface, dst, freedst);
 				return ret;
 			}
 		}
@@ -3900,11 +3900,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				int ret = SDLSaveBMPRWNative(surface, (SDLRWops*)pdst, freedst);
+				int ret = SaveBMPRWNative(surface, (SDLRWops*)pdst, freedst);
 				return ret;
 			}
 		}
@@ -3922,13 +3922,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SaveBMP_RW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
+		public static int SaveBMPRW([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "freedst")] [NativeName(NativeNameType.Type, "int")] int freedst)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (SDLRWops* pdst = &dst)
 				{
-					int ret = SDLSaveBMPRWNative((SDLSurface*)psurface, (SDLRWops*)pdst, freedst);
+					int ret = SaveBMPRWNative((SDLSurface*)psurface, (SDLRWops*)pdst, freedst);
 					return ret;
 				}
 			}
@@ -3944,7 +3944,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetSurfaceRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag)
+		internal static int SetSurfaceRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int>)vt[314])(surface, flag);
@@ -3963,9 +3963,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag)
+		public static int SetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag)
 		{
-			int ret = SDLSetSurfaceRLENative(surface, flag);
+			int ret = SetSurfaceRLENative(surface, flag);
 			return ret;
 		}
 
@@ -3979,11 +3979,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceRLE")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag)
+		public static int SetSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLSetSurfaceRLENative((SDLSurface*)psurface, flag);
+				int ret = SetSurfaceRLENative((SDLSurface*)psurface, flag);
 				return ret;
 			}
 		}
@@ -3997,7 +3997,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSurfaceRLE")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasSurfaceRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		internal static SDLBool HasSurfaceRLENative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBool>)vt[315])(surface);
@@ -4015,9 +4015,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSurfaceRLE")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static SDLBool HasSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
-			SDLBool ret = SDLHasSurfaceRLENative(surface);
+			SDLBool ret = HasSurfaceRLENative(surface);
 			return ret;
 		}
 
@@ -4030,11 +4030,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSurfaceRLE")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static SDLBool HasSurfaceRLE([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLBool ret = SDLHasSurfaceRLENative((SDLSurface*)psurface);
+				SDLBool ret = HasSurfaceRLENative((SDLSurface*)psurface);
 				return ret;
 			}
 		}
@@ -4054,7 +4054,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
+		internal static int SetColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, uint, int>)vt[316])(surface, flag, key);
@@ -4078,9 +4078,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
+		public static int SetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
 		{
-			int ret = SDLSetColorKeyNative(surface, flag, key);
+			int ret = SetColorKeyNative(surface, flag, key);
 			return ret;
 		}
 
@@ -4099,11 +4099,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
+		public static int SetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "int")] int flag, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32")] uint key)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLSetColorKeyNative((SDLSurface*)psurface, flag, key);
+				int ret = SetColorKeyNative((SDLSurface*)psurface, flag, key);
 				return ret;
 			}
 		}
@@ -4117,7 +4117,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasColorKey")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		internal static SDLBool HasColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBool>)vt[317])(surface);
@@ -4135,9 +4135,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasColorKey")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static SDLBool HasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
-			SDLBool ret = SDLHasColorKeyNative(surface);
+			SDLBool ret = HasColorKeyNative(surface);
 			return ret;
 		}
 
@@ -4150,11 +4150,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasColorKey")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static SDLBool HasColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLBool ret = SDLHasColorKeyNative((SDLSurface*)psurface);
+				SDLBool ret = HasColorKeyNative((SDLSurface*)psurface);
 				return ret;
 			}
 		}
@@ -4170,7 +4170,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] uint* key)
+		internal static int GetColorKeyNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] uint* key)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint*, int>)vt[318])(surface, key);
@@ -4190,9 +4190,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] uint* key)
+		public static int GetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] uint* key)
 		{
-			int ret = SDLGetColorKeyNative(surface, key);
+			int ret = GetColorKeyNative(surface, key);
 			return ret;
 		}
 
@@ -4207,11 +4207,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] uint* key)
+		public static int GetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] uint* key)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLGetColorKeyNative((SDLSurface*)psurface, key);
+				int ret = GetColorKeyNative((SDLSurface*)psurface, key);
 				return ret;
 			}
 		}
@@ -4227,11 +4227,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint key)
+		public static int GetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint key)
 		{
 			fixed (uint* pkey = &key)
 			{
-				int ret = SDLGetColorKeyNative(surface, (uint*)pkey);
+				int ret = GetColorKeyNative(surface, (uint*)pkey);
 				return ret;
 			}
 		}
@@ -4247,13 +4247,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetColorKey")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint key)
+		public static int GetColorKey([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint key)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (uint* pkey = &key)
 				{
-					int ret = SDLGetColorKeyNative((SDLSurface*)psurface, (uint*)pkey);
+					int ret = GetColorKeyNative((SDLSurface*)psurface, (uint*)pkey);
 					return ret;
 				}
 			}
@@ -4271,7 +4271,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		internal static int SetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte, byte, int>)vt[319])(surface, r, g, b);
@@ -4292,9 +4292,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		public static int SetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
-			int ret = SDLSetSurfaceColorModNative(surface, r, g, b);
+			int ret = SetSurfaceColorModNative(surface, r, g, b);
 			return ret;
 		}
 
@@ -4310,11 +4310,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		public static int SetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLSetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
+				int ret = SetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
 				return ret;
 			}
 		}
@@ -4327,7 +4327,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		internal static int GetSurfaceColorModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte*, byte*, int>)vt[320])(surface, r, g, b);
@@ -4344,9 +4344,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
-			int ret = SDLGetSurfaceColorModNative(surface, r, g, b);
+			int ret = GetSurfaceColorModNative(surface, r, g, b);
 			return ret;
 		}
 
@@ -4358,11 +4358,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
+				int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
 				return ret;
 			}
 		}
@@ -4375,11 +4375,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
-				int ret = SDLGetSurfaceColorModNative(surface, (byte*)pr, g, b);
+				int ret = GetSurfaceColorModNative(surface, (byte*)pr, g, b);
 				return ret;
 			}
 		}
@@ -4392,13 +4392,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pr = &r)
 				{
-					int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, b);
+					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, b);
 					return ret;
 				}
 			}
@@ -4412,11 +4412,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (byte* pg = &g)
 			{
-				int ret = SDLGetSurfaceColorModNative(surface, r, (byte*)pg, b);
+				int ret = GetSurfaceColorModNative(surface, r, (byte*)pg, b);
 				return ret;
 			}
 		}
@@ -4429,13 +4429,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pg = &g)
 				{
-					int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, b);
+					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, b);
 					return ret;
 				}
 			}
@@ -4449,13 +4449,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pg = &g)
 				{
-					int ret = SDLGetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, b);
+					int ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, b);
 					return ret;
 				}
 			}
@@ -4469,7 +4469,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
@@ -4477,7 +4477,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pg = &g)
 					{
-						int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, b);
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, b);
 						return ret;
 					}
 				}
@@ -4492,11 +4492,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pb = &b)
 			{
-				int ret = SDLGetSurfaceColorModNative(surface, r, g, (byte*)pb);
+				int ret = GetSurfaceColorModNative(surface, r, g, (byte*)pb);
 				return ret;
 			}
 		}
@@ -4509,13 +4509,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pb = &b)
 				{
-					int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
+					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
 					return ret;
 				}
 			}
@@ -4529,13 +4529,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pb = &b)
 				{
-					int ret = SDLGetSurfaceColorModNative(surface, (byte*)pr, g, (byte*)pb);
+					int ret = GetSurfaceColorModNative(surface, (byte*)pr, g, (byte*)pb);
 					return ret;
 				}
 			}
@@ -4549,7 +4549,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
@@ -4557,7 +4557,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
 						return ret;
 					}
 				}
@@ -4572,13 +4572,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pg = &g)
 			{
 				fixed (byte* pb = &b)
 				{
-					int ret = SDLGetSurfaceColorModNative(surface, r, (byte*)pg, (byte*)pb);
+					int ret = GetSurfaceColorModNative(surface, r, (byte*)pg, (byte*)pb);
 					return ret;
 				}
 			}
@@ -4592,7 +4592,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
@@ -4600,7 +4600,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
 						return ret;
 					}
 				}
@@ -4615,7 +4615,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -4623,7 +4623,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						int ret = SDLGetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, (byte*)pb);
+						int ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, (byte*)pb);
 						return ret;
 					}
 				}
@@ -4638,7 +4638,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetSurfaceColorMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
@@ -4648,7 +4648,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pb = &b)
 						{
-							int ret = SDLGetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
+							int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
 							return ret;
 						}
 					}
@@ -4667,7 +4667,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		internal static int SetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, int>)vt[321])(surface, alpha);
@@ -4687,9 +4687,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		public static int SetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
 		{
-			int ret = SDLSetSurfaceAlphaModNative(surface, alpha);
+			int ret = SetSurfaceAlphaModNative(surface, alpha);
 			return ret;
 		}
 
@@ -4704,11 +4704,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		public static int SetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLSetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				int ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
 				return ret;
 			}
 		}
@@ -4721,7 +4721,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		internal static int GetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int>)vt[322])(surface, alpha);
@@ -4738,9 +4738,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
 		{
-			int ret = SDLGetSurfaceAlphaModNative(surface, alpha);
+			int ret = GetSurfaceAlphaModNative(surface, alpha);
 			return ret;
 		}
 
@@ -4752,11 +4752,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLGetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
 				return ret;
 			}
 		}
@@ -4769,11 +4769,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
 		{
 			fixed (byte* palpha = &alpha)
 			{
-				int ret = SDLGetSurfaceAlphaModNative(surface, (byte*)palpha);
+				int ret = GetSurfaceAlphaModNative(surface, (byte*)palpha);
 				return ret;
 			}
 		}
@@ -4786,13 +4786,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* palpha = &alpha)
 				{
-					int ret = SDLGetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
+					int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
 					return ret;
 				}
 			}
@@ -4809,7 +4809,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		internal static int SetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode, int>)vt[323])(surface, blendMode);
@@ -4829,9 +4829,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static int SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
 		{
-			int ret = SDLSetSurfaceBlendModeNative(surface, blendMode);
+			int ret = SetSurfaceBlendModeNative(surface, blendMode);
 			return ret;
 		}
 
@@ -4846,11 +4846,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static int SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLSetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				int ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
 				return ret;
 			}
 		}
@@ -4863,7 +4863,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		internal static int GetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode*, int>)vt[324])(surface, blendMode);
@@ -4880,9 +4880,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
 		{
-			int ret = SDLGetSurfaceBlendModeNative(surface, blendMode);
+			int ret = GetSurfaceBlendModeNative(surface, blendMode);
 			return ret;
 		}
 
@@ -4894,11 +4894,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				int ret = SDLGetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
 				return ret;
 			}
 		}
@@ -4911,11 +4911,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
 		{
 			fixed (SDLBlendMode* pblendMode = &blendMode)
 			{
-				int ret = SDLGetSurfaceBlendModeNative(surface, (SDLBlendMode*)pblendMode);
+				int ret = GetSurfaceBlendModeNative(surface, (SDLBlendMode*)pblendMode);
 				return ret;
 			}
 		}
@@ -4928,13 +4928,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (SDLBlendMode* pblendMode = &blendMode)
 				{
-					int ret = SDLGetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
+					int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
 					return ret;
 				}
 			}
@@ -4952,7 +4952,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLSetClipRectNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static SDLBool SetClipRectNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLBool>)vt[325])(surface, rect);
@@ -4973,9 +4973,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static SDLBool SetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
-			SDLBool ret = SDLSetClipRectNative(surface, rect);
+			SDLBool ret = SetClipRectNative(surface, rect);
 			return ret;
 		}
 
@@ -4991,11 +4991,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static SDLBool SetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLBool ret = SDLSetClipRectNative((SDLSurface*)psurface, rect);
+				SDLBool ret = SetClipRectNative((SDLSurface*)psurface, rect);
 				return ret;
 			}
 		}
@@ -5012,11 +5012,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		public static SDLBool SetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				SDLBool ret = SDLSetClipRectNative(surface, (SDLRect*)prect);
+				SDLBool ret = SetClipRectNative(surface, (SDLRect*)prect);
 				return ret;
 			}
 		}

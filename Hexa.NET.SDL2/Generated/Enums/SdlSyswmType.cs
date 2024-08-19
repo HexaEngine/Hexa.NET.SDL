@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// These are the various supported windowing subsystems<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_SYSWM_TYPE")]
+	[Flags]
 	public enum SdlSyswmType : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_SYSWM_UNKNOWN")]

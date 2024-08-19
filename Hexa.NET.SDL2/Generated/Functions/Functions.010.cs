@@ -29,7 +29,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualHat")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickSetVirtualHatNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		internal static int JoystickSetVirtualHatNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, int>)vt[499])(joystick, hat, value);
@@ -50,9 +50,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualHat")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickSetVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		public static int JoystickSetVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
 		{
-			int ret = SDLJoystickSetVirtualHatNative(joystick, hat, value);
+			int ret = JoystickSetVirtualHatNative(joystick, hat, value);
 			return ret;
 		}
 
@@ -68,11 +68,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualHat")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickSetVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		public static int JoystickSetVirtualHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickSetVirtualHatNative((SDLJoystick*)pjoystick, hat, value);
+				int ret = JoystickSetVirtualHatNative((SDLJoystick*)pjoystick, hat, value);
 				return ret;
 			}
 		}
@@ -85,7 +85,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLJoystickNameNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static byte* JoystickNameNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)vt[500])(joystick);
@@ -102,9 +102,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLJoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static byte* JoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			byte* ret = SDLJoystickNameNative(joystick);
+			byte* ret = JoystickNameNative(joystick);
 			return ret;
 		}
 
@@ -116,9 +116,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLJoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static string JoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLJoystickNameNative(joystick));
+			string ret = Utils.DecodeStringUTF8(JoystickNameNative(joystick));
 			return ret;
 		}
 
@@ -130,11 +130,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLJoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static byte* JoystickName([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				byte* ret = SDLJoystickNameNative((SDLJoystick*)pjoystick);
+				byte* ret = JoystickNameNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -147,11 +147,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLJoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static string JoystickNameS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLJoystickNameNative((SDLJoystick*)pjoystick));
+				string ret = Utils.DecodeStringUTF8(JoystickNameNative((SDLJoystick*)pjoystick));
 				return ret;
 			}
 		}
@@ -164,7 +164,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLJoystickPathNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static byte* JoystickPathNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)vt[501])(joystick);
@@ -181,9 +181,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLJoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static byte* JoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			byte* ret = SDLJoystickPathNative(joystick);
+			byte* ret = JoystickPathNative(joystick);
 			return ret;
 		}
 
@@ -195,9 +195,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLJoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static string JoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLJoystickPathNative(joystick));
+			string ret = Utils.DecodeStringUTF8(JoystickPathNative(joystick));
 			return ret;
 		}
 
@@ -209,11 +209,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLJoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static byte* JoystickPath([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				byte* ret = SDLJoystickPathNative((SDLJoystick*)pjoystick);
+				byte* ret = JoystickPathNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -226,11 +226,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLJoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static string JoystickPathS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLJoystickPathNative((SDLJoystick*)pjoystick));
+				string ret = Utils.DecodeStringUTF8(JoystickPathNative((SDLJoystick*)pjoystick));
 				return ret;
 			}
 		}
@@ -244,7 +244,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickGetPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static int JoystickGetPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[502])(joystick);
@@ -262,9 +262,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static int JoystickGetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			int ret = SDLJoystickGetPlayerIndexNative(joystick);
+			int ret = JoystickGetPlayerIndexNative(joystick);
 			return ret;
 		}
 
@@ -277,11 +277,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static int JoystickGetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickGetPlayerIndexNative((SDLJoystick*)pjoystick);
+				int ret = JoystickGetPlayerIndexNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -293,7 +293,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLJoystickSetPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		internal static void JoystickSetPlayerIndexNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLJoystick*, int, void>)vt[503])(joystick, playerIndex);
@@ -309,9 +309,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickSetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		public static void JoystickSetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
-			SDLJoystickSetPlayerIndexNative(joystick, playerIndex);
+			JoystickSetPlayerIndexNative(joystick, playerIndex);
 		}
 
 		/// <summary>
@@ -321,11 +321,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickSetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		public static void JoystickSetPlayerIndex([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLJoystickSetPlayerIndexNative((SDLJoystick*)pjoystick, playerIndex);
+				JoystickSetPlayerIndexNative((SDLJoystick*)pjoystick, playerIndex);
 			}
 		}
 
@@ -338,7 +338,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUID")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		internal static Guid SDLJoystickGetGUIDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static Guid JoystickGetGUIDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, Guid>)vt[504])(joystick);
@@ -356,9 +356,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUID")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		public static Guid SDLJoystickGetGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static Guid JoystickGetGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			Guid ret = SDLJoystickGetGUIDNative(joystick);
+			Guid ret = JoystickGetGUIDNative(joystick);
 			return ret;
 		}
 
@@ -371,11 +371,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUID")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		public static Guid SDLJoystickGetGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static Guid JoystickGetGUID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				Guid ret = SDLJoystickGetGUIDNative((SDLJoystick*)pjoystick);
+				Guid ret = JoystickGetGUIDNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -388,7 +388,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetVendor")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLJoystickGetVendorNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static ushort JoystickGetVendorNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)vt[505])(joystick);
@@ -405,9 +405,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetVendor")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static ushort JoystickGetVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			ushort ret = SDLJoystickGetVendorNative(joystick);
+			ushort ret = JoystickGetVendorNative(joystick);
 			return ret;
 		}
 
@@ -419,11 +419,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetVendor")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static ushort JoystickGetVendor([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				ushort ret = SDLJoystickGetVendorNative((SDLJoystick*)pjoystick);
+				ushort ret = JoystickGetVendorNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -436,7 +436,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetProduct")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLJoystickGetProductNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static ushort JoystickGetProductNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)vt[506])(joystick);
@@ -453,9 +453,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetProduct")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static ushort JoystickGetProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			ushort ret = SDLJoystickGetProductNative(joystick);
+			ushort ret = JoystickGetProductNative(joystick);
 			return ret;
 		}
 
@@ -467,11 +467,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetProduct")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static ushort JoystickGetProduct([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				ushort ret = SDLJoystickGetProductNative((SDLJoystick*)pjoystick);
+				ushort ret = JoystickGetProductNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -484,7 +484,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetProductVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLJoystickGetProductVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static ushort JoystickGetProductVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)vt[507])(joystick);
@@ -501,9 +501,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetProductVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static ushort JoystickGetProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			ushort ret = SDLJoystickGetProductVersionNative(joystick);
+			ushort ret = JoystickGetProductVersionNative(joystick);
 			return ret;
 		}
 
@@ -515,11 +515,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetProductVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static ushort JoystickGetProductVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				ushort ret = SDLJoystickGetProductVersionNative((SDLJoystick*)pjoystick);
+				ushort ret = JoystickGetProductVersionNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -532,7 +532,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetFirmwareVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLJoystickGetFirmwareVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static ushort JoystickGetFirmwareVersionNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort>)vt[508])(joystick);
@@ -549,9 +549,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetFirmwareVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetFirmwareVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static ushort JoystickGetFirmwareVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			ushort ret = SDLJoystickGetFirmwareVersionNative(joystick);
+			ushort ret = JoystickGetFirmwareVersionNative(joystick);
 			return ret;
 		}
 
@@ -563,11 +563,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetFirmwareVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLJoystickGetFirmwareVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static ushort JoystickGetFirmwareVersion([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				ushort ret = SDLJoystickGetFirmwareVersionNative((SDLJoystick*)pjoystick);
+				ushort ret = JoystickGetFirmwareVersionNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -580,7 +580,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLJoystickGetSerialNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static byte* JoystickGetSerialNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte*>)vt[509])(joystick);
@@ -597,9 +597,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLJoystickGetSerial([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static byte* JoystickGetSerial([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			byte* ret = SDLJoystickGetSerialNative(joystick);
+			byte* ret = JoystickGetSerialNative(joystick);
 			return ret;
 		}
 
@@ -611,9 +611,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLJoystickGetSerialS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static string JoystickGetSerialS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLJoystickGetSerialNative(joystick));
+			string ret = Utils.DecodeStringUTF8(JoystickGetSerialNative(joystick));
 			return ret;
 		}
 
@@ -625,11 +625,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLJoystickGetSerial([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static byte* JoystickGetSerial([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				byte* ret = SDLJoystickGetSerialNative((SDLJoystick*)pjoystick);
+				byte* ret = JoystickGetSerialNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -642,11 +642,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLJoystickGetSerialS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static string JoystickGetSerialS([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLJoystickGetSerialNative((SDLJoystick*)pjoystick));
+				string ret = Utils.DecodeStringUTF8(JoystickGetSerialNative((SDLJoystick*)pjoystick));
 				return ret;
 			}
 		}
@@ -658,7 +658,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
-		internal static SDLJoystickType SDLJoystickGetTypeNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static SDLJoystickType JoystickGetTypeNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickType>)vt[510])(joystick);
@@ -674,9 +674,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
-		public static SDLJoystickType SDLJoystickGetType([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static SDLJoystickType JoystickGetType([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLJoystickType ret = SDLJoystickGetTypeNative(joystick);
+			SDLJoystickType ret = JoystickGetTypeNative(joystick);
 			return ret;
 		}
 
@@ -687,11 +687,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
-		public static SDLJoystickType SDLJoystickGetType([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static SDLJoystickType JoystickGetType([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLJoystickType ret = SDLJoystickGetTypeNative((SDLJoystick*)pjoystick);
+				SDLJoystickType ret = JoystickGetTypeNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -705,7 +705,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDString")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLJoystickGetGUIDStringNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		internal static void JoystickGetGUIDStringNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<Guid, byte*, int, void>)vt[511])(guid, pszGUID, cbGUID);
@@ -723,9 +723,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDString")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickGetGUIDString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		public static void JoystickGetGUIDString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
-			SDLJoystickGetGUIDStringNative(guid, pszGUID, cbGUID);
+			JoystickGetGUIDStringNative(guid, pszGUID, cbGUID);
 		}
 
 		/// <summary>
@@ -737,11 +737,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDString")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickGetGUIDString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] ref byte pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		public static void JoystickGetGUIDString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] ref byte pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
 			fixed (byte* ppszGUID = &pszGUID)
 			{
-				SDLJoystickGetGUIDStringNative(guid, (byte*)ppszGUID, cbGUID);
+				JoystickGetGUIDStringNative(guid, (byte*)ppszGUID, cbGUID);
 			}
 		}
 
@@ -754,7 +754,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDString")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickGetGUIDString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] ref string pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
+		public static void JoystickGetGUIDString([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] ref string pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -773,7 +773,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(pszGUID, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLJoystickGetGUIDStringNative(guid, pStr0, cbGUID);
+			JoystickGetGUIDStringNative(guid, pStr0, cbGUID);
 			pszGUID = Utils.DecodeStringUTF8(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -792,7 +792,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		internal static Guid SDLJoystickGetGUIDFromStringNative([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] byte* pchGUID)
+		internal static Guid JoystickGetGUIDFromStringNative([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] byte* pchGUID)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, Guid>)vt[512])(pchGUID);
@@ -812,9 +812,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		public static Guid SDLJoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] byte* pchGUID)
+		public static Guid JoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] byte* pchGUID)
 		{
-			Guid ret = SDLJoystickGetGUIDFromStringNative(pchGUID);
+			Guid ret = JoystickGetGUIDFromStringNative(pchGUID);
 			return ret;
 		}
 
@@ -829,11 +829,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		public static Guid SDLJoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] ref byte pchGUID)
+		public static Guid JoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] ref byte pchGUID)
 		{
 			fixed (byte* ppchGUID = &pchGUID)
 			{
-				Guid ret = SDLJoystickGetGUIDFromStringNative((byte*)ppchGUID);
+				Guid ret = JoystickGetGUIDFromStringNative((byte*)ppchGUID);
 				return ret;
 			}
 		}
@@ -849,11 +849,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		public static Guid SDLJoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> pchGUID)
+		public static Guid JoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> pchGUID)
 		{
 			fixed (byte* ppchGUID = pchGUID)
 			{
-				Guid ret = SDLJoystickGetGUIDFromStringNative((byte*)ppchGUID);
+				Guid ret = JoystickGetGUIDFromStringNative((byte*)ppchGUID);
 				return ret;
 			}
 		}
@@ -869,7 +869,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetGUIDFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
-		public static Guid SDLJoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] string pchGUID)
+		public static Guid JoystickGetGUIDFromString([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] string pchGUID)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -888,7 +888,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(pchGUID, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			Guid ret = SDLJoystickGetGUIDFromStringNative(pStr0);
+			Guid ret = JoystickGetGUIDFromStringNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -904,7 +904,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetJoystickGUIDInfoNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		internal static void GetJoystickGUIDInfoNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<Guid, ushort*, ushort*, ushort*, ushort*, void>)vt[513])(guid, vendor, product, version, crc16);
@@ -921,9 +921,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
-			SDLGetJoystickGUIDInfoNative(guid, vendor, product, version, crc16);
+			GetJoystickGUIDInfoNative(guid, vendor, product, version, crc16);
 		}
 
 		/// <summary>
@@ -934,11 +934,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
-				SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, crc16);
+				GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, crc16);
 			}
 		}
 
@@ -950,11 +950,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			fixed (ushort* pproduct = &product)
 			{
-				SDLGetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, crc16);
+				GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, crc16);
 			}
 		}
 
@@ -966,13 +966,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
 				fixed (ushort* pproduct = &product)
 				{
-					SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, crc16);
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, crc16);
 				}
 			}
 		}
@@ -985,11 +985,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			fixed (ushort* pversion = &version)
 			{
-				SDLGetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, crc16);
+				GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, crc16);
 			}
 		}
 
@@ -1001,13 +1001,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
 				fixed (ushort* pversion = &version)
 				{
-					SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, crc16);
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, crc16);
 				}
 			}
 		}
@@ -1020,13 +1020,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			fixed (ushort* pproduct = &product)
 			{
 				fixed (ushort* pversion = &version)
 				{
-					SDLGetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, crc16);
+					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, crc16);
 				}
 			}
 		}
@@ -1039,7 +1039,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
@@ -1047,7 +1047,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pversion = &version)
 					{
-						SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, crc16);
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, crc16);
 					}
 				}
 			}
@@ -1061,11 +1061,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pcrc16 = &crc16)
 			{
-				SDLGetJoystickGUIDInfoNative(guid, vendor, product, version, (ushort*)pcrc16);
+				GetJoystickGUIDInfoNative(guid, vendor, product, version, (ushort*)pcrc16);
 			}
 		}
 
@@ -1077,13 +1077,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
 				fixed (ushort* pcrc16 = &crc16)
 				{
-					SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, (ushort*)pcrc16);
+					GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, version, (ushort*)pcrc16);
 				}
 			}
 		}
@@ -1096,13 +1096,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pproduct = &product)
 			{
 				fixed (ushort* pcrc16 = &crc16)
 				{
-					SDLGetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, (ushort*)pcrc16);
+					GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, version, (ushort*)pcrc16);
 				}
 			}
 		}
@@ -1115,7 +1115,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
@@ -1123,7 +1123,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pcrc16 = &crc16)
 					{
-						SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, (ushort*)pcrc16);
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, version, (ushort*)pcrc16);
 					}
 				}
 			}
@@ -1137,13 +1137,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pversion = &version)
 			{
 				fixed (ushort* pcrc16 = &crc16)
 				{
-					SDLGetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, (ushort*)pcrc16);
+					GetJoystickGUIDInfoNative(guid, vendor, product, (ushort*)pversion, (ushort*)pcrc16);
 				}
 			}
 		}
@@ -1156,7 +1156,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
@@ -1164,7 +1164,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pcrc16 = &crc16)
 					{
-						SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, (ushort*)pcrc16);
+						GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, product, (ushort*)pversion, (ushort*)pcrc16);
 					}
 				}
 			}
@@ -1178,7 +1178,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pproduct = &product)
 			{
@@ -1186,7 +1186,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pcrc16 = &crc16)
 					{
-						SDLGetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
+						GetJoystickGUIDInfoNative(guid, vendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
 					}
 				}
 			}
@@ -1200,7 +1200,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetJoystickGUIDInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
+		public static void GetJoystickGUIDInfo([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid, [NativeName(NativeNameType.Param, "vendor")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort vendor, [NativeName(NativeNameType.Param, "product")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort product, [NativeName(NativeNameType.Param, "version")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort version, [NativeName(NativeNameType.Param, "crc16")] [NativeName(NativeNameType.Type, "Uint16*")] ref ushort crc16)
 		{
 			fixed (ushort* pvendor = &vendor)
 			{
@@ -1210,7 +1210,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (ushort* pcrc16 = &crc16)
 						{
-							SDLGetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
+							GetJoystickGUIDInfoNative(guid, (ushort*)pvendor, (ushort*)pproduct, (ushort*)pversion, (ushort*)pcrc16);
 						}
 					}
 				}
@@ -1225,7 +1225,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAttached")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLJoystickGetAttachedNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static SDLBool JoystickGetAttachedNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)vt[514])(joystick);
@@ -1242,9 +1242,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAttached")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickGetAttached([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static SDLBool JoystickGetAttached([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLBool ret = SDLJoystickGetAttachedNative(joystick);
+			SDLBool ret = JoystickGetAttachedNative(joystick);
 			return ret;
 		}
 
@@ -1256,11 +1256,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAttached")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickGetAttached([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static SDLBool JoystickGetAttached([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLBool ret = SDLJoystickGetAttachedNative((SDLJoystick*)pjoystick);
+				SDLBool ret = JoystickGetAttachedNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -1273,7 +1273,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
-		internal static int SDLJoystickInstanceIDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static int JoystickInstanceIDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[515])(joystick);
@@ -1290,9 +1290,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
-		public static int SDLJoystickInstanceID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static int JoystickInstanceID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			int ret = SDLJoystickInstanceIDNative(joystick);
+			int ret = JoystickInstanceIDNative(joystick);
 			return ret;
 		}
 
@@ -1304,11 +1304,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
-		public static int SDLJoystickInstanceID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static int JoystickInstanceID([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickInstanceIDNative((SDLJoystick*)pjoystick);
+				int ret = JoystickInstanceIDNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -1324,7 +1324,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumAxes")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickNumAxesNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static int JoystickNumAxesNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[516])(joystick);
@@ -1344,9 +1344,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumAxes")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumAxes([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static int JoystickNumAxes([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			int ret = SDLJoystickNumAxesNative(joystick);
+			int ret = JoystickNumAxesNative(joystick);
 			return ret;
 		}
 
@@ -1361,11 +1361,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumAxes")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumAxes([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static int JoystickNumAxes([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickNumAxesNative((SDLJoystick*)pjoystick);
+				int ret = JoystickNumAxesNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -1381,7 +1381,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumBalls")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickNumBallsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static int JoystickNumBallsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[517])(joystick);
@@ -1401,9 +1401,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumBalls")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumBalls([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static int JoystickNumBalls([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			int ret = SDLJoystickNumBallsNative(joystick);
+			int ret = JoystickNumBallsNative(joystick);
 			return ret;
 		}
 
@@ -1418,11 +1418,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumBalls")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumBalls([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static int JoystickNumBalls([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickNumBallsNative((SDLJoystick*)pjoystick);
+				int ret = JoystickNumBallsNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -1435,7 +1435,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumHats")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickNumHatsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static int JoystickNumHatsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[518])(joystick);
@@ -1452,9 +1452,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumHats")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumHats([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static int JoystickNumHats([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			int ret = SDLJoystickNumHatsNative(joystick);
+			int ret = JoystickNumHatsNative(joystick);
 			return ret;
 		}
 
@@ -1466,11 +1466,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumHats")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumHats([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static int JoystickNumHats([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickNumHatsNative((SDLJoystick*)pjoystick);
+				int ret = JoystickNumHatsNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -1483,7 +1483,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumButtons")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickNumButtonsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static int JoystickNumButtonsNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[519])(joystick);
@@ -1500,9 +1500,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumButtons")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumButtons([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static int JoystickNumButtons([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			int ret = SDLJoystickNumButtonsNative(joystick);
+			int ret = JoystickNumButtonsNative(joystick);
 			return ret;
 		}
 
@@ -1514,11 +1514,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNumButtons")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickNumButtons([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static int JoystickNumButtons([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickNumButtonsNative((SDLJoystick*)pjoystick);
+				int ret = JoystickNumButtonsNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -1532,7 +1532,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickUpdate")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLJoystickUpdateNative()
+		internal static void JoystickUpdateNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[520])();
@@ -1550,9 +1550,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickUpdate")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickUpdate()
+		public static void JoystickUpdate()
 		{
-			SDLJoystickUpdateNative();
+			JoystickUpdateNative();
 		}
 
 		/// <summary>
@@ -1574,7 +1574,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickEventState")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickEventStateNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
+		internal static int JoystickEventStateNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)vt[521])(state);
@@ -1602,9 +1602,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickEventState")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickEventState([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
+		public static int JoystickEventState([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
 		{
-			int ret = SDLJoystickEventStateNative(state);
+			int ret = JoystickEventStateNative(state);
 			return ret;
 		}
 
@@ -1624,7 +1624,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxis")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
-		internal static short SDLJoystickGetAxisNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
+		internal static short JoystickGetAxisNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short>)vt[522])(joystick, axis);
@@ -1649,9 +1649,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxis")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
-		public static short SDLJoystickGetAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
+		public static short JoystickGetAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
 		{
-			short ret = SDLJoystickGetAxisNative(joystick, axis);
+			short ret = JoystickGetAxisNative(joystick, axis);
 			return ret;
 		}
 
@@ -1671,11 +1671,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxis")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
-		public static short SDLJoystickGetAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
+		public static short JoystickGetAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				short ret = SDLJoystickGetAxisNative((SDLJoystick*)pjoystick, axis);
+				short ret = JoystickGetAxisNative((SDLJoystick*)pjoystick, axis);
 				return ret;
 			}
 		}
@@ -1689,7 +1689,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxisInitialState")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLJoystickGetAxisInitialStateNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] short* state)
+		internal static SDLBool JoystickGetAxisInitialStateNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] short* state)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short*, SDLBool>)vt[523])(joystick, axis, state);
@@ -1707,9 +1707,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxisInitialState")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] short* state)
+		public static SDLBool JoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] short* state)
 		{
-			SDLBool ret = SDLJoystickGetAxisInitialStateNative(joystick, axis, state);
+			SDLBool ret = JoystickGetAxisInitialStateNative(joystick, axis, state);
 			return ret;
 		}
 
@@ -1722,11 +1722,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxisInitialState")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] short* state)
+		public static SDLBool JoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] short* state)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLBool ret = SDLJoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, state);
+				SDLBool ret = JoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, state);
 				return ret;
 			}
 		}
@@ -1740,11 +1740,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxisInitialState")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] ref short state)
+		public static SDLBool JoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] ref short state)
 		{
 			fixed (short* pstate = &state)
 			{
-				SDLBool ret = SDLJoystickGetAxisInitialStateNative(joystick, axis, (short*)pstate);
+				SDLBool ret = JoystickGetAxisInitialStateNative(joystick, axis, (short*)pstate);
 				return ret;
 			}
 		}
@@ -1758,13 +1758,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetAxisInitialState")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] ref short state)
+		public static SDLBool JoystickGetAxisInitialState([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "Sint16*")] ref short state)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
 				fixed (short* pstate = &state)
 				{
-					SDLBool ret = SDLJoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, (short*)pstate);
+					SDLBool ret = JoystickGetAxisInitialStateNative((SDLJoystick*)pjoystick, axis, (short*)pstate);
 					return ret;
 				}
 			}
@@ -1788,7 +1788,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetHat")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		internal static byte SDLJoystickGetHatNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
+		internal static byte JoystickGetHatNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)vt[524])(joystick, hat);
@@ -1815,9 +1815,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetHat")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLJoystickGetHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
+		public static byte JoystickGetHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
 		{
-			byte ret = SDLJoystickGetHatNative(joystick, hat);
+			byte ret = JoystickGetHatNative(joystick, hat);
 			return ret;
 		}
 
@@ -1839,11 +1839,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetHat")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLJoystickGetHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
+		public static byte JoystickGetHat([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "hat")] [NativeName(NativeNameType.Type, "int")] int hat)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				byte ret = SDLJoystickGetHatNative((SDLJoystick*)pjoystick, hat);
+				byte ret = JoystickGetHatNative((SDLJoystick*)pjoystick, hat);
 				return ret;
 			}
 		}
@@ -1859,7 +1859,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickGetBallNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
+		internal static int JoystickGetBallNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, int*, int*, int>)vt[525])(joystick, ball, dx, dy);
@@ -1879,9 +1879,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
 		{
-			int ret = SDLJoystickGetBallNative(joystick, ball, dx, dy);
+			int ret = JoystickGetBallNative(joystick, ball, dx, dy);
 			return ret;
 		}
 
@@ -1896,11 +1896,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, dy);
+				int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, dy);
 				return ret;
 			}
 		}
@@ -1916,11 +1916,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
 		{
 			fixed (int* pdx = &dx)
 			{
-				int ret = SDLJoystickGetBallNative(joystick, ball, (int*)pdx, dy);
+				int ret = JoystickGetBallNative(joystick, ball, (int*)pdx, dy);
 				return ret;
 			}
 		}
@@ -1936,13 +1936,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] int* dy)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
 				fixed (int* pdx = &dx)
 				{
-					int ret = SDLJoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, dy);
+					int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, dy);
 					return ret;
 				}
 			}
@@ -1959,11 +1959,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
 		{
 			fixed (int* pdy = &dy)
 			{
-				int ret = SDLJoystickGetBallNative(joystick, ball, dx, (int*)pdy);
+				int ret = JoystickGetBallNative(joystick, ball, dx, (int*)pdy);
 				return ret;
 			}
 		}
@@ -1979,13 +1979,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] int* dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
 				fixed (int* pdy = &dy)
 				{
-					int ret = SDLJoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, (int*)pdy);
+					int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, dx, (int*)pdy);
 					return ret;
 				}
 			}
@@ -2002,13 +2002,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
 		{
 			fixed (int* pdx = &dx)
 			{
 				fixed (int* pdy = &dy)
 				{
-					int ret = SDLJoystickGetBallNative(joystick, ball, (int*)pdx, (int*)pdy);
+					int ret = JoystickGetBallNative(joystick, ball, (int*)pdx, (int*)pdy);
 					return ret;
 				}
 			}
@@ -2025,7 +2025,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetBall")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
+		public static int JoystickGetBall([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "ball")] [NativeName(NativeNameType.Type, "int")] int ball, [NativeName(NativeNameType.Param, "dx")] [NativeName(NativeNameType.Type, "int*")] ref int dx, [NativeName(NativeNameType.Param, "dy")] [NativeName(NativeNameType.Type, "int*")] ref int dy)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
@@ -2033,7 +2033,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pdy = &dy)
 					{
-						int ret = SDLJoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, (int*)pdy);
+						int ret = JoystickGetBallNative((SDLJoystick*)pjoystick, ball, (int*)pdx, (int*)pdy);
 						return ret;
 					}
 				}
@@ -2048,7 +2048,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetButton")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		internal static byte SDLJoystickGetButtonNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
+		internal static byte JoystickGetButtonNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte>)vt[526])(joystick, button);
@@ -2065,9 +2065,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetButton")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLJoystickGetButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
+		public static byte JoystickGetButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
 		{
-			byte ret = SDLJoystickGetButtonNative(joystick, button);
+			byte ret = JoystickGetButtonNative(joystick, button);
 			return ret;
 		}
 
@@ -2079,11 +2079,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetButton")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLJoystickGetButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
+		public static byte JoystickGetButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				byte ret = SDLJoystickGetButtonNative((SDLJoystick*)pjoystick, button);
+				byte ret = JoystickGetButtonNative((SDLJoystick*)pjoystick, button);
 				return ret;
 			}
 		}
@@ -2098,7 +2098,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickRumble")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickRumbleNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		internal static int JoystickRumbleNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, int>)vt[527])(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
@@ -2117,9 +2117,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickRumble")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int JoystickRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
-			int ret = SDLJoystickRumbleNative(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+			int ret = JoystickRumbleNative(joystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
 			return ret;
 		}
 
@@ -2133,11 +2133,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickRumble")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int JoystickRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickRumbleNative((SDLJoystick*)pjoystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
+				int ret = JoystickRumbleNative((SDLJoystick*)pjoystick, lowFrequencyRumble, highFrequencyRumble, durationMs);
 				return ret;
 			}
 		}
@@ -2156,7 +2156,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickRumbleTriggersNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		internal static int JoystickRumbleTriggersNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, ushort, ushort, uint, int>)vt[528])(joystick, leftRumble, rightRumble, durationMs);
@@ -2179,9 +2179,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int JoystickRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
-			int ret = SDLJoystickRumbleTriggersNative(joystick, leftRumble, rightRumble, durationMs);
+			int ret = JoystickRumbleTriggersNative(joystick, leftRumble, rightRumble, durationMs);
 			return ret;
 		}
 
@@ -2199,11 +2199,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
+		public static int JoystickRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble, [NativeName(NativeNameType.Param, "duration_ms")] [NativeName(NativeNameType.Type, "Uint32")] uint durationMs)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickRumbleTriggersNative((SDLJoystick*)pjoystick, leftRumble, rightRumble, durationMs);
+				int ret = JoystickRumbleTriggersNative((SDLJoystick*)pjoystick, leftRumble, rightRumble, durationMs);
 				return ret;
 			}
 		}
@@ -2217,7 +2217,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasLED")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLJoystickHasLEDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static SDLBool JoystickHasLEDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)vt[529])(joystick);
@@ -2235,9 +2235,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasLED")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickHasLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static SDLBool JoystickHasLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLBool ret = SDLJoystickHasLEDNative(joystick);
+			SDLBool ret = JoystickHasLEDNative(joystick);
 			return ret;
 		}
 
@@ -2250,11 +2250,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasLED")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickHasLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static SDLBool JoystickHasLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLBool ret = SDLJoystickHasLEDNative((SDLJoystick*)pjoystick);
+				SDLBool ret = JoystickHasLEDNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -2267,7 +2267,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasRumble")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLJoystickHasRumbleNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static SDLBool JoystickHasRumbleNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)vt[530])(joystick);
@@ -2284,9 +2284,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasRumble")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickHasRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static SDLBool JoystickHasRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLBool ret = SDLJoystickHasRumbleNative(joystick);
+			SDLBool ret = JoystickHasRumbleNative(joystick);
 			return ret;
 		}
 
@@ -2298,11 +2298,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasRumble")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickHasRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static SDLBool JoystickHasRumble([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLBool ret = SDLJoystickHasRumbleNative((SDLJoystick*)pjoystick);
+				SDLBool ret = JoystickHasRumbleNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -2315,7 +2315,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLJoystickHasRumbleTriggersNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static SDLBool JoystickHasRumbleTriggersNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLBool>)vt[531])(joystick);
@@ -2332,9 +2332,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickHasRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static SDLBool JoystickHasRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLBool ret = SDLJoystickHasRumbleTriggersNative(joystick);
+			SDLBool ret = JoystickHasRumbleTriggersNative(joystick);
 			return ret;
 		}
 
@@ -2346,11 +2346,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickHasRumbleTriggers")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLJoystickHasRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static SDLBool JoystickHasRumbleTriggers([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLBool ret = SDLJoystickHasRumbleTriggersNative((SDLJoystick*)pjoystick);
+				SDLBool ret = JoystickHasRumbleTriggersNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -2364,7 +2364,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetLED")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickSetLEDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		internal static int JoystickSetLEDNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, byte, byte, byte, int>)vt[532])(joystick, red, green, blue);
@@ -2382,9 +2382,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetLED")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickSetLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		public static int JoystickSetLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
 		{
-			int ret = SDLJoystickSetLEDNative(joystick, red, green, blue);
+			int ret = JoystickSetLEDNative(joystick, red, green, blue);
 			return ret;
 		}
 
@@ -2397,11 +2397,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSetLED")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickSetLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
+		public static int JoystickSetLED([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickSetLEDNative((SDLJoystick*)pjoystick, red, green, blue);
+				int ret = JoystickSetLEDNative((SDLJoystick*)pjoystick, red, green, blue);
 				return ret;
 			}
 		}
@@ -2413,7 +2413,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSendEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickSendEffectNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		internal static int JoystickSendEffectNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, void*, int, int>)vt[533])(joystick, data, size);
@@ -2429,9 +2429,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSendEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickSendEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		public static int JoystickSendEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
-			int ret = SDLJoystickSendEffectNative(joystick, data, size);
+			int ret = JoystickSendEffectNative(joystick, data, size);
 			return ret;
 		}
 
@@ -2442,11 +2442,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickSendEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickSendEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
+		public static int JoystickSendEffect([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickSendEffectNative((SDLJoystick*)pjoystick, data, size);
+				int ret = JoystickSendEffectNative((SDLJoystick*)pjoystick, data, size);
 				return ret;
 			}
 		}
@@ -2459,7 +2459,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLJoystickCloseNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static void JoystickCloseNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLJoystick*, void>)vt[534])(joystick);
@@ -2476,9 +2476,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickClose([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static void JoystickClose([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLJoystickCloseNative(joystick);
+			JoystickCloseNative(joystick);
 		}
 
 		/// <summary>
@@ -2489,11 +2489,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLJoystickClose([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static void JoystickClose([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLJoystickCloseNative((SDLJoystick*)pjoystick);
+				JoystickCloseNative((SDLJoystick*)pjoystick);
 			}
 		}
 
@@ -2504,7 +2504,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickCurrentPowerLevel")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickPowerLevel")]
-		internal static SDLJoystickPowerLevel SDLJoystickCurrentPowerLevelNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static SDLJoystickPowerLevel JoystickCurrentPowerLevelNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLJoystickPowerLevel>)vt[535])(joystick);
@@ -2520,9 +2520,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickCurrentPowerLevel")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickPowerLevel")]
-		public static SDLJoystickPowerLevel SDLJoystickCurrentPowerLevel([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static SDLJoystickPowerLevel JoystickCurrentPowerLevel([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLJoystickPowerLevel ret = SDLJoystickCurrentPowerLevelNative(joystick);
+			SDLJoystickPowerLevel ret = JoystickCurrentPowerLevelNative(joystick);
 			return ret;
 		}
 
@@ -2533,11 +2533,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickCurrentPowerLevel")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickPowerLevel")]
-		public static SDLJoystickPowerLevel SDLJoystickCurrentPowerLevel([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static SDLJoystickPowerLevel JoystickCurrentPowerLevel([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLJoystickPowerLevel ret = SDLJoystickCurrentPowerLevelNative((SDLJoystick*)pjoystick);
+				SDLJoystickPowerLevel ret = JoystickCurrentPowerLevelNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -2553,7 +2553,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockSensors")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLockSensorsNative()
+		internal static void LockSensorsNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[536])();
@@ -2573,14 +2573,14 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockSensors")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLockSensors()
+		public static void LockSensors()
 		{
-			SDLLockSensorsNative();
+			LockSensorsNative();
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_UnlockSensors")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLUnlockSensorsNative()
+		internal static void UnlockSensorsNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[537])();
@@ -2591,9 +2591,9 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_UnlockSensors")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnlockSensors()
+		public static void UnlockSensors()
 		{
-			SDLUnlockSensorsNative();
+			UnlockSensorsNative();
 		}
 
 		/// <summary>
@@ -2603,7 +2603,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NumSensors")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLNumSensorsNative()
+		internal static int NumSensorsNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[538])();
@@ -2619,9 +2619,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NumSensors")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLNumSensors()
+		public static int NumSensors()
 		{
-			int ret = SDLNumSensorsNative();
+			int ret = NumSensorsNative();
 			return ret;
 		}
 
@@ -2632,7 +2632,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLSensorGetDeviceNameNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static byte* SensorGetDeviceNameNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[539])(deviceIndex);
@@ -2648,9 +2648,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLSensorGetDeviceName([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static byte* SensorGetDeviceName([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			byte* ret = SDLSensorGetDeviceNameNative(deviceIndex);
+			byte* ret = SensorGetDeviceNameNative(deviceIndex);
 			return ret;
 		}
 
@@ -2661,9 +2661,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLSensorGetDeviceNameS([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static string SensorGetDeviceNameS([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLSensorGetDeviceNameNative(deviceIndex));
+			string ret = Utils.DecodeStringUTF8(SensorGetDeviceNameNative(deviceIndex));
 			return ret;
 		}
 
@@ -2674,7 +2674,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceType")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
-		internal static SDLSensorType SDLSensorGetDeviceTypeNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static SDLSensorType SensorGetDeviceTypeNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLSensorType>)vt[540])(deviceIndex);
@@ -2690,9 +2690,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceType")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
-		public static SDLSensorType SDLSensorGetDeviceType([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static SDLSensorType SensorGetDeviceType([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			SDLSensorType ret = SDLSensorGetDeviceTypeNative(deviceIndex);
+			SDLSensorType ret = SensorGetDeviceTypeNative(deviceIndex);
 			return ret;
 		}
 
@@ -2703,7 +2703,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceNonPortableType")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSensorGetDeviceNonPortableTypeNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static int SensorGetDeviceNonPortableTypeNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)vt[541])(deviceIndex);
@@ -2719,9 +2719,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceNonPortableType")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDeviceNonPortableType([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static int SensorGetDeviceNonPortableType([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			int ret = SDLSensorGetDeviceNonPortableTypeNative(deviceIndex);
+			int ret = SensorGetDeviceNonPortableTypeNative(deviceIndex);
 			return ret;
 		}
 
@@ -2732,7 +2732,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
-		internal static int SDLSensorGetDeviceInstanceIDNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static int SensorGetDeviceInstanceIDNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)vt[542])(deviceIndex);
@@ -2748,9 +2748,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDeviceInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
-		public static int SDLSensorGetDeviceInstanceID([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static int SensorGetDeviceInstanceID([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			int ret = SDLSensorGetDeviceInstanceIDNative(deviceIndex);
+			int ret = SensorGetDeviceInstanceIDNative(deviceIndex);
 			return ret;
 		}
 
@@ -2761,7 +2761,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorOpen")]
 		[return: NativeName(NativeNameType.Type, "SDL_Sensor*")]
-		internal static SDLSensor* SDLSensorOpenNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static SDLSensor* SensorOpenNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)vt[543])(deviceIndex);
@@ -2777,9 +2777,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorOpen")]
 		[return: NativeName(NativeNameType.Type, "SDL_Sensor*")]
-		public static SDLSensor* SDLSensorOpen([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static SDLSensor* SensorOpen([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			SDLSensor* ret = SDLSensorOpenNative(deviceIndex);
+			SDLSensor* ret = SensorOpenNative(deviceIndex);
 			return ret;
 		}
 
@@ -2790,7 +2790,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorFromInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_Sensor*")]
-		internal static SDLSensor* SDLSensorFromInstanceIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		internal static SDLSensor* SensorFromInstanceIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLSensor*>)vt[544])(instanceId);
@@ -2806,9 +2806,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorFromInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_Sensor*")]
-		public static SDLSensor* SDLSensorFromInstanceID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
+		public static SDLSensor* SensorFromInstanceID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_SensorID")] int instanceId)
 		{
-			SDLSensor* ret = SDLSensorFromInstanceIDNative(instanceId);
+			SDLSensor* ret = SensorFromInstanceIDNative(instanceId);
 			return ret;
 		}
 
@@ -2819,7 +2819,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLSensorGetNameNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		internal static byte* SensorGetNameNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSensor*, byte*>)vt[545])(sensor);
@@ -2835,9 +2835,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLSensorGetName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		public static byte* SensorGetName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
-			byte* ret = SDLSensorGetNameNative(sensor);
+			byte* ret = SensorGetNameNative(sensor);
 			return ret;
 		}
 
@@ -2848,9 +2848,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLSensorGetNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		public static string SensorGetNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLSensorGetNameNative(sensor));
+			string ret = Utils.DecodeStringUTF8(SensorGetNameNative(sensor));
 			return ret;
 		}
 
@@ -2861,11 +2861,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLSensorGetName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
+		public static byte* SensorGetName([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				byte* ret = SDLSensorGetNameNative((SDLSensor*)psensor);
+				byte* ret = SensorGetNameNative((SDLSensor*)psensor);
 				return ret;
 			}
 		}
@@ -2877,11 +2877,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLSensorGetNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
+		public static string SensorGetNameS([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLSensorGetNameNative((SDLSensor*)psensor));
+				string ret = Utils.DecodeStringUTF8(SensorGetNameNative((SDLSensor*)psensor));
 				return ret;
 			}
 		}
@@ -2893,7 +2893,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
-		internal static SDLSensorType SDLSensorGetTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		internal static SDLSensorType SensorGetTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSensor*, SDLSensorType>)vt[546])(sensor);
@@ -2909,9 +2909,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
-		public static SDLSensorType SDLSensorGetType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		public static SDLSensorType SensorGetType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
-			SDLSensorType ret = SDLSensorGetTypeNative(sensor);
+			SDLSensorType ret = SensorGetTypeNative(sensor);
 			return ret;
 		}
 
@@ -2922,11 +2922,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorType")]
-		public static SDLSensorType SDLSensorGetType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
+		public static SDLSensorType SensorGetType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				SDLSensorType ret = SDLSensorGetTypeNative((SDLSensor*)psensor);
+				SDLSensorType ret = SensorGetTypeNative((SDLSensor*)psensor);
 				return ret;
 			}
 		}
@@ -2938,7 +2938,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetNonPortableType")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSensorGetNonPortableTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		internal static int SensorGetNonPortableTypeNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)vt[547])(sensor);
@@ -2954,9 +2954,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetNonPortableType")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		public static int SensorGetNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
-			int ret = SDLSensorGetNonPortableTypeNative(sensor);
+			int ret = SensorGetNonPortableTypeNative(sensor);
 			return ret;
 		}
 
@@ -2967,11 +2967,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetNonPortableType")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
+		public static int SensorGetNonPortableType([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				int ret = SDLSensorGetNonPortableTypeNative((SDLSensor*)psensor);
+				int ret = SensorGetNonPortableTypeNative((SDLSensor*)psensor);
 				return ret;
 			}
 		}
@@ -2983,7 +2983,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
-		internal static int SDLSensorGetInstanceIDNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		internal static int SensorGetInstanceIDNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSensor*, int>)vt[548])(sensor);
@@ -2999,9 +2999,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
-		public static int SDLSensorGetInstanceID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		public static int SensorGetInstanceID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
-			int ret = SDLSensorGetInstanceIDNative(sensor);
+			int ret = SensorGetInstanceIDNative(sensor);
 			return ret;
 		}
 
@@ -3012,11 +3012,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_SensorID")]
-		public static int SDLSensorGetInstanceID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
+		public static int SensorGetInstanceID([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				int ret = SDLSensorGetInstanceIDNative((SDLSensor*)psensor);
+				int ret = SensorGetInstanceIDNative((SDLSensor*)psensor);
 				return ret;
 			}
 		}
@@ -3029,7 +3029,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSensorGetDataNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		internal static int SensorGetDataNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, int>)vt[549])(sensor, data, numValues);
@@ -3046,9 +3046,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
-			int ret = SDLSensorGetDataNative(sensor, data, numValues);
+			int ret = SensorGetDataNative(sensor, data, numValues);
 			return ret;
 		}
 
@@ -3060,11 +3060,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				int ret = SDLSensorGetDataNative((SDLSensor*)psensor, data, numValues);
+				int ret = SensorGetDataNative((SDLSensor*)psensor, data, numValues);
 				return ret;
 			}
 		}
@@ -3077,11 +3077,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (float* pdata = &data)
 			{
-				int ret = SDLSensorGetDataNative(sensor, (float*)pdata, numValues);
+				int ret = SensorGetDataNative(sensor, (float*)pdata, numValues);
 				return ret;
 			}
 		}
@@ -3094,13 +3094,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetData")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetData([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
 				fixed (float* pdata = &data)
 				{
-					int ret = SDLSensorGetDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
+					int ret = SensorGetDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
 					return ret;
 				}
 			}
@@ -3115,7 +3115,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSensorGetDataWithTimestampNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		internal static int SensorGetDataWithTimestampNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSensor*, ulong*, float*, int, int>)vt[550])(sensor, timestamp, data, numValues);
@@ -3133,9 +3133,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
-			int ret = SDLSensorGetDataWithTimestampNative(sensor, timestamp, data, numValues);
+			int ret = SensorGetDataWithTimestampNative(sensor, timestamp, data, numValues);
 			return ret;
 		}
 
@@ -3148,11 +3148,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				int ret = SDLSensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, data, numValues);
+				int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, data, numValues);
 				return ret;
 			}
 		}
@@ -3166,11 +3166,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (ulong* ptimestamp = &timestamp)
 			{
-				int ret = SDLSensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, data, numValues);
+				int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, data, numValues);
 				return ret;
 			}
 		}
@@ -3184,13 +3184,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] float* data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
 				fixed (ulong* ptimestamp = &timestamp)
 				{
-					int ret = SDLSensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, data, numValues);
+					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, data, numValues);
 					return ret;
 				}
 			}
@@ -3205,11 +3205,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (float* pdata = &data)
 			{
-				int ret = SDLSensorGetDataWithTimestampNative(sensor, timestamp, (float*)pdata, numValues);
+				int ret = SensorGetDataWithTimestampNative(sensor, timestamp, (float*)pdata, numValues);
 				return ret;
 			}
 		}
@@ -3223,13 +3223,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ulong* timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
 				fixed (float* pdata = &data)
 				{
-					int ret = SDLSensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, (float*)pdata, numValues);
+					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, (float*)pdata, numValues);
 					return ret;
 				}
 			}
@@ -3244,13 +3244,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (ulong* ptimestamp = &timestamp)
 			{
 				fixed (float* pdata = &data)
 				{
-					int ret = SDLSensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, (float*)pdata, numValues);
+					int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, (float*)pdata, numValues);
 					return ret;
 				}
 			}
@@ -3265,7 +3265,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorGetDataWithTimestamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
+		public static int SensorGetDataWithTimestamp([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor, [NativeName(NativeNameType.Param, "timestamp")] [NativeName(NativeNameType.Type, "Uint64*")] ref ulong timestamp, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "float*")] ref float data, [NativeName(NativeNameType.Param, "num_values")] [NativeName(NativeNameType.Type, "int")] int numValues)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
@@ -3273,7 +3273,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* pdata = &data)
 					{
-						int ret = SDLSensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, (float*)pdata, numValues);
+						int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, (float*)pdata, numValues);
 						return ret;
 					}
 				}
@@ -3287,7 +3287,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSensorCloseNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		internal static void SensorCloseNative([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)vt[551])(sensor);
@@ -3303,9 +3303,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSensorClose([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
+		public static void SensorClose([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] SDLSensor* sensor)
 		{
-			SDLSensorCloseNative(sensor);
+			SensorCloseNative(sensor);
 		}
 
 		/// <summary>
@@ -3315,11 +3315,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSensorClose([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
+		public static void SensorClose([NativeName(NativeNameType.Param, "sensor")] [NativeName(NativeNameType.Type, "SDL_Sensor*")] ref SDLSensor sensor)
 		{
 			fixed (SDLSensor* psensor = &sensor)
 			{
-				SDLSensorCloseNative((SDLSensor*)psensor);
+				SensorCloseNative((SDLSensor*)psensor);
 			}
 		}
 
@@ -3333,7 +3333,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorUpdate")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSensorUpdateNative()
+		internal static void SensorUpdateNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[552])();
@@ -3352,9 +3352,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SensorUpdate")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSensorUpdate()
+		public static void SensorUpdate()
 		{
-			SDLSensorUpdateNative();
+			SensorUpdateNative();
 		}
 
 		/// <summary>
@@ -3375,7 +3375,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMappingsFromRW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerAddMappingsFromRWNative([NativeName(NativeNameType.Param, "rw")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* rw, [NativeName(NativeNameType.Param, "freerw")] [NativeName(NativeNameType.Type, "int")] int freerw)
+		internal static int GameControllerAddMappingsFromRWNative([NativeName(NativeNameType.Param, "rw")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* rw, [NativeName(NativeNameType.Param, "freerw")] [NativeName(NativeNameType.Type, "int")] int freerw)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, int>)vt[553])(rw, freerw);
@@ -3402,9 +3402,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMappingsFromRW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerAddMappingsFromRW([NativeName(NativeNameType.Param, "rw")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* rw, [NativeName(NativeNameType.Param, "freerw")] [NativeName(NativeNameType.Type, "int")] int freerw)
+		public static int GameControllerAddMappingsFromRW([NativeName(NativeNameType.Param, "rw")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* rw, [NativeName(NativeNameType.Param, "freerw")] [NativeName(NativeNameType.Type, "int")] int freerw)
 		{
-			int ret = SDLGameControllerAddMappingsFromRWNative(rw, freerw);
+			int ret = GameControllerAddMappingsFromRWNative(rw, freerw);
 			return ret;
 		}
 
@@ -3426,11 +3426,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMappingsFromRW")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerAddMappingsFromRW([NativeName(NativeNameType.Param, "rw")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops rw, [NativeName(NativeNameType.Param, "freerw")] [NativeName(NativeNameType.Type, "int")] int freerw)
+		public static int GameControllerAddMappingsFromRW([NativeName(NativeNameType.Param, "rw")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops rw, [NativeName(NativeNameType.Param, "freerw")] [NativeName(NativeNameType.Type, "int")] int freerw)
 		{
 			fixed (SDLRWops* prw = &rw)
 			{
-				int ret = SDLGameControllerAddMappingsFromRWNative((SDLRWops*)prw, freerw);
+				int ret = GameControllerAddMappingsFromRWNative((SDLRWops*)prw, freerw);
 				return ret;
 			}
 		}
@@ -3455,7 +3455,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMapping")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerAddMappingNative([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] byte* mappingString)
+		internal static int GameControllerAddMappingNative([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] byte* mappingString)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[554])(mappingString);
@@ -3484,9 +3484,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMapping")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] byte* mappingString)
+		public static int GameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] byte* mappingString)
 		{
-			int ret = SDLGameControllerAddMappingNative(mappingString);
+			int ret = GameControllerAddMappingNative(mappingString);
 			return ret;
 		}
 
@@ -3510,11 +3510,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMapping")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] ref byte mappingString)
+		public static int GameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] ref byte mappingString)
 		{
 			fixed (byte* pmappingString = &mappingString)
 			{
-				int ret = SDLGameControllerAddMappingNative((byte*)pmappingString);
+				int ret = GameControllerAddMappingNative((byte*)pmappingString);
 				return ret;
 			}
 		}
@@ -3539,11 +3539,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMapping")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> mappingString)
+		public static int GameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> mappingString)
 		{
 			fixed (byte* pmappingString = mappingString)
 			{
-				int ret = SDLGameControllerAddMappingNative((byte*)pmappingString);
+				int ret = GameControllerAddMappingNative((byte*)pmappingString);
 				return ret;
 			}
 		}
@@ -3568,7 +3568,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerAddMapping")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] string mappingString)
+		public static int GameControllerAddMapping([NativeName(NativeNameType.Param, "mappingString")] [NativeName(NativeNameType.Type, "const char*")] string mappingString)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3587,7 +3587,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(mappingString, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SDLGameControllerAddMappingNative(pStr0);
+			int ret = GameControllerAddMappingNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -3602,7 +3602,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerNumMappings")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerNumMappingsNative()
+		internal static int GameControllerNumMappingsNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[555])();
@@ -3618,9 +3618,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerNumMappings")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerNumMappings()
+		public static int GameControllerNumMappings()
 		{
-			int ret = SDLGameControllerNumMappingsNative();
+			int ret = GameControllerNumMappingsNative();
 			return ret;
 		}
 
@@ -3631,7 +3631,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForIndex")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGameControllerMappingForIndexNative([NativeName(NativeNameType.Param, "mapping_index")] [NativeName(NativeNameType.Type, "int")] int mappingIndex)
+		internal static byte* GameControllerMappingForIndexNative([NativeName(NativeNameType.Param, "mapping_index")] [NativeName(NativeNameType.Type, "int")] int mappingIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[556])(mappingIndex);
@@ -3647,9 +3647,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForIndex")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGameControllerMappingForIndex([NativeName(NativeNameType.Param, "mapping_index")] [NativeName(NativeNameType.Type, "int")] int mappingIndex)
+		public static byte* GameControllerMappingForIndex([NativeName(NativeNameType.Param, "mapping_index")] [NativeName(NativeNameType.Type, "int")] int mappingIndex)
 		{
-			byte* ret = SDLGameControllerMappingForIndexNative(mappingIndex);
+			byte* ret = GameControllerMappingForIndexNative(mappingIndex);
 			return ret;
 		}
 
@@ -3660,9 +3660,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForIndex")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGameControllerMappingForIndexS([NativeName(NativeNameType.Param, "mapping_index")] [NativeName(NativeNameType.Type, "int")] int mappingIndex)
+		public static string GameControllerMappingForIndexS([NativeName(NativeNameType.Param, "mapping_index")] [NativeName(NativeNameType.Type, "int")] int mappingIndex)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerMappingForIndexNative(mappingIndex));
+			string ret = Utils.DecodeStringUTF8(GameControllerMappingForIndexNative(mappingIndex));
 			return ret;
 		}
 
@@ -3675,7 +3675,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForGUID")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGameControllerMappingForGUIDNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid)
+		internal static byte* GameControllerMappingForGUIDNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<Guid, byte*>)vt[557])(guid);
@@ -3693,9 +3693,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForGUID")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGameControllerMappingForGUID([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid)
+		public static byte* GameControllerMappingForGUID([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid)
 		{
-			byte* ret = SDLGameControllerMappingForGUIDNative(guid);
+			byte* ret = GameControllerMappingForGUIDNative(guid);
 			return ret;
 		}
 
@@ -3708,9 +3708,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForGUID")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGameControllerMappingForGUIDS([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid)
+		public static string GameControllerMappingForGUIDS([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_JoystickGUID")] Guid guid)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerMappingForGUIDNative(guid));
+			string ret = Utils.DecodeStringUTF8(GameControllerMappingForGUIDNative(guid));
 			return ret;
 		}
 
@@ -3724,7 +3724,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMapping")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGameControllerMappingNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static byte* GameControllerMappingNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, byte*>)vt[558])(gamecontroller);
@@ -3743,9 +3743,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMapping")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGameControllerMapping([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static byte* GameControllerMapping([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			byte* ret = SDLGameControllerMappingNative(gamecontroller);
+			byte* ret = GameControllerMappingNative(gamecontroller);
 			return ret;
 		}
 
@@ -3759,9 +3759,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMapping")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGameControllerMappingS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static string GameControllerMappingS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerMappingNative(gamecontroller));
+			string ret = Utils.DecodeStringUTF8(GameControllerMappingNative(gamecontroller));
 			return ret;
 		}
 
@@ -3775,11 +3775,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMapping")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGameControllerMapping([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static byte* GameControllerMapping([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				byte* ret = SDLGameControllerMappingNative((SDLGameController*)pgamecontroller);
+				byte* ret = GameControllerMappingNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -3794,11 +3794,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMapping")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGameControllerMappingS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static string GameControllerMappingS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGameControllerMappingNative((SDLGameController*)pgamecontroller));
+				string ret = Utils.DecodeStringUTF8(GameControllerMappingNative((SDLGameController*)pgamecontroller));
 				return ret;
 			}
 		}
@@ -3813,7 +3813,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsGameController")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLIsGameControllerNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		internal static SDLBool IsGameControllerNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLBool>)vt[559])(joystickIndex);
@@ -3832,9 +3832,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsGameController")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLIsGameController([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static SDLBool IsGameController([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			SDLBool ret = SDLIsGameControllerNative(joystickIndex);
+			SDLBool ret = IsGameControllerNative(joystickIndex);
 			return ret;
 		}
 
@@ -3849,7 +3849,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerNameForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerNameForIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		internal static byte* GameControllerNameForIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[560])(joystickIndex);
@@ -3869,9 +3869,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerNameForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerNameForIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static byte* GameControllerNameForIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			byte* ret = SDLGameControllerNameForIndexNative(joystickIndex);
+			byte* ret = GameControllerNameForIndexNative(joystickIndex);
 			return ret;
 		}
 
@@ -3886,9 +3886,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerNameForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerNameForIndexS([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static string GameControllerNameForIndexS([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerNameForIndexNative(joystickIndex));
+			string ret = Utils.DecodeStringUTF8(GameControllerNameForIndexNative(joystickIndex));
 			return ret;
 		}
 
@@ -3903,7 +3903,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPathForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerPathForIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		internal static byte* GameControllerPathForIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[561])(joystickIndex);
@@ -3923,9 +3923,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPathForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerPathForIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static byte* GameControllerPathForIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			byte* ret = SDLGameControllerPathForIndexNative(joystickIndex);
+			byte* ret = GameControllerPathForIndexNative(joystickIndex);
 			return ret;
 		}
 
@@ -3940,9 +3940,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPathForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerPathForIndexS([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static string GameControllerPathForIndexS([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerPathForIndexNative(joystickIndex));
+			string ret = Utils.DecodeStringUTF8(GameControllerPathForIndexNative(joystickIndex));
 			return ret;
 		}
 
@@ -3954,7 +3954,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerTypeForIndex")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerType")]
-		internal static SDLGameControllerType SDLGameControllerTypeForIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		internal static SDLGameControllerType GameControllerTypeForIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLGameControllerType>)vt[562])(joystickIndex);
@@ -3971,9 +3971,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerTypeForIndex")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerType")]
-		public static SDLGameControllerType SDLGameControllerTypeForIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static SDLGameControllerType GameControllerTypeForIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			SDLGameControllerType ret = SDLGameControllerTypeForIndexNative(joystickIndex);
+			SDLGameControllerType ret = GameControllerTypeForIndexNative(joystickIndex);
 			return ret;
 		}
 
@@ -3985,7 +3985,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForDeviceIndex")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGameControllerMappingForDeviceIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		internal static byte* GameControllerMappingForDeviceIndexNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[563])(joystickIndex);
@@ -4002,9 +4002,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForDeviceIndex")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGameControllerMappingForDeviceIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static byte* GameControllerMappingForDeviceIndex([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			byte* ret = SDLGameControllerMappingForDeviceIndexNative(joystickIndex);
+			byte* ret = GameControllerMappingForDeviceIndexNative(joystickIndex);
 			return ret;
 		}
 
@@ -4016,9 +4016,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerMappingForDeviceIndex")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGameControllerMappingForDeviceIndexS([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static string GameControllerMappingForDeviceIndexS([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerMappingForDeviceIndexNative(joystickIndex));
+			string ret = Utils.DecodeStringUTF8(GameControllerMappingForDeviceIndexNative(joystickIndex));
 			return ret;
 		}
 
@@ -4036,7 +4036,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerOpen")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameController*")]
-		internal static SDLGameController* SDLGameControllerOpenNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		internal static SDLGameController* GameControllerOpenNative([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLGameController*>)vt[564])(joystickIndex);
@@ -4059,9 +4059,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerOpen")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameController*")]
-		public static SDLGameController* SDLGameControllerOpen([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
+		public static SDLGameController* GameControllerOpen([NativeName(NativeNameType.Param, "joystick_index")] [NativeName(NativeNameType.Type, "int")] int joystickIndex)
 		{
-			SDLGameController* ret = SDLGameControllerOpenNative(joystickIndex);
+			SDLGameController* ret = GameControllerOpenNative(joystickIndex);
 			return ret;
 		}
 
@@ -4072,7 +4072,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerFromInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameController*")]
-		internal static SDLGameController* SDLGameControllerFromInstanceIDNative([NativeName(NativeNameType.Param, "joyid")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int joyid)
+		internal static SDLGameController* GameControllerFromInstanceIDNative([NativeName(NativeNameType.Param, "joyid")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int joyid)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLGameController*>)vt[565])(joyid);
@@ -4088,9 +4088,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerFromInstanceID")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameController*")]
-		public static SDLGameController* SDLGameControllerFromInstanceID([NativeName(NativeNameType.Param, "joyid")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int joyid)
+		public static SDLGameController* GameControllerFromInstanceID([NativeName(NativeNameType.Param, "joyid")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int joyid)
 		{
-			SDLGameController* ret = SDLGameControllerFromInstanceIDNative(joyid);
+			SDLGameController* ret = GameControllerFromInstanceIDNative(joyid);
 			return ret;
 		}
 
@@ -4104,7 +4104,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerFromPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameController*")]
-		internal static SDLGameController* SDLGameControllerFromPlayerIndexNative([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		internal static SDLGameController* GameControllerFromPlayerIndexNative([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLGameController*>)vt[566])(playerIndex);
@@ -4123,9 +4123,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerFromPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameController*")]
-		public static SDLGameController* SDLGameControllerFromPlayerIndex([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		public static SDLGameController* GameControllerFromPlayerIndex([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
-			SDLGameController* ret = SDLGameControllerFromPlayerIndexNative(playerIndex);
+			SDLGameController* ret = GameControllerFromPlayerIndexNative(playerIndex);
 			return ret;
 		}
 
@@ -4139,7 +4139,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerNameNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static byte* GameControllerNameNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, byte*>)vt[567])(gamecontroller);
@@ -4158,9 +4158,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerName([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static byte* GameControllerName([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			byte* ret = SDLGameControllerNameNative(gamecontroller);
+			byte* ret = GameControllerNameNative(gamecontroller);
 			return ret;
 		}
 
@@ -4174,9 +4174,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerNameS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static string GameControllerNameS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerNameNative(gamecontroller));
+			string ret = Utils.DecodeStringUTF8(GameControllerNameNative(gamecontroller));
 			return ret;
 		}
 
@@ -4190,11 +4190,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerName([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static byte* GameControllerName([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				byte* ret = SDLGameControllerNameNative((SDLGameController*)pgamecontroller);
+				byte* ret = GameControllerNameNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4209,11 +4209,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerNameS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static string GameControllerNameS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGameControllerNameNative((SDLGameController*)pgamecontroller));
+				string ret = Utils.DecodeStringUTF8(GameControllerNameNative((SDLGameController*)pgamecontroller));
 				return ret;
 			}
 		}
@@ -4228,7 +4228,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerPathNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static byte* GameControllerPathNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, byte*>)vt[568])(gamecontroller);
@@ -4247,9 +4247,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerPath([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static byte* GameControllerPath([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			byte* ret = SDLGameControllerPathNative(gamecontroller);
+			byte* ret = GameControllerPathNative(gamecontroller);
 			return ret;
 		}
 
@@ -4263,9 +4263,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerPathS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static string GameControllerPathS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerPathNative(gamecontroller));
+			string ret = Utils.DecodeStringUTF8(GameControllerPathNative(gamecontroller));
 			return ret;
 		}
 
@@ -4279,11 +4279,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerPath([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static byte* GameControllerPath([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				byte* ret = SDLGameControllerPathNative((SDLGameController*)pgamecontroller);
+				byte* ret = GameControllerPathNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4298,11 +4298,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerPath")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerPathS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static string GameControllerPathS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGameControllerPathNative((SDLGameController*)pgamecontroller));
+				string ret = Utils.DecodeStringUTF8(GameControllerPathNative((SDLGameController*)pgamecontroller));
 				return ret;
 			}
 		}
@@ -4316,7 +4316,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerType")]
-		internal static SDLGameControllerType SDLGameControllerGetTypeNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static SDLGameControllerType GameControllerGetTypeNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLGameControllerType>)vt[569])(gamecontroller);
@@ -4334,9 +4334,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerType")]
-		public static SDLGameControllerType SDLGameControllerGetType([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static SDLGameControllerType GameControllerGetType([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			SDLGameControllerType ret = SDLGameControllerGetTypeNative(gamecontroller);
+			SDLGameControllerType ret = GameControllerGetTypeNative(gamecontroller);
 			return ret;
 		}
 
@@ -4349,11 +4349,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetType")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerType")]
-		public static SDLGameControllerType SDLGameControllerGetType([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static SDLGameControllerType GameControllerGetType([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLGameControllerType ret = SDLGameControllerGetTypeNative((SDLGameController*)pgamecontroller);
+				SDLGameControllerType ret = GameControllerGetTypeNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4366,7 +4366,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerGetPlayerIndexNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static int GameControllerGetPlayerIndexNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, int>)vt[570])(gamecontroller);
@@ -4383,9 +4383,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static int GameControllerGetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			int ret = SDLGameControllerGetPlayerIndexNative(gamecontroller);
+			int ret = GameControllerGetPlayerIndexNative(gamecontroller);
 			return ret;
 		}
 
@@ -4397,11 +4397,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerGetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static int GameControllerGetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				int ret = SDLGameControllerGetPlayerIndexNative((SDLGameController*)pgamecontroller);
+				int ret = GameControllerGetPlayerIndexNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4413,7 +4413,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGameControllerSetPlayerIndexNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		internal static void GameControllerSetPlayerIndexNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLGameController*, int, void>)vt[571])(gamecontroller, playerIndex);
@@ -4429,9 +4429,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGameControllerSetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		public static void GameControllerSetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
-			SDLGameControllerSetPlayerIndexNative(gamecontroller, playerIndex);
+			GameControllerSetPlayerIndexNative(gamecontroller, playerIndex);
 		}
 
 		/// <summary>
@@ -4441,11 +4441,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerSetPlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGameControllerSetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
+		public static void GameControllerSetPlayerIndex([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller, [NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLGameControllerSetPlayerIndexNative((SDLGameController*)pgamecontroller, playerIndex);
+				GameControllerSetPlayerIndexNative((SDLGameController*)pgamecontroller, playerIndex);
 			}
 		}
 
@@ -4457,7 +4457,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetVendor")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLGameControllerGetVendorNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static ushort GameControllerGetVendorNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort>)vt[572])(gamecontroller);
@@ -4474,9 +4474,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetVendor")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetVendor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static ushort GameControllerGetVendor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			ushort ret = SDLGameControllerGetVendorNative(gamecontroller);
+			ushort ret = GameControllerGetVendorNative(gamecontroller);
 			return ret;
 		}
 
@@ -4488,11 +4488,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetVendor")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetVendor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static ushort GameControllerGetVendor([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				ushort ret = SDLGameControllerGetVendorNative((SDLGameController*)pgamecontroller);
+				ushort ret = GameControllerGetVendorNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4505,7 +4505,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetProduct")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLGameControllerGetProductNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static ushort GameControllerGetProductNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort>)vt[573])(gamecontroller);
@@ -4522,9 +4522,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetProduct")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetProduct([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static ushort GameControllerGetProduct([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			ushort ret = SDLGameControllerGetProductNative(gamecontroller);
+			ushort ret = GameControllerGetProductNative(gamecontroller);
 			return ret;
 		}
 
@@ -4536,11 +4536,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetProduct")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetProduct([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static ushort GameControllerGetProduct([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				ushort ret = SDLGameControllerGetProductNative((SDLGameController*)pgamecontroller);
+				ushort ret = GameControllerGetProductNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4553,7 +4553,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetProductVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLGameControllerGetProductVersionNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static ushort GameControllerGetProductVersionNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort>)vt[574])(gamecontroller);
@@ -4570,9 +4570,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetProductVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetProductVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static ushort GameControllerGetProductVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			ushort ret = SDLGameControllerGetProductVersionNative(gamecontroller);
+			ushort ret = GameControllerGetProductVersionNative(gamecontroller);
 			return ret;
 		}
 
@@ -4584,11 +4584,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetProductVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetProductVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static ushort GameControllerGetProductVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				ushort ret = SDLGameControllerGetProductVersionNative((SDLGameController*)pgamecontroller);
+				ushort ret = GameControllerGetProductVersionNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4601,7 +4601,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetFirmwareVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLGameControllerGetFirmwareVersionNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static ushort GameControllerGetFirmwareVersionNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ushort>)vt[575])(gamecontroller);
@@ -4618,9 +4618,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetFirmwareVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetFirmwareVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static ushort GameControllerGetFirmwareVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			ushort ret = SDLGameControllerGetFirmwareVersionNative(gamecontroller);
+			ushort ret = GameControllerGetFirmwareVersionNative(gamecontroller);
 			return ret;
 		}
 
@@ -4632,11 +4632,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetFirmwareVersion")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLGameControllerGetFirmwareVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static ushort GameControllerGetFirmwareVersion([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				ushort ret = SDLGameControllerGetFirmwareVersionNative((SDLGameController*)pgamecontroller);
+				ushort ret = GameControllerGetFirmwareVersionNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4650,7 +4650,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGameControllerGetSerialNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static byte* GameControllerGetSerialNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, byte*>)vt[576])(gamecontroller);
@@ -4668,9 +4668,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetSerial([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static byte* GameControllerGetSerial([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			byte* ret = SDLGameControllerGetSerialNative(gamecontroller);
+			byte* ret = GameControllerGetSerialNative(gamecontroller);
 			return ret;
 		}
 
@@ -4683,9 +4683,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetSerialS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static string GameControllerGetSerialS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGameControllerGetSerialNative(gamecontroller));
+			string ret = Utils.DecodeStringUTF8(GameControllerGetSerialNative(gamecontroller));
 			return ret;
 		}
 
@@ -4698,11 +4698,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGameControllerGetSerial([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static byte* GameControllerGetSerial([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				byte* ret = SDLGameControllerGetSerialNative((SDLGameController*)pgamecontroller);
+				byte* ret = GameControllerGetSerialNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4716,11 +4716,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSerial")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGameControllerGetSerialS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static string GameControllerGetSerialS([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGameControllerGetSerialNative((SDLGameController*)pgamecontroller));
+				string ret = Utils.DecodeStringUTF8(GameControllerGetSerialNative((SDLGameController*)pgamecontroller));
 				return ret;
 			}
 		}
@@ -4734,7 +4734,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSteamHandle")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		internal static ulong SDLGameControllerGetSteamHandleNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static ulong GameControllerGetSteamHandleNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, ulong>)vt[577])(gamecontroller);
@@ -4752,9 +4752,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSteamHandle")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong SDLGameControllerGetSteamHandle([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static ulong GameControllerGetSteamHandle([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			ulong ret = SDLGameControllerGetSteamHandleNative(gamecontroller);
+			ulong ret = GameControllerGetSteamHandleNative(gamecontroller);
 			return ret;
 		}
 
@@ -4767,11 +4767,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetSteamHandle")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong SDLGameControllerGetSteamHandle([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static ulong GameControllerGetSteamHandle([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				ulong ret = SDLGameControllerGetSteamHandleNative((SDLGameController*)pgamecontroller);
+				ulong ret = GameControllerGetSteamHandleNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4784,7 +4784,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAttached")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGameControllerGetAttachedNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static SDLBool GameControllerGetAttachedNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLBool>)vt[578])(gamecontroller);
@@ -4801,9 +4801,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAttached")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerGetAttached([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static SDLBool GameControllerGetAttached([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			SDLBool ret = SDLGameControllerGetAttachedNative(gamecontroller);
+			SDLBool ret = GameControllerGetAttachedNative(gamecontroller);
 			return ret;
 		}
 
@@ -4815,11 +4815,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAttached")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGameControllerGetAttached([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static SDLBool GameControllerGetAttached([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLBool ret = SDLGameControllerGetAttachedNative((SDLGameController*)pgamecontroller);
+				SDLBool ret = GameControllerGetAttachedNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4839,7 +4839,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetJoystick")]
 		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		internal static SDLJoystick* SDLGameControllerGetJoystickNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		internal static SDLJoystick* GameControllerGetJoystickNative([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLGameController*, SDLJoystick*>)vt[579])(gamecontroller);
@@ -4863,9 +4863,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetJoystick")]
 		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		public static SDLJoystick* SDLGameControllerGetJoystick([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
+		public static SDLJoystick* GameControllerGetJoystick([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] SDLGameController* gamecontroller)
 		{
-			SDLJoystick* ret = SDLGameControllerGetJoystickNative(gamecontroller);
+			SDLJoystick* ret = GameControllerGetJoystickNative(gamecontroller);
 			return ret;
 		}
 
@@ -4884,11 +4884,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetJoystick")]
 		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		public static SDLJoystick* SDLGameControllerGetJoystick([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
+		public static SDLJoystick* GameControllerGetJoystick([NativeName(NativeNameType.Param, "gamecontroller")] [NativeName(NativeNameType.Type, "SDL_GameController*")] ref SDLGameController gamecontroller)
 		{
 			fixed (SDLGameController* pgamecontroller = &gamecontroller)
 			{
-				SDLJoystick* ret = SDLGameControllerGetJoystickNative((SDLGameController*)pgamecontroller);
+				SDLJoystick* ret = GameControllerGetJoystickNative((SDLGameController*)pgamecontroller);
 				return ret;
 			}
 		}
@@ -4906,7 +4906,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerEventState")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGameControllerEventStateNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
+		internal static int GameControllerEventStateNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)vt[580])(state);
@@ -4928,9 +4928,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerEventState")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGameControllerEventState([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
+		public static int GameControllerEventState([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "int")] int state)
 		{
-			int ret = SDLGameControllerEventStateNative(state);
+			int ret = GameControllerEventStateNative(state);
 			return ret;
 		}
 
@@ -4943,7 +4943,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerUpdate")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGameControllerUpdateNative()
+		internal static void GameControllerUpdateNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[581])();
@@ -4961,9 +4961,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerUpdate")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGameControllerUpdate()
+		public static void GameControllerUpdate()
 		{
-			SDLGameControllerUpdateNative();
+			GameControllerUpdateNative();
 		}
 
 		/// <summary>
@@ -4981,7 +4981,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxisFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerAxis")]
-		internal static SDLGameControllerAxis SDLGameControllerGetAxisFromStringNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		internal static SDLGameControllerAxis GameControllerGetAxisFromStringNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, SDLGameControllerAxis>)vt[582])(str);
@@ -5005,9 +5005,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxisFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerAxis")]
-		public static SDLGameControllerAxis SDLGameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		public static SDLGameControllerAxis GameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
 		{
-			SDLGameControllerAxis ret = SDLGameControllerGetAxisFromStringNative(str);
+			SDLGameControllerAxis ret = GameControllerGetAxisFromStringNative(str);
 			return ret;
 		}
 
@@ -5026,11 +5026,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GameControllerGetAxisFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GameControllerAxis")]
-		public static SDLGameControllerAxis SDLGameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ref byte str)
+		public static SDLGameControllerAxis GameControllerGetAxisFromString([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
-				SDLGameControllerAxis ret = SDLGameControllerGetAxisFromStringNative((byte*)pstr);
+				SDLGameControllerAxis ret = GameControllerGetAxisFromStringNative((byte*)pstr);
 				return ret;
 			}
 		}

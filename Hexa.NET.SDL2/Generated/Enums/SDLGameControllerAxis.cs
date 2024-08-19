@@ -22,6 +22,7 @@ namespace Hexa.NET.SDL2
 	/// same range that will be reported by the lower-level SDL_GetJoystickAxis().<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_GameControllerAxis")]
+	[Flags]
 	public enum SDLGameControllerAxis : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_INVALID")]

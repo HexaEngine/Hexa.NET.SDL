@@ -17,6 +17,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_HitTestResult")]
+	[Flags]
 	public enum SDLHitTestResult : int
 	{
 		/// <summary>

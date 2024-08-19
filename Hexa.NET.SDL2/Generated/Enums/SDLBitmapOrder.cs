@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Bitmap pixel order, high bit -> low bit. <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_BitmapOrder")]
+	[Flags]
 	public enum SDLBitmapOrder : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_BITMAPORDER_NONE")]

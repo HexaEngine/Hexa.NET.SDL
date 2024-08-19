@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_AssertState")]
+	[Flags]
 	public enum SDLAssertState : int
 	{
 		/// <summary>

@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// The types of events that can be delivered.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_EventType")]
+	[Flags]
 	public enum SDLEventType : int
 	{
 		/// <summary>

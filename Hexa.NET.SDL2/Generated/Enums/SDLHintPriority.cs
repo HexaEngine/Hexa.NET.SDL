@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_HintPriority")]
+	[Flags]
 	public enum SDLHintPriority : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_HINT_DEFAULT")]

@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_LogPriority")]
+	[Flags]
 	public enum SDLLogPriority : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_LOG_PRIORITY_VERBOSE")]

@@ -20,6 +20,7 @@ namespace Hexa.NET.SDL2
 	/// ERROR level.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_LogCategory")]
+	[Flags]
 	public enum SDLLogCategory : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_LOG_CATEGORY_APPLICATION")]

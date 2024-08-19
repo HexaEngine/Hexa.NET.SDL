@@ -21,6 +21,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_ThreadPriority")]
+	[Flags]
 	public enum SDLThreadPriority : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_THREAD_PRIORITY_LOW")]

@@ -18,6 +18,7 @@ namespace Hexa.NET.SDL2
 	/// comparisons should not be made against KHRONOS_TRUE.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "khronos_boolean_enum_t")]
+	[Flags]
 	public enum KhronosBooleanEnum : int
 	{
 		[NativeName(NativeNameType.EnumItem, "KHRONOS_FALSE")]

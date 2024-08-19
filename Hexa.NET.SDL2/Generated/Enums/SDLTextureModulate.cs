@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// The texture channel modulation used in SDL_RenderCopy().<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_TextureModulate")]
+	[Flags]
 	public enum SDLTextureModulate : int
 	{
 		/// <summary>

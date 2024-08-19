@@ -70,7 +70,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -106,7 +106,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			byte* ret = SDLGetPrefPathNative(pStr0, pStr1);
+			byte* ret = GetPrefPathNative(pStr0, pStr1);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -171,7 +171,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -207,7 +207,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			string ret = Utils.DecodeStringUTF8(SDLGetPrefPathNative(pStr0, pStr1));
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, pStr1));
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -227,7 +227,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NumHaptics")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLNumHapticsNative()
+		internal static int NumHapticsNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[640])();
@@ -244,9 +244,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NumHaptics")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLNumHaptics()
+		public static int NumHaptics()
 		{
-			int ret = SDLNumHapticsNative();
+			int ret = NumHapticsNative();
 			return ret;
 		}
 
@@ -260,7 +260,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLHapticNameNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static byte* HapticNameNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[641])(deviceIndex);
@@ -279,9 +279,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLHapticName([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static byte* HapticName([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			byte* ret = SDLHapticNameNative(deviceIndex);
+			byte* ret = HapticNameNative(deviceIndex);
 			return ret;
 		}
 
@@ -295,9 +295,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLHapticNameS([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static string HapticNameS([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLHapticNameNative(deviceIndex));
+			string ret = Utils.DecodeStringUTF8(HapticNameNative(deviceIndex));
 			return ret;
 		}
 
@@ -314,7 +314,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpen")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		internal static SDLHaptic* SDLHapticOpenNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static SDLHaptic* HapticOpenNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLHaptic*>)vt[642])(deviceIndex);
@@ -336,9 +336,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpen")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* SDLHapticOpen([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static SDLHaptic* HapticOpen([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			SDLHaptic* ret = SDLHapticOpenNative(deviceIndex);
+			SDLHaptic* ret = HapticOpenNative(deviceIndex);
 			return ret;
 		}
 
@@ -350,7 +350,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpened")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticOpenedNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		internal static int HapticOpenedNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)vt[643])(deviceIndex);
@@ -367,9 +367,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpened")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticOpened([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
+		public static int HapticOpened([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
-			int ret = SDLHapticOpenedNative(deviceIndex);
+			int ret = HapticOpenedNative(deviceIndex);
 			return ret;
 		}
 
@@ -381,7 +381,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticIndexNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticIndexNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[644])(haptic);
@@ -398,9 +398,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticIndex([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticIndex([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticIndexNative(haptic);
+			int ret = HapticIndexNative(haptic);
 			return ret;
 		}
 
@@ -412,11 +412,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticIndex([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticIndex([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticIndexNative((SDLHaptic*)phaptic);
+				int ret = HapticIndexNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -429,7 +429,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MouseIsHaptic")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLMouseIsHapticNative()
+		internal static int MouseIsHapticNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[645])();
@@ -446,9 +446,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MouseIsHaptic")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLMouseIsHaptic()
+		public static int MouseIsHaptic()
 		{
-			int ret = SDLMouseIsHapticNative();
+			int ret = MouseIsHapticNative();
 			return ret;
 		}
 
@@ -460,7 +460,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromMouse")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		internal static SDLHaptic* SDLHapticOpenFromMouseNative()
+		internal static SDLHaptic* HapticOpenFromMouseNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)vt[646])();
@@ -477,9 +477,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromMouse")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* SDLHapticOpenFromMouse()
+		public static SDLHaptic* HapticOpenFromMouse()
 		{
-			SDLHaptic* ret = SDLHapticOpenFromMouseNative();
+			SDLHaptic* ret = HapticOpenFromMouseNative();
 			return ret;
 		}
 
@@ -491,7 +491,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickIsHaptic")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLJoystickIsHapticNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static int JoystickIsHapticNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[647])(joystick);
@@ -508,9 +508,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickIsHaptic")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickIsHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static int JoystickIsHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			int ret = SDLJoystickIsHapticNative(joystick);
+			int ret = JoystickIsHapticNative(joystick);
 			return ret;
 		}
 
@@ -522,11 +522,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickIsHaptic")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLJoystickIsHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static int JoystickIsHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				int ret = SDLJoystickIsHapticNative((SDLJoystick*)pjoystick);
+				int ret = JoystickIsHapticNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -545,7 +545,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromJoystick")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		internal static SDLHaptic* SDLHapticOpenFromJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		internal static SDLHaptic* HapticOpenFromJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)vt[648])(joystick);
@@ -568,9 +568,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromJoystick")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* SDLHapticOpenFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
+		public static SDLHaptic* HapticOpenFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
-			SDLHaptic* ret = SDLHapticOpenFromJoystickNative(joystick);
+			SDLHaptic* ret = HapticOpenFromJoystickNative(joystick);
 			return ret;
 		}
 
@@ -588,11 +588,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromJoystick")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* SDLHapticOpenFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
+		public static SDLHaptic* HapticOpenFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
 		{
 			fixed (SDLJoystick* pjoystick = &joystick)
 			{
-				SDLHaptic* ret = SDLHapticOpenFromJoystickNative((SDLJoystick*)pjoystick);
+				SDLHaptic* ret = HapticOpenFromJoystickNative((SDLJoystick*)pjoystick);
 				return ret;
 			}
 		}
@@ -605,7 +605,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLHapticCloseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static void HapticCloseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)vt[649])(haptic);
@@ -622,9 +622,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHapticClose([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static void HapticClose([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			SDLHapticCloseNative(haptic);
+			HapticCloseNative(haptic);
 		}
 
 		/// <summary>
@@ -635,11 +635,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHapticClose([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static void HapticClose([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				SDLHapticCloseNative((SDLHaptic*)phaptic);
+				HapticCloseNative((SDLHaptic*)phaptic);
 			}
 		}
 
@@ -654,7 +654,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticNumEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticNumEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[650])(haptic);
@@ -674,9 +674,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNumEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticNumEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticNumEffectsNative(haptic);
+			int ret = HapticNumEffectsNative(haptic);
 			return ret;
 		}
 
@@ -691,11 +691,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNumEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticNumEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticNumEffectsNative((SDLHaptic*)phaptic);
+				int ret = HapticNumEffectsNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -709,7 +709,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffectsPlaying")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticNumEffectsPlayingNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticNumEffectsPlayingNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[651])(haptic);
@@ -727,9 +727,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffectsPlaying")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNumEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticNumEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticNumEffectsPlayingNative(haptic);
+			int ret = HapticNumEffectsPlayingNative(haptic);
 			return ret;
 		}
 
@@ -742,11 +742,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffectsPlaying")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNumEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticNumEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticNumEffectsPlayingNative((SDLHaptic*)phaptic);
+				int ret = HapticNumEffectsPlayingNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -759,7 +759,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticQuery")]
 		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		internal static uint SDLHapticQueryNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static uint HapticQueryNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)vt[652])(haptic);
@@ -776,9 +776,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticQuery")]
 		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		public static uint SDLHapticQuery([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static uint HapticQuery([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			uint ret = SDLHapticQueryNative(haptic);
+			uint ret = HapticQueryNative(haptic);
 			return ret;
 		}
 
@@ -790,11 +790,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticQuery")]
 		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		public static uint SDLHapticQuery([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static uint HapticQuery([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				uint ret = SDLHapticQueryNative((SDLHaptic*)phaptic);
+				uint ret = HapticQueryNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -808,7 +808,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumAxes")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticNumAxesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticNumAxesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[653])(haptic);
@@ -826,9 +826,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumAxes")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNumAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticNumAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticNumAxesNative(haptic);
+			int ret = HapticNumAxesNative(haptic);
 			return ret;
 		}
 
@@ -841,11 +841,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumAxes")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNumAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticNumAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticNumAxesNative((SDLHaptic*)phaptic);
+				int ret = HapticNumAxesNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -858,7 +858,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticEffectSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
+		internal static int HapticEffectSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)vt[654])(haptic, effect);
@@ -875,9 +875,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
+		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
-			int ret = SDLHapticEffectSupportedNative(haptic, effect);
+			int ret = HapticEffectSupportedNative(haptic, effect);
 			return ret;
 		}
 
@@ -889,11 +889,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
+		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
+				int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
 				return ret;
 			}
 		}
@@ -906,11 +906,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
+		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
 		{
 			fixed (SDLHapticEffect* peffect = &effect)
 			{
-				int ret = SDLHapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
+				int ret = HapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
 				return ret;
 			}
 		}
@@ -923,13 +923,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
+		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
 				fixed (SDLHapticEffect* peffect = &effect)
 				{
-					int ret = SDLHapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
+					int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
 					return ret;
 				}
 			}
@@ -943,7 +943,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticNewEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
+		internal static int HapticNewEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)vt[655])(haptic, effect);
@@ -960,9 +960,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
+		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
-			int ret = SDLHapticNewEffectNative(haptic, effect);
+			int ret = HapticNewEffectNative(haptic, effect);
 			return ret;
 		}
 
@@ -974,11 +974,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
+		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticNewEffectNative((SDLHaptic*)phaptic, effect);
+				int ret = HapticNewEffectNative((SDLHaptic*)phaptic, effect);
 				return ret;
 			}
 		}
@@ -991,11 +991,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
+		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
 		{
 			fixed (SDLHapticEffect* peffect = &effect)
 			{
-				int ret = SDLHapticNewEffectNative(haptic, (SDLHapticEffect*)peffect);
+				int ret = HapticNewEffectNative(haptic, (SDLHapticEffect*)peffect);
 				return ret;
 			}
 		}
@@ -1008,13 +1008,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
+		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
 				fixed (SDLHapticEffect* peffect = &effect)
 				{
-					int ret = SDLHapticNewEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
+					int ret = HapticNewEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
 					return ret;
 				}
 			}
@@ -1032,7 +1032,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticUpdateEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
+		internal static int HapticUpdateEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, int>)vt[656])(haptic, effect, data);
@@ -1053,9 +1053,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
+		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
 		{
-			int ret = SDLHapticUpdateEffectNative(haptic, effect, data);
+			int ret = HapticUpdateEffectNative(haptic, effect, data);
 			return ret;
 		}
 
@@ -1071,11 +1071,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
+		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticUpdateEffectNative((SDLHaptic*)phaptic, effect, data);
+				int ret = HapticUpdateEffectNative((SDLHaptic*)phaptic, effect, data);
 				return ret;
 			}
 		}
@@ -1092,11 +1092,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect data)
+		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect data)
 		{
 			fixed (SDLHapticEffect* pdata = &data)
 			{
-				int ret = SDLHapticUpdateEffectNative(haptic, effect, (SDLHapticEffect*)pdata);
+				int ret = HapticUpdateEffectNative(haptic, effect, (SDLHapticEffect*)pdata);
 				return ret;
 			}
 		}
@@ -1113,13 +1113,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect data)
+		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect data)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
 				fixed (SDLHapticEffect* pdata = &data)
 				{
-					int ret = SDLHapticUpdateEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)pdata);
+					int ret = HapticUpdateEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)pdata);
 					return ret;
 				}
 			}
@@ -1138,7 +1138,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRunEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticRunEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		internal static int HapticRunEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, int>)vt[657])(haptic, effect, iterations);
@@ -1160,9 +1160,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRunEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRunEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		public static int HapticRunEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
 		{
-			int ret = SDLHapticRunEffectNative(haptic, effect, iterations);
+			int ret = HapticRunEffectNative(haptic, effect, iterations);
 			return ret;
 		}
 
@@ -1179,11 +1179,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRunEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRunEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
+		public static int HapticRunEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticRunEffectNative((SDLHaptic*)phaptic, effect, iterations);
+				int ret = HapticRunEffectNative((SDLHaptic*)phaptic, effect, iterations);
 				return ret;
 			}
 		}
@@ -1197,7 +1197,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticStopEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		internal static int HapticStopEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[658])(haptic, effect);
@@ -1215,9 +1215,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticStopEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		public static int HapticStopEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
-			int ret = SDLHapticStopEffectNative(haptic, effect);
+			int ret = HapticStopEffectNative(haptic, effect);
 			return ret;
 		}
 
@@ -1230,11 +1230,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticStopEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		public static int HapticStopEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticStopEffectNative((SDLHaptic*)phaptic, effect);
+				int ret = HapticStopEffectNative((SDLHaptic*)phaptic, effect);
 				return ret;
 			}
 		}
@@ -1249,7 +1249,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticDestroyEffect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLHapticDestroyEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		internal static void HapticDestroyEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)vt[659])(haptic, effect);
@@ -1268,9 +1268,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticDestroyEffect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHapticDestroyEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		public static void HapticDestroyEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
-			SDLHapticDestroyEffectNative(haptic, effect);
+			HapticDestroyEffectNative(haptic, effect);
 		}
 
 		/// <summary>
@@ -1283,11 +1283,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticDestroyEffect")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHapticDestroyEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		public static void HapticDestroyEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				SDLHapticDestroyEffectNative((SDLHaptic*)phaptic, effect);
+				HapticDestroyEffectNative((SDLHaptic*)phaptic, effect);
 			}
 		}
 
@@ -1300,7 +1300,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticGetEffectStatus")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticGetEffectStatusNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		internal static int HapticGetEffectStatusNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[660])(haptic, effect);
@@ -1318,9 +1318,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticGetEffectStatus")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticGetEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		public static int HapticGetEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
-			int ret = SDLHapticGetEffectStatusNative(haptic, effect);
+			int ret = HapticGetEffectStatusNative(haptic, effect);
 			return ret;
 		}
 
@@ -1333,11 +1333,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticGetEffectStatus")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticGetEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		public static int HapticGetEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticGetEffectStatusNative((SDLHaptic*)phaptic, effect);
+				int ret = HapticGetEffectStatusNative((SDLHaptic*)phaptic, effect);
 				return ret;
 			}
 		}
@@ -1355,7 +1355,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetGain")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticSetGainNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		internal static int HapticSetGainNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[661])(haptic, gain);
@@ -1377,9 +1377,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetGain")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticSetGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		public static int HapticSetGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
 		{
-			int ret = SDLHapticSetGainNative(haptic, gain);
+			int ret = HapticSetGainNative(haptic, gain);
 			return ret;
 		}
 
@@ -1396,11 +1396,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetGain")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticSetGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		public static int HapticSetGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticSetGainNative((SDLHaptic*)phaptic, gain);
+				int ret = HapticSetGainNative((SDLHaptic*)phaptic, gain);
 				return ret;
 			}
 		}
@@ -1416,7 +1416,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetAutocenter")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticSetAutocenterNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		internal static int HapticSetAutocenterNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[662])(haptic, autocenter);
@@ -1436,9 +1436,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetAutocenter")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticSetAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		public static int HapticSetAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
 		{
-			int ret = SDLHapticSetAutocenterNative(haptic, autocenter);
+			int ret = HapticSetAutocenterNative(haptic, autocenter);
 			return ret;
 		}
 
@@ -1453,11 +1453,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetAutocenter")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticSetAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		public static int HapticSetAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticSetAutocenterNative((SDLHaptic*)phaptic, autocenter);
+				int ret = HapticSetAutocenterNative((SDLHaptic*)phaptic, autocenter);
 				return ret;
 			}
 		}
@@ -1474,7 +1474,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticPause")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticPauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticPauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[663])(haptic);
@@ -1495,9 +1495,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticPause")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticPause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticPause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticPauseNative(haptic);
+			int ret = HapticPauseNative(haptic);
 			return ret;
 		}
 
@@ -1513,11 +1513,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticPause")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticPause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticPause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticPauseNative((SDLHaptic*)phaptic);
+				int ret = HapticPauseNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -1531,7 +1531,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUnpause")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticUnpauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticUnpauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[664])(haptic);
@@ -1549,9 +1549,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUnpause")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticUnpause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticUnpause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticUnpauseNative(haptic);
+			int ret = HapticUnpauseNative(haptic);
 			return ret;
 		}
 
@@ -1564,11 +1564,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUnpause")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticUnpause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticUnpause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticUnpauseNative((SDLHaptic*)phaptic);
+				int ret = HapticUnpauseNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -1580,7 +1580,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopAll")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticStopAllNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticStopAllNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[665])(haptic);
@@ -1596,9 +1596,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopAll")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticStopAll([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticStopAll([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticStopAllNative(haptic);
+			int ret = HapticStopAllNative(haptic);
 			return ret;
 		}
 
@@ -1609,11 +1609,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopAll")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticStopAll([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticStopAll([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticStopAllNative((SDLHaptic*)phaptic);
+				int ret = HapticStopAllNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -1626,7 +1626,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticRumbleSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticRumbleSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[666])(haptic);
@@ -1643,9 +1643,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticRumbleSupportedNative(haptic);
+			int ret = HapticRumbleSupportedNative(haptic);
 			return ret;
 		}
 
@@ -1657,11 +1657,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticRumbleSupportedNative((SDLHaptic*)phaptic);
+				int ret = HapticRumbleSupportedNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -1674,7 +1674,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticRumbleInitNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticRumbleInitNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[667])(haptic);
@@ -1691,9 +1691,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumbleInit([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticRumbleInit([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticRumbleInitNative(haptic);
+			int ret = HapticRumbleInitNative(haptic);
 			return ret;
 		}
 
@@ -1705,11 +1705,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumbleInit([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticRumbleInit([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticRumbleInitNative((SDLHaptic*)phaptic);
+				int ret = HapticRumbleInitNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -1722,7 +1722,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumblePlay")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticRumblePlayNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		internal static int HapticRumblePlayNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, int>)vt[668])(haptic, strength, length);
@@ -1739,9 +1739,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumblePlay")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumblePlay([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static int HapticRumblePlay([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
 		{
-			int ret = SDLHapticRumblePlayNative(haptic, strength, length);
+			int ret = HapticRumblePlayNative(haptic, strength, length);
 			return ret;
 		}
 
@@ -1753,11 +1753,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumblePlay")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumblePlay([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
+		public static int HapticRumblePlay([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticRumblePlayNative((SDLHaptic*)phaptic, strength, length);
+				int ret = HapticRumblePlayNative((SDLHaptic*)phaptic, strength, length);
 				return ret;
 			}
 		}
@@ -1770,7 +1770,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleStop")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHapticRumbleStopNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		internal static int HapticRumbleStopNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[669])(haptic);
@@ -1787,9 +1787,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleStop")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumbleStop([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
+		public static int HapticRumbleStop([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
-			int ret = SDLHapticRumbleStopNative(haptic);
+			int ret = HapticRumbleStopNative(haptic);
 			return ret;
 		}
 
@@ -1801,11 +1801,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleStop")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHapticRumbleStop([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
+		public static int HapticRumbleStop([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
 		{
 			fixed (SDLHaptic* phaptic = &haptic)
 			{
-				int ret = SDLHapticRumbleStopNative((SDLHaptic*)phaptic);
+				int ret = HapticRumbleStopNative((SDLHaptic*)phaptic);
 				return ret;
 			}
 		}
@@ -1824,7 +1824,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_init")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidInitNative()
+		internal static int HidInitNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[670])();
@@ -1847,9 +1847,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_init")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidInit()
+		public static int HidInit()
 		{
-			int ret = SDLHidInitNative();
+			int ret = HidInitNative();
 			return ret;
 		}
 
@@ -1863,7 +1863,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidExitNative()
+		internal static int HidExitNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[671])();
@@ -1882,9 +1882,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidExit()
+		public static int HidExit()
 		{
-			int ret = SDLHidExitNative();
+			int ret = HidExitNative();
 			return ret;
 		}
 
@@ -1903,7 +1903,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLHidDeviceChangeCountNative()
+		internal static uint HidDeviceChangeCountNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint>)vt[672])();
@@ -1927,9 +1927,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLHidDeviceChangeCount()
+		public static uint HidDeviceChangeCount()
 		{
-			uint ret = SDLHidDeviceChangeCountNative();
+			uint ret = HidDeviceChangeCountNative();
 			return ret;
 		}
 
@@ -1946,7 +1946,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info*")]
-		internal static SDLHidDeviceInfo* SDLHidEnumerateNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		internal static SDLHidDeviceInfo* HidEnumerateNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)vt[673])(vendorId, productId);
@@ -1968,9 +1968,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info*")]
-		public static SDLHidDeviceInfo* SDLHidEnumerate([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		public static SDLHidDeviceInfo* HidEnumerate([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
 		{
-			SDLHidDeviceInfo* ret = SDLHidEnumerateNative(vendorId, productId);
+			SDLHidDeviceInfo* ret = HidEnumerateNative(vendorId, productId);
 			return ret;
 		}
 
@@ -1982,7 +1982,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLHidFreeEnumerationNative([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] SDLHidDeviceInfo* devs)
+		internal static void HidFreeEnumerationNative([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] SDLHidDeviceInfo* devs)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)vt[674])(devs);
@@ -1999,9 +1999,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] SDLHidDeviceInfo* devs)
+		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] SDLHidDeviceInfo* devs)
 		{
-			SDLHidFreeEnumerationNative(devs);
+			HidFreeEnumerationNative(devs);
 		}
 
 		/// <summary>
@@ -2012,11 +2012,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] ref SDLHidDeviceInfo devs)
+		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] ref SDLHidDeviceInfo devs)
 		{
 			fixed (SDLHidDeviceInfo* pdevs = &devs)
 			{
-				SDLHidFreeEnumerationNative((SDLHidDeviceInfo*)pdevs);
+				HidFreeEnumerationNative((SDLHidDeviceInfo*)pdevs);
 			}
 		}
 
@@ -2030,7 +2030,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		internal static SDLHidDevice* SDLHidOpenNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] char* serialNumber)
+		internal static SDLHidDevice* HidOpenNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] char* serialNumber)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)vt[675])(vendorId, productId, serialNumber);
@@ -2049,9 +2049,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] char* serialNumber)
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] char* serialNumber)
 		{
-			SDLHidDevice* ret = SDLHidOpenNative(vendorId, productId, serialNumber);
+			SDLHidDevice* ret = HidOpenNative(vendorId, productId, serialNumber);
 			return ret;
 		}
 
@@ -2065,11 +2065,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] ref char serialNumber)
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] ref char serialNumber)
 		{
 			fixed (char* pserialNumber = &serialNumber)
 			{
-				SDLHidDevice* ret = SDLHidOpenNative(vendorId, productId, (char*)pserialNumber);
+				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
 				return ret;
 			}
 		}
@@ -2084,11 +2084,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> serialNumber)
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> serialNumber)
 		{
 			fixed (char* pserialNumber = serialNumber)
 			{
-				SDLHidDevice* ret = SDLHidOpenNative(vendorId, productId, (char*)pserialNumber);
+				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
 				return ret;
 			}
 		}
@@ -2103,7 +2103,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] string serialNumber)
+		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] string serialNumber)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2122,7 +2122,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(serialNumber, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			SDLHidDevice* ret = SDLHidOpenNative(vendorId, productId, pStr0);
+			SDLHidDevice* ret = HidOpenNative(vendorId, productId, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2139,7 +2139,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		internal static SDLHidDevice* SDLHidOpenPathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
+		internal static SDLHidDevice* HidOpenPathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLHidDevice*>)vt[676])(path, bExclusive);
@@ -2157,9 +2157,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
 		{
-			SDLHidDevice* ret = SDLHidOpenPathNative(path, bExclusive);
+			SDLHidDevice* ret = HidOpenPathNative(path, bExclusive);
 			return ret;
 		}
 
@@ -2172,11 +2172,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ref byte path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ref byte path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
 		{
 			fixed (byte* ppath = &path)
 			{
-				SDLHidDevice* ret = SDLHidOpenPathNative((byte*)ppath, bExclusive);
+				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath, bExclusive);
 				return ret;
 			}
 		}
@@ -2190,11 +2190,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
 		{
 			fixed (byte* ppath = path)
 			{
-				SDLHidDevice* ret = SDLHidOpenPathNative((byte*)ppath, bExclusive);
+				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath, bExclusive);
 				return ret;
 			}
 		}
@@ -2208,7 +2208,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* SDLHidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] string path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
+		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] string path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2227,7 +2227,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLHidDevice* ret = SDLHidOpenPathNative(pStr0, bExclusive);
+			SDLHidDevice* ret = HidOpenPathNative(pStr0, bExclusive);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2253,7 +2253,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidWriteNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		internal static int HidWriteNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[677])(dev, data, length);
@@ -2280,9 +2280,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
-			int ret = SDLHidWriteNative(dev, data, length);
+			int ret = HidWriteNative(dev, data, length);
 			return ret;
 		}
 
@@ -2304,11 +2304,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidWriteNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -2331,11 +2331,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidWriteNative(dev, (byte*)pdata, length);
+				int ret = HidWriteNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -2358,13 +2358,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -2388,9 +2388,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
-			int ret = SDLHidWriteNative(dev, data, length);
+			int ret = HidWriteNative(dev, data, length);
 			return ret;
 		}
 
@@ -2412,11 +2412,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidWriteNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -2439,11 +2439,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidWriteNative(dev, (byte*)pdata, length);
+				int ret = HidWriteNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -2466,13 +2466,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -2488,7 +2488,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidReadTimeoutNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		internal static int HidReadTimeoutNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int, int>)vt[678])(dev, data, length, milliseconds);
@@ -2507,9 +2507,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
-			int ret = SDLHidReadTimeoutNative(dev, data, length, milliseconds);
+			int ret = HidReadTimeoutNative(dev, data, length, milliseconds);
 			return ret;
 		}
 
@@ -2523,11 +2523,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
+				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
 				return ret;
 			}
 		}
@@ -2542,11 +2542,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
+				int ret = HidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
 				return ret;
 			}
 		}
@@ -2561,13 +2561,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
+					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
 					return ret;
 				}
 			}
@@ -2583,9 +2583,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
-			int ret = SDLHidReadTimeoutNative(dev, data, length, milliseconds);
+			int ret = HidReadTimeoutNative(dev, data, length, milliseconds);
 			return ret;
 		}
 
@@ -2599,11 +2599,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
+				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
 				return ret;
 			}
 		}
@@ -2618,11 +2618,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
+				int ret = HidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
 				return ret;
 			}
 		}
@@ -2637,13 +2637,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
+		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
+					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
 					return ret;
 				}
 			}
@@ -2659,7 +2659,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidReadNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		internal static int HidReadNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[679])(dev, data, length);
@@ -2678,9 +2678,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
-			int ret = SDLHidReadNative(dev, data, length);
+			int ret = HidReadNative(dev, data, length);
 			return ret;
 		}
 
@@ -2694,11 +2694,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidReadNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -2713,11 +2713,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidReadNative(dev, (byte*)pdata, length);
+				int ret = HidReadNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -2732,13 +2732,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -2754,9 +2754,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
-			int ret = SDLHidReadNative(dev, data, length);
+			int ret = HidReadNative(dev, data, length);
 			return ret;
 		}
 
@@ -2770,11 +2770,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidReadNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -2789,11 +2789,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidReadNative(dev, (byte*)pdata, length);
+				int ret = HidReadNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -2808,13 +2808,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -2831,7 +2831,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidSetNonblockingNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		internal static int HidSetNonblockingNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)vt[680])(dev, nonblock);
@@ -2851,9 +2851,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
 		{
-			int ret = SDLHidSetNonblockingNative(dev, nonblock);
+			int ret = HidSetNonblockingNative(dev, nonblock);
 			return ret;
 		}
 
@@ -2868,11 +2868,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
+		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidSetNonblockingNative((SDLHidDevice*)pdev, nonblock);
+				int ret = HidSetNonblockingNative((SDLHidDevice*)pdev, nonblock);
 				return ret;
 			}
 		}
@@ -2893,7 +2893,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidSendFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		internal static int HidSendFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[681])(dev, data, length);
@@ -2918,9 +2918,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
-			int ret = SDLHidSendFeatureReportNative(dev, data, length);
+			int ret = HidSendFeatureReportNative(dev, data, length);
 			return ret;
 		}
 
@@ -2940,11 +2940,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -2965,11 +2965,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidSendFeatureReportNative(dev, (byte*)pdata, length);
+				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -2990,13 +2990,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -3018,9 +3018,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
-			int ret = SDLHidSendFeatureReportNative(dev, data, length);
+			int ret = HidSendFeatureReportNative(dev, data, length);
 			return ret;
 		}
 
@@ -3040,11 +3040,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -3065,11 +3065,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidSendFeatureReportNative(dev, (byte*)pdata, length);
+				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -3090,13 +3090,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -3113,7 +3113,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidGetFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		internal static int HidGetFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[682])(dev, data, length);
@@ -3133,9 +3133,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
-			int ret = SDLHidGetFeatureReportNative(dev, data, length);
+			int ret = HidGetFeatureReportNative(dev, data, length);
 			return ret;
 		}
 
@@ -3150,11 +3150,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -3170,11 +3170,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidGetFeatureReportNative(dev, (byte*)pdata, length);
+				int ret = HidGetFeatureReportNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -3190,13 +3190,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -3213,9 +3213,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
-			int ret = SDLHidGetFeatureReportNative(dev, data, length);
+			int ret = HidGetFeatureReportNative(dev, data, length);
 			return ret;
 		}
 
@@ -3230,11 +3230,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
+				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
 				return ret;
 			}
 		}
@@ -3250,11 +3250,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (byte* pdata = &data)
 			{
-				int ret = SDLHidGetFeatureReportNative(dev, (byte*)pdata, length);
+				int ret = HidGetFeatureReportNative(dev, (byte*)pdata, length);
 				return ret;
 			}
 		}
@@ -3270,13 +3270,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (byte* pdata = &data)
 				{
-					int ret = SDLHidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
+					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
 					return ret;
 				}
 			}
@@ -3289,7 +3289,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_close")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLHidCloseNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev)
+		internal static void HidCloseNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLHidDevice*, void>)vt[683])(dev);
@@ -3305,9 +3305,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_close")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev)
+		public static void HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev)
 		{
-			SDLHidCloseNative(dev);
+			HidCloseNative(dev);
 		}
 
 		/// <summary>
@@ -3317,11 +3317,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_close")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev)
+		public static void HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				SDLHidCloseNative((SDLHidDevice*)pdev);
+				HidCloseNative((SDLHidDevice*)pdev);
 			}
 		}
 
@@ -3332,7 +3332,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidGetManufacturerStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int HidGetManufacturerStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)vt[684])(dev, str, maxlen);
@@ -3348,9 +3348,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
-			int ret = SDLHidGetManufacturerStringNative(dev, str, maxlen);
+			int ret = HidGetManufacturerStringNative(dev, str, maxlen);
 			return ret;
 		}
 
@@ -3361,11 +3361,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
 				return ret;
 			}
 		}
@@ -3377,11 +3377,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
+				int ret = HidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -3393,7 +3393,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3412,7 +3412,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetManufacturerStringNative(dev, pStr0, maxlen);
+			int ret = HidGetManufacturerStringNative(dev, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -3428,13 +3428,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -3447,7 +3447,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -3468,7 +3468,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
+				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -3485,9 +3485,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			int ret = SDLHidGetManufacturerStringNative(dev, str, maxlen);
+			int ret = HidGetManufacturerStringNative(dev, str, maxlen);
 			return ret;
 		}
 
@@ -3498,11 +3498,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
 				return ret;
 			}
 		}
@@ -3514,11 +3514,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
+				int ret = HidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -3530,7 +3530,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3549,7 +3549,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetManufacturerStringNative(dev, pStr0, maxlen);
+			int ret = HidGetManufacturerStringNative(dev, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -3565,13 +3565,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -3584,7 +3584,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -3605,7 +3605,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
+				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -3622,7 +3622,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidGetProductStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int HidGetProductStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)vt[685])(dev, str, maxlen);
@@ -3638,9 +3638,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
-			int ret = SDLHidGetProductStringNative(dev, str, maxlen);
+			int ret = HidGetProductStringNative(dev, str, maxlen);
 			return ret;
 		}
 
@@ -3651,11 +3651,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
 				return ret;
 			}
 		}
@@ -3667,11 +3667,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetProductStringNative(dev, (char*)pstr, maxlen);
+				int ret = HidGetProductStringNative(dev, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -3683,7 +3683,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3702,7 +3702,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetProductStringNative(dev, pStr0, maxlen);
+			int ret = HidGetProductStringNative(dev, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -3718,13 +3718,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = HidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -3737,7 +3737,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -3758,7 +3758,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
+				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -3775,9 +3775,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			int ret = SDLHidGetProductStringNative(dev, str, maxlen);
+			int ret = HidGetProductStringNative(dev, str, maxlen);
 			return ret;
 		}
 
@@ -3788,11 +3788,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
 				return ret;
 			}
 		}
@@ -3804,11 +3804,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetProductStringNative(dev, (char*)pstr, maxlen);
+				int ret = HidGetProductStringNative(dev, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -3820,7 +3820,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3839,7 +3839,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetProductStringNative(dev, pStr0, maxlen);
+			int ret = HidGetProductStringNative(dev, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -3855,13 +3855,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = HidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -3874,7 +3874,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -3895,7 +3895,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
+				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -3912,7 +3912,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidGetSerialNumberStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int HidGetSerialNumberStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)vt[686])(dev, str, maxlen);
@@ -3928,9 +3928,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
-			int ret = SDLHidGetSerialNumberStringNative(dev, str, maxlen);
+			int ret = HidGetSerialNumberStringNative(dev, str, maxlen);
 			return ret;
 		}
 
@@ -3941,11 +3941,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
 				return ret;
 			}
 		}
@@ -3957,11 +3957,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
+				int ret = HidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -3973,7 +3973,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3992,7 +3992,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetSerialNumberStringNative(dev, pStr0, maxlen);
+			int ret = HidGetSerialNumberStringNative(dev, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -4008,13 +4008,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -4027,7 +4027,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -4048,7 +4048,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
+				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -4065,9 +4065,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			int ret = SDLHidGetSerialNumberStringNative(dev, str, maxlen);
+			int ret = HidGetSerialNumberStringNative(dev, str, maxlen);
 			return ret;
 		}
 
@@ -4078,11 +4078,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
 				return ret;
 			}
 		}
@@ -4094,11 +4094,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
+				int ret = HidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -4110,7 +4110,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4129,7 +4129,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetSerialNumberStringNative(dev, pStr0, maxlen);
+			int ret = HidGetSerialNumberStringNative(dev, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -4145,13 +4145,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -4164,7 +4164,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -4185,7 +4185,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
+				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -4202,7 +4202,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLHidGetIndexedStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int HidGetIndexedStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, char*, ulong, int>)vt[687])(dev, stringIndex, str, maxlen);
@@ -4218,9 +4218,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
-			int ret = SDLHidGetIndexedStringNative(dev, stringIndex, str, maxlen);
+			int ret = HidGetIndexedStringNative(dev, stringIndex, str, maxlen);
 			return ret;
 		}
 
@@ -4231,11 +4231,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
+				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
 				return ret;
 			}
 		}
@@ -4247,11 +4247,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
+				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -4263,7 +4263,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4282,7 +4282,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
+			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -4298,13 +4298,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
+					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -4317,7 +4317,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -4338,7 +4338,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
+				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -4355,9 +4355,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
-			int ret = SDLHidGetIndexedStringNative(dev, stringIndex, str, maxlen);
+			int ret = HidGetIndexedStringNative(dev, stringIndex, str, maxlen);
 			return ret;
 		}
 
@@ -4368,11 +4368,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
-				int ret = SDLHidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
+				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
 				return ret;
 			}
 		}
@@ -4384,11 +4384,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (char* pstr = &str)
 			{
-				int ret = SDLHidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
+				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
 				return ret;
 			}
 		}
@@ -4400,7 +4400,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4419,7 +4419,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			int ret = SDLHidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
+			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
 			str = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -4435,13 +4435,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
 				fixed (char* pstr = &str)
 				{
-					int ret = SDLHidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
+					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
 					return ret;
 				}
 			}
@@ -4454,7 +4454,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLHidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
 		{
 			fixed (SDLHidDevice* pdev = &dev)
 			{
@@ -4475,7 +4475,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = SDLHidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
+				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
 				str = Utils.DecodeStringUTF16(pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
@@ -4492,7 +4492,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLHidBleScanNative([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
+		internal static void HidBleScanNative([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLBool, void>)vt[688])(active);
@@ -4508,9 +4508,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHidBleScan([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
+		public static void HidBleScan([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
 		{
-			SDLHidBleScanNative(active);
+			HidBleScanNative(active);
 		}
 
 		/// <summary>
@@ -4524,7 +4524,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLSetHintWithPriorityNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		internal static SDLBool SetHintWithPriorityNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLHintPriority, SDLBool>)vt[689])(name, value, priority);
@@ -4544,9 +4544,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
-			SDLBool ret = SDLSetHintWithPriorityNative(name, value, priority);
+			SDLBool ret = SetHintWithPriorityNative(name, value, priority);
 			return ret;
 		}
 
@@ -4561,11 +4561,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLBool ret = SDLSetHintWithPriorityNative((byte*)pname, value, priority);
+				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
 				return ret;
 			}
 		}
@@ -4581,11 +4581,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLBool ret = SDLSetHintWithPriorityNative((byte*)pname, value, priority);
+				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
 				return ret;
 			}
 		}
@@ -4601,7 +4601,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4620,7 +4620,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLBool ret = SDLSetHintWithPriorityNative(pStr0, value, priority);
+			SDLBool ret = SetHintWithPriorityNative(pStr0, value, priority);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4639,11 +4639,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			fixed (byte* pvalue = &value)
 			{
-				SDLBool ret = SDLSetHintWithPriorityNative(name, (byte*)pvalue, priority);
+				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
 				return ret;
 			}
 		}
@@ -4659,11 +4659,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			fixed (byte* pvalue = value)
 			{
-				SDLBool ret = SDLSetHintWithPriorityNative(name, (byte*)pvalue, priority);
+				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
 				return ret;
 			}
 		}
@@ -4679,7 +4679,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4698,7 +4698,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLBool ret = SDLSetHintWithPriorityNative(name, pStr0, priority);
+			SDLBool ret = SetHintWithPriorityNative(name, pStr0, priority);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4717,13 +4717,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			fixed (byte* pname = &name)
 			{
 				fixed (byte* pvalue = &value)
 				{
-					SDLBool ret = SDLSetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
+					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
 					return ret;
 				}
 			}
@@ -4740,13 +4740,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			fixed (byte* pname = name)
 			{
 				fixed (byte* pvalue = value)
 				{
-					SDLBool ret = SDLSetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
+					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
 					return ret;
 				}
 			}
@@ -4763,7 +4763,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4799,7 +4799,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			SDLBool ret = SDLSetHintWithPriorityNative(pStr0, pStr1, priority);
+			SDLBool ret = SetHintWithPriorityNative(pStr0, pStr1, priority);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -4822,7 +4822,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLSetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		internal static SDLBool SetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLBool>)vt[690])(name, value);
@@ -4842,9 +4842,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
 		{
-			SDLBool ret = SDLSetHintNative(name, value);
+			SDLBool ret = SetHintNative(name, value);
 			return ret;
 		}
 
@@ -4859,11 +4859,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLBool ret = SDLSetHintNative((byte*)pname, value);
+				SDLBool ret = SetHintNative((byte*)pname, value);
 				return ret;
 			}
 		}
@@ -4879,11 +4879,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLBool ret = SDLSetHintNative((byte*)pname, value);
+				SDLBool ret = SetHintNative((byte*)pname, value);
 				return ret;
 			}
 		}
@@ -4899,7 +4899,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4918,7 +4918,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLBool ret = SDLSetHintNative(pStr0, value);
+			SDLBool ret = SetHintNative(pStr0, value);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4937,11 +4937,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
 		{
 			fixed (byte* pvalue = &value)
 			{
-				SDLBool ret = SDLSetHintNative(name, (byte*)pvalue);
+				SDLBool ret = SetHintNative(name, (byte*)pvalue);
 				return ret;
 			}
 		}
@@ -4957,11 +4957,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value)
 		{
 			fixed (byte* pvalue = value)
 			{
-				SDLBool ret = SDLSetHintNative(name, (byte*)pvalue);
+				SDLBool ret = SetHintNative(name, (byte*)pvalue);
 				return ret;
 			}
 		}
@@ -4977,7 +4977,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4996,7 +4996,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLBool ret = SDLSetHintNative(name, pStr0);
+			SDLBool ret = SetHintNative(name, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -5015,13 +5015,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
 		{
 			fixed (byte* pname = &name)
 			{
 				fixed (byte* pvalue = &value)
 				{
-					SDLBool ret = SDLSetHintNative((byte*)pname, (byte*)pvalue);
+					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
 					return ret;
 				}
 			}

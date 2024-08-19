@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Packed component layout. <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PackedLayout")]
+	[Flags]
 	public enum SDLPackedLayout : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_PACKEDLAYOUT_NONE")]

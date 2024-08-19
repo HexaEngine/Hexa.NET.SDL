@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_DisplayOrientation")]
+	[Flags]
 	public enum SDLDisplayOrientation : int
 	{
 		/// <summary>

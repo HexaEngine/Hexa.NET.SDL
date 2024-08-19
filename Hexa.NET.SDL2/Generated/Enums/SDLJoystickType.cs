@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_JoystickType")]
+	[Flags]
 	public enum SDLJoystickType : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_TYPE_UNKNOWN")]

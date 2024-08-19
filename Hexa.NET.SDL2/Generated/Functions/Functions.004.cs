@@ -32,11 +32,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWclose")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRWclose([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context)
+		public static int RWclose([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context)
 		{
 			fixed (SDLRWops* pcontext = &context)
 			{
-				int ret = SDLRWcloseNative((SDLRWops*)pcontext);
+				int ret = RWcloseNative((SDLRWops*)pcontext);
 				return ret;
 			}
 		}
@@ -52,7 +52,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLLoadFileRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		internal static void* LoadFileRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong*, int, void*>)vt[196])(src, datasize, freesrc);
@@ -72,9 +72,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
-			void* ret = SDLLoadFileRWNative(src, datasize, freesrc);
+			void* ret = LoadFileRWNative(src, datasize, freesrc);
 			return ret;
 		}
 
@@ -89,11 +89,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				void* ret = SDLLoadFileRWNative((SDLRWops*)psrc, datasize, freesrc);
+				void* ret = LoadFileRWNative((SDLRWops*)psrc, datasize, freesrc);
 				return ret;
 			}
 		}
@@ -109,11 +109,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			fixed (nuint* pdatasize = &datasize)
 			{
-				void* ret = SDLLoadFileRWNative(src, (ulong*)pdatasize, freesrc);
+				void* ret = LoadFileRWNative(src, (ulong*)pdatasize, freesrc);
 				return ret;
 			}
 		}
@@ -129,13 +129,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
+		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
 				fixed (nuint* pdatasize = &datasize)
 				{
-					void* ret = SDLLoadFileRWNative((SDLRWops*)psrc, (ulong*)pdatasize, freesrc);
+					void* ret = LoadFileRWNative((SDLRWops*)psrc, (ulong*)pdatasize, freesrc);
 					return ret;
 				}
 			}
@@ -154,7 +154,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLLoadFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
+		internal static void* LoadFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, ulong*, void*>)vt[197])(file, datasize);
@@ -176,9 +176,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
 		{
-			void* ret = SDLLoadFileNative(file, datasize);
+			void* ret = LoadFileNative(file, datasize);
 			return ret;
 		}
 
@@ -195,11 +195,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
 		{
 			fixed (byte* pfile = &file)
 			{
-				void* ret = SDLLoadFileNative((byte*)pfile, datasize);
+				void* ret = LoadFileNative((byte*)pfile, datasize);
 				return ret;
 			}
 		}
@@ -217,11 +217,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
 		{
 			fixed (byte* pfile = file)
 			{
-				void* ret = SDLLoadFileNative((byte*)pfile, datasize);
+				void* ret = LoadFileNative((byte*)pfile, datasize);
 				return ret;
 			}
 		}
@@ -239,7 +239,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -258,7 +258,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			void* ret = SDLLoadFileNative(pStr0, datasize);
+			void* ret = LoadFileNative(pStr0, datasize);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -279,11 +279,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
 		{
 			fixed (nuint* pdatasize = &datasize)
 			{
-				void* ret = SDLLoadFileNative(file, (ulong*)pdatasize);
+				void* ret = LoadFileNative(file, (ulong*)pdatasize);
 				return ret;
 			}
 		}
@@ -301,13 +301,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
 		{
 			fixed (byte* pfile = &file)
 			{
 				fixed (nuint* pdatasize = &datasize)
 				{
-					void* ret = SDLLoadFileNative((byte*)pfile, (ulong*)pdatasize);
+					void* ret = LoadFileNative((byte*)pfile, (ulong*)pdatasize);
 					return ret;
 				}
 			}
@@ -326,13 +326,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
 		{
 			fixed (byte* pfile = file)
 			{
 				fixed (nuint* pdatasize = &datasize)
 				{
-					void* ret = SDLLoadFileNative((byte*)pfile, (ulong*)pdatasize);
+					void* ret = LoadFileNative((byte*)pfile, (ulong*)pdatasize);
 					return ret;
 				}
 			}
@@ -351,7 +351,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
+		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -372,7 +372,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (nuint* pdatasize = &datasize)
 			{
-				void* ret = SDLLoadFileNative(pStr0, (ulong*)pdatasize);
+				void* ret = LoadFileNative(pStr0, (ulong*)pdatasize);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -389,7 +389,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadU8")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		internal static byte SDLReadU8Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static byte ReadU8Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte>)vt[198])(src);
@@ -406,9 +406,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadU8")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLReadU8([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static byte ReadU8([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			byte ret = SDLReadU8Native(src);
+			byte ret = ReadU8Native(src);
 			return ret;
 		}
 
@@ -420,11 +420,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadU8")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte SDLReadU8([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static byte ReadU8([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				byte ret = SDLReadU8Native((SDLRWops*)psrc);
+				byte ret = ReadU8Native((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -440,7 +440,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLReadLE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static ushort ReadLE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)vt[199])(src);
@@ -460,9 +460,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLReadLE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static ushort ReadLE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			ushort ret = SDLReadLE16Native(src);
+			ushort ret = ReadLE16Native(src);
 			return ret;
 		}
 
@@ -477,11 +477,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLReadLE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static ushort ReadLE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				ushort ret = SDLReadLE16Native((SDLRWops*)psrc);
+				ushort ret = ReadLE16Native((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -497,7 +497,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort SDLReadBE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static ushort ReadBE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)vt[200])(src);
@@ -517,9 +517,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLReadBE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static ushort ReadBE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			ushort ret = SDLReadBE16Native(src);
+			ushort ret = ReadBE16Native(src);
 			return ret;
 		}
 
@@ -534,11 +534,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort SDLReadBE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static ushort ReadBE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				ushort ret = SDLReadBE16Native((SDLRWops*)psrc);
+				ushort ret = ReadBE16Native((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -554,7 +554,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLReadLE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static uint ReadLE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)vt[201])(src);
@@ -574,9 +574,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLReadLE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static uint ReadLE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			uint ret = SDLReadLE32Native(src);
+			uint ret = ReadLE32Native(src);
 			return ret;
 		}
 
@@ -591,11 +591,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLReadLE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static uint ReadLE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				uint ret = SDLReadLE32Native((SDLRWops*)psrc);
+				uint ret = ReadLE32Native((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -611,7 +611,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLReadBE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static uint ReadBE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)vt[202])(src);
@@ -631,9 +631,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLReadBE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static uint ReadBE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			uint ret = SDLReadBE32Native(src);
+			uint ret = ReadBE32Native(src);
 			return ret;
 		}
 
@@ -648,11 +648,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLReadBE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static uint ReadBE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				uint ret = SDLReadBE32Native((SDLRWops*)psrc);
+				uint ret = ReadBE32Native((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -668,7 +668,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		internal static ulong SDLReadLE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static ulong ReadLE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)vt[203])(src);
@@ -688,9 +688,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong SDLReadLE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static ulong ReadLE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			ulong ret = SDLReadLE64Native(src);
+			ulong ret = ReadLE64Native(src);
 			return ret;
 		}
 
@@ -705,11 +705,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong SDLReadLE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static ulong ReadLE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				ulong ret = SDLReadLE64Native((SDLRWops*)psrc);
+				ulong ret = ReadLE64Native((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -725,7 +725,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		internal static ulong SDLReadBE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		internal static ulong ReadBE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)vt[204])(src);
@@ -745,9 +745,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong SDLReadBE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
+		public static ulong ReadBE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
-			ulong ret = SDLReadBE64Native(src);
+			ulong ret = ReadBE64Native(src);
 			return ret;
 		}
 
@@ -762,11 +762,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong SDLReadBE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
+		public static ulong ReadBE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				ulong ret = SDLReadBE64Native((SDLRWops*)psrc);
+				ulong ret = ReadBE64Native((SDLRWops*)psrc);
 				return ret;
 			}
 		}
@@ -779,7 +779,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteU8")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLWriteU8Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		internal static ulong WriteU8Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, ulong>)vt[205])(dst, value);
@@ -796,9 +796,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteU8")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteU8([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		public static ulong WriteU8([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
 		{
-			ulong ret = SDLWriteU8Native(dst, value);
+			ulong ret = WriteU8Native(dst, value);
 			return ret;
 		}
 
@@ -810,11 +810,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteU8")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteU8([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
+		public static ulong WriteU8([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				ulong ret = SDLWriteU8Native((SDLRWops*)pdst, value);
+				ulong ret = WriteU8Native((SDLRWops*)pdst, value);
 				return ret;
 			}
 		}
@@ -831,7 +831,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLWriteLE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
+		internal static ulong WriteLE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)vt[206])(dst, value);
@@ -852,9 +852,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteLE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
+		public static ulong WriteLE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
-			ulong ret = SDLWriteLE16Native(dst, value);
+			ulong ret = WriteLE16Native(dst, value);
 			return ret;
 		}
 
@@ -870,11 +870,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteLE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
+		public static ulong WriteLE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				ulong ret = SDLWriteLE16Native((SDLRWops*)pdst, value);
+				ulong ret = WriteLE16Native((SDLRWops*)pdst, value);
 				return ret;
 			}
 		}
@@ -890,7 +890,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLWriteBE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
+		internal static ulong WriteBE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)vt[207])(dst, value);
@@ -910,9 +910,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteBE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
+		public static ulong WriteBE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
-			ulong ret = SDLWriteBE16Native(dst, value);
+			ulong ret = WriteBE16Native(dst, value);
 			return ret;
 		}
 
@@ -927,11 +927,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteBE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
+		public static ulong WriteBE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				ulong ret = SDLWriteBE16Native((SDLRWops*)pdst, value);
+				ulong ret = WriteBE16Native((SDLRWops*)pdst, value);
 				return ret;
 			}
 		}
@@ -948,7 +948,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLWriteLE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
+		internal static ulong WriteLE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)vt[208])(dst, value);
@@ -969,9 +969,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteLE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
+		public static ulong WriteLE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
-			ulong ret = SDLWriteLE32Native(dst, value);
+			ulong ret = WriteLE32Native(dst, value);
 			return ret;
 		}
 
@@ -987,11 +987,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteLE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
+		public static ulong WriteLE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				ulong ret = SDLWriteLE32Native((SDLRWops*)pdst, value);
+				ulong ret = WriteLE32Native((SDLRWops*)pdst, value);
 				return ret;
 			}
 		}
@@ -1007,7 +1007,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLWriteBE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
+		internal static ulong WriteBE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)vt[209])(dst, value);
@@ -1027,9 +1027,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteBE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
+		public static ulong WriteBE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
-			ulong ret = SDLWriteBE32Native(dst, value);
+			ulong ret = WriteBE32Native(dst, value);
 			return ret;
 		}
 
@@ -1044,11 +1044,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteBE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
+		public static ulong WriteBE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				ulong ret = SDLWriteBE32Native((SDLRWops*)pdst, value);
+				ulong ret = WriteBE32Native((SDLRWops*)pdst, value);
 				return ret;
 			}
 		}
@@ -1065,7 +1065,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLWriteLE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
+		internal static ulong WriteLE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)vt[210])(dst, value);
@@ -1086,9 +1086,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteLE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
+		public static ulong WriteLE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
-			ulong ret = SDLWriteLE64Native(dst, value);
+			ulong ret = WriteLE64Native(dst, value);
 			return ret;
 		}
 
@@ -1104,11 +1104,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteLE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
+		public static ulong WriteLE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				ulong ret = SDLWriteLE64Native((SDLRWops*)pdst, value);
+				ulong ret = WriteLE64Native((SDLRWops*)pdst, value);
 				return ret;
 			}
 		}
@@ -1124,7 +1124,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLWriteBE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
+		internal static ulong WriteBE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)vt[211])(dst, value);
@@ -1144,9 +1144,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteBE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
+		public static ulong WriteBE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
-			ulong ret = SDLWriteBE64Native(dst, value);
+			ulong ret = WriteBE64Native(dst, value);
 			return ret;
 		}
 
@@ -1161,11 +1161,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLWriteBE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
+		public static ulong WriteBE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
 			fixed (SDLRWops* pdst = &dst)
 			{
-				ulong ret = SDLWriteBE64Native((SDLRWops*)pdst, value);
+				ulong ret = WriteBE64Native((SDLRWops*)pdst, value);
 				return ret;
 			}
 		}
@@ -1186,7 +1186,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDrivers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetNumAudioDriversNative()
+		internal static int GetNumAudioDriversNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[212])();
@@ -1211,9 +1211,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDrivers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetNumAudioDrivers()
+		public static int GetNumAudioDrivers()
 		{
-			int ret = SDLGetNumAudioDriversNative();
+			int ret = GetNumAudioDriversNative();
 			return ret;
 		}
 
@@ -1231,7 +1231,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGetAudioDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		internal static byte* GetAudioDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[213])(index);
@@ -1254,9 +1254,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetAudioDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		public static byte* GetAudioDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			byte* ret = SDLGetAudioDriverNative(index);
+			byte* ret = GetAudioDriverNative(index);
 			return ret;
 		}
 
@@ -1274,9 +1274,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetAudioDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		public static string GetAudioDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetAudioDriverNative(index));
+			string ret = Utils.DecodeStringUTF8(GetAudioDriverNative(index));
 			return ret;
 		}
 
@@ -1291,7 +1291,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLAudioInitNative([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
+		internal static int AudioInitNative([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[214])(driverName);
@@ -1311,9 +1311,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
+		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
 		{
-			int ret = SDLAudioInitNative(driverName);
+			int ret = AudioInitNative(driverName);
 			return ret;
 		}
 
@@ -1328,11 +1328,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] ref byte driverName)
+		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] ref byte driverName)
 		{
 			fixed (byte* pdriverName = &driverName)
 			{
-				int ret = SDLAudioInitNative((byte*)pdriverName);
+				int ret = AudioInitNative((byte*)pdriverName);
 				return ret;
 			}
 		}
@@ -1348,11 +1348,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> driverName)
+		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> driverName)
 		{
 			fixed (byte* pdriverName = driverName)
 			{
-				int ret = SDLAudioInitNative((byte*)pdriverName);
+				int ret = AudioInitNative((byte*)pdriverName);
 				return ret;
 			}
 		}
@@ -1368,7 +1368,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] string driverName)
+		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] string driverName)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1387,7 +1387,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(driverName, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SDLAudioInitNative(pStr0);
+			int ret = AudioInitNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1406,7 +1406,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioQuit")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLAudioQuitNative()
+		internal static void AudioQuitNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[215])();
@@ -1426,9 +1426,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioQuit")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAudioQuit()
+		public static void AudioQuit()
 		{
-			SDLAudioQuitNative();
+			AudioQuitNative();
 		}
 
 		/// <summary>
@@ -1444,7 +1444,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCurrentAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGetCurrentAudioDriverNative()
+		internal static byte* GetCurrentAudioDriverNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*>)vt[216])();
@@ -1466,9 +1466,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCurrentAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetCurrentAudioDriver()
+		public static byte* GetCurrentAudioDriver()
 		{
-			byte* ret = SDLGetCurrentAudioDriverNative();
+			byte* ret = GetCurrentAudioDriverNative();
 			return ret;
 		}
 
@@ -1485,9 +1485,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCurrentAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetCurrentAudioDriverS()
+		public static string GetCurrentAudioDriverS()
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetCurrentAudioDriverNative());
+			string ret = Utils.DecodeStringUTF8(GetCurrentAudioDriverNative());
 			return ret;
 		}
 
@@ -1521,7 +1521,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLOpenAudioNative([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
+		internal static int OpenAudioNative([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioSpec*, SDLAudioSpec*, int>)vt[217])(desired, obtained);
@@ -1560,9 +1560,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLOpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
+		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
 		{
-			int ret = SDLOpenAudioNative(desired, obtained);
+			int ret = OpenAudioNative(desired, obtained);
 			return ret;
 		}
 
@@ -1596,11 +1596,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLOpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
+		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
 		{
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
-				int ret = SDLOpenAudioNative((SDLAudioSpec*)pdesired, obtained);
+				int ret = OpenAudioNative((SDLAudioSpec*)pdesired, obtained);
 				return ret;
 			}
 		}
@@ -1635,11 +1635,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLOpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained)
+		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained)
 		{
 			fixed (SDLAudioSpec* pobtained = &obtained)
 			{
-				int ret = SDLOpenAudioNative(desired, (SDLAudioSpec*)pobtained);
+				int ret = OpenAudioNative(desired, (SDLAudioSpec*)pobtained);
 				return ret;
 			}
 		}
@@ -1674,13 +1674,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLOpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained)
+		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained)
 		{
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
 				fixed (SDLAudioSpec* pobtained = &obtained)
 				{
-					int ret = SDLOpenAudioNative((SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained);
+					int ret = OpenAudioNative((SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained);
 					return ret;
 				}
 			}
@@ -1723,7 +1723,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDevices")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetNumAudioDevicesNative([NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		internal static int GetNumAudioDevicesNative([NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)vt[218])(iscapture);
@@ -1769,9 +1769,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDevices")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetNumAudioDevices([NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		public static int GetNumAudioDevices([NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
-			int ret = SDLGetNumAudioDevicesNative(iscapture);
+			int ret = GetNumAudioDevicesNative(iscapture);
 			return ret;
 		}
 
@@ -1791,7 +1791,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGetAudioDeviceNameNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		internal static byte* GetAudioDeviceNameNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int, byte*>)vt[219])(index, iscapture);
@@ -1816,9 +1816,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetAudioDeviceName([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		public static byte* GetAudioDeviceName([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
-			byte* ret = SDLGetAudioDeviceNameNative(index, iscapture);
+			byte* ret = GetAudioDeviceNameNative(index, iscapture);
 			return ret;
 		}
 
@@ -1838,9 +1838,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetAudioDeviceNameS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		public static string GetAudioDeviceNameS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetAudioDeviceNameNative(index, iscapture));
+			string ret = Utils.DecodeStringUTF8(GetAudioDeviceNameNative(index, iscapture));
 			return ret;
 		}
 
@@ -1858,7 +1858,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceSpec")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetAudioDeviceSpecNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec)
+		internal static int GetAudioDeviceSpecNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int, SDLAudioSpec*, int>)vt[220])(index, iscapture, spec);
@@ -1881,9 +1881,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceSpec")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetAudioDeviceSpec([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec)
+		public static int GetAudioDeviceSpec([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec)
 		{
-			int ret = SDLGetAudioDeviceSpecNative(index, iscapture, spec);
+			int ret = GetAudioDeviceSpecNative(index, iscapture, spec);
 			return ret;
 		}
 
@@ -1901,11 +1901,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceSpec")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetAudioDeviceSpec([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec)
+		public static int GetAudioDeviceSpec([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec)
 		{
 			fixed (SDLAudioSpec* pspec = &spec)
 			{
-				int ret = SDLGetAudioDeviceSpecNative(index, iscapture, (SDLAudioSpec*)pspec);
+				int ret = GetAudioDeviceSpecNative(index, iscapture, (SDLAudioSpec*)pspec);
 				return ret;
 			}
 		}
@@ -1928,7 +1928,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetDefaultAudioInfoNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		internal static int GetDefaultAudioInfoNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte**, SDLAudioSpec*, int, int>)vt[221])(name, spec, iscapture);
@@ -1955,9 +1955,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
-			int ret = SDLGetDefaultAudioInfoNative(name, spec, iscapture);
+			int ret = GetDefaultAudioInfoNative(name, spec, iscapture);
 			return ret;
 		}
 
@@ -1979,11 +1979,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] ref byte* name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] ref byte* name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			fixed (byte** pname = &name)
 			{
-				int ret = SDLGetDefaultAudioInfoNative((byte**)pname, spec, iscapture);
+				int ret = GetDefaultAudioInfoNative((byte**)pname, spec, iscapture);
 				return ret;
 			}
 		}
@@ -2006,11 +2006,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			fixed (SDLAudioSpec* pspec = &spec)
 			{
-				int ret = SDLGetDefaultAudioInfoNative(name, (SDLAudioSpec*)pspec, iscapture);
+				int ret = GetDefaultAudioInfoNative(name, (SDLAudioSpec*)pspec, iscapture);
 				return ret;
 			}
 		}
@@ -2033,13 +2033,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] ref byte* name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] ref byte* name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			fixed (byte** pname = &name)
 			{
 				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					int ret = SDLGetDefaultAudioInfoNative((byte**)pname, (SDLAudioSpec*)pspec, iscapture);
+					int ret = GetDefaultAudioInfoNative((byte**)pname, (SDLAudioSpec*)pspec, iscapture);
 					return ret;
 				}
 			}
@@ -2124,7 +2124,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		internal static uint SDLOpenAudioDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		internal static uint OpenAudioDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLAudioSpec*, SDLAudioSpec*, int, uint>)vt[222])(device, iscapture, desired, obtained, allowedChanges);
@@ -2212,9 +2212,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
-			uint ret = SDLOpenAudioDeviceNative(device, iscapture, desired, obtained, allowedChanges);
+			uint ret = OpenAudioDeviceNative(device, iscapture, desired, obtained, allowedChanges);
 			return ret;
 		}
 
@@ -2297,11 +2297,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
-				uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -2385,11 +2385,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
-				uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -2473,7 +2473,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2492,7 +2492,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(device, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			uint ret = SDLOpenAudioDeviceNative(pStr0, iscapture, desired, obtained, allowedChanges);
+			uint ret = OpenAudioDeviceNative(pStr0, iscapture, desired, obtained, allowedChanges);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2579,11 +2579,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
-				uint ret = SDLOpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -2667,13 +2667,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
 				fixed (SDLAudioSpec* pdesired = &desired)
 				{
-					uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -2758,13 +2758,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
 				fixed (SDLAudioSpec* pdesired = &desired)
 				{
-					uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -2849,7 +2849,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2870,7 +2870,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
-				uint ret = SDLOpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -2958,11 +2958,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (SDLAudioSpec* pobtained = &obtained)
 			{
-				uint ret = SDLOpenAudioDeviceNative(device, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(device, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
 				return ret;
 			}
 		}
@@ -3046,13 +3046,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
 				fixed (SDLAudioSpec* pobtained = &obtained)
 				{
-					uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -3137,13 +3137,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
 				fixed (SDLAudioSpec* pobtained = &obtained)
 				{
-					uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -3228,7 +3228,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3249,7 +3249,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (SDLAudioSpec* pobtained = &obtained)
 			{
-				uint ret = SDLOpenAudioDeviceNative(pStr0, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
+				uint ret = OpenAudioDeviceNative(pStr0, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -3337,13 +3337,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (SDLAudioSpec* pdesired = &desired)
 			{
 				fixed (SDLAudioSpec* pobtained = &obtained)
 				{
-					uint ret = SDLOpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
 					return ret;
 				}
 			}
@@ -3428,7 +3428,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = &device)
 			{
@@ -3436,7 +3436,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLAudioSpec* pobtained = &obtained)
 					{
-						uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
+						uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
 						return ret;
 					}
 				}
@@ -3522,7 +3522,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			fixed (byte* pdevice = device)
 			{
@@ -3530,7 +3530,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLAudioSpec* pobtained = &obtained)
 					{
-						uint ret = SDLOpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
+						uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
 						return ret;
 					}
 				}
@@ -3616,7 +3616,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint SDLOpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
+		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3639,7 +3639,7 @@ namespace Hexa.NET.SDL2
 			{
 				fixed (SDLAudioSpec* pobtained = &obtained)
 				{
-					uint ret = SDLOpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
+					uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
 					if (pStrSize0 >= Utils.MaxStackallocSize)
 					{
 						Utils.Free(pStr0);
@@ -3663,7 +3663,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioStatus")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
-		internal static SDLAudioStatus SDLGetAudioStatusNative()
+		internal static SDLAudioStatus GetAudioStatusNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioStatus>)vt[223])();
@@ -3686,9 +3686,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioStatus")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
-		public static SDLAudioStatus SDLGetAudioStatus()
+		public static SDLAudioStatus GetAudioStatus()
 		{
-			SDLAudioStatus ret = SDLGetAudioStatusNative();
+			SDLAudioStatus ret = GetAudioStatusNative();
 			return ret;
 		}
 
@@ -3700,7 +3700,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceStatus")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
-		internal static SDLAudioStatus SDLGetAudioDeviceStatusNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		internal static SDLAudioStatus GetAudioDeviceStatusNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioStatus>)vt[224])(dev);
@@ -3717,9 +3717,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceStatus")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
-		public static SDLAudioStatus SDLGetAudioDeviceStatus([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		public static SDLAudioStatus GetAudioDeviceStatus([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
-			SDLAudioStatus ret = SDLGetAudioDeviceStatusNative(dev);
+			SDLAudioStatus ret = GetAudioDeviceStatusNative(dev);
 			return ret;
 		}
 
@@ -3737,7 +3737,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PauseAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLPauseAudioNative([NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
+		internal static void PauseAudioNative([NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, void>)vt[225])(pauseOn);
@@ -3760,9 +3760,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PauseAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLPauseAudio([NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
+		public static void PauseAudio([NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
 		{
-			SDLPauseAudioNative(pauseOn);
+			PauseAudioNative(pauseOn);
 		}
 
 		/// <summary>
@@ -3788,7 +3788,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PauseAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLPauseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
+		internal static void PauseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[226])(dev, pauseOn);
@@ -3820,9 +3820,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PauseAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLPauseAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
+		public static void PauseAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
 		{
-			SDLPauseAudioDeviceNative(dev, pauseOn);
+			PauseAudioDeviceNative(dev, pauseOn);
 		}
 
 		/// <summary>
@@ -3890,7 +3890,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		internal static SDLAudioSpec* SDLLoadWAVRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		internal static SDLAudioSpec* LoadWAVRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLAudioSpec*, byte**, uint*, SDLAudioSpec*>)vt[227])(src, freesrc, spec, audioBuf, audioLen);
@@ -3964,9 +3964,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
-			SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, spec, audioBuf, audioLen);
+			SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, audioBuf, audioLen);
 			return ret;
 		}
 
@@ -4035,11 +4035,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
-				SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, audioLen);
+				SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, audioLen);
 				return ret;
 			}
 		}
@@ -4109,11 +4109,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			fixed (SDLAudioSpec* pspec = &spec)
 			{
-				SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 				return ret;
 			}
 		}
@@ -4183,13 +4183,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
 				fixed (SDLAudioSpec* pspec = &spec)
 				{
-					SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
 					return ret;
 				}
 			}
@@ -4260,11 +4260,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			fixed (byte** paudioBuf = &audioBuf)
 			{
-				SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, audioLen);
+				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, audioLen);
 				return ret;
 			}
 		}
@@ -4334,13 +4334,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
 				fixed (byte** paudioBuf = &audioBuf)
 				{
-					SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, audioLen);
+					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, audioLen);
 					return ret;
 				}
 			}
@@ -4411,13 +4411,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			fixed (SDLAudioSpec* pspec = &spec)
 			{
 				fixed (byte** paudioBuf = &audioBuf)
 				{
-					SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
 					return ret;
 				}
 			}
@@ -4488,7 +4488,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
@@ -4496,7 +4496,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte** paudioBuf = &audioBuf)
 					{
-						SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
 						return ret;
 					}
 				}
@@ -4568,11 +4568,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (uint* paudioLen = &audioLen)
 			{
-				SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, spec, audioBuf, (uint*)paudioLen);
+				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, audioBuf, (uint*)paudioLen);
 				return ret;
 			}
 		}
@@ -4642,13 +4642,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
 				fixed (uint* paudioLen = &audioLen)
 				{
-					SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, (uint*)paudioLen);
+					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, (uint*)paudioLen);
 					return ret;
 				}
 			}
@@ -4719,13 +4719,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (SDLAudioSpec* pspec = &spec)
 			{
 				fixed (uint* paudioLen = &audioLen)
 				{
-					SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
 					return ret;
 				}
 			}
@@ -4796,7 +4796,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
@@ -4804,7 +4804,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* paudioLen = &audioLen)
 					{
-						SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
 						return ret;
 					}
 				}
@@ -4876,13 +4876,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (byte** paudioBuf = &audioBuf)
 			{
 				fixed (uint* paudioLen = &audioLen)
 				{
-					SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
+					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
 					return ret;
 				}
 			}
@@ -4953,7 +4953,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
@@ -4961,7 +4961,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* paudioLen = &audioLen)
 					{
-						SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
+						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
 						return ret;
 					}
 				}
@@ -5033,7 +5033,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (SDLAudioSpec* pspec = &spec)
 			{
@@ -5041,7 +5041,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* paudioLen = &audioLen)
 					{
-						SDLAudioSpec* ret = SDLLoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
 						return ret;
 					}
 				}

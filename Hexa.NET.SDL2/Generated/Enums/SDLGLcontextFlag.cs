@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_GLcontextFlag")]
+	[Flags]
 	public enum SDLGLcontextFlag : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_DEBUG_FLAG")]

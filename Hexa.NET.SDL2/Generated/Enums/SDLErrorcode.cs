@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_errorcode")]
+	[Flags]
 	public enum SDLErrorcode : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_ENOMEM")]

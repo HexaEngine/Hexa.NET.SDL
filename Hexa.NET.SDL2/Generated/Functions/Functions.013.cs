@@ -28,13 +28,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value)
 		{
 			fixed (byte* pname = name)
 			{
 				fixed (byte* pvalue = value)
 				{
-					SDLBool ret = SDLSetHintNative((byte*)pname, (byte*)pvalue);
+					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
 					return ret;
 				}
 			}
@@ -51,7 +51,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLSetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value)
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -87,7 +87,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			SDLBool ret = SDLSetHintNative(pStr0, pStr1);
+			SDLBool ret = SetHintNative(pStr0, pStr1);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -110,7 +110,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLResetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		internal static SDLBool ResetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)vt[691])(name);
@@ -130,9 +130,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static SDLBool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
-			SDLBool ret = SDLResetHintNative(name);
+			SDLBool ret = ResetHintNative(name);
 			return ret;
 		}
 
@@ -147,11 +147,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static SDLBool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLBool ret = SDLResetHintNative((byte*)pname);
+				SDLBool ret = ResetHintNative((byte*)pname);
 				return ret;
 			}
 		}
@@ -167,11 +167,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static SDLBool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLBool ret = SDLResetHintNative((byte*)pname);
+				SDLBool ret = ResetHintNative((byte*)pname);
 				return ret;
 			}
 		}
@@ -187,7 +187,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static SDLBool ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -206,7 +206,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLBool ret = SDLResetHintNative(pStr0);
+			SDLBool ret = ResetHintNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -224,7 +224,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHints")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLResetHintsNative()
+		internal static void ResetHintsNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[692])();
@@ -243,9 +243,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHints")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLResetHints()
+		public static void ResetHints()
 		{
-			SDLResetHintsNative();
+			ResetHintsNative();
 		}
 
 		/// <summary>
@@ -256,7 +256,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		internal static byte* GetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)vt[693])(name);
@@ -273,9 +273,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
-			byte* ret = SDLGetHintNative(name);
+			byte* ret = GetHintNative(name);
 			return ret;
 		}
 
@@ -287,9 +287,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetHintNative(name));
+			string ret = Utils.DecodeStringUTF8(GetHintNative(name));
 			return ret;
 		}
 
@@ -301,11 +301,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
-				byte* ret = SDLGetHintNative((byte*)pname);
+				byte* ret = GetHintNative((byte*)pname);
 				return ret;
 			}
 		}
@@ -318,11 +318,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGetHintNative((byte*)pname));
+				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
 				return ret;
 			}
 		}
@@ -335,11 +335,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
-				byte* ret = SDLGetHintNative((byte*)pname);
+				byte* ret = GetHintNative((byte*)pname);
 				return ret;
 			}
 		}
@@ -352,11 +352,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGetHintNative((byte*)pname));
+				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
 				return ret;
 			}
 		}
@@ -369,7 +369,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -388,7 +388,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			byte* ret = SDLGetHintNative(pStr0);
+			byte* ret = GetHintNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -404,7 +404,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -423,7 +423,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			string ret = Utils.DecodeStringUTF8(SDLGetHintNative(pStr0));
+			string ret = Utils.DecodeStringUTF8(GetHintNative(pStr0));
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -439,7 +439,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGetHintBooleanNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
+		internal static SDLBool GetHintBooleanNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool, SDLBool>)vt[694])(name, defaultValue);
@@ -456,9 +456,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
+		public static SDLBool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
 		{
-			SDLBool ret = SDLGetHintBooleanNative(name, defaultValue);
+			SDLBool ret = GetHintBooleanNative(name, defaultValue);
 			return ret;
 		}
 
@@ -470,11 +470,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
+		public static SDLBool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLBool ret = SDLGetHintBooleanNative((byte*)pname, defaultValue);
+				SDLBool ret = GetHintBooleanNative((byte*)pname, defaultValue);
 				return ret;
 			}
 		}
@@ -487,11 +487,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
+		public static SDLBool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLBool ret = SDLGetHintBooleanNative((byte*)pname, defaultValue);
+				SDLBool ret = GetHintBooleanNative((byte*)pname, defaultValue);
 				return ret;
 			}
 		}
@@ -504,7 +504,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
+		public static SDLBool GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -523,7 +523,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLBool ret = SDLGetHintBooleanNative(pStr0, defaultValue);
+			SDLBool ret = GetHintBooleanNative(pStr0, defaultValue);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -539,7 +539,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLAddHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void AddHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)vt[695])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
@@ -556,9 +556,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			SDLAddHintCallbackNative(name, callback, userdata);
+			AddHintCallbackNative(name, callback, userdata);
 		}
 
 		/// <summary>
@@ -569,11 +569,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLAddHintCallbackNative((byte*)pname, callback, userdata);
+				AddHintCallbackNative((byte*)pname, callback, userdata);
 			}
 		}
 
@@ -585,11 +585,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLAddHintCallbackNative((byte*)pname, callback, userdata);
+				AddHintCallbackNative((byte*)pname, callback, userdata);
 			}
 		}
 
@@ -601,7 +601,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -620,7 +620,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLAddHintCallbackNative(pStr0, callback, userdata);
+			AddHintCallbackNative(pStr0, callback, userdata);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -635,7 +635,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLDelHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void DelHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)vt[696])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
@@ -652,9 +652,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLDelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			SDLDelHintCallbackNative(name, callback, userdata);
+			DelHintCallbackNative(name, callback, userdata);
 		}
 
 		/// <summary>
@@ -665,11 +665,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLDelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (byte* pname = &name)
 			{
-				SDLDelHintCallbackNative((byte*)pname, callback, userdata);
+				DelHintCallbackNative((byte*)pname, callback, userdata);
 			}
 		}
 
@@ -681,11 +681,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLDelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (byte* pname = name)
 			{
-				SDLDelHintCallbackNative((byte*)pname, callback, userdata);
+				DelHintCallbackNative((byte*)pname, callback, userdata);
 			}
 		}
 
@@ -697,7 +697,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLDelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -716,7 +716,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLDelHintCallbackNative(pStr0, callback, userdata);
+			DelHintCallbackNative(pStr0, callback, userdata);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -735,7 +735,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearHints")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLClearHintsNative()
+		internal static void ClearHintsNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[697])();
@@ -756,9 +756,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearHints")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLClearHints()
+		public static void ClearHints()
 		{
-			SDLClearHintsNative();
+			ClearHintsNative();
 		}
 
 		/// <summary>
@@ -769,7 +769,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLLoadObjectNative([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] byte* sofile)
+		internal static void* LoadObjectNative([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] byte* sofile)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, void*>)vt[698])(sofile);
@@ -786,9 +786,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] byte* sofile)
+		public static void* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] byte* sofile)
 		{
-			void* ret = SDLLoadObjectNative(sofile);
+			void* ret = LoadObjectNative(sofile);
 			return ret;
 		}
 
@@ -800,11 +800,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] ref byte sofile)
+		public static void* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] ref byte sofile)
 		{
 			fixed (byte* psofile = &sofile)
 			{
-				void* ret = SDLLoadObjectNative((byte*)psofile);
+				void* ret = LoadObjectNative((byte*)psofile);
 				return ret;
 			}
 		}
@@ -817,11 +817,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> sofile)
+		public static void* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> sofile)
 		{
 			fixed (byte* psofile = sofile)
 			{
-				void* ret = SDLLoadObjectNative((byte*)psofile);
+				void* ret = LoadObjectNative((byte*)psofile);
 				return ret;
 			}
 		}
@@ -834,7 +834,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] string sofile)
+		public static void* LoadObject([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] string sofile)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -853,7 +853,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(sofile, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			void* ret = SDLLoadObjectNative(pStr0);
+			void* ret = LoadObjectNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -877,7 +877,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLLoadFunctionNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		internal static void* LoadFunctionNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, byte*, void*>)vt[699])(handle, name);
@@ -902,9 +902,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static void* LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
-			void* ret = SDLLoadFunctionNative(handle, name);
+			void* ret = LoadFunctionNative(handle, name);
 			return ret;
 		}
 
@@ -924,11 +924,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static void* LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
-				void* ret = SDLLoadFunctionNative(handle, (byte*)pname);
+				void* ret = LoadFunctionNative(handle, (byte*)pname);
 				return ret;
 			}
 		}
@@ -949,11 +949,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static void* LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
-				void* ret = SDLLoadFunctionNative(handle, (byte*)pname);
+				void* ret = LoadFunctionNative(handle, (byte*)pname);
 				return ret;
 			}
 		}
@@ -974,7 +974,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLLoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static void* LoadFunction([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -993,7 +993,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			void* ret = SDLLoadFunctionNative(handle, pStr0);
+			void* ret = LoadFunctionNative(handle, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1009,7 +1009,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLUnloadObjectNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle)
+		internal static void UnloadObjectNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void*, void>)vt[700])(handle);
@@ -1026,9 +1026,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnloadObject([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle)
+		public static void UnloadObject([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle)
 		{
-			SDLUnloadObjectNative(handle);
+			UnloadObjectNative(handle);
 		}
 
 		/// <summary>
@@ -1039,7 +1039,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetAllPriority")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogSetAllPriorityNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
+		internal static void LogSetAllPriorityNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)vt[701])(priority);
@@ -1056,9 +1056,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetAllPriority")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogSetAllPriority([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
+		public static void LogSetAllPriority([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
 		{
-			SDLLogSetAllPriorityNative(priority);
+			LogSetAllPriorityNative(priority);
 		}
 
 		/// <summary>
@@ -1069,7 +1069,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetPriority")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogSetPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
+		internal static void LogSetPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)vt[702])(category, priority);
@@ -1086,9 +1086,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetPriority")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogSetPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
+		public static void LogSetPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
 		{
-			SDLLogSetPriorityNative(category, priority);
+			LogSetPriorityNative(category, priority);
 		}
 
 		/// <summary>
@@ -1099,7 +1099,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogGetPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_LogPriority")]
-		internal static SDLLogPriority SDLLogGetPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
+		internal static SDLLogPriority LogGetPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)vt[703])(category);
@@ -1116,9 +1116,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogGetPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_LogPriority")]
-		public static SDLLogPriority SDLLogGetPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
+		public static SDLLogPriority LogGetPriority([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
 		{
-			SDLLogPriority ret = SDLLogGetPriorityNative(category);
+			SDLLogPriority ret = LogGetPriorityNative(category);
 			return ret;
 		}
 
@@ -1130,7 +1130,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogResetPriorities")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogResetPrioritiesNative()
+		internal static void LogResetPrioritiesNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[704])();
@@ -1147,14 +1147,14 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogResetPriorities")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogResetPriorities()
+		public static void LogResetPriorities()
 		{
-			SDLLogResetPrioritiesNative();
+			LogResetPrioritiesNative();
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_Log")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<byte*, void>)vt[705])(fmt);
@@ -1165,34 +1165,34 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_Log")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogNative(fmt);
+			LogNative(fmt);
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_Log")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogNative((byte*)pfmt);
+				LogNative((byte*)pfmt);
 			}
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_Log")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogNative((byte*)pfmt);
+				LogNative((byte*)pfmt);
 			}
 		}
 
 		[NativeName(NativeNameType.Func, "SDL_Log")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void Log([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1211,7 +1211,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogNative(pStr0);
+			LogNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1226,7 +1226,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogVerboseNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogVerboseNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[706])(category, fmt);
@@ -1243,9 +1243,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogVerboseNative(category, fmt);
+			LogVerboseNative(category, fmt);
 		}
 
 		/// <summary>
@@ -1256,11 +1256,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogVerboseNative(category, (byte*)pfmt);
+				LogVerboseNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1272,11 +1272,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogVerboseNative(category, (byte*)pfmt);
+				LogVerboseNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1288,7 +1288,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void LogVerbose([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1307,7 +1307,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogVerboseNative(category, pStr0);
+			LogVerboseNative(category, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1322,7 +1322,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogDebugNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogDebugNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[707])(category, fmt);
@@ -1339,9 +1339,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogDebugNative(category, fmt);
+			LogDebugNative(category, fmt);
 		}
 
 		/// <summary>
@@ -1352,11 +1352,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogDebugNative(category, (byte*)pfmt);
+				LogDebugNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1368,11 +1368,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogDebugNative(category, (byte*)pfmt);
+				LogDebugNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1384,7 +1384,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void LogDebug([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1403,7 +1403,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogDebugNative(category, pStr0);
+			LogDebugNative(category, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1418,7 +1418,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogInfoNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogInfoNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[708])(category, fmt);
@@ -1435,9 +1435,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogInfoNative(category, fmt);
+			LogInfoNative(category, fmt);
 		}
 
 		/// <summary>
@@ -1448,11 +1448,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogInfoNative(category, (byte*)pfmt);
+				LogInfoNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1464,11 +1464,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogInfoNative(category, (byte*)pfmt);
+				LogInfoNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1480,7 +1480,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void LogInfo([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1499,7 +1499,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogInfoNative(category, pStr0);
+			LogInfoNative(category, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1514,7 +1514,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogWarnNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogWarnNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[709])(category, fmt);
@@ -1531,9 +1531,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogWarnNative(category, fmt);
+			LogWarnNative(category, fmt);
 		}
 
 		/// <summary>
@@ -1544,11 +1544,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogWarnNative(category, (byte*)pfmt);
+				LogWarnNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1560,11 +1560,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogWarnNative(category, (byte*)pfmt);
+				LogWarnNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1576,7 +1576,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void LogWarn([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1595,7 +1595,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogWarnNative(category, pStr0);
+			LogWarnNative(category, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1610,7 +1610,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogError")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogErrorNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogErrorNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[710])(category, fmt);
@@ -1627,9 +1627,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogError")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogErrorNative(category, fmt);
+			LogErrorNative(category, fmt);
 		}
 
 		/// <summary>
@@ -1640,11 +1640,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogError")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogErrorNative(category, (byte*)pfmt);
+				LogErrorNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1656,11 +1656,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogError")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogErrorNative(category, (byte*)pfmt);
+				LogErrorNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1672,7 +1672,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogError")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void LogError([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1691,7 +1691,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogErrorNative(category, pStr0);
+			LogErrorNative(category, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1706,7 +1706,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogCriticalNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogCriticalNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[711])(category, fmt);
@@ -1723,9 +1723,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogCriticalNative(category, fmt);
+			LogCriticalNative(category, fmt);
 		}
 
 		/// <summary>
@@ -1736,11 +1736,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogCriticalNative(category, (byte*)pfmt);
+				LogCriticalNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1752,11 +1752,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogCriticalNative(category, (byte*)pfmt);
+				LogCriticalNative(category, (byte*)pfmt);
 			}
 		}
 
@@ -1768,7 +1768,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void LogCritical([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1787,7 +1787,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogCriticalNative(category, pStr0);
+			LogCriticalNative(category, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1802,7 +1802,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogMessageNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		internal static void LogMessageNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, void>)vt[712])(category, priority, fmt);
@@ -1819,9 +1819,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
+		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
-			SDLLogMessageNative(category, priority, fmt);
+			LogMessageNative(category, priority, fmt);
 		}
 
 		/// <summary>
@@ -1832,11 +1832,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
+		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogMessageNative(category, priority, (byte*)pfmt);
+				LogMessageNative(category, priority, (byte*)pfmt);
 			}
 		}
 
@@ -1848,11 +1848,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
+		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogMessageNative(category, priority, (byte*)pfmt);
+				LogMessageNative(category, priority, (byte*)pfmt);
 			}
 		}
 
@@ -1864,7 +1864,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
+		public static void LogMessage([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1883,7 +1883,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogMessageNative(category, priority, pStr0);
+			LogMessageNative(category, priority, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1898,7 +1898,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogMessageVNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		internal static void LogMessageVNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, nint, void>)vt[713])(category, priority, fmt, ap);
@@ -1915,9 +1915,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
-			SDLLogMessageVNative(category, priority, fmt, ap);
+			LogMessageVNative(category, priority, fmt, ap);
 		}
 
 		/// <summary>
@@ -1928,11 +1928,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte* pfmt = &fmt)
 			{
-				SDLLogMessageVNative(category, priority, (byte*)pfmt, ap);
+				LogMessageVNative(category, priority, (byte*)pfmt, ap);
 			}
 		}
 
@@ -1944,11 +1944,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			fixed (byte* pfmt = fmt)
 			{
-				SDLLogMessageVNative(category, priority, (byte*)pfmt, ap);
+				LogMessageVNative(category, priority, (byte*)pfmt, ap);
 			}
 		}
 
@@ -1960,7 +1960,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
+		public static void LogMessageV([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1979,7 +1979,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLLogMessageVNative(category, priority, pStr0, ap);
+			LogMessageVNative(category, priority, pStr0, ap);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1994,7 +1994,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogGetOutputFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogGetOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction*")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
+		internal static void LogGetOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction*")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>*, void**, void>)vt[714])(callback, userdata);
@@ -2011,9 +2011,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogGetOutputFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogGetOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction*")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
+		public static void LogGetOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction*")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
 		{
-			SDLLogGetOutputFunctionNative(callback, userdata);
+			LogGetOutputFunctionNative(callback, userdata);
 		}
 
 		/// <summary>
@@ -2024,7 +2024,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetOutputFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLogSetOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void LogSetOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>, void*, void>)vt[715])((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
@@ -2041,9 +2041,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetOutputFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLogSetOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void LogSetOutputFunction([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			SDLLogSetOutputFunctionNative(callback, userdata);
+			LogSetOutputFunctionNative(callback, userdata);
 		}
 
 		/// <summary>
@@ -2069,7 +2069,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLShowMessageBoxNative([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] int* buttonid)
+		internal static int ShowMessageBoxNative([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] int* buttonid)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxData*, int*, int>)vt[716])(messageboxdata, buttonid);
@@ -2101,9 +2101,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] int* buttonid)
+		public static int ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] int* buttonid)
 		{
-			int ret = SDLShowMessageBoxNative(messageboxdata, buttonid);
+			int ret = ShowMessageBoxNative(messageboxdata, buttonid);
 			return ret;
 		}
 
@@ -2130,11 +2130,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] int* buttonid)
+		public static int ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] int* buttonid)
 		{
 			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
 			{
-				int ret = SDLShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, buttonid);
+				int ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, buttonid);
 				return ret;
 			}
 		}
@@ -2162,11 +2162,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] ref int buttonid)
+		public static int ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] ref int buttonid)
 		{
 			fixed (int* pbuttonid = &buttonid)
 			{
-				int ret = SDLShowMessageBoxNative(messageboxdata, (int*)pbuttonid);
+				int ret = ShowMessageBoxNative(messageboxdata, (int*)pbuttonid);
 				return ret;
 			}
 		}
@@ -2194,13 +2194,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] ref int buttonid)
+		public static int ShowMessageBox([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] ref SDLMessageBoxData messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] ref int buttonid)
 		{
 			fixed (SDLMessageBoxData* pmessageboxdata = &messageboxdata)
 			{
 				fixed (int* pbuttonid = &buttonid)
 				{
-					int ret = SDLShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, (int*)pbuttonid);
+					int ret = ShowMessageBoxNative((SDLMessageBoxData*)pmessageboxdata, (int*)pbuttonid);
 					return ret;
 				}
 			}
@@ -2233,7 +2233,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLShowSimpleMessageBoxNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static int ShowSimpleMessageBoxNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, SDLWindow*, int>)vt[717])(flags, title, message, window);
@@ -2269,9 +2269,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			int ret = SDLShowSimpleMessageBoxNative(flags, title, message, window);
+			int ret = ShowSimpleMessageBoxNative(flags, title, message, window);
 			return ret;
 		}
 
@@ -2302,11 +2302,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			fixed (byte* ptitle = &title)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
+				int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
 				return ret;
 			}
 		}
@@ -2338,11 +2338,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			fixed (byte* ptitle = title)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
+				int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, window);
 				return ret;
 			}
 		}
@@ -2374,7 +2374,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2393,7 +2393,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SDLShowSimpleMessageBoxNative(flags, pStr0, message, window);
+			int ret = ShowSimpleMessageBoxNative(flags, pStr0, message, window);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2428,11 +2428,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			fixed (byte* pmessage = &message)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
+				int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
 				return ret;
 			}
 		}
@@ -2464,11 +2464,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			fixed (byte* pmessage = message)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
+				int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, window);
 				return ret;
 			}
 		}
@@ -2500,7 +2500,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2519,7 +2519,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(message, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SDLShowSimpleMessageBoxNative(flags, title, pStr0, window);
+			int ret = ShowSimpleMessageBoxNative(flags, title, pStr0, window);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -2554,13 +2554,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			fixed (byte* ptitle = &title)
 			{
 				fixed (byte* pmessage = &message)
 				{
-					int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
 					return ret;
 				}
 			}
@@ -2593,13 +2593,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			fixed (byte* ptitle = title)
 			{
 				fixed (byte* pmessage = message)
 				{
-					int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, window);
 					return ret;
 				}
 			}
@@ -2632,7 +2632,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2668,7 +2668,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(message, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			int ret = SDLShowSimpleMessageBoxNative(flags, pStr0, pStr1, window);
+			int ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, window);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -2707,11 +2707,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, title, message, (SDLWindow*)pwindow);
+				int ret = ShowSimpleMessageBoxNative(flags, title, message, (SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -2743,13 +2743,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (byte* ptitle = &title)
 			{
 				fixed (SDLWindow* pwindow = &window)
 				{
-					int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
 					return ret;
 				}
 			}
@@ -2782,13 +2782,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (byte* ptitle = title)
 			{
 				fixed (SDLWindow* pwindow = &window)
 				{
-					int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
+					int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, message, (SDLWindow*)pwindow);
 					return ret;
 				}
 			}
@@ -2821,7 +2821,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2842,7 +2842,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, pStr0, message, (SDLWindow*)pwindow);
+				int ret = ShowSimpleMessageBoxNative(flags, pStr0, message, (SDLWindow*)pwindow);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -2878,13 +2878,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (byte* pmessage = &message)
 			{
 				fixed (SDLWindow* pwindow = &window)
 				{
-					int ret = SDLShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
+					int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
 					return ret;
 				}
 			}
@@ -2917,13 +2917,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (byte* pmessage = message)
 			{
 				fixed (SDLWindow* pwindow = &window)
 				{
-					int ret = SDLShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
+					int ret = ShowSimpleMessageBoxNative(flags, title, (byte*)pmessage, (SDLWindow*)pwindow);
 					return ret;
 				}
 			}
@@ -2956,7 +2956,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2977,7 +2977,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, title, pStr0, (SDLWindow*)pwindow);
+				int ret = ShowSimpleMessageBoxNative(flags, title, pStr0, (SDLWindow*)pwindow);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -3013,7 +3013,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ref byte message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (byte* ptitle = &title)
 			{
@@ -3021,7 +3021,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLWindow* pwindow = &window)
 					{
-						int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
 						return ret;
 					}
 				}
@@ -3055,7 +3055,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (byte* ptitle = title)
 			{
@@ -3063,7 +3063,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLWindow* pwindow = &window)
 					{
-						int ret = SDLShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
+						int ret = ShowSimpleMessageBoxNative(flags, (byte*)ptitle, (byte*)pmessage, (SDLWindow*)pwindow);
 						return ret;
 					}
 				}
@@ -3097,7 +3097,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int ShowSimpleMessageBox([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] string message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3135,7 +3135,7 @@ namespace Hexa.NET.SDL2
 			}
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLShowSimpleMessageBoxNative(flags, pStr0, pStr1, (SDLWindow*)pwindow);
+				int ret = ShowSimpleMessageBoxNative(flags, pStr0, pStr1, (SDLWindow*)pwindow);
 				if (pStrSize1 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr1);
@@ -3160,7 +3160,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
 		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		internal static SDLMetalView SDLMetalCreateViewNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLMetalView MetalCreateViewNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLMetalView>)vt[718])(window);
@@ -3181,9 +3181,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
 		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		public static SDLMetalView SDLMetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLMetalView MetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLMetalView ret = SDLMetalCreateViewNative(window);
+			SDLMetalView ret = MetalCreateViewNative(window);
 			return ret;
 		}
 
@@ -3199,11 +3199,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
 		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
-		public static SDLMetalView SDLMetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLMetalView MetalCreateView([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLMetalView ret = SDLMetalCreateViewNative((SDLWindow*)pwindow);
+				SDLMetalView ret = MetalCreateViewNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3217,7 +3217,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLMetalDestroyViewNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
+		internal static void MetalDestroyViewNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)vt[719])(view);
@@ -3235,9 +3235,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalDestroyView([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
+		public static void MetalDestroyView([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
 		{
-			SDLMetalDestroyViewNative(view);
+			MetalDestroyViewNative(view);
 		}
 
 		/// <summary>
@@ -3247,7 +3247,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLMetalGetLayerNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
+		internal static void* MetalGetLayerNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLMetalView, void*>)vt[720])(view);
@@ -3263,9 +3263,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLMetalGetLayer([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
+		public static void* MetalGetLayer([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
 		{
-			void* ret = SDLMetalGetLayerNative(view);
+			void* ret = MetalGetLayerNative(view);
 			return ret;
 		}
 
@@ -3280,7 +3280,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLMetalGetDrawableSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static void MetalGetDrawableSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[721])(window, w, h);
@@ -3300,9 +3300,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			SDLMetalGetDrawableSizeNative(window, w, h);
+			MetalGetDrawableSizeNative(window, w, h);
 		}
 
 		/// <summary>
@@ -3316,11 +3316,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLMetalGetDrawableSizeNative((SDLWindow*)pwindow, w, h);
+				MetalGetDrawableSizeNative((SDLWindow*)pwindow, w, h);
 			}
 		}
 
@@ -3335,11 +3335,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				SDLMetalGetDrawableSizeNative(window, (int*)pw, h);
+				MetalGetDrawableSizeNative(window, (int*)pw, h);
 			}
 		}
 
@@ -3354,13 +3354,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pw = &w)
 				{
-					SDLMetalGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+					MetalGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, h);
 				}
 			}
 		}
@@ -3376,11 +3376,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				SDLMetalGetDrawableSizeNative(window, w, (int*)ph);
+				MetalGetDrawableSizeNative(window, w, (int*)ph);
 			}
 		}
 
@@ -3395,13 +3395,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLMetalGetDrawableSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+					MetalGetDrawableSizeNative((SDLWindow*)pwindow, w, (int*)ph);
 				}
 			}
 		}
@@ -3417,13 +3417,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLMetalGetDrawableSizeNative(window, (int*)pw, (int*)ph);
+					MetalGetDrawableSizeNative(window, (int*)pw, (int*)ph);
 				}
 			}
 		}
@@ -3439,7 +3439,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void MetalGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -3447,7 +3447,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						SDLMetalGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+						MetalGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
 					}
 				}
 			}
@@ -3470,7 +3470,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
-		internal static SDLPowerState SDLGetPowerInfoNative([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] int* percent)
+		internal static SDLPowerState GetPowerInfoNative([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] int* percent)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int*, int*, SDLPowerState>)vt[722])(seconds, percent);
@@ -3496,9 +3496,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
-		public static SDLPowerState SDLGetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] int* percent)
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] int* percent)
 		{
-			SDLPowerState ret = SDLGetPowerInfoNative(seconds, percent);
+			SDLPowerState ret = GetPowerInfoNative(seconds, percent);
 			return ret;
 		}
 
@@ -3519,11 +3519,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
-		public static SDLPowerState SDLGetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] int* percent)
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] int* percent)
 		{
 			fixed (int* pseconds = &seconds)
 			{
-				SDLPowerState ret = SDLGetPowerInfoNative((int*)pseconds, percent);
+				SDLPowerState ret = GetPowerInfoNative((int*)pseconds, percent);
 				return ret;
 			}
 		}
@@ -3545,11 +3545,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
-		public static SDLPowerState SDLGetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] ref int percent)
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] ref int percent)
 		{
 			fixed (int* ppercent = &percent)
 			{
-				SDLPowerState ret = SDLGetPowerInfoNative(seconds, (int*)ppercent);
+				SDLPowerState ret = GetPowerInfoNative(seconds, (int*)ppercent);
 				return ret;
 			}
 		}
@@ -3571,13 +3571,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
-		public static SDLPowerState SDLGetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] ref int percent)
+		public static SDLPowerState GetPowerInfo([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] ref int seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] ref int percent)
 		{
 			fixed (int* pseconds = &seconds)
 			{
 				fixed (int* ppercent = &percent)
 				{
-					SDLPowerState ret = SDLGetPowerInfoNative((int*)pseconds, (int*)ppercent);
+					SDLPowerState ret = GetPowerInfoNative((int*)pseconds, (int*)ppercent);
 					return ret;
 				}
 			}
@@ -3595,7 +3595,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumRenderDrivers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetNumRenderDriversNative()
+		internal static int GetNumRenderDriversNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[723])();
@@ -3616,9 +3616,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumRenderDrivers")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetNumRenderDrivers()
+		public static int GetNumRenderDrivers()
 		{
-			int ret = SDLGetNumRenderDriversNative();
+			int ret = GetNumRenderDriversNative();
 			return ret;
 		}
 
@@ -3630,7 +3630,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDriverInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetRenderDriverInfoNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
+		internal static int GetRenderDriverInfoNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLRendererInfo*, int>)vt[724])(index, info);
@@ -3647,9 +3647,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDriverInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDriverInfo([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
+		public static int GetRenderDriverInfo([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
 		{
-			int ret = SDLGetRenderDriverInfoNative(index, info);
+			int ret = GetRenderDriverInfoNative(index, info);
 			return ret;
 		}
 
@@ -3661,11 +3661,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDriverInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDriverInfo([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] ref SDLRendererInfo info)
+		public static int GetRenderDriverInfo([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] ref SDLRendererInfo info)
 		{
 			fixed (SDLRendererInfo* pinfo = &info)
 			{
-				int ret = SDLGetRenderDriverInfoNative(index, (SDLRendererInfo*)pinfo);
+				int ret = GetRenderDriverInfoNative(index, (SDLRendererInfo*)pinfo);
 				return ret;
 			}
 		}
@@ -3678,7 +3678,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLCreateWindowAndRendererNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] SDLRenderer** renderer)
+		internal static int CreateWindowAndRendererNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] SDLRenderer** renderer)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int, uint, SDLWindow**, SDLRenderer**, int>)vt[725])(width, height, windowFlags, window, renderer);
@@ -3695,9 +3695,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLCreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] SDLRenderer** renderer)
+		public static int CreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] SDLRenderer** renderer)
 		{
-			int ret = SDLCreateWindowAndRendererNative(width, height, windowFlags, window, renderer);
+			int ret = CreateWindowAndRendererNative(width, height, windowFlags, window, renderer);
 			return ret;
 		}
 
@@ -3709,11 +3709,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLCreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] SDLRenderer** renderer)
+		public static int CreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] SDLRenderer** renderer)
 		{
 			fixed (SDLWindow** pwindow = &window)
 			{
-				int ret = SDLCreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)pwindow, renderer);
+				int ret = CreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)pwindow, renderer);
 				return ret;
 			}
 		}
@@ -3726,11 +3726,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLCreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] ref SDLRenderer* renderer)
+		public static int CreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] ref SDLRenderer* renderer)
 		{
 			fixed (SDLRenderer** prenderer = &renderer)
 			{
-				int ret = SDLCreateWindowAndRendererNative(width, height, windowFlags, window, (SDLRenderer**)prenderer);
+				int ret = CreateWindowAndRendererNative(width, height, windowFlags, window, (SDLRenderer**)prenderer);
 				return ret;
 			}
 		}
@@ -3743,13 +3743,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLCreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] ref SDLRenderer* renderer)
+		public static int CreateWindowAndRenderer([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] ref SDLWindow* window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] ref SDLRenderer* renderer)
 		{
 			fixed (SDLWindow** pwindow = &window)
 			{
 				fixed (SDLRenderer** prenderer = &renderer)
 				{
-					int ret = SDLCreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
+					int ret = CreateWindowAndRendererNative(width, height, windowFlags, (SDLWindow**)pwindow, (SDLRenderer**)prenderer);
 					return ret;
 				}
 			}
@@ -3763,7 +3763,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		internal static SDLRenderer* SDLCreateRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
+		internal static SDLRenderer* CreateRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int, uint, SDLRenderer*>)vt[726])(window, index, flags);
@@ -3780,9 +3780,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		public static SDLRenderer* SDLCreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
+		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
-			SDLRenderer* ret = SDLCreateRendererNative(window, index, flags);
+			SDLRenderer* ret = CreateRendererNative(window, index, flags);
 			return ret;
 		}
 
@@ -3794,11 +3794,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		public static SDLRenderer* SDLCreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
+		public static SDLRenderer* CreateRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLRenderer* ret = SDLCreateRendererNative((SDLWindow*)pwindow, index, flags);
+				SDLRenderer* ret = CreateRendererNative((SDLWindow*)pwindow, index, flags);
 				return ret;
 			}
 		}
@@ -3815,7 +3815,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateSoftwareRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		internal static SDLRenderer* SDLCreateSoftwareRendererNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		internal static SDLRenderer* CreateSoftwareRendererNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRenderer*>)vt[727])(surface);
@@ -3836,9 +3836,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateSoftwareRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		public static SDLRenderer* SDLCreateSoftwareRenderer([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static SDLRenderer* CreateSoftwareRenderer([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
-			SDLRenderer* ret = SDLCreateSoftwareRendererNative(surface);
+			SDLRenderer* ret = CreateSoftwareRendererNative(surface);
 			return ret;
 		}
 
@@ -3854,11 +3854,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateSoftwareRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		public static SDLRenderer* SDLCreateSoftwareRenderer([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static SDLRenderer* CreateSoftwareRenderer([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLRenderer* ret = SDLCreateSoftwareRendererNative((SDLSurface*)psurface);
+				SDLRenderer* ret = CreateSoftwareRendererNative((SDLSurface*)psurface);
 				return ret;
 			}
 		}
@@ -3871,7 +3871,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		internal static SDLRenderer* SDLGetRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLRenderer* GetRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRenderer*>)vt[728])(window);
@@ -3888,9 +3888,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		public static SDLRenderer* SDLGetRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLRenderer* GetRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLRenderer* ret = SDLGetRendererNative(window);
+			SDLRenderer* ret = GetRendererNative(window);
 			return ret;
 		}
 
@@ -3902,11 +3902,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
-		public static SDLRenderer* SDLGetRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLRenderer* GetRenderer([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLRenderer* ret = SDLGetRendererNative((SDLWindow*)pwindow);
+				SDLRenderer* ret = GetRendererNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3918,7 +3918,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		internal static SDLWindow* SDLRenderGetWindowNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		internal static SDLWindow* RenderGetWindowNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*>)vt[729])(renderer);
@@ -3934,9 +3934,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		public static SDLWindow* SDLRenderGetWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		public static SDLWindow* RenderGetWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
-			SDLWindow* ret = SDLRenderGetWindowNative(renderer);
+			SDLWindow* ret = RenderGetWindowNative(renderer);
 			return ret;
 		}
 
@@ -3947,11 +3947,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		public static SDLWindow* SDLRenderGetWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
+		public static SDLWindow* RenderGetWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				SDLWindow* ret = SDLRenderGetWindowNative((SDLRenderer*)prenderer);
+				SDLWindow* ret = RenderGetWindowNative((SDLRenderer*)prenderer);
 				return ret;
 			}
 		}
@@ -3964,7 +3964,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetRendererInfoNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
+		internal static int GetRendererInfoNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRendererInfo*, int>)vt[730])(renderer, info);
@@ -3981,9 +3981,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
+		public static int GetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
 		{
-			int ret = SDLGetRendererInfoNative(renderer, info);
+			int ret = GetRendererInfoNative(renderer, info);
 			return ret;
 		}
 
@@ -3995,11 +3995,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
+		public static int GetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLGetRendererInfoNative((SDLRenderer*)prenderer, info);
+				int ret = GetRendererInfoNative((SDLRenderer*)prenderer, info);
 				return ret;
 			}
 		}
@@ -4012,11 +4012,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] ref SDLRendererInfo info)
+		public static int GetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] ref SDLRendererInfo info)
 		{
 			fixed (SDLRendererInfo* pinfo = &info)
 			{
-				int ret = SDLGetRendererInfoNative(renderer, (SDLRendererInfo*)pinfo);
+				int ret = GetRendererInfoNative(renderer, (SDLRendererInfo*)pinfo);
 				return ret;
 			}
 		}
@@ -4029,13 +4029,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] ref SDLRendererInfo info)
+		public static int GetRendererInfo([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] ref SDLRendererInfo info)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRendererInfo* pinfo = &info)
 				{
-					int ret = SDLGetRendererInfoNative((SDLRenderer*)prenderer, (SDLRendererInfo*)pinfo);
+					int ret = GetRendererInfoNative((SDLRenderer*)prenderer, (SDLRendererInfo*)pinfo);
 					return ret;
 				}
 			}
@@ -4052,7 +4052,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetRendererOutputSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static int GetRendererOutputSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, int>)vt[731])(renderer, w, h);
@@ -4072,9 +4072,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			int ret = SDLGetRendererOutputSizeNative(renderer, w, h);
+			int ret = GetRendererOutputSizeNative(renderer, w, h);
 			return ret;
 		}
 
@@ -4089,11 +4089,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLGetRendererOutputSizeNative((SDLRenderer*)prenderer, w, h);
+				int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, w, h);
 				return ret;
 			}
 		}
@@ -4109,11 +4109,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				int ret = SDLGetRendererOutputSizeNative(renderer, (int*)pw, h);
+				int ret = GetRendererOutputSizeNative(renderer, (int*)pw, h);
 				return ret;
 			}
 		}
@@ -4129,13 +4129,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (int* pw = &w)
 				{
-					int ret = SDLGetRendererOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
+					int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
 					return ret;
 				}
 			}
@@ -4152,11 +4152,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				int ret = SDLGetRendererOutputSizeNative(renderer, w, (int*)ph);
+				int ret = GetRendererOutputSizeNative(renderer, w, (int*)ph);
 				return ret;
 			}
 		}
@@ -4172,13 +4172,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (int* ph = &h)
 				{
-					int ret = SDLGetRendererOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
+					int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
 					return ret;
 				}
 			}
@@ -4195,13 +4195,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					int ret = SDLGetRendererOutputSizeNative(renderer, (int*)pw, (int*)ph);
+					int ret = GetRendererOutputSizeNative(renderer, (int*)pw, (int*)ph);
 					return ret;
 				}
 			}
@@ -4218,7 +4218,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int GetRendererOutputSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4226,7 +4226,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						int ret = SDLGetRendererOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
+						int ret = GetRendererOutputSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
 						return ret;
 					}
 				}
@@ -4243,7 +4243,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTexture")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		internal static SDLTexture* SDLCreateTextureNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int")] int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		internal static SDLTexture* CreateTextureNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int")] int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, int, int, int, SDLTexture*>)vt[732])(renderer, format, access, w, h);
@@ -4262,9 +4262,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTexture")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* SDLCreateTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int")] int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		public static SDLTexture* CreateTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int")] int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
-			SDLTexture* ret = SDLCreateTextureNative(renderer, format, access, w, h);
+			SDLTexture* ret = CreateTextureNative(renderer, format, access, w, h);
 			return ret;
 		}
 
@@ -4278,11 +4278,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTexture")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* SDLCreateTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int")] int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		public static SDLTexture* CreateTexture([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int")] int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				SDLTexture* ret = SDLCreateTextureNative((SDLRenderer*)prenderer, format, access, w, h);
+				SDLTexture* ret = CreateTextureNative((SDLRenderer*)prenderer, format, access, w, h);
 				return ret;
 			}
 		}
@@ -4301,7 +4301,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		internal static SDLTexture* SDLCreateTextureFromSurfaceNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		internal static SDLTexture* CreateTextureFromSurfaceNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLSurface*, SDLTexture*>)vt[733])(renderer, surface);
@@ -4324,9 +4324,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* SDLCreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
-			SDLTexture* ret = SDLCreateTextureFromSurfaceNative(renderer, surface);
+			SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, surface);
 			return ret;
 		}
 
@@ -4344,11 +4344,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* SDLCreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				SDLTexture* ret = SDLCreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
+				SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
 				return ret;
 			}
 		}
@@ -4367,11 +4367,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* SDLCreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLSurface* psurface = &surface)
 			{
-				SDLTexture* ret = SDLCreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
+				SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
 				return ret;
 			}
 		}
@@ -4390,13 +4390,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* SDLCreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLSurface* psurface = &surface)
 				{
-					SDLTexture* ret = SDLCreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
+					SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
 					return ret;
 				}
 			}
@@ -4410,7 +4410,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLQueryTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static int QueryTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint*, int*, int*, int*, int>)vt[734])(texture, format, access, w, h);
@@ -4427,9 +4427,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			int ret = SDLQueryTextureNative(texture, format, access, w, h);
+			int ret = QueryTextureNative(texture, format, access, w, h);
 			return ret;
 		}
 
@@ -4441,11 +4441,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = SDLQueryTextureNative((SDLTexture*)ptexture, format, access, w, h);
+				int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, h);
 				return ret;
 			}
 		}
@@ -4458,11 +4458,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (uint* pformat = &format)
 			{
-				int ret = SDLQueryTextureNative(texture, (uint*)pformat, access, w, h);
+				int ret = QueryTextureNative(texture, (uint*)pformat, access, w, h);
 				return ret;
 			}
 		}
@@ -4475,13 +4475,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (uint* pformat = &format)
 				{
-					int ret = SDLQueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, h);
+					int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, h);
 					return ret;
 				}
 			}
@@ -4495,11 +4495,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* paccess = &access)
 			{
-				int ret = SDLQueryTextureNative(texture, format, (int*)paccess, w, h);
+				int ret = QueryTextureNative(texture, format, (int*)paccess, w, h);
 				return ret;
 			}
 		}
@@ -4512,13 +4512,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (int* paccess = &access)
 				{
-					int ret = SDLQueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, h);
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, h);
 					return ret;
 				}
 			}
@@ -4532,13 +4532,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (uint* pformat = &format)
 			{
 				fixed (int* paccess = &access)
 				{
-					int ret = SDLQueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, h);
+					int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, h);
 					return ret;
 				}
 			}
@@ -4552,7 +4552,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4560,7 +4560,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* paccess = &access)
 					{
-						int ret = SDLQueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, h);
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, h);
 						return ret;
 					}
 				}
@@ -4575,11 +4575,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				int ret = SDLQueryTextureNative(texture, format, access, (int*)pw, h);
+				int ret = QueryTextureNative(texture, format, access, (int*)pw, h);
 				return ret;
 			}
 		}
@@ -4592,13 +4592,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (int* pw = &w)
 				{
-					int ret = SDLQueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, h);
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, h);
 					return ret;
 				}
 			}
@@ -4612,13 +4612,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (uint* pformat = &format)
 			{
 				fixed (int* pw = &w)
 				{
-					int ret = SDLQueryTextureNative(texture, (uint*)pformat, access, (int*)pw, h);
+					int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, h);
 					return ret;
 				}
 			}
@@ -4632,7 +4632,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4640,7 +4640,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pw = &w)
 					{
-						int ret = SDLQueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, h);
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, h);
 						return ret;
 					}
 				}
@@ -4655,13 +4655,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* paccess = &access)
 			{
 				fixed (int* pw = &w)
 				{
-					int ret = SDLQueryTextureNative(texture, format, (int*)paccess, (int*)pw, h);
+					int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, h);
 					return ret;
 				}
 			}
@@ -4675,7 +4675,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4683,7 +4683,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pw = &w)
 					{
-						int ret = SDLQueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, h);
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, h);
 						return ret;
 					}
 				}
@@ -4698,7 +4698,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (uint* pformat = &format)
 			{
@@ -4706,7 +4706,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pw = &w)
 					{
-						int ret = SDLQueryTextureNative(texture, (uint*)pformat, (int*)paccess, (int*)pw, h);
+						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, (int*)pw, h);
 						return ret;
 					}
 				}
@@ -4721,7 +4721,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4731,7 +4731,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* pw = &w)
 						{
-							int ret = SDLQueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, h);
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, h);
 							return ret;
 						}
 					}
@@ -4747,11 +4747,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				int ret = SDLQueryTextureNative(texture, format, access, w, (int*)ph);
+				int ret = QueryTextureNative(texture, format, access, w, (int*)ph);
 				return ret;
 			}
 		}
@@ -4764,13 +4764,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (int* ph = &h)
 				{
-					int ret = SDLQueryTextureNative((SDLTexture*)ptexture, format, access, w, (int*)ph);
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, (int*)ph);
 					return ret;
 				}
 			}
@@ -4784,13 +4784,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (uint* pformat = &format)
 			{
 				fixed (int* ph = &h)
 				{
-					int ret = SDLQueryTextureNative(texture, (uint*)pformat, access, w, (int*)ph);
+					int ret = QueryTextureNative(texture, (uint*)pformat, access, w, (int*)ph);
 					return ret;
 				}
 			}
@@ -4804,7 +4804,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4812,7 +4812,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						int ret = SDLQueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, (int*)ph);
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, (int*)ph);
 						return ret;
 					}
 				}
@@ -4827,13 +4827,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* paccess = &access)
 			{
 				fixed (int* ph = &h)
 				{
-					int ret = SDLQueryTextureNative(texture, format, (int*)paccess, w, (int*)ph);
+					int ret = QueryTextureNative(texture, format, (int*)paccess, w, (int*)ph);
 					return ret;
 				}
 			}
@@ -4847,7 +4847,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4855,7 +4855,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						int ret = SDLQueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, (int*)ph);
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, (int*)ph);
 						return ret;
 					}
 				}
@@ -4870,7 +4870,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (uint* pformat = &format)
 			{
@@ -4878,7 +4878,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						int ret = SDLQueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, (int*)ph);
+						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, (int*)ph);
 						return ret;
 					}
 				}
@@ -4893,7 +4893,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4903,7 +4903,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* ph = &h)
 						{
-							int ret = SDLQueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, (int*)ph);
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, (int*)ph);
 							return ret;
 						}
 					}
@@ -4919,13 +4919,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					int ret = SDLQueryTextureNative(texture, format, access, (int*)pw, (int*)ph);
+					int ret = QueryTextureNative(texture, format, access, (int*)pw, (int*)ph);
 					return ret;
 				}
 			}
@@ -4939,7 +4939,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4947,7 +4947,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						int ret = SDLQueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, (int*)ph);
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, (int*)ph);
 						return ret;
 					}
 				}
@@ -4962,7 +4962,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (uint* pformat = &format)
 			{
@@ -4970,7 +4970,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						int ret = SDLQueryTextureNative(texture, (uint*)pformat, access, (int*)pw, (int*)ph);
+						int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, (int*)ph);
 						return ret;
 					}
 				}
@@ -4985,7 +4985,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4995,7 +4995,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* ph = &h)
 						{
-							int ret = SDLQueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, (int*)ph);
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, (int*)ph);
 							return ret;
 						}
 					}
@@ -5011,7 +5011,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* paccess = &access)
 			{
@@ -5019,7 +5019,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						int ret = SDLQueryTextureNative(texture, format, (int*)paccess, (int*)pw, (int*)ph);
+						int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, (int*)ph);
 						return ret;
 					}
 				}

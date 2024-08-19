@@ -12,7 +12,7 @@ namespace Hexa.NET.SDL2
 
         public static Exception? GetErrorAsException()
         {
-            byte* ex = SDLGetError();
+            byte* ex = GetError();
 
             if (ex == null || ex[0] == '\0')
             {

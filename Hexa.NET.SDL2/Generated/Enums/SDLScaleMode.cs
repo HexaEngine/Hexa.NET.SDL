@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// The scaling mode for a texture.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_ScaleMode")]
+	[Flags]
 	public enum SDLScaleMode : int
 	{
 		/// <summary>

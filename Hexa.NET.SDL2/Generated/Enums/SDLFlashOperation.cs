@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_FlashOperation")]
+	[Flags]
 	public enum SDLFlashOperation : int
 	{
 		/// <summary>

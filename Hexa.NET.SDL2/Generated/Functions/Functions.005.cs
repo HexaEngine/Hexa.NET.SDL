@@ -82,7 +82,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* SDLLoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
 			{
@@ -92,7 +92,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (uint* paudioLen = &audioLen)
 						{
-							SDLAudioSpec* ret = SDLLoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
 							return ret;
 						}
 					}
@@ -111,7 +111,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeWAV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFreeWAVNative([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] byte* audioBuf)
+		internal static void FreeWAVNative([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] byte* audioBuf)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<byte*, void>)vt[228])(audioBuf);
@@ -131,9 +131,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeWAV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeWAV([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] byte* audioBuf)
+		public static void FreeWAV([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] byte* audioBuf)
 		{
-			SDLFreeWAVNative(audioBuf);
+			FreeWAVNative(audioBuf);
 		}
 
 		/// <summary>
@@ -147,11 +147,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeWAV")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeWAV([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte audioBuf)
+		public static void FreeWAV([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte audioBuf)
 		{
 			fixed (byte* paudioBuf = &audioBuf)
 			{
-				SDLFreeWAVNative((byte*)paudioBuf);
+				FreeWAVNative((byte*)paudioBuf);
 			}
 		}
 
@@ -171,7 +171,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_BuildAudioCVT")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLBuildAudioCVTNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
+		internal static int BuildAudioCVTNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, ushort, byte, int, ushort, byte, int, int>)vt[229])(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
@@ -196,9 +196,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_BuildAudioCVT")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLBuildAudioCVT([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
+		public static int BuildAudioCVT([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
 		{
-			int ret = SDLBuildAudioCVTNative(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			int ret = BuildAudioCVTNative(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
 			return ret;
 		}
 
@@ -218,11 +218,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_BuildAudioCVT")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLBuildAudioCVT([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] ref SDLAudioCVT cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
+		public static int BuildAudioCVT([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] ref SDLAudioCVT cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
 		{
 			fixed (SDLAudioCVT* pcvt = &cvt)
 			{
-				int ret = SDLBuildAudioCVTNative((SDLAudioCVT*)pcvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+				int ret = BuildAudioCVTNative((SDLAudioCVT*)pcvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
 				return ret;
 			}
 		}
@@ -257,7 +257,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ConvertAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLConvertAudioNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt)
+		internal static int ConvertAudioNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, int>)vt[230])(cvt);
@@ -296,9 +296,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ConvertAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLConvertAudio([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt)
+		public static int ConvertAudio([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt)
 		{
-			int ret = SDLConvertAudioNative(cvt);
+			int ret = ConvertAudioNative(cvt);
 			return ret;
 		}
 
@@ -332,11 +332,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ConvertAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLConvertAudio([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] ref SDLAudioCVT cvt)
+		public static int ConvertAudio([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] ref SDLAudioCVT cvt)
 		{
 			fixed (SDLAudioCVT* pcvt = &cvt)
 			{
-				int ret = SDLConvertAudioNative((SDLAudioCVT*)pcvt);
+				int ret = ConvertAudioNative((SDLAudioCVT*)pcvt);
 				return ret;
 			}
 		}
@@ -349,7 +349,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NewAudioStream")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStream*")]
-		internal static SDLAudioStream* SDLNewAudioStreamNative([NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "const int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "const int")] int dstRate)
+		internal static SDLAudioStream* NewAudioStreamNative([NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "const int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "const int")] int dstRate)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, SDLAudioStream*>)vt[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
@@ -366,9 +366,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NewAudioStream")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStream*")]
-		public static SDLAudioStream* SDLNewAudioStream([NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "const int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "const int")] int dstRate)
+		public static SDLAudioStream* NewAudioStream([NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "const int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "const int")] int dstRate)
 		{
-			SDLAudioStream* ret = SDLNewAudioStreamNative(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			SDLAudioStream* ret = NewAudioStreamNative(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
 			return ret;
 		}
 
@@ -380,7 +380,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamPut")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLAudioStreamPutNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
+		internal static int AudioStreamPutNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)vt[232])(stream, buf, len);
@@ -397,9 +397,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamPut")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamPut([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
+		public static int AudioStreamPut([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
-			int ret = SDLAudioStreamPutNative(stream, buf, len);
+			int ret = AudioStreamPutNative(stream, buf, len);
 			return ret;
 		}
 
@@ -411,11 +411,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamPut")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamPut([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
+		public static int AudioStreamPut([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			fixed (SDLAudioStream* pstream = &stream)
 			{
-				int ret = SDLAudioStreamPutNative((SDLAudioStream*)pstream, buf, len);
+				int ret = AudioStreamPutNative((SDLAudioStream*)pstream, buf, len);
 				return ret;
 			}
 		}
@@ -428,7 +428,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamGet")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLAudioStreamGetNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
+		internal static int AudioStreamGetNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)vt[233])(stream, buf, len);
@@ -445,9 +445,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamGet")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamGet([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
+		public static int AudioStreamGet([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
-			int ret = SDLAudioStreamGetNative(stream, buf, len);
+			int ret = AudioStreamGetNative(stream, buf, len);
 			return ret;
 		}
 
@@ -459,11 +459,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamGet")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamGet([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
+		public static int AudioStreamGet([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			fixed (SDLAudioStream* pstream = &stream)
 			{
-				int ret = SDLAudioStreamGetNative((SDLAudioStream*)pstream, buf, len);
+				int ret = AudioStreamGetNative((SDLAudioStream*)pstream, buf, len);
 				return ret;
 			}
 		}
@@ -478,7 +478,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamAvailable")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLAudioStreamAvailableNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		internal static int AudioStreamAvailableNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)vt[234])(stream);
@@ -497,9 +497,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamAvailable")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		public static int AudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
-			int ret = SDLAudioStreamAvailableNative(stream);
+			int ret = AudioStreamAvailableNative(stream);
 			return ret;
 		}
 
@@ -513,11 +513,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamAvailable")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
+		public static int AudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
 		{
 			fixed (SDLAudioStream* pstream = &stream)
 			{
-				int ret = SDLAudioStreamAvailableNative((SDLAudioStream*)pstream);
+				int ret = AudioStreamAvailableNative((SDLAudioStream*)pstream);
 				return ret;
 			}
 		}
@@ -533,7 +533,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamFlush")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLAudioStreamFlushNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		internal static int AudioStreamFlushNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)vt[235])(stream);
@@ -553,9 +553,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamFlush")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamFlush([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		public static int AudioStreamFlush([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
-			int ret = SDLAudioStreamFlushNative(stream);
+			int ret = AudioStreamFlushNative(stream);
 			return ret;
 		}
 
@@ -570,11 +570,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamFlush")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLAudioStreamFlush([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
+		public static int AudioStreamFlush([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
 		{
 			fixed (SDLAudioStream* pstream = &stream)
 			{
-				int ret = SDLAudioStreamFlushNative((SDLAudioStream*)pstream);
+				int ret = AudioStreamFlushNative((SDLAudioStream*)pstream);
 				return ret;
 			}
 		}
@@ -586,7 +586,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamClear")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLAudioStreamClearNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		internal static void AudioStreamClearNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)vt[236])(stream);
@@ -602,9 +602,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamClear")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAudioStreamClear([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		public static void AudioStreamClear([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
-			SDLAudioStreamClearNative(stream);
+			AudioStreamClearNative(stream);
 		}
 
 		/// <summary>
@@ -614,11 +614,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamClear")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLAudioStreamClear([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
+		public static void AudioStreamClear([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
 		{
 			fixed (SDLAudioStream* pstream = &stream)
 			{
-				SDLAudioStreamClearNative((SDLAudioStream*)pstream);
+				AudioStreamClearNative((SDLAudioStream*)pstream);
 			}
 		}
 
@@ -629,7 +629,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeAudioStream")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFreeAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		internal static void FreeAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)vt[237])(stream);
@@ -645,9 +645,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeAudioStream")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
+		public static void FreeAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
-			SDLFreeAudioStreamNative(stream);
+			FreeAudioStreamNative(stream);
 		}
 
 		/// <summary>
@@ -657,11 +657,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeAudioStream")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
+		public static void FreeAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
 		{
 			fixed (SDLAudioStream* pstream = &stream)
 			{
-				SDLFreeAudioStreamNative((SDLAudioStream*)pstream);
+				FreeAudioStreamNative((SDLAudioStream*)pstream);
 			}
 		}
 
@@ -679,7 +679,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLMixAudioNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		internal static void MixAudioNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int, void>)vt[238])(dst, src, len, volume);
@@ -702,9 +702,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
-			SDLMixAudioNative(dst, src, len, volume);
+			MixAudioNative(dst, src, len, volume);
 		}
 
 		/// <summary>
@@ -721,11 +721,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			fixed (byte* pdst = &dst)
 			{
-				SDLMixAudioNative((byte*)pdst, src, len, volume);
+				MixAudioNative((byte*)pdst, src, len, volume);
 			}
 		}
 
@@ -743,11 +743,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			fixed (byte* psrc = &src)
 			{
-				SDLMixAudioNative(dst, (byte*)psrc, len, volume);
+				MixAudioNative(dst, (byte*)psrc, len, volume);
 			}
 		}
 
@@ -765,13 +765,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = &src)
 				{
-					SDLMixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
+					MixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
 				}
 			}
 		}
@@ -796,7 +796,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLMixAudioFormatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		internal static void MixAudioFormatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)vt[239])(dst, src, format, len, volume);
@@ -825,9 +825,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
-			SDLMixAudioFormatNative(dst, src, format, len, volume);
+			MixAudioFormatNative(dst, src, format, len, volume);
 		}
 
 		/// <summary>
@@ -850,11 +850,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			fixed (byte* pdst = &dst)
 			{
-				SDLMixAudioFormatNative((byte*)pdst, src, format, len, volume);
+				MixAudioFormatNative((byte*)pdst, src, format, len, volume);
 			}
 		}
 
@@ -878,11 +878,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			fixed (byte* psrc = &src)
 			{
-				SDLMixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
+				MixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
 			}
 		}
 
@@ -906,13 +906,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
+		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = &src)
 				{
-					SDLMixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
+					MixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
 				}
 			}
 		}
@@ -950,7 +950,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueueAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLQueueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
+		internal static int QueueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)vt[240])(dev, data, len);
@@ -992,9 +992,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueueAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLQueueAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
+		public static int QueueAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
 		{
-			int ret = SDLQueueAudioNative(dev, data, len);
+			int ret = QueueAudioNative(dev, data, len);
 			return ret;
 		}
 
@@ -1031,7 +1031,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DequeueAudio")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLDequeueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
+		internal static uint DequeueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)vt[241])(dev, data, len);
@@ -1073,9 +1073,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DequeueAudio")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLDequeueAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
+		public static uint DequeueAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
 		{
-			uint ret = SDLDequeueAudioNative(dev, data, len);
+			uint ret = DequeueAudioNative(dev, data, len);
 			return ret;
 		}
 
@@ -1102,7 +1102,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetQueuedAudioSize")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLGetQueuedAudioSizeNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		internal static uint GetQueuedAudioSizeNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, uint>)vt[242])(dev);
@@ -1134,9 +1134,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetQueuedAudioSize")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLGetQueuedAudioSize([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		public static uint GetQueuedAudioSize([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
-			uint ret = SDLGetQueuedAudioSizeNative(dev);
+			uint ret = GetQueuedAudioSizeNative(dev);
 			return ret;
 		}
 
@@ -1164,7 +1164,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearQueuedAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLClearQueuedAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		internal static void ClearQueuedAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, void>)vt[243])(dev);
@@ -1197,9 +1197,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearQueuedAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLClearQueuedAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		public static void ClearQueuedAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
-			SDLClearQueuedAudioNative(dev);
+			ClearQueuedAudioNative(dev);
 		}
 
 		/// <summary>
@@ -1215,7 +1215,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLockAudioNative()
+		internal static void LockAudioNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[244])();
@@ -1237,9 +1237,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLockAudio()
+		public static void LockAudio()
 		{
-			SDLLockAudioNative();
+			LockAudioNative();
 		}
 
 		/// <summary>
@@ -1273,7 +1273,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLLockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		internal static void LockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, void>)vt[245])(dev);
@@ -1313,9 +1313,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLLockAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		public static void LockAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
-			SDLLockAudioDeviceNative(dev);
+			LockAudioDeviceNative(dev);
 		}
 
 		/// <summary>
@@ -1331,7 +1331,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLUnlockAudioNative()
+		internal static void UnlockAudioNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[246])();
@@ -1353,9 +1353,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnlockAudio()
+		public static void UnlockAudio()
 		{
-			SDLUnlockAudioNative();
+			UnlockAudioNative();
 		}
 
 		/// <summary>
@@ -1368,7 +1368,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLUnlockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		internal static void UnlockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, void>)vt[247])(dev);
@@ -1387,9 +1387,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLUnlockAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		public static void UnlockAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
-			SDLUnlockAudioDeviceNative(dev);
+			UnlockAudioDeviceNative(dev);
 		}
 
 		/// <summary>
@@ -1404,7 +1404,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CloseAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLCloseAudioNative()
+		internal static void CloseAudioNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[248])();
@@ -1425,9 +1425,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CloseAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLCloseAudio()
+		public static void CloseAudio()
 		{
-			SDLCloseAudioNative();
+			CloseAudioNative();
 		}
 
 		/// <summary>
@@ -1448,7 +1448,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CloseAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLCloseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		internal static void CloseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, void>)vt[249])(dev);
@@ -1475,9 +1475,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CloseAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLCloseAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
+		public static void CloseAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
-			SDLCloseAudioDeviceNative(dev);
+			CloseAudioDeviceNative(dev);
 		}
 
 		/// <summary>
@@ -1488,7 +1488,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetClipboardTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
+		internal static int SetClipboardTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[250])(text);
@@ -1505,9 +1505,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
+		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
 		{
-			int ret = SDLSetClipboardTextNative(text);
+			int ret = SetClipboardTextNative(text);
 			return ret;
 		}
 
@@ -1519,11 +1519,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ref byte text)
+		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ref byte text)
 		{
 			fixed (byte* ptext = &text)
 			{
-				int ret = SDLSetClipboardTextNative((byte*)ptext);
+				int ret = SetClipboardTextNative((byte*)ptext);
 				return ret;
 			}
 		}
@@ -1536,11 +1536,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> text)
+		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> text)
 		{
 			fixed (byte* ptext = text)
 			{
-				int ret = SDLSetClipboardTextNative((byte*)ptext);
+				int ret = SetClipboardTextNative((byte*)ptext);
 				return ret;
 			}
 		}
@@ -1553,7 +1553,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] string text)
+		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] string text)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1572,7 +1572,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SDLSetClipboardTextNative(pStr0);
+			int ret = SetClipboardTextNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1590,7 +1590,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGetClipboardTextNative()
+		internal static byte* GetClipboardTextNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*>)vt[251])();
@@ -1609,9 +1609,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetClipboardText()
+		public static byte* GetClipboardText()
 		{
-			byte* ret = SDLGetClipboardTextNative();
+			byte* ret = GetClipboardTextNative();
 			return ret;
 		}
 
@@ -1625,9 +1625,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetClipboardTextS()
+		public static string GetClipboardTextS()
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetClipboardTextNative());
+			string ret = Utils.DecodeStringUTF8(GetClipboardTextNative());
 			return ret;
 		}
 
@@ -1639,7 +1639,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasClipboardText")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasClipboardTextNative()
+		internal static SDLBool HasClipboardTextNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[252])();
@@ -1656,9 +1656,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasClipboardText")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasClipboardText()
+		public static SDLBool HasClipboardText()
 		{
-			SDLBool ret = SDLHasClipboardTextNative();
+			SDLBool ret = HasClipboardTextNative();
 			return ret;
 		}
 
@@ -1670,7 +1670,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetPrimarySelectionTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
+		internal static int SetPrimarySelectionTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[253])(text);
@@ -1687,9 +1687,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
+		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
 		{
-			int ret = SDLSetPrimarySelectionTextNative(text);
+			int ret = SetPrimarySelectionTextNative(text);
 			return ret;
 		}
 
@@ -1701,11 +1701,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ref byte text)
+		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ref byte text)
 		{
 			fixed (byte* ptext = &text)
 			{
-				int ret = SDLSetPrimarySelectionTextNative((byte*)ptext);
+				int ret = SetPrimarySelectionTextNative((byte*)ptext);
 				return ret;
 			}
 		}
@@ -1718,11 +1718,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> text)
+		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> text)
 		{
 			fixed (byte* ptext = text)
 			{
-				int ret = SDLSetPrimarySelectionTextNative((byte*)ptext);
+				int ret = SetPrimarySelectionTextNative((byte*)ptext);
 				return ret;
 			}
 		}
@@ -1735,7 +1735,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] string text)
+		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] string text)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1754,7 +1754,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SDLSetPrimarySelectionTextNative(pStr0);
+			int ret = SetPrimarySelectionTextNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1773,7 +1773,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* SDLGetPrimarySelectionTextNative()
+		internal static byte* GetPrimarySelectionTextNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*>)vt[254])();
@@ -1793,9 +1793,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* SDLGetPrimarySelectionText()
+		public static byte* GetPrimarySelectionText()
 		{
-			byte* ret = SDLGetPrimarySelectionTextNative();
+			byte* ret = GetPrimarySelectionTextNative();
 			return ret;
 		}
 
@@ -1810,9 +1810,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string SDLGetPrimarySelectionTextS()
+		public static string GetPrimarySelectionTextS()
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetPrimarySelectionTextNative());
+			string ret = Utils.DecodeStringUTF8(GetPrimarySelectionTextNative());
 			return ret;
 		}
 
@@ -1825,7 +1825,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasPrimarySelectionTextNative()
+		internal static SDLBool HasPrimarySelectionTextNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[255])();
@@ -1843,9 +1843,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasPrimarySelectionText()
+		public static SDLBool HasPrimarySelectionText()
 		{
-			SDLBool ret = SDLHasPrimarySelectionTextNative();
+			SDLBool ret = HasPrimarySelectionTextNative();
 			return ret;
 		}
 
@@ -1856,7 +1856,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCPUCount")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetCPUCountNative()
+		internal static int GetCPUCountNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[256])();
@@ -1872,9 +1872,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCPUCount")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetCPUCount()
+		public static int GetCPUCount()
 		{
-			int ret = SDLGetCPUCountNative();
+			int ret = GetCPUCountNative();
 			return ret;
 		}
 
@@ -1887,7 +1887,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCPUCacheLineSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetCPUCacheLineSizeNative()
+		internal static int GetCPUCacheLineSizeNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[257])();
@@ -1905,9 +1905,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCPUCacheLineSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetCPUCacheLineSize()
+		public static int GetCPUCacheLineSize()
 		{
-			int ret = SDLGetCPUCacheLineSizeNative();
+			int ret = GetCPUCacheLineSizeNative();
 			return ret;
 		}
 
@@ -1920,7 +1920,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasRDTSC")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasRDTSCNative()
+		internal static SDLBool HasRDTSCNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[258])();
@@ -1938,9 +1938,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasRDTSC")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasRDTSC()
+		public static SDLBool HasRDTSC()
 		{
-			SDLBool ret = SDLHasRDTSCNative();
+			SDLBool ret = HasRDTSCNative();
 			return ret;
 		}
 
@@ -1954,7 +1954,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAltiVec")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasAltiVecNative()
+		internal static SDLBool HasAltiVecNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[259])();
@@ -1973,9 +1973,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAltiVec")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasAltiVec()
+		public static SDLBool HasAltiVec()
 		{
-			SDLBool ret = SDLHasAltiVecNative();
+			SDLBool ret = HasAltiVecNative();
 			return ret;
 		}
 
@@ -1988,7 +1988,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasMMX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasMMXNative()
+		internal static SDLBool HasMMXNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[260])();
@@ -2006,9 +2006,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasMMX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasMMX()
+		public static SDLBool HasMMX()
 		{
-			SDLBool ret = SDLHasMMXNative();
+			SDLBool ret = HasMMXNative();
 			return ret;
 		}
 
@@ -2021,7 +2021,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Has3DNow")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHas3DNowNative()
+		internal static SDLBool Has3DNowNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[261])();
@@ -2039,9 +2039,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Has3DNow")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHas3DNow()
+		public static SDLBool Has3DNow()
 		{
-			SDLBool ret = SDLHas3DNowNative();
+			SDLBool ret = Has3DNowNative();
 			return ret;
 		}
 
@@ -2054,7 +2054,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasSSENative()
+		internal static SDLBool HasSSENative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[262])();
@@ -2072,9 +2072,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasSSE()
+		public static SDLBool HasSSE()
 		{
-			SDLBool ret = SDLHasSSENative();
+			SDLBool ret = HasSSENative();
 			return ret;
 		}
 
@@ -2087,7 +2087,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE2")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasSSE2Native()
+		internal static SDLBool HasSSE2Native()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[263])();
@@ -2105,9 +2105,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE2")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasSSE2()
+		public static SDLBool HasSSE2()
 		{
-			SDLBool ret = SDLHasSSE2Native();
+			SDLBool ret = HasSSE2Native();
 			return ret;
 		}
 
@@ -2120,7 +2120,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE3")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasSSE3Native()
+		internal static SDLBool HasSSE3Native()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[264])();
@@ -2138,9 +2138,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE3")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasSSE3()
+		public static SDLBool HasSSE3()
 		{
-			SDLBool ret = SDLHasSSE3Native();
+			SDLBool ret = HasSSE3Native();
 			return ret;
 		}
 
@@ -2153,7 +2153,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE41")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasSSE41Native()
+		internal static SDLBool HasSSE41Native()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[265])();
@@ -2171,9 +2171,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE41")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasSSE41()
+		public static SDLBool HasSSE41()
 		{
-			SDLBool ret = SDLHasSSE41Native();
+			SDLBool ret = HasSSE41Native();
 			return ret;
 		}
 
@@ -2186,7 +2186,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE42")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasSSE42Native()
+		internal static SDLBool HasSSE42Native()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[266])();
@@ -2204,9 +2204,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE42")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasSSE42()
+		public static SDLBool HasSSE42()
 		{
-			SDLBool ret = SDLHasSSE42Native();
+			SDLBool ret = HasSSE42Native();
 			return ret;
 		}
 
@@ -2219,7 +2219,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasAVXNative()
+		internal static SDLBool HasAVXNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[267])();
@@ -2237,9 +2237,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasAVX()
+		public static SDLBool HasAVX()
 		{
-			SDLBool ret = SDLHasAVXNative();
+			SDLBool ret = HasAVXNative();
 			return ret;
 		}
 
@@ -2252,7 +2252,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX2")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasAVX2Native()
+		internal static SDLBool HasAVX2Native()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[268])();
@@ -2270,9 +2270,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX2")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasAVX2()
+		public static SDLBool HasAVX2()
 		{
-			SDLBool ret = SDLHasAVX2Native();
+			SDLBool ret = HasAVX2Native();
 			return ret;
 		}
 
@@ -2285,7 +2285,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX512F")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasAVX512FNative()
+		internal static SDLBool HasAVX512FNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[269])();
@@ -2303,9 +2303,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX512F")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasAVX512F()
+		public static SDLBool HasAVX512F()
 		{
-			SDLBool ret = SDLHasAVX512FNative();
+			SDLBool ret = HasAVX512FNative();
 			return ret;
 		}
 
@@ -2319,7 +2319,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasARMSIMD")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasARMSIMDNative()
+		internal static SDLBool HasARMSIMDNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[270])();
@@ -2338,9 +2338,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasARMSIMD")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasARMSIMD()
+		public static SDLBool HasARMSIMD()
 		{
-			SDLBool ret = SDLHasARMSIMDNative();
+			SDLBool ret = HasARMSIMDNative();
 			return ret;
 		}
 
@@ -2352,7 +2352,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasNEON")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasNEONNative()
+		internal static SDLBool HasNEONNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[271])();
@@ -2369,9 +2369,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasNEON")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasNEON()
+		public static SDLBool HasNEON()
 		{
-			SDLBool ret = SDLHasNEONNative();
+			SDLBool ret = HasNEONNative();
 			return ret;
 		}
 
@@ -2384,7 +2384,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasLSX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasLSXNative()
+		internal static SDLBool HasLSXNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[272])();
@@ -2402,9 +2402,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasLSX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasLSX()
+		public static SDLBool HasLSX()
 		{
-			SDLBool ret = SDLHasLSXNative();
+			SDLBool ret = HasLSXNative();
 			return ret;
 		}
 
@@ -2417,7 +2417,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasLASX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasLASXNative()
+		internal static SDLBool HasLASXNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[273])();
@@ -2435,9 +2435,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasLASX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasLASX()
+		public static SDLBool HasLASX()
 		{
-			SDLBool ret = SDLHasLASXNative();
+			SDLBool ret = HasLASXNative();
 			return ret;
 		}
 
@@ -2448,7 +2448,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSystemRAM")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetSystemRAMNative()
+		internal static int GetSystemRAMNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int>)vt[274])();
@@ -2464,9 +2464,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSystemRAM")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetSystemRAM()
+		public static int GetSystemRAM()
 		{
-			int ret = SDLGetSystemRAMNative();
+			int ret = GetSystemRAMNative();
 			return ret;
 		}
 
@@ -2485,7 +2485,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDGetAlignment")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		internal static ulong SDLSIMDGetAlignmentNative()
+		internal static ulong SIMDGetAlignmentNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ulong>)vt[275])();
@@ -2509,9 +2509,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDGetAlignment")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SDLSIMDGetAlignment()
+		public static ulong SIMDGetAlignment()
 		{
-			ulong ret = SDLSIMDGetAlignmentNative();
+			ulong ret = SIMDGetAlignmentNative();
 			return ret;
 		}
 
@@ -2542,7 +2542,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDAlloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLSIMDAllocNative([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
+		internal static void* SIMDAllocNative([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<ulong, void*>)vt[276])(len);
@@ -2578,9 +2578,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDAlloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSIMDAlloc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
+		public static void* SIMDAlloc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
 		{
-			void* ret = SDLSIMDAllocNative(len);
+			void* ret = SIMDAllocNative(len);
 			return ret;
 		}
 
@@ -2611,9 +2611,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDAlloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSIMDAlloc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] nuint len)
+		public static void* SIMDAlloc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] nuint len)
 		{
-			void* ret = SDLSIMDAllocNative(len);
+			void* ret = SIMDAllocNative(len);
 			return ret;
 		}
 
@@ -2628,7 +2628,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDRealloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLSIMDReallocNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
+		internal static void* SIMDReallocNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<void*, ulong, void*>)vt[277])(mem, len);
@@ -2648,9 +2648,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDRealloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSIMDRealloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
+		public static void* SIMDRealloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
 		{
-			void* ret = SDLSIMDReallocNative(mem, len);
+			void* ret = SIMDReallocNative(mem, len);
 			return ret;
 		}
 
@@ -2665,9 +2665,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDRealloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSIMDRealloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] nuint len)
+		public static void* SIMDRealloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] nuint len)
 		{
-			void* ret = SDLSIMDReallocNative(mem, len);
+			void* ret = SIMDReallocNative(mem, len);
 			return ret;
 		}
 
@@ -2687,7 +2687,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDFree")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSIMDFreeNative([NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr)
+		internal static void SIMDFreeNative([NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void*, void>)vt[278])(ptr);
@@ -2712,9 +2712,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDFree")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSIMDFree([NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr)
+		public static void SIMDFree([NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr)
 		{
-			SDLSIMDFreeNative(ptr);
+			SIMDFreeNative(ptr);
 		}
 
 		/// <summary>
@@ -2724,7 +2724,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGetPixelFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
+		internal static byte* GetPixelFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, byte*>)vt[279])(format);
@@ -2740,9 +2740,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetPixelFormatName([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
+		public static byte* GetPixelFormatName([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
-			byte* ret = SDLGetPixelFormatNameNative(format);
+			byte* ret = GetPixelFormatNameNative(format);
 			return ret;
 		}
 
@@ -2753,9 +2753,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetPixelFormatNameS([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
+		public static string GetPixelFormatNameS([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetPixelFormatNameNative(format));
+			string ret = Utils.DecodeStringUTF8(GetPixelFormatNameNative(format));
 			return ret;
 		}
 
@@ -2767,7 +2767,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLPixelFormatEnumToMasksNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		internal static SDLBool PixelFormatEnumToMasksNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, int*, uint*, uint*, uint*, uint*, SDLBool>)vt[280])(format, bpp, rmask, gmask, bmask, amask);
@@ -2784,9 +2784,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
-			SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, amask);
+			SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, amask);
 			return ret;
 		}
 
@@ -2798,11 +2798,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
-				SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, amask);
+				SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, amask);
 				return ret;
 			}
 		}
@@ -2815,11 +2815,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
-				SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, amask);
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, amask);
 				return ret;
 			}
 		}
@@ -2832,13 +2832,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
 				fixed (uint* prmask = &rmask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, amask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, amask);
 					return ret;
 				}
 			}
@@ -2852,11 +2852,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (uint* pgmask = &gmask)
 			{
-				SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, amask);
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, amask);
 				return ret;
 			}
 		}
@@ -2869,13 +2869,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
 				fixed (uint* pgmask = &gmask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, amask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, amask);
 					return ret;
 				}
 			}
@@ -2889,13 +2889,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
 				fixed (uint* pgmask = &gmask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
 					return ret;
 				}
 			}
@@ -2909,7 +2909,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -2917,7 +2917,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pgmask = &gmask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
 						return ret;
 					}
 				}
@@ -2932,11 +2932,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (uint* pbmask = &bmask)
 			{
-				SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, amask);
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, amask);
 				return ret;
 			}
 		}
@@ -2949,13 +2949,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
 				fixed (uint* pbmask = &bmask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, amask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, amask);
 					return ret;
 				}
 			}
@@ -2969,13 +2969,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
 				fixed (uint* pbmask = &bmask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
 					return ret;
 				}
 			}
@@ -2989,7 +2989,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -2997,7 +2997,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pbmask = &bmask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
 						return ret;
 					}
 				}
@@ -3012,13 +3012,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (uint* pgmask = &gmask)
 			{
 				fixed (uint* pbmask = &bmask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
 					return ret;
 				}
 			}
@@ -3032,7 +3032,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3040,7 +3040,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pbmask = &bmask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
 						return ret;
 					}
 				}
@@ -3055,7 +3055,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
@@ -3063,7 +3063,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pbmask = &bmask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
 						return ret;
 					}
 				}
@@ -3078,7 +3078,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3088,7 +3088,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (uint* pbmask = &bmask)
 						{
-							SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
 							return ret;
 						}
 					}
@@ -3104,11 +3104,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* pamask = &amask)
 			{
-				SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, (uint*)pamask);
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, (uint*)pamask);
 				return ret;
 			}
 		}
@@ -3121,13 +3121,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
 				fixed (uint* pamask = &amask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, (uint*)pamask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, (uint*)pamask);
 					return ret;
 				}
 			}
@@ -3141,13 +3141,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
 				fixed (uint* pamask = &amask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
 					return ret;
 				}
 			}
@@ -3161,7 +3161,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3169,7 +3169,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pamask = &amask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
 						return ret;
 					}
 				}
@@ -3184,13 +3184,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* pgmask = &gmask)
 			{
 				fixed (uint* pamask = &amask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
 					return ret;
 				}
 			}
@@ -3204,7 +3204,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3212,7 +3212,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pamask = &amask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
 						return ret;
 					}
 				}
@@ -3227,7 +3227,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
@@ -3235,7 +3235,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pamask = &amask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
 						return ret;
 					}
 				}
@@ -3250,7 +3250,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3260,7 +3260,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (uint* pamask = &amask)
 						{
-							SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
 							return ret;
 						}
 					}
@@ -3276,13 +3276,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* pbmask = &bmask)
 			{
 				fixed (uint* pamask = &amask)
 				{
-					SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
 					return ret;
 				}
 			}
@@ -3296,7 +3296,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3304,7 +3304,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pamask = &amask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
 						return ret;
 					}
 				}
@@ -3319,7 +3319,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
@@ -3327,7 +3327,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pamask = &amask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
 						return ret;
 					}
 				}
@@ -3342,7 +3342,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3352,7 +3352,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (uint* pamask = &amask)
 						{
-							SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
 							return ret;
 						}
 					}
@@ -3368,7 +3368,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* pgmask = &gmask)
 			{
@@ -3376,7 +3376,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (uint* pamask = &amask)
 					{
-						SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
 						return ret;
 					}
 				}
@@ -3391,7 +3391,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3401,7 +3401,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (uint* pamask = &amask)
 						{
-							SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
 							return ret;
 						}
 					}
@@ -3417,7 +3417,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (uint* prmask = &rmask)
 			{
@@ -3427,7 +3427,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (uint* pamask = &amask)
 						{
-							SDLBool ret = SDLPixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+							SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
 							return ret;
 						}
 					}
@@ -3443,7 +3443,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLPixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
 		{
 			fixed (int* pbpp = &bpp)
 			{
@@ -3455,7 +3455,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (uint* pamask = &amask)
 							{
-								SDLBool ret = SDLPixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+								SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
 								return ret;
 							}
 						}
@@ -3474,7 +3474,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MasksToPixelFormatEnum")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLMasksToPixelFormatEnumNative([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		internal static uint MasksToPixelFormatEnumNative([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)vt[281])(bpp, rmask, gmask, bmask, amask);
@@ -3493,9 +3493,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MasksToPixelFormatEnum")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLMasksToPixelFormatEnum([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		public static uint MasksToPixelFormatEnum([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
-			uint ret = SDLMasksToPixelFormatEnumNative(bpp, rmask, gmask, bmask, amask);
+			uint ret = MasksToPixelFormatEnumNative(bpp, rmask, gmask, bmask, amask);
 			return ret;
 		}
 
@@ -3510,7 +3510,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AllocFormat")]
 		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat*")]
-		internal static SDLPixelFormat* SDLAllocFormatNative([NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat)
+		internal static SDLPixelFormat* AllocFormatNative([NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*>)vt[282])(pixelFormat);
@@ -3530,9 +3530,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AllocFormat")]
 		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat*")]
-		public static SDLPixelFormat* SDLAllocFormat([NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat)
+		public static SDLPixelFormat* AllocFormat([NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat)
 		{
-			SDLPixelFormat* ret = SDLAllocFormatNative(pixelFormat);
+			SDLPixelFormat* ret = AllocFormatNative(pixelFormat);
 			return ret;
 		}
 
@@ -3544,7 +3544,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFreeFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format)
+		internal static void FreeFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLPixelFormat*, void>)vt[283])(format);
@@ -3561,9 +3561,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format)
+		public static void FreeFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format)
 		{
-			SDLFreeFormatNative(format);
+			FreeFormatNative(format);
 		}
 
 		/// <summary>
@@ -3574,11 +3574,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreeFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format)
+		public static void FreeFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
-				SDLFreeFormatNative((SDLPixelFormat*)pformat);
+				FreeFormatNative((SDLPixelFormat*)pformat);
 			}
 		}
 
@@ -3591,7 +3591,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AllocPalette")]
 		[return: NativeName(NativeNameType.Type, "SDL_Palette*")]
-		internal static SDLPalette* SDLAllocPaletteNative([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		internal static SDLPalette* AllocPaletteNative([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, SDLPalette*>)vt[284])(ncolors);
@@ -3609,9 +3609,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AllocPalette")]
 		[return: NativeName(NativeNameType.Type, "SDL_Palette*")]
-		public static SDLPalette* SDLAllocPalette([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static SDLPalette* AllocPalette([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
-			SDLPalette* ret = SDLAllocPaletteNative(ncolors);
+			SDLPalette* ret = AllocPaletteNative(ncolors);
 			return ret;
 		}
 
@@ -3623,7 +3623,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetPixelFormatPaletteNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		internal static int SetPixelFormatPaletteNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, SDLPalette*, int>)vt[285])(format, palette);
@@ -3640,9 +3640,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
-			int ret = SDLSetPixelFormatPaletteNative(format, palette);
+			int ret = SetPixelFormatPaletteNative(format, palette);
 			return ret;
 		}
 
@@ -3654,11 +3654,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
-				int ret = SDLSetPixelFormatPaletteNative((SDLPixelFormat*)pformat, palette);
+				int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, palette);
 				return ret;
 			}
 		}
@@ -3671,11 +3671,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
+		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				int ret = SDLSetPixelFormatPaletteNative(format, (SDLPalette*)ppalette);
+				int ret = SetPixelFormatPaletteNative(format, (SDLPalette*)ppalette);
 				return ret;
 			}
 		}
@@ -3688,13 +3688,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
+		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (SDLPalette* ppalette = &palette)
 				{
-					int ret = SDLSetPixelFormatPaletteNative((SDLPixelFormat*)pformat, (SDLPalette*)ppalette);
+					int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, (SDLPalette*)ppalette);
 					return ret;
 				}
 			}
@@ -3708,7 +3708,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetPaletteColorsNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		internal static int SetPaletteColorsNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLPalette*, SDLColor*, int, int, int>)vt[286])(palette, colors, firstcolor, ncolors);
@@ -3725,9 +3725,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
-			int ret = SDLSetPaletteColorsNative(palette, colors, firstcolor, ncolors);
+			int ret = SetPaletteColorsNative(palette, colors, firstcolor, ncolors);
 			return ret;
 		}
 
@@ -3739,11 +3739,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				int ret = SDLSetPaletteColorsNative((SDLPalette*)ppalette, colors, firstcolor, ncolors);
+				int ret = SetPaletteColorsNative((SDLPalette*)ppalette, colors, firstcolor, ncolors);
 				return ret;
 			}
 		}
@@ -3756,11 +3756,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
 			fixed (SDLColor* pcolors = &colors)
 			{
-				int ret = SDLSetPaletteColorsNative(palette, (SDLColor*)pcolors, firstcolor, ncolors);
+				int ret = SetPaletteColorsNative(palette, (SDLColor*)pcolors, firstcolor, ncolors);
 				return ret;
 			}
 		}
@@ -3773,13 +3773,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
 				fixed (SDLColor* pcolors = &colors)
 				{
-					int ret = SDLSetPaletteColorsNative((SDLPalette*)ppalette, (SDLColor*)pcolors, firstcolor, ncolors);
+					int ret = SetPaletteColorsNative((SDLPalette*)ppalette, (SDLColor*)pcolors, firstcolor, ncolors);
 					return ret;
 				}
 			}
@@ -3793,7 +3793,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreePalette")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLFreePaletteNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		internal static void FreePaletteNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLPalette*, void>)vt[287])(palette);
@@ -3810,9 +3810,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreePalette")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreePalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		public static void FreePalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
-			SDLFreePaletteNative(palette);
+			FreePaletteNative(palette);
 		}
 
 		/// <summary>
@@ -3823,11 +3823,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreePalette")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLFreePalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
+		public static void FreePalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
 		{
 			fixed (SDLPalette* ppalette = &palette)
 			{
-				SDLFreePaletteNative((SDLPalette*)ppalette);
+				FreePaletteNative((SDLPalette*)ppalette);
 			}
 		}
 
@@ -3850,7 +3850,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLMapRGBNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		internal static uint MapRGBNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, uint>)vt[288])(format, r, g, b);
@@ -3878,9 +3878,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLMapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
-			uint ret = SDLMapRGBNative(format, r, g, b);
+			uint ret = MapRGBNative(format, r, g, b);
 			return ret;
 		}
 
@@ -3903,11 +3903,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLMapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
-				uint ret = SDLMapRGBNative((SDLPixelFormat*)pformat, r, g, b);
+				uint ret = MapRGBNative((SDLPixelFormat*)pformat, r, g, b);
 				return ret;
 			}
 		}
@@ -3931,7 +3931,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint SDLMapRGBANative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		internal static uint MapRGBANative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, byte, uint>)vt[289])(format, r, g, b, a);
@@ -3959,9 +3959,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLMapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
-			uint ret = SDLMapRGBANative(format, r, g, b, a);
+			uint ret = MapRGBANative(format, r, g, b, a);
 			return ret;
 		}
 
@@ -3984,11 +3984,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint SDLMapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
-				uint ret = SDLMapRGBANative((SDLPixelFormat*)pformat, r, g, b, a);
+				uint ret = MapRGBANative((SDLPixelFormat*)pformat, r, g, b, a);
 				return ret;
 			}
 		}
@@ -4005,7 +4005,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetRGBNative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		internal static void GetRGBNative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, void>)vt[290])(pixel, format, r, g, b);
@@ -4026,9 +4026,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
-			SDLGetRGBNative(pixel, format, r, g, b);
+			GetRGBNative(pixel, format, r, g, b);
 		}
 
 		/// <summary>
@@ -4043,11 +4043,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
-				SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, b);
+				GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, b);
 			}
 		}
 
@@ -4063,11 +4063,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
-				SDLGetRGBNative(pixel, format, (byte*)pr, g, b);
+				GetRGBNative(pixel, format, (byte*)pr, g, b);
 			}
 		}
 
@@ -4083,13 +4083,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (byte* pr = &r)
 				{
-					SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b);
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b);
 				}
 			}
 		}
@@ -4106,11 +4106,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (byte* pg = &g)
 			{
-				SDLGetRGBNative(pixel, format, r, (byte*)pg, b);
+				GetRGBNative(pixel, format, r, (byte*)pg, b);
 			}
 		}
 
@@ -4126,13 +4126,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (byte* pg = &g)
 				{
-					SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b);
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b);
 				}
 			}
 		}
@@ -4149,13 +4149,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pg = &g)
 				{
-					SDLGetRGBNative(pixel, format, (byte*)pr, (byte*)pg, b);
+					GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, b);
 				}
 			}
 		}
@@ -4172,7 +4172,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4180,7 +4180,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pg = &g)
 					{
-						SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b);
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b);
 					}
 				}
 			}
@@ -4198,11 +4198,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pb = &b)
 			{
-				SDLGetRGBNative(pixel, format, r, g, (byte*)pb);
+				GetRGBNative(pixel, format, r, g, (byte*)pb);
 			}
 		}
 
@@ -4218,13 +4218,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (byte* pb = &b)
 				{
-					SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb);
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb);
 				}
 			}
 		}
@@ -4241,13 +4241,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pb = &b)
 				{
-					SDLGetRGBNative(pixel, format, (byte*)pr, g, (byte*)pb);
+					GetRGBNative(pixel, format, (byte*)pr, g, (byte*)pb);
 				}
 			}
 		}
@@ -4264,7 +4264,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4272,7 +4272,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb);
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb);
 					}
 				}
 			}
@@ -4290,13 +4290,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pg = &g)
 			{
 				fixed (byte* pb = &b)
 				{
-					SDLGetRGBNative(pixel, format, r, (byte*)pg, (byte*)pb);
+					GetRGBNative(pixel, format, r, (byte*)pg, (byte*)pb);
 				}
 			}
 		}
@@ -4313,7 +4313,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4321,7 +4321,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb);
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb);
 					}
 				}
 			}
@@ -4339,7 +4339,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -4347,7 +4347,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						SDLGetRGBNative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb);
+						GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb);
 					}
 				}
 			}
@@ -4365,7 +4365,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4375,7 +4375,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pb = &b)
 						{
-							SDLGetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb);
+							GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb);
 						}
 					}
 				}
@@ -4396,7 +4396,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetRGBANative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		internal static void GetRGBANative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, byte*, void>)vt[291])(pixel, format, r, g, b, a);
@@ -4419,9 +4419,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
-			SDLGetRGBANative(pixel, format, r, g, b, a);
+			GetRGBANative(pixel, format, r, g, b, a);
 		}
 
 		/// <summary>
@@ -4438,11 +4438,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
-				SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, a);
+				GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, a);
 			}
 		}
 
@@ -4460,11 +4460,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (byte* pr = &r)
 			{
-				SDLGetRGBANative(pixel, format, (byte*)pr, g, b, a);
+				GetRGBANative(pixel, format, (byte*)pr, g, b, a);
 			}
 		}
 
@@ -4482,13 +4482,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (byte* pr = &r)
 				{
-					SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, a);
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, a);
 				}
 			}
 		}
@@ -4507,11 +4507,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (byte* pg = &g)
 			{
-				SDLGetRGBANative(pixel, format, r, (byte*)pg, b, a);
+				GetRGBANative(pixel, format, r, (byte*)pg, b, a);
 			}
 		}
 
@@ -4529,13 +4529,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (byte* pg = &g)
 				{
-					SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, a);
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, a);
 				}
 			}
 		}
@@ -4554,13 +4554,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pg = &g)
 				{
-					SDLGetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, a);
+					GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, a);
 				}
 			}
 		}
@@ -4579,7 +4579,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4587,7 +4587,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pg = &g)
 					{
-						SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, a);
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, a);
 					}
 				}
 			}
@@ -4607,11 +4607,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (byte* pb = &b)
 			{
-				SDLGetRGBANative(pixel, format, r, g, (byte*)pb, a);
+				GetRGBANative(pixel, format, r, g, (byte*)pb, a);
 			}
 		}
 
@@ -4629,13 +4629,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (byte* pb = &b)
 				{
-					SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, a);
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, a);
 				}
 			}
 		}
@@ -4654,13 +4654,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pb = &b)
 				{
-					SDLGetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, a);
+					GetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, a);
 				}
 			}
 		}
@@ -4679,7 +4679,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4687,7 +4687,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, a);
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, a);
 					}
 				}
 			}
@@ -4707,13 +4707,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (byte* pg = &g)
 			{
 				fixed (byte* pb = &b)
 				{
-					SDLGetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, a);
+					GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, a);
 				}
 			}
 		}
@@ -4732,7 +4732,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4740,7 +4740,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, a);
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, a);
 					}
 				}
 			}
@@ -4760,7 +4760,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -4768,7 +4768,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pb = &b)
 					{
-						SDLGetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, a);
 					}
 				}
 			}
@@ -4788,7 +4788,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4798,7 +4798,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pb = &b)
 						{
-							SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, a);
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, a);
 						}
 					}
 				}
@@ -4819,11 +4819,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pa = &a)
 			{
-				SDLGetRGBANative(pixel, format, r, g, b, (byte*)pa);
+				GetRGBANative(pixel, format, r, g, b, (byte*)pa);
 			}
 		}
 
@@ -4841,13 +4841,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
 				fixed (byte* pa = &a)
 				{
-					SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, (byte*)pa);
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, (byte*)pa);
 				}
 			}
 		}
@@ -4866,13 +4866,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pa = &a)
 				{
-					SDLGetRGBANative(pixel, format, (byte*)pr, g, b, (byte*)pa);
+					GetRGBANative(pixel, format, (byte*)pr, g, b, (byte*)pa);
 				}
 			}
 		}
@@ -4891,7 +4891,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4899,7 +4899,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, (byte*)pa);
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, (byte*)pa);
 					}
 				}
 			}
@@ -4919,13 +4919,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pg = &g)
 			{
 				fixed (byte* pa = &a)
 				{
-					SDLGetRGBANative(pixel, format, r, (byte*)pg, b, (byte*)pa);
+					GetRGBANative(pixel, format, r, (byte*)pg, b, (byte*)pa);
 				}
 			}
 		}
@@ -4944,7 +4944,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -4952,7 +4952,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, (byte*)pa);
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, (byte*)pa);
 					}
 				}
 			}
@@ -4972,7 +4972,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -4980,7 +4980,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						SDLGetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, (byte*)pa);
 					}
 				}
 			}
@@ -5000,7 +5000,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLPixelFormat* pformat = &format)
 			{
@@ -5010,7 +5010,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							SDLGetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, (byte*)pa);
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, (byte*)pa);
 						}
 					}
 				}

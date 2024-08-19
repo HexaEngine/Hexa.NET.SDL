@@ -19,6 +19,7 @@ namespace Hexa.NET.SDL2
 	/// https://developer.android.com/reference/android/hardware/SensorEvent.html#values<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_SensorType")]
+	[Flags]
 	public enum SDLSensorType : int
 	{
 		/// <summary>

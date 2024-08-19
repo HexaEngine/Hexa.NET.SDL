@@ -25,7 +25,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -35,7 +35,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							int ret = SDLGetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
+							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
 							return ret;
 						}
 					}
@@ -51,13 +51,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pb = &b)
 			{
 				fixed (byte* pa = &a)
 				{
-					int ret = SDLGetRenderDrawColorNative(renderer, r, g, (byte*)pb, (byte*)pa);
+					int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, (byte*)pa);
 					return ret;
 				}
 			}
@@ -71,7 +71,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -79,7 +79,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						int ret = SDLGetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, (byte*)pa);
+						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, (byte*)pa);
 						return ret;
 					}
 				}
@@ -94,7 +94,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -102,7 +102,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						int ret = SDLGetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
 						return ret;
 					}
 				}
@@ -117,7 +117,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -127,7 +127,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							int ret = SDLGetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
+							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
 							return ret;
 						}
 					}
@@ -143,7 +143,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pg = &g)
 			{
@@ -151,7 +151,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte* pa = &a)
 					{
-						int ret = SDLGetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
 						return ret;
 					}
 				}
@@ -166,7 +166,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -176,7 +176,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							int ret = SDLGetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
+							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
 							return ret;
 						}
 					}
@@ -192,7 +192,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (byte* pr = &r)
 			{
@@ -202,7 +202,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (byte* pa = &a)
 						{
-							int ret = SDLGetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
 							return ret;
 						}
 					}
@@ -218,7 +218,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
+		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -230,7 +230,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (byte* pa = &a)
 							{
-								int ret = SDLGetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+								int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
 								return ret;
 							}
 						}
@@ -248,7 +248,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		internal static int SetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode, int>)vt[769])(renderer, blendMode);
@@ -266,9 +266,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static int SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
 		{
-			int ret = SDLSetRenderDrawBlendModeNative(renderer, blendMode);
+			int ret = SetRenderDrawBlendModeNative(renderer, blendMode);
 			return ret;
 		}
 
@@ -281,11 +281,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static int SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLSetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
+				int ret = SetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
 				return ret;
 			}
 		}
@@ -298,7 +298,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		internal static int GetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode*, int>)vt[770])(renderer, blendMode);
@@ -315,9 +315,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
 		{
-			int ret = SDLGetRenderDrawBlendModeNative(renderer, blendMode);
+			int ret = GetRenderDrawBlendModeNative(renderer, blendMode);
 			return ret;
 		}
 
@@ -329,11 +329,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLGetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
+				int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
 				return ret;
 			}
 		}
@@ -346,11 +346,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
+		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
 		{
 			fixed (SDLBlendMode* pblendMode = &blendMode)
 			{
-				int ret = SDLGetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
+				int ret = GetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
 				return ret;
 			}
 		}
@@ -363,13 +363,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
+		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLBlendMode* pblendMode = &blendMode)
 				{
-					int ret = SDLGetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
+					int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
 					return ret;
 				}
 			}
@@ -385,7 +385,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderClearNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		internal static int RenderClearNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int>)vt[771])(renderer);
@@ -404,9 +404,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		public static int RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
-			int ret = SDLRenderClearNative(renderer);
+			int ret = RenderClearNative(renderer);
 			return ret;
 		}
 
@@ -420,11 +420,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
+		public static int RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderClearNative((SDLRenderer*)prenderer);
+				int ret = RenderClearNative((SDLRenderer*)prenderer);
 				return ret;
 			}
 		}
@@ -439,7 +439,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoint")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawPointNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		internal static int RenderDrawPointNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)vt[772])(renderer, x, y);
@@ -458,9 +458,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoint")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		public static int RenderDrawPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
-			int ret = SDLRenderDrawPointNative(renderer, x, y);
+			int ret = RenderDrawPointNative(renderer, x, y);
 			return ret;
 		}
 
@@ -474,11 +474,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoint")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		public static int RenderDrawPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawPointNative((SDLRenderer*)prenderer, x, y);
+				int ret = RenderDrawPointNative((SDLRenderer*)prenderer, x, y);
 				return ret;
 			}
 		}
@@ -491,7 +491,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawPointsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderDrawPointsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)vt[773])(renderer, points, count);
@@ -508,9 +508,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderDrawPointsNative(renderer, points, count);
+			int ret = RenderDrawPointsNative(renderer, points, count);
 			return ret;
 		}
 
@@ -522,11 +522,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawPointsNative((SDLRenderer*)prenderer, points, count);
+				int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, points, count);
 				return ret;
 			}
 		}
@@ -539,11 +539,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLPoint* ppoints = &points)
 			{
-				int ret = SDLRenderDrawPointsNative(renderer, (SDLPoint*)ppoints, count);
+				int ret = RenderDrawPointsNative(renderer, (SDLPoint*)ppoints, count);
 				return ret;
 			}
 		}
@@ -556,13 +556,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLPoint* ppoints = &points)
 				{
-					int ret = SDLRenderDrawPointsNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
+					int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
 					return ret;
 				}
 			}
@@ -578,7 +578,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLine")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawLineNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
+		internal static int RenderDrawLineNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int, int, int>)vt[774])(renderer, x1, y1, x2, y2);
@@ -597,9 +597,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLine")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
+		public static int RenderDrawLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
 		{
-			int ret = SDLRenderDrawLineNative(renderer, x1, y1, x2, y2);
+			int ret = RenderDrawLineNative(renderer, x1, y1, x2, y2);
 			return ret;
 		}
 
@@ -613,11 +613,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLine")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
+		public static int RenderDrawLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
+				int ret = RenderDrawLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
 				return ret;
 			}
 		}
@@ -630,7 +630,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawLinesNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderDrawLinesNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)vt[775])(renderer, points, count);
@@ -647,9 +647,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderDrawLinesNative(renderer, points, count);
+			int ret = RenderDrawLinesNative(renderer, points, count);
 			return ret;
 		}
 
@@ -661,11 +661,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawLinesNative((SDLRenderer*)prenderer, points, count);
+				int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, points, count);
 				return ret;
 			}
 		}
@@ -678,11 +678,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLPoint* ppoints = &points)
 			{
-				int ret = SDLRenderDrawLinesNative(renderer, (SDLPoint*)ppoints, count);
+				int ret = RenderDrawLinesNative(renderer, (SDLPoint*)ppoints, count);
 				return ret;
 			}
 		}
@@ -695,13 +695,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLPoint* ppoints = &points)
 				{
-					int ret = SDLRenderDrawLinesNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
+					int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
 					return ret;
 				}
 			}
@@ -715,7 +715,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static int RenderDrawRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)vt[776])(renderer, rect);
@@ -732,9 +732,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
-			int ret = SDLRenderDrawRectNative(renderer, rect);
+			int ret = RenderDrawRectNative(renderer, rect);
 			return ret;
 		}
 
@@ -746,11 +746,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawRectNative((SDLRenderer*)prenderer, rect);
+				int ret = RenderDrawRectNative((SDLRenderer*)prenderer, rect);
 				return ret;
 			}
 		}
@@ -763,11 +763,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				int ret = SDLRenderDrawRectNative(renderer, (SDLRect*)prect);
+				int ret = RenderDrawRectNative(renderer, (SDLRect*)prect);
 				return ret;
 			}
 		}
@@ -780,13 +780,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* prect = &rect)
 				{
-					int ret = SDLRenderDrawRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					int ret = RenderDrawRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
 					return ret;
 				}
 			}
@@ -800,7 +800,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderDrawRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)vt[777])(renderer, rects, count);
@@ -817,9 +817,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderDrawRectsNative(renderer, rects, count);
+			int ret = RenderDrawRectsNative(renderer, rects, count);
 			return ret;
 		}
 
@@ -831,11 +831,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawRectsNative((SDLRenderer*)prenderer, rects, count);
+				int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, rects, count);
 				return ret;
 			}
 		}
@@ -848,11 +848,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRect* prects = &rects)
 			{
-				int ret = SDLRenderDrawRectsNative(renderer, (SDLRect*)prects, count);
+				int ret = RenderDrawRectsNative(renderer, (SDLRect*)prects, count);
 				return ret;
 			}
 		}
@@ -865,13 +865,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* prects = &rects)
 				{
-					int ret = SDLRenderDrawRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
+					int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
 					return ret;
 				}
 			}
@@ -888,7 +888,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderFillRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static int RenderFillRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)vt[778])(renderer, rect);
@@ -908,9 +908,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
-			int ret = SDLRenderFillRectNative(renderer, rect);
+			int ret = RenderFillRectNative(renderer, rect);
 			return ret;
 		}
 
@@ -925,11 +925,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderFillRectNative((SDLRenderer*)prenderer, rect);
+				int ret = RenderFillRectNative((SDLRenderer*)prenderer, rect);
 				return ret;
 			}
 		}
@@ -945,11 +945,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				int ret = SDLRenderFillRectNative(renderer, (SDLRect*)prect);
+				int ret = RenderFillRectNative(renderer, (SDLRect*)prect);
 				return ret;
 			}
 		}
@@ -965,13 +965,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* prect = &rect)
 				{
-					int ret = SDLRenderFillRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					int ret = RenderFillRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
 					return ret;
 				}
 			}
@@ -986,7 +986,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderFillRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderFillRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)vt[779])(renderer, rects, count);
@@ -1004,9 +1004,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderFillRectsNative(renderer, rects, count);
+			int ret = RenderFillRectsNative(renderer, rects, count);
 			return ret;
 		}
 
@@ -1019,11 +1019,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
+				int ret = RenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
 				return ret;
 			}
 		}
@@ -1037,11 +1037,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRect* prects = &rects)
 			{
-				int ret = SDLRenderFillRectsNative(renderer, (SDLRect*)prects, count);
+				int ret = RenderFillRectsNative(renderer, (SDLRect*)prects, count);
 				return ret;
 			}
 		}
@@ -1055,13 +1055,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* prects = &rects)
 				{
-					int ret = SDLRenderFillRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
+					int ret = RenderFillRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
 					return ret;
 				}
 			}
@@ -1081,7 +1081,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderCopyNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		internal static int RenderCopyNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLRect*, int>)vt[780])(renderer, texture, srcrect, dstrect);
@@ -1104,9 +1104,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
-			int ret = SDLRenderCopyNative(renderer, texture, srcrect, dstrect);
+			int ret = RenderCopyNative(renderer, texture, srcrect, dstrect);
 			return ret;
 		}
 
@@ -1124,11 +1124,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
+				int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
 				return ret;
 			}
 		}
@@ -1147,11 +1147,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = SDLRenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
+				int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
 				return ret;
 			}
 		}
@@ -1170,13 +1170,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLTexture* ptexture = &texture)
 				{
-					int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
+					int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
 					return ret;
 				}
 			}
@@ -1196,11 +1196,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
-				int ret = SDLRenderCopyNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
+				int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
 				return ret;
 			}
 		}
@@ -1219,13 +1219,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
+					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
 					return ret;
 				}
 			}
@@ -1245,13 +1245,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
+					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
 					return ret;
 				}
 			}
@@ -1271,7 +1271,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -1279,7 +1279,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* psrcrect = &srcrect)
 					{
-						int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
+						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
 						return ret;
 					}
 				}
@@ -1300,11 +1300,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLRect* pdstrect = &dstrect)
 			{
-				int ret = SDLRenderCopyNative(renderer, texture, srcrect, (SDLRect*)pdstrect);
+				int ret = RenderCopyNative(renderer, texture, srcrect, (SDLRect*)pdstrect);
 				return ret;
 			}
 		}
@@ -1323,13 +1323,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect);
+					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -1349,13 +1349,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
+					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -1375,7 +1375,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -1383,7 +1383,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
+						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -1404,13 +1404,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
+					int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -1430,7 +1430,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -1438,7 +1438,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
+						int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -1459,7 +1459,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -1467,7 +1467,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
+						int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -1488,7 +1488,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
+		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -1498,7 +1498,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLRect* pdstrect = &dstrect)
 						{
-							int ret = SDLRenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
+							int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
 							return ret;
 						}
 					}
@@ -1524,7 +1524,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderCopyExNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		internal static int RenderCopyExNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLRect*, double, SDLPoint*, SDLRendererFlip, int>)vt[781])(renderer, texture, srcrect, dstrect, angle, center, flip);
@@ -1551,9 +1551,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
-			int ret = SDLRenderCopyExNative(renderer, texture, srcrect, dstrect, angle, center, flip);
+			int ret = RenderCopyExNative(renderer, texture, srcrect, dstrect, angle, center, flip);
 			return ret;
 		}
 
@@ -1575,11 +1575,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
+				int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -1602,11 +1602,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
+				int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -1629,13 +1629,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLTexture* ptexture = &texture)
 				{
-					int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
+					int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -1659,11 +1659,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
-				int ret = SDLRenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+				int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -1686,13 +1686,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+					int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -1716,13 +1716,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+					int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -1746,7 +1746,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -1754,7 +1754,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* psrcrect = &srcrect)
 					{
-						int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -1779,11 +1779,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* pdstrect = &dstrect)
 			{
-				int ret = SDLRenderCopyExNative(renderer, texture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
+				int ret = RenderCopyExNative(renderer, texture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -1806,13 +1806,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
+					int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -1836,13 +1836,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
+					int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -1866,7 +1866,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -1874,7 +1874,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -1899,13 +1899,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
+					int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -1929,7 +1929,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -1937,7 +1937,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -1962,7 +1962,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -1970,7 +1970,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
+						int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -1995,7 +1995,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2005,7 +2005,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLRect* pdstrect = &dstrect)
 						{
-							int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
 							return ret;
 						}
 					}
@@ -2031,11 +2031,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLPoint* pcenter = &center)
 			{
-				int ret = SDLRenderCopyExNative(renderer, texture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+				int ret = RenderCopyExNative(renderer, texture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 				return ret;
 			}
 		}
@@ -2058,13 +2058,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+					int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -2088,13 +2088,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+					int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -2118,7 +2118,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2126,7 +2126,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -2151,13 +2151,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+					int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -2181,7 +2181,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2189,7 +2189,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -2214,7 +2214,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -2222,7 +2222,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+						int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -2247,7 +2247,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2257,7 +2257,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -2283,13 +2283,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* pdstrect = &dstrect)
 			{
 				fixed (SDLPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExNative(renderer, texture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+					int ret = RenderCopyExNative(renderer, texture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -2313,7 +2313,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2321,7 +2321,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+						int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -2346,7 +2346,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -2354,7 +2354,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+						int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -2379,7 +2379,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2389,7 +2389,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -2415,7 +2415,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
@@ -2423,7 +2423,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+						int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -2448,7 +2448,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2458,7 +2458,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+							int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -2484,7 +2484,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -2494,7 +2494,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+							int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -2520,7 +2520,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -2532,7 +2532,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (SDLPoint* pcenter = &center)
 							{
-								int ret = SDLRenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
+								int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
 								return ret;
 							}
 						}
@@ -2548,7 +2548,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawPointFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		internal static int RenderDrawPointFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)vt[782])(renderer, x, y);
@@ -2564,9 +2564,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPointF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		public static int RenderDrawPointF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
 		{
-			int ret = SDLRenderDrawPointFNative(renderer, x, y);
+			int ret = RenderDrawPointFNative(renderer, x, y);
 			return ret;
 		}
 
@@ -2577,11 +2577,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPointF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		public static int RenderDrawPointF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawPointFNative((SDLRenderer*)prenderer, x, y);
+				int ret = RenderDrawPointFNative((SDLRenderer*)prenderer, x, y);
 				return ret;
 			}
 		}
@@ -2593,7 +2593,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawPointsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderDrawPointsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, int>)vt[783])(renderer, points, count);
@@ -2609,9 +2609,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderDrawPointsFNative(renderer, points, count);
+			int ret = RenderDrawPointsFNative(renderer, points, count);
 			return ret;
 		}
 
@@ -2622,11 +2622,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawPointsFNative((SDLRenderer*)prenderer, points, count);
+				int ret = RenderDrawPointsFNative((SDLRenderer*)prenderer, points, count);
 				return ret;
 			}
 		}
@@ -2638,11 +2638,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
-				int ret = SDLRenderDrawPointsFNative(renderer, (SDLFPoint*)ppoints, count);
+				int ret = RenderDrawPointsFNative(renderer, (SDLFPoint*)ppoints, count);
 				return ret;
 			}
 		}
@@ -2654,13 +2654,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFPoint* ppoints = &points)
 				{
-					int ret = SDLRenderDrawPointsFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
+					int ret = RenderDrawPointsFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
 					return ret;
 				}
 			}
@@ -2673,7 +2673,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLineF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawLineFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		internal static int RenderDrawLineFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float, float, int>)vt[784])(renderer, x1, y1, x2, y2);
@@ -2689,9 +2689,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLineF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLineF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		public static int RenderDrawLineF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
 		{
-			int ret = SDLRenderDrawLineFNative(renderer, x1, y1, x2, y2);
+			int ret = RenderDrawLineFNative(renderer, x1, y1, x2, y2);
 			return ret;
 		}
 
@@ -2702,11 +2702,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLineF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLineF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		public static int RenderDrawLineF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawLineFNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
+				int ret = RenderDrawLineFNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
 				return ret;
 			}
 		}
@@ -2719,7 +2719,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawLinesFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderDrawLinesFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, int>)vt[785])(renderer, points, count);
@@ -2736,9 +2736,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderDrawLinesFNative(renderer, points, count);
+			int ret = RenderDrawLinesFNative(renderer, points, count);
 			return ret;
 		}
 
@@ -2750,11 +2750,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawLinesFNative((SDLRenderer*)prenderer, points, count);
+				int ret = RenderDrawLinesFNative((SDLRenderer*)prenderer, points, count);
 				return ret;
 			}
 		}
@@ -2767,11 +2767,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLFPoint* ppoints = &points)
 			{
-				int ret = SDLRenderDrawLinesFNative(renderer, (SDLFPoint*)ppoints, count);
+				int ret = RenderDrawLinesFNative(renderer, (SDLFPoint*)ppoints, count);
 				return ret;
 			}
 		}
@@ -2784,13 +2784,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFPoint* ppoints = &points)
 				{
-					int ret = SDLRenderDrawLinesFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
+					int ret = RenderDrawLinesFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
 					return ret;
 				}
 			}
@@ -2803,7 +2803,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawRectFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		internal static int RenderDrawRectFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int>)vt[786])(renderer, rect);
@@ -2819,9 +2819,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
 		{
-			int ret = SDLRenderDrawRectFNative(renderer, rect);
+			int ret = RenderDrawRectFNative(renderer, rect);
 			return ret;
 		}
 
@@ -2832,11 +2832,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawRectFNative((SDLRenderer*)prenderer, rect);
+				int ret = RenderDrawRectFNative((SDLRenderer*)prenderer, rect);
 				return ret;
 			}
 		}
@@ -2848,11 +2848,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
+		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
-				int ret = SDLRenderDrawRectFNative(renderer, (SDLFRect*)prect);
+				int ret = RenderDrawRectFNative(renderer, (SDLFRect*)prect);
 				return ret;
 			}
 		}
@@ -2864,13 +2864,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
+		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFRect* prect = &rect)
 				{
-					int ret = SDLRenderDrawRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
+					int ret = RenderDrawRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
 					return ret;
 				}
 			}
@@ -2884,7 +2884,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderDrawRectsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderDrawRectsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, int>)vt[787])(renderer, rects, count);
@@ -2901,9 +2901,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderDrawRectsFNative(renderer, rects, count);
+			int ret = RenderDrawRectsFNative(renderer, rects, count);
 			return ret;
 		}
 
@@ -2915,11 +2915,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderDrawRectsFNative((SDLRenderer*)prenderer, rects, count);
+				int ret = RenderDrawRectsFNative((SDLRenderer*)prenderer, rects, count);
 				return ret;
 			}
 		}
@@ -2932,11 +2932,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLFRect* prects = &rects)
 			{
-				int ret = SDLRenderDrawRectsFNative(renderer, (SDLFRect*)prects, count);
+				int ret = RenderDrawRectsFNative(renderer, (SDLFRect*)prects, count);
 				return ret;
 			}
 		}
@@ -2949,13 +2949,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFRect* prects = &rects)
 				{
-					int ret = SDLRenderDrawRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
+					int ret = RenderDrawRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
 					return ret;
 				}
 			}
@@ -2969,7 +2969,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderFillRectFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		internal static int RenderFillRectFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int>)vt[788])(renderer, rect);
@@ -2986,9 +2986,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
 		{
-			int ret = SDLRenderFillRectFNative(renderer, rect);
+			int ret = RenderFillRectFNative(renderer, rect);
 			return ret;
 		}
 
@@ -3000,11 +3000,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderFillRectFNative((SDLRenderer*)prenderer, rect);
+				int ret = RenderFillRectFNative((SDLRenderer*)prenderer, rect);
 				return ret;
 			}
 		}
@@ -3017,11 +3017,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
+		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
 		{
 			fixed (SDLFRect* prect = &rect)
 			{
-				int ret = SDLRenderFillRectFNative(renderer, (SDLFRect*)prect);
+				int ret = RenderFillRectFNative(renderer, (SDLFRect*)prect);
 				return ret;
 			}
 		}
@@ -3034,13 +3034,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
+		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFRect* prect = &rect)
 				{
-					int ret = SDLRenderFillRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
+					int ret = RenderFillRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
 					return ret;
 				}
 			}
@@ -3054,7 +3054,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderFillRectsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static int RenderFillRectsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, int>)vt[789])(renderer, rects, count);
@@ -3071,9 +3071,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
-			int ret = SDLRenderFillRectsFNative(renderer, rects, count);
+			int ret = RenderFillRectsFNative(renderer, rects, count);
 			return ret;
 		}
 
@@ -3085,11 +3085,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderFillRectsFNative((SDLRenderer*)prenderer, rects, count);
+				int ret = RenderFillRectsFNative((SDLRenderer*)prenderer, rects, count);
 				return ret;
 			}
 		}
@@ -3102,11 +3102,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLFRect* prects = &rects)
 			{
-				int ret = SDLRenderFillRectsFNative(renderer, (SDLFRect*)prects, count);
+				int ret = RenderFillRectsFNative(renderer, (SDLFRect*)prects, count);
 				return ret;
 			}
 		}
@@ -3119,13 +3119,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFRect* prects = &rects)
 				{
-					int ret = SDLRenderFillRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
+					int ret = RenderFillRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
 					return ret;
 				}
 			}
@@ -3139,7 +3139,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderCopyFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		internal static int RenderCopyFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLFRect*, int>)vt[790])(renderer, texture, srcrect, dstrect);
@@ -3156,9 +3156,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
-			int ret = SDLRenderCopyFNative(renderer, texture, srcrect, dstrect);
+			int ret = RenderCopyFNative(renderer, texture, srcrect, dstrect);
 			return ret;
 		}
 
@@ -3170,11 +3170,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
+				int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
 				return ret;
 			}
 		}
@@ -3187,11 +3187,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = SDLRenderCopyFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
+				int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
 				return ret;
 			}
 		}
@@ -3204,13 +3204,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLTexture* ptexture = &texture)
 				{
-					int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
+					int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
 					return ret;
 				}
 			}
@@ -3224,11 +3224,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
-				int ret = SDLRenderCopyFNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
+				int ret = RenderCopyFNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
 				return ret;
 			}
 		}
@@ -3241,13 +3241,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
+					int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
 					return ret;
 				}
 			}
@@ -3261,13 +3261,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
+					int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
 					return ret;
 				}
 			}
@@ -3281,7 +3281,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3289,7 +3289,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* psrcrect = &srcrect)
 					{
-						int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
+						int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
 						return ret;
 					}
 				}
@@ -3304,11 +3304,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLFRect* pdstrect = &dstrect)
 			{
-				int ret = SDLRenderCopyFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect);
+				int ret = RenderCopyFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect);
 				return ret;
 			}
 		}
@@ -3321,13 +3321,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect);
+					int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -3341,13 +3341,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
+					int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -3361,7 +3361,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3369,7 +3369,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
+						int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -3384,13 +3384,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+					int ret = RenderCopyFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
 					return ret;
 				}
 			}
@@ -3404,7 +3404,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3412,7 +3412,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+						int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -3427,7 +3427,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -3435,7 +3435,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+						int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
 						return ret;
 					}
 				}
@@ -3450,7 +3450,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
+		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3460,7 +3460,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLFRect* pdstrect = &dstrect)
 						{
-							int ret = SDLRenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
+							int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
 							return ret;
 						}
 					}
@@ -3476,7 +3476,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderCopyExFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		internal static int RenderCopyExFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLFRect*, double, SDLFPoint*, SDLRendererFlip, int>)vt[791])(renderer, texture, srcrect, dstrect, angle, center, flip);
@@ -3493,9 +3493,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
-			int ret = SDLRenderCopyExFNative(renderer, texture, srcrect, dstrect, angle, center, flip);
+			int ret = RenderCopyExFNative(renderer, texture, srcrect, dstrect, angle, center, flip);
 			return ret;
 		}
 
@@ -3507,11 +3507,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
+				int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -3524,11 +3524,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
+				int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -3541,13 +3541,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLTexture* ptexture = &texture)
 				{
-					int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -3561,11 +3561,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
-				int ret = SDLRenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+				int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -3578,13 +3578,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -3598,13 +3598,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLRect* psrcrect = &srcrect)
 				{
-					int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+					int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -3618,7 +3618,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3626,7 +3626,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLRect* psrcrect = &srcrect)
 					{
-						int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -3641,11 +3641,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLFRect* pdstrect = &dstrect)
 			{
-				int ret = SDLRenderCopyExFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+				int ret = RenderCopyExFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
 				return ret;
 			}
 		}
@@ -3658,13 +3658,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -3678,13 +3678,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+					int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -3698,7 +3698,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3706,7 +3706,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -3721,13 +3721,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLFRect* pdstrect = &dstrect)
 				{
-					int ret = SDLRenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+					int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
 					return ret;
 				}
 			}
@@ -3741,7 +3741,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3749,7 +3749,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -3764,7 +3764,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -3772,7 +3772,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFRect* pdstrect = &dstrect)
 					{
-						int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+						int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
 						return ret;
 					}
 				}
@@ -3787,7 +3787,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3797,7 +3797,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLFRect* pdstrect = &dstrect)
 						{
-							int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
 							return ret;
 						}
 					}
@@ -3813,11 +3813,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLFPoint* pcenter = &center)
 			{
-				int ret = SDLRenderCopyExFNative(renderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+				int ret = RenderCopyExFNative(renderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 				return ret;
 			}
 		}
@@ -3830,13 +3830,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLFPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -3850,13 +3850,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLFPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+					int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -3870,7 +3870,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3878,7 +3878,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -3893,13 +3893,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
 				fixed (SDLFPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+					int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -3913,7 +3913,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3921,7 +3921,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -3936,7 +3936,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -3944,7 +3944,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+						int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -3959,7 +3959,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -3969,7 +3969,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLFPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -3985,13 +3985,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLFRect* pdstrect = &dstrect)
 			{
 				fixed (SDLFPoint* pcenter = &center)
 				{
-					int ret = SDLRenderCopyExFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+					int ret = RenderCopyExFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 					return ret;
 				}
 			}
@@ -4005,7 +4005,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4013,7 +4013,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -4028,7 +4028,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4036,7 +4036,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -4051,7 +4051,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4061,7 +4061,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLFPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -4077,7 +4077,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRect* psrcrect = &srcrect)
 			{
@@ -4085,7 +4085,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLFPoint* pcenter = &center)
 					{
-						int ret = SDLRenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+						int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 						return ret;
 					}
 				}
@@ -4100,7 +4100,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4110,7 +4110,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLFPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -4126,7 +4126,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4136,7 +4136,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLFPoint* pcenter = &center)
 						{
-							int ret = SDLRenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+							int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 							return ret;
 						}
 					}
@@ -4152,7 +4152,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4164,7 +4164,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (SDLFPoint* pcenter = &center)
 							{
-								int ret = SDLRenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
+								int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
 								return ret;
 							}
 						}
@@ -4183,7 +4183,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderGeometryNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		internal static int RenderGeometryNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLVertex*, int, int*, int, int>)vt[792])(renderer, texture, vertices, numVertices, indices, numIndices);
@@ -4202,9 +4202,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
-			int ret = SDLRenderGeometryNative(renderer, texture, vertices, numVertices, indices, numIndices);
+			int ret = RenderGeometryNative(renderer, texture, vertices, numVertices, indices, numIndices);
 			return ret;
 		}
 
@@ -4218,11 +4218,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, indices, numIndices);
+				int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, indices, numIndices);
 				return ret;
 			}
 		}
@@ -4237,11 +4237,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = SDLRenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
+				int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
 				return ret;
 			}
 		}
@@ -4256,13 +4256,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLTexture* ptexture = &texture)
 				{
-					int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
 					return ret;
 				}
 			}
@@ -4278,11 +4278,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLVertex* pvertices = &vertices)
 			{
-				int ret = SDLRenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+				int ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
 				return ret;
 			}
 		}
@@ -4297,13 +4297,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLVertex* pvertices = &vertices)
 				{
-					int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
 					return ret;
 				}
 			}
@@ -4319,13 +4319,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLVertex* pvertices = &vertices)
 				{
-					int ret = SDLRenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
 					return ret;
 				}
 			}
@@ -4341,7 +4341,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4349,7 +4349,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLVertex* pvertices = &vertices)
 					{
-						int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
 						return ret;
 					}
 				}
@@ -4366,11 +4366,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (int* pindices = &indices)
 			{
-				int ret = SDLRenderGeometryNative(renderer, texture, vertices, numVertices, (int*)pindices, numIndices);
+				int ret = RenderGeometryNative(renderer, texture, vertices, numVertices, (int*)pindices, numIndices);
 				return ret;
 			}
 		}
@@ -4385,13 +4385,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (int* pindices = &indices)
 				{
-					int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, (int*)pindices, numIndices);
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, (int*)pindices, numIndices);
 					return ret;
 				}
 			}
@@ -4407,13 +4407,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (int* pindices = &indices)
 				{
-					int ret = SDLRenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
+					int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
 					return ret;
 				}
 			}
@@ -4429,7 +4429,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4437,7 +4437,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pindices = &indices)
 					{
-						int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
 						return ret;
 					}
 				}
@@ -4454,13 +4454,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLVertex* pvertices = &vertices)
 			{
 				fixed (int* pindices = &indices)
 				{
-					int ret = SDLRenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+					int ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
 					return ret;
 				}
 			}
@@ -4476,7 +4476,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4484,7 +4484,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pindices = &indices)
 					{
-						int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
 						return ret;
 					}
 				}
@@ -4501,7 +4501,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4509,7 +4509,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pindices = &indices)
 					{
-						int ret = SDLRenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
 						return ret;
 					}
 				}
@@ -4526,7 +4526,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4536,7 +4536,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* pindices = &indices)
 						{
-							int ret = SDLRenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+							int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
 							return ret;
 						}
 					}
@@ -4554,7 +4554,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLRenderGeometryRawNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		internal static int RenderGeometryRawNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, float*, int, SDLColor*, int, float*, int, int, void*, int, int, int>)vt[793])(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
@@ -4573,9 +4573,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
-			int ret = SDLRenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+			int ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 			return ret;
 		}
 
@@ -4589,11 +4589,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 				return ret;
 			}
 		}
@@ -4608,11 +4608,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = SDLRenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 				return ret;
 			}
 		}
@@ -4627,13 +4627,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLTexture* ptexture = &texture)
 				{
-					int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4649,11 +4649,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (float* pxy = &xy)
 			{
-				int ret = SDLRenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				int ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 				return ret;
 			}
 		}
@@ -4668,13 +4668,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (float* pxy = &xy)
 				{
-					int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4690,13 +4690,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (float* pxy = &xy)
 				{
-					int ret = SDLRenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4712,7 +4712,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4720,7 +4720,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* pxy = &xy)
 					{
-						int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 						return ret;
 					}
 				}
@@ -4737,11 +4737,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLColor* pcolor = &color)
 			{
-				int ret = SDLRenderGeometryRawNative(renderer, texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				int ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 				return ret;
 			}
 		}
@@ -4756,13 +4756,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (SDLColor* pcolor = &color)
 				{
-					int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4778,13 +4778,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (SDLColor* pcolor = &color)
 				{
-					int ret = SDLRenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4800,7 +4800,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4808,7 +4808,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLColor* pcolor = &color)
 					{
-						int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 						return ret;
 					}
 				}
@@ -4825,13 +4825,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (float* pxy = &xy)
 			{
 				fixed (SDLColor* pcolor = &color)
 				{
-					int ret = SDLRenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4847,7 +4847,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4855,7 +4855,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLColor* pcolor = &color)
 					{
-						int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 						return ret;
 					}
 				}
@@ -4872,7 +4872,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
@@ -4880,7 +4880,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (SDLColor* pcolor = &color)
 					{
-						int ret = SDLRenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 						return ret;
 					}
 				}
@@ -4897,7 +4897,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4907,7 +4907,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (SDLColor* pcolor = &color)
 						{
-							int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
 							return ret;
 						}
 					}
@@ -4925,11 +4925,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (float* puv = &uv)
 			{
-				int ret = SDLRenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				int ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
 				return ret;
 			}
 		}
@@ -4944,13 +4944,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
 				fixed (float* puv = &uv)
 				{
-					int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4966,13 +4966,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLTexture* ptexture = &texture)
 			{
 				fixed (float* puv = &uv)
 				{
-					int ret = SDLRenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}
@@ -4988,7 +4988,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (SDLRenderer* prenderer = &renderer)
 			{
@@ -4996,7 +4996,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (float* puv = &uv)
 					{
-						int ret = SDLRenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
 						return ret;
 					}
 				}
@@ -5013,13 +5013,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLRenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
 		{
 			fixed (float* pxy = &xy)
 			{
 				fixed (float* puv = &uv)
 				{
-					int ret = SDLRenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					int ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
 					return ret;
 				}
 			}

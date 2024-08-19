@@ -24,9 +24,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_UnloadLibrary")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanUnloadLibrary()
+		public static void VulkanUnloadLibrary()
 		{
-			SDLVulkanUnloadLibraryNative();
+			VulkanUnloadLibraryNative();
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLVulkanGetInstanceExtensionsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
+		internal static SDLBool VulkanGetInstanceExtensionsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint*, byte**, SDLBool>)vt[1420])(window, pCount, pNames);
@@ -76,9 +76,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
 		{
-			SDLBool ret = SDLVulkanGetInstanceExtensionsNative(window, pCount, pNames);
+			SDLBool ret = VulkanGetInstanceExtensionsNative(window, pCount, pNames);
 			return ret;
 		}
 
@@ -101,11 +101,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLBool ret = SDLVulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, pCount, pNames);
+				SDLBool ret = VulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, pCount, pNames);
 				return ret;
 			}
 		}
@@ -129,11 +129,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
 		{
 			fixed (uint* ppCount = &pCount)
 			{
-				SDLBool ret = SDLVulkanGetInstanceExtensionsNative(window, (uint*)ppCount, pNames);
+				SDLBool ret = VulkanGetInstanceExtensionsNative(window, (uint*)ppCount, pNames);
 				return ret;
 			}
 		}
@@ -157,13 +157,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] byte** pNames)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (uint* ppCount = &pCount)
 				{
-					SDLBool ret = SDLVulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, (uint*)ppCount, pNames);
+					SDLBool ret = VulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, (uint*)ppCount, pNames);
 					return ret;
 				}
 			}
@@ -188,11 +188,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
 		{
 			fixed (byte** ppNames = &pNames)
 			{
-				SDLBool ret = SDLVulkanGetInstanceExtensionsNative(window, pCount, (byte**)ppNames);
+				SDLBool ret = VulkanGetInstanceExtensionsNative(window, pCount, (byte**)ppNames);
 				return ret;
 			}
 		}
@@ -216,13 +216,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (byte** ppNames = &pNames)
 				{
-					SDLBool ret = SDLVulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, pCount, (byte**)ppNames);
+					SDLBool ret = VulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, pCount, (byte**)ppNames);
 					return ret;
 				}
 			}
@@ -247,13 +247,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
 		{
 			fixed (uint* ppCount = &pCount)
 			{
 				fixed (byte** ppNames = &pNames)
 				{
-					SDLBool ret = SDLVulkanGetInstanceExtensionsNative(window, (uint*)ppCount, (byte**)ppNames);
+					SDLBool ret = VulkanGetInstanceExtensionsNative(window, (uint*)ppCount, (byte**)ppNames);
 					return ret;
 				}
 			}
@@ -278,7 +278,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetInstanceExtensions")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
+		public static SDLBool VulkanGetInstanceExtensions([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "pCount")] [NativeName(NativeNameType.Type, "unsigned int*")] ref uint pCount, [NativeName(NativeNameType.Param, "pNames")] [NativeName(NativeNameType.Type, "const char**")] ref byte* pNames)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -286,7 +286,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte** ppNames = &pNames)
 					{
-						SDLBool ret = SDLVulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, (uint*)ppCount, (byte**)ppNames);
+						SDLBool ret = VulkanGetInstanceExtensionsNative((SDLWindow*)pwindow, (uint*)ppCount, (byte**)ppNames);
 						return ret;
 					}
 				}
@@ -304,7 +304,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_CreateSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLVulkanCreateSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] VkSurfaceKHR* surface)
+		internal static SDLBool VulkanCreateSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] VkSurfaceKHR* surface)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, VkInstance, VkSurfaceKHR*, SDLBool>)vt[1421])(window, instance, surface);
@@ -324,9 +324,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_CreateSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] VkSurfaceKHR* surface)
+		public static SDLBool VulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] VkSurfaceKHR* surface)
 		{
-			SDLBool ret = SDLVulkanCreateSurfaceNative(window, instance, surface);
+			SDLBool ret = VulkanCreateSurfaceNative(window, instance, surface);
 			return ret;
 		}
 
@@ -341,11 +341,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_CreateSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] VkSurfaceKHR* surface)
+		public static SDLBool VulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] VkSurfaceKHR* surface)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLBool ret = SDLVulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, surface);
+				SDLBool ret = VulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, surface);
 				return ret;
 			}
 		}
@@ -361,11 +361,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_CreateSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] ref VkSurfaceKHR surface)
+		public static SDLBool VulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] ref VkSurfaceKHR surface)
 		{
 			fixed (VkSurfaceKHR* psurface = &surface)
 			{
-				SDLBool ret = SDLVulkanCreateSurfaceNative(window, instance, (VkSurfaceKHR*)psurface);
+				SDLBool ret = VulkanCreateSurfaceNative(window, instance, (VkSurfaceKHR*)psurface);
 				return ret;
 			}
 		}
@@ -381,13 +381,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_CreateSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLVulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] ref VkSurfaceKHR surface)
+		public static SDLBool VulkanCreateSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "instance")] [NativeName(NativeNameType.Type, "VkInstance")] VkInstance instance, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "VkSurfaceKHR*")] ref VkSurfaceKHR surface)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (VkSurfaceKHR* psurface = &surface)
 				{
-					SDLBool ret = SDLVulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, (VkSurfaceKHR*)psurface);
+					SDLBool ret = VulkanCreateSurfaceNative((SDLWindow*)pwindow, instance, (VkSurfaceKHR*)psurface);
 					return ret;
 				}
 			}
@@ -405,7 +405,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLVulkanGetDrawableSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static void VulkanGetDrawableSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[1422])(window, w, h);
@@ -426,9 +426,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			SDLVulkanGetDrawableSizeNative(window, w, h);
+			VulkanGetDrawableSizeNative(window, w, h);
 		}
 
 		/// <summary>
@@ -443,11 +443,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLVulkanGetDrawableSizeNative((SDLWindow*)pwindow, w, h);
+				VulkanGetDrawableSizeNative((SDLWindow*)pwindow, w, h);
 			}
 		}
 
@@ -463,11 +463,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				SDLVulkanGetDrawableSizeNative(window, (int*)pw, h);
+				VulkanGetDrawableSizeNative(window, (int*)pw, h);
 			}
 		}
 
@@ -483,13 +483,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pw = &w)
 				{
-					SDLVulkanGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+					VulkanGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, h);
 				}
 			}
 		}
@@ -506,11 +506,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				SDLVulkanGetDrawableSizeNative(window, w, (int*)ph);
+				VulkanGetDrawableSizeNative(window, w, (int*)ph);
 			}
 		}
 
@@ -526,13 +526,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLVulkanGetDrawableSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+					VulkanGetDrawableSizeNative((SDLWindow*)pwindow, w, (int*)ph);
 				}
 			}
 		}
@@ -549,13 +549,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLVulkanGetDrawableSizeNative(window, (int*)pw, (int*)ph);
+					VulkanGetDrawableSizeNative(window, (int*)pw, (int*)ph);
 				}
 			}
 		}
@@ -572,7 +572,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLVulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void VulkanGetDrawableSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -580,7 +580,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						SDLVulkanGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+						VulkanGetDrawableSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
 					}
 				}
 			}

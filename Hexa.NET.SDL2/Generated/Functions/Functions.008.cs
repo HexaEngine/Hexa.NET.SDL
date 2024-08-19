@@ -26,7 +26,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title)
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -45,7 +45,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLSetWindowTitleNative(window, pStr0);
+			SetWindowTitleNative(window, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -61,13 +61,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title)
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (byte* ptitle = &title)
 				{
-					SDLSetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
+					SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
 				}
 			}
 		}
@@ -81,13 +81,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title)
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (byte* ptitle = title)
 				{
-					SDLSetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
+					SetWindowTitleNative((SDLWindow*)pwindow, (byte*)ptitle);
 				}
 			}
 		}
@@ -101,7 +101,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title)
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -122,7 +122,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				SDLSetWindowTitleNative((SDLWindow*)pwindow, pStr0);
+				SetWindowTitleNative((SDLWindow*)pwindow, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -138,7 +138,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		internal static byte* SDLGetWindowTitleNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static byte* GetWindowTitleNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*>)vt[372])(window);
@@ -155,9 +155,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static byte* GetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			byte* ret = SDLGetWindowTitleNative(window);
+			byte* ret = GetWindowTitleNative(window);
 			return ret;
 		}
 
@@ -169,9 +169,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetWindowTitleS([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static string GetWindowTitleS([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			string ret = Utils.DecodeStringUTF8(SDLGetWindowTitleNative(window));
+			string ret = Utils.DecodeStringUTF8(GetWindowTitleNative(window));
 			return ret;
 		}
 
@@ -183,11 +183,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* SDLGetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static byte* GetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				byte* ret = SDLGetWindowTitleNative((SDLWindow*)pwindow);
+				byte* ret = GetWindowTitleNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -200,11 +200,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string SDLGetWindowTitleS([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static string GetWindowTitleS([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				string ret = Utils.DecodeStringUTF8(SDLGetWindowTitleNative((SDLWindow*)pwindow));
+				string ret = Utils.DecodeStringUTF8(GetWindowTitleNative((SDLWindow*)pwindow));
 				return ret;
 			}
 		}
@@ -216,7 +216,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowIcon")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowIconNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* icon)
+		internal static void SetWindowIconNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* icon)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, void>)vt[373])(window, icon);
@@ -232,9 +232,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowIcon")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* icon)
+		public static void SetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* icon)
 		{
-			SDLSetWindowIconNative(window, icon);
+			SetWindowIconNative(window, icon);
 		}
 
 		/// <summary>
@@ -244,11 +244,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowIcon")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* icon)
+		public static void SetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* icon)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowIconNative((SDLWindow*)pwindow, icon);
+				SetWindowIconNative((SDLWindow*)pwindow, icon);
 			}
 		}
 
@@ -259,11 +259,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowIcon")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface icon)
+		public static void SetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface icon)
 		{
 			fixed (SDLSurface* picon = &icon)
 			{
-				SDLSetWindowIconNative(window, (SDLSurface*)picon);
+				SetWindowIconNative(window, (SDLSurface*)picon);
 			}
 		}
 
@@ -274,13 +274,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowIcon")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface icon)
+		public static void SetWindowIcon([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface icon)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (SDLSurface* picon = &icon)
 				{
-					SDLSetWindowIconNative((SDLWindow*)pwindow, (SDLSurface*)picon);
+					SetWindowIconNative((SDLWindow*)pwindow, (SDLSurface*)picon);
 				}
 			}
 		}
@@ -294,7 +294,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLSetWindowDataNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void* SetWindowDataNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*, void*>)vt[374])(window, name, userdata);
@@ -312,9 +312,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
-			void* ret = SDLSetWindowDataNative(window, name, userdata);
+			void* ret = SetWindowDataNative(window, name, userdata);
 			return ret;
 		}
 
@@ -327,11 +327,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				void* ret = SDLSetWindowDataNative((SDLWindow*)pwindow, name, userdata);
+				void* ret = SetWindowDataNative((SDLWindow*)pwindow, name, userdata);
 				return ret;
 			}
 		}
@@ -345,11 +345,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (byte* pname = &name)
 			{
-				void* ret = SDLSetWindowDataNative(window, (byte*)pname, userdata);
+				void* ret = SetWindowDataNative(window, (byte*)pname, userdata);
 				return ret;
 			}
 		}
@@ -363,11 +363,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (byte* pname = name)
 			{
-				void* ret = SDLSetWindowDataNative(window, (byte*)pname, userdata);
+				void* ret = SetWindowDataNative(window, (byte*)pname, userdata);
 				return ret;
 			}
 		}
@@ -381,7 +381,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -400,7 +400,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			void* ret = SDLSetWindowDataNative(window, pStr0, userdata);
+			void* ret = SetWindowDataNative(window, pStr0, userdata);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -417,13 +417,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (byte* pname = &name)
 				{
-					void* ret = SDLSetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
+					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
 					return ret;
 				}
 			}
@@ -438,13 +438,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (byte* pname = name)
 				{
-					void* ret = SDLSetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
+					void* ret = SetWindowDataNative((SDLWindow*)pwindow, (byte*)pname, userdata);
 					return ret;
 				}
 			}
@@ -459,7 +459,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLSetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void* SetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -480,7 +480,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				void* ret = SDLSetWindowDataNative((SDLWindow*)pwindow, pStr0, userdata);
+				void* ret = SetWindowDataNative((SDLWindow*)pwindow, pStr0, userdata);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -497,7 +497,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* SDLGetWindowDataNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		internal static void* GetWindowDataNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*>)vt[375])(window, name);
@@ -514,9 +514,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
-			void* ret = SDLGetWindowDataNative(window, name);
+			void* ret = GetWindowDataNative(window, name);
 			return ret;
 		}
 
@@ -528,11 +528,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				void* ret = SDLGetWindowDataNative((SDLWindow*)pwindow, name);
+				void* ret = GetWindowDataNative((SDLWindow*)pwindow, name);
 				return ret;
 			}
 		}
@@ -545,11 +545,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
-				void* ret = SDLGetWindowDataNative(window, (byte*)pname);
+				void* ret = GetWindowDataNative(window, (byte*)pname);
 				return ret;
 			}
 		}
@@ -562,11 +562,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
-				void* ret = SDLGetWindowDataNative(window, (byte*)pname);
+				void* ret = GetWindowDataNative(window, (byte*)pname);
 				return ret;
 			}
 		}
@@ -579,7 +579,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -598,7 +598,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			void* ret = SDLGetWindowDataNative(window, pStr0);
+			void* ret = GetWindowDataNative(window, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -614,13 +614,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (byte* pname = &name)
 				{
-					void* ret = SDLGetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
+					void* ret = GetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
 					return ret;
 				}
 			}
@@ -634,13 +634,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (byte* pname = name)
 				{
-					void* ret = SDLGetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
+					void* ret = GetWindowDataNative((SDLWindow*)pwindow, (byte*)pname);
 					return ret;
 				}
 			}
@@ -654,7 +654,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SDLGetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static void* GetWindowData([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -675,7 +675,7 @@ namespace Hexa.NET.SDL2
 					int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 					pStr0[pStrOffset0] = 0;
 				}
-				void* ret = SDLGetWindowDataNative((SDLWindow*)pwindow, pStr0);
+				void* ret = GetWindowDataNative((SDLWindow*)pwindow, pStr0);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					Utils.Free(pStr0);
@@ -693,7 +693,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowPositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		internal static void SetWindowPositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[376])(window, x, y);
@@ -711,9 +711,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		public static void SetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
-			SDLSetWindowPositionNative(window, x, y);
+			SetWindowPositionNative(window, x, y);
 		}
 
 		/// <summary>
@@ -725,11 +725,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		public static void SetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowPositionNative((SDLWindow*)pwindow, x, y);
+				SetWindowPositionNative((SDLWindow*)pwindow, x, y);
 			}
 		}
 
@@ -743,7 +743,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetWindowPositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
+		internal static void GetWindowPositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[377])(window, x, y);
@@ -762,9 +762,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
-			SDLGetWindowPositionNative(window, x, y);
+			GetWindowPositionNative(window, x, y);
 		}
 
 		/// <summary>
@@ -777,11 +777,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGetWindowPositionNative((SDLWindow*)pwindow, x, y);
+				GetWindowPositionNative((SDLWindow*)pwindow, x, y);
 			}
 		}
 
@@ -795,11 +795,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			fixed (int* px = &x)
 			{
-				SDLGetWindowPositionNative(window, (int*)px, y);
+				GetWindowPositionNative(window, (int*)px, y);
 			}
 		}
 
@@ -813,13 +813,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* px = &x)
 				{
-					SDLGetWindowPositionNative((SDLWindow*)pwindow, (int*)px, y);
+					GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, y);
 				}
 			}
 		}
@@ -834,11 +834,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
 		{
 			fixed (int* py = &y)
 			{
-				SDLGetWindowPositionNative(window, x, (int*)py);
+				GetWindowPositionNative(window, x, (int*)py);
 			}
 		}
 
@@ -852,13 +852,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* py = &y)
 				{
-					SDLGetWindowPositionNative((SDLWindow*)pwindow, x, (int*)py);
+					GetWindowPositionNative((SDLWindow*)pwindow, x, (int*)py);
 				}
 			}
 		}
@@ -873,13 +873,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
 		{
 			fixed (int* px = &x)
 			{
 				fixed (int* py = &y)
 				{
-					SDLGetWindowPositionNative(window, (int*)px, (int*)py);
+					GetWindowPositionNative(window, (int*)px, (int*)py);
 				}
 			}
 		}
@@ -894,7 +894,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
+		public static void GetWindowPosition([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] ref int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] ref int y)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -902,7 +902,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* py = &y)
 					{
-						SDLGetWindowPositionNative((SDLWindow*)pwindow, (int*)px, (int*)py);
+						GetWindowPositionNative((SDLWindow*)pwindow, (int*)px, (int*)py);
 					}
 				}
 			}
@@ -922,7 +922,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		internal static void SetWindowSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[378])(window, w, h);
@@ -945,9 +945,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		public static void SetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
-			SDLSetWindowSizeNative(window, w, h);
+			SetWindowSizeNative(window, w, h);
 		}
 
 		/// <summary>
@@ -964,11 +964,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		public static void SetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowSizeNative((SDLWindow*)pwindow, w, h);
+				SetWindowSizeNative((SDLWindow*)pwindow, w, h);
 			}
 		}
 
@@ -987,7 +987,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetWindowSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static void GetWindowSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[379])(window, w, h);
@@ -1011,9 +1011,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			SDLGetWindowSizeNative(window, w, h);
+			GetWindowSizeNative(window, w, h);
 		}
 
 		/// <summary>
@@ -1031,11 +1031,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGetWindowSizeNative((SDLWindow*)pwindow, w, h);
+				GetWindowSizeNative((SDLWindow*)pwindow, w, h);
 			}
 		}
 
@@ -1054,11 +1054,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				SDLGetWindowSizeNative(window, (int*)pw, h);
+				GetWindowSizeNative(window, (int*)pw, h);
 			}
 		}
 
@@ -1077,13 +1077,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pw = &w)
 				{
-					SDLGetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+					GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, h);
 				}
 			}
 		}
@@ -1103,11 +1103,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				SDLGetWindowSizeNative(window, w, (int*)ph);
+				GetWindowSizeNative(window, w, (int*)ph);
 			}
 		}
 
@@ -1126,13 +1126,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+					GetWindowSizeNative((SDLWindow*)pwindow, w, (int*)ph);
 				}
 			}
 		}
@@ -1152,13 +1152,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowSizeNative(window, (int*)pw, (int*)ph);
+					GetWindowSizeNative(window, (int*)pw, (int*)ph);
 				}
 			}
 		}
@@ -1178,7 +1178,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1186,7 +1186,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						SDLGetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+						GetWindowSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
 					}
 				}
 			}
@@ -1209,7 +1209,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetWindowBordersSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		internal static int GetWindowBordersSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, int*, int*, int>)vt[380])(window, top, left, bottom, right);
@@ -1235,9 +1235,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
-			int ret = SDLGetWindowBordersSizeNative(window, top, left, bottom, right);
+			int ret = GetWindowBordersSizeNative(window, top, left, bottom, right);
 			return ret;
 		}
 
@@ -1258,11 +1258,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, right);
+				int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, right);
 				return ret;
 			}
 		}
@@ -1284,11 +1284,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (int* ptop = &top)
 			{
-				int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, left, bottom, right);
+				int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, bottom, right);
 				return ret;
 			}
 		}
@@ -1310,13 +1310,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* ptop = &top)
 				{
-					int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, right);
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, right);
 					return ret;
 				}
 			}
@@ -1339,11 +1339,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (int* pleft = &left)
 			{
-				int ret = SDLGetWindowBordersSizeNative(window, top, (int*)pleft, bottom, right);
+				int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, bottom, right);
 				return ret;
 			}
 		}
@@ -1365,13 +1365,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pleft = &left)
 				{
-					int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, right);
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, right);
 					return ret;
 				}
 			}
@@ -1394,13 +1394,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (int* ptop = &top)
 			{
 				fixed (int* pleft = &left)
 				{
-					int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, bottom, right);
+					int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, bottom, right);
 					return ret;
 				}
 			}
@@ -1423,7 +1423,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1431,7 +1431,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pleft = &left)
 					{
-						int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, right);
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, right);
 						return ret;
 					}
 				}
@@ -1455,11 +1455,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (int* pbottom = &bottom)
 			{
-				int ret = SDLGetWindowBordersSizeNative(window, top, left, (int*)pbottom, right);
+				int ret = GetWindowBordersSizeNative(window, top, left, (int*)pbottom, right);
 				return ret;
 			}
 		}
@@ -1481,13 +1481,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pbottom = &bottom)
 				{
-					int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, right);
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, right);
 					return ret;
 				}
 			}
@@ -1510,13 +1510,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (int* ptop = &top)
 			{
 				fixed (int* pbottom = &bottom)
 				{
-					int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, left, (int*)pbottom, right);
+					int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, (int*)pbottom, right);
 					return ret;
 				}
 			}
@@ -1539,7 +1539,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1547,7 +1547,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pbottom = &bottom)
 					{
-						int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, right);
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, right);
 						return ret;
 					}
 				}
@@ -1571,13 +1571,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (int* pleft = &left)
 			{
 				fixed (int* pbottom = &bottom)
 				{
-					int ret = SDLGetWindowBordersSizeNative(window, top, (int*)pleft, (int*)pbottom, right);
+					int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, (int*)pbottom, right);
 					return ret;
 				}
 			}
@@ -1600,7 +1600,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1608,7 +1608,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pbottom = &bottom)
 					{
-						int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, right);
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, right);
 						return ret;
 					}
 				}
@@ -1632,7 +1632,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (int* ptop = &top)
 			{
@@ -1640,7 +1640,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pbottom = &bottom)
 					{
-						int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, right);
+						int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, right);
 						return ret;
 					}
 				}
@@ -1664,7 +1664,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1674,7 +1674,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* pbottom = &bottom)
 						{
-							int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, right);
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, right);
 							return ret;
 						}
 					}
@@ -1699,11 +1699,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* pright = &right)
 			{
-				int ret = SDLGetWindowBordersSizeNative(window, top, left, bottom, (int*)pright);
+				int ret = GetWindowBordersSizeNative(window, top, left, bottom, (int*)pright);
 				return ret;
 			}
 		}
@@ -1725,13 +1725,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pright = &right)
 				{
-					int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, (int*)pright);
+					int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, bottom, (int*)pright);
 					return ret;
 				}
 			}
@@ -1754,13 +1754,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* ptop = &top)
 			{
 				fixed (int* pright = &right)
 				{
-					int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, left, bottom, (int*)pright);
+					int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, bottom, (int*)pright);
 					return ret;
 				}
 			}
@@ -1783,7 +1783,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1791,7 +1791,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pright = &right)
 					{
-						int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, (int*)pright);
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, bottom, (int*)pright);
 						return ret;
 					}
 				}
@@ -1815,13 +1815,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* pleft = &left)
 			{
 				fixed (int* pright = &right)
 				{
-					int ret = SDLGetWindowBordersSizeNative(window, top, (int*)pleft, bottom, (int*)pright);
+					int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, bottom, (int*)pright);
 					return ret;
 				}
 			}
@@ -1844,7 +1844,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1852,7 +1852,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pright = &right)
 					{
-						int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, (int*)pright);
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, bottom, (int*)pright);
 						return ret;
 					}
 				}
@@ -1876,7 +1876,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* ptop = &top)
 			{
@@ -1884,7 +1884,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pright = &right)
 					{
-						int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, bottom, (int*)pright);
+						int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, bottom, (int*)pright);
 						return ret;
 					}
 				}
@@ -1908,7 +1908,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1918,7 +1918,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* pright = &right)
 						{
-							int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, (int*)pright);
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, bottom, (int*)pright);
 							return ret;
 						}
 					}
@@ -1943,13 +1943,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* pbottom = &bottom)
 			{
 				fixed (int* pright = &right)
 				{
-					int ret = SDLGetWindowBordersSizeNative(window, top, left, (int*)pbottom, (int*)pright);
+					int ret = GetWindowBordersSizeNative(window, top, left, (int*)pbottom, (int*)pright);
 					return ret;
 				}
 			}
@@ -1972,7 +1972,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -1980,7 +1980,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pright = &right)
 					{
-						int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, (int*)pright);
+						int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, left, (int*)pbottom, (int*)pright);
 						return ret;
 					}
 				}
@@ -2004,7 +2004,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* ptop = &top)
 			{
@@ -2012,7 +2012,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pright = &right)
 					{
-						int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, left, (int*)pbottom, (int*)pright);
+						int ret = GetWindowBordersSizeNative(window, (int*)ptop, left, (int*)pbottom, (int*)pright);
 						return ret;
 					}
 				}
@@ -2036,7 +2036,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2046,7 +2046,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* pright = &right)
 						{
-							int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, (int*)pright);
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, left, (int*)pbottom, (int*)pright);
 							return ret;
 						}
 					}
@@ -2071,7 +2071,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* pleft = &left)
 			{
@@ -2079,7 +2079,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* pright = &right)
 					{
-						int ret = SDLGetWindowBordersSizeNative(window, top, (int*)pleft, (int*)pbottom, (int*)pright);
+						int ret = GetWindowBordersSizeNative(window, top, (int*)pleft, (int*)pbottom, (int*)pright);
 						return ret;
 					}
 				}
@@ -2103,7 +2103,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2113,7 +2113,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* pright = &right)
 						{
-							int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, (int*)pright);
+							int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, top, (int*)pleft, (int*)pbottom, (int*)pright);
 							return ret;
 						}
 					}
@@ -2138,7 +2138,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (int* ptop = &top)
 			{
@@ -2148,7 +2148,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (int* pright = &right)
 						{
-							int ret = SDLGetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
+							int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
 							return ret;
 						}
 					}
@@ -2173,7 +2173,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
+		public static int GetWindowBordersSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] ref int top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] ref int left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] ref int bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] ref int right)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2185,7 +2185,7 @@ namespace Hexa.NET.SDL2
 						{
 							fixed (int* pright = &right)
 							{
-								int ret = SDLGetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
+								int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
 								return ret;
 							}
 						}
@@ -2206,7 +2206,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetWindowSizeInPixelsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static void GetWindowSizeInPixelsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[381])(window, w, h);
@@ -2227,9 +2227,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			SDLGetWindowSizeInPixelsNative(window, w, h);
+			GetWindowSizeInPixelsNative(window, w, h);
 		}
 
 		/// <summary>
@@ -2244,11 +2244,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, h);
+				GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, h);
 			}
 		}
 
@@ -2264,11 +2264,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				SDLGetWindowSizeInPixelsNative(window, (int*)pw, h);
+				GetWindowSizeInPixelsNative(window, (int*)pw, h);
 			}
 		}
 
@@ -2284,13 +2284,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pw = &w)
 				{
-					SDLGetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, h);
+					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, h);
 				}
 			}
 		}
@@ -2307,11 +2307,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				SDLGetWindowSizeInPixelsNative(window, w, (int*)ph);
+				GetWindowSizeInPixelsNative(window, w, (int*)ph);
 			}
 		}
 
@@ -2327,13 +2327,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, (int*)ph);
+					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, (int*)ph);
 				}
 			}
 		}
@@ -2350,13 +2350,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowSizeInPixelsNative(window, (int*)pw, (int*)ph);
+					GetWindowSizeInPixelsNative(window, (int*)pw, (int*)ph);
 				}
 			}
 		}
@@ -2373,7 +2373,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowSizeInPixels([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2381,7 +2381,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						SDLGetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+						GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
 					}
 				}
 			}
@@ -2395,7 +2395,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowMinimumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "min_w")] [NativeName(NativeNameType.Type, "int")] int minW, [NativeName(NativeNameType.Param, "min_h")] [NativeName(NativeNameType.Type, "int")] int minH)
+		internal static void SetWindowMinimumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "min_w")] [NativeName(NativeNameType.Type, "int")] int minW, [NativeName(NativeNameType.Param, "min_h")] [NativeName(NativeNameType.Type, "int")] int minH)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[382])(window, minW, minH);
@@ -2412,9 +2412,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "min_w")] [NativeName(NativeNameType.Type, "int")] int minW, [NativeName(NativeNameType.Param, "min_h")] [NativeName(NativeNameType.Type, "int")] int minH)
+		public static void SetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "min_w")] [NativeName(NativeNameType.Type, "int")] int minW, [NativeName(NativeNameType.Param, "min_h")] [NativeName(NativeNameType.Type, "int")] int minH)
 		{
-			SDLSetWindowMinimumSizeNative(window, minW, minH);
+			SetWindowMinimumSizeNative(window, minW, minH);
 		}
 
 		/// <summary>
@@ -2425,11 +2425,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "min_w")] [NativeName(NativeNameType.Type, "int")] int minW, [NativeName(NativeNameType.Param, "min_h")] [NativeName(NativeNameType.Type, "int")] int minH)
+		public static void SetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "min_w")] [NativeName(NativeNameType.Type, "int")] int minW, [NativeName(NativeNameType.Param, "min_h")] [NativeName(NativeNameType.Type, "int")] int minH)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowMinimumSizeNative((SDLWindow*)pwindow, minW, minH);
+				SetWindowMinimumSizeNative((SDLWindow*)pwindow, minW, minH);
 			}
 		}
 
@@ -2441,7 +2441,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetWindowMinimumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static void GetWindowMinimumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[383])(window, w, h);
@@ -2458,9 +2458,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			SDLGetWindowMinimumSizeNative(window, w, h);
+			GetWindowMinimumSizeNative(window, w, h);
 		}
 
 		/// <summary>
@@ -2471,11 +2471,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGetWindowMinimumSizeNative((SDLWindow*)pwindow, w, h);
+				GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, h);
 			}
 		}
 
@@ -2487,11 +2487,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				SDLGetWindowMinimumSizeNative(window, (int*)pw, h);
+				GetWindowMinimumSizeNative(window, (int*)pw, h);
 			}
 		}
 
@@ -2503,13 +2503,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pw = &w)
 				{
-					SDLGetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+					GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
 				}
 			}
 		}
@@ -2522,11 +2522,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				SDLGetWindowMinimumSizeNative(window, w, (int*)ph);
+				GetWindowMinimumSizeNative(window, w, (int*)ph);
 			}
 		}
 
@@ -2538,13 +2538,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowMinimumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+					GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
 				}
 			}
 		}
@@ -2557,13 +2557,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowMinimumSizeNative(window, (int*)pw, (int*)ph);
+					GetWindowMinimumSizeNative(window, (int*)pw, (int*)ph);
 				}
 			}
 		}
@@ -2576,7 +2576,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMinimumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2584,7 +2584,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						SDLGetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+						GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
 					}
 				}
 			}
@@ -2598,7 +2598,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowMaximumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "max_w")] [NativeName(NativeNameType.Type, "int")] int maxW, [NativeName(NativeNameType.Param, "max_h")] [NativeName(NativeNameType.Type, "int")] int maxH)
+		internal static void SetWindowMaximumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "max_w")] [NativeName(NativeNameType.Type, "int")] int maxW, [NativeName(NativeNameType.Param, "max_h")] [NativeName(NativeNameType.Type, "int")] int maxH)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[384])(window, maxW, maxH);
@@ -2615,9 +2615,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "max_w")] [NativeName(NativeNameType.Type, "int")] int maxW, [NativeName(NativeNameType.Param, "max_h")] [NativeName(NativeNameType.Type, "int")] int maxH)
+		public static void SetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "max_w")] [NativeName(NativeNameType.Type, "int")] int maxW, [NativeName(NativeNameType.Param, "max_h")] [NativeName(NativeNameType.Type, "int")] int maxH)
 		{
-			SDLSetWindowMaximumSizeNative(window, maxW, maxH);
+			SetWindowMaximumSizeNative(window, maxW, maxH);
 		}
 
 		/// <summary>
@@ -2628,11 +2628,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "max_w")] [NativeName(NativeNameType.Type, "int")] int maxW, [NativeName(NativeNameType.Param, "max_h")] [NativeName(NativeNameType.Type, "int")] int maxH)
+		public static void SetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "max_w")] [NativeName(NativeNameType.Type, "int")] int maxW, [NativeName(NativeNameType.Param, "max_h")] [NativeName(NativeNameType.Type, "int")] int maxH)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowMaximumSizeNative((SDLWindow*)pwindow, maxW, maxH);
+				SetWindowMaximumSizeNative((SDLWindow*)pwindow, maxW, maxH);
 			}
 		}
 
@@ -2644,7 +2644,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLGetWindowMaximumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static void GetWindowMaximumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[385])(window, w, h);
@@ -2661,9 +2661,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
-			SDLGetWindowMaximumSizeNative(window, w, h);
+			GetWindowMaximumSizeNative(window, w, h);
 		}
 
 		/// <summary>
@@ -2674,11 +2674,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLGetWindowMaximumSizeNative((SDLWindow*)pwindow, w, h);
+				GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, h);
 			}
 		}
 
@@ -2690,11 +2690,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (int* pw = &w)
 			{
-				SDLGetWindowMaximumSizeNative(window, (int*)pw, h);
+				GetWindowMaximumSizeNative(window, (int*)pw, h);
 			}
 		}
 
@@ -2706,13 +2706,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* pw = &w)
 				{
-					SDLGetWindowMaximumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+					GetWindowMaximumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
 				}
 			}
 		}
@@ -2725,11 +2725,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* ph = &h)
 			{
-				SDLGetWindowMaximumSizeNative(window, w, (int*)ph);
+				GetWindowMaximumSizeNative(window, w, (int*)ph);
 			}
 		}
 
@@ -2741,13 +2741,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowMaximumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+					GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
 				}
 			}
 		}
@@ -2760,13 +2760,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (int* pw = &w)
 			{
 				fixed (int* ph = &h)
 				{
-					SDLGetWindowMaximumSizeNative(window, (int*)pw, (int*)ph);
+					GetWindowMaximumSizeNative(window, (int*)pw, (int*)ph);
 				}
 			}
 		}
@@ -2779,7 +2779,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLGetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		public static void GetWindowMaximumSize([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -2787,7 +2787,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (int* ph = &h)
 					{
-						SDLGetWindowMaximumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+						GetWindowMaximumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
 					}
 				}
 			}
@@ -2805,7 +2805,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBordered")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowBorderedNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "bordered")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool bordered)
+		internal static void SetWindowBorderedNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "bordered")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool bordered)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[386])(window, bordered);
@@ -2826,9 +2826,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBordered")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowBordered([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "bordered")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool bordered)
+		public static void SetWindowBordered([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "bordered")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool bordered)
 		{
-			SDLSetWindowBorderedNative(window, bordered);
+			SetWindowBorderedNative(window, bordered);
 		}
 
 		/// <summary>
@@ -2843,11 +2843,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBordered")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowBordered([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "bordered")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool bordered)
+		public static void SetWindowBordered([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "bordered")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool bordered)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowBorderedNative((SDLWindow*)pwindow, bordered);
+				SetWindowBorderedNative((SDLWindow*)pwindow, bordered);
 			}
 		}
 
@@ -2863,7 +2863,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowResizable")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowResizableNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "resizable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool resizable)
+		internal static void SetWindowResizableNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "resizable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool resizable)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[387])(window, resizable);
@@ -2884,9 +2884,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowResizable")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowResizable([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "resizable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool resizable)
+		public static void SetWindowResizable([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "resizable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool resizable)
 		{
-			SDLSetWindowResizableNative(window, resizable);
+			SetWindowResizableNative(window, resizable);
 		}
 
 		/// <summary>
@@ -2901,11 +2901,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowResizable")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowResizable([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "resizable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool resizable)
+		public static void SetWindowResizable([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "resizable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool resizable)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowResizableNative((SDLWindow*)pwindow, resizable);
+				SetWindowResizableNative((SDLWindow*)pwindow, resizable);
 			}
 		}
 
@@ -2919,7 +2919,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowAlwaysOnTop")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowAlwaysOnTopNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "on_top")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool onTop)
+		internal static void SetWindowAlwaysOnTopNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "on_top")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool onTop)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[388])(window, onTop);
@@ -2938,9 +2938,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowAlwaysOnTop")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowAlwaysOnTop([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "on_top")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool onTop)
+		public static void SetWindowAlwaysOnTop([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "on_top")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool onTop)
 		{
-			SDLSetWindowAlwaysOnTopNative(window, onTop);
+			SetWindowAlwaysOnTopNative(window, onTop);
 		}
 
 		/// <summary>
@@ -2953,11 +2953,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowAlwaysOnTop")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowAlwaysOnTop([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "on_top")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool onTop)
+		public static void SetWindowAlwaysOnTop([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "on_top")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool onTop)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowAlwaysOnTopNative((SDLWindow*)pwindow, onTop);
+				SetWindowAlwaysOnTopNative((SDLWindow*)pwindow, onTop);
 			}
 		}
 
@@ -2969,7 +2969,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLShowWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static void ShowWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[389])(window);
@@ -2986,9 +2986,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLShowWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static void ShowWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLShowWindowNative(window);
+			ShowWindowNative(window);
 		}
 
 		/// <summary>
@@ -2999,11 +2999,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLShowWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static void ShowWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLShowWindowNative((SDLWindow*)pwindow);
+				ShowWindowNative((SDLWindow*)pwindow);
 			}
 		}
 
@@ -3015,7 +3015,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HideWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLHideWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static void HideWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[390])(window);
@@ -3032,9 +3032,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HideWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHideWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static void HideWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLHideWindowNative(window);
+			HideWindowNative(window);
 		}
 
 		/// <summary>
@@ -3045,11 +3045,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HideWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLHideWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static void HideWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLHideWindowNative((SDLWindow*)pwindow);
+				HideWindowNative((SDLWindow*)pwindow);
 			}
 		}
 
@@ -3060,7 +3060,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RaiseWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLRaiseWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static void RaiseWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[391])(window);
@@ -3076,9 +3076,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RaiseWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLRaiseWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static void RaiseWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLRaiseWindowNative(window);
+			RaiseWindowNative(window);
 		}
 
 		/// <summary>
@@ -3088,11 +3088,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RaiseWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLRaiseWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static void RaiseWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLRaiseWindowNative((SDLWindow*)pwindow);
+				RaiseWindowNative((SDLWindow*)pwindow);
 			}
 		}
 
@@ -3104,7 +3104,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MaximizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLMaximizeWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static void MaximizeWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[392])(window);
@@ -3121,9 +3121,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MaximizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMaximizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static void MaximizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLMaximizeWindowNative(window);
+			MaximizeWindowNative(window);
 		}
 
 		/// <summary>
@@ -3134,11 +3134,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MaximizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMaximizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static void MaximizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLMaximizeWindowNative((SDLWindow*)pwindow);
+				MaximizeWindowNative((SDLWindow*)pwindow);
 			}
 		}
 
@@ -3150,7 +3150,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MinimizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLMinimizeWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static void MinimizeWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[393])(window);
@@ -3167,9 +3167,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MinimizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMinimizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static void MinimizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLMinimizeWindowNative(window);
+			MinimizeWindowNative(window);
 		}
 
 		/// <summary>
@@ -3180,11 +3180,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MinimizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLMinimizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static void MinimizeWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLMinimizeWindowNative((SDLWindow*)pwindow);
+				MinimizeWindowNative((SDLWindow*)pwindow);
 			}
 		}
 
@@ -3196,7 +3196,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RestoreWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLRestoreWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static void RestoreWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[394])(window);
@@ -3213,9 +3213,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RestoreWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLRestoreWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static void RestoreWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLRestoreWindowNative(window);
+			RestoreWindowNative(window);
 		}
 
 		/// <summary>
@@ -3226,11 +3226,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RestoreWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLRestoreWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static void RestoreWindow([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLRestoreWindowNative((SDLWindow*)pwindow);
+				RestoreWindowNative((SDLWindow*)pwindow);
 			}
 		}
 
@@ -3245,7 +3245,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowFullscreen")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetWindowFullscreenNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
+		internal static int SetWindowFullscreenNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint, int>)vt[395])(window, flags);
@@ -3265,9 +3265,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowFullscreen")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowFullscreen([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
+		public static int SetWindowFullscreen([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
-			int ret = SDLSetWindowFullscreenNative(window, flags);
+			int ret = SetWindowFullscreenNative(window, flags);
 			return ret;
 		}
 
@@ -3282,11 +3282,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowFullscreen")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowFullscreen([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
+		public static int SetWindowFullscreen([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLSetWindowFullscreenNative((SDLWindow*)pwindow, flags);
+				int ret = SetWindowFullscreenNative((SDLWindow*)pwindow, flags);
 				return ret;
 			}
 		}
@@ -3299,7 +3299,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLHasWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLBool HasWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[396])(window);
@@ -3316,9 +3316,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLBool HasWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLBool ret = SDLHasWindowSurfaceNative(window);
+			SDLBool ret = HasWindowSurfaceNative(window);
 			return ret;
 		}
 
@@ -3330,11 +3330,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLHasWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLBool HasWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLBool ret = SDLHasWindowSurfaceNative((SDLWindow*)pwindow);
+				SDLBool ret = HasWindowSurfaceNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3354,7 +3354,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		internal static SDLSurface* SDLGetWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLSurface* GetWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*>)vt[397])(window);
@@ -3378,9 +3378,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLGetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLSurface* GetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLSurface* ret = SDLGetWindowSurfaceNative(window);
+			SDLSurface* ret = GetWindowSurfaceNative(window);
 			return ret;
 		}
 
@@ -3399,11 +3399,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
-		public static SDLSurface* SDLGetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLSurface* GetWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSurface* ret = SDLGetWindowSurfaceNative((SDLWindow*)pwindow);
+				SDLSurface* ret = GetWindowSurfaceNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3419,7 +3419,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLUpdateWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static int UpdateWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)vt[398])(window);
@@ -3439,9 +3439,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLUpdateWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int UpdateWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			int ret = SDLUpdateWindowSurfaceNative(window);
+			int ret = UpdateWindowSurfaceNative(window);
 			return ret;
 		}
 
@@ -3456,11 +3456,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLUpdateWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int UpdateWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLUpdateWindowSurfaceNative((SDLWindow*)pwindow);
+				int ret = UpdateWindowSurfaceNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3480,7 +3480,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurfaceRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLUpdateWindowSurfaceRectsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
+		internal static int UpdateWindowSurfaceRectsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int, int>)vt[399])(window, rects, numrects);
@@ -3504,9 +3504,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurfaceRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLUpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
+		public static int UpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
 		{
-			int ret = SDLUpdateWindowSurfaceRectsNative(window, rects, numrects);
+			int ret = UpdateWindowSurfaceRectsNative(window, rects, numrects);
 			return ret;
 		}
 
@@ -3525,11 +3525,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurfaceRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLUpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
+		public static int UpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLUpdateWindowSurfaceRectsNative((SDLWindow*)pwindow, rects, numrects);
+				int ret = UpdateWindowSurfaceRectsNative((SDLWindow*)pwindow, rects, numrects);
 				return ret;
 			}
 		}
@@ -3549,11 +3549,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurfaceRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLUpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
+		public static int UpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
 		{
 			fixed (SDLRect* prects = &rects)
 			{
-				int ret = SDLUpdateWindowSurfaceRectsNative(window, (SDLRect*)prects, numrects);
+				int ret = UpdateWindowSurfaceRectsNative(window, (SDLRect*)prects, numrects);
 				return ret;
 			}
 		}
@@ -3573,13 +3573,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurfaceRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLUpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
+		public static int UpdateWindowSurfaceRects([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (SDLRect* prects = &rects)
 				{
-					int ret = SDLUpdateWindowSurfaceRectsNative((SDLWindow*)pwindow, (SDLRect*)prects, numrects);
+					int ret = UpdateWindowSurfaceRectsNative((SDLWindow*)pwindow, (SDLRect*)prects, numrects);
 					return ret;
 				}
 			}
@@ -3593,7 +3593,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLDestroyWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static int DestroyWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)vt[400])(window);
@@ -3610,9 +3610,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLDestroyWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int DestroyWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			int ret = SDLDestroyWindowSurfaceNative(window);
+			int ret = DestroyWindowSurfaceNative(window);
 			return ret;
 		}
 
@@ -3624,11 +3624,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLDestroyWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int DestroyWindowSurface([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLDestroyWindowSurfaceNative((SDLWindow*)pwindow);
+				int ret = DestroyWindowSurfaceNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3646,7 +3646,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		internal static void SetWindowGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[401])(window, grabbed);
@@ -3668,9 +3668,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		public static void SetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
-			SDLSetWindowGrabNative(window, grabbed);
+			SetWindowGrabNative(window, grabbed);
 		}
 
 		/// <summary>
@@ -3686,11 +3686,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		public static void SetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowGrabNative((SDLWindow*)pwindow, grabbed);
+				SetWindowGrabNative((SDLWindow*)pwindow, grabbed);
 			}
 		}
 
@@ -3714,7 +3714,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowKeyboardGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		internal static void SetWindowKeyboardGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[402])(window, grabbed);
@@ -3743,9 +3743,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		public static void SetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
-			SDLSetWindowKeyboardGrabNative(window, grabbed);
+			SetWindowKeyboardGrabNative(window, grabbed);
 		}
 
 		/// <summary>
@@ -3768,11 +3768,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		public static void SetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowKeyboardGrabNative((SDLWindow*)pwindow, grabbed);
+				SetWindowKeyboardGrabNative((SDLWindow*)pwindow, grabbed);
 			}
 		}
 
@@ -3785,7 +3785,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLSetWindowMouseGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		internal static void SetWindowMouseGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[403])(window, grabbed);
@@ -3803,9 +3803,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		public static void SetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
-			SDLSetWindowMouseGrabNative(window, grabbed);
+			SetWindowMouseGrabNative(window, grabbed);
 		}
 
 		/// <summary>
@@ -3817,11 +3817,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLSetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
+		public static void SetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLSetWindowMouseGrabNative((SDLWindow*)pwindow, grabbed);
+				SetWindowMouseGrabNative((SDLWindow*)pwindow, grabbed);
 			}
 		}
 
@@ -3833,7 +3833,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGetWindowGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLBool GetWindowGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[404])(window);
@@ -3850,9 +3850,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLBool GetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLBool ret = SDLGetWindowGrabNative(window);
+			SDLBool ret = GetWindowGrabNative(window);
 			return ret;
 		}
 
@@ -3864,11 +3864,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLBool GetWindowGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLBool ret = SDLGetWindowGrabNative((SDLWindow*)pwindow);
+				SDLBool ret = GetWindowGrabNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3881,7 +3881,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGetWindowKeyboardGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLBool GetWindowKeyboardGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[405])(window);
@@ -3898,9 +3898,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLBool GetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLBool ret = SDLGetWindowKeyboardGrabNative(window);
+			SDLBool ret = GetWindowKeyboardGrabNative(window);
 			return ret;
 		}
 
@@ -3912,11 +3912,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLBool GetWindowKeyboardGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLBool ret = SDLGetWindowKeyboardGrabNative((SDLWindow*)pwindow);
+				SDLBool ret = GetWindowKeyboardGrabNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3929,7 +3929,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGetWindowMouseGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLBool GetWindowMouseGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[406])(window);
@@ -3946,9 +3946,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLBool GetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLBool ret = SDLGetWindowMouseGrabNative(window);
+			SDLBool ret = GetWindowMouseGrabNative(window);
 			return ret;
 		}
 
@@ -3960,11 +3960,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLBool GetWindowMouseGrab([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLBool ret = SDLGetWindowMouseGrabNative((SDLWindow*)pwindow);
+				SDLBool ret = GetWindowMouseGrabNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -3977,7 +3977,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetGrabbedWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		internal static SDLWindow* SDLGetGrabbedWindowNative()
+		internal static SDLWindow* GetGrabbedWindowNative()
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)vt[407])();
@@ -3994,9 +3994,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetGrabbedWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		public static SDLWindow* SDLGetGrabbedWindow()
+		public static SDLWindow* GetGrabbedWindow()
 		{
-			SDLWindow* ret = SDLGetGrabbedWindowNative();
+			SDLWindow* ret = GetGrabbedWindowNative();
 			return ret;
 		}
 
@@ -4010,7 +4010,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetWindowMouseRectNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static int SetWindowMouseRectNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int>)vt[408])(window, rect);
@@ -4029,9 +4029,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static int SetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
-			int ret = SDLSetWindowMouseRectNative(window, rect);
+			int ret = SetWindowMouseRectNative(window, rect);
 			return ret;
 		}
 
@@ -4045,11 +4045,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static int SetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLSetWindowMouseRectNative((SDLWindow*)pwindow, rect);
+				int ret = SetWindowMouseRectNative((SDLWindow*)pwindow, rect);
 				return ret;
 			}
 		}
@@ -4064,11 +4064,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		public static int SetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
 		{
 			fixed (SDLRect* prect = &rect)
 			{
-				int ret = SDLSetWindowMouseRectNative(window, (SDLRect*)prect);
+				int ret = SetWindowMouseRectNative(window, (SDLRect*)prect);
 				return ret;
 			}
 		}
@@ -4083,13 +4083,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		public static int SetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (SDLRect* prect = &rect)
 				{
-					int ret = SDLSetWindowMouseRectNative((SDLWindow*)pwindow, (SDLRect*)prect);
+					int ret = SetWindowMouseRectNative((SDLWindow*)pwindow, (SDLRect*)prect);
 					return ret;
 				}
 			}
@@ -4103,7 +4103,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "const SDL_Rect*")]
-		internal static SDLRect* SDLGetWindowMouseRectNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static SDLRect* GetWindowMouseRectNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*>)vt[409])(window);
@@ -4120,9 +4120,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "const SDL_Rect*")]
-		public static SDLRect* SDLGetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static SDLRect* GetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			SDLRect* ret = SDLGetWindowMouseRectNative(window);
+			SDLRect* ret = GetWindowMouseRectNative(window);
 			return ret;
 		}
 
@@ -4134,11 +4134,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "const SDL_Rect*")]
-		public static SDLRect* SDLGetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static SDLRect* GetWindowMouseRect([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLRect* ret = SDLGetWindowMouseRectNative((SDLWindow*)pwindow);
+				SDLRect* ret = GetWindowMouseRectNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -4160,7 +4160,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetWindowBrightnessNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "brightness")] [NativeName(NativeNameType.Type, "float")] float brightness)
+		internal static int SetWindowBrightnessNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "brightness")] [NativeName(NativeNameType.Type, "float")] float brightness)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, int>)vt[410])(window, brightness);
@@ -4186,9 +4186,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "brightness")] [NativeName(NativeNameType.Type, "float")] float brightness)
+		public static int SetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "brightness")] [NativeName(NativeNameType.Type, "float")] float brightness)
 		{
-			int ret = SDLSetWindowBrightnessNative(window, brightness);
+			int ret = SetWindowBrightnessNative(window, brightness);
 			return ret;
 		}
 
@@ -4209,11 +4209,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "brightness")] [NativeName(NativeNameType.Type, "float")] float brightness)
+		public static int SetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "brightness")] [NativeName(NativeNameType.Type, "float")] float brightness)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLSetWindowBrightnessNative((SDLWindow*)pwindow, brightness);
+				int ret = SetWindowBrightnessNative((SDLWindow*)pwindow, brightness);
 				return ret;
 			}
 		}
@@ -4230,7 +4230,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "float")]
-		internal static float SDLGetWindowBrightnessNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static float GetWindowBrightnessNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float>)vt[411])(window);
@@ -4251,9 +4251,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "float")]
-		public static float SDLGetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static float GetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			float ret = SDLGetWindowBrightnessNative(window);
+			float ret = GetWindowBrightnessNative(window);
 			return ret;
 		}
 
@@ -4269,11 +4269,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "float")]
-		public static float SDLGetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static float GetWindowBrightness([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				float ret = SDLGetWindowBrightnessNative((SDLWindow*)pwindow);
+				float ret = GetWindowBrightnessNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -4289,7 +4289,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetWindowOpacityNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "opacity")] [NativeName(NativeNameType.Type, "float")] float opacity)
+		internal static int SetWindowOpacityNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "opacity")] [NativeName(NativeNameType.Type, "float")] float opacity)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, int>)vt[412])(window, opacity);
@@ -4309,9 +4309,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "opacity")] [NativeName(NativeNameType.Type, "float")] float opacity)
+		public static int SetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "opacity")] [NativeName(NativeNameType.Type, "float")] float opacity)
 		{
-			int ret = SDLSetWindowOpacityNative(window, opacity);
+			int ret = SetWindowOpacityNative(window, opacity);
 			return ret;
 		}
 
@@ -4326,11 +4326,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "opacity")] [NativeName(NativeNameType.Type, "float")] float opacity)
+		public static int SetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "opacity")] [NativeName(NativeNameType.Type, "float")] float opacity)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLSetWindowOpacityNative((SDLWindow*)pwindow, opacity);
+				int ret = SetWindowOpacityNative((SDLWindow*)pwindow, opacity);
 				return ret;
 			}
 		}
@@ -4347,7 +4347,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLGetWindowOpacityNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] float* outOpacity)
+		internal static int GetWindowOpacityNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] float* outOpacity)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float*, int>)vt[413])(window, outOpacity);
@@ -4368,9 +4368,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] float* outOpacity)
+		public static int GetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] float* outOpacity)
 		{
-			int ret = SDLGetWindowOpacityNative(window, outOpacity);
+			int ret = GetWindowOpacityNative(window, outOpacity);
 			return ret;
 		}
 
@@ -4386,11 +4386,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] float* outOpacity)
+		public static int GetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] float* outOpacity)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLGetWindowOpacityNative((SDLWindow*)pwindow, outOpacity);
+				int ret = GetWindowOpacityNative((SDLWindow*)pwindow, outOpacity);
 				return ret;
 			}
 		}
@@ -4407,11 +4407,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] ref float outOpacity)
+		public static int GetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] ref float outOpacity)
 		{
 			fixed (float* poutOpacity = &outOpacity)
 			{
-				int ret = SDLGetWindowOpacityNative(window, (float*)poutOpacity);
+				int ret = GetWindowOpacityNative(window, (float*)poutOpacity);
 				return ret;
 			}
 		}
@@ -4428,13 +4428,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLGetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] ref float outOpacity)
+		public static int GetWindowOpacity([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] ref float outOpacity)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (float* poutOpacity = &outOpacity)
 				{
-					int ret = SDLGetWindowOpacityNative((SDLWindow*)pwindow, (float*)poutOpacity);
+					int ret = GetWindowOpacityNative((SDLWindow*)pwindow, (float*)poutOpacity);
 					return ret;
 				}
 			}
@@ -4447,7 +4447,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowModalFor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetWindowModalForNative([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* parentWindow)
+		internal static int SetWindowModalForNative([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* parentWindow)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindow*, int>)vt[414])(modalWindow, parentWindow);
@@ -4463,9 +4463,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowModalFor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* parentWindow)
+		public static int SetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* parentWindow)
 		{
-			int ret = SDLSetWindowModalForNative(modalWindow, parentWindow);
+			int ret = SetWindowModalForNative(modalWindow, parentWindow);
 			return ret;
 		}
 
@@ -4476,11 +4476,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowModalFor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* parentWindow)
+		public static int SetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* parentWindow)
 		{
 			fixed (SDLWindow* pmodalWindow = &modalWindow)
 			{
-				int ret = SDLSetWindowModalForNative((SDLWindow*)pmodalWindow, parentWindow);
+				int ret = SetWindowModalForNative((SDLWindow*)pmodalWindow, parentWindow);
 				return ret;
 			}
 		}
@@ -4492,11 +4492,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowModalFor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow parentWindow)
+		public static int SetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow parentWindow)
 		{
 			fixed (SDLWindow* pparentWindow = &parentWindow)
 			{
-				int ret = SDLSetWindowModalForNative(modalWindow, (SDLWindow*)pparentWindow);
+				int ret = SetWindowModalForNative(modalWindow, (SDLWindow*)pparentWindow);
 				return ret;
 			}
 		}
@@ -4508,13 +4508,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowModalFor")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow parentWindow)
+		public static int SetWindowModalFor([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow parentWindow)
 		{
 			fixed (SDLWindow* pmodalWindow = &modalWindow)
 			{
 				fixed (SDLWindow* pparentWindow = &parentWindow)
 				{
-					int ret = SDLSetWindowModalForNative((SDLWindow*)pmodalWindow, (SDLWindow*)pparentWindow);
+					int ret = SetWindowModalForNative((SDLWindow*)pmodalWindow, (SDLWindow*)pparentWindow);
 					return ret;
 				}
 			}
@@ -4531,7 +4531,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowInputFocus")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetWindowInputFocusNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		internal static int SetWindowInputFocusNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)vt[415])(window);
@@ -4551,9 +4551,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowInputFocus")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowInputFocus([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		public static int SetWindowInputFocus([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
-			int ret = SDLSetWindowInputFocusNative(window);
+			int ret = SetWindowInputFocusNative(window);
 			return ret;
 		}
 
@@ -4568,11 +4568,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowInputFocus")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowInputFocus([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		public static int SetWindowInputFocus([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLSetWindowInputFocusNative((SDLWindow*)pwindow);
+				int ret = SetWindowInputFocusNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
@@ -4595,7 +4595,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLSetWindowGammaRampNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		internal static int SetWindowGammaRampNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ushort*, ushort*, ushort*, int>)vt[416])(window, red, green, blue);
@@ -4622,9 +4622,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
-			int ret = SDLSetWindowGammaRampNative(window, red, green, blue);
+			int ret = SetWindowGammaRampNative(window, red, green, blue);
 			return ret;
 		}
 
@@ -4646,11 +4646,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = SDLSetWindowGammaRampNative((SDLWindow*)pwindow, red, green, blue);
+				int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, green, blue);
 				return ret;
 			}
 		}
@@ -4673,11 +4673,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			fixed (ushort* pred = &red)
 			{
-				int ret = SDLSetWindowGammaRampNative(window, (ushort*)pred, green, blue);
+				int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, blue);
 				return ret;
 			}
 		}
@@ -4700,13 +4700,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (ushort* pred = &red)
 				{
-					int ret = SDLSetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, blue);
+					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, blue);
 					return ret;
 				}
 			}
@@ -4730,11 +4730,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			fixed (ushort* pgreen = &green)
 			{
-				int ret = SDLSetWindowGammaRampNative(window, red, (ushort*)pgreen, blue);
+				int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, blue);
 				return ret;
 			}
 		}
@@ -4757,13 +4757,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (ushort* pgreen = &green)
 				{
-					int ret = SDLSetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, blue);
+					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, blue);
 					return ret;
 				}
 			}
@@ -4787,13 +4787,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			fixed (ushort* pred = &red)
 			{
 				fixed (ushort* pgreen = &green)
 				{
-					int ret = SDLSetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, blue);
+					int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, blue);
 					return ret;
 				}
 			}
@@ -4817,7 +4817,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -4825,7 +4825,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pgreen = &green)
 					{
-						int ret = SDLSetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, blue);
+						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, blue);
 						return ret;
 					}
 				}
@@ -4850,11 +4850,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (ushort* pblue = &blue)
 			{
-				int ret = SDLSetWindowGammaRampNative(window, red, green, (ushort*)pblue);
+				int ret = SetWindowGammaRampNative(window, red, green, (ushort*)pblue);
 				return ret;
 			}
 		}
@@ -4877,13 +4877,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (ushort* pblue = &blue)
 				{
-					int ret = SDLSetWindowGammaRampNative((SDLWindow*)pwindow, red, green, (ushort*)pblue);
+					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, green, (ushort*)pblue);
 					return ret;
 				}
 			}
@@ -4907,13 +4907,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (ushort* pred = &red)
 			{
 				fixed (ushort* pblue = &blue)
 				{
-					int ret = SDLSetWindowGammaRampNative(window, (ushort*)pred, green, (ushort*)pblue);
+					int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, (ushort*)pblue);
 					return ret;
 				}
 			}
@@ -4937,7 +4937,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -4945,7 +4945,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pblue = &blue)
 					{
-						int ret = SDLSetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, (ushort*)pblue);
+						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, (ushort*)pblue);
 						return ret;
 					}
 				}
@@ -4970,13 +4970,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (ushort* pgreen = &green)
 			{
 				fixed (ushort* pblue = &blue)
 				{
-					int ret = SDLSetWindowGammaRampNative(window, red, (ushort*)pgreen, (ushort*)pblue);
+					int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, (ushort*)pblue);
 					return ret;
 				}
 			}
@@ -5000,7 +5000,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
@@ -5008,7 +5008,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pblue = &blue)
 					{
-						int ret = SDLSetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, (ushort*)pblue);
+						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, (ushort*)pblue);
 						return ret;
 					}
 				}
@@ -5033,7 +5033,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLSetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (ushort* pred = &red)
 			{
@@ -5041,7 +5041,7 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (ushort* pblue = &blue)
 					{
-						int ret = SDLSetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
+						int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
 						return ret;
 					}
 				}

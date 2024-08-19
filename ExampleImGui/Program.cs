@@ -22,13 +22,13 @@
 
         private static void Main(string[] args)
         {
-            SDL.SDLSetHint(SDL.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
-            SDL.SDLInit(SDL.SDL_INIT_EVENTS | SDL.SDL_INIT_VIDEO);
+            SDL.SetHint(SDL.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+            SDL.Init(SDL.SDL_INIT_EVENTS | SDL.SDL_INIT_VIDEO);
 
-            var window = SDL.SDLCreateWindow("Test Window", 32, 32, 1280, 720, (uint)(SDLWindowFlags.Resizable | SDLWindowFlags.Shown));
-            var windowId = SDL.SDLGetWindowID(window);
+            var window = SDL.CreateWindow("Test Window", 32, 32, 1280, 720, (uint)(SDLWindowFlags.Resizable | SDLWindowFlags.Shown));
+            var windowId = SDL.GetWindowID(window);
 
-            var renderer = SDL.SDLCreateRenderer(window, -1, (uint)(SDLRendererFlags.Accelerated | SDLRendererFlags.Presentvsync | SDLRendererFlags.Targettexture));
+            var renderer = SDL.CreateRenderer(window, -1, (uint)(SDLRendererFlags.Accelerated | SDLRendererFlags.Presentvsync | SDLRendererFlags.Targettexture));
 
             ImGuiContextPtr context = ImGui.CreateContext();
             ImGui.SetCurrentContext(context);
@@ -57,9 +57,9 @@
             bool exiting = false;
             while (!exiting)
             {
-                SDL.SDLPumpEvents();
+                SDL.PumpEvents();
 
-                while ((SDLBool)SDL.SDLPollEvent(ref sdlEvent) == SDLBool.True)
+                while ((SDLBool)SDL.PollEvent(ref sdlEvent) == SDLBool.True)
                 {
                     foreach (var hook in eventHooks)
                     {
@@ -102,10 +102,10 @@
                 ImGui.Render();
                 ImGui.EndFrame();
 
-                SDL.SDLRenderClear(renderer);
+                SDL.RenderClear(renderer);
 
-                SDL.SDLSetRenderTarget(renderer, null);
-                SDL.SDLRenderGeometry(renderer, null, verts.Data, verts.Size, null, 0);
+                SDL.SetRenderTarget(renderer, null);
+                SDL.RenderGeometry(renderer, null, verts.Data, verts.Size, null, 0);
 
                 ImGuiSDL2Renderer.RenderDrawData(ImGui.GetDrawData(), renderer);
 
@@ -115,10 +115,10 @@
                     ImGui.RenderPlatformWindowsDefault();
                 }
 
-                SDL.SDLRenderPresent(renderer);
+                SDL.RenderPresent(renderer);
             }
 
-            SDL.SDLQuit();
+            SDL.Quit();
         }
     }
 }

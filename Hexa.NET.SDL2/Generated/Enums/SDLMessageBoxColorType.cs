@@ -13,6 +13,7 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	[NativeName(NativeNameType.Enum, "SDL_MessageBoxColorType")]
+	[Flags]
 	public enum SDLMessageBoxColorType : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BACKGROUND")]

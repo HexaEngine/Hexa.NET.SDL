@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Flags for SDL_MessageBoxButtonData.<br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_MessageBoxButtonFlags")]
+	[Flags]
 	public enum SDLMessageBoxButtonFlags : int
 	{
 		/// <summary>

@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// Pixel type. <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PixelType")]
+	[Flags]
 	public enum SDLPixelType : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_PIXELTYPE_UNKNOWN")]

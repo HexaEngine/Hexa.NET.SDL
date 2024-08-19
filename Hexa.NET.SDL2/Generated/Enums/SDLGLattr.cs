@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_GLattr")]
+	[Flags]
 	public enum SDLGLattr : int
 	{
 		[NativeName(NativeNameType.EnumItem, "SDL_GL_RED_SIZE")]

@@ -4615,7 +4615,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SDLGetWindowWMInfoNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
+		internal static SDLBool GetWindowWMInfoNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSysWMInfo*, SDLBool>)vt[1336])(window, info);
@@ -4637,9 +4637,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
 		{
-			SDLBool ret = SDLGetWindowWMInfoNative(window, info);
+			SDLBool ret = GetWindowWMInfoNative(window, info);
 			return ret;
 		}
 
@@ -4656,11 +4656,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
-				SDLBool ret = SDLGetWindowWMInfoNative((SDLWindow*)pwindow, info);
+				SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, info);
 				return ret;
 			}
 		}
@@ -4678,11 +4678,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
 		{
 			fixed (SDLSysWMInfo* pinfo = &info)
 			{
-				SDLBool ret = SDLGetWindowWMInfoNative(window, (SDLSysWMInfo*)pinfo);
+				SDLBool ret = GetWindowWMInfoNative(window, (SDLSysWMInfo*)pinfo);
 				return ret;
 			}
 		}
@@ -4700,13 +4700,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SDLGetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
 		{
 			fixed (SDLWindow* pwindow = &window)
 			{
 				fixed (SDLSysWMInfo* pinfo = &info)
 				{
-					SDLBool ret = SDLGetWindowWMInfoNative((SDLWindow*)pwindow, (SDLSysWMInfo*)pinfo);
+					SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, (SDLSysWMInfo*)pinfo);
 					return ret;
 				}
 			}
@@ -4718,7 +4718,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLTestAssertNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		internal static void TestAssertNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[1337])(assertCondition, assertDescription);
@@ -4733,9 +4733,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
 		{
-			SDLTestAssertNative(assertCondition, assertDescription);
+			TestAssertNative(assertCondition, assertDescription);
 		}
 
 		/// <summary>
@@ -4744,11 +4744,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
 		{
 			fixed (byte* passertDescription = &assertDescription)
 			{
-				SDLTestAssertNative(assertCondition, (byte*)passertDescription);
+				TestAssertNative(assertCondition, (byte*)passertDescription);
 			}
 		}
 
@@ -4758,11 +4758,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
 		{
 			fixed (byte* passertDescription = assertDescription)
 			{
-				SDLTestAssertNative(assertCondition, (byte*)passertDescription);
+				TestAssertNative(assertCondition, (byte*)passertDescription);
 			}
 		}
 
@@ -4772,7 +4772,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4791,7 +4791,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLTestAssertNative(assertCondition, pStr0);
+			TestAssertNative(assertCondition, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4805,7 +4805,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SDLTestAssertCheckNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		internal static int TestAssertCheckNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, byte*, int>)vt[1338])(assertCondition, assertDescription);
@@ -4821,9 +4821,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLTestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
 		{
-			int ret = SDLTestAssertCheckNative(assertCondition, assertDescription);
+			int ret = TestAssertCheckNative(assertCondition, assertDescription);
 			return ret;
 		}
 
@@ -4834,11 +4834,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLTestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
 		{
 			fixed (byte* passertDescription = &assertDescription)
 			{
-				int ret = SDLTestAssertCheckNative(assertCondition, (byte*)passertDescription);
+				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
 				return ret;
 			}
 		}
@@ -4850,11 +4850,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLTestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
 		{
 			fixed (byte* passertDescription = assertDescription)
 			{
-				int ret = SDLTestAssertCheckNative(assertCondition, (byte*)passertDescription);
+				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
 				return ret;
 			}
 		}
@@ -4866,7 +4866,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SDLTestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4885,7 +4885,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SDLTestAssertCheckNative(assertCondition, pStr0);
+			int ret = TestAssertCheckNative(assertCondition, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4899,7 +4899,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLTestAssertPassNative([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		internal static void TestAssertPassNative([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<byte*, void>)vt[1339])(assertDescription);
@@ -4914,9 +4914,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
 		{
-			SDLTestAssertPassNative(assertDescription);
+			TestAssertPassNative(assertDescription);
 		}
 
 		/// <summary>
@@ -4925,11 +4925,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
 		{
 			fixed (byte* passertDescription = &assertDescription)
 			{
-				SDLTestAssertPassNative((byte*)passertDescription);
+				TestAssertPassNative((byte*)passertDescription);
 			}
 		}
 
@@ -4939,11 +4939,11 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
 		{
 			fixed (byte* passertDescription = assertDescription)
 			{
-				SDLTestAssertPassNative((byte*)passertDescription);
+				TestAssertPassNative((byte*)passertDescription);
 			}
 		}
 
@@ -4953,7 +4953,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4972,7 +4972,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLTestAssertPassNative(pStr0);
+			TestAssertPassNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4984,7 +4984,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLTestResetAssertSummaryNative()
+		internal static void TestResetAssertSummaryNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[1340])();
@@ -4998,9 +4998,9 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SDLTestResetAssertSummary()
+		public static void TestResetAssertSummary()
 		{
-			SDLTestResetAssertSummaryNative();
+			TestResetAssertSummaryNative();
 		}
 
 		/// <summary>
@@ -5008,7 +5008,7 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_LogAssertSummary")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SDLTestLogAssertSummaryNative()
+		internal static void TestLogAssertSummaryNative()
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void>)vt[1341])();

@@ -16,6 +16,7 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "WindowShapeMode")]
+	[Flags]
 	public enum WindowShapeMode : int
 	{
 		/// <summary>
