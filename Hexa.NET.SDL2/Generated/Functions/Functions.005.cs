@@ -82,6 +82,243 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		{
+			fixed (byte** paudioBuf = &audioBuf)
+			{
+				fixed (uint* paudioLen = &audioLen)
+				{
+					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
+		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		{
+			fixed (SDLAudioSpec* pspec = &spec)
+			{
+				fixed (byte** paudioBuf = &audioBuf)
+				{
+					fixed (uint* paudioLen = &audioLen)
+					{
+						SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Load the audio data of a WAVE file into memory.<br/>
+		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
+		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
+		/// memory and decoded if necessary.<br/>
+		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
+		/// freed before the function returns.<br/>
+		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
+		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
+		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
+		/// cause an error.<br/>
+		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
+		/// and the pointer to the audio data allocated by the function is written to<br/>
+		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
+		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
+		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
+		/// others are set to zero.<br/>
+		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
+		/// `audio_buf` when it is no longer used.<br/>
+		/// Because of the underspecification of the .WAV format, there are many<br/>
+		/// problematic files in the wild that cause issues with strict decoders. To<br/>
+		/// provide compatibility with these files, this decoder is lenient in regards<br/>
+		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
+		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
+		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
+		/// tune the behavior of the loading process.<br/>
+		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
+		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
+		/// critical I/O error from the data source will terminate the loading process<br/>
+		/// with an error. The function returns NULL on error and in all cases (with<br/>
+		/// the exception of `src` being NULL), an appropriate error message will be<br/>
+		/// set.<br/>
+		/// It is required that the data source supports seeking.<br/>
+		/// Example:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
+		/// messy way:<br/>
+		/// ```c<br/>
+		/// SDL_LoadWAV("sample.wav", <br/>
+		/// &spec<br/>
+		/// , <br/>
+		/// &buf<br/>
+		/// , <br/>
+		/// &len<br/>
+		/// );<br/>
+		/// ```<br/>
+		/// <br/>
+		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
+		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
+		/// more information.<br/>
+		/// When the application is done with the data returned in<br/>
+		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
+		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
 		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
 		{
 			fixed (SDLRWops* psrc = &src)
@@ -111,12 +348,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeWAV")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void FreeWAVNative([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] byte* audioBuf)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[228])(audioBuf);
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[228])(audioBuf);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[228])((nint)audioBuf);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[228])((nint)audioBuf);
 			#endif
 		}
 
@@ -171,12 +409,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_BuildAudioCVT")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int BuildAudioCVTNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, ushort, byte, int, ushort, byte, int, int>)vt[229])(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, ushort, byte, int, ushort, byte, int, int>)funcTable[229])(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, byte, int, ushort, byte, int, int>)vt[229])((nint)cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, byte, int, ushort, byte, int, int>)funcTable[229])((nint)cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
 			#endif
 		}
 
@@ -257,12 +496,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ConvertAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int ConvertAudioNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, int>)vt[230])(cvt);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, int>)funcTable[230])(cvt);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[230])((nint)cvt);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[230])((nint)cvt);
 			#endif
 		}
 
@@ -349,12 +589,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NewAudioStream")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStream*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLAudioStream* NewAudioStreamNative([NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "const int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "const int")] int dstRate)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, SDLAudioStream*>)vt[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			return ((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, SDLAudioStream*>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
 			#else
-			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, nint>)vt[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, nint>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
 			#endif
 		}
 
@@ -380,12 +621,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamPut")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AudioStreamPutNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)vt[232])(stream, buf, len);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[232])(stream, buf, len);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)vt[232])((nint)stream, (nint)buf, len);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[232])((nint)stream, (nint)buf, len);
 			#endif
 		}
 
@@ -428,12 +670,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamGet")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AudioStreamGetNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)vt[233])(stream, buf, len);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[233])(stream, buf, len);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)vt[233])((nint)stream, (nint)buf, len);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[233])((nint)stream, (nint)buf, len);
 			#endif
 		}
 
@@ -478,12 +721,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamAvailable")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AudioStreamAvailableNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)vt[234])(stream);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[234])(stream);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[234])((nint)stream);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[234])((nint)stream);
 			#endif
 		}
 
@@ -533,12 +777,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamFlush")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AudioStreamFlushNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)vt[235])(stream);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[235])(stream);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[235])((nint)stream);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[235])((nint)stream);
 			#endif
 		}
 
@@ -586,12 +831,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioStreamClear")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void AudioStreamClearNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)vt[236])(stream);
+			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[236])(stream);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[236])((nint)stream);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[236])((nint)stream);
 			#endif
 		}
 
@@ -629,12 +875,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeAudioStream")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void FreeAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)vt[237])(stream);
+			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[237])(stream);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[237])((nint)stream);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[237])((nint)stream);
 			#endif
 		}
 
@@ -679,12 +926,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MixAudioNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int, void>)vt[238])(dst, src, len, volume);
+			((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int, void>)funcTable[238])(dst, src, len, volume);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, int, void>)vt[238])((nint)dst, (nint)src, len, volume);
+			((delegate* unmanaged[Cdecl]<nint, nint, uint, int, void>)funcTable[238])((nint)dst, (nint)src, len, volume);
 			#endif
 		}
 
@@ -796,12 +1044,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MixAudioFormatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)vt[239])(dst, src, format, len, volume);
+			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)funcTable[239])(dst, src, format, len, volume);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)vt[239])((nint)dst, (nint)src, format, len, volume);
+			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)funcTable[239])((nint)dst, (nint)src, format, len, volume);
 			#endif
 		}
 
@@ -950,12 +1199,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QueueAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int QueueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)vt[240])(dev, data, len);
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)funcTable[240])(dev, data, len);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)vt[240])(dev, (nint)data, len);
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)funcTable[240])(dev, (nint)data, len);
 			#endif
 		}
 
@@ -1031,12 +1281,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DequeueAudio")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint DequeueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)vt[241])(dev, data, len);
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)funcTable[241])(dev, data, len);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)vt[241])(dev, (nint)data, len);
+			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)funcTable[241])(dev, (nint)data, len);
 			#endif
 		}
 
@@ -1102,12 +1353,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetQueuedAudioSize")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint GetQueuedAudioSizeNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)vt[242])(dev);
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)vt[242])(dev);
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
 			#endif
 		}
 
@@ -1164,12 +1416,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearQueuedAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ClearQueuedAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[243])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[243])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
 			#endif
 		}
 
@@ -1215,12 +1468,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LockAudioNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[244])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[244])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
 			#endif
 		}
 
@@ -1273,12 +1527,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[245])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[245])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
 			#endif
 		}
 
@@ -1331,12 +1586,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void UnlockAudioNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[246])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[246])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[246])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[246])();
 			#endif
 		}
 
@@ -1368,12 +1624,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void UnlockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[247])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[247])(dev);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[247])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[247])(dev);
 			#endif
 		}
 
@@ -1404,12 +1661,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CloseAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void CloseAudioNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[248])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[248])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[248])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[248])();
 			#endif
 		}
 
@@ -1448,12 +1706,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CloseAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void CloseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[249])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[249])(dev);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[249])(dev);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[249])(dev);
 			#endif
 		}
 
@@ -1488,12 +1747,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetClipboardTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[250])(text);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[250])(text);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[250])((nint)text);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[250])((nint)text);
 			#endif
 		}
 
@@ -1590,12 +1850,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetClipboardTextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)vt[251])();
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[251])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)vt[251])();
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[251])();
 			#endif
 		}
 
@@ -1639,12 +1900,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasClipboardText")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasClipboardTextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[252])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[252])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[252])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[252])();
 			#endif
 		}
 
@@ -1670,12 +1932,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetPrimarySelectionTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[253])(text);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[253])(text);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[253])((nint)text);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[253])((nint)text);
 			#endif
 		}
 
@@ -1773,12 +2036,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetPrimarySelectionTextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)vt[254])();
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[254])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)vt[254])();
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[254])();
 			#endif
 		}
 
@@ -1825,12 +2089,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasPrimarySelectionText")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasPrimarySelectionTextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[255])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[255])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[255])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[255])();
 			#endif
 		}
 
@@ -1856,12 +2121,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCPUCount")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetCPUCountNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[256])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[256])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[256])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[256])();
 			#endif
 		}
 
@@ -1887,12 +2153,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCPUCacheLineSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetCPUCacheLineSizeNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[257])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[257])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[257])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[257])();
 			#endif
 		}
 
@@ -1920,12 +2187,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasRDTSC")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasRDTSCNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[258])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[258])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[258])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[258])();
 			#endif
 		}
 
@@ -1954,12 +2222,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAltiVec")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasAltiVecNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[259])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[259])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[259])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[259])();
 			#endif
 		}
 
@@ -1988,12 +2257,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasMMX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasMMXNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[260])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[260])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[260])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[260])();
 			#endif
 		}
 
@@ -2021,12 +2291,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Has3DNow")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool Has3DNowNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[261])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[261])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[261])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[261])();
 			#endif
 		}
 
@@ -2054,12 +2325,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasSSENative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[262])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[262])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[262])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[262])();
 			#endif
 		}
 
@@ -2087,12 +2359,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE2")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasSSE2Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[263])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[263])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[263])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[263])();
 			#endif
 		}
 
@@ -2120,12 +2393,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE3")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasSSE3Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[264])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[264])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[264])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[264])();
 			#endif
 		}
 
@@ -2153,12 +2427,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE41")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasSSE41Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[265])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[265])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[265])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[265])();
 			#endif
 		}
 
@@ -2186,12 +2461,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasSSE42")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasSSE42Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[266])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[266])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[266])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[266])();
 			#endif
 		}
 
@@ -2219,12 +2495,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasAVXNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[267])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[267])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[267])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[267])();
 			#endif
 		}
 
@@ -2252,12 +2529,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX2")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasAVX2Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[268])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[268])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[268])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[268])();
 			#endif
 		}
 
@@ -2285,12 +2563,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasAVX512F")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasAVX512FNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[269])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[269])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[269])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[269])();
 			#endif
 		}
 
@@ -2319,12 +2598,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasARMSIMD")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasARMSIMDNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[270])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[270])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[270])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[270])();
 			#endif
 		}
 
@@ -2352,12 +2632,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasNEON")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasNEONNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[271])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[271])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[271])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[271])();
 			#endif
 		}
 
@@ -2384,12 +2665,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasLSX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasLSXNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[272])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[272])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[272])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[272])();
 			#endif
 		}
 
@@ -2417,12 +2699,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasLASX")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasLASXNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[273])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[273])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[273])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[273])();
 			#endif
 		}
 
@@ -2448,12 +2731,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetSystemRAM")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetSystemRAMNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[274])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[274])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[274])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[274])();
 			#endif
 		}
 
@@ -2485,12 +2769,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDGetAlignment")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong SIMDGetAlignmentNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)vt[275])();
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[275])();
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)vt[275])();
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[275])();
 			#endif
 		}
 
@@ -2542,12 +2827,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDAlloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* SIMDAllocNative([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, void*>)vt[276])(len);
+			return ((delegate* unmanaged[Cdecl]<ulong, void*>)funcTable[276])(len);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<ulong, nint>)vt[276])(len);
+			return (void*)((delegate* unmanaged[Cdecl]<ulong, nint>)funcTable[276])(len);
 			#endif
 		}
 
@@ -2628,12 +2914,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDRealloc")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* SIMDReallocNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, ulong, void*>)vt[277])(mem, len);
+			return ((delegate* unmanaged[Cdecl]<void*, ulong, void*>)funcTable[277])(mem, len);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, ulong, nint>)vt[277])((nint)mem, len);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, ulong, nint>)funcTable[277])((nint)mem, len);
 			#endif
 		}
 
@@ -2687,12 +2974,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SIMDFree")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SIMDFreeNative([NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void*, void>)vt[278])(ptr);
+			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[278])(ptr);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[278])((nint)ptr);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[278])((nint)ptr);
 			#endif
 		}
 
@@ -2724,12 +3012,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetPixelFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)vt[279])(format);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[279])(format);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)vt[279])(format);
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[279])(format);
 			#endif
 		}
 
@@ -2767,12 +3056,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool PixelFormatEnumToMasksNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int*, uint*, uint*, uint*, uint*, SDLBool>)vt[280])(format, bpp, rmask, gmask, bmask, amask);
+			return ((delegate* unmanaged[Cdecl]<uint, int*, uint*, uint*, uint*, uint*, SDLBool>)funcTable[280])(format, bpp, rmask, gmask, bmask, amask);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, SDLBool>)vt[280])(format, (nint)bpp, (nint)rmask, (nint)gmask, (nint)bmask, (nint)amask);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, SDLBool>)funcTable[280])(format, (nint)bpp, (nint)rmask, (nint)gmask, (nint)bmask, (nint)amask);
 			#endif
 		}
 
@@ -3474,12 +3764,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MasksToPixelFormatEnum")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint MasksToPixelFormatEnumNative([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)vt[281])(bpp, rmask, gmask, bmask, amask);
+			return ((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)funcTable[281])(bpp, rmask, gmask, bmask, amask);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)vt[281])(bpp, rmask, gmask, bmask, amask);
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)funcTable[281])(bpp, rmask, gmask, bmask, amask);
 			#endif
 		}
 
@@ -3510,12 +3801,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AllocFormat")]
 		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLPixelFormat* AllocFormatNative([NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*>)vt[282])(pixelFormat);
+			return ((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*>)funcTable[282])(pixelFormat);
 			#else
-			return (SDLPixelFormat*)((delegate* unmanaged[Cdecl]<uint, nint>)vt[282])(pixelFormat);
+			return (SDLPixelFormat*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[282])(pixelFormat);
 			#endif
 		}
 
@@ -3544,12 +3836,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeFormat")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void FreeFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLPixelFormat*, void>)vt[283])(format);
+			((delegate* unmanaged[Cdecl]<SDLPixelFormat*, void>)funcTable[283])(format);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[283])((nint)format);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[283])((nint)format);
 			#endif
 		}
 
@@ -3591,12 +3884,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AllocPalette")]
 		[return: NativeName(NativeNameType.Type, "SDL_Palette*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLPalette* AllocPaletteNative([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLPalette*>)vt[284])(ncolors);
+			return ((delegate* unmanaged[Cdecl]<int, SDLPalette*>)funcTable[284])(ncolors);
 			#else
-			return (SDLPalette*)((delegate* unmanaged[Cdecl]<int, nint>)vt[284])(ncolors);
+			return (SDLPalette*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[284])(ncolors);
 			#endif
 		}
 
@@ -3623,12 +3917,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetPixelFormatPaletteNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, SDLPalette*, int>)vt[285])(format, palette);
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, SDLPalette*, int>)funcTable[285])(format, palette);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[285])((nint)format, (nint)palette);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[285])((nint)format, (nint)palette);
 			#endif
 		}
 
@@ -3708,12 +4003,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetPaletteColorsNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPalette*, SDLColor*, int, int, int>)vt[286])(palette, colors, firstcolor, ncolors);
+			return ((delegate* unmanaged[Cdecl]<SDLPalette*, SDLColor*, int, int, int>)funcTable[286])(palette, colors, firstcolor, ncolors);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int>)vt[286])((nint)palette, (nint)colors, firstcolor, ncolors);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int>)funcTable[286])((nint)palette, (nint)colors, firstcolor, ncolors);
 			#endif
 		}
 
@@ -3793,12 +4089,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreePalette")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void FreePaletteNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLPalette*, void>)vt[287])(palette);
+			((delegate* unmanaged[Cdecl]<SDLPalette*, void>)funcTable[287])(palette);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[287])((nint)palette);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[287])((nint)palette);
 			#endif
 		}
 
@@ -3850,12 +4147,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint MapRGBNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, uint>)vt[288])(format, r, g, b);
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, uint>)funcTable[288])(format, r, g, b);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, uint>)vt[288])((nint)format, r, g, b);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, uint>)funcTable[288])((nint)format, r, g, b);
 			#endif
 		}
 
@@ -3931,12 +4229,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint MapRGBANative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, byte, uint>)vt[289])(format, r, g, b, a);
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, byte, uint>)funcTable[289])(format, r, g, b, a);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, uint>)vt[289])((nint)format, r, g, b, a);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, uint>)funcTable[289])((nint)format, r, g, b, a);
 			#endif
 		}
 
@@ -4005,12 +4304,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetRGBNative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, void>)vt[290])(pixel, format, r, g, b);
+			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, void>)funcTable[290])(pixel, format, r, g, b);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, void>)vt[290])(pixel, (nint)format, (nint)r, (nint)g, (nint)b);
+			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, void>)funcTable[290])(pixel, (nint)format, (nint)r, (nint)g, (nint)b);
 			#endif
 		}
 
@@ -4396,12 +4696,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetRGBANative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, byte*, void>)vt[291])(pixel, format, r, g, b, a);
+			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, byte*, void>)funcTable[291])(pixel, format, r, g, b, a);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, void>)vt[291])(pixel, (nint)format, (nint)r, (nint)g, (nint)b, (nint)a);
+			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, void>)funcTable[291])(pixel, (nint)format, (nint)r, (nint)g, (nint)b, (nint)a);
 			#endif
 		}
 
@@ -4714,305 +5015,6 @@ namespace Hexa.NET.SDL2
 				fixed (byte* pb = &b)
 				{
 					GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, a);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, a);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, a);
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pa = &a)
-			{
-				GetRGBANative(pixel, format, r, g, b, (byte*)pa);
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, (byte*)pr, g, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pa = &a)
-				{
-					GetRGBANative(pixel, format, r, (byte*)pg, b, (byte*)pa);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, (byte*)pa);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pa = &a)
-						{
-							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, (byte*)pa);
-						}
-					}
 				}
 			}
 		}

@@ -17,6 +17,1301 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
+		[NativeName(NativeNameType.Func, "glMultTransposeMatrixd")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultTransposeMatrixd([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble[16]")] ReadOnlySpan<double> m)
+		{
+			fixed (double* pm = m)
+			{
+				GlMultTransposeMatrixdNative((double*)pm);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultTransposeMatrixfNative([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] float* m)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1300])(m);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1300])((nint)m);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultTransposeMatrixf([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] float* m)
+		{
+			GlMultTransposeMatrixfNative(m);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultTransposeMatrixf([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] ref float m)
+		{
+			fixed (float* pm = &m)
+			{
+				GlMultTransposeMatrixfNative((float*)pm);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultTransposeMatrixf([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] ReadOnlySpan<float> m)
+		{
+			fixed (float* pm = m)
+			{
+				GlMultTransposeMatrixfNative((float*)pm);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glSampleCoverage")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlSampleCoverageNative([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLclampf")] float value, [NativeName(NativeNameType.Param, "invert")] [NativeName(NativeNameType.Type, "GLboolean")] byte invert)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, byte, void>)funcTable[1301])(value, invert);
+			#else
+			((delegate* unmanaged[Cdecl]<float, byte, void>)funcTable[1301])(value, invert);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glSampleCoverage")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlSampleCoverage([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLclampf")] float value, [NativeName(NativeNameType.Param, "invert")] [NativeName(NativeNameType.Type, "GLboolean")] byte invert)
+		{
+			GlSampleCoverageNative(value, invert);
+		}
+
+		[NativeName(NativeNameType.Func, "glActiveTextureARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlActiveTextureARBNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1302])(texture);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1302])(texture);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glActiveTextureARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlActiveTextureARB([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
+		{
+			GlActiveTextureARBNative(texture);
+		}
+
+		[NativeName(NativeNameType.Func, "glClientActiveTextureARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClientActiveTextureARBNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1303])(texture);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1303])(texture);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glClientActiveTextureARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlClientActiveTextureARB([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
+		{
+			GlClientActiveTextureARBNative(texture);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1304])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1304])(target, s);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s)
+		{
+			GlMultiTexCoord1DARBNative(target, s);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1305])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1305])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			GlMultiTexCoord1DvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord1DvARBNative(target, (double*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1306])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1306])(target, s);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s)
+		{
+			GlMultiTexCoord1FARBNative(target, s);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1307])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1307])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			GlMultiTexCoord1FvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord1FvARBNative(target, (float*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1308])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1308])(target, s);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s)
+		{
+			GlMultiTexCoord1IARBNative(target, s);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1309])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1309])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			GlMultiTexCoord1IvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord1IvARBNative(target, (int*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1310])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1310])(target, s);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s)
+		{
+			GlMultiTexCoord1SARBNative(target, s);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1311])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1311])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			GlMultiTexCoord1SvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord1svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord1SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlMultiTexCoord1SvARBNative(target, (short*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1312])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1312])(target, s, t);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t)
+		{
+			GlMultiTexCoord2DARBNative(target, s, t);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1313])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1313])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			GlMultiTexCoord2DvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord2DvARBNative(target, (double*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1314])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1314])(target, s, t);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t)
+		{
+			GlMultiTexCoord2FARBNative(target, s, t);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1315])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1315])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			GlMultiTexCoord2FvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord2FvARBNative(target, (float*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1316])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1316])(target, s, t);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t)
+		{
+			GlMultiTexCoord2IARBNative(target, s, t);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1317])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1317])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			GlMultiTexCoord2IvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord2IvARBNative(target, (int*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1318])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1318])(target, s, t);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t)
+		{
+			GlMultiTexCoord2SARBNative(target, s, t);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1319])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1319])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			GlMultiTexCoord2SvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord2svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord2SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlMultiTexCoord2SvARBNative(target, (short*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1320])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1320])(target, s, t, r);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r)
+		{
+			GlMultiTexCoord3DARBNative(target, s, t, r);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1321])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1321])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			GlMultiTexCoord3DvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord3DvARBNative(target, (double*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1322])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1322])(target, s, t, r);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r)
+		{
+			GlMultiTexCoord3FARBNative(target, s, t, r);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1323])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1323])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			GlMultiTexCoord3FvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord3FvARBNative(target, (float*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1324])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1324])(target, s, t, r);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r)
+		{
+			GlMultiTexCoord3IARBNative(target, s, t, r);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1325])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1325])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			GlMultiTexCoord3IvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord3IvARBNative(target, (int*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1326])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1326])(target, s, t, r);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r)
+		{
+			GlMultiTexCoord3SARBNative(target, s, t, r);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1327])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1327])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			GlMultiTexCoord3SvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord3svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord3SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlMultiTexCoord3SvARBNative(target, (short*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLdouble")] double q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1328])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1328])(target, s, t, r, q);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4dARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLdouble")] double q)
+		{
+			GlMultiTexCoord4DARBNative(target, s, t, r, q);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1329])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1329])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
+		{
+			GlMultiTexCoord4DvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4dvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord4DvARBNative(target, (double*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLfloat")] float q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1330])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1330])(target, s, t, r, q);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4fARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLfloat")] float q)
+		{
+			GlMultiTexCoord4FARBNative(target, s, t, r, q);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1331])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1331])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
+		{
+			GlMultiTexCoord4FvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4fvARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord4FvARBNative(target, (float*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLint")] int q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1332])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1332])(target, s, t, r, q);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4iARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLint")] int q)
+		{
+			GlMultiTexCoord4IARBNative(target, s, t, r, q);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1333])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1333])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
+		{
+			GlMultiTexCoord4IvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4ivARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord4IvARBNative(target, (int*)pv);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLshort")] short q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1334])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1334])(target, s, t, r, q);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4sARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLshort")] short q)
+		{
+			GlMultiTexCoord4SARBNative(target, s, t, r, q);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1335])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1335])(target, (nint)v);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
+		{
+			GlMultiTexCoord4SvARBNative(target, v);
+		}
+
+		[NativeName(NativeNameType.Func, "glMultiTexCoord4svARB")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMultiTexCoord4SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlMultiTexCoord4SvARBNative(target, (short*)pv);
+			}
+		}
+
+		/// <summary>
+		/// Get driver-specific information about a window.<br/>
+		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
+		/// The caller must initialize the `info` structure's version by using<br/>
+		/// `SDL_VERSION(<br/>
+		/// &info<br/>
+		/// .version)`, and then this function will fill in the rest<br/>
+		/// of the structure with information about the given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool GetWindowWMInfoNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSysWMInfo*, SDLBool>)funcTable[1336])(window, info);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[1336])((nint)window, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Get driver-specific information about a window.<br/>
+		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
+		/// The caller must initialize the `info` structure's version by using<br/>
+		/// `SDL_VERSION(<br/>
+		/// &info<br/>
+		/// .version)`, and then this function will fill in the rest<br/>
+		/// of the structure with information about the given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
+		{
+			SDLBool ret = GetWindowWMInfoNative(window, info);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get driver-specific information about a window.<br/>
+		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
+		/// The caller must initialize the `info` structure's version by using<br/>
+		/// `SDL_VERSION(<br/>
+		/// &info<br/>
+		/// .version)`, and then this function will fill in the rest<br/>
+		/// of the structure with information about the given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, info);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get driver-specific information about a window.<br/>
+		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
+		/// The caller must initialize the `info` structure's version by using<br/>
+		/// `SDL_VERSION(<br/>
+		/// &info<br/>
+		/// .version)`, and then this function will fill in the rest<br/>
+		/// of the structure with information about the given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
+		{
+			fixed (SDLSysWMInfo* pinfo = &info)
+			{
+				SDLBool ret = GetWindowWMInfoNative(window, (SDLSysWMInfo*)pinfo);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get driver-specific information about a window.<br/>
+		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
+		/// The caller must initialize the `info` structure's version by using<br/>
+		/// `SDL_VERSION(<br/>
+		/// &info<br/>
+		/// .version)`, and then this function will fill in the rest<br/>
+		/// of the structure with information about the given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLSysWMInfo* pinfo = &info)
+				{
+					SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, (SDLSysWMInfo*)pinfo);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestAssertNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[1337])(assertCondition, assertDescription);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1337])(assertCondition, (nint)assertDescription);
+			#endif
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		{
+			TestAssertNative(assertCondition, assertDescription);
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
+		{
+			fixed (byte* passertDescription = &assertDescription)
+			{
+				TestAssertNative(assertCondition, (byte*)passertDescription);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
+		{
+			fixed (byte* passertDescription = assertDescription)
+			{
+				TestAssertNative(assertCondition, (byte*)passertDescription);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (assertDescription != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			TestAssertNative(assertCondition, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int TestAssertCheckNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*, int>)funcTable[1338])(assertCondition, assertDescription);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[1338])(assertCondition, (nint)assertDescription);
+			#endif
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		{
+			int ret = TestAssertCheckNative(assertCondition, assertDescription);
+			return ret;
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
+		{
+			fixed (byte* passertDescription = &assertDescription)
+			{
+				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
+		{
+			fixed (byte* passertDescription = assertDescription)
+			{
+				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (assertDescription != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = TestAssertCheckNative(assertCondition, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestAssertPassNative([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1339])(assertDescription);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1339])((nint)assertDescription);
+			#endif
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
+		{
+			TestAssertPassNative(assertDescription);
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
+		{
+			fixed (byte* passertDescription = &assertDescription)
+			{
+				TestAssertPassNative((byte*)passertDescription);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
+		{
+			fixed (byte* passertDescription = assertDescription)
+			{
+				TestAssertPassNative((byte*)passertDescription);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (assertDescription != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			TestAssertPassNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		/// <summary>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestResetAssertSummaryNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1340])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1340])();
+			#endif
+		}
+
+		/// <summary>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void TestResetAssertSummary()
+		{
+			TestResetAssertSummaryNative();
+		}
+
+		/// <summary>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDLTest_LogAssertSummary")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void TestLogAssertSummaryNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1341])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1341])();
+			#endif
+		}
+
 		/// <summary>
 		/// <br/>
 		/// </summary>
@@ -33,12 +1328,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_AssertSummaryToTestResult")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestAssertSummaryToTestResultNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[1342])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1342])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[1342])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1342])();
 			#endif
 		}
 
@@ -61,12 +1357,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonCreateState")]
 		[return: NativeName(NativeNameType.Type, "SDLTest_CommonState*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLTestCommonState* TestCommonCreateStateNative([NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char**")] byte** argv, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, uint, SDLTestCommonState*>)vt[1343])(argv, flags);
+			return ((delegate* unmanaged[Cdecl]<byte**, uint, SDLTestCommonState*>)funcTable[1343])(argv, flags);
 			#else
-			return (SDLTestCommonState*)((delegate* unmanaged[Cdecl]<nint, uint, nint>)vt[1343])((nint)argv, flags);
+			return (SDLTestCommonState*)((delegate* unmanaged[Cdecl]<nint, uint, nint>)funcTable[1343])((nint)argv, flags);
 			#endif
 		}
 
@@ -106,12 +1403,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonArg")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCommonArgNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState*")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, int>)vt[1344])(state, index);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, int>)funcTable[1344])(state, index);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[1344])((nint)state, index);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[1344])((nint)state, index);
 			#endif
 		}
 
@@ -154,12 +1452,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonLogUsage")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestCommonLogUsageNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState*")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argv0")] [NativeName(NativeNameType.Type, "const char*")] byte* argv0, [NativeName(NativeNameType.Param, "options")] [NativeName(NativeNameType.Type, "const char**")] byte** options)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte*, byte**, void>)vt[1345])(state, argv0, options);
+			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte*, byte**, void>)funcTable[1345])(state, argv0, options);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[1345])((nint)state, (nint)argv0, (nint)options);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1345])((nint)state, (nint)argv0, (nint)options);
 			#endif
 		}
 
@@ -569,12 +1868,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonUsage")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* TestCommonUsageNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState*")] SDLTestCommonState* state)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte*>)vt[1346])(state);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, byte*>)funcTable[1346])(state);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[1346])((nint)state);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[1346])((nint)state);
 			#endif
 		}
 
@@ -655,12 +1955,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonInit")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool TestCommonInitNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState*")] SDLTestCommonState* state)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLBool>)vt[1347])(state);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLBool>)funcTable[1347])(state);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[1347])((nint)state);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[1347])((nint)state);
 			#endif
 		}
 
@@ -700,12 +2001,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonDefaultArgs")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool TestCommonDefaultArgsNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState*")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "const int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char**")] byte** argv)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, byte**, SDLBool>)vt[1348])(state, argc, argv);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCommonState*, int, byte**, SDLBool>)funcTable[1348])(state, argc, argv);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, SDLBool>)vt[1348])((nint)state, argc, (nint)argv);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, SDLBool>)funcTable[1348])((nint)state, argc, (nint)argv);
 			#endif
 		}
 
@@ -780,12 +2082,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonEvent")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestCommonEventNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState*")] SDLTestCommonState* state, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event*")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "done")] [NativeName(NativeNameType.Type, "int*")] int* done)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLEvent*, int*, void>)vt[1349])(state, evnt, done);
+			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, SDLEvent*, int*, void>)funcTable[1349])(state, evnt, done);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[1349])((nint)state, (nint)evnt, (nint)done);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1349])((nint)state, (nint)evnt, (nint)done);
 			#endif
 		}
 
@@ -928,12 +2231,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonQuit")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestCommonQuitNative([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "SDLTest_CommonState*")] SDLTestCommonState* state)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, void>)vt[1350])(state);
+			((delegate* unmanaged[Cdecl]<SDLTestCommonState*, void>)funcTable[1350])(state);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1350])((nint)state);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1350])((nint)state);
 			#endif
 		}
 
@@ -971,12 +2275,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CommonDrawWindowInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestCommonDrawWindowInfoNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "usedHeight")] [NativeName(NativeNameType.Type, "int*")] int* usedHeight)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*, int*, void>)vt[1351])(renderer, window, usedHeight);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*, int*, void>)funcTable[1351])(renderer, window, usedHeight);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[1351])((nint)renderer, (nint)window, (nint)usedHeight);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[1351])((nint)renderer, (nint)window, (nint)usedHeight);
 			#endif
 		}
 
@@ -1117,12 +2422,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlit")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1352])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1352])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1352])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1352])();
 			#endif
 		}
 
@@ -1139,12 +2445,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlitColor")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitColorNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1353])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1353])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1353])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1353])();
 			#endif
 		}
 
@@ -1158,12 +2465,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlitAlpha")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitAlphaNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1354])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1354])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1354])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1354])();
 			#endif
 		}
 
@@ -1177,12 +2485,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlitBlendAdd")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitBlendAddNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1355])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1355])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1355])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1355])();
 			#endif
 		}
 
@@ -1196,12 +2505,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlitBlend")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitBlendNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1356])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1356])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1356])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1356])();
 			#endif
 		}
 
@@ -1215,12 +2525,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlitBlendMod")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitBlendModNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1357])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1357])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1357])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1357])();
 			#endif
 		}
 
@@ -1234,12 +2545,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlitBlendNone")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitBlendNoneNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1358])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1358])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1358])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1358])();
 			#endif
 		}
 
@@ -1253,12 +2565,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageBlitBlendAll")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageBlitBlendAllNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1359])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1359])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1359])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1359])();
 			#endif
 		}
 
@@ -1272,12 +2585,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImageFace")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImageFaceNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1360])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1360])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1360])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1360])();
 			#endif
 		}
 
@@ -1291,12 +2605,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImagePrimitives")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImagePrimitivesNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1361])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1361])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1361])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1361])();
 			#endif
 		}
 
@@ -1310,12 +2625,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_ImagePrimitivesBlend")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* TestImagePrimitivesBlendNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)vt[1362])();
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*>)funcTable[1362])();
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)vt[1362])();
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint>)funcTable[1362])();
 			#endif
 		}
 
@@ -1334,12 +2650,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CompareSurfaces")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCompareSurfacesNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "referenceSurface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* referenceSurface, [NativeName(NativeNameType.Param, "allowable_error")] [NativeName(NativeNameType.Type, "int")] int allowableError)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*, int, int>)vt[1363])(surface, referenceSurface, allowableError);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*, int, int>)funcTable[1363])(surface, referenceSurface, allowableError);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)vt[1363])((nint)surface, (nint)referenceSurface, allowableError);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[1363])((nint)surface, (nint)referenceSurface, allowableError);
 			#endif
 		}
 
@@ -1416,12 +2733,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Crc32Init")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCrc32InitNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context*")] SDLTestCrc32Context* crcContext)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, int>)vt[1364])(crcContext);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, int>)funcTable[1364])(crcContext);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[1364])((nint)crcContext);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[1364])((nint)crcContext);
 			#endif
 		}
 
@@ -1466,12 +2784,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Crc32Calc")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCrc32CalcNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context*")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* crc32)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, int>)vt[1365])(crcContext, inBuf, inLen, crc32);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, int>)funcTable[1365])(crcContext, inBuf, inLen, crc32);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int>)vt[1365])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int>)funcTable[1365])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
 			#endif
 		}
 
@@ -1628,12 +2947,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcStart")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCrc32CalcStartNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context*")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* crc32)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, int>)vt[1366])(crcContext, crc32);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, int>)funcTable[1366])(crcContext, crc32);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[1366])((nint)crcContext, (nint)crc32);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[1366])((nint)crcContext, (nint)crc32);
 			#endif
 		}
 
@@ -1695,12 +3015,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcEnd")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCrc32CalcEndNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context*")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* crc32)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, int>)vt[1367])(crcContext, crc32);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, uint*, int>)funcTable[1367])(crcContext, crc32);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[1367])((nint)crcContext, (nint)crc32);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[1367])((nint)crcContext, (nint)crc32);
 			#endif
 		}
 
@@ -1750,12 +3071,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDLTest_Crc32CalcBuffer")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCrc32CalcBufferNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context*")] SDLTestCrc32Context* crcContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen, [NativeName(NativeNameType.Param, "crc32")] [NativeName(NativeNameType.Type, "unsigned int*")] uint* crc32)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, int>)vt[1368])(crcContext, inBuf, inLen, crc32);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, byte*, uint, uint*, int>)funcTable[1368])(crcContext, inBuf, inLen, crc32);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int>)vt[1368])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int>)funcTable[1368])((nint)crcContext, (nint)inBuf, inLen, (nint)crc32);
 			#endif
 		}
 
@@ -1866,12 +3188,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_Crc32Done")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestCrc32DoneNative([NativeName(NativeNameType.Param, "crcContext")] [NativeName(NativeNameType.Type, "SDLTest_Crc32Context*")] SDLTestCrc32Context* crcContext)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, int>)vt[1369])(crcContext);
+			return ((delegate* unmanaged[Cdecl]<SDLTestCrc32Context*, int>)funcTable[1369])(crcContext);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[1369])((nint)crcContext);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[1369])((nint)crcContext);
 			#endif
 		}
 
@@ -1911,12 +3234,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_DrawCharacter")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestDrawCharacterNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "Uint32")] uint c)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, uint, int>)vt[1370])(renderer, x, y, c);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, uint, int>)funcTable[1370])(renderer, x, y, c);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, uint, int>)vt[1370])((nint)renderer, x, y, c);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, uint, int>)funcTable[1370])((nint)renderer, x, y, c);
 			#endif
 		}
 
@@ -1957,12 +3281,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_DrawString")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestDrawStringNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "const char*")] byte* s)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, byte*, int>)vt[1371])(renderer, x, y, s);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, byte*, int>)funcTable[1371])(renderer, x, y, s);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, nint, int>)vt[1371])((nint)renderer, x, y, (nint)s);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, nint, int>)funcTable[1371])((nint)renderer, x, y, (nint)s);
 			#endif
 		}
 
@@ -2152,12 +3477,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_TextWindowCreate")]
 		[return: NativeName(NativeNameType.Type, "SDLTest_TextWindow*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLTestTextWindow* TestTextWindowCreateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int, int, SDLTestTextWindow*>)vt[1372])(x, y, w, h);
+			return ((delegate* unmanaged[Cdecl]<int, int, int, int, SDLTestTextWindow*>)funcTable[1372])(x, y, w, h);
 			#else
-			return (SDLTestTextWindow*)((delegate* unmanaged[Cdecl]<int, int, int, int, nint>)vt[1372])(x, y, w, h);
+			return (SDLTestTextWindow*)((delegate* unmanaged[Cdecl]<int, int, int, int, nint>)funcTable[1372])(x, y, w, h);
 			#endif
 		}
 
@@ -2183,12 +3509,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDisplay")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestTextWindowDisplayNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow*")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, SDLRenderer*, void>)vt[1373])(textwin, renderer);
+			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, SDLRenderer*, void>)funcTable[1373])(textwin, renderer);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[1373])((nint)textwin, (nint)renderer);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1373])((nint)textwin, (nint)renderer);
 			#endif
 		}
 
@@ -2266,12 +3593,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddText")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestTextWindowAddTextNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow*")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, void>)vt[1374])(textwin, fmt);
+			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, void>)funcTable[1374])(textwin, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[1374])((nint)textwin, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1374])((nint)textwin, (nint)fmt);
 			#endif
 		}
 
@@ -2471,12 +3799,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_TextWindowAddTextWithLength")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestTextWindowAddTextWithLengthNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow*")] SDLTestTextWindow* textwin, [NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, ulong, void>)vt[1375])(textwin, text, len);
+			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, byte*, ulong, void>)funcTable[1375])(textwin, text, len);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, ulong, void>)vt[1375])((nint)textwin, (nint)text, len);
+			((delegate* unmanaged[Cdecl]<nint, nint, ulong, void>)funcTable[1375])((nint)textwin, (nint)text, len);
 			#endif
 		}
 
@@ -2859,12 +4188,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_TextWindowClear")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestTextWindowClearNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow*")] SDLTestTextWindow* textwin)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)vt[1376])(textwin);
+			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)funcTable[1376])(textwin);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1376])((nint)textwin);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1376])((nint)textwin);
 			#endif
 		}
 
@@ -2902,12 +4232,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_TextWindowDestroy")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestTextWindowDestroyNative([NativeName(NativeNameType.Param, "textwin")] [NativeName(NativeNameType.Type, "SDLTest_TextWindow*")] SDLTestTextWindow* textwin)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)vt[1377])(textwin);
+			((delegate* unmanaged[Cdecl]<SDLTestTextWindow*, void>)funcTable[1377])(textwin);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1377])((nint)textwin);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1377])((nint)textwin);
 			#endif
 		}
 
@@ -2943,12 +4274,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_CleanupTextDrawing")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestCleanupTextDrawingNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[1378])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1378])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[1378])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1378])();
 			#endif
 		}
 
@@ -2969,12 +4301,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_FuzzerInit")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TestFuzzerInitNative([NativeName(NativeNameType.Param, "execKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong execKey)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ulong, void>)vt[1379])(execKey);
+			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1379])(execKey);
 			#else
-			((delegate* unmanaged[Cdecl]<ulong, void>)vt[1379])(execKey);
+			((delegate* unmanaged[Cdecl]<ulong, void>)funcTable[1379])(execKey);
 			#endif
 		}
 
@@ -2996,12 +4329,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint8")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte TestRandomUint8Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte>)vt[1380])();
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[1380])();
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte>)vt[1380])();
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[1380])();
 			#endif
 		}
 
@@ -3023,12 +4357,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint8")]
 		[return: NativeName(NativeNameType.Type, "Sint8")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static sbyte TestRandomSint8Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<sbyte>)vt[1381])();
+			return ((delegate* unmanaged[Cdecl]<sbyte>)funcTable[1381])();
 			#else
-			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte>)vt[1381])();
+			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte>)funcTable[1381])();
 			#endif
 		}
 
@@ -3050,12 +4385,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ushort TestRandomUint16Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort>)vt[1382])();
+			return ((delegate* unmanaged[Cdecl]<ushort>)funcTable[1382])();
 			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<ushort>)vt[1382])();
+			return (ushort)((delegate* unmanaged[Cdecl]<ushort>)funcTable[1382])();
 			#endif
 		}
 
@@ -3077,12 +4413,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint16")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static short TestRandomSint16Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<short>)vt[1383])();
+			return ((delegate* unmanaged[Cdecl]<short>)funcTable[1383])();
 			#else
-			return (short)((delegate* unmanaged[Cdecl]<short>)vt[1383])();
+			return (short)((delegate* unmanaged[Cdecl]<short>)funcTable[1383])();
 			#endif
 		}
 
@@ -3104,12 +4441,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint32")]
 		[return: NativeName(NativeNameType.Type, "Sint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestRandomSint32Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[1384])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[1384])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[1384])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[1384])();
 			#endif
 		}
 
@@ -3131,12 +4469,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint TestRandomUint32Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[1385])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[1385])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[1385])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[1385])();
 			#endif
 		}
 
@@ -3158,12 +4497,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong TestRandomUint64Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)vt[1386])();
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[1386])();
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)vt[1386])();
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[1386])();
 			#endif
 		}
 
@@ -3185,12 +4525,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint64")]
 		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static long TestRandomSint64Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long>)vt[1387])();
+			return ((delegate* unmanaged[Cdecl]<long>)funcTable[1387])();
 			#else
-			return (long)((delegate* unmanaged[Cdecl]<long>)vt[1387])();
+			return (long)((delegate* unmanaged[Cdecl]<long>)funcTable[1387])();
 			#endif
 		}
 
@@ -3211,12 +4552,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUnitFloat")]
 		[return: NativeName(NativeNameType.Type, "float")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static float TestRandomUnitFloatNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float>)vt[1388])();
+			return ((delegate* unmanaged[Cdecl]<float>)funcTable[1388])();
 			#else
-			return (float)((delegate* unmanaged[Cdecl]<float>)vt[1388])();
+			return (float)((delegate* unmanaged[Cdecl]<float>)funcTable[1388])();
 			#endif
 		}
 
@@ -3236,12 +4578,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUnitDouble")]
 		[return: NativeName(NativeNameType.Type, "double")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static double TestRandomUnitDoubleNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double>)vt[1389])();
+			return ((delegate* unmanaged[Cdecl]<double>)funcTable[1389])();
 			#else
-			return (double)((delegate* unmanaged[Cdecl]<double>)vt[1389])();
+			return (double)((delegate* unmanaged[Cdecl]<double>)funcTable[1389])();
 			#endif
 		}
 
@@ -3262,12 +4605,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomFloat")]
 		[return: NativeName(NativeNameType.Type, "float")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static float TestRandomFloatNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<float>)vt[1390])();
+			return ((delegate* unmanaged[Cdecl]<float>)funcTable[1390])();
 			#else
-			return (float)((delegate* unmanaged[Cdecl]<float>)vt[1390])();
+			return (float)((delegate* unmanaged[Cdecl]<float>)funcTable[1390])();
 			#endif
 		}
 
@@ -3289,12 +4633,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomDouble")]
 		[return: NativeName(NativeNameType.Type, "double")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static double TestRandomDoubleNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<double>)vt[1391])();
+			return ((delegate* unmanaged[Cdecl]<double>)funcTable[1391])();
 			#else
-			return (double)((delegate* unmanaged[Cdecl]<double>)vt[1391])();
+			return (double)((delegate* unmanaged[Cdecl]<double>)funcTable[1391])();
 			#endif
 		}
 
@@ -3326,12 +4671,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint8BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte TestRandomUint8BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint8")] byte boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint8")] byte boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte, byte, SDLBool, byte>)vt[1392])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<byte, byte, SDLBool, byte>)funcTable[1392])(boundary1, boundary2, validDomain);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<byte, byte, SDLBool, byte>)vt[1392])(boundary1, boundary2, validDomain);
+			return (byte)((delegate* unmanaged[Cdecl]<byte, byte, SDLBool, byte>)funcTable[1392])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
@@ -3373,12 +4719,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint16BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ushort TestRandomUint16BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint16")] ushort boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint16")] ushort boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLBool, ushort>)vt[1393])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLBool, ushort>)funcTable[1393])(boundary1, boundary2, validDomain);
 			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<ushort, ushort, SDLBool, ushort>)vt[1393])(boundary1, boundary2, validDomain);
+			return (ushort)((delegate* unmanaged[Cdecl]<ushort, ushort, SDLBool, ushort>)funcTable[1393])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
@@ -3420,12 +4767,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint32BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint TestRandomUint32BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint32")] uint boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint32")] uint boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, SDLBool, uint>)vt[1394])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<uint, uint, SDLBool, uint>)funcTable[1394])(boundary1, boundary2, validDomain);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint, SDLBool, uint>)vt[1394])(boundary1, boundary2, validDomain);
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint, SDLBool, uint>)funcTable[1394])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
@@ -3467,12 +4815,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomUint64BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong TestRandomUint64BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Uint64")] ulong boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Uint64")] ulong boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, ulong, SDLBool, ulong>)vt[1395])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<ulong, ulong, SDLBool, ulong>)funcTable[1395])(boundary1, boundary2, validDomain);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong, ulong, SDLBool, ulong>)vt[1395])(boundary1, boundary2, validDomain);
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong, ulong, SDLBool, ulong>)funcTable[1395])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
@@ -3514,12 +4863,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint8BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Sint8")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static sbyte TestRandomSint8BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint8")] sbyte boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint8")] sbyte boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<sbyte, sbyte, SDLBool, sbyte>)vt[1396])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<sbyte, sbyte, SDLBool, sbyte>)funcTable[1396])(boundary1, boundary2, validDomain);
 			#else
-			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte, sbyte, SDLBool, sbyte>)vt[1396])(boundary1, boundary2, validDomain);
+			return (sbyte)((delegate* unmanaged[Cdecl]<sbyte, sbyte, SDLBool, sbyte>)funcTable[1396])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
@@ -3561,12 +4911,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint16BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Sint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static short TestRandomSint16BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint16")] short boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint16")] short boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<short, short, SDLBool, short>)vt[1397])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<short, short, SDLBool, short>)funcTable[1397])(boundary1, boundary2, validDomain);
 			#else
-			return (short)((delegate* unmanaged[Cdecl]<short, short, SDLBool, short>)vt[1397])(boundary1, boundary2, validDomain);
+			return (short)((delegate* unmanaged[Cdecl]<short, short, SDLBool, short>)funcTable[1397])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
@@ -3608,12 +4959,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint32BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Sint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TestRandomSint32BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint32")] int boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint32")] int boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLBool, int>)vt[1398])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<int, int, SDLBool, int>)funcTable[1398])(boundary1, boundary2, validDomain);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, SDLBool, int>)vt[1398])(boundary1, boundary2, validDomain);
+			return (int)((delegate* unmanaged[Cdecl]<int, int, SDLBool, int>)funcTable[1398])(boundary1, boundary2, validDomain);
 			#endif
 		}
 
@@ -3655,1369 +5007,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDLTest_RandomSint64BoundaryValue")]
 		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static long TestRandomSint64BoundaryValueNative([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint64")] long boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint64")] long boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, long, SDLBool, long>)vt[1399])(boundary1, boundary2, validDomain);
+			return ((delegate* unmanaged[Cdecl]<long, long, SDLBool, long>)funcTable[1399])(boundary1, boundary2, validDomain);
 			#else
-			return (long)((delegate* unmanaged[Cdecl]<long, long, SDLBool, long>)vt[1399])(boundary1, boundary2, validDomain);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns a random boundary value for Sint64 within the given boundaries.<br/>
-		/// Boundaries are inclusive, see the usage examples below. If validDomain<br/>
-		/// is true, the function will only return valid boundaries, otherwise non-valid<br/>
-		/// boundaries are also possible.<br/>
-		/// If boundary1 > boundary2, the values are swapped<br/>
-		/// Usage examples:<br/>
-		/// RandomSint64BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20<br/>
-		/// RandomSint64BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, 99, SDL_FALSE) returns 100<br/>
-		/// RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, SDL_FALSE) returns SINT64_MIN (== error value) and error set<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomSint64BoundaryValue")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		public static long TestRandomSint64BoundaryValue([NativeName(NativeNameType.Param, "boundary1")] [NativeName(NativeNameType.Type, "Sint64")] long boundary1, [NativeName(NativeNameType.Param, "boundary2")] [NativeName(NativeNameType.Type, "Sint64")] long boundary2, [NativeName(NativeNameType.Param, "validDomain")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool validDomain)
-		{
-			long ret = TestRandomSint64BoundaryValueNative(boundary1, boundary2, validDomain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Returns integer in range [min, max] (inclusive).<br/>
-		/// Min and max values can be negative values.<br/>
-		/// If Max in smaller than min, then the values are swapped.<br/>
-		/// Min and max are the same value, that value will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomIntegerInRange")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		internal static int TestRandomIntegerInRangeNative([NativeName(NativeNameType.Param, "min")] [NativeName(NativeNameType.Type, "Sint32")] int min, [NativeName(NativeNameType.Param, "max")] [NativeName(NativeNameType.Type, "Sint32")] int max)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int>)vt[1400])(min, max);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)vt[1400])(min, max);
-			#endif
-		}
-
-		/// <summary>
-		/// Returns integer in range [min, max] (inclusive).<br/>
-		/// Min and max values can be negative values.<br/>
-		/// If Max in smaller than min, then the values are swapped.<br/>
-		/// Min and max are the same value, that value will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomIntegerInRange")]
-		[return: NativeName(NativeNameType.Type, "Sint32")]
-		public static int TestRandomIntegerInRange([NativeName(NativeNameType.Param, "min")] [NativeName(NativeNameType.Type, "Sint32")] int min, [NativeName(NativeNameType.Param, "max")] [NativeName(NativeNameType.Type, "Sint32")] int max)
-		{
-			int ret = TestRandomIntegerInRangeNative(min, max);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiString")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* TestRandomAsciiStringNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)vt[1401])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)vt[1401])();
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiString")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* TestRandomAsciiString()
-		{
-			byte* ret = TestRandomAsciiStringNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The minimum length for<br/>
-		/// the string is 1 character, maximum length for the string is 255<br/>
-		/// characters and it can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiString")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string TestRandomAsciiStringS()
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringWithMaximumLength")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* TestRandomAsciiStringWithMaximumLengthNative([NativeName(NativeNameType.Param, "maxLength")] [NativeName(NativeNameType.Type, "int")] int maxLength)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[1402])(maxLength);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[1402])(maxLength);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringWithMaximumLength")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* TestRandomAsciiStringWithMaximumLength([NativeName(NativeNameType.Param, "maxLength")] [NativeName(NativeNameType.Type, "int")] int maxLength)
-		{
-			byte* ret = TestRandomAsciiStringWithMaximumLengthNative(maxLength);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The maximum length for<br/>
-		/// the string is defined by the maxLength parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringWithMaximumLength")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string TestRandomAsciiStringWithMaximumLengthS([NativeName(NativeNameType.Param, "maxLength")] [NativeName(NativeNameType.Type, "int")] int maxLength)
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringWithMaximumLengthNative(maxLength));
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringOfSize")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* TestRandomAsciiStringOfSizeNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[1403])(size);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[1403])(size);
-			#endif
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringOfSize")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* TestRandomAsciiStringOfSize([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			byte* ret = TestRandomAsciiStringOfSizeNative(size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Generates random null-terminated string. The length for<br/>
-		/// the string is defined by the size parameter.<br/>
-		/// String can contain ASCII characters from 32 to 126.<br/>
-		/// Note: Returned string needs to be deallocated.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomAsciiStringOfSize")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string TestRandomAsciiStringOfSizeS([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
-		{
-			string ret = Utils.DecodeStringUTF8(TestRandomAsciiStringOfSizeNative(size));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GetFuzzerInvocationCount")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int TestGetFuzzerInvocationCountNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[1404])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[1404])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the invocation count for the fuzzer since last ...FuzzerInit.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GetFuzzerInvocationCount")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestGetFuzzerInvocationCount()
-		{
-			int ret = TestGetFuzzerInvocationCountNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The returned string needs to be deallocated by the caller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		internal static byte* TestGenerateRunSeedNative([NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "const int")] int length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[1405])(length);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[1405])(length);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The returned string needs to be deallocated by the caller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* TestGenerateRunSeed([NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "const int")] int length)
-		{
-			byte* ret = TestGenerateRunSeedNative(length);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The returned string needs to be deallocated by the caller.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_GenerateRunSeed")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string TestGenerateRunSeedS([NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "const int")] int length)
-		{
-			string ret = Utils.DecodeStringUTF8(TestGenerateRunSeedNative(length));
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int TestRunSuitesNative([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] byte* userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] byte* filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestTestSuiteReference**, byte*, ulong, byte*, int, int>)vt[1406])(testSuites, userRunSeed, userExecKey, filter, testIterations);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, nint, int, int>)vt[1406])((nint)testSuites, (nint)userRunSeed, userExecKey, (nint)filter, testIterations);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] byte* userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] byte* filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, filter, testIterations);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] ref byte userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] byte* filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			fixed (byte* puserRunSeed = &userRunSeed)
-			{
-				int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, filter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] byte* filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			fixed (byte* puserRunSeed = userRunSeed)
-			{
-				int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, filter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] string userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] byte* filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (userRunSeed != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(userRunSeed);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(userRunSeed, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = TestRunSuitesNative(testSuites, pStr0, userExecKey, filter, testIterations);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] byte* userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] ref byte filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			fixed (byte* pfilter = &filter)
-			{
-				int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, (byte*)pfilter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] byte* userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			fixed (byte* pfilter = filter)
-			{
-				int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, (byte*)pfilter, testIterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] byte* userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] string filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (filter != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(filter);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(filter, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = TestRunSuitesNative(testSuites, userRunSeed, userExecKey, pStr0, testIterations);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] ref byte userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] ref byte filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			fixed (byte* puserRunSeed = &userRunSeed)
-			{
-				fixed (byte* pfilter = &filter)
-				{
-					int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, (byte*)pfilter, testIterations);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			fixed (byte* puserRunSeed = userRunSeed)
-			{
-				fixed (byte* pfilter = filter)
-				{
-					int ret = TestRunSuitesNative(testSuites, (byte*)puserRunSeed, userExecKey, (byte*)pfilter, testIterations);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RunSuites")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestRunSuites([NativeName(NativeNameType.Param, "testSuites")] [NativeName(NativeNameType.Type, "SDLTest_TestSuiteReference*[-1]")] SDLTestTestSuiteReference** testSuites, [NativeName(NativeNameType.Param, "userRunSeed")] [NativeName(NativeNameType.Type, "const char*")] string userRunSeed, [NativeName(NativeNameType.Param, "userExecKey")] [NativeName(NativeNameType.Type, "Uint64")] ulong userExecKey, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "const char*")] string filter, [NativeName(NativeNameType.Param, "testIterations")] [NativeName(NativeNameType.Type, "int")] int testIterations)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (userRunSeed != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(userRunSeed);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(userRunSeed, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (filter != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(filter);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(filter, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			int ret = TestRunSuitesNative(testSuites, pStr0, userExecKey, pStr1, testIterations);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestLogNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[1407])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1407])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
-		{
-			TestLogNative(fmt);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				TestLogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestLogNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Log")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLog([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestLogNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestLogErrorNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[1408])(fmt);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1408])((nint)fmt);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
-		{
-			TestLogErrorNative(fmt);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ref byte fmt)
-		{
-			fixed (byte* pfmt = &fmt)
-			{
-				TestLogErrorNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fmt)
-		{
-			fixed (byte* pfmt = fmt)
-			{
-				TestLogErrorNative((byte*)pfmt);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogError")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] string fmt)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fmt != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fmt);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestLogErrorNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Init")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestMd5InitNative([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] SDLTestMd5Context* mdContext)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)vt[1409])(mdContext);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1409])((nint)mdContext);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Init")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Init([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] SDLTestMd5Context* mdContext)
-		{
-			TestMd5InitNative(mdContext);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function initializes the message-digest context<br/>
-		/// mdContext. Call before each new use of the context -<br/>
-		/// all fields are set to zero.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Init")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Init([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] ref SDLTestMd5Context mdContext)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				TestMd5InitNative((SDLTestMd5Context*)pmdContext);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestMd5UpdateNative([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] SDLTestMd5Context* mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, byte*, uint, void>)vt[1410])(mdContext, inBuf, inLen);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, void>)vt[1410])((nint)mdContext, (nint)inBuf, inLen);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] SDLTestMd5Context* mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			TestMd5UpdateNative(mdContext, inBuf, inLen);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] ref SDLTestMd5Context mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, inBuf, inLen);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] SDLTestMd5Context* mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			fixed (byte* pinBuf = &inBuf)
-			{
-				TestMd5UpdateNative(mdContext, (byte*)pinBuf, inLen);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function updates the message-digest context to account<br/>
-		/// for the presence of each of the characters inBuf[0..inLen-1]<br/>
-		/// in the message whose digest is being computed.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Update")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Update([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] ref SDLTestMd5Context mdContext, [NativeName(NativeNameType.Param, "inBuf")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte inBuf, [NativeName(NativeNameType.Param, "inLen")] [NativeName(NativeNameType.Type, "unsigned int")] uint inLen)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				fixed (byte* pinBuf = &inBuf)
-				{
-					TestMd5UpdateNative((SDLTestMd5Context*)pmdContext, (byte*)pinBuf, inLen);
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function terminates the message-digest computation and<br/>
-		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
-		/// Always call before using the digest[] variable.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Final")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestMd5FinalNative([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] SDLTestMd5Context* mdContext)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestMd5Context*, void>)vt[1411])(mdContext);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1411])((nint)mdContext);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function terminates the message-digest computation and<br/>
-		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
-		/// Always call before using the digest[] variable.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Final")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Final([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] SDLTestMd5Context* mdContext)
-		{
-			TestMd5FinalNative(mdContext);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// Note: The function terminates the message-digest computation and<br/>
-		/// ends with the desired message digest in mdContext.digest[0..15].<br/>
-		/// Always call before using the digest[] variable.<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Md5Final")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestMd5Final([NativeName(NativeNameType.Param, "mdContext")] [NativeName(NativeNameType.Type, "SDLTest_Md5Context*")] ref SDLTestMd5Context mdContext)
-		{
-			fixed (SDLTestMd5Context* pmdContext = &mdContext)
-			{
-				TestMd5FinalNative((SDLTestMd5Context*)pmdContext);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TrackAllocations")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int TestTrackAllocationsNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[1412])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[1412])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_TrackAllocations")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestTrackAllocations()
-		{
-			int ret = TestTrackAllocationsNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestLogAllocationsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[1413])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[1413])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogAllocations")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestLogAllocations()
-		{
-			TestLogAllocationsNative();
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The random sequence of numbers returned by ...Random() is the<br/>
-		/// same for the same two integers and has a period of 2^31.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomInit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestRandomInitNative([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] SDLTestRandomContext* rndContext, [NativeName(NativeNameType.Param, "xi")] [NativeName(NativeNameType.Type, "unsigned int")] uint xi, [NativeName(NativeNameType.Param, "ci")] [NativeName(NativeNameType.Type, "unsigned int")] uint ci)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestRandomContext*, uint, uint, void>)vt[1414])(rndContext, xi, ci);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, uint, uint, void>)vt[1414])((nint)rndContext, xi, ci);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The random sequence of numbers returned by ...Random() is the<br/>
-		/// same for the same two integers and has a period of 2^31.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomInit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestRandomInit([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] SDLTestRandomContext* rndContext, [NativeName(NativeNameType.Param, "xi")] [NativeName(NativeNameType.Type, "unsigned int")] uint xi, [NativeName(NativeNameType.Param, "ci")] [NativeName(NativeNameType.Type, "unsigned int")] uint ci)
-		{
-			TestRandomInitNative(rndContext, xi, ci);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: The random sequence of numbers returned by ...Random() is the<br/>
-		/// same for the same two integers and has a period of 2^31.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomInit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestRandomInit([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] ref SDLTestRandomContext rndContext, [NativeName(NativeNameType.Param, "xi")] [NativeName(NativeNameType.Type, "unsigned int")] uint xi, [NativeName(NativeNameType.Param, "ci")] [NativeName(NativeNameType.Type, "unsigned int")] uint ci)
-		{
-			fixed (SDLTestRandomContext* prndContext = &rndContext)
-			{
-				TestRandomInitNative((SDLTestRandomContext*)prndContext, xi, ci);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomInitTime")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestRandomInitTimeNative([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] SDLTestRandomContext* rndContext)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTestRandomContext*, void>)vt[1415])(rndContext);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1415])((nint)rndContext);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomInitTime")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestRandomInitTime([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] SDLTestRandomContext* rndContext)
-		{
-			TestRandomInitTimeNative(rndContext);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_RandomInitTime")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestRandomInitTime([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] ref SDLTestRandomContext rndContext)
-		{
-			fixed (SDLTestRandomContext* prndContext = &rndContext)
-			{
-				TestRandomInitTimeNative((SDLTestRandomContext*)prndContext);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: ...RandomInit() or ...RandomInitTime() must have been called<br/>
-		/// before using this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Random")]
-		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		internal static uint TestRandomNative([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] SDLTestRandomContext* rndContext)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTestRandomContext*, uint>)vt[1416])(rndContext);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[1416])((nint)rndContext);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: ...RandomInit() or ...RandomInitTime() must have been called<br/>
-		/// before using this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Random")]
-		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		public static uint TestRandom([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] SDLTestRandomContext* rndContext)
-		{
-			uint ret = TestRandomNative(rndContext);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// Note: ...RandomInit() or ...RandomInitTime() must have been called<br/>
-		/// before using this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Random")]
-		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		public static uint TestRandom([NativeName(NativeNameType.Param, "rndContext")] [NativeName(NativeNameType.Type, "SDLTest_RandomContext*")] ref SDLTestRandomContext rndContext)
-		{
-			fixed (SDLTestRandomContext* prndContext = &rndContext)
-			{
-				uint ret = TestRandomNative((SDLTestRandomContext*)prndContext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int VulkanLoadLibraryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[1417])(path);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[1417])((nint)path);
-			#endif
-		}
-
-		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path)
-		{
-			int ret = VulkanLoadLibraryNative(path);
-			return ret;
-		}
-
-		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ref byte path)
-		{
-			fixed (byte* ppath = &path)
-			{
-				int ret = VulkanLoadLibraryNative((byte*)ppath);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> path)
-		{
-			fixed (byte* ppath = path)
-			{
-				int ret = VulkanLoadLibraryNative((byte*)ppath);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Dynamically load the Vulkan loader library.<br/>
-		/// This should be called after initializing the video driver, but before<br/>
-		/// creating any Vulkan windows. If no Vulkan loader library is loaded, the<br/>
-		/// default library will be loaded upon creation of the first Vulkan window.<br/>
-		/// It is fairly common for Vulkan applications to link with libvulkan instead<br/>
-		/// of explicitly loading it at run time. This will work with SDL provided the<br/>
-		/// application links to a dynamic library and both it and SDL use the same<br/>
-		/// search path.<br/>
-		/// If you specify a non-NULL `path`, an application should retrieve all of the<br/>
-		/// Vulkan functions it uses from the dynamic library using<br/>
-		/// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points<br/>
-		/// to the same vulkan loader library the application linked to.<br/>
-		/// On Apple devices, if `path` is NULL, SDL will attempt to find the<br/>
-		/// `vkGetInstanceProcAddr` address within all the Mach-O images of the current<br/>
-		/// process. This is because it is fairly common for Vulkan applications to<br/>
-		/// link with libvulkan (and historically MoltenVK was provided as a static<br/>
-		/// library). If it is not found, on macOS, SDL will attempt to load<br/>
-		/// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,<br/>
-		/// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On<br/>
-		/// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a<br/>
-		/// dynamic framework or .dylib must ensure it is included in its application<br/>
-		/// bundle.<br/>
-		/// On non-Apple devices, application linking with a static libvulkan is not<br/>
-		/// supported. Either do not link to the Vulkan loader or link to a dynamic<br/>
-		/// library version.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_LoadLibrary")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int VulkanLoadLibrary([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] string path)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = VulkanLoadLibraryNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the address of the `vkGetInstanceProcAddr` function.<br/>
-		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
-		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetVkGetInstanceProcAddr")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		internal static void* VulkanGetVkGetInstanceProcAddrNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*>)vt[1418])();
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint>)vt[1418])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the address of the `vkGetInstanceProcAddr` function.<br/>
-		/// This should be called after either calling SDL_Vulkan_LoadLibrary() or<br/>
-		/// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetVkGetInstanceProcAddr")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* VulkanGetVkGetInstanceProcAddr()
-		{
-			void* ret = VulkanGetVkGetInstanceProcAddrNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Unload the Vulkan library previously loaded by SDL_Vulkan_LoadLibrary()<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Vulkan_UnloadLibrary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void VulkanUnloadLibraryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[1419])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[1419])();
+			return (long)((delegate* unmanaged[Cdecl]<long, long, SDLBool, long>)funcTable[1399])(boundary1, boundary2, validDomain);
 			#endif
 		}
 	}

@@ -24,6 +24,126 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
 		[return: NativeName(NativeNameType.Type, "char*")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					fixed (byte* pinbuf = inbuf)
+					{
+						byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					fixed (byte* pinbuf = inbuf)
+					{
+						string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "const char*")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "const char*")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char*")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* pStr2 = null;
+			int pStrSize2 = 0;
+			if (inbuf != null)
+			{
+				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize2 >= Utils.MaxStackallocSize)
+				{
+					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
+				}
+				else
+				{
+					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
+					pStr2 = pStrStack2;
+				}
+				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
+				pStr2[pStrOffset2] = 0;
+			}
+			byte* ret = IconvStringNative(pStr0, pStr1, pStr2, inbytesleft);
+			if (pStrSize2 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr2);
+			}
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char*")]
 		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "const char*")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "const char*")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char*")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
 		{
 			byte* pStr0 = null;
@@ -95,12 +215,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_main")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int MainNative([NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char*[-1]")] byte** argv)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte**, int>)vt[127])(argc, argv);
+			return ((delegate* unmanaged[Cdecl]<int, byte**, int>)funcTable[127])(argc, argv);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)vt[127])(argc, (nint)argv);
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[127])(argc, (nint)argv);
 			#endif
 		}
 
@@ -158,12 +279,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetMainReady")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetMainReadyNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[128])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[128])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
 			#endif
 		}
 
@@ -198,12 +320,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RegisterApp")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RegisterAppNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "style")] [NativeName(NativeNameType.Type, "Uint32")] uint style, [NativeName(NativeNameType.Param, "hInst")] [NativeName(NativeNameType.Type, "void*")] void* hInst)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, uint, void*, int>)vt[129])(name, style, hInst);
+			return ((delegate* unmanaged[Cdecl]<byte*, uint, void*, int>)funcTable[129])(name, style, hInst);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, uint, nint, int>)vt[129])((nint)name, style, (nint)hInst);
+			return (int)((delegate* unmanaged[Cdecl]<nint, uint, nint, int>)funcTable[129])((nint)name, style, (nint)hInst);
 			#endif
 		}
 
@@ -327,12 +450,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnregisterApp")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void UnregisterAppNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[130])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[130])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[130])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[130])();
 			#endif
 		}
 
@@ -359,12 +483,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "__debugbreak")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DebugbreakNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[131])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[131])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[131])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[131])();
 			#endif
 		}
 
@@ -393,12 +518,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetAssertionHandler")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetAssertionHandlerNative([NativeName(NativeNameType.Param, "handler")] [NativeName(NativeNameType.Type, "SDL_AssertionHandler")] SDLAssertionHandler handler, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>, void*, void>)vt[132])((delegate*<SDLAssertData*, void*, SDLAssertState>)Utils.GetFunctionPointerForDelegate(handler), userdata);
+			((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>, void*, void>)funcTable[132])((delegate*<SDLAssertData*, void*, SDLAssertState>)Utils.GetFunctionPointerForDelegate(handler), userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[132])((nint)Utils.GetFunctionPointerForDelegate(handler), (nint)userdata);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[132])((nint)Utils.GetFunctionPointerForDelegate(handler), (nint)userdata);
 			#endif
 		}
 
@@ -434,12 +560,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultAssertionHandler")]
 		[return: NativeName(NativeNameType.Type, "SDL_AssertionHandler")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static delegate*<SDLAssertData*, void*, SDLAssertState> GetDefaultAssertionHandlerNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>>)vt[133])();
+			return ((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>>)funcTable[133])();
 			#else
-			return (delegate*<SDLAssertData*, void*, SDLAssertState>)((delegate* unmanaged[Cdecl]<nint>)vt[133])();
+			return (delegate*<SDLAssertData*, void*, SDLAssertState>)((delegate* unmanaged[Cdecl]<nint>)funcTable[133])();
 			#endif
 		}
 
@@ -477,12 +604,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAssertionHandler")]
 		[return: NativeName(NativeNameType.Type, "SDL_AssertionHandler")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static delegate*<SDLAssertData*, void*, SDLAssertState> GetAssertionHandlerNative([NativeName(NativeNameType.Param, "puserdata")] [NativeName(NativeNameType.Type, "void**")] void** puserdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void**, delegate*<SDLAssertData*, void*, SDLAssertState>>)vt[134])(puserdata);
+			return ((delegate* unmanaged[Cdecl]<void**, delegate*<SDLAssertData*, void*, SDLAssertState>>)funcTable[134])(puserdata);
 			#else
-			return (delegate*<SDLAssertData*, void*, SDLAssertState>)((delegate* unmanaged[Cdecl]<nint, nint>)vt[134])((nint)puserdata);
+			return (delegate*<SDLAssertData*, void*, SDLAssertState>)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[134])((nint)puserdata);
 			#endif
 		}
 
@@ -529,12 +657,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAssertionReport")]
 		[return: NativeName(NativeNameType.Type, "const SDL_AssertData*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLAssertData* GetAssertionReportNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAssertData*>)vt[135])();
+			return ((delegate* unmanaged[Cdecl]<SDLAssertData*>)funcTable[135])();
 			#else
-			return (SDLAssertData*)((delegate* unmanaged[Cdecl]<nint>)vt[135])();
+			return (SDLAssertData*)((delegate* unmanaged[Cdecl]<nint>)funcTable[135])();
 			#endif
 		}
 
@@ -576,12 +705,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetAssertionReport")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ResetAssertionReportNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[136])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[136])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[136])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[136])();
 			#endif
 		}
 
@@ -611,12 +741,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicTryLock")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool AtomicTryLockNative([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock*")] int* lock0)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, SDLBool>)vt[137])(lock0);
+			return ((delegate* unmanaged[Cdecl]<int*, SDLBool>)funcTable[137])(lock0);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[137])((nint)lock0);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[137])((nint)lock0);
 			#endif
 		}
 
@@ -665,12 +796,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicLock")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void AtomicLockNative([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock*")] int* lock0)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)vt[138])(lock0);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[138])(lock0);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[138])((nint)lock0);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[138])((nint)lock0);
 			#endif
 		}
 
@@ -718,12 +850,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicUnlock")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void AtomicUnlockNative([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock*")] int* lock0)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)vt[139])(lock0);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[139])(lock0);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[139])((nint)lock0);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[139])((nint)lock0);
 			#endif
 		}
 
@@ -781,12 +914,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MemoryBarrierReleaseFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MemoryBarrierReleaseFunctionNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[140])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[140])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[140])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[140])();
 			#endif
 		}
 
@@ -816,12 +950,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_MemoryBarrierAcquireFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MemoryBarrierAcquireFunctionNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[141])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[141])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[141])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[141])();
 			#endif
 		}
 
@@ -842,12 +977,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicCAS")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool AtomicCASNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_atomic_t*")] SDLAtomic* a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "int")] int oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "int")] int newval)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int, int, SDLBool>)vt[142])(a, oldval, newval);
+			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int, int, SDLBool>)funcTable[142])(a, oldval, newval);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, int, SDLBool>)vt[142])((nint)a, oldval, newval);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, int, SDLBool>)funcTable[142])((nint)a, oldval, newval);
 			#endif
 		}
 
@@ -897,12 +1033,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicSet")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AtomicSetNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_atomic_t*")] SDLAtomic* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int, int>)vt[143])(a, v);
+			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int, int>)funcTable[143])(a, v);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[143])((nint)a, v);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[143])((nint)a, v);
 			#endif
 		}
 
@@ -953,12 +1090,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicGet")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AtomicGetNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_atomic_t*")] SDLAtomic* a)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int>)vt[144])(a);
+			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int>)funcTable[144])(a);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[144])((nint)a);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[144])((nint)a);
 			#endif
 		}
 
@@ -1008,12 +1146,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicAdd")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AtomicAddNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_atomic_t*")] SDLAtomic* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int, int>)vt[145])(a, v);
+			return ((delegate* unmanaged[Cdecl]<SDLAtomic*, int, int>)funcTable[145])(a, v);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[145])((nint)a, v);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[145])((nint)a, v);
 			#endif
 		}
 
@@ -1064,12 +1203,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicCASPtr")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool AtomicCASPtrNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void**")] void** a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "void*")] void* oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "void*")] void* newval)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void**, void*, void*, SDLBool>)vt[146])(a, oldval, newval);
+			return ((delegate* unmanaged[Cdecl]<void**, void*, void*, SDLBool>)funcTable[146])(a, oldval, newval);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLBool>)vt[146])((nint)a, (nint)oldval, (nint)newval);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLBool>)funcTable[146])((nint)a, (nint)oldval, (nint)newval);
 			#endif
 		}
 
@@ -1099,12 +1239,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicSetPtr")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* AtomicSetPtrNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void**")] void** a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "void*")] void* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void**, void*, void*>)vt[147])(a, v);
+			return ((delegate* unmanaged[Cdecl]<void**, void*, void*>)funcTable[147])(a, v);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)vt[147])((nint)a, (nint)v);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[147])((nint)a, (nint)v);
 			#endif
 		}
 
@@ -1134,12 +1275,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AtomicGetPtr")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* AtomicGetPtrNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void**")] void** a)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void**, void*>)vt[148])(a);
+			return ((delegate* unmanaged[Cdecl]<void**, void*>)funcTable[148])(a);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[148])((nint)a);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[148])((nint)a);
 			#endif
 		}
 
@@ -1175,12 +1317,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetError")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetErrorNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[149])(fmt);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[149])(fmt);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[149])((nint)fmt);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[149])((nint)fmt);
 			#endif
 		}
 
@@ -1322,12 +1465,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetError")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetErrorNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)vt[150])();
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[150])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)vt[150])();
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[150])();
 			#endif
 		}
 
@@ -1399,12 +1543,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetErrorMsg")]
 		[return: NativeName(NativeNameType.Type, "char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetErrorMsgNative([NativeName(NativeNameType.Param, "errstr")] [NativeName(NativeNameType.Type, "char*")] byte* errstr, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "int")] int maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)vt[151])(errstr, maxlen);
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[151])(errstr, maxlen);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)vt[151])((nint)errstr, maxlen);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[151])((nint)errstr, maxlen);
 			#endif
 		}
 
@@ -1561,12 +1706,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearError")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ClearErrorNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[152])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[152])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[152])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[152])();
 			#endif
 		}
 
@@ -1587,12 +1733,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Error")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int ErrorNative([NativeName(NativeNameType.Param, "code")] [NativeName(NativeNameType.Type, "SDL_errorcode")] SDLErrorcode code)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLErrorcode, int>)vt[153])(code);
+			return ((delegate* unmanaged[Cdecl]<SDLErrorcode, int>)funcTable[153])(code);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLErrorcode, int>)vt[153])(code);
+			return (int)((delegate* unmanaged[Cdecl]<SDLErrorcode, int>)funcTable[153])(code);
 			#endif
 		}
 
@@ -1619,12 +1766,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateMutex")]
 		[return: NativeName(NativeNameType.Type, "SDL_mutex*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLMutex* CreateMutexNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMutex*>)vt[154])();
+			return ((delegate* unmanaged[Cdecl]<SDLMutex*>)funcTable[154])();
 			#else
-			return (SDLMutex*)((delegate* unmanaged[Cdecl]<nint>)vt[154])();
+			return (SDLMutex*)((delegate* unmanaged[Cdecl]<nint>)funcTable[154])();
 			#endif
 		}
 
@@ -1659,12 +1807,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockMutex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int LockMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_mutex*")] SDLMutex* mutex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMutex*, int>)vt[155])(mutex);
+			return ((delegate* unmanaged[Cdecl]<SDLMutex*, int>)funcTable[155])(mutex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[155])((nint)mutex);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[155])((nint)mutex);
 			#endif
 		}
 
@@ -1721,12 +1870,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_TryLockMutex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TryLockMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_mutex*")] SDLMutex* mutex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMutex*, int>)vt[156])(mutex);
+			return ((delegate* unmanaged[Cdecl]<SDLMutex*, int>)funcTable[156])(mutex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[156])((nint)mutex);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[156])((nint)mutex);
 			#endif
 		}
 
@@ -1782,12 +1932,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockMutex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UnlockMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_mutex*")] SDLMutex* mutex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMutex*, int>)vt[157])(mutex);
+			return ((delegate* unmanaged[Cdecl]<SDLMutex*, int>)funcTable[157])(mutex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[157])((nint)mutex);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[157])((nint)mutex);
 			#endif
 		}
 
@@ -1845,12 +1996,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyMutex")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DestroyMutexNative([NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_mutex*")] SDLMutex* mutex)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLMutex*, void>)vt[158])(mutex);
+			((delegate* unmanaged[Cdecl]<SDLMutex*, void>)funcTable[158])(mutex);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[158])((nint)mutex);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[158])((nint)mutex);
 			#endif
 		}
 
@@ -1906,12 +2058,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateSemaphore")]
 		[return: NativeName(NativeNameType.Type, "SDL_sem*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSemaphore* CreateSemaphoreNative([NativeName(NativeNameType.Param, "initial_value")] [NativeName(NativeNameType.Type, "Uint32")] uint initialValue)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLSemaphore*>)vt[159])(initialValue);
+			return ((delegate* unmanaged[Cdecl]<uint, SDLSemaphore*>)funcTable[159])(initialValue);
 			#else
-			return (SDLSemaphore*)((delegate* unmanaged[Cdecl]<uint, nint>)vt[159])(initialValue);
+			return (SDLSemaphore*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[159])(initialValue);
 			#endif
 		}
 
@@ -1944,12 +2097,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroySemaphore")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DestroySemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_sem*")] SDLSemaphore* sem)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSemaphore*, void>)vt[160])(sem);
+			((delegate* unmanaged[Cdecl]<SDLSemaphore*, void>)funcTable[160])(sem);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[160])((nint)sem);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[160])((nint)sem);
 			#endif
 		}
 
@@ -2000,12 +2154,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SemWait")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SemWaitNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_sem*")] SDLSemaphore* sem)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)vt[161])(sem);
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)funcTable[161])(sem);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[161])((nint)sem);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[161])((nint)sem);
 			#endif
 		}
 
@@ -2064,12 +2219,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SemTryWait")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SemTryWaitNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_sem*")] SDLSemaphore* sem)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)vt[162])(sem);
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)funcTable[162])(sem);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[162])((nint)sem);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[162])((nint)sem);
 			#endif
 		}
 
@@ -2124,12 +2280,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SemWaitTimeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SemWaitTimeoutNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_sem*")] SDLSemaphore* sem, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "Uint32")] uint timeout)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, uint, int>)vt[163])(sem, timeout);
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, uint, int>)funcTable[163])(sem, timeout);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, uint, int>)vt[163])((nint)sem, timeout);
+			return (int)((delegate* unmanaged[Cdecl]<nint, uint, int>)funcTable[163])((nint)sem, timeout);
 			#endif
 		}
 
@@ -2180,12 +2337,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SemPost")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SemPostNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_sem*")] SDLSemaphore* sem)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)vt[164])(sem);
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)funcTable[164])(sem);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[164])((nint)sem);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[164])((nint)sem);
 			#endif
 		}
 
@@ -2228,12 +2386,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SemValue")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint SemValueNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_sem*")] SDLSemaphore* sem)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, uint>)vt[165])(sem);
+			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, uint>)funcTable[165])(sem);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[165])((nint)sem);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[165])((nint)sem);
 			#endif
 		}
 
@@ -2276,12 +2435,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateCond")]
 		[return: NativeName(NativeNameType.Type, "SDL_cond*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLCond* CreateCondNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCond*>)vt[166])();
+			return ((delegate* unmanaged[Cdecl]<SDLCond*>)funcTable[166])();
 			#else
-			return (SDLCond*)((delegate* unmanaged[Cdecl]<nint>)vt[166])();
+			return (SDLCond*)((delegate* unmanaged[Cdecl]<nint>)funcTable[166])();
 			#endif
 		}
 
@@ -2307,12 +2467,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyCond")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DestroyCondNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_cond*")] SDLCond* cond)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLCond*, void>)vt[167])(cond);
+			((delegate* unmanaged[Cdecl]<SDLCond*, void>)funcTable[167])(cond);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[167])((nint)cond);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[167])((nint)cond);
 			#endif
 		}
 
@@ -2353,12 +2514,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CondSignal")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int CondSignalNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_cond*")] SDLCond* cond)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCond*, int>)vt[168])(cond);
+			return ((delegate* unmanaged[Cdecl]<SDLCond*, int>)funcTable[168])(cond);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[168])((nint)cond);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[168])((nint)cond);
 			#endif
 		}
 
@@ -2401,12 +2563,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CondBroadcast")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int CondBroadcastNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_cond*")] SDLCond* cond)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCond*, int>)vt[169])(cond);
+			return ((delegate* unmanaged[Cdecl]<SDLCond*, int>)funcTable[169])(cond);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[169])((nint)cond);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[169])((nint)cond);
 			#endif
 		}
 
@@ -2456,12 +2619,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CondWait")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int CondWaitNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_cond*")] SDLCond* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_mutex*")] SDLMutex* mutex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCond*, SDLMutex*, int>)vt[170])(cond, mutex);
+			return ((delegate* unmanaged[Cdecl]<SDLCond*, SDLMutex*, int>)funcTable[170])(cond, mutex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[170])((nint)cond, (nint)mutex);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[170])((nint)cond, (nint)mutex);
 			#endif
 		}
 
@@ -2575,12 +2739,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CondWaitTimeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int CondWaitTimeoutNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_cond*")] SDLCond* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_mutex*")] SDLMutex* mutex, [NativeName(NativeNameType.Param, "ms")] [NativeName(NativeNameType.Type, "Uint32")] uint ms)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCond*, SDLMutex*, uint, int>)vt[171])(cond, mutex, ms);
+			return ((delegate* unmanaged[Cdecl]<SDLCond*, SDLMutex*, uint, int>)funcTable[171])(cond, mutex, ms);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, int>)vt[171])((nint)cond, (nint)mutex, ms);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, int>)funcTable[171])((nint)cond, (nint)mutex, ms);
 			#endif
 		}
 
@@ -2678,12 +2843,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_CreateThread")]
 		[return: NativeName(NativeNameType.Type, "SDL_Thread*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLThread* CreateThreadNative([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "pfnSDL_CurrentBeginThread")] PfnSDLCurrentBeginThread pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "pfnSDL_CurrentEndThread")] PfnSDLCurrentEndThread pfnEndThread)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>, delegate*<uint, void>, SDLThread*>)vt[172])((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>, delegate*<uint, void>, SDLThread*>)funcTable[172])((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			#else
-			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint>)vt[172])((nint)Utils.GetFunctionPointerForDelegate(fn), (nint)name, (nint)data, (nint)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (nint)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, nint>)funcTable[172])((nint)Utils.GetFunctionPointerForDelegate(fn), (nint)name, (nint)data, (nint)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (nint)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			#endif
 		}
 
@@ -2748,12 +2914,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_CreateThreadWithStackSize")]
 		[return: NativeName(NativeNameType.Type, "SDL_Thread*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLThread* CreateThreadWithStackSizeNative([NativeName(NativeNameType.Param, "fn")] [NativeName(NativeNameType.Type, "SDL_ThreadFunction")] SDLThreadFunction fn, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "stacksize")] [NativeName(NativeNameType.Type, "const size_t")] ulong stacksize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "pfnBeginThread")] [NativeName(NativeNameType.Type, "pfnSDL_CurrentBeginThread")] PfnSDLCurrentBeginThread pfnBeginThread, [NativeName(NativeNameType.Param, "pfnEndThread")] [NativeName(NativeNameType.Type, "pfnSDL_CurrentEndThread")] PfnSDLCurrentEndThread pfnEndThread)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, ulong, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>, delegate*<uint, void>, SDLThread*>)vt[173])((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, int>, byte*, ulong, void*, delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>, delegate*<uint, void>, SDLThread*>)funcTable[173])((delegate*<void*, int>)Utils.GetFunctionPointerForDelegate(fn), name, stacksize, data, (delegate*<void*, uint, delegate*<void*, uint>, void*, uint, uint*, ulong>)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (delegate*<uint, void>)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			#else
-			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, ulong, nint, nint, nint, nint>)vt[173])((nint)Utils.GetFunctionPointerForDelegate(fn), (nint)name, stacksize, (nint)data, (nint)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (nint)Utils.GetFunctionPointerForDelegate(pfnEndThread));
+			return (SDLThread*)((delegate* unmanaged[Cdecl]<nint, nint, ulong, nint, nint, nint, nint>)funcTable[173])((nint)Utils.GetFunctionPointerForDelegate(fn), (nint)name, stacksize, (nint)data, (nint)Utils.GetFunctionPointerForDelegate(pfnBeginThread), (nint)Utils.GetFunctionPointerForDelegate(pfnEndThread));
 			#endif
 		}
 
@@ -2885,12 +3052,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetThreadName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetThreadNameNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread*")] SDLThread* thread)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLThread*, byte*>)vt[174])(thread);
+			return ((delegate* unmanaged[Cdecl]<SDLThread*, byte*>)funcTable[174])(thread);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[174])((nint)thread);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[174])((nint)thread);
 			#endif
 		}
 
@@ -2977,12 +3145,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ThreadID")]
 		[return: NativeName(NativeNameType.Type, "SDL_threadID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint ThreadIDNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[175])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[175])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[175])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[175])();
 			#endif
 		}
 
@@ -3016,12 +3185,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetThreadID")]
 		[return: NativeName(NativeNameType.Type, "SDL_threadID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint GetThreadIDNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread*")] SDLThread* thread)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLThread*, uint>)vt[176])(thread);
+			return ((delegate* unmanaged[Cdecl]<SDLThread*, uint>)funcTable[176])(thread);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[176])((nint)thread);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[176])((nint)thread);
 			#endif
 		}
 
@@ -3072,12 +3242,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetThreadPriority")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetThreadPriorityNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_ThreadPriority")] SDLThreadPriority priority)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLThreadPriority, int>)vt[177])(priority);
+			return ((delegate* unmanaged[Cdecl]<SDLThreadPriority, int>)funcTable[177])(priority);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLThreadPriority, int>)vt[177])(priority);
+			return (int)((delegate* unmanaged[Cdecl]<SDLThreadPriority, int>)funcTable[177])(priority);
 			#endif
 		}
 
@@ -3118,12 +3289,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WaitThread")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void WaitThreadNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread*")] SDLThread* thread, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "int*")] int* status)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLThread*, int*, void>)vt[178])(thread, status);
+			((delegate* unmanaged[Cdecl]<SDLThread*, int*, void>)funcTable[178])(thread, status);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[178])((nint)thread, (nint)status);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[178])((nint)thread, (nint)status);
 			#endif
 		}
 
@@ -3268,12 +3440,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DetachThread")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DetachThreadNative([NativeName(NativeNameType.Param, "thread")] [NativeName(NativeNameType.Type, "SDL_Thread*")] SDLThread* thread)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLThread*, void>)vt[179])(thread);
+			((delegate* unmanaged[Cdecl]<SDLThread*, void>)funcTable[179])(thread);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[179])((nint)thread);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[179])((nint)thread);
 			#endif
 		}
 
@@ -3350,12 +3523,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_TLSCreate")]
 		[return: NativeName(NativeNameType.Type, "SDL_TLSID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint TLSCreateNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[180])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[180])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[180])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[180])();
 			#endif
 		}
 
@@ -3383,12 +3557,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_TLSGet")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* TLSGetNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID")] uint id)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*>)vt[181])(id);
+			return ((delegate* unmanaged[Cdecl]<uint, void*>)funcTable[181])(id);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<uint, nint>)vt[181])(id);
+			return (void*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[181])(id);
 			#endif
 		}
 
@@ -3419,12 +3594,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_TLSSet")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int TLSSetNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TLSID")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const void*")] void* value, [NativeName(NativeNameType.Param, "destructor")] [NativeName(NativeNameType.Type, "void (*)(SDL_TLSID id, const void* value, void (*)(void*)* destructor)*")] delegate*<uint, void*, delegate*<void*, void>, void> destructor)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, delegate*<uint, void*, delegate*<void*, void>, void>, int>)vt[182])(id, value, destructor);
+			return ((delegate* unmanaged[Cdecl]<uint, void*, delegate*<uint, void*, delegate*<void*, void>, void>, int>)funcTable[182])(id, value, destructor);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)vt[182])(id, (nint)value, (nint)destructor);
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[182])(id, (nint)value, (nint)destructor);
 			#endif
 		}
 
@@ -3453,12 +3629,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_TLSCleanup")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void TLSCleanupNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[183])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[183])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[183])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[183])();
 			#endif
 		}
 
@@ -3515,12 +3692,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWFromFile")]
 		[return: NativeName(NativeNameType.Type, "SDL_RWops*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRWops* RWFromFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "const char*")] byte* mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLRWops*>)vt[184])(file, mode);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLRWops*>)funcTable[184])(file, mode);
 			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)vt[184])((nint)file, (nint)mode);
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[184])((nint)file, (nint)mode);
 			#endif
 		}
 
@@ -4127,12 +4305,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWFromFP")]
 		[return: NativeName(NativeNameType.Type, "SDL_RWops*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRWops* RWFromFPNative([NativeName(NativeNameType.Param, "fp")] [NativeName(NativeNameType.Type, "void*")] void* fp, [NativeName(NativeNameType.Param, "autoclose")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool autoclose)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, SDLBool, SDLRWops*>)vt[185])(fp, autoclose);
+			return ((delegate* unmanaged[Cdecl]<void*, SDLBool, SDLRWops*>)funcTable[185])(fp, autoclose);
 			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, SDLBool, nint>)vt[185])((nint)fp, autoclose);
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, SDLBool, nint>)funcTable[185])((nint)fp, autoclose);
 			#endif
 		}
 
@@ -4173,12 +4352,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWFromMem")]
 		[return: NativeName(NativeNameType.Type, "SDL_RWops*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRWops* RWFromMemNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)vt[186])(mem, size);
+			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)funcTable[186])(mem, size);
 			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)vt[186])((nint)mem, size);
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[186])((nint)mem, size);
 			#endif
 		}
 
@@ -4221,12 +4401,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWFromConstMem")]
 		[return: NativeName(NativeNameType.Type, "SDL_RWops*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRWops* RWFromConstMemNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "const void*")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)vt[187])(mem, size);
+			return ((delegate* unmanaged[Cdecl]<void*, int, SDLRWops*>)funcTable[187])(mem, size);
 			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)vt[187])((nint)mem, size);
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[187])((nint)mem, size);
 			#endif
 		}
 
@@ -4272,12 +4453,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AllocRW")]
 		[return: NativeName(NativeNameType.Type, "SDL_RWops*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRWops* AllocRWNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*>)vt[188])();
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*>)funcTable[188])();
 			#else
-			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint>)vt[188])();
+			return (SDLRWops*)((delegate* unmanaged[Cdecl]<nint>)funcTable[188])();
 			#endif
 		}
 
@@ -4325,12 +4507,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeRW")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void FreeRWNative([NativeName(NativeNameType.Param, "area")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* area)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRWops*, void>)vt[189])(area);
+			((delegate* unmanaged[Cdecl]<SDLRWops*, void>)funcTable[189])(area);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[189])((nint)area);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[189])((nint)area);
 			#endif
 		}
 
@@ -4393,12 +4576,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWsize")]
 		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static long RWsizeNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)vt[190])(context);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)funcTable[190])(context);
 			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long>)vt[190])((nint)context);
+			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[190])((nint)context);
 			#endif
 		}
 
@@ -4450,12 +4634,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWseek")]
 		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static long RWseekNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "Sint64")] long offset, [NativeName(NativeNameType.Param, "whence")] [NativeName(NativeNameType.Type, "int")] int whence)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long, int, long>)vt[191])(context, offset, whence);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long, int, long>)funcTable[191])(context, offset, whence);
 			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long, int, long>)vt[191])((nint)context, offset, whence);
+			return (long)((delegate* unmanaged[Cdecl]<nint, long, int, long>)funcTable[191])((nint)context, offset, whence);
 			#endif
 		}
 
@@ -4520,12 +4705,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWtell")]
 		[return: NativeName(NativeNameType.Type, "Sint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static long RWtellNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)vt[192])(context);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, long>)funcTable[192])(context);
 			#else
-			return (long)((delegate* unmanaged[Cdecl]<nint, long>)vt[192])((nint)context);
+			return (long)((delegate* unmanaged[Cdecl]<nint, long>)funcTable[192])((nint)context);
 			#endif
 		}
 
@@ -4583,12 +4769,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWread")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong RWreadNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "maxnum")] [NativeName(NativeNameType.Type, "size_t")] ulong maxnum)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, ulong, ulong, ulong>)vt[193])(context, ptr, size, maxnum);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, ulong, ulong, ulong>)funcTable[193])(context, ptr, size, maxnum);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong, ulong>)vt[193])((nint)context, (nint)ptr, size, maxnum);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong, ulong>)funcTable[193])((nint)context, (nint)ptr, size, maxnum);
 			#endif
 		}
 
@@ -4787,12 +4974,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong RWwriteNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] ulong num)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, ulong, ulong, ulong>)vt[194])(context, ptr, size, num);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, void*, ulong, ulong, ulong>)funcTable[194])(context, ptr, size, num);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong, ulong>)vt[194])((nint)context, (nint)ptr, size, num);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong, ulong>)funcTable[194])((nint)context, (nint)ptr, size, num);
 			#endif
 		}
 
@@ -4839,186 +5027,6 @@ namespace Hexa.NET.SDL2
 				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
 				return ret;
 			}
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] ulong num)
-		{
-			ulong ret = RWwriteNative(context, ptr, size, num);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] ulong num)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			ulong ret = RWwriteNative(context, ptr, size, num);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			ulong ret = RWwriteNative(context, ptr, size, num);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWclose")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int RWcloseNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)vt[195])(context);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[195])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWclose")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RWclose([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
-		{
-			int ret = RWcloseNative(context);
-			return ret;
 		}
 	}
 }

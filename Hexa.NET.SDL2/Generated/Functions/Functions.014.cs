@@ -18,6 +18,703 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
+		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
+		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Create a texture from an existing surface.<br/>
+		/// The surface is not modified or freed by this function.<br/>
+		/// The SDL_TextureAccess hint for the created texture is<br/>
+		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
+		/// The pixel format of the created texture may be different from the pixel<br/>
+		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
+		/// the texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
+		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
+		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLSurface* psurface = &surface)
+				{
+					SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int QueryTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint*, int*, int*, int*, int>)funcTable[734])(texture, format, access, w, h);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[734])((nint)texture, (nint)format, (nint)access, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			int ret = QueryTextureNative(texture, format, access, w, h);
+			return ret;
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				int ret = QueryTextureNative(texture, (uint*)pformat, access, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (int* paccess = &access)
+			{
+				int ret = QueryTextureNative(texture, format, (int*)paccess, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* paccess = &access)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* paccess = &access)
+				{
+					int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* paccess = &access)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				int ret = QueryTextureNative(texture, format, access, (int*)pw, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* pw = &w)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* pw = &w)
+				{
+					int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* pw = &w)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (int* paccess = &access)
+			{
+				fixed (int* pw = &w)
+				{
+					int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, h);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* pw = &w)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* pw = &w)
+					{
+						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, (int*)pw, h);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* paccess = &access)
+					{
+						fixed (int* pw = &w)
+						{
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, h);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				int ret = QueryTextureNative(texture, format, access, w, (int*)ph);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative(texture, (uint*)pformat, access, w, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (int* paccess = &access)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative(texture, format, (int*)paccess, w, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* paccess = &access)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* paccess = &access)
+					{
+						fixed (int* ph = &h)
+						{
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, (int*)ph);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					int ret = QueryTextureNative(texture, format, access, (int*)pw, (int*)ph);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (uint* pformat = &format)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (uint* pformat = &format)
+				{
+					fixed (int* pw = &w)
+					{
+						fixed (int* ph = &h)
+						{
+							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, (int*)ph);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Query the attributes of a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
+		{
+			fixed (int* paccess = &access)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, (int*)ph);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
 		/// Query the attributes of a texture.<br/>
 		/// <br/>
 		/// <br/>
@@ -112,12 +809,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetTextureColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetTextureColorModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte, byte, int>)vt[735])(texture, r, g, b);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte, byte, int>)funcTable[735])(texture, r, g, b);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)vt[735])((nint)texture, r, g, b);
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[735])((nint)texture, r, g, b);
 			#endif
 		}
 
@@ -172,12 +870,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetTextureColorModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte*, byte*, int>)vt[736])(texture, r, g, b);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte*, byte*, int>)funcTable[736])(texture, r, g, b);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[736])((nint)texture, (nint)r, (nint)g, (nint)b);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[736])((nint)texture, (nint)r, (nint)g, (nint)b);
 			#endif
 		}
 
@@ -514,12 +1213,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetTextureAlphaModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, int>)vt[737])(texture, alpha);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, int>)funcTable[737])(texture, alpha);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)vt[737])((nint)texture, alpha);
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[737])((nint)texture, alpha);
 			#endif
 		}
 
@@ -572,12 +1272,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetTextureAlphaModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, int>)vt[738])(texture, alpha);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, int>)funcTable[738])(texture, alpha);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[738])((nint)texture, (nint)alpha);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[738])((nint)texture, (nint)alpha);
 			#endif
 		}
 
@@ -659,12 +1360,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetTextureBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetTextureBlendModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, int>)vt[739])(texture, blendMode);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, int>)funcTable[739])(texture, blendMode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)vt[739])((nint)texture, blendMode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[739])((nint)texture, blendMode);
 			#endif
 		}
 
@@ -711,12 +1413,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetTextureBlendModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, int>)vt[740])(texture, blendMode);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, int>)funcTable[740])(texture, blendMode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[740])((nint)texture, (nint)blendMode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[740])((nint)texture, (nint)blendMode);
 			#endif
 		}
 
@@ -797,12 +1500,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetTextureScaleMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetTextureScaleModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)vt[741])(texture, scaleMode);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)funcTable[741])(texture, scaleMode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)vt[741])((nint)texture, scaleMode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)funcTable[741])((nint)texture, scaleMode);
 			#endif
 		}
 
@@ -847,12 +1551,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetTextureScaleModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode*")] SDLScaleMode* scaleMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)vt[742])(texture, scaleMode);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)funcTable[742])(texture, scaleMode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[742])((nint)texture, (nint)scaleMode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[742])((nint)texture, (nint)scaleMode);
 			#endif
 		}
 
@@ -932,12 +1637,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetTextureUserData")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetTextureUserDataNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*, int>)vt[743])(texture, userdata);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*, int>)funcTable[743])(texture, userdata);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[743])((nint)texture, (nint)userdata);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[743])((nint)texture, (nint)userdata);
 			#endif
 		}
 
@@ -980,12 +1686,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTextureUserData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* GetTextureUserDataNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*>)vt[744])(texture);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*>)funcTable[744])(texture);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[744])((nint)texture);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[744])((nint)texture);
 			#endif
 		}
 
@@ -1036,12 +1743,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UpdateTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void*, int, int>)vt[745])(texture, rect, pixels, pitch);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void*, int, int>)funcTable[745])(texture, rect, pixels, pitch);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)vt[745])((nint)texture, (nint)rect, (nint)pixels, pitch);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)funcTable[745])((nint)texture, (nint)rect, (nint)pixels, pitch);
 			#endif
 		}
 
@@ -1157,12 +1865,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UpdateYUVTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, byte*, int, int>)vt[746])(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, byte*, int, int>)funcTable[746])(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int>)vt[746])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uplane, upitch, (nint)vplane, vpitch);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int>)funcTable[746])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uplane, upitch, (nint)vplane, vpitch);
 			#endif
 		}
 
@@ -1992,12 +2701,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UpdateNVTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, int>)vt[747])(texture, rect, yplane, ypitch, uVplane, uVpitch);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, int>)funcTable[747])(texture, rect, yplane, ypitch, uVplane, uVpitch);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, int>)vt[747])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uVplane, uVpitch);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, int>)funcTable[747])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uVplane, uVpitch);
 			#endif
 		}
 
@@ -2367,12 +3077,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int LockTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] int* pitch)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void**, int*, int>)vt[748])(texture, rect, pixels, pitch);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void**, int*, int>)funcTable[748])(texture, rect, pixels, pitch);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[748])((nint)texture, (nint)rect, (nint)pixels, (nint)pitch);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[748])((nint)texture, (nint)rect, (nint)pixels, (nint)pitch);
 			#endif
 		}
 
@@ -2591,12 +3302,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int LockTextureToSurfaceNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] SDLSurface** surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, SDLSurface**, int>)vt[749])(texture, rect, surface);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, SDLSurface**, int>)funcTable[749])(texture, rect, surface);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)vt[749])((nint)texture, (nint)rect, (nint)surface);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[749])((nint)texture, (nint)rect, (nint)surface);
 			#endif
 		}
 
@@ -2850,12 +3562,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockTexture")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void UnlockTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)vt[750])(texture);
+			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[750])(texture);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[750])((nint)texture);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[750])((nint)texture);
 			#endif
 		}
 
@@ -2908,12 +3621,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderTargetSupported")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool RenderTargetSupportedNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)vt[751])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[751])(renderer);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[751])((nint)renderer);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[751])((nint)renderer);
 			#endif
 		}
 
@@ -2962,12 +3676,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetRenderTarget")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetRenderTargetNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, int>)vt[752])(renderer, texture);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, int>)funcTable[752])(renderer, texture);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[752])((nint)renderer, (nint)texture);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[752])((nint)renderer, (nint)texture);
 			#endif
 		}
 
@@ -3073,12 +3788,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderTarget")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLTexture* GetRenderTargetNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*>)vt[753])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*>)funcTable[753])(renderer);
 			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[753])((nint)renderer);
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[753])((nint)renderer);
 			#endif
 		}
 
@@ -3135,12 +3851,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderSetLogicalSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderSetLogicalSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)vt[754])(renderer, w, h);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)funcTable[754])(renderer, w, h);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)vt[754])((nint)renderer, w, h);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)funcTable[754])((nint)renderer, w, h);
 			#endif
 		}
 
@@ -3209,12 +3926,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RenderGetLogicalSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, void>)vt[755])(renderer, w, h);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, void>)funcTable[755])(renderer, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[755])((nint)renderer, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[755])((nint)renderer, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -3417,12 +4135,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderSetIntegerScale")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderSetIntegerScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "enable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enable)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool, int>)vt[756])(renderer, enable);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool, int>)funcTable[756])(renderer, enable);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBool, int>)vt[756])((nint)renderer, enable);
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBool, int>)funcTable[756])((nint)renderer, enable);
 			#endif
 		}
 
@@ -3471,12 +4190,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetIntegerScale")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool RenderGetIntegerScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)vt[757])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[757])(renderer);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[757])((nint)renderer);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[757])((nint)renderer);
 			#endif
 		}
 
@@ -3521,12 +4241,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderSetViewport")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderSetViewportNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)vt[758])(renderer, rect);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[758])(renderer, rect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[758])((nint)renderer, (nint)rect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[758])((nint)renderer, (nint)rect);
 			#endif
 		}
 
@@ -3614,12 +4335,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetViewport")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RenderGetViewportNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)vt[759])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[759])(renderer, rect);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[759])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[759])((nint)renderer, (nint)rect);
 			#endif
 		}
 
@@ -3695,12 +4417,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderSetClipRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderSetClipRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)vt[760])(renderer, rect);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[760])(renderer, rect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[760])((nint)renderer, (nint)rect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[760])((nint)renderer, (nint)rect);
 			#endif
 		}
 
@@ -3780,12 +4503,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetClipRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RenderGetClipRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)vt[761])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[761])(renderer, rect);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[761])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[761])((nint)renderer, (nint)rect);
 			#endif
 		}
 
@@ -3861,12 +4585,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderIsClipEnabled")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool RenderIsClipEnabledNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)vt[762])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[762])(renderer);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[762])((nint)renderer);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[762])((nint)renderer);
 			#endif
 		}
 
@@ -3915,12 +4640,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderSetScale")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderSetScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float")] float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float")] float scaleY)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)vt[763])(renderer, scaleX, scaleY);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)funcTable[763])(renderer, scaleX, scaleY);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, int>)vt[763])((nint)renderer, scaleX, scaleY);
+			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, int>)funcTable[763])((nint)renderer, scaleX, scaleY);
 			#endif
 		}
 
@@ -3975,12 +4701,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RenderGetScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] float* scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] float* scaleY)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, float*, void>)vt[764])(renderer, scaleX, scaleY);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, float*, void>)funcTable[764])(renderer, scaleX, scaleY);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[764])((nint)renderer, (nint)scaleX, (nint)scaleY);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[764])((nint)renderer, (nint)scaleX, (nint)scaleY);
 			#endif
 		}
 
@@ -4135,12 +4862,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RenderWindowToLogicalNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] float* logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] float* logicalY)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, float*, float*, void>)vt[765])(renderer, windowX, windowY, logicalX, logicalY);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, float*, float*, void>)funcTable[765])(renderer, windowX, windowY, logicalX, logicalY);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, void>)vt[765])((nint)renderer, windowX, windowY, (nint)logicalX, (nint)logicalY);
+			((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, void>)funcTable[765])((nint)renderer, windowX, windowY, (nint)logicalX, (nint)logicalY);
 			#endif
 		}
 
@@ -4303,727 +5031,6 @@ namespace Hexa.NET.SDL2
 					fixed (float* plogicalY = &logicalY)
 					{
 						RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, (float*)plogicalX, (float*)plogicalY);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void RenderLogicalToWindowNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int*, int*, void>)vt[766])(renderer, logicalX, logicalY, windowX, windowY);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, float, float, nint, nint, void>)vt[766])((nint)renderer, logicalX, logicalY, (nint)windowX, (nint)windowY);
-			#endif
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, windowY);
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, windowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			fixed (int* pwindowX = &windowX)
-			{
-				RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, windowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowX = &windowX)
-				{
-					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, windowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (int* pwindowY = &windowY)
-			{
-				RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, (int*)pwindowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowY = &windowY)
-				{
-					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, (int*)pwindowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (int* pwindowX = &windowX)
-			{
-				fixed (int* pwindowY = &windowY)
-				{
-					RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowX = &windowX)
-				{
-					fixed (int* pwindowY = &windowY)
-					{
-						RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int SetRenderDrawColorNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte, byte, byte, byte, int>)vt[767])(renderer, r, g, b, a);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, int>)vt[767])((nint)renderer, r, g, b, a);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
-		{
-			int ret = SetRenderDrawColorNative(renderer, r, g, b, a);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = SetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int GetRenderDrawColorNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*, byte*, byte*, byte*, int>)vt[768])(renderer, r, g, b, a);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)vt[768])((nint)renderer, (nint)r, (nint)g, (nint)b, (nint)a);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			int ret = GetRenderDrawColorNative(renderer, r, g, b, a);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pb = &b)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pa = &a)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, g, b, (byte*)pa);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
-						return ret;
 					}
 				}
 			}

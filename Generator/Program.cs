@@ -9,7 +9,7 @@ CsCodeGeneratorConfig config = CsCodeGeneratorConfig.Load("generator.json");
 CsCodeGenerator generator = new(config);
 generator.PatchEngine.RegisterPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None));
 generator.PatchEngine.RegisterPrePatch(new EnumNamePatch());
-generator.LogEvent += (s, m) => Console.WriteLine($"{s}: {m}");
+generator.LogToConsole();
 generator.Generate(["include/main.h"], "../../../../Hexa.NET.SDL2/Generated");
 
 public class EnumNamePatch : PrePatch

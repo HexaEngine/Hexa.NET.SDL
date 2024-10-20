@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Gene
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{FD826B07-B533-4229-AF02-6D1734E64044}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleImGui", "ExampleImGui\ExampleImGui.csproj", "{38502E55-8C18-4B2B-851D-D3533AE25003}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleImGui", "ExampleImGui\ExampleImGui.csproj", "{38502E55-8C18-4B2B-851D-D3533AE25003}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleAndroid", "ExampleAndroid\ExampleAndroid.csproj", "{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{38502E55-8C18-4B2B-851D-D3533AE25003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38502E55-8C18-4B2B-851D-D3533AE25003}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38502E55-8C18-4B2B-851D-D3533AE25003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

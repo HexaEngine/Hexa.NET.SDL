@@ -70,6 +70,612 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
 		[return: NativeName(NativeNameType.Type, "char*")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		{
+			fixed (byte* papp = &app)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* papp = app)
+			{
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* papp = app)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetPrefPathNative(org, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char*")]
 		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
 		{
 			byte* pStr0 = null;
@@ -227,12 +833,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NumHaptics")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int NumHapticsNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[640])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[640])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[640])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[640])();
 			#endif
 		}
 
@@ -260,12 +867,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* HapticNameNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[641])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[641])(deviceIndex);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[641])(deviceIndex);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[641])(deviceIndex);
 			#endif
 		}
 
@@ -314,12 +922,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpen")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLHaptic* HapticOpenNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLHaptic*>)vt[642])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, SDLHaptic*>)funcTable[642])(deviceIndex);
 			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<int, nint>)vt[642])(deviceIndex);
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[642])(deviceIndex);
 			#endif
 		}
 
@@ -350,12 +959,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpened")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticOpenedNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[643])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[643])(deviceIndex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[643])(deviceIndex);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[643])(deviceIndex);
 			#endif
 		}
 
@@ -381,12 +991,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticIndexNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[644])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[644])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[644])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[644])((nint)haptic);
 			#endif
 		}
 
@@ -429,12 +1040,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MouseIsHaptic")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int MouseIsHapticNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[645])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[645])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[645])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[645])();
 			#endif
 		}
 
@@ -460,12 +1072,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromMouse")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLHaptic* HapticOpenFromMouseNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)vt[646])();
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)funcTable[646])();
 			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint>)vt[646])();
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint>)funcTable[646])();
 			#endif
 		}
 
@@ -491,12 +1104,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickIsHaptic")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int JoystickIsHapticNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)vt[647])(joystick);
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[647])(joystick);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[647])((nint)joystick);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[647])((nint)joystick);
 			#endif
 		}
 
@@ -545,12 +1159,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromJoystick")]
 		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLHaptic* HapticOpenFromJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)vt[648])(joystick);
+			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)funcTable[648])(joystick);
 			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[648])((nint)joystick);
+			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[648])((nint)joystick);
 			#endif
 		}
 
@@ -605,12 +1220,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticClose")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void HapticCloseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)vt[649])(haptic);
+			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)funcTable[649])(haptic);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[649])((nint)haptic);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[649])((nint)haptic);
 			#endif
 		}
 
@@ -654,12 +1270,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffects")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticNumEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[650])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[650])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[650])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[650])((nint)haptic);
 			#endif
 		}
 
@@ -709,12 +1326,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumEffectsPlaying")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticNumEffectsPlayingNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[651])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[651])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[651])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[651])((nint)haptic);
 			#endif
 		}
 
@@ -759,12 +1377,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticQuery")]
 		[return: NativeName(NativeNameType.Type, "unsigned int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint HapticQueryNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)vt[652])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[652])(haptic);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[652])((nint)haptic);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[652])((nint)haptic);
 			#endif
 		}
 
@@ -808,12 +1427,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNumAxes")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticNumAxesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[653])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[653])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[653])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[653])((nint)haptic);
 			#endif
 		}
 
@@ -858,12 +1478,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticEffectSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)vt[654])(haptic, effect);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[654])(haptic, effect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[654])((nint)haptic, (nint)effect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[654])((nint)haptic, (nint)effect);
 			#endif
 		}
 
@@ -943,12 +1564,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticNewEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)vt[655])(haptic, effect);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[655])(haptic, effect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[655])((nint)haptic, (nint)effect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[655])((nint)haptic, (nint)effect);
 			#endif
 		}
 
@@ -1032,12 +1654,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticUpdateEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, int>)vt[656])(haptic, effect, data);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, int>)funcTable[656])(haptic, effect, data);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, int>)vt[656])((nint)haptic, effect, (nint)data);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, int>)funcTable[656])((nint)haptic, effect, (nint)data);
 			#endif
 		}
 
@@ -1138,12 +1761,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRunEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticRunEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, int>)vt[657])(haptic, effect, iterations);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, int>)funcTable[657])(haptic, effect, iterations);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, uint, int>)vt[657])((nint)haptic, effect, iterations);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, uint, int>)funcTable[657])((nint)haptic, effect, iterations);
 			#endif
 		}
 
@@ -1197,12 +1821,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopEffect")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticStopEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[658])(haptic, effect);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[658])(haptic, effect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[658])((nint)haptic, effect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[658])((nint)haptic, effect);
 			#endif
 		}
 
@@ -1249,12 +1874,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticDestroyEffect")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void HapticDestroyEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)vt[659])(haptic, effect);
+			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)funcTable[659])(haptic, effect);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, void>)vt[659])((nint)haptic, effect);
+			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[659])((nint)haptic, effect);
 			#endif
 		}
 
@@ -1300,12 +1926,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticGetEffectStatus")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticGetEffectStatusNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[660])(haptic, effect);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[660])(haptic, effect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[660])((nint)haptic, effect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[660])((nint)haptic, effect);
 			#endif
 		}
 
@@ -1355,12 +1982,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetGain")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticSetGainNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[661])(haptic, gain);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[661])(haptic, gain);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[661])((nint)haptic, gain);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[661])((nint)haptic, gain);
 			#endif
 		}
 
@@ -1416,12 +2044,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticSetAutocenter")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticSetAutocenterNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)vt[662])(haptic, autocenter);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[662])(haptic, autocenter);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[662])((nint)haptic, autocenter);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[662])((nint)haptic, autocenter);
 			#endif
 		}
 
@@ -1474,12 +2103,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticPause")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticPauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[663])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[663])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[663])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[663])((nint)haptic);
 			#endif
 		}
 
@@ -1531,12 +2161,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticUnpause")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticUnpauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[664])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[664])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[664])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[664])((nint)haptic);
 			#endif
 		}
 
@@ -1580,12 +2211,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticStopAll")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticStopAllNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[665])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[665])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[665])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[665])((nint)haptic);
 			#endif
 		}
 
@@ -1626,12 +2258,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticRumbleSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[666])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[666])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[666])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[666])((nint)haptic);
 			#endif
 		}
 
@@ -1674,12 +2307,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticRumbleInitNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[667])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[667])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[667])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[667])((nint)haptic);
 			#endif
 		}
 
@@ -1722,12 +2356,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumblePlay")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticRumblePlayNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, int>)vt[668])(haptic, strength, length);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, int>)funcTable[668])(haptic, strength, length);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, uint, int>)vt[668])((nint)haptic, strength, length);
+			return (int)((delegate* unmanaged[Cdecl]<nint, float, uint, int>)funcTable[668])((nint)haptic, strength, length);
 			#endif
 		}
 
@@ -1770,12 +2405,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HapticRumbleStop")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HapticRumbleStopNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)vt[669])(haptic);
+			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[669])(haptic);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[669])((nint)haptic);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[669])((nint)haptic);
 			#endif
 		}
 
@@ -1824,12 +2460,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_init")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidInitNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[670])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[670])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[670])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[670])();
 			#endif
 		}
 
@@ -1863,12 +2500,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidExitNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[671])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[671])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[671])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[671])();
 			#endif
 		}
 
@@ -1903,12 +2541,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint HidDeviceChangeCountNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[672])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[672])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[672])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[672])();
 			#endif
 		}
 
@@ -1946,12 +2585,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLHidDeviceInfo* HidEnumerateNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)vt[673])(vendorId, productId);
+			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)funcTable[673])(vendorId, productId);
 			#else
-			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint>)vt[673])(vendorId, productId);
+			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint>)funcTable[673])(vendorId, productId);
 			#endif
 		}
 
@@ -1982,12 +2622,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void HidFreeEnumerationNative([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] SDLHidDeviceInfo* devs)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)vt[674])(devs);
+			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)funcTable[674])(devs);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[674])((nint)devs);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[674])((nint)devs);
 			#endif
 		}
 
@@ -2030,12 +2671,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLHidDevice* HidOpenNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] char* serialNumber)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)vt[675])(vendorId, productId, serialNumber);
+			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)funcTable[675])(vendorId, productId, serialNumber);
 			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint, nint>)vt[675])(vendorId, productId, (nint)serialNumber);
+			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint, nint>)funcTable[675])(vendorId, productId, (nint)serialNumber);
 			#endif
 		}
 
@@ -2139,12 +2781,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
 		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLHidDevice* HidOpenPathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLHidDevice*>)vt[676])(path, bExclusive);
+			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLHidDevice*>)funcTable[676])(path, bExclusive);
 			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<nint, int, nint>)vt[676])((nint)path, bExclusive);
+			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[676])((nint)path, bExclusive);
 			#endif
 		}
 
@@ -2253,12 +2896,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_write")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidWriteNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[677])(dev, data, length);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[677])(dev, data, length);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)vt[677])((nint)dev, (nint)data, length);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[677])((nint)dev, (nint)data, length);
 			#endif
 		}
 
@@ -2488,12 +3132,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidReadTimeoutNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int, int>)vt[678])(dev, data, length, milliseconds);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int, int>)funcTable[678])(dev, data, length, milliseconds);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int, int>)vt[678])((nint)dev, (nint)data, length, milliseconds);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int, int>)funcTable[678])((nint)dev, (nint)data, length, milliseconds);
 			#endif
 		}
 
@@ -2659,12 +3304,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_read")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidReadNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[679])(dev, data, length);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[679])(dev, data, length);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)vt[679])((nint)dev, (nint)data, length);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[679])((nint)dev, (nint)data, length);
 			#endif
 		}
 
@@ -2831,12 +3477,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidSetNonblockingNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)vt[680])(dev, nonblock);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)funcTable[680])(dev, nonblock);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[680])((nint)dev, nonblock);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[680])((nint)dev, nonblock);
 			#endif
 		}
 
@@ -2893,12 +3540,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidSendFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[681])(dev, data, length);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[681])(dev, data, length);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)vt[681])((nint)dev, (nint)data, length);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[681])((nint)dev, (nint)data, length);
 			#endif
 		}
 
@@ -3113,12 +3761,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidGetFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)vt[682])(dev, data, length);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[682])(dev, data, length);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)vt[682])((nint)dev, (nint)data, length);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[682])((nint)dev, (nint)data, length);
 			#endif
 		}
 
@@ -3289,12 +3938,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_close")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void HidCloseNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHidDevice*, void>)vt[683])(dev);
+			((delegate* unmanaged[Cdecl]<SDLHidDevice*, void>)funcTable[683])(dev);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[683])((nint)dev);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[683])((nint)dev);
 			#endif
 		}
 
@@ -3332,12 +3982,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidGetManufacturerStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)vt[684])(dev, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)funcTable[684])(dev, str, maxlen);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)vt[684])((nint)dev, (nint)str, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[684])((nint)dev, (nint)str, maxlen);
 			#endif
 		}
 
@@ -3622,12 +4273,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidGetProductStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)vt[685])(dev, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)funcTable[685])(dev, str, maxlen);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)vt[685])((nint)dev, (nint)str, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[685])((nint)dev, (nint)str, maxlen);
 			#endif
 		}
 
@@ -3912,12 +4564,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidGetSerialNumberStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)vt[686])(dev, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)funcTable[686])(dev, str, maxlen);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)vt[686])((nint)dev, (nint)str, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[686])((nint)dev, (nint)str, maxlen);
 			#endif
 		}
 
@@ -4202,12 +4855,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int HidGetIndexedStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, char*, ulong, int>)vt[687])(dev, stringIndex, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, char*, ulong, int>)funcTable[687])(dev, stringIndex, str, maxlen);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, ulong, int>)vt[687])((nint)dev, stringIndex, (nint)str, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, ulong, int>)funcTable[687])((nint)dev, stringIndex, (nint)str, maxlen);
 			#endif
 		}
 
@@ -4374,656 +5028,6 @@ namespace Hexa.NET.SDL2
 			{
 				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void HidBleScanNative([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLBool, void>)vt[688])(active);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLBool, void>)vt[688])(active);
-			#endif
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidBleScan([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
-		{
-			HidBleScanNative(active);
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SetHintWithPriorityNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLHintPriority, SDLBool>)vt[689])(name, value, priority);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLHintPriority, SDLBool>)vt[689])((nint)name, (nint)value, priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			SDLBool ret = SetHintWithPriorityNative(name, value, priority);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintWithPriorityNative(pStr0, value, priority);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pvalue = value)
-			{
-				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintWithPriorityNative(name, pStr0, priority);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pvalue = value)
-				{
-					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLBool ret = SetHintWithPriorityNative(pStr0, pStr1, priority);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool SetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLBool>)vt[690])(name, value);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)vt[690])((nint)name, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
-		{
-			SDLBool ret = SetHintNative(name, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = SetHintNative((byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLBool ret = SetHintNative((byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				SDLBool ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pvalue = value)
-			{
-				SDLBool ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
-					return ret;
-				}
 			}
 		}
 	}

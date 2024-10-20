@@ -35,6 +35,399 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, blue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, blue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		{
+			fixed (ushort* pgreen = &green)
+			{
+				int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, blue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, blue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, blue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					fixed (ushort* pgreen = &green)
+					{
+						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, blue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		{
+			fixed (ushort* pblue = &blue)
+			{
+				int ret = SetWindowGammaRampNative(window, red, green, (ushort*)pblue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pblue = &blue)
+				{
+					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, green, (ushort*)pblue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				fixed (ushort* pblue = &blue)
+				{
+					int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, (ushort*)pblue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pred = &red)
+				{
+					fixed (ushort* pblue = &blue)
+					{
+						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, (ushort*)pblue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		{
+			fixed (ushort* pgreen = &green)
+			{
+				fixed (ushort* pblue = &blue)
+				{
+					int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, (ushort*)pblue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					fixed (ushort* pblue = &blue)
+					{
+						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, (ushort*)pblue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
+		{
+			fixed (ushort* pred = &red)
+			{
+				fixed (ushort* pgreen = &green)
+				{
+					fixed (ushort* pblue = &blue)
+					{
+						int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the gamma ramp for the display that owns a given window.<br/>
+		/// Set the gamma translation table for the red, green, and blue channels of<br/>
+		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
+		/// representing a mapping between the input and output for that channel. The<br/>
+		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
+		/// at that index, scaled to the output color precision.<br/>
+		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
+		/// entire display, not an individual window. A window is considered to be<br/>
+		/// owned by the display that contains the window's center pixel. (The index of<br/>
+		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
+		/// ramp set will not follow the window if it is moved to another display.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
+		[return: NativeName(NativeNameType.Type, "int")]
 		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
 		{
 			fixed (SDLWindow* pwindow = &window)
@@ -65,12 +458,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetWindowGammaRampNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint16*")] ushort* blue)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ushort*, ushort*, ushort*, int>)vt[417])(window, red, green, blue);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ushort*, ushort*, ushort*, int>)funcTable[417])(window, red, green, blue);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[417])((nint)window, (nint)red, (nint)green, (nint)blue);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[417])((nint)window, (nint)red, (nint)green, (nint)blue);
 			#endif
 		}
 
@@ -488,12 +882,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowHitTest")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowHitTestNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HitTest")] SDLHitTest callback, [NativeName(NativeNameType.Param, "callback_data")] [NativeName(NativeNameType.Type, "void*")] void* callbackData)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>, void*, int>)vt[418])(window, (delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>)Utils.GetFunctionPointerForDelegate(callback), callbackData);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>, void*, int>)funcTable[418])(window, (delegate*<SDLWindow*, SDLPoint*, void*, SDLHitTestResult>)Utils.GetFunctionPointerForDelegate(callback), callbackData);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)vt[418])((nint)window, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)callbackData);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[418])((nint)window, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)callbackData);
 			#endif
 		}
 
@@ -579,12 +974,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FlashWindow")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int FlashWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "operation")] [NativeName(NativeNameType.Type, "SDL_FlashOperation")] SDLFlashOperation operation)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLFlashOperation, int>)vt[419])(window, operation);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLFlashOperation, int>)funcTable[419])(window, operation);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLFlashOperation, int>)vt[419])((nint)window, operation);
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLFlashOperation, int>)funcTable[419])((nint)window, operation);
 			#endif
 		}
 
@@ -627,12 +1023,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DestroyWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[420])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[420])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[420])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[420])((nint)window);
 			#endif
 		}
 
@@ -680,12 +1077,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsScreenSaverEnabled")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool IsScreenSaverEnabledNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[421])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[421])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[421])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[421])();
 			#endif
 		}
 
@@ -713,12 +1111,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_EnableScreenSaver")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void EnableScreenSaverNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[422])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[422])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[422])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[422])();
 			#endif
 		}
 
@@ -745,12 +1144,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DisableScreenSaver")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DisableScreenSaverNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[423])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[423])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[423])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[423])();
 			#endif
 		}
 
@@ -783,12 +1183,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_LoadLibrary")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLLoadLibraryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[424])(path);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[424])(path);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[424])((nint)path);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[424])((nint)path);
 			#endif
 		}
 
@@ -938,12 +1339,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_GetProcAddress")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* GLGetProcAddressNative([NativeName(NativeNameType.Param, "proc")] [NativeName(NativeNameType.Type, "const char*")] byte* proc)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, void*>)vt[425])(proc);
+			return ((delegate* unmanaged[Cdecl]<byte*, void*>)funcTable[425])(proc);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[425])((nint)proc);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[425])((nint)proc);
 			#endif
 		}
 
@@ -1177,12 +1579,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_UnloadLibrary")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GLUnloadLibraryNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[426])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[426])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[426])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[426])();
 			#endif
 		}
 
@@ -1214,12 +1617,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_ExtensionSupported")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool GLExtensionSupportedNative([NativeName(NativeNameType.Param, "extension")] [NativeName(NativeNameType.Type, "const char*")] byte* extension)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)vt[427])(extension);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)funcTable[427])(extension);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[427])((nint)extension);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[427])((nint)extension);
 			#endif
 		}
 
@@ -1345,12 +1749,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_ResetAttributes")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GLResetAttributesNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[428])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[428])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[428])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[428])();
 			#endif
 		}
 
@@ -1378,12 +1783,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_SetAttribute")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLSetAttributeNative([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLattr")] SDLGLattr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int")] int value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)vt[429])(attr, value);
+			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)funcTable[429])(attr, value);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)vt[429])(attr, value);
+			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, int, int>)funcTable[429])(attr, value);
 			#endif
 		}
 
@@ -1413,12 +1819,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_GetAttribute")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLGetAttributeNative([NativeName(NativeNameType.Param, "attr")] [NativeName(NativeNameType.Type, "SDL_GLattr")] SDLGLattr attr, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "int*")] int* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int*, int>)vt[430])(attr, value);
+			return ((delegate* unmanaged[Cdecl]<SDLGLattr, int*, int>)funcTable[430])(attr, value);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, nint, int>)vt[430])(attr, (nint)value);
+			return (int)((delegate* unmanaged[Cdecl]<SDLGLattr, nint, int>)funcTable[430])(attr, (nint)value);
 			#endif
 		}
 
@@ -1467,12 +1874,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_CreateContext")]
 		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLGLContext GLCreateContextNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext>)vt[431])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext>)funcTable[431])(window);
 			#else
-			return (SDLGLContext)((delegate* unmanaged[Cdecl]<nint, SDLGLContext>)vt[431])((nint)window);
+			return (SDLGLContext)((delegate* unmanaged[Cdecl]<nint, SDLGLContext>)funcTable[431])((nint)window);
 			#endif
 		}
 
@@ -1528,12 +1936,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_MakeCurrent")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLMakeCurrentNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext, int>)vt[432])(window, context);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLGLContext, int>)funcTable[432])(window, context);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLGLContext, int>)vt[432])((nint)window, context);
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLGLContext, int>)funcTable[432])((nint)window, context);
 			#endif
 		}
 
@@ -1577,12 +1986,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLWindow* GLGetCurrentWindowNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)vt[433])();
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[433])();
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)vt[433])();
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[433])();
 			#endif
 		}
 
@@ -1607,12 +2017,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_GetCurrentContext")]
 		[return: NativeName(NativeNameType.Type, "SDL_GLContext")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLGLContext GLGetCurrentContextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLGLContext>)vt[434])();
+			return ((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[434])();
 			#else
-			return (SDLGLContext)((delegate* unmanaged[Cdecl]<SDLGLContext>)vt[434])();
+			return (SDLGLContext)((delegate* unmanaged[Cdecl]<SDLGLContext>)funcTable[434])();
 			#endif
 		}
 
@@ -1643,12 +2054,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GLGetDrawableSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[435])(window, w, h);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[435])(window, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[435])((nint)window, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[435])((nint)window, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -1852,12 +2264,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_SetSwapInterval")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLSetSwapIntervalNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "int")] int interval)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[436])(interval);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[436])(interval);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[436])(interval);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[436])(interval);
 			#endif
 		}
 
@@ -1897,12 +2310,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_GetSwapInterval")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLGetSwapIntervalNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[437])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[437])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[437])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[437])();
 			#endif
 		}
 
@@ -1934,12 +2348,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_SwapWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GLSwapWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[438])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[438])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[438])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[438])((nint)window);
 			#endif
 		}
 
@@ -1988,12 +2403,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_DeleteContext")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GLDeleteContextNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_GLContext")] SDLGLContext context)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLGLContext, void>)vt[439])(context);
+			((delegate* unmanaged[Cdecl]<SDLGLContext, void>)funcTable[439])(context);
 			#else
-			((delegate* unmanaged[Cdecl]<SDLGLContext, void>)vt[439])(context);
+			((delegate* unmanaged[Cdecl]<SDLGLContext, void>)funcTable[439])(context);
 			#endif
 		}
 
@@ -2017,12 +2433,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetKeyboardFocus")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLWindow* GetKeyboardFocusNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)vt[440])();
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[440])();
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)vt[440])();
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[440])();
 			#endif
 		}
 
@@ -2060,12 +2477,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetKeyboardState")]
 		[return: NativeName(NativeNameType.Type, "const Uint8*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetKeyboardStateNative([NativeName(NativeNameType.Param, "numkeys")] [NativeName(NativeNameType.Type, "int*")] int* numkeys)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, byte*>)vt[441])(numkeys);
+			return ((delegate* unmanaged[Cdecl]<int*, byte*>)funcTable[441])(numkeys);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[441])((nint)numkeys);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[441])((nint)numkeys);
 			#endif
 		}
 
@@ -2134,12 +2552,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetKeyboard")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ResetKeyboardNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[442])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[442])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[442])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[442])();
 			#endif
 		}
 
@@ -2164,12 +2583,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetModState")]
 		[return: NativeName(NativeNameType.Type, "SDL_Keymod")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLKeymod GetModStateNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLKeymod>)vt[443])();
+			return ((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[443])();
 			#else
-			return (SDLKeymod)((delegate* unmanaged[Cdecl]<SDLKeymod>)vt[443])();
+			return (SDLKeymod)((delegate* unmanaged[Cdecl]<SDLKeymod>)funcTable[443])();
 			#endif
 		}
 
@@ -2201,12 +2621,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetModState")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetModStateNative([NativeName(NativeNameType.Param, "modstate")] [NativeName(NativeNameType.Type, "SDL_Keymod")] SDLKeymod modstate)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)vt[444])(modstate);
+			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[444])(modstate);
 			#else
-			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)vt[444])(modstate);
+			((delegate* unmanaged[Cdecl]<SDLKeymod, void>)funcTable[444])(modstate);
 			#endif
 		}
 
@@ -2239,12 +2660,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetKeyFromScancode")]
 		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetKeyFromScancodeNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, int>)vt[445])(scancode);
+			return ((delegate* unmanaged[Cdecl]<SDLScancode, int>)funcTable[445])(scancode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLScancode, int>)vt[445])(scancode);
+			return (int)((delegate* unmanaged[Cdecl]<SDLScancode, int>)funcTable[445])(scancode);
 			#endif
 		}
 
@@ -2274,12 +2696,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromKey")]
 		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLScancode GetScancodeFromKeyNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLScancode>)vt[446])(key);
+			return ((delegate* unmanaged[Cdecl]<int, SDLScancode>)funcTable[446])(key);
 			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<int, SDLScancode>)vt[446])(key);
+			return (SDLScancode)((delegate* unmanaged[Cdecl]<int, SDLScancode>)funcTable[446])(key);
 			#endif
 		}
 
@@ -2316,12 +2739,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetScancodeName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetScancodeNameNative([NativeName(NativeNameType.Param, "scancode")] [NativeName(NativeNameType.Type, "SDL_Scancode")] SDLScancode scancode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*>)vt[447])(scancode);
+			return ((delegate* unmanaged[Cdecl]<SDLScancode, byte*>)funcTable[447])(scancode);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<SDLScancode, nint>)vt[447])(scancode);
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLScancode, nint>)funcTable[447])(scancode);
 			#endif
 		}
 
@@ -2379,12 +2803,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetScancodeFromName")]
 		[return: NativeName(NativeNameType.Type, "SDL_Scancode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLScancode GetScancodeFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLScancode>)vt[448])(name);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLScancode>)funcTable[448])(name);
 			#else
-			return (SDLScancode)((delegate* unmanaged[Cdecl]<nint, SDLScancode>)vt[448])((nint)name);
+			return (SDLScancode)((delegate* unmanaged[Cdecl]<nint, SDLScancode>)funcTable[448])((nint)name);
 			#endif
 		}
 
@@ -2480,12 +2905,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetKeyName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetKeyNameNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "SDL_Keycode")] int key)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[449])(key);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[449])(key);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[449])(key);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[449])(key);
 			#endif
 		}
 
@@ -2527,12 +2953,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetKeyFromName")]
 		[return: NativeName(NativeNameType.Type, "SDL_Keycode")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetKeyFromNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[450])(name);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[450])(name);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[450])((nint)name);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[450])((nint)name);
 			#endif
 		}
 
@@ -2631,12 +3058,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_StartTextInput")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void StartTextInputNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[451])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[451])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
 			#endif
 		}
 
@@ -2665,12 +3093,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsTextInputActive")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool IsTextInputActiveNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[452])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[452])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
 			#endif
 		}
 
@@ -2695,12 +3124,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_StopTextInput")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void StopTextInputNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[453])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[453])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
 			#endif
 		}
 
@@ -2723,12 +3153,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearComposition")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ClearCompositionNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[454])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[454])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
 			#endif
 		}
 
@@ -2750,12 +3181,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsTextInputShown")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool IsTextInputShownNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[455])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[455])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
 			#endif
 		}
 
@@ -2787,12 +3219,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetTextInputRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetTextInputRectNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRect*, void>)vt[456])(rect);
+			((delegate* unmanaged[Cdecl]<SDLRect*, void>)funcTable[456])(rect);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[456])((nint)rect);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[456])((nint)rect);
 			#endif
 		}
 
@@ -2849,12 +3282,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasScreenKeyboardSupport")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasScreenKeyboardSupportNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[457])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[457])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
 			#endif
 		}
 
@@ -2880,12 +3314,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsScreenKeyboardShown")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool IsScreenKeyboardShownNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[458])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[458])(window);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[458])((nint)window);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[458])((nint)window);
 			#endif
 		}
 
@@ -2927,12 +3362,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetMouseFocus")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLWindow* GetMouseFocusNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)vt[459])();
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[459])();
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)vt[459])();
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[459])();
 			#endif
 		}
 
@@ -2962,12 +3398,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetMouseState")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint GetMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)vt[460])(x, y);
+			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[460])(x, y);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)vt[460])((nint)x, (nint)y);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[460])((nint)x, (nint)y);
 			#endif
 		}
 
@@ -3078,12 +3515,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetGlobalMouseState")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint GetGlobalMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)vt[461])(x, y);
+			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[461])(x, y);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)vt[461])((nint)x, (nint)y);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[461])((nint)x, (nint)y);
 			#endif
 		}
 
@@ -3212,12 +3650,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseState")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint GetRelativeMouseStateNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)vt[462])(x, y);
+			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[462])(x, y);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)vt[462])((nint)x, (nint)y);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[462])((nint)x, (nint)y);
 			#endif
 		}
 
@@ -3322,12 +3761,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WarpMouseInWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void WarpMouseInWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[463])(window, x, y);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[463])(window, x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)vt[463])((nint)window, x, y);
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[463])((nint)window, x, y);
 			#endif
 		}
 
@@ -3383,12 +3823,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WarpMouseGlobal")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int WarpMouseGlobalNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, int>)vt[464])(x, y);
+			return ((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[464])(x, y);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)vt[464])(x, y);
+			return (int)((delegate* unmanaged[Cdecl]<int, int, int>)funcTable[464])(x, y);
 			#endif
 		}
 
@@ -3424,12 +3865,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetRelativeMouseMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetRelativeMouseModeNative([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool, int>)vt[465])(enabled);
+			return ((delegate* unmanaged[Cdecl]<SDLBool, int>)funcTable[465])(enabled);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLBool, int>)vt[465])(enabled);
+			return (int)((delegate* unmanaged[Cdecl]<SDLBool, int>)funcTable[465])(enabled);
 			#endif
 		}
 
@@ -3488,12 +3930,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CaptureMouse")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int CaptureMouseNative([NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enabled)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool, int>)vt[466])(enabled);
+			return ((delegate* unmanaged[Cdecl]<SDLBool, int>)funcTable[466])(enabled);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLBool, int>)vt[466])(enabled);
+			return (int)((delegate* unmanaged[Cdecl]<SDLBool, int>)funcTable[466])(enabled);
 			#endif
 		}
 
@@ -3547,12 +3990,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRelativeMouseMode")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool GetRelativeMouseModeNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[467])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[467])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[467])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[467])();
 			#endif
 		}
 
@@ -3592,12 +4036,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateCursor")]
 		[return: NativeName(NativeNameType.Type, "SDL_Cursor*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLCursor* CreateCursorNative([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* data, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* mask, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int, int, int, SDLCursor*>)vt[468])(data, mask, w, h, hotX, hotY);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int, int, int, SDLCursor*>)funcTable[468])(data, mask, w, h, hotX, hotY);
 			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int, int, nint>)vt[468])((nint)data, (nint)mask, w, h, hotX, hotY);
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int, int, nint>)funcTable[468])((nint)data, (nint)mask, w, h, hotX, hotY);
 			#endif
 		}
 
@@ -3733,12 +4178,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateColorCursor")]
 		[return: NativeName(NativeNameType.Type, "SDL_Cursor*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLCursor* CreateColorCursorNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "hot_x")] [NativeName(NativeNameType.Type, "int")] int hotX, [NativeName(NativeNameType.Param, "hot_y")] [NativeName(NativeNameType.Type, "int")] int hotY)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLCursor*>)vt[469])(surface, hotX, hotY);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int, SDLCursor*>)funcTable[469])(surface, hotX, hotY);
 			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)vt[469])((nint)surface, hotX, hotY);
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint, int, int, nint>)funcTable[469])((nint)surface, hotX, hotY);
 			#endif
 		}
 
@@ -3781,12 +4227,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateSystemCursor")]
 		[return: NativeName(NativeNameType.Type, "SDL_Cursor*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLCursor* CreateSystemCursorNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_SystemCursor")] SDLSystemCursor id)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSystemCursor, SDLCursor*>)vt[470])(id);
+			return ((delegate* unmanaged[Cdecl]<SDLSystemCursor, SDLCursor*>)funcTable[470])(id);
 			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<SDLSystemCursor, nint>)vt[470])(id);
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<SDLSystemCursor, nint>)funcTable[470])(id);
 			#endif
 		}
 
@@ -3816,12 +4263,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetCursor")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor*")] SDLCursor* cursor)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)vt[471])(cursor);
+			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)funcTable[471])(cursor);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[471])((nint)cursor);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[471])((nint)cursor);
 			#endif
 		}
 
@@ -3872,12 +4320,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCursor")]
 		[return: NativeName(NativeNameType.Type, "SDL_Cursor*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLCursor* GetCursorNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)vt[472])();
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[472])();
 			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)vt[472])();
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[472])();
 			#endif
 		}
 
@@ -3907,12 +4356,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultCursor")]
 		[return: NativeName(NativeNameType.Type, "SDL_Cursor*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLCursor* GetDefaultCursorNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)vt[473])();
+			return ((delegate* unmanaged[Cdecl]<SDLCursor*>)funcTable[473])();
 			#else
-			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)vt[473])();
+			return (SDLCursor*)((delegate* unmanaged[Cdecl]<nint>)funcTable[473])();
 			#endif
 		}
 
@@ -3942,12 +4392,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FreeCursor")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void FreeCursorNative([NativeName(NativeNameType.Param, "cursor")] [NativeName(NativeNameType.Type, "SDL_Cursor*")] SDLCursor* cursor)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)vt[474])(cursor);
+			((delegate* unmanaged[Cdecl]<SDLCursor*, void>)funcTable[474])(cursor);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[474])((nint)cursor);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[474])((nint)cursor);
 			#endif
 		}
 
@@ -3996,12 +4447,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowCursor")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int ShowCursorNative([NativeName(NativeNameType.Param, "toggle")] [NativeName(NativeNameType.Type, "int")] int toggle)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[475])(toggle);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[475])(toggle);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[475])(toggle);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[475])(toggle);
 			#endif
 		}
 
@@ -4032,12 +4484,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GUIDToString")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GUIDToStringNative([NativeName(NativeNameType.Param, "guid")] [NativeName(NativeNameType.Type, "SDL_GUID")] SdlGuid guid, [NativeName(NativeNameType.Param, "pszGUID")] [NativeName(NativeNameType.Type, "char*")] byte* pszGUID, [NativeName(NativeNameType.Param, "cbGUID")] [NativeName(NativeNameType.Type, "int")] int cbGUID)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SdlGuid, byte*, int, void>)vt[476])(guid, pszGUID, cbGUID);
+			((delegate* unmanaged[Cdecl]<SdlGuid, byte*, int, void>)funcTable[476])(guid, pszGUID, cbGUID);
 			#else
-			((delegate* unmanaged[Cdecl]<SdlGuid, nint, int, void>)vt[476])(guid, (nint)pszGUID, cbGUID);
+			((delegate* unmanaged[Cdecl]<SdlGuid, nint, int, void>)funcTable[476])(guid, (nint)pszGUID, cbGUID);
 			#endif
 		}
 
@@ -4119,12 +4572,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GUIDFromString")]
 		[return: NativeName(NativeNameType.Type, "SDL_GUID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SdlGuid GUIDFromStringNative([NativeName(NativeNameType.Param, "pchGUID")] [NativeName(NativeNameType.Type, "const char*")] byte* pchGUID)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SdlGuid>)vt[477])(pchGUID);
+			return ((delegate* unmanaged[Cdecl]<byte*, SdlGuid>)funcTable[477])(pchGUID);
 			#else
-			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)vt[477])((nint)pchGUID);
+			return (SdlGuid)((delegate* unmanaged[Cdecl]<nint, SdlGuid>)funcTable[477])((nint)pchGUID);
 			#endif
 		}
 
@@ -4238,12 +4692,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockJoysticks")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LockJoysticksNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[478])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[478])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[478])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[478])();
 			#endif
 		}
 
@@ -4278,12 +4733,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnlockJoysticks")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void UnlockJoysticksNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[479])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[479])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[479])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[479])();
 			#endif
 		}
 
@@ -4311,12 +4767,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_NumJoysticks")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int NumJoysticksNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[480])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[480])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[480])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[480])();
 			#endif
 		}
 
@@ -4343,12 +4800,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickNameForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* JoystickNameForIndexNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[481])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[481])(deviceIndex);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[481])(deviceIndex);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[481])(deviceIndex);
 			#endif
 		}
 
@@ -4391,12 +4849,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickPathForIndex")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* JoystickPathForIndexNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[482])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[482])(deviceIndex);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[482])(deviceIndex);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[482])(deviceIndex);
 			#endif
 		}
 
@@ -4437,12 +4896,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetDevicePlayerIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int JoystickGetDevicePlayerIndexNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[483])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[483])(deviceIndex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[483])(deviceIndex);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[483])(deviceIndex);
 			#endif
 		}
 
@@ -4469,12 +4929,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceGUID")]
 		[return: NativeName(NativeNameType.Type, "SDL_JoystickGUID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static Guid JoystickGetDeviceGUIDNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, Guid>)vt[484])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, Guid>)funcTable[484])(deviceIndex);
 			#else
-			return (Guid)((delegate* unmanaged[Cdecl]<int, Guid>)vt[484])(deviceIndex);
+			return (Guid)((delegate* unmanaged[Cdecl]<int, Guid>)funcTable[484])(deviceIndex);
 			#endif
 		}
 
@@ -4503,12 +4964,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceVendor")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ushort JoystickGetDeviceVendorNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, ushort>)vt[485])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[485])(deviceIndex);
 			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)vt[485])(deviceIndex);
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[485])(deviceIndex);
 			#endif
 		}
 
@@ -4536,12 +4998,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceProduct")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ushort JoystickGetDeviceProductNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, ushort>)vt[486])(deviceIndex);
+			return ((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[486])(deviceIndex);
 			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)vt[486])(deviceIndex);
+			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)funcTable[486])(deviceIndex);
 			#endif
 		}
 
@@ -4558,463 +5021,6 @@ namespace Hexa.NET.SDL2
 		{
 			ushort ret = JoystickGetDeviceProductNative(deviceIndex);
 			return ret;
-		}
-
-		/// <summary>
-		/// Get the product version of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the product version<br/>
-		/// isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceProductVersion")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		internal static ushort JoystickGetDeviceProductVersionNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, ushort>)vt[487])(deviceIndex);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<int, ushort>)vt[487])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the product version of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened. If the product version<br/>
-		/// isn't available this function returns 0.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceProductVersion")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort JoystickGetDeviceProductVersion([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			ushort ret = JoystickGetDeviceProductVersionNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceType")]
-		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
-		internal static SDLJoystickType JoystickGetDeviceTypeNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)vt[488])(deviceIndex);
-			#else
-			return (SDLJoystickType)((delegate* unmanaged[Cdecl]<int, SDLJoystickType>)vt[488])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of a joystick, if available.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceType")]
-		[return: NativeName(NativeNameType.Type, "SDL_JoystickType")]
-		public static SDLJoystickType JoystickGetDeviceType([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			SDLJoystickType ret = JoystickGetDeviceTypeNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the instance ID of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceInstanceID")]
-		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
-		internal static int JoystickGetDeviceInstanceIDNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[489])(deviceIndex);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[489])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the instance ID of a joystick.<br/>
-		/// This can be called before any joysticks are opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickGetDeviceInstanceID")]
-		[return: NativeName(NativeNameType.Type, "SDL_JoystickID")]
-		public static int JoystickGetDeviceInstanceID([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			int ret = JoystickGetDeviceInstanceIDNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a joystick for use.<br/>
-		/// The `device_index` argument refers to the N'th joystick presently<br/>
-		/// recognized by SDL on the system. It is **NOT** the same as the instance ID<br/>
-		/// used to identify the joystick in future events. See<br/>
-		/// SDL_JoystickInstanceID() for more details about instance IDs.<br/>
-		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
-		/// for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickOpen")]
-		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		internal static SDLJoystick* JoystickOpenNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)vt[490])(deviceIndex);
-			#else
-			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)vt[490])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a joystick for use.<br/>
-		/// The `device_index` argument refers to the N'th joystick presently<br/>
-		/// recognized by SDL on the system. It is **NOT** the same as the instance ID<br/>
-		/// used to identify the joystick in future events. See<br/>
-		/// SDL_JoystickInstanceID() for more details about instance IDs.<br/>
-		/// The joystick subsystem must be initialized before a joystick can be opened<br/>
-		/// for use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickOpen")]
-		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		public static SDLJoystick* JoystickOpen([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			SDLJoystick* ret = JoystickOpenNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with an instance id.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickFromInstanceID")]
-		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		internal static SDLJoystick* JoystickFromInstanceIDNative([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)vt[491])(instanceId);
-			#else
-			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)vt[491])(instanceId);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with an instance id.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickFromInstanceID")]
-		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		public static SDLJoystick* JoystickFromInstanceID([NativeName(NativeNameType.Param, "instance_id")] [NativeName(NativeNameType.Type, "SDL_JoystickID")] int instanceId)
-		{
-			SDLJoystick* ret = JoystickFromInstanceIDNative(instanceId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with a player index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickFromPlayerIndex")]
-		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		internal static SDLJoystick* JoystickFromPlayerIndexNative([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLJoystick*>)vt[492])(playerIndex);
-			#else
-			return (SDLJoystick*)((delegate* unmanaged[Cdecl]<int, nint>)vt[492])(playerIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the SDL_Joystick associated with a player index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickFromPlayerIndex")]
-		[return: NativeName(NativeNameType.Type, "SDL_Joystick*")]
-		public static SDLJoystick* JoystickFromPlayerIndex([NativeName(NativeNameType.Param, "player_index")] [NativeName(NativeNameType.Type, "int")] int playerIndex)
-		{
-			SDLJoystick* ret = JoystickFromPlayerIndexNative(playerIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickAttachVirtual")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int JoystickAttachVirtualNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_JoystickType")] SDLJoystickType type, [NativeName(NativeNameType.Param, "naxes")] [NativeName(NativeNameType.Type, "int")] int naxes, [NativeName(NativeNameType.Param, "nbuttons")] [NativeName(NativeNameType.Type, "int")] int nbuttons, [NativeName(NativeNameType.Param, "nhats")] [NativeName(NativeNameType.Type, "int")] int nhats)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystickType, int, int, int, int>)vt[493])(type, naxes, nbuttons, nhats);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLJoystickType, int, int, int, int>)vt[493])(type, naxes, nbuttons, nhats);
-			#endif
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickAttachVirtual")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickAttachVirtual([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "SDL_JoystickType")] SDLJoystickType type, [NativeName(NativeNameType.Param, "naxes")] [NativeName(NativeNameType.Type, "int")] int naxes, [NativeName(NativeNameType.Param, "nbuttons")] [NativeName(NativeNameType.Type, "int")] int nbuttons, [NativeName(NativeNameType.Param, "nhats")] [NativeName(NativeNameType.Type, "int")] int nhats)
-		{
-			int ret = JoystickAttachVirtualNative(type, naxes, nbuttons, nhats);
-			return ret;
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick with extended properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickAttachVirtualEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int JoystickAttachVirtualExNative([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "const SDL_VirtualJoystickDesc*")] SDLVirtualJoystickDesc* desc)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLVirtualJoystickDesc*, int>)vt[494])(desc);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[494])((nint)desc);
-			#endif
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick with extended properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickAttachVirtualEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickAttachVirtualEx([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "const SDL_VirtualJoystickDesc*")] SDLVirtualJoystickDesc* desc)
-		{
-			int ret = JoystickAttachVirtualExNative(desc);
-			return ret;
-		}
-
-		/// <summary>
-		/// Attach a new virtual joystick with extended properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickAttachVirtualEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickAttachVirtualEx([NativeName(NativeNameType.Param, "desc")] [NativeName(NativeNameType.Type, "const SDL_VirtualJoystickDesc*")] ref SDLVirtualJoystickDesc desc)
-		{
-			fixed (SDLVirtualJoystickDesc* pdesc = &desc)
-			{
-				int ret = JoystickAttachVirtualExNative((SDLVirtualJoystickDesc*)pdesc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Detach a virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickDetachVirtual")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int JoystickDetachVirtualNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[495])(deviceIndex);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[495])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Detach a virtual joystick.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickDetachVirtual")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickDetachVirtual([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			int ret = JoystickDetachVirtualNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether or not the joystick at a given device index is virtual.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickIsVirtual")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool JoystickIsVirtualNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLBool>)vt[496])(deviceIndex);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<int, SDLBool>)vt[496])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether or not the joystick at a given device index is virtual.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickIsVirtual")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool JoystickIsVirtual([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			SDLBool ret = JoystickIsVirtualNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set values on an opened, virtual-joystick's axis.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_JoystickUpdate, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// Note that when sending trigger axes, you should scale the value to the full<br/>
-		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
-		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualAxis")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int JoystickSetVirtualAxisNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, short, int>)vt[497])(joystick, axis, value);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, short, int>)vt[497])((nint)joystick, axis, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set values on an opened, virtual-joystick's axis.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_JoystickUpdate, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// Note that when sending trigger axes, you should scale the value to the full<br/>
-		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
-		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualAxis")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickSetVirtualAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
-		{
-			int ret = JoystickSetVirtualAxisNative(joystick, axis, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set values on an opened, virtual-joystick's axis.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_JoystickUpdate, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// Note that when sending trigger axes, you should scale the value to the full<br/>
-		/// range of Sint16. For example, a trigger at rest would have the value of<br/>
-		/// `SDL_JOYSTICK_AXIS_MIN`.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualAxis")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickSetVirtualAxis([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "axis")] [NativeName(NativeNameType.Type, "int")] int axis, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint16")] short value)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickSetVirtualAxisNative((SDLJoystick*)pjoystick, axis, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set values on an opened, virtual-joystick's button.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_JoystickUpdate, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualButton")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int JoystickSetVirtualButtonNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int, byte, int>)vt[498])(joystick, button, value);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, byte, int>)vt[498])((nint)joystick, button, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set values on an opened, virtual-joystick's button.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_JoystickUpdate, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualButton")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickSetVirtualButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
-		{
-			int ret = JoystickSetVirtualButtonNative(joystick, button, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set values on an opened, virtual-joystick's button.<br/>
-		/// Please note that values set here will not be applied until the next call to<br/>
-		/// SDL_JoystickUpdate, which can either be called directly, or can be called<br/>
-		/// indirectly through various other SDL APIs, including, but not limited to<br/>
-		/// the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,<br/>
-		/// SDL_WaitEvent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickSetVirtualButton")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickSetVirtualButton([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick, [NativeName(NativeNameType.Param, "button")] [NativeName(NativeNameType.Type, "int")] int button, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickSetVirtualButtonNative((SDLJoystick*)pjoystick, button, value);
-				return ret;
-			}
 		}
 	}
 }

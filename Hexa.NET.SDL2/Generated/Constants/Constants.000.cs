@@ -1371,8 +1371,8 @@ namespace Hexa.NET.SDL2
 		public const int SDL_MINOR_VERSION = 30;
 
 		[NativeName(NativeNameType.Const, "SDL_PATCHLEVEL")]
-		[NativeName(NativeNameType.Value, "6")]
-		public const int SDL_PATCHLEVEL = 6;
+		[NativeName(NativeNameType.Value, "8")]
+		public const int SDL_PATCHLEVEL = 8;
 
 		[NativeName(NativeNameType.Const, "SDL_INIT_TIMER")]
 		[NativeName(NativeNameType.Value, "0x00000001u")]

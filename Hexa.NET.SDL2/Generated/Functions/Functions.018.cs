@@ -17,6 +17,1097 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
+		[NativeName(NativeNameType.Func, "glRectdv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectdv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v2)
+		{
+			fixed (double* pv1 = &v1)
+			{
+				GlRectdvNative((double*)pv1, v2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectdv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectdv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v2)
+		{
+			fixed (double* pv2 = &v2)
+			{
+				GlRectdvNative(v1, (double*)pv2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectdv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectdv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v2)
+		{
+			fixed (double* pv1 = &v1)
+			{
+				fixed (double* pv2 = &v2)
+				{
+					GlRectdvNative((double*)pv1, (double*)pv2);
+				}
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectfvNative([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, float*, void>)funcTable[1095])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1095])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glRectfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectfv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v2)
+		{
+			GlRectfvNative(v1, v2);
+		}
+
+		[NativeName(NativeNameType.Func, "glRectfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectfv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v2)
+		{
+			fixed (float* pv1 = &v1)
+			{
+				GlRectfvNative((float*)pv1, v2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectfv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v2)
+		{
+			fixed (float* pv2 = &v2)
+			{
+				GlRectfvNative(v1, (float*)pv2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectfv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v2)
+		{
+			fixed (float* pv1 = &v1)
+			{
+				fixed (float* pv2 = &v2)
+				{
+					GlRectfvNative((float*)pv1, (float*)pv2);
+				}
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectivNative([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLint*")] int* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLint*")] int* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, int*, void>)funcTable[1096])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1096])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glRectiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectiv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLint*")] int* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLint*")] int* v2)
+		{
+			GlRectivNative(v1, v2);
+		}
+
+		[NativeName(NativeNameType.Func, "glRectiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectiv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLint*")] int* v2)
+		{
+			fixed (int* pv1 = &v1)
+			{
+				GlRectivNative((int*)pv1, v2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectiv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLint*")] int* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v2)
+		{
+			fixed (int* pv2 = &v2)
+			{
+				GlRectivNative(v1, (int*)pv2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectiv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v2)
+		{
+			fixed (int* pv1 = &v1)
+			{
+				fixed (int* pv2 = &v2)
+				{
+					GlRectivNative((int*)pv1, (int*)pv2);
+				}
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectsv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectsvNative([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, short*, void>)funcTable[1097])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1097])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glRectsv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectsv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v2)
+		{
+			GlRectsvNative(v1, v2);
+		}
+
+		[NativeName(NativeNameType.Func, "glRectsv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectsv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v2)
+		{
+			fixed (short* pv1 = &v1)
+			{
+				GlRectsvNative((short*)pv1, v2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectsv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectsv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v2)
+		{
+			fixed (short* pv2 = &v2)
+			{
+				GlRectsvNative(v1, (short*)pv2);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glRectsv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlRectsv([NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v2)
+		{
+			fixed (short* pv1 = &v1)
+			{
+				fixed (short* pv2 = &v2)
+				{
+					GlRectsvNative((short*)pv1, (short*)pv2);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Vertex Arrays  (1.1)<br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "glVertexPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertexPointerNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1098])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1098])(size, type, stride, (nint)ptr);
+			#endif
+		}
+
+		/// <summary>
+		/// Vertex Arrays  (1.1)<br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "glVertexPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlVertexPointer([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			GlVertexPointerNative(size, type, stride, ptr);
+		}
+
+		[NativeName(NativeNameType.Func, "glNormalPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormalPointerNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1099])(type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1099])(type, stride, (nint)ptr);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glNormalPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlNormalPointer([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			GlNormalPointerNative(type, stride, ptr);
+		}
+
+		[NativeName(NativeNameType.Func, "glColorPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColorPointerNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1100])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1100])(size, type, stride, (nint)ptr);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glColorPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlColorPointer([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			GlColorPointerNative(size, type, stride, ptr);
+		}
+
+		[NativeName(NativeNameType.Func, "glIndexPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexPointerNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1101])(type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1101])(type, stride, (nint)ptr);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glIndexPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlIndexPointer([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			GlIndexPointerNative(type, stride, ptr);
+		}
+
+		[NativeName(NativeNameType.Func, "glTexCoordPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoordPointerNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1102])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1102])(size, type, stride, (nint)ptr);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glTexCoordPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlTexCoordPointer([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			GlTexCoordPointerNative(size, type, stride, ptr);
+		}
+
+		[NativeName(NativeNameType.Func, "glEdgeFlagPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEdgeFlagPointerNative([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void*, void>)funcTable[1103])(stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1103])(stride, (nint)ptr);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glEdgeFlagPointer")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlEdgeFlagPointer([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* ptr)
+		{
+			GlEdgeFlagPointerNative(stride, ptr);
+		}
+
+		[NativeName(NativeNameType.Func, "glGetPointerv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPointervNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLvoid**")] void** @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void**, void>)funcTable[1104])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1104])(pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glGetPointerv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetPointerv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLvoid**")] void** @params)
+		{
+			GlGetPointervNative(pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glGetPointerv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetPointerv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLvoid**")] ref void* @params)
+		{
+			fixed (void** pparams = &@params)
+			{
+				GlGetPointervNative(pname, (void**)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glArrayElement")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlArrayElementNative([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1105])(i);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1105])(i);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glArrayElement")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlArrayElement([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i)
+		{
+			GlArrayElementNative(i);
+		}
+
+		[NativeName(NativeNameType.Func, "glDrawArrays")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawArraysNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1106])(mode, first, count);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1106])(mode, first, count);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glDrawArrays")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlDrawArrays([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count)
+		{
+			GlDrawArraysNative(mode, first, count);
+		}
+
+		[NativeName(NativeNameType.Func, "glDrawElements")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawElementsNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* indices)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void*, void>)funcTable[1107])(mode, count, type, indices);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1107])(mode, count, type, (nint)indices);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glDrawElements")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlDrawElements([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* indices)
+		{
+			GlDrawElementsNative(mode, count, type, indices);
+		}
+
+		[NativeName(NativeNameType.Func, "glInterleavedArrays")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlInterleavedArraysNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pointer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1108])(format, stride, pointer);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1108])(format, stride, (nint)pointer);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glInterleavedArrays")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlInterleavedArrays([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pointer)
+		{
+			GlInterleavedArraysNative(format, stride, pointer);
+		}
+
+		/// <summary>
+		/// Lighting<br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "glShadeModel")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlShadeModelNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1109])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1109])(mode);
+			#endif
+		}
+
+		/// <summary>
+		/// Lighting<br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "glShadeModel")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlShadeModel([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
+		{
+			GlShadeModelNative(mode);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightfNative([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1110])(light, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1110])(light, pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLightf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightf([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			GlLightfNative(light, pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glLighti")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightiNative([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1111])(light, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1111])(light, pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLighti")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLighti([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			GlLightiNative(light, pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightfvNative([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1112])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1112])(light, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLightfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightfv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
+		{
+			GlLightfvNative(light, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightfv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlLightfvNative(light, pname, (float*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glLightiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightivNative([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1113])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1113])(light, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLightiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightiv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
+		{
+			GlLightivNative(light, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightiv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlLightivNative(light, pname, (int*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glGetLightfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetLightfvNative([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1114])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1114])(light, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glGetLightfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetLightfv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
+		{
+			GlGetLightfvNative(light, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glGetLightfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetLightfv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetLightfvNative(light, pname, (float*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glGetLightiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetLightivNative([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1115])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1115])(light, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glGetLightiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetLightiv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
+		{
+			GlGetLightivNative(light, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glGetLightiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetLightiv([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetLightivNative(light, pname, (int*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModelf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelfNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1116])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1116])(pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModelf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightModelf([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			GlLightModelfNative(pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModeli")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModeliNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1117])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1117])(pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModeli")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightModeli([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			GlLightModeliNative(pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModelfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelfvNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1118])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1118])(pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModelfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightModelfv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
+		{
+			GlLightModelfvNative(pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModelfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightModelfv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlLightModelfvNative(pname, (float*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModeliv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelivNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1119])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1119])(pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModeliv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightModeliv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
+		{
+			GlLightModelivNative(pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glLightModeliv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlLightModeliv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlLightModelivNative(pname, (int*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialfNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1120])(face, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1120])(face, pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMaterialf([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			GlMaterialfNative(face, pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glMateriali")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialiNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1121])(face, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1121])(face, pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMateriali")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMateriali([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			GlMaterialiNative(face, pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialfvNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1122])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1122])(face, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMaterialfv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
+		{
+			GlMaterialfvNative(face, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMaterialfv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlMaterialfvNative(face, pname, (float*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialivNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1123])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1123])(face, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMaterialiv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
+		{
+			GlMaterialivNative(face, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glMaterialiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlMaterialiv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlMaterialivNative(face, pname, (int*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glGetMaterialfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMaterialfvNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1124])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1124])(face, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glGetMaterialfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetMaterialfv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
+		{
+			GlGetMaterialfvNative(face, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glGetMaterialfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetMaterialfv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetMaterialfvNative(face, pname, (float*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glGetMaterialiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMaterialivNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1125])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1125])(face, pname, (nint)@params);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glGetMaterialiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetMaterialiv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
+		{
+			GlGetMaterialivNative(face, pname, @params);
+		}
+
+		[NativeName(NativeNameType.Func, "glGetMaterialiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetMaterialiv([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetMaterialivNative(face, pname, (int*)pparams);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glColorMaterial")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColorMaterialNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1126])(face, mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1126])(face, mode);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glColorMaterial")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlColorMaterial([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
+		{
+			GlColorMaterialNative(face, mode);
+		}
+
+		/// <summary>
+		/// Raster functions<br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "glPixelZoom")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelZoomNative([NativeName(NativeNameType.Param, "xfactor")] [NativeName(NativeNameType.Type, "GLfloat")] float xfactor, [NativeName(NativeNameType.Param, "yfactor")] [NativeName(NativeNameType.Type, "GLfloat")] float yfactor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1127])(xfactor, yfactor);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1127])(xfactor, yfactor);
+			#endif
+		}
+
+		/// <summary>
+		/// Raster functions<br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "glPixelZoom")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelZoom([NativeName(NativeNameType.Param, "xfactor")] [NativeName(NativeNameType.Type, "GLfloat")] float xfactor, [NativeName(NativeNameType.Param, "yfactor")] [NativeName(NativeNameType.Type, "GLfloat")] float yfactor)
+		{
+			GlPixelZoomNative(xfactor, yfactor);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelStoref")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelStorefNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1128])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1128])(pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelStoref")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelStoref([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			GlPixelStorefNative(pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelStorei")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelStoreiNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1129])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1129])(pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelStorei")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelStorei([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			GlPixelStoreiNative(pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelTransferf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelTransferfNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1130])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1130])(pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelTransferf")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelTransferf([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
+		{
+			GlPixelTransferfNative(pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelTransferi")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelTransferiNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1131])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1131])(pname, param);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelTransferi")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelTransferi([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
+		{
+			GlPixelTransferiNative(pname, param);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapfvNative([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, float*, void>)funcTable[1132])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1132])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelMapfv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* values)
+		{
+			GlPixelMapfvNative(map, mapsize, values);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelMapfv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float values)
+		{
+			fixed (float* pvalues = &values)
+			{
+				GlPixelMapfvNative(map, mapsize, (float*)pvalues);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapuiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapuivNative([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint*, void>)funcTable[1133])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1133])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapuiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelMapuiv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* values)
+		{
+			GlPixelMapuivNative(map, mapsize, values);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapuiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelMapuiv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLuint*")] ref uint values)
+		{
+			fixed (uint* pvalues = &values)
+			{
+				GlPixelMapuivNative(map, mapsize, (uint*)pvalues);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapusv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapusvNative([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLushort*")] ushort* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, ushort*, void>)funcTable[1134])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1134])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapusv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelMapusv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLushort*")] ushort* values)
+		{
+			GlPixelMapusvNative(map, mapsize, values);
+		}
+
+		[NativeName(NativeNameType.Func, "glPixelMapusv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlPixelMapusv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "mapsize")] [NativeName(NativeNameType.Type, "GLsizei")] int mapsize, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "const GLushort*")] ref ushort values)
+		{
+			fixed (ushort* pvalues = &values)
+			{
+				GlPixelMapusvNative(map, mapsize, (ushort*)pvalues);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glGetPixelMapfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapfvNative([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLfloat*")] float* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1135])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1135])(map, (nint)values);
+			#endif
+		}
+
+		[NativeName(NativeNameType.Func, "glGetPixelMapfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetPixelMapfv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLfloat*")] float* values)
+		{
+			GlGetPixelMapfvNative(map, values);
+		}
+
+		[NativeName(NativeNameType.Func, "glGetPixelMapfv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlGetPixelMapfv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLfloat*")] ref float values)
+		{
+			fixed (float* pvalues = &values)
+			{
+				GlGetPixelMapfvNative(map, (float*)pvalues);
+			}
+		}
+
+		[NativeName(NativeNameType.Func, "glGetPixelMapuiv")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapuivNative([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLuint*")] uint* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint*, void>)funcTable[1136])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1136])(map, (nint)values);
+			#endif
+		}
+
 		[NativeName(NativeNameType.Func, "glGetPixelMapuiv")]
 		[return: NativeName(NativeNameType.Type, "void")]
 		public static void GlGetPixelMapuiv([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLuint*")] uint* values)
@@ -36,12 +1127,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetPixelMapusv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetPixelMapusvNative([NativeName(NativeNameType.Param, "map")] [NativeName(NativeNameType.Type, "GLenum")] uint map, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLushort*")] ushort* values)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, ushort*, void>)vt[1137])(map, values);
+			((delegate* unmanaged[Cdecl]<uint, ushort*, void>)funcTable[1137])(map, values);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1137])(map, (nint)values);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1137])(map, (nint)values);
 			#endif
 		}
 
@@ -64,12 +1156,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glBitmap")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlBitmapNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "xorig")] [NativeName(NativeNameType.Type, "GLfloat")] float xorig, [NativeName(NativeNameType.Param, "yorig")] [NativeName(NativeNameType.Type, "GLfloat")] float yorig, [NativeName(NativeNameType.Param, "xmove")] [NativeName(NativeNameType.Type, "GLfloat")] float xmove, [NativeName(NativeNameType.Param, "ymove")] [NativeName(NativeNameType.Type, "GLfloat")] float ymove, [NativeName(NativeNameType.Param, "bitmap")] [NativeName(NativeNameType.Type, "const GLubyte*")] byte* bitmap)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, byte*, void>)vt[1138])(width, height, xorig, yorig, xmove, ymove, bitmap);
+			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, byte*, void>)funcTable[1138])(width, height, xorig, yorig, xmove, ymove, bitmap);
 			#else
-			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, nint, void>)vt[1138])(width, height, xorig, yorig, xmove, ymove, (nint)bitmap);
+			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, nint, void>)funcTable[1138])(width, height, xorig, yorig, xmove, ymove, (nint)bitmap);
 			#endif
 		}
 
@@ -92,12 +1185,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glReadPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlReadPixelsNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, void*, void>)vt[1139])(x, y, width, height, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, void*, void>)funcTable[1139])(x, y, width, height, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, nint, void>)vt[1139])(x, y, width, height, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, nint, void>)funcTable[1139])(x, y, width, height, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -110,12 +1204,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glDrawPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlDrawPixelsNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, uint, uint, void*, void>)vt[1140])(width, height, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<int, int, uint, uint, void*, void>)funcTable[1140])(width, height, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<int, int, uint, uint, nint, void>)vt[1140])(width, height, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<int, int, uint, uint, nint, void>)funcTable[1140])(width, height, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -128,12 +1223,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyPixelsNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)vt[1141])(x, y, width, height, type);
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)funcTable[1141])(x, y, width, height, type);
 			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)vt[1141])(x, y, width, height, type);
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)funcTable[1141])(x, y, width, height, type);
 			#endif
 		}
 
@@ -149,12 +1245,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "glStencilFunc")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlStencilFuncNative([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func, [NativeName(NativeNameType.Param, "ref")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)vt[1142])(func, reference, mask);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)funcTable[1142])(func, reference, mask);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)vt[1142])(func, reference, mask);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)funcTable[1142])(func, reference, mask);
 			#endif
 		}
 
@@ -170,12 +1267,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glStencilMask")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlStencilMaskNative([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1143])(mask);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1143])(mask);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1143])(mask);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1143])(mask);
 			#endif
 		}
 
@@ -188,12 +1286,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glStencilOp")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlStencilOpNative([NativeName(NativeNameType.Param, "fail")] [NativeName(NativeNameType.Type, "GLenum")] uint fail, [NativeName(NativeNameType.Param, "zfail")] [NativeName(NativeNameType.Type, "GLenum")] uint zfail, [NativeName(NativeNameType.Param, "zpass")] [NativeName(NativeNameType.Type, "GLenum")] uint zpass)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)vt[1144])(fail, zfail, zpass);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1144])(fail, zfail, zpass);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)vt[1144])(fail, zfail, zpass);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1144])(fail, zfail, zpass);
 			#endif
 		}
 
@@ -206,12 +1305,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glClearStencil")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlClearStencilNative([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, void>)vt[1145])(s);
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1145])(s);
 			#else
-			((delegate* unmanaged[Cdecl]<int, void>)vt[1145])(s);
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1145])(s);
 			#endif
 		}
 
@@ -227,12 +1327,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "glTexGend")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexGendNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLdouble")] double param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)vt[1146])(coord, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)funcTable[1146])(coord, pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)vt[1146])(coord, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)funcTable[1146])(coord, pname, param);
 			#endif
 		}
 
@@ -248,12 +1349,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexGenf")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexGenfNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1147])(coord, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1147])(coord, pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1147])(coord, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1147])(coord, pname, param);
 			#endif
 		}
 
@@ -266,12 +1368,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexGeni")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexGeniNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1148])(coord, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1148])(coord, pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1148])(coord, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1148])(coord, pname, param);
 			#endif
 		}
 
@@ -284,12 +1387,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexGendv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexGendvNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)vt[1149])(coord, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1149])(coord, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1149])(coord, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1149])(coord, pname, (nint)@params);
 			#endif
 		}
 
@@ -312,12 +1416,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexGenfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexGenfvNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1150])(coord, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1150])(coord, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1150])(coord, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1150])(coord, pname, (nint)@params);
 			#endif
 		}
 
@@ -340,12 +1445,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexGeniv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexGenivNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1151])(coord, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1151])(coord, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1151])(coord, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1151])(coord, pname, (nint)@params);
 			#endif
 		}
 
@@ -368,12 +1474,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexGendv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexGendvNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] double* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)vt[1152])(coord, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1152])(coord, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1152])(coord, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1152])(coord, pname, (nint)@params);
 			#endif
 		}
 
@@ -396,12 +1503,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexGenfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexGenfvNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1153])(coord, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1153])(coord, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1153])(coord, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1153])(coord, pname, (nint)@params);
 			#endif
 		}
 
@@ -424,12 +1532,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexGeniv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexGenivNative([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1154])(coord, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1154])(coord, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1154])(coord, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1154])(coord, pname, (nint)@params);
 			#endif
 		}
 
@@ -452,12 +1561,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexEnvf")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexEnvfNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1155])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1155])(target, pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1155])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1155])(target, pname, param);
 			#endif
 		}
 
@@ -470,12 +1580,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexEnvi")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexEnviNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1156])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1156])(target, pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1156])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1156])(target, pname, param);
 			#endif
 		}
 
@@ -488,12 +1599,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexEnvfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexEnvfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1157])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1157])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1157])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1157])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -516,12 +1628,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexEnviv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexEnvivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1158])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1158])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1158])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1158])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -544,12 +1657,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexEnvfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexEnvfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1159])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1159])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1159])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1159])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -572,12 +1686,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexEnviv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexEnvivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1160])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1160])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1160])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1160])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -600,12 +1715,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexParameterf")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexParameterfNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1161])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1161])(target, pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1161])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1161])(target, pname, param);
 			#endif
 		}
 
@@ -618,12 +1734,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexParameteri")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexParameteriNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1162])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1162])(target, pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1162])(target, pname, param);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1162])(target, pname, param);
 			#endif
 		}
 
@@ -636,12 +1753,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1163])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1163])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1163])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1163])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -664,12 +1782,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1164])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1164])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1164])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1164])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -692,12 +1811,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1165])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1165])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1165])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1165])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -720,12 +1840,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1166])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1166])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1166])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1166])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -748,12 +1869,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexLevelParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexLevelParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, float*, void>)vt[1167])(target, level, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, float*, void>)funcTable[1167])(target, level, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)vt[1167])(target, level, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1167])(target, level, pname, (nint)@params);
 			#endif
 		}
 
@@ -776,12 +1898,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexLevelParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexLevelParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int*, void>)vt[1168])(target, level, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int*, void>)funcTable[1168])(target, level, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)vt[1168])(target, level, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1168])(target, level, pname, (nint)@params);
 			#endif
 		}
 
@@ -804,12 +1927,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexImage1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexImage1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLint")] int internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, void*, void>)vt[1169])(target, level, internalFormat, width, border, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, void*, void>)funcTable[1169])(target, level, internalFormat, width, border, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, nint, void>)vt[1169])(target, level, internalFormat, width, border, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, nint, void>)funcTable[1169])(target, level, internalFormat, width, border, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -822,12 +1946,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexImage2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexImage2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLint")] int internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)vt[1170])(target, level, internalFormat, width, height, border, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)funcTable[1170])(target, level, internalFormat, width, height, border, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)vt[1170])(target, level, internalFormat, width, height, border, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)funcTable[1170])(target, level, internalFormat, width, height, border, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -840,12 +1965,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetTexImage")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetTexImageNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, void*, void>)vt[1171])(target, level, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, void*, void>)funcTable[1171])(target, level, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, nint, void>)vt[1171])(target, level, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, nint, void>)funcTable[1171])(target, level, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -861,12 +1987,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "glGenTextures")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGenTexturesNative([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint*")] uint* textures)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, uint*, void>)vt[1172])(n, textures);
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1172])(n, textures);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[1172])(n, (nint)textures);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1172])(n, (nint)textures);
 			#endif
 		}
 
@@ -895,12 +2022,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glDeleteTextures")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlDeleteTexturesNative([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, uint*, void>)vt[1173])(n, textures);
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1173])(n, textures);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[1173])(n, (nint)textures);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1173])(n, (nint)textures);
 			#endif
 		}
 
@@ -923,12 +2051,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glBindTexture")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlBindTextureNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)vt[1174])(target, texture);
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1174])(target, texture);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)vt[1174])(target, texture);
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1174])(target, texture);
 			#endif
 		}
 
@@ -941,12 +2070,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glPrioritizeTextures")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlPrioritizeTexturesNative([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures, [NativeName(NativeNameType.Param, "priorities")] [NativeName(NativeNameType.Type, "const GLclampf*")] float* priorities)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, uint*, float*, void>)vt[1175])(n, textures, priorities);
+			((delegate* unmanaged[Cdecl]<int, uint*, float*, void>)funcTable[1175])(n, textures, priorities);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, nint, void>)vt[1175])(n, (nint)textures, (nint)priorities);
+			((delegate* unmanaged[Cdecl]<int, nint, nint, void>)funcTable[1175])(n, (nint)textures, (nint)priorities);
 			#endif
 		}
 
@@ -992,12 +2122,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glAreTexturesResident")]
 		[return: NativeName(NativeNameType.Type, "GLboolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte GlAreTexturesResidentNative([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures, [NativeName(NativeNameType.Param, "residences")] [NativeName(NativeNameType.Type, "GLboolean*")] byte* residences)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint*, byte*, byte>)vt[1176])(n, textures, residences);
+			return ((delegate* unmanaged[Cdecl]<int, uint*, byte*, byte>)funcTable[1176])(n, textures, residences);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<int, nint, nint, byte>)vt[1176])(n, (nint)textures, (nint)residences);
+			return (byte)((delegate* unmanaged[Cdecl]<int, nint, nint, byte>)funcTable[1176])(n, (nint)textures, (nint)residences);
 			#endif
 		}
 
@@ -1047,12 +2178,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glIsTexture")]
 		[return: NativeName(NativeNameType.Type, "GLboolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte GlIsTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)vt[1177])(texture);
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[1177])(texture);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)vt[1177])(texture);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[1177])(texture);
 			#endif
 		}
 
@@ -1066,12 +2198,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexSubImage1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexSubImage1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, void*, void>)vt[1178])(target, level, xoffset, width, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, void*, void>)funcTable[1178])(target, level, xoffset, width, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, nint, void>)vt[1178])(target, level, xoffset, width, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, nint, void>)funcTable[1178])(target, level, xoffset, width, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -1084,12 +2217,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexSubImage2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexSubImage2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)vt[1179])(target, level, xoffset, yoffset, width, height, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)funcTable[1179])(target, level, xoffset, yoffset, width, height, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)vt[1179])(target, level, xoffset, yoffset, width, height, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)funcTable[1179])(target, level, xoffset, yoffset, width, height, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -1102,12 +2236,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyTexImage1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyTexImage1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)vt[1180])(target, level, internalformat, x, y, width, border);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)funcTable[1180])(target, level, internalformat, x, y, width, border);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)vt[1180])(target, level, internalformat, x, y, width, border);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)funcTable[1180])(target, level, internalformat, x, y, width, border);
 			#endif
 		}
 
@@ -1120,12 +2255,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyTexImage2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyTexImage2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)vt[1181])(target, level, internalformat, x, y, width, height, border);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)funcTable[1181])(target, level, internalformat, x, y, width, height, border);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)vt[1181])(target, level, internalformat, x, y, width, height, border);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)funcTable[1181])(target, level, internalformat, x, y, width, height, border);
 			#endif
 		}
 
@@ -1138,12 +2274,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyTexSubImage1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyTexSubImage1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)vt[1182])(target, level, xoffset, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)funcTable[1182])(target, level, xoffset, x, y, width);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)vt[1182])(target, level, xoffset, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)funcTable[1182])(target, level, xoffset, x, y, width);
 			#endif
 		}
 
@@ -1156,12 +2293,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyTexSubImage2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyTexSubImage2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)vt[1183])(target, level, xoffset, yoffset, x, y, width, height);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)funcTable[1183])(target, level, xoffset, yoffset, x, y, width, height);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)vt[1183])(target, level, xoffset, yoffset, x, y, width, height);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)funcTable[1183])(target, level, xoffset, yoffset, x, y, width, height);
 			#endif
 		}
 
@@ -1177,12 +2315,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "glMap1d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMap1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLdouble")] double u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLdouble")] double u2, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "order")] [NativeName(NativeNameType.Type, "GLint")] int order, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* points)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double*, void>)vt[1184])(target, u1, u2, stride, order, points);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double*, void>)funcTable[1184])(target, u1, u2, stride, order, points);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, nint, void>)vt[1184])(target, u1, u2, stride, order, (nint)points);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, nint, void>)funcTable[1184])(target, u1, u2, stride, order, (nint)points);
 			#endif
 		}
 
@@ -1211,12 +2350,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMap1f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMap1FNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLfloat")] float u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLfloat")] float u2, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "order")] [NativeName(NativeNameType.Type, "GLint")] int order, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* points)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float*, void>)vt[1185])(target, u1, u2, stride, order, points);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float*, void>)funcTable[1185])(target, u1, u2, stride, order, points);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, nint, void>)vt[1185])(target, u1, u2, stride, order, (nint)points);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, nint, void>)funcTable[1185])(target, u1, u2, stride, order, (nint)points);
 			#endif
 		}
 
@@ -1239,12 +2379,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMap2d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMap2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLdouble")] double u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLdouble")] double u2, [NativeName(NativeNameType.Param, "ustride")] [NativeName(NativeNameType.Type, "GLint")] int ustride, [NativeName(NativeNameType.Param, "uorder")] [NativeName(NativeNameType.Type, "GLint")] int uorder, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLdouble")] double v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLdouble")] double v2, [NativeName(NativeNameType.Param, "vstride")] [NativeName(NativeNameType.Type, "GLint")] int vstride, [NativeName(NativeNameType.Param, "vorder")] [NativeName(NativeNameType.Type, "GLint")] int vorder, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* points)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, double*, void>)vt[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, double*, void>)funcTable[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, nint, void>)vt[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, nint, void>)funcTable[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
 			#endif
 		}
 
@@ -1267,12 +2408,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMap2f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMap2FNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLfloat")] float u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLfloat")] float u2, [NativeName(NativeNameType.Param, "ustride")] [NativeName(NativeNameType.Type, "GLint")] int ustride, [NativeName(NativeNameType.Param, "uorder")] [NativeName(NativeNameType.Type, "GLint")] int uorder, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLfloat")] float v2, [NativeName(NativeNameType.Param, "vstride")] [NativeName(NativeNameType.Type, "GLint")] int vstride, [NativeName(NativeNameType.Param, "vorder")] [NativeName(NativeNameType.Type, "GLint")] int vorder, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* points)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, float*, void>)vt[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, float*, void>)funcTable[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, nint, void>)vt[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, nint, void>)funcTable[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
 			#endif
 		}
 
@@ -1295,12 +2437,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetMapdv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetMapdvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "query")] [NativeName(NativeNameType.Type, "GLenum")] uint query, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble*")] double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)vt[1188])(target, query, v);
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1188])(target, query, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1188])(target, query, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1188])(target, query, (nint)v);
 			#endif
 		}
 
@@ -1323,12 +2466,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetMapfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetMapfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "query")] [NativeName(NativeNameType.Type, "GLenum")] uint query, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat*")] float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1189])(target, query, v);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1189])(target, query, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1189])(target, query, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1189])(target, query, (nint)v);
 			#endif
 		}
 
@@ -1351,12 +2495,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetMapiv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetMapivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "query")] [NativeName(NativeNameType.Type, "GLenum")] uint query, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint*")] int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1190])(target, query, v);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1190])(target, query, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1190])(target, query, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1190])(target, query, (nint)v);
 			#endif
 		}
 
@@ -1379,12 +2524,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord1d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord1DNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "GLdouble")] double u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, void>)vt[1191])(u);
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1191])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<double, void>)vt[1191])(u);
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1191])(u);
 			#endif
 		}
 
@@ -1397,12 +2543,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord1f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord1FNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "GLfloat")] float u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)vt[1192])(u);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1192])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<float, void>)vt[1192])(u);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1192])(u);
 			#endif
 		}
 
@@ -1415,12 +2562,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord1dv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord1DvNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)vt[1193])(u);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1193])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1193])((nint)u);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1193])((nint)u);
 			#endif
 		}
 
@@ -1443,12 +2591,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord1fv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord1FvNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)vt[1194])(u);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1194])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1194])((nint)u);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1194])((nint)u);
 			#endif
 		}
 
@@ -1471,12 +2620,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord2d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord2DNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "GLdouble")] double u, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble")] double v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, void>)vt[1195])(u, v);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1195])(u, v);
 			#else
-			((delegate* unmanaged[Cdecl]<double, double, void>)vt[1195])(u, v);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1195])(u, v);
 			#endif
 		}
 
@@ -1489,12 +2639,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord2f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord2FNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "GLfloat")] float u, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat")] float v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, void>)vt[1196])(u, v);
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1196])(u, v);
 			#else
-			((delegate* unmanaged[Cdecl]<float, float, void>)vt[1196])(u, v);
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1196])(u, v);
 			#endif
 		}
 
@@ -1507,12 +2658,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord2dv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord2DvNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)vt[1197])(u);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1197])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1197])((nint)u);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1197])((nint)u);
 			#endif
 		}
 
@@ -1535,12 +2687,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalCoord2fv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalCoord2FvNative([NativeName(NativeNameType.Param, "u")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* u)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)vt[1198])(u);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1198])(u);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1198])((nint)u);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1198])((nint)u);
 			#endif
 		}
 
@@ -1563,12 +2716,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMapGrid1d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMapGrid1DNative([NativeName(NativeNameType.Param, "un")] [NativeName(NativeNameType.Type, "GLint")] int un, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLdouble")] double u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLdouble")] double u2)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, double, double, void>)vt[1199])(un, u1, u2);
+			((delegate* unmanaged[Cdecl]<int, double, double, void>)funcTable[1199])(un, u1, u2);
 			#else
-			((delegate* unmanaged[Cdecl]<int, double, double, void>)vt[1199])(un, u1, u2);
+			((delegate* unmanaged[Cdecl]<int, double, double, void>)funcTable[1199])(un, u1, u2);
 			#endif
 		}
 
@@ -1581,12 +2735,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMapGrid1f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMapGrid1FNative([NativeName(NativeNameType.Param, "un")] [NativeName(NativeNameType.Type, "GLint")] int un, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLfloat")] float u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLfloat")] float u2)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, float, float, void>)vt[1200])(un, u1, u2);
+			((delegate* unmanaged[Cdecl]<int, float, float, void>)funcTable[1200])(un, u1, u2);
 			#else
-			((delegate* unmanaged[Cdecl]<int, float, float, void>)vt[1200])(un, u1, u2);
+			((delegate* unmanaged[Cdecl]<int, float, float, void>)funcTable[1200])(un, u1, u2);
 			#endif
 		}
 
@@ -1599,12 +2754,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMapGrid2d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMapGrid2DNative([NativeName(NativeNameType.Param, "un")] [NativeName(NativeNameType.Type, "GLint")] int un, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLdouble")] double u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLdouble")] double u2, [NativeName(NativeNameType.Param, "vn")] [NativeName(NativeNameType.Type, "GLint")] int vn, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLdouble")] double v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLdouble")] double v2)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, double, double, int, double, double, void>)vt[1201])(un, u1, u2, vn, v1, v2);
+			((delegate* unmanaged[Cdecl]<int, double, double, int, double, double, void>)funcTable[1201])(un, u1, u2, vn, v1, v2);
 			#else
-			((delegate* unmanaged[Cdecl]<int, double, double, int, double, double, void>)vt[1201])(un, u1, u2, vn, v1, v2);
+			((delegate* unmanaged[Cdecl]<int, double, double, int, double, double, void>)funcTable[1201])(un, u1, u2, vn, v1, v2);
 			#endif
 		}
 
@@ -1617,12 +2773,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMapGrid2f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMapGrid2FNative([NativeName(NativeNameType.Param, "un")] [NativeName(NativeNameType.Type, "GLint")] int un, [NativeName(NativeNameType.Param, "u1")] [NativeName(NativeNameType.Type, "GLfloat")] float u1, [NativeName(NativeNameType.Param, "u2")] [NativeName(NativeNameType.Type, "GLfloat")] float u2, [NativeName(NativeNameType.Param, "vn")] [NativeName(NativeNameType.Type, "GLint")] int vn, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLfloat")] float v2)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, float, float, int, float, float, void>)vt[1202])(un, u1, u2, vn, v1, v2);
+			((delegate* unmanaged[Cdecl]<int, float, float, int, float, float, void>)funcTable[1202])(un, u1, u2, vn, v1, v2);
 			#else
-			((delegate* unmanaged[Cdecl]<int, float, float, int, float, float, void>)vt[1202])(un, u1, u2, vn, v1, v2);
+			((delegate* unmanaged[Cdecl]<int, float, float, int, float, float, void>)funcTable[1202])(un, u1, u2, vn, v1, v2);
 			#endif
 		}
 
@@ -1635,12 +2792,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalPoint1")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalPoint1Native([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, void>)vt[1203])(i);
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1203])(i);
 			#else
-			((delegate* unmanaged[Cdecl]<int, void>)vt[1203])(i);
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1203])(i);
 			#endif
 		}
 
@@ -1653,12 +2811,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalPoint2")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalPoint2Native([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i, [NativeName(NativeNameType.Param, "j")] [NativeName(NativeNameType.Type, "GLint")] int j)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, void>)vt[1204])(i, j);
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1204])(i, j);
 			#else
-			((delegate* unmanaged[Cdecl]<int, int, void>)vt[1204])(i, j);
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1204])(i, j);
 			#endif
 		}
 
@@ -1671,12 +2830,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalMesh1")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalMesh1Native([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "i1")] [NativeName(NativeNameType.Type, "GLint")] int i1, [NativeName(NativeNameType.Param, "i2")] [NativeName(NativeNameType.Type, "GLint")] int i2)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)vt[1205])(mode, i1, i2);
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1205])(mode, i1, i2);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)vt[1205])(mode, i1, i2);
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1205])(mode, i1, i2);
 			#endif
 		}
 
@@ -1689,12 +2849,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glEvalMesh2")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlEvalMesh2Native([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "i1")] [NativeName(NativeNameType.Type, "GLint")] int i1, [NativeName(NativeNameType.Param, "i2")] [NativeName(NativeNameType.Type, "GLint")] int i2, [NativeName(NativeNameType.Param, "j1")] [NativeName(NativeNameType.Type, "GLint")] int j1, [NativeName(NativeNameType.Param, "j2")] [NativeName(NativeNameType.Type, "GLint")] int j2)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1206])(mode, i1, i2, j1, j2);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1206])(mode, i1, i2, j1, j2);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1206])(mode, i1, i2, j1, j2);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1206])(mode, i1, i2, j1, j2);
 			#endif
 		}
 
@@ -1710,12 +2871,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "glFogf")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlFogfNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[1207])(pname, param);
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1207])(pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[1207])(pname, param);
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1207])(pname, param);
 			#endif
 		}
 
@@ -1731,12 +2893,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glFogi")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlFogiNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[1208])(pname, param);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1208])(pname, param);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[1208])(pname, param);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1208])(pname, param);
 			#endif
 		}
 
@@ -1749,12 +2912,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glFogfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlFogfvNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1209])(pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1209])(pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1209])(pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1209])(pname, (nint)@params);
 			#endif
 		}
 
@@ -1777,12 +2941,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glFogiv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlFogivNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1210])(pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1210])(pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1210])(pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1210])(pname, (nint)@params);
 			#endif
 		}
 
@@ -1808,12 +2973,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "glFeedbackBuffer")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlFeedbackBufferNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizei")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLfloat*")] float* buffer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, uint, float*, void>)vt[1211])(size, type, buffer);
+			((delegate* unmanaged[Cdecl]<int, uint, float*, void>)funcTable[1211])(size, type, buffer);
 			#else
-			((delegate* unmanaged[Cdecl]<int, uint, nint, void>)vt[1211])(size, type, (nint)buffer);
+			((delegate* unmanaged[Cdecl]<int, uint, nint, void>)funcTable[1211])(size, type, (nint)buffer);
 			#endif
 		}
 
@@ -1842,12 +3008,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glPassThrough")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlPassThroughNative([NativeName(NativeNameType.Param, "token")] [NativeName(NativeNameType.Type, "GLfloat")] float token)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)vt[1212])(token);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1212])(token);
 			#else
-			((delegate* unmanaged[Cdecl]<float, void>)vt[1212])(token);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1212])(token);
 			#endif
 		}
 
@@ -1860,12 +3027,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glSelectBuffer")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlSelectBufferNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizei")] int size, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint*")] uint* buffer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, uint*, void>)vt[1213])(size, buffer);
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1213])(size, buffer);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[1213])(size, (nint)buffer);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1213])(size, (nint)buffer);
 			#endif
 		}
 
@@ -1888,12 +3056,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glInitNames")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlInitNamesNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[1214])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1214])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[1214])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1214])();
 			#endif
 		}
 
@@ -1906,12 +3075,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glLoadName")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlLoadNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLuint")] uint name)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1215])(name);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1215])(name);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1215])(name);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1215])(name);
 			#endif
 		}
 
@@ -1924,12 +3094,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glPushName")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlPushNameNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLuint")] uint name)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1216])(name);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1216])(name);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1216])(name);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1216])(name);
 			#endif
 		}
 
@@ -1942,12 +3113,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glPopName")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlPopNameNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[1217])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1217])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[1217])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1217])();
 			#endif
 		}
 
@@ -1960,12 +3132,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glDrawRangeElements")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlDrawRangeElementsNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "end")] [NativeName(NativeNameType.Type, "GLuint")] uint end, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* indices)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, int, uint, void*, void>)vt[1218])(mode, start, end, count, type, indices);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, int, uint, void*, void>)funcTable[1218])(mode, start, end, count, type, indices);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, int, uint, nint, void>)vt[1218])(mode, start, end, count, type, (nint)indices);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, int, uint, nint, void>)funcTable[1218])(mode, start, end, count, type, (nint)indices);
 			#endif
 		}
 
@@ -1978,12 +3151,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexImage3D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexImage3DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLint")] int internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, uint, uint, void*, void>)vt[1219])(target, level, internalFormat, width, height, depth, border, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, uint, uint, void*, void>)funcTable[1219])(target, level, internalFormat, width, height, depth, border, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, uint, uint, nint, void>)vt[1219])(target, level, internalFormat, width, height, depth, border, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, uint, uint, nint, void>)funcTable[1219])(target, level, internalFormat, width, height, depth, border, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -1996,12 +3170,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glTexSubImage3D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlTexSubImage3DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, uint, void*, void>)vt[1220])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, uint, void*, void>)funcTable[1220])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, uint, nint, void>)vt[1220])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, (nint)pixels);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, uint, nint, void>)funcTable[1220])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, (nint)pixels);
 			#endif
 		}
 
@@ -2014,12 +3189,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyTexSubImage3D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyTexSubImage3DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, int, void>)vt[1221])(target, level, xoffset, yoffset, zoffset, x, y, width, height);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, int, void>)funcTable[1221])(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, int, void>)vt[1221])(target, level, xoffset, yoffset, zoffset, x, y, width, height);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, int, void>)funcTable[1221])(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 			#endif
 		}
 
@@ -2032,12 +3208,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glColorTable")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlColorTableNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "table")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* table)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, void*, void>)vt[1222])(target, internalformat, width, format, type, table);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, void*, void>)funcTable[1222])(target, internalformat, width, format, type, table);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, nint, void>)vt[1222])(target, internalformat, width, format, type, (nint)table);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, nint, void>)funcTable[1222])(target, internalformat, width, format, type, (nint)table);
 			#endif
 		}
 
@@ -2050,12 +3227,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glColorSubTable")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlColorSubTableNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLsizei")] int start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* data)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, uint, uint, void*, void>)vt[1223])(target, start, count, format, type, data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, uint, uint, void*, void>)funcTable[1223])(target, start, count, format, type, data);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, uint, uint, nint, void>)vt[1223])(target, start, count, format, type, (nint)data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, uint, uint, nint, void>)funcTable[1223])(target, start, count, format, type, (nint)data);
 			#endif
 		}
 
@@ -2068,12 +3246,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glColorTableParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlColorTableParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1224])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1224])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1224])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1224])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2096,12 +3275,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glColorTableParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlColorTableParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1225])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1225])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1225])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1225])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2124,12 +3304,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyColorSubTable")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyColorSubTableNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLsizei")] int start, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1226])(target, start, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1226])(target, start, x, y, width);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1226])(target, start, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1226])(target, start, x, y, width);
 			#endif
 		}
 
@@ -2142,12 +3323,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyColorTable")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyColorTableNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)vt[1227])(target, internalformat, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1227])(target, internalformat, x, y, width);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)vt[1227])(target, internalformat, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1227])(target, internalformat, x, y, width);
 			#endif
 		}
 
@@ -2160,12 +3342,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetColorTable")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetColorTableNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "table")] [NativeName(NativeNameType.Type, "GLvoid*")] void* table)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void>)vt[1228])(target, format, type, table);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void>)funcTable[1228])(target, format, type, table);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, void>)vt[1228])(target, format, type, (nint)table);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, void>)funcTable[1228])(target, format, type, (nint)table);
 			#endif
 		}
 
@@ -2178,12 +3361,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetColorTableParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetColorTableParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1229])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1229])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1229])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1229])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2206,12 +3390,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetColorTableParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetColorTableParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1230])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1230])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1230])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1230])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2234,12 +3419,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glBlendEquation")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlBlendEquationNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1231])(mode);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1231])(mode);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1231])(mode);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1231])(mode);
 			#endif
 		}
 
@@ -2252,12 +3438,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glBlendColor")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlBlendColorNative([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLclampf")] float red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLclampf")] float green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLclampf")] float blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLclampf")] float alpha)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)vt[1232])(red, green, blue, alpha);
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1232])(red, green, blue, alpha);
 			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)vt[1232])(red, green, blue, alpha);
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1232])(red, green, blue, alpha);
 			#endif
 		}
 
@@ -2270,12 +3457,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glHistogram")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlHistogramNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "sink")] [NativeName(NativeNameType.Type, "GLboolean")] byte sink)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, byte, void>)vt[1233])(target, width, internalformat, sink);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, byte, void>)funcTable[1233])(target, width, internalformat, sink);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, byte, void>)vt[1233])(target, width, internalformat, sink);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, byte, void>)funcTable[1233])(target, width, internalformat, sink);
 			#endif
 		}
 
@@ -2288,12 +3476,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glResetHistogram")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlResetHistogramNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1234])(target);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1234])(target);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1234])(target);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1234])(target);
 			#endif
 		}
 
@@ -2306,12 +3495,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetHistogram")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetHistogramNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "reset")] [NativeName(NativeNameType.Type, "GLboolean")] byte reset, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLvoid*")] void* values)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, void*, void>)vt[1235])(target, reset, format, type, values);
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, void*, void>)funcTable[1235])(target, reset, format, type, values);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, nint, void>)vt[1235])(target, reset, format, type, (nint)values);
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, nint, void>)funcTable[1235])(target, reset, format, type, (nint)values);
 			#endif
 		}
 
@@ -2324,12 +3514,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetHistogramParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetHistogramParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1236])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1236])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1236])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1236])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2352,12 +3543,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetHistogramParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetHistogramParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1237])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1237])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1237])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1237])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2380,12 +3572,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMinmax")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMinmaxNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "sink")] [NativeName(NativeNameType.Type, "GLboolean")] byte sink)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, byte, void>)vt[1238])(target, internalformat, sink);
+			((delegate* unmanaged[Cdecl]<uint, uint, byte, void>)funcTable[1238])(target, internalformat, sink);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, byte, void>)vt[1238])(target, internalformat, sink);
+			((delegate* unmanaged[Cdecl]<uint, uint, byte, void>)funcTable[1238])(target, internalformat, sink);
 			#endif
 		}
 
@@ -2398,12 +3591,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glResetMinmax")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlResetMinmaxNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1239])(target);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1239])(target);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1239])(target);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1239])(target);
 			#endif
 		}
 
@@ -2416,12 +3610,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetMinmax")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetMinmaxNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "reset")] [NativeName(NativeNameType.Type, "GLboolean")] byte reset, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "types")] [NativeName(NativeNameType.Type, "GLenum")] uint types, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLvoid*")] void* values)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, void*, void>)vt[1240])(target, reset, format, types, values);
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, void*, void>)funcTable[1240])(target, reset, format, types, values);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, nint, void>)vt[1240])(target, reset, format, types, (nint)values);
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, nint, void>)funcTable[1240])(target, reset, format, types, (nint)values);
 			#endif
 		}
 
@@ -2434,12 +3629,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetMinmaxParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetMinmaxParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1241])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1241])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1241])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1241])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2462,12 +3658,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetMinmaxParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetMinmaxParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1242])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1242])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1242])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1242])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2490,12 +3687,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glConvolutionFilter1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlConvolutionFilter1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* image)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, void*, void>)vt[1243])(target, internalformat, width, format, type, image);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, void*, void>)funcTable[1243])(target, internalformat, width, format, type, image);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, nint, void>)vt[1243])(target, internalformat, width, format, type, (nint)image);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, nint, void>)funcTable[1243])(target, internalformat, width, format, type, (nint)image);
 			#endif
 		}
 
@@ -2508,12 +3706,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glConvolutionFilter2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlConvolutionFilter2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* image)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, void*, void>)vt[1244])(target, internalformat, width, height, format, type, image);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, void*, void>)funcTable[1244])(target, internalformat, width, height, format, type, image);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, nint, void>)vt[1244])(target, internalformat, width, height, format, type, (nint)image);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, nint, void>)funcTable[1244])(target, internalformat, width, height, format, type, (nint)image);
 			#endif
 		}
 
@@ -2526,12 +3725,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glConvolutionParameterf")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlConvolutionParameterfNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat")] float @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1245])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1245])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)vt[1245])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1245])(target, pname, @params);
 			#endif
 		}
 
@@ -2544,12 +3744,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glConvolutionParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlConvolutionParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1246])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1246])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1246])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1246])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2572,12 +3773,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glConvolutionParameteri")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlConvolutionParameteriNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint")] int @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1247])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1247])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)vt[1247])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1247])(target, pname, @params);
 			#endif
 		}
 
@@ -2590,12 +3792,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glConvolutionParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlConvolutionParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1248])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1248])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1248])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1248])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2618,12 +3821,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyConvolutionFilter1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyConvolutionFilter1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)vt[1249])(target, internalformat, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1249])(target, internalformat, x, y, width);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)vt[1249])(target, internalformat, x, y, width);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1249])(target, internalformat, x, y, width);
 			#endif
 		}
 
@@ -2636,12 +3840,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCopyConvolutionFilter2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCopyConvolutionFilter2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, int, void>)vt[1250])(target, internalformat, x, y, width, height);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, int, void>)funcTable[1250])(target, internalformat, x, y, width, height);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, int, void>)vt[1250])(target, internalformat, x, y, width, height);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, int, void>)funcTable[1250])(target, internalformat, x, y, width, height);
 			#endif
 		}
 
@@ -2654,12 +3859,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetConvolutionFilter")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetConvolutionFilterNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "GLvoid*")] void* image)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void>)vt[1251])(target, format, type, image);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void>)funcTable[1251])(target, format, type, image);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, void>)vt[1251])(target, format, type, (nint)image);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, void>)funcTable[1251])(target, format, type, (nint)image);
 			#endif
 		}
 
@@ -2672,12 +3878,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetConvolutionParameterfv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetConvolutionParameterfvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)vt[1252])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1252])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1252])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1252])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2700,12 +3907,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetConvolutionParameteriv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetConvolutionParameterivNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)vt[1253])(target, pname, @params);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1253])(target, pname, @params);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)vt[1253])(target, pname, (nint)@params);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1253])(target, pname, (nint)@params);
 			#endif
 		}
 
@@ -2728,12 +3936,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glSeparableFilter2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlSeparableFilter2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "row")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* row, [NativeName(NativeNameType.Param, "column")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* column)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, void*, void*, void>)vt[1254])(target, internalformat, width, height, format, type, row, column);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, void*, void*, void>)funcTable[1254])(target, internalformat, width, height, format, type, row, column);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, nint, nint, void>)vt[1254])(target, internalformat, width, height, format, type, (nint)row, (nint)column);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, nint, nint, void>)funcTable[1254])(target, internalformat, width, height, format, type, (nint)row, (nint)column);
 			#endif
 		}
 
@@ -2746,12 +3955,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetSeparableFilter")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetSeparableFilterNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "row")] [NativeName(NativeNameType.Type, "GLvoid*")] void* row, [NativeName(NativeNameType.Param, "column")] [NativeName(NativeNameType.Type, "GLvoid*")] void* column, [NativeName(NativeNameType.Param, "span")] [NativeName(NativeNameType.Type, "GLvoid*")] void* span)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void*, void*, void>)vt[1255])(target, format, type, row, column, span);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void*, void*, void>)funcTable[1255])(target, format, type, row, column, span);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, nint, nint, void>)vt[1255])(target, format, type, (nint)row, (nint)column, (nint)span);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, nint, nint, void>)funcTable[1255])(target, format, type, (nint)row, (nint)column, (nint)span);
 			#endif
 		}
 
@@ -2764,12 +3974,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glActiveTexture")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlActiveTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1256])(texture);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1256])(texture);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1256])(texture);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1256])(texture);
 			#endif
 		}
 
@@ -2782,12 +3993,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glClientActiveTexture")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlClientActiveTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1257])(texture);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1257])(texture);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1257])(texture);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1257])(texture);
 			#endif
 		}
 
@@ -2800,12 +4012,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCompressedTexImage1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCompressedTexImage1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* data)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, void*, void>)vt[1258])(target, level, internalformat, width, border, imageSize, data);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, void*, void>)funcTable[1258])(target, level, internalformat, width, border, imageSize, data);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, nint, void>)vt[1258])(target, level, internalformat, width, border, imageSize, (nint)data);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, nint, void>)funcTable[1258])(target, level, internalformat, width, border, imageSize, (nint)data);
 			#endif
 		}
 
@@ -2818,12 +4031,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCompressedTexImage2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCompressedTexImage2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* data)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void*, void>)vt[1259])(target, level, internalformat, width, height, border, imageSize, data);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void*, void>)funcTable[1259])(target, level, internalformat, width, height, border, imageSize, data);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, nint, void>)vt[1259])(target, level, internalformat, width, height, border, imageSize, (nint)data);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, nint, void>)funcTable[1259])(target, level, internalformat, width, height, border, imageSize, (nint)data);
 			#endif
 		}
 
@@ -2836,12 +4050,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCompressedTexImage3D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCompressedTexImage3DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* data)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void*, void>)vt[1260])(target, level, internalformat, width, height, depth, border, imageSize, data);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void*, void>)funcTable[1260])(target, level, internalformat, width, height, depth, border, imageSize, data);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, nint, void>)vt[1260])(target, level, internalformat, width, height, depth, border, imageSize, (nint)data);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, nint, void>)funcTable[1260])(target, level, internalformat, width, height, depth, border, imageSize, (nint)data);
 			#endif
 		}
 
@@ -2854,12 +4069,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCompressedTexSubImage1D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCompressedTexSubImage1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* data)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, int, void*, void>)vt[1261])(target, level, xoffset, width, format, imageSize, data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, int, void*, void>)funcTable[1261])(target, level, xoffset, width, format, imageSize, data);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, int, nint, void>)vt[1261])(target, level, xoffset, width, format, imageSize, (nint)data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, int, nint, void>)funcTable[1261])(target, level, xoffset, width, format, imageSize, (nint)data);
 			#endif
 		}
 
@@ -2872,12 +4088,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCompressedTexSubImage2D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCompressedTexSubImage2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* data)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, int, void*, void>)vt[1262])(target, level, xoffset, yoffset, width, height, format, imageSize, data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, int, void*, void>)funcTable[1262])(target, level, xoffset, yoffset, width, height, format, imageSize, data);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, int, nint, void>)vt[1262])(target, level, xoffset, yoffset, width, height, format, imageSize, (nint)data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, int, nint, void>)funcTable[1262])(target, level, xoffset, yoffset, width, height, format, imageSize, (nint)data);
 			#endif
 		}
 
@@ -2890,12 +4107,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glCompressedTexSubImage3D")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlCompressedTexSubImage3DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const GLvoid*")] void* data)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, int, void*, void>)vt[1263])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, int, void*, void>)funcTable[1263])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, int, nint, void>)vt[1263])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, (nint)data);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, int, nint, void>)funcTable[1263])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, (nint)data);
 			#endif
 		}
 
@@ -2908,12 +4126,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glGetCompressedTexImage")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlGetCompressedTexImageNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "lod")] [NativeName(NativeNameType.Type, "GLint")] int lod, [NativeName(NativeNameType.Param, "img")] [NativeName(NativeNameType.Type, "GLvoid*")] void* img)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)vt[1264])(target, lod, img);
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1264])(target, lod, img);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)vt[1264])(target, lod, (nint)img);
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1264])(target, lod, (nint)img);
 			#endif
 		}
 
@@ -2926,12 +4145,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, void>)vt[1265])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1265])(target, s);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, void>)vt[1265])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1265])(target, s);
 			#endif
 		}
 
@@ -2944,12 +4164,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1dv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1DvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1266])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1266])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1266])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1266])(target, (nint)v);
 			#endif
 		}
 
@@ -2972,12 +4193,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1FNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[1267])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1267])(target, s);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[1267])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1267])(target, s);
 			#endif
 		}
 
@@ -2990,12 +4212,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1fv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1FvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1268])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1268])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1268])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1268])(target, (nint)v);
 			#endif
 		}
 
@@ -3018,12 +4241,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1i")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1INative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[1269])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1269])(target, s);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[1269])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1269])(target, s);
 			#endif
 		}
 
@@ -3036,12 +4260,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1iv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1IvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1270])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1270])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1270])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1270])(target, (nint)v);
 			#endif
 		}
 
@@ -3064,12 +4289,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1s")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1SNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, void>)vt[1271])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1271])(target, s);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, void>)vt[1271])(target, s);
+			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1271])(target, s);
 			#endif
 		}
 
@@ -3082,12 +4308,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord1sv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord1SvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1272])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1272])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1272])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1272])(target, (nint)v);
 			#endif
 		}
 
@@ -3110,12 +4337,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, void>)vt[1273])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1273])(target, s, t);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, void>)vt[1273])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1273])(target, s, t);
 			#endif
 		}
 
@@ -3128,12 +4356,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2dv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2DvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1274])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1274])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1274])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1274])(target, (nint)v);
 			#endif
 		}
 
@@ -3156,12 +4385,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2FNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, void>)vt[1275])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1275])(target, s, t);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, void>)vt[1275])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1275])(target, s, t);
 			#endif
 		}
 
@@ -3174,12 +4404,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2fv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2FvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1276])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1276])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1276])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1276])(target, (nint)v);
 			#endif
 		}
 
@@ -3202,12 +4433,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2i")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2INative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)vt[1277])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1277])(target, s, t);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)vt[1277])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1277])(target, s, t);
 			#endif
 		}
 
@@ -3220,12 +4452,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2iv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2IvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1278])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1278])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1278])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1278])(target, (nint)v);
 			#endif
 		}
 
@@ -3248,12 +4481,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2s")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2SNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, void>)vt[1279])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1279])(target, s, t);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, void>)vt[1279])(target, s, t);
+			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1279])(target, s, t);
 			#endif
 		}
 
@@ -3266,12 +4500,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord2sv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord2SvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1280])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1280])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1280])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1280])(target, (nint)v);
 			#endif
 		}
 
@@ -3294,12 +4529,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)vt[1281])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1281])(target, s, t, r);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)vt[1281])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1281])(target, s, t, r);
 			#endif
 		}
 
@@ -3312,12 +4548,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3dv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3DvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1282])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1282])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1282])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1282])(target, (nint)v);
 			#endif
 		}
 
@@ -3340,12 +4577,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3FNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)vt[1283])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1283])(target, s, t, r);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)vt[1283])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1283])(target, s, t, r);
 			#endif
 		}
 
@@ -3358,12 +4596,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3fv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3FvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1284])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1284])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1284])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1284])(target, (nint)v);
 			#endif
 		}
 
@@ -3386,12 +4625,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3i")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3INative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)vt[1285])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1285])(target, s, t, r);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)vt[1285])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1285])(target, s, t, r);
 			#endif
 		}
 
@@ -3404,12 +4644,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3iv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3IvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1286])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1286])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1286])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1286])(target, (nint)v);
 			#endif
 		}
 
@@ -3432,12 +4673,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3s")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3SNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)vt[1287])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1287])(target, s, t, r);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)vt[1287])(target, s, t, r);
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1287])(target, s, t, r);
 			#endif
 		}
 
@@ -3450,12 +4692,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord3sv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord3SvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1288])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1288])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1288])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1288])(target, (nint)v);
 			#endif
 		}
 
@@ -3478,12 +4721,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4d")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4DNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLdouble")] double q)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)vt[1289])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)vt[1289])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
 			#endif
 		}
 
@@ -3496,12 +4740,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4dv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4DvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1290])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1290])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1290])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1290])(target, (nint)v);
 			#endif
 		}
 
@@ -3524,12 +4769,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4f")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4FNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLfloat")] float q)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)vt[1291])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)vt[1291])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
 			#endif
 		}
 
@@ -3542,12 +4788,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4fv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4FvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1292])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1292])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1292])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1292])(target, (nint)v);
 			#endif
 		}
 
@@ -3570,12 +4817,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4i")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4INative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLint")] int q)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1293])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1293])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
 			#endif
 		}
 
@@ -3588,12 +4836,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4iv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4IvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1294])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1294])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1294])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1294])(target, (nint)v);
 			#endif
 		}
 
@@ -3616,12 +4865,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4s")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4SNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLshort")] short q)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)vt[1295])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)vt[1295])(target, s, t, r, q);
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
 			#endif
 		}
 
@@ -3634,12 +4884,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultiTexCoord4sv")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultiTexCoord4SvNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1296])(target, v);
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1296])(target, v);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1296])(target, (nint)v);
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1296])(target, (nint)v);
 			#endif
 		}
 
@@ -3662,12 +4913,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glLoadTransposeMatrixd")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlLoadTransposeMatrixdNative([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble[16]")] double* m)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)vt[1297])(m);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1297])(m);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1297])((nint)m);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1297])((nint)m);
 			#endif
 		}
 
@@ -3700,12 +4952,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glLoadTransposeMatrixf")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlLoadTransposeMatrixfNative([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] float* m)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)vt[1298])(m);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1298])(m);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1298])((nint)m);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1298])((nint)m);
 			#endif
 		}
 
@@ -3738,12 +4991,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "glMultTransposeMatrixd")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GlMultTransposeMatrixdNative([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble[16]")] double* m)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)vt[1299])(m);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1299])(m);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1299])((nint)m);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1299])((nint)m);
 			#endif
 		}
 
@@ -3762,1259 +5016,6 @@ namespace Hexa.NET.SDL2
 			{
 				GlMultTransposeMatrixdNative((double*)pm);
 			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultTransposeMatrixd")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultTransposeMatrixd([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble[16]")] ReadOnlySpan<double> m)
-		{
-			fixed (double* pm = m)
-			{
-				GlMultTransposeMatrixdNative((double*)pm);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultTransposeMatrixfNative([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] float* m)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)vt[1300])(m);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1300])((nint)m);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultTransposeMatrixf([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] float* m)
-		{
-			GlMultTransposeMatrixfNative(m);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultTransposeMatrixf([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] ref float m)
-		{
-			fixed (float* pm = &m)
-			{
-				GlMultTransposeMatrixfNative((float*)pm);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultTransposeMatrixf")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultTransposeMatrixf([NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat[16]")] ReadOnlySpan<float> m)
-		{
-			fixed (float* pm = m)
-			{
-				GlMultTransposeMatrixfNative((float*)pm);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glSampleCoverage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlSampleCoverageNative([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLclampf")] float value, [NativeName(NativeNameType.Param, "invert")] [NativeName(NativeNameType.Type, "GLboolean")] byte invert)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, byte, void>)vt[1301])(value, invert);
-			#else
-			((delegate* unmanaged[Cdecl]<float, byte, void>)vt[1301])(value, invert);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glSampleCoverage")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlSampleCoverage([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLclampf")] float value, [NativeName(NativeNameType.Param, "invert")] [NativeName(NativeNameType.Type, "GLboolean")] byte invert)
-		{
-			GlSampleCoverageNative(value, invert);
-		}
-
-		[NativeName(NativeNameType.Func, "glActiveTextureARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlActiveTextureARBNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1302])(texture);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1302])(texture);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glActiveTextureARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlActiveTextureARB([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
-		{
-			GlActiveTextureARBNative(texture);
-		}
-
-		[NativeName(NativeNameType.Func, "glClientActiveTextureARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlClientActiveTextureARBNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1303])(texture);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[1303])(texture);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glClientActiveTextureARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlClientActiveTextureARB([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLenum")] uint texture)
-		{
-			GlClientActiveTextureARBNative(texture);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, void>)vt[1304])(target, s);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, double, void>)vt[1304])(target, s);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s)
-		{
-			GlMultiTexCoord1DARBNative(target, s);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1305])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1305])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			GlMultiTexCoord1DvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlMultiTexCoord1DvARBNative(target, (double*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[1306])(target, s);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[1306])(target, s);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s)
-		{
-			GlMultiTexCoord1FARBNative(target, s);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1307])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1307])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			GlMultiTexCoord1FvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlMultiTexCoord1FvARBNative(target, (float*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[1308])(target, s);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[1308])(target, s);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s)
-		{
-			GlMultiTexCoord1IARBNative(target, s);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1309])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1309])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			GlMultiTexCoord1IvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlMultiTexCoord1IvARBNative(target, (int*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, void>)vt[1310])(target, s);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, short, void>)vt[1310])(target, s);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s)
-		{
-			GlMultiTexCoord1SARBNative(target, s);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord1SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1311])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1311])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			GlMultiTexCoord1SvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord1svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord1SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlMultiTexCoord1SvARBNative(target, (short*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, void>)vt[1312])(target, s, t);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, void>)vt[1312])(target, s, t);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t)
-		{
-			GlMultiTexCoord2DARBNative(target, s, t);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1313])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1313])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			GlMultiTexCoord2DvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlMultiTexCoord2DvARBNative(target, (double*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, void>)vt[1314])(target, s, t);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, void>)vt[1314])(target, s, t);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t)
-		{
-			GlMultiTexCoord2FARBNative(target, s, t);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1315])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1315])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			GlMultiTexCoord2FvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlMultiTexCoord2FvARBNative(target, (float*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)vt[1316])(target, s, t);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, void>)vt[1316])(target, s, t);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t)
-		{
-			GlMultiTexCoord2IARBNative(target, s, t);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1317])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1317])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			GlMultiTexCoord2IvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlMultiTexCoord2IvARBNative(target, (int*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, void>)vt[1318])(target, s, t);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, void>)vt[1318])(target, s, t);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t)
-		{
-			GlMultiTexCoord2SARBNative(target, s, t);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord2SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1319])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1319])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			GlMultiTexCoord2SvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord2svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord2SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlMultiTexCoord2SvARBNative(target, (short*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)vt[1320])(target, s, t, r);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)vt[1320])(target, s, t, r);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r)
-		{
-			GlMultiTexCoord3DARBNative(target, s, t, r);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1321])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1321])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			GlMultiTexCoord3DvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlMultiTexCoord3DvARBNative(target, (double*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)vt[1322])(target, s, t, r);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)vt[1322])(target, s, t, r);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r)
-		{
-			GlMultiTexCoord3FARBNative(target, s, t, r);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1323])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1323])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			GlMultiTexCoord3FvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlMultiTexCoord3FvARBNative(target, (float*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)vt[1324])(target, s, t, r);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)vt[1324])(target, s, t, r);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r)
-		{
-			GlMultiTexCoord3IARBNative(target, s, t, r);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1325])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1325])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			GlMultiTexCoord3IvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlMultiTexCoord3IvARBNative(target, (int*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)vt[1326])(target, s, t, r);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)vt[1326])(target, s, t, r);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r)
-		{
-			GlMultiTexCoord3SARBNative(target, s, t, r);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord3SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1327])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1327])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			GlMultiTexCoord3SvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord3svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord3SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlMultiTexCoord3SvARBNative(target, (short*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4DARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLdouble")] double q)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)vt[1328])(target, s, t, r, q);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)vt[1328])(target, s, t, r, q);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4dARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4DARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLdouble")] double s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLdouble")] double t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLdouble")] double r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLdouble")] double q)
-		{
-			GlMultiTexCoord4DARBNative(target, s, t, r, q);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4DvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[1329])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1329])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v)
-		{
-			GlMultiTexCoord4DvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4dvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4DvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlMultiTexCoord4DvARBNative(target, (double*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4FARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLfloat")] float q)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)vt[1330])(target, s, t, r, q);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)vt[1330])(target, s, t, r, q);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4fARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4FARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLfloat")] float s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLfloat")] float t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLfloat")] float r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLfloat")] float q)
-		{
-			GlMultiTexCoord4FARBNative(target, s, t, r, q);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4FvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[1331])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1331])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v)
-		{
-			GlMultiTexCoord4FvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4fvARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4FvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlMultiTexCoord4FvARBNative(target, (float*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4IARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLint")] int q)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1332])(target, s, t, r, q);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)vt[1332])(target, s, t, r, q);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4iARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4IARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLint")] int s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLint")] int t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLint")] int r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLint")] int q)
-		{
-			GlMultiTexCoord4IARBNative(target, s, t, r, q);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4IvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[1333])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1333])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v)
-		{
-			GlMultiTexCoord4IvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4ivARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4IvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlMultiTexCoord4IvARBNative(target, (int*)pv);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4SARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLshort")] short q)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)vt[1334])(target, s, t, r, q);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)vt[1334])(target, s, t, r, q);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4sARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4SARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLshort")] short s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLshort")] short t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLshort")] short r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLshort")] short q)
-		{
-			GlMultiTexCoord4SARBNative(target, s, t, r, q);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlMultiTexCoord4SvARBNative([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, short*, void>)vt[1335])(target, v);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[1335])(target, (nint)v);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v)
-		{
-			GlMultiTexCoord4SvARBNative(target, v);
-		}
-
-		[NativeName(NativeNameType.Func, "glMultiTexCoord4svARB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlMultiTexCoord4SvARB([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlMultiTexCoord4SvARBNative(target, (short*)pv);
-			}
-		}
-
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		internal static SDLBool GetWindowWMInfoNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSysWMInfo*, SDLBool>)vt[1336])(window, info);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)vt[1336])((nint)window, (nint)info);
-			#endif
-		}
-
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
-		{
-			SDLBool ret = GetWindowWMInfoNative(window, info);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] SDLSysWMInfo* info)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, info);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
-		{
-			fixed (SDLSysWMInfo* pinfo = &info)
-			{
-				SDLBool ret = GetWindowWMInfoNative(window, (SDLSysWMInfo*)pinfo);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get driver-specific information about a window.<br/>
-		/// You must include SDL_syswm.h for the declaration of SDL_SysWMinfo.<br/>
-		/// The caller must initialize the `info` structure's version by using<br/>
-		/// `SDL_VERSION(<br/>
-		/// &info<br/>
-		/// .version)`, and then this function will fill in the rest<br/>
-		/// of the structure with information about the given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowWMInfo")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool GetWindowWMInfo([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_SysWMinfo*")] ref SDLSysWMInfo info)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLSysWMInfo* pinfo = &info)
-				{
-					SDLBool ret = GetWindowWMInfoNative((SDLWindow*)pwindow, (SDLSysWMInfo*)pinfo);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestAssertNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[1337])(assertCondition, assertDescription);
-			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[1337])(assertCondition, (nint)assertDescription);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
-		{
-			TestAssertNative(assertCondition, assertDescription);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
-		{
-			fixed (byte* passertDescription = &assertDescription)
-			{
-				TestAssertNative(assertCondition, (byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
-		{
-			fixed (byte* passertDescription = assertDescription)
-			{
-				TestAssertNative(assertCondition, (byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_Assert")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssert([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (assertDescription != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestAssertNative(assertCondition, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int TestAssertCheckNative([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*, int>)vt[1338])(assertCondition, assertDescription);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)vt[1338])(assertCondition, (nint)assertDescription);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
-		{
-			int ret = TestAssertCheckNative(assertCondition, assertDescription);
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
-		{
-			fixed (byte* passertDescription = &assertDescription)
-			{
-				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
-		{
-			fixed (byte* passertDescription = assertDescription)
-			{
-				int ret = TestAssertCheckNative(assertCondition, (byte*)passertDescription);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertCheck")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TestAssertCheck([NativeName(NativeNameType.Param, "assertCondition")] [NativeName(NativeNameType.Type, "int")] int assertCondition, [NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (assertDescription != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = TestAssertCheckNative(assertCondition, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestAssertPassNative([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[1339])(assertDescription);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[1339])((nint)assertDescription);
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] byte* assertDescription)
-		{
-			TestAssertPassNative(assertDescription);
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ref byte assertDescription)
-		{
-			fixed (byte* passertDescription = &assertDescription)
-			{
-				TestAssertPassNative((byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> assertDescription)
-		{
-			fixed (byte* passertDescription = assertDescription)
-			{
-				TestAssertPassNative((byte*)passertDescription);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_AssertPass")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestAssertPass([NativeName(NativeNameType.Param, "assertDescription")] [NativeName(NativeNameType.Type, "const char*")] string assertDescription)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (assertDescription != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(assertDescription);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(assertDescription, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			TestAssertPassNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestResetAssertSummaryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[1340])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[1340])();
-			#endif
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_ResetAssertSummary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void TestResetAssertSummary()
-		{
-			TestResetAssertSummaryNative();
-		}
-
-		/// <summary>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDLTest_LogAssertSummary")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void TestLogAssertSummaryNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[1341])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[1341])();
-			#endif
 		}
 	}
 }

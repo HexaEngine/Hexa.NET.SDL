@@ -18,6 +18,345 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Create a window with the specified position, dimensions, and flags.<br/>
+		/// `flags` may be any of the following OR'd together:<br/>
+		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window<br/>
+		/// - `SDL_WINDOW_FULLSCREEN_DESKTOP`: fullscreen window at desktop resolution<br/>
+		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
+		/// - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance<br/>
+		/// - `SDL_WINDOW_METAL`: window usable with a Metal instance<br/>
+		/// - `SDL_WINDOW_HIDDEN`: window is not visible<br/>
+		/// - `SDL_WINDOW_BORDERLESS`: no window decoration<br/>
+		/// - `SDL_WINDOW_RESIZABLE`: window can be resized<br/>
+		/// - `SDL_WINDOW_MINIMIZED`: window is minimized<br/>
+		/// - `SDL_WINDOW_MAXIMIZED`: window is maximized<br/>
+		/// - `SDL_WINDOW_INPUT_GRABBED`: window has grabbed input focus<br/>
+		/// - `SDL_WINDOW_ALLOW_HIGHDPI`: window should be created in high-DPI mode if<br/>
+		/// supported (>= SDL 2.0.1)<br/>
+		/// `SDL_WINDOW_SHOWN` is ignored by SDL_CreateWindow(). The SDL_Window is<br/>
+		/// implicitly shown if SDL_WINDOW_HIDDEN is not set. `SDL_WINDOW_SHOWN` may be<br/>
+		/// queried later using SDL_GetWindowFlags().<br/>
+		/// On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist<br/>
+		/// property to YES, otherwise you will not receive a High-DPI OpenGL canvas.<br/>
+		/// If the window is created with the `SDL_WINDOW_ALLOW_HIGHDPI` flag, its size<br/>
+		/// in pixels may differ from its size in screen coordinates on platforms with<br/>
+		/// high-DPI support (e.g. iOS and macOS). Use SDL_GetWindowSize() to query the<br/>
+		/// client area's size in screen coordinates, and SDL_GL_GetDrawableSize() or<br/>
+		/// SDL_GetRendererOutputSize() to query the drawable size in pixels. Note that<br/>
+		/// when this flag is set, the drawable size can vary after the window is<br/>
+		/// created and should be queried after major window events such as when the<br/>
+		/// window is resized or moved between displays.<br/>
+		/// If the window is set fullscreen, the width and height parameters `w` and<br/>
+		/// `h` will not be used. However, invalid size parameters (e.g. too large) may<br/>
+		/// still fail. Window size is actually limited to 16384 x 16384 for all<br/>
+		/// platforms at window creation.<br/>
+		/// If the window is created with any of the SDL_WINDOW_OPENGL or<br/>
+		/// SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function<br/>
+		/// (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the<br/>
+		/// corresponding UnloadLibrary function is called by SDL_DestroyWindow().<br/>
+		/// If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,<br/>
+		/// SDL_CreateWindow() will fail because SDL_Vulkan_LoadLibrary() will fail.<br/>
+		/// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,<br/>
+		/// SDL_CreateWindow() will fail.<br/>
+		/// On non-Apple devices, SDL requires you to either not link to the Vulkan<br/>
+		/// loader or link to a dynamic library version. This limitation may be removed<br/>
+		/// in a future version of SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateWindow")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		public static SDLWindow* CreateWindow([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLWindow* ret = CreateWindowNative(pStr0, x, y, w, h, flags);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Create an SDL window from an existing native window.<br/>
+		/// In some cases (e.g. OpenGL) and on some platforms (e.g. Microsoft Windows)<br/>
+		/// the hint `SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT` needs to be configured<br/>
+		/// before using SDL_CreateWindowFrom().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateWindowFrom")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* CreateWindowFromNative([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, SDLWindow*>)funcTable[367])(data);
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[367])((nint)data);
+			#endif
+		}
+
+		/// <summary>
+		/// Create an SDL window from an existing native window.<br/>
+		/// In some cases (e.g. OpenGL) and on some platforms (e.g. Microsoft Windows)<br/>
+		/// the hint `SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT` needs to be configured<br/>
+		/// before using SDL_CreateWindowFrom().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateWindowFrom")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		public static SDLWindow* CreateWindowFrom([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data)
+		{
+			SDLWindow* ret = CreateWindowFromNative(data);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the numeric ID of a window.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowID")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetWindowIDNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[368])(window);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[368])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the numeric ID of a window.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowID")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetWindowID([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		{
+			uint ret = GetWindowIDNative(window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the numeric ID of a window.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowID")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetWindowID([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				uint ret = GetWindowIDNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a window from a stored ID.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetWindowFromIDNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "Uint32")] uint id)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLWindow*>)funcTable[369])(id);
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[369])(id);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a window from a stored ID.<br/>
+		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
+		/// these events to specific SDL_Window objects.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromID")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		public static SDLWindow* GetWindowFromID([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "Uint32")] uint id)
+		{
+			SDLWindow* ret = GetWindowFromIDNative(id);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFlags")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetWindowFlagsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[370])(window);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[370])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFlags")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetWindowFlags([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
+		{
+			uint ret = GetWindowFlagsNative(window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the window flags.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFlags")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetWindowFlags([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				uint ret = GetWindowFlagsNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowTitleNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void>)funcTable[371])(window, title);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[371])((nint)window, (nint)title);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title)
+		{
+			SetWindowTitleNative(window, title);
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowTitleNative((SDLWindow*)pwindow, title);
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title)
+		{
+			fixed (byte* ptitle = &title)
+			{
+				SetWindowTitleNative(window, (byte*)ptitle);
+			}
+		}
+
+		/// <summary>
+		/// Set the title of a window.<br/>
+		/// This string is expected to be in UTF-8 encoding.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title)
+		{
+			fixed (byte* ptitle = title)
+			{
+				SetWindowTitleNative(window, (byte*)ptitle);
+			}
+		}
+
+		/// <summary>
 		/// Set the title of a window.<br/>
 		/// This string is expected to be in UTF-8 encoding.<br/>
 		/// <br/>
@@ -138,12 +477,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowTitle")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetWindowTitleNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*>)vt[372])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*>)funcTable[372])(window);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[372])((nint)window);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[372])((nint)window);
 			#endif
 		}
 
@@ -216,12 +556,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowIcon")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowIconNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "icon")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* icon)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, void>)vt[373])(window, icon);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, void>)funcTable[373])(window, icon);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[373])((nint)window, (nint)icon);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[373])((nint)window, (nint)icon);
 			#endif
 		}
 
@@ -294,12 +635,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* SetWindowDataNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*, void*>)vt[374])(window, name, userdata);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*, void*>)funcTable[374])(window, name, userdata);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)vt[374])((nint)window, (nint)name, (nint)userdata);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)funcTable[374])((nint)window, (nint)name, (nint)userdata);
 			#endif
 		}
 
@@ -497,12 +839,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowData")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* GetWindowDataNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*>)vt[375])(window, name);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void*>)funcTable[375])(window, name);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)vt[375])((nint)window, (nint)name);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[375])((nint)window, (nint)name);
 			#endif
 		}
 
@@ -693,12 +1036,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowPositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[376])(window, x, y);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[376])(window, x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)vt[376])((nint)window, x, y);
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[376])((nint)window, x, y);
 			#endif
 		}
 
@@ -743,12 +1087,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPosition")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetWindowPositionNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int*")] int* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int*")] int* y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[377])(window, x, y);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[377])(window, x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[377])((nint)window, (nint)x, (nint)y);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[377])((nint)window, (nint)x, (nint)y);
 			#endif
 		}
 
@@ -922,12 +1267,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[378])(window, w, h);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[378])(window, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)vt[378])((nint)window, w, h);
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[378])((nint)window, w, h);
 			#endif
 		}
 
@@ -987,12 +1333,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetWindowSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[379])(window, w, h);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[379])(window, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[379])((nint)window, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[379])((nint)window, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -1209,12 +1556,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBordersSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetWindowBordersSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "top")] [NativeName(NativeNameType.Type, "int*")] int* top, [NativeName(NativeNameType.Param, "left")] [NativeName(NativeNameType.Type, "int*")] int* left, [NativeName(NativeNameType.Param, "bottom")] [NativeName(NativeNameType.Type, "int*")] int* bottom, [NativeName(NativeNameType.Param, "right")] [NativeName(NativeNameType.Type, "int*")] int* right)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, int*, int*, int>)vt[380])(window, top, left, bottom, right);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, int*, int*, int>)funcTable[380])(window, top, left, bottom, right);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)vt[380])((nint)window, (nint)top, (nint)left, (nint)bottom, (nint)right);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[380])((nint)window, (nint)top, (nint)left, (nint)bottom, (nint)right);
 			#endif
 		}
 
@@ -2206,12 +2554,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSizeInPixels")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetWindowSizeInPixelsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[381])(window, w, h);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[381])(window, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[381])((nint)window, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[381])((nint)window, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -2395,12 +2744,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowMinimumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "min_w")] [NativeName(NativeNameType.Type, "int")] int minW, [NativeName(NativeNameType.Param, "min_h")] [NativeName(NativeNameType.Type, "int")] int minH)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[382])(window, minW, minH);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[382])(window, minW, minH);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)vt[382])((nint)window, minW, minH);
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[382])((nint)window, minW, minH);
 			#endif
 		}
 
@@ -2441,12 +2791,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMinimumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetWindowMinimumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[383])(window, w, h);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[383])(window, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[383])((nint)window, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[383])((nint)window, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -2598,12 +2949,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowMaximumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "max_w")] [NativeName(NativeNameType.Type, "int")] int maxW, [NativeName(NativeNameType.Param, "max_h")] [NativeName(NativeNameType.Type, "int")] int maxH)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)vt[384])(window, maxW, maxH);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[384])(window, maxW, maxH);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)vt[384])((nint)window, maxW, maxH);
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[384])((nint)window, maxW, maxH);
 			#endif
 		}
 
@@ -2644,12 +2996,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMaximumSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetWindowMaximumSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[385])(window, w, h);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[385])(window, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[385])((nint)window, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[385])((nint)window, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -2805,12 +3158,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBordered")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowBorderedNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "bordered")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool bordered)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[386])(window, bordered);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)funcTable[386])(window, bordered);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)vt[386])((nint)window, bordered);
+			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)funcTable[386])((nint)window, bordered);
 			#endif
 		}
 
@@ -2863,12 +3217,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowResizable")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowResizableNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "resizable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool resizable)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[387])(window, resizable);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)funcTable[387])(window, resizable);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)vt[387])((nint)window, resizable);
+			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)funcTable[387])((nint)window, resizable);
 			#endif
 		}
 
@@ -2919,12 +3274,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowAlwaysOnTop")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowAlwaysOnTopNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "on_top")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool onTop)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[388])(window, onTop);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)funcTable[388])(window, onTop);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)vt[388])((nint)window, onTop);
+			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)funcTable[388])((nint)window, onTop);
 			#endif
 		}
 
@@ -2969,12 +3325,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ShowWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[389])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[389])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[389])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[389])((nint)window);
 			#endif
 		}
 
@@ -3015,12 +3372,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HideWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void HideWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[390])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[390])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[390])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[390])((nint)window);
 			#endif
 		}
 
@@ -3060,12 +3418,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RaiseWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RaiseWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[391])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[391])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[391])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[391])((nint)window);
 			#endif
 		}
 
@@ -3104,12 +3463,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MaximizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MaximizeWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[392])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[392])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[392])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[392])((nint)window);
 			#endif
 		}
 
@@ -3150,12 +3510,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_MinimizeWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MinimizeWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[393])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[393])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[393])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[393])((nint)window);
 			#endif
 		}
 
@@ -3196,12 +3557,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RestoreWindow")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RestoreWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)vt[394])(window);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, void>)funcTable[394])(window);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[394])((nint)window);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[394])((nint)window);
 			#endif
 		}
 
@@ -3245,12 +3607,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowFullscreen")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowFullscreenNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint, int>)vt[395])(window, flags);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint, int>)funcTable[395])(window, flags);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, uint, int>)vt[395])((nint)window, flags);
+			return (int)((delegate* unmanaged[Cdecl]<nint, uint, int>)funcTable[395])((nint)window, flags);
 			#endif
 		}
 
@@ -3299,12 +3662,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_HasWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool HasWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[396])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[396])(window);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[396])((nint)window);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[396])((nint)window);
 			#endif
 		}
 
@@ -3354,12 +3718,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* GetWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*>)vt[397])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*>)funcTable[397])(window);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[397])((nint)window);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[397])((nint)window);
 			#endif
 		}
 
@@ -3419,12 +3784,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UpdateWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)vt[398])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)funcTable[398])(window);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[398])((nint)window);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[398])((nint)window);
 			#endif
 		}
 
@@ -3480,12 +3846,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpdateWindowSurfaceRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UpdateWindowSurfaceRectsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "numrects")] [NativeName(NativeNameType.Type, "int")] int numrects)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int, int>)vt[399])(window, rects, numrects);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int, int>)funcTable[399])(window, rects, numrects);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)vt[399])((nint)window, (nint)rects, numrects);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[399])((nint)window, (nint)rects, numrects);
 			#endif
 		}
 
@@ -3593,12 +3960,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int DestroyWindowSurfaceNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)vt[400])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)funcTable[400])(window);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[400])((nint)window);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[400])((nint)window);
 			#endif
 		}
 
@@ -3646,12 +4014,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[401])(window, grabbed);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)funcTable[401])(window, grabbed);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)vt[401])((nint)window, grabbed);
+			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)funcTable[401])((nint)window, grabbed);
 			#endif
 		}
 
@@ -3714,12 +4083,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowKeyboardGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[402])(window, grabbed);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)funcTable[402])(window, grabbed);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)vt[402])((nint)window, grabbed);
+			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)funcTable[402])((nint)window, grabbed);
 			#endif
 		}
 
@@ -3785,12 +4155,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowMouseGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "grabbed")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool grabbed)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)vt[403])(window, grabbed);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool, void>)funcTable[403])(window, grabbed);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)vt[403])((nint)window, grabbed);
+			((delegate* unmanaged[Cdecl]<nint, SDLBool, void>)funcTable[403])((nint)window, grabbed);
 			#endif
 		}
 
@@ -3833,12 +4204,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool GetWindowGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[404])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[404])(window);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[404])((nint)window);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[404])((nint)window);
 			#endif
 		}
 
@@ -3881,12 +4253,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowKeyboardGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool GetWindowKeyboardGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[405])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[405])(window);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[405])((nint)window);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[405])((nint)window);
 			#endif
 		}
 
@@ -3929,12 +4302,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseGrab")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool GetWindowMouseGrabNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[406])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[406])(window);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[406])((nint)window);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[406])((nint)window);
 			#endif
 		}
 
@@ -3977,12 +4351,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetGrabbedWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLWindow* GetGrabbedWindowNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)vt[407])();
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[407])();
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)vt[407])();
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[407])();
 			#endif
 		}
 
@@ -4010,12 +4385,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowMouseRectNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int>)vt[408])(window, rect);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*, int>)funcTable[408])(window, rect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[408])((nint)window, (nint)rect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[408])((nint)window, (nint)rect);
 			#endif
 		}
 
@@ -4103,12 +4479,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowMouseRect")]
 		[return: NativeName(NativeNameType.Type, "const SDL_Rect*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRect* GetWindowMouseRectNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*>)vt[409])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRect*>)funcTable[409])(window);
 			#else
-			return (SDLRect*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[409])((nint)window);
+			return (SDLRect*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[409])((nint)window);
 			#endif
 		}
 
@@ -4160,12 +4537,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowBrightnessNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "brightness")] [NativeName(NativeNameType.Type, "float")] float brightness)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, int>)vt[410])(window, brightness);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, int>)funcTable[410])(window, brightness);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, int>)vt[410])((nint)window, brightness);
+			return (int)((delegate* unmanaged[Cdecl]<nint, float, int>)funcTable[410])((nint)window, brightness);
 			#endif
 		}
 
@@ -4230,12 +4608,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowBrightness")]
 		[return: NativeName(NativeNameType.Type, "float")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static float GetWindowBrightnessNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float>)vt[411])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float>)funcTable[411])(window);
 			#else
-			return (float)((delegate* unmanaged[Cdecl]<nint, float>)vt[411])((nint)window);
+			return (float)((delegate* unmanaged[Cdecl]<nint, float>)funcTable[411])((nint)window);
 			#endif
 		}
 
@@ -4289,12 +4668,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowOpacityNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "opacity")] [NativeName(NativeNameType.Type, "float")] float opacity)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, int>)vt[412])(window, opacity);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float, int>)funcTable[412])(window, opacity);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, int>)vt[412])((nint)window, opacity);
+			return (int)((delegate* unmanaged[Cdecl]<nint, float, int>)funcTable[412])((nint)window, opacity);
 			#endif
 		}
 
@@ -4347,12 +4727,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowOpacity")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetWindowOpacityNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "out_opacity")] [NativeName(NativeNameType.Type, "float*")] float* outOpacity)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float*, int>)vt[413])(window, outOpacity);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, float*, int>)funcTable[413])(window, outOpacity);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[413])((nint)window, (nint)outOpacity);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[413])((nint)window, (nint)outOpacity);
 			#endif
 		}
 
@@ -4447,12 +4828,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowModalFor")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowModalForNative([NativeName(NativeNameType.Param, "modal_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* modalWindow, [NativeName(NativeNameType.Param, "parent_window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* parentWindow)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindow*, int>)vt[414])(modalWindow, parentWindow);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindow*, int>)funcTable[414])(modalWindow, parentWindow);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[414])((nint)modalWindow, (nint)parentWindow);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[414])((nint)modalWindow, (nint)parentWindow);
 			#endif
 		}
 
@@ -4531,12 +4913,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowInputFocus")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowInputFocusNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)vt[415])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)funcTable[415])(window);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[415])((nint)window);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[415])((nint)window);
 			#endif
 		}
 
@@ -4595,12 +4978,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowGammaRampNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ushort*, ushort*, ushort*, int>)vt[416])(window, red, green, blue);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ushort*, ushort*, ushort*, int>)funcTable[416])(window, red, green, blue);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[416])((nint)window, (nint)red, (nint)green, (nint)blue);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[416])((nint)window, (nint)red, (nint)green, (nint)blue);
 			#endif
 		}
 
@@ -4652,399 +5036,6 @@ namespace Hexa.NET.SDL2
 			{
 				int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, green, blue);
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, blue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, blue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
-		{
-			fixed (ushort* pgreen = &green)
-			{
-				int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, blue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, blue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, blue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					fixed (ushort* pgreen = &green)
-					{
-						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, (ushort*)pgreen, blue);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
-		{
-			fixed (ushort* pblue = &blue)
-			{
-				int ret = SetWindowGammaRampNative(window, red, green, (ushort*)pblue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pblue = &blue)
-				{
-					int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, green, (ushort*)pblue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				fixed (ushort* pblue = &blue)
-				{
-					int ret = SetWindowGammaRampNative(window, (ushort*)pred, green, (ushort*)pblue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pred = &red)
-				{
-					fixed (ushort* pblue = &blue)
-					{
-						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, (ushort*)pred, green, (ushort*)pblue);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
-		{
-			fixed (ushort* pgreen = &green)
-			{
-				fixed (ushort* pblue = &blue)
-				{
-					int ret = SetWindowGammaRampNative(window, red, (ushort*)pgreen, (ushort*)pblue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ushort* red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					fixed (ushort* pblue = &blue)
-					{
-						int ret = SetWindowGammaRampNative((SDLWindow*)pwindow, red, (ushort*)pgreen, (ushort*)pblue);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the gamma ramp for the display that owns a given window.<br/>
-		/// Set the gamma translation table for the red, green, and blue channels of<br/>
-		/// the video hardware. Each table is an array of 256 16-bit quantities,<br/>
-		/// representing a mapping between the input and output for that channel. The<br/>
-		/// input is the index into the array, and the output is the 16-bit gamma value<br/>
-		/// at that index, scaled to the output color precision.<br/>
-		/// Despite the name and signature, this method sets the gamma ramp of the<br/>
-		/// entire display, not an individual window. A window is considered to be<br/>
-		/// owned by the display that contains the window's center pixel. (The index of<br/>
-		/// this display can be retrieved using SDL_GetWindowDisplayIndex().) The gamma<br/>
-		/// ramp set will not follow the window if it is moved to another display.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowGammaRamp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetWindowGammaRamp([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "const Uint16*")] ref ushort blue)
-		{
-			fixed (ushort* pred = &red)
-			{
-				fixed (ushort* pgreen = &green)
-				{
-					fixed (ushort* pblue = &blue)
-					{
-						int ret = SetWindowGammaRampNative(window, (ushort*)pred, (ushort*)pgreen, (ushort*)pblue);
-						return ret;
-					}
-				}
 			}
 		}
 	}

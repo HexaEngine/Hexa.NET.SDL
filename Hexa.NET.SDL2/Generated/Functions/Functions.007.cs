@@ -18,6 +18,338 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSurfaceAlphaModNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int>)funcTable[322])(surface, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[322])((nint)surface, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		{
+			int ret = GetSurfaceAlphaModNative(surface, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
+		{
+			fixed (byte* palpha = &alpha)
+			{
+				int ret = GetSurfaceAlphaModNative(surface, (byte*)palpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceAlphaMod")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceAlphaMod([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* palpha = &alpha)
+				{
+					int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode, int>)funcTable[323])(surface, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[323])((nint)surface, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		{
+			int ret = SetSurfaceBlendModeNative(surface, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSurfaceBlendModeNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode*, int>)funcTable[324])(surface, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[324])((nint)surface, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		{
+			int ret = GetSurfaceBlendModeNative(surface, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
+		{
+			fixed (SDLBlendMode* pblendMode = &blendMode)
+			{
+				int ret = GetSurfaceBlendModeNative(surface, (SDLBlendMode*)pblendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetSurfaceBlendMode")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetSurfaceBlendMode([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLBlendMode* pblendMode = &blendMode)
+				{
+					int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool SetClipRectNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLBool>)funcTable[325])(surface, rect);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[325])((nint)surface, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		{
+			SDLBool ret = SetClipRectNative(surface, rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLBool ret = SetClipRectNative((SDLSurface*)psurface, rect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetClipRect")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetClipRect([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				SDLBool ret = SetClipRectNative(surface, (SDLRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
 		/// Set the clipping rectangle for a surface.<br/>
 		/// When `surface` is the destination of a blit, only the area within the clip<br/>
 		/// rectangle is drawn into.<br/>
@@ -51,12 +383,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetClipRect")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetClipRectNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, void>)vt[326])(surface, rect);
+			((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, void>)funcTable[326])(surface, rect);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[326])((nint)surface, (nint)rect);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[326])((nint)surface, (nint)rect);
 			#endif
 		}
 
@@ -139,12 +472,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DuplicateSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* DuplicateSurfaceNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*>)vt[327])(surface);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*>)funcTable[327])(surface);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[327])((nint)surface);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[327])((nint)surface);
 			#endif
 		}
 
@@ -189,12 +523,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ConvertSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* ConvertSurfaceNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* fmt, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat*, uint, SDLSurface*>)vt[328])(src, fmt, flags);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat*, uint, SDLSurface*>)funcTable[328])(src, fmt, flags);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint>)vt[328])((nint)src, (nint)fmt, flags);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint>)funcTable[328])((nint)src, (nint)fmt, flags);
 			#endif
 		}
 
@@ -294,12 +629,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ConvertSurfaceFormat")]
 		[return: NativeName(NativeNameType.Type, "SDL_Surface*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLSurface* ConvertSurfaceFormatNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint, uint, SDLSurface*>)vt[329])(src, pixelFormat, flags);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint, uint, SDLSurface*>)funcTable[329])(src, pixelFormat, flags);
 			#else
-			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, uint, uint, nint>)vt[329])((nint)src, pixelFormat, flags);
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, uint, uint, nint>)funcTable[329])((nint)src, pixelFormat, flags);
 			#endif
 		}
 
@@ -349,12 +685,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ConvertPixels")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int ConvertPixelsNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "Uint32")] uint srcFormat, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "Uint32")] uint dstFormat, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)vt[330])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[330])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)vt[330])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[330])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
 			#endif
 		}
 
@@ -380,12 +717,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PremultiplyAlpha")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int PremultiplyAlphaNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "Uint32")] uint srcFormat, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "src_pitch")] [NativeName(NativeNameType.Type, "int")] int srcPitch, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "Uint32")] uint dstFormat, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "dst_pitch")] [NativeName(NativeNameType.Type, "int")] int dstPitch)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)vt[331])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[331])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)vt[331])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[331])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
 			#endif
 		}
 
@@ -419,12 +757,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FillRect")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int FillRectNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, uint, int>)vt[332])(dst, rect, color);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, uint, int>)funcTable[332])(dst, rect, color);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, int>)vt[332])((nint)dst, (nint)rect, color);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, int>)funcTable[332])((nint)dst, (nint)rect, color);
 			#endif
 		}
 
@@ -539,12 +878,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_FillRects")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int FillRectsNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "Uint32")] uint color)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, uint, int>)vt[333])(dst, rects, count, color);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, uint, int>)funcTable[333])(dst, rects, count, color);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, uint, int>)vt[333])((nint)dst, (nint)rects, count, color);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, uint, int>)funcTable[333])((nint)dst, (nint)rects, count, color);
 			#endif
 		}
 
@@ -653,12 +993,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpperBlit")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UpperBlitNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)vt[334])(src, srcrect, dst, dstrect);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[334])(src, srcrect, dst, dstrect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[334])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[334])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
 			#endif
 		}
 
@@ -1010,12 +1351,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LowerBlit")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int LowerBlitNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)vt[335])(src, srcrect, dst, dstrect);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[335])(src, srcrect, dst, dstrect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[335])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[335])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
 			#endif
 		}
 
@@ -1411,12 +1753,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SoftStretch")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SoftStretchNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)vt[336])(src, srcrect, dst, dstrect);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[336])(src, srcrect, dst, dstrect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[336])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[336])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
 			#endif
 		}
 
@@ -1746,12 +2089,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SoftStretchLinear")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SoftStretchLinearNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)vt[337])(src, srcrect, dst, dstrect);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[337])(src, srcrect, dst, dstrect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[337])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[337])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
 			#endif
 		}
 
@@ -2052,12 +2396,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UpperBlitScaled")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int UpperBlitScaledNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)vt[338])(src, srcrect, dst, dstrect);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[338])(src, srcrect, dst, dstrect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[338])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[338])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
 			#endif
 		}
 
@@ -2407,12 +2752,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LowerBlitScaled")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int LowerBlitScaledNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* src, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* dst, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* dstrect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)vt[339])(src, srcrect, dst, dstrect);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[339])(src, srcrect, dst, dstrect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)vt[339])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[339])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
 			#endif
 		}
 
@@ -2774,12 +3120,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetYUVConversionMode")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetYUVConversionModeNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "SDL_YUV_CONVERSION_MODE")] SdlYuvConversionMode mode)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SdlYuvConversionMode, void>)vt[340])(mode);
+			((delegate* unmanaged[Cdecl]<SdlYuvConversionMode, void>)funcTable[340])(mode);
 			#else
-			((delegate* unmanaged[Cdecl]<SdlYuvConversionMode, void>)vt[340])(mode);
+			((delegate* unmanaged[Cdecl]<SdlYuvConversionMode, void>)funcTable[340])(mode);
 			#endif
 		}
 
@@ -2800,12 +3147,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetYUVConversionMode")]
 		[return: NativeName(NativeNameType.Type, "SDL_YUV_CONVERSION_MODE")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SdlYuvConversionMode GetYUVConversionModeNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SdlYuvConversionMode>)vt[341])();
+			return ((delegate* unmanaged[Cdecl]<SdlYuvConversionMode>)funcTable[341])();
 			#else
-			return (SdlYuvConversionMode)((delegate* unmanaged[Cdecl]<SdlYuvConversionMode>)vt[341])();
+			return (SdlYuvConversionMode)((delegate* unmanaged[Cdecl]<SdlYuvConversionMode>)funcTable[341])();
 			#endif
 		}
 
@@ -2828,12 +3176,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetYUVConversionModeForResolution")]
 		[return: NativeName(NativeNameType.Type, "SDL_YUV_CONVERSION_MODE")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SdlYuvConversionMode GetYUVConversionModeForResolutionNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SdlYuvConversionMode>)vt[342])(width, height);
+			return ((delegate* unmanaged[Cdecl]<int, int, SdlYuvConversionMode>)funcTable[342])(width, height);
 			#else
-			return (SdlYuvConversionMode)((delegate* unmanaged[Cdecl]<int, int, SdlYuvConversionMode>)vt[342])(width, height);
+			return (SdlYuvConversionMode)((delegate* unmanaged[Cdecl]<int, int, SdlYuvConversionMode>)funcTable[342])(width, height);
 			#endif
 		}
 
@@ -2858,12 +3207,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumVideoDrivers")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumVideoDriversNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[343])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[343])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[343])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[343])();
 			#endif
 		}
 
@@ -2891,12 +3241,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetVideoDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetVideoDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[344])(index);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[344])(index);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[344])(index);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[344])(index);
 			#endif
 		}
 
@@ -2950,12 +3301,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_VideoInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int VideoInitNative([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[345])(driverName);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[345])(driverName);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[345])((nint)driverName);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[345])((nint)driverName);
 			#endif
 		}
 
@@ -3090,12 +3442,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_VideoQuit")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void VideoQuitNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[346])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[346])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[346])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[346])();
 			#endif
 		}
 
@@ -3120,12 +3473,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCurrentVideoDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetCurrentVideoDriverNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)vt[347])();
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[347])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)vt[347])();
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[347])();
 			#endif
 		}
 
@@ -3165,12 +3519,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumVideoDisplays")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumVideoDisplaysNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[348])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[348])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[348])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[348])();
 			#endif
 		}
 
@@ -3196,12 +3551,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDisplayName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetDisplayNameNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[349])(displayIndex);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[349])(displayIndex);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[349])(displayIndex);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[349])(displayIndex);
 			#endif
 		}
 
@@ -3242,12 +3598,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDisplayBounds")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetDisplayBoundsNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLRect*, int>)vt[350])(displayIndex, rect);
+			return ((delegate* unmanaged[Cdecl]<int, SDLRect*, int>)funcTable[350])(displayIndex, rect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)vt[350])(displayIndex, (nint)rect);
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[350])(displayIndex, (nint)rect);
 			#endif
 		}
 
@@ -3302,12 +3659,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDisplayUsableBounds")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetDisplayUsableBoundsNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLRect*, int>)vt[351])(displayIndex, rect);
+			return ((delegate* unmanaged[Cdecl]<int, SDLRect*, int>)funcTable[351])(displayIndex, rect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)vt[351])(displayIndex, (nint)rect);
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[351])(displayIndex, (nint)rect);
 			#endif
 		}
 
@@ -3382,12 +3740,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDisplayDPI")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetDisplayDPINative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "ddpi")] [NativeName(NativeNameType.Type, "float*")] float* ddpi, [NativeName(NativeNameType.Param, "hdpi")] [NativeName(NativeNameType.Type, "float*")] float* hdpi, [NativeName(NativeNameType.Param, "vdpi")] [NativeName(NativeNameType.Type, "float*")] float* vdpi)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, float*, float*, float*, int>)vt[352])(displayIndex, ddpi, hdpi, vdpi);
+			return ((delegate* unmanaged[Cdecl]<int, float*, float*, float*, int>)funcTable[352])(displayIndex, ddpi, hdpi, vdpi);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, nint, nint, int>)vt[352])(displayIndex, (nint)ddpi, (nint)hdpi, (nint)vdpi);
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, nint, nint, int>)funcTable[352])(displayIndex, (nint)ddpi, (nint)hdpi, (nint)vdpi);
 			#endif
 		}
 
@@ -3643,12 +4002,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDisplayOrientation")]
 		[return: NativeName(NativeNameType.Type, "SDL_DisplayOrientation")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLDisplayOrientation GetDisplayOrientationNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayOrientation>)vt[353])(displayIndex);
+			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayOrientation>)funcTable[353])(displayIndex);
 			#else
-			return (SDLDisplayOrientation)((delegate* unmanaged[Cdecl]<int, SDLDisplayOrientation>)vt[353])(displayIndex);
+			return (SDLDisplayOrientation)((delegate* unmanaged[Cdecl]<int, SDLDisplayOrientation>)funcTable[353])(displayIndex);
 			#endif
 		}
 
@@ -3676,12 +4036,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumDisplayModes")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumDisplayModesNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[354])(displayIndex);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[354])(displayIndex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[354])(displayIndex);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[354])(displayIndex);
 			#endif
 		}
 
@@ -3715,12 +4076,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDisplayMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetDisplayModeNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "modeIndex")] [NativeName(NativeNameType.Type, "int")] int modeIndex, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "SDL_DisplayMode*")] SDLDisplayMode* mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLDisplayMode*, int>)vt[355])(displayIndex, modeIndex, mode);
+			return ((delegate* unmanaged[Cdecl]<int, int, SDLDisplayMode*, int>)funcTable[355])(displayIndex, modeIndex, mode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, nint, int>)vt[355])(displayIndex, modeIndex, (nint)mode);
+			return (int)((delegate* unmanaged[Cdecl]<int, int, nint, int>)funcTable[355])(displayIndex, modeIndex, (nint)mode);
 			#endif
 		}
 
@@ -3779,12 +4141,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDesktopDisplayMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetDesktopDisplayModeNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "SDL_DisplayMode*")] SDLDisplayMode* mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayMode*, int>)vt[356])(displayIndex, mode);
+			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayMode*, int>)funcTable[356])(displayIndex, mode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)vt[356])(displayIndex, (nint)mode);
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[356])(displayIndex, (nint)mode);
 			#endif
 		}
 
@@ -3839,12 +4202,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCurrentDisplayMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetCurrentDisplayModeNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "SDL_DisplayMode*")] SDLDisplayMode* mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayMode*, int>)vt[357])(displayIndex, mode);
+			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayMode*, int>)funcTable[357])(displayIndex, mode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)vt[357])(displayIndex, (nint)mode);
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[357])(displayIndex, (nint)mode);
 			#endif
 		}
 
@@ -3901,12 +4265,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetClosestDisplayMode")]
 		[return: NativeName(NativeNameType.Type, "SDL_DisplayMode*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLDisplayMode* GetClosestDisplayModeNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "const SDL_DisplayMode*")] SDLDisplayMode* mode, [NativeName(NativeNameType.Param, "closest")] [NativeName(NativeNameType.Type, "SDL_DisplayMode*")] SDLDisplayMode* closest)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayMode*, SDLDisplayMode*, SDLDisplayMode*>)vt[358])(displayIndex, mode, closest);
+			return ((delegate* unmanaged[Cdecl]<int, SDLDisplayMode*, SDLDisplayMode*, SDLDisplayMode*>)funcTable[358])(displayIndex, mode, closest);
 			#else
-			return (SDLDisplayMode*)((delegate* unmanaged[Cdecl]<int, nint, nint, nint>)vt[358])(displayIndex, (nint)mode, (nint)closest);
+			return (SDLDisplayMode*)((delegate* unmanaged[Cdecl]<int, nint, nint, nint>)funcTable[358])(displayIndex, (nint)mode, (nint)closest);
 			#endif
 		}
 
@@ -4010,12 +4375,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPointDisplayIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetPointDisplayIndexNative([NativeName(NativeNameType.Param, "point")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* point)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPoint*, int>)vt[359])(point);
+			return ((delegate* unmanaged[Cdecl]<SDLPoint*, int>)funcTable[359])(point);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[359])((nint)point);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[359])((nint)point);
 			#endif
 		}
 
@@ -4058,12 +4424,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRectDisplayIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetRectDisplayIndexNative([NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRect*, int>)vt[360])(rect);
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, int>)funcTable[360])(rect);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[360])((nint)rect);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[360])((nint)rect);
 			#endif
 		}
 
@@ -4106,12 +4473,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowDisplayIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetWindowDisplayIndexNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)vt[361])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int>)funcTable[361])(window);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[361])((nint)window);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[361])((nint)window);
 			#endif
 		}
 
@@ -4157,12 +4525,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowDisplayMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowDisplayModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "const SDL_DisplayMode*")] SDLDisplayMode* mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLDisplayMode*, int>)vt[362])(window, mode);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLDisplayMode*, int>)funcTable[362])(window, mode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[362])((nint)window, (nint)mode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[362])((nint)window, (nint)mode);
 			#endif
 		}
 
@@ -4254,12 +4623,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowDisplayMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetWindowDisplayModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "SDL_DisplayMode*")] SDLDisplayMode* mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLDisplayMode*, int>)vt[363])(window, mode);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLDisplayMode*, int>)funcTable[363])(window, mode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[363])((nint)window, (nint)mode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[363])((nint)window, (nint)mode);
 			#endif
 		}
 
@@ -4339,12 +4709,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowICCProfile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* GetWindowICCProfileNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t*")] ulong* size)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ulong*, void*>)vt[364])(window, size);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, ulong*, void*>)funcTable[364])(window, size);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)vt[364])((nint)window, (nint)size);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[364])((nint)window, (nint)size);
 			#endif
 		}
 
@@ -4423,12 +4794,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetWindowPixelFormat")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint GetWindowPixelFormatNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)vt[365])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)funcTable[365])(window);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[365])((nint)window);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[365])((nint)window);
 			#endif
 		}
 
@@ -4511,12 +4883,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLWindow* CreateWindowNative([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, int, int, int, uint, SDLWindow*>)vt[366])(title, x, y, w, h, flags);
+			return ((delegate* unmanaged[Cdecl]<byte*, int, int, int, int, uint, SDLWindow*>)funcTable[366])(title, x, y, w, h, flags);
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, uint, nint>)vt[366])((nint)title, x, y, w, h, flags);
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, uint, nint>)funcTable[366])((nint)title, x, y, w, h, flags);
 			#endif
 		}
 
@@ -4691,340 +5064,6 @@ namespace Hexa.NET.SDL2
 			{
 				SDLWindow* ret = CreateWindowNative((byte*)ptitle, x, y, w, h, flags);
 				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a window with the specified position, dimensions, and flags.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_WINDOW_FULLSCREEN`: fullscreen window<br/>
-		/// - `SDL_WINDOW_FULLSCREEN_DESKTOP`: fullscreen window at desktop resolution<br/>
-		/// - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context<br/>
-		/// - `SDL_WINDOW_VULKAN`: window usable with a Vulkan instance<br/>
-		/// - `SDL_WINDOW_METAL`: window usable with a Metal instance<br/>
-		/// - `SDL_WINDOW_HIDDEN`: window is not visible<br/>
-		/// - `SDL_WINDOW_BORDERLESS`: no window decoration<br/>
-		/// - `SDL_WINDOW_RESIZABLE`: window can be resized<br/>
-		/// - `SDL_WINDOW_MINIMIZED`: window is minimized<br/>
-		/// - `SDL_WINDOW_MAXIMIZED`: window is maximized<br/>
-		/// - `SDL_WINDOW_INPUT_GRABBED`: window has grabbed input focus<br/>
-		/// - `SDL_WINDOW_ALLOW_HIGHDPI`: window should be created in high-DPI mode if<br/>
-		/// supported (>= SDL 2.0.1)<br/>
-		/// `SDL_WINDOW_SHOWN` is ignored by SDL_CreateWindow(). The SDL_Window is<br/>
-		/// implicitly shown if SDL_WINDOW_HIDDEN is not set. `SDL_WINDOW_SHOWN` may be<br/>
-		/// queried later using SDL_GetWindowFlags().<br/>
-		/// On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist<br/>
-		/// property to YES, otherwise you will not receive a High-DPI OpenGL canvas.<br/>
-		/// If the window is created with the `SDL_WINDOW_ALLOW_HIGHDPI` flag, its size<br/>
-		/// in pixels may differ from its size in screen coordinates on platforms with<br/>
-		/// high-DPI support (e.g. iOS and macOS). Use SDL_GetWindowSize() to query the<br/>
-		/// client area's size in screen coordinates, and SDL_GL_GetDrawableSize() or<br/>
-		/// SDL_GetRendererOutputSize() to query the drawable size in pixels. Note that<br/>
-		/// when this flag is set, the drawable size can vary after the window is<br/>
-		/// created and should be queried after major window events such as when the<br/>
-		/// window is resized or moved between displays.<br/>
-		/// If the window is set fullscreen, the width and height parameters `w` and<br/>
-		/// `h` will not be used. However, invalid size parameters (e.g. too large) may<br/>
-		/// still fail. Window size is actually limited to 16384 x 16384 for all<br/>
-		/// platforms at window creation.<br/>
-		/// If the window is created with any of the SDL_WINDOW_OPENGL or<br/>
-		/// SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function<br/>
-		/// (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the<br/>
-		/// corresponding UnloadLibrary function is called by SDL_DestroyWindow().<br/>
-		/// If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,<br/>
-		/// SDL_CreateWindow() will fail because SDL_Vulkan_LoadLibrary() will fail.<br/>
-		/// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,<br/>
-		/// SDL_CreateWindow() will fail.<br/>
-		/// On non-Apple devices, SDL requires you to either not link to the Vulkan<br/>
-		/// loader or link to a dynamic library version. This limitation may be removed<br/>
-		/// in a future version of SDL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindow")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		public static SDLWindow* CreateWindow([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] string title, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLWindow* ret = CreateWindowNative(pStr0, x, y, w, h, flags);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Create an SDL window from an existing native window.<br/>
-		/// In some cases (e.g. OpenGL) and on some platforms (e.g. Microsoft Windows)<br/>
-		/// the hint `SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT` needs to be configured<br/>
-		/// before using SDL_CreateWindowFrom().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowFrom")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		internal static SDLWindow* CreateWindowFromNative([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, SDLWindow*>)vt[367])(data);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[367])((nint)data);
-			#endif
-		}
-
-		/// <summary>
-		/// Create an SDL window from an existing native window.<br/>
-		/// In some cases (e.g. OpenGL) and on some platforms (e.g. Microsoft Windows)<br/>
-		/// the hint `SDL_HINT_VIDEO_WINDOW_SHARE_PIXEL_FORMAT` needs to be configured<br/>
-		/// before using SDL_CreateWindowFrom().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateWindowFrom")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		public static SDLWindow* CreateWindowFrom([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data)
-		{
-			SDLWindow* ret = CreateWindowFromNative(data);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowID")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint GetWindowIDNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)vt[368])(window);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[368])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowID")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint GetWindowID([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
-		{
-			uint ret = GetWindowIDNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the numeric ID of a window.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowID")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint GetWindowID([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				uint ret = GetWindowIDNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a window from a stored ID.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFromID")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		internal static SDLWindow* GetWindowFromIDNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "Uint32")] uint id)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLWindow*>)vt[369])(id);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<uint, nint>)vt[369])(id);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a window from a stored ID.<br/>
-		/// The numeric ID is what SDL_WindowEvent references, and is necessary to map<br/>
-		/// these events to specific SDL_Window objects.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFromID")]
-		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
-		public static SDLWindow* GetWindowFromID([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "Uint32")] uint id)
-		{
-			SDLWindow* ret = GetWindowFromIDNative(id);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFlags")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		internal static uint GetWindowFlagsNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, uint>)vt[370])(window);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[370])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFlags")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint GetWindowFlags([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
-		{
-			uint ret = GetWindowFlagsNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the window flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetWindowFlags")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint GetWindowFlags([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				uint ret = GetWindowFlagsNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void SetWindowTitleNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, byte*, void>)vt[371])(window, title);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[371])((nint)window, (nint)title);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title)
-		{
-			SetWindowTitleNative(window, title);
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] ref SDLWindow window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowTitleNative((SDLWindow*)pwindow, title);
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ref byte title)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				SetWindowTitleNative(window, (byte*)ptitle);
-			}
-		}
-
-		/// <summary>
-		/// Set the title of a window.<br/>
-		/// This string is expected to be in UTF-8 encoding.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetWindowTitle")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SetWindowTitle([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> title)
-		{
-			fixed (byte* ptitle = title)
-			{
-				SetWindowTitleNative(window, (byte*)ptitle);
 			}
 		}
 	}

@@ -76,7 +76,7 @@ jobs:
 
     - name: Configure cimgui with CMake on Linux (x86_64)
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
-      run: cmake -S SDL -B SDL/build
+      run: cmake -S SDL -B SDL/build -DSDL_STATIC=OFF -DSDL_SHARED=ON
 
     - name: Configure SDL2 with CMake for macOS ARM64
       if: matrix.os == 'macos-latest'
@@ -84,17 +84,22 @@ jobs:
 
     - name: Configure cimgui with CMake for Windows
       if: matrix.os == 'windows-latest'
-      run: cmake -S SDL -B SDL/build -A ${{ matrix.cmake-arch }}
+      run: cmake -S SDL -B SDL/build -A ${{ matrix.cmake-arch }} -DSDL_STATIC=OFF -DSDL_SHARED=ON
 
     - name: Build SDL2
       run: cmake --build SDL/build --config Release
+
+    - name: Move Windows binaries
+      if: matrix.os == 'windows-latest'
+      run: |
+        mv SDL/build/Release/*.dll SDL/build/
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4.3.4
       with:
         name: sdl2-${{ matrix.os }}-${{ matrix.arch }}-artifacts 
         path: |
-          SDL/build/Release/*.dll
+          SDL/build/*.dll
           SDL/build/*.so
           SDL/build/*.dylib
         if-no-files-found: ignore # 'warn' or 'ignore' or 'error'

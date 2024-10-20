@@ -18,6 +18,187 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] ulong num)
+		{
+			ulong ret = RWwriteNative(context, ptr, size, num);
+			return ret;
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] ulong num)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
+		{
+			ulong ret = RWwriteNative(context, ptr, size, num);
+			return ret;
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
+		{
+			ulong ret = RWwriteNative(context, ptr, size, num);
+			return ret;
+		}
+
+		/// <summary>
+		/// Write to an SDL_RWops data stream.<br/>
+		/// This function writes exactly `num` objects each of size `size` from the<br/>
+		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
+		/// return less than `num` to demonstrate how far the write progressed. On<br/>
+		/// success, it returns `num`.<br/>
+		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
+		/// `write` method appropriately, to simplify application development.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
+		{
+			fixed (SDLRWops* pcontext = &context)
+			{
+				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_RWops structure.<br/>
+		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_RWops itself with<br/>
+		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
+		/// flush to its output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream to disk, this function reports<br/>
+		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWclose")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RWcloseNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)funcTable[195])(context);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[195])((nint)context);
+			#endif
+		}
+
+		/// <summary>
+		/// Close and free an allocated SDL_RWops structure.<br/>
+		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
+		/// resources used by the stream and frees the SDL_RWops itself with<br/>
+		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
+		/// flush to its output (e.g. to disk).<br/>
+		/// Note that if this fails to flush the stream to disk, this function reports<br/>
+		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
+		/// Prior to SDL 2.0.10, this function was a macro.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RWclose")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RWclose([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
+		{
+			int ret = RWcloseNative(context);
+			return ret;
+		}
+
+		/// <summary>
 		/// Close and free an allocated SDL_RWops structure.<br/>
 		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
 		/// resources used by the stream and frees the SDL_RWops itself with<br/>
@@ -52,12 +233,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* LoadFileRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong*, int, void*>)vt[196])(src, datasize, freesrc);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong*, int, void*>)funcTable[196])(src, datasize, freesrc);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, int, nint>)vt[196])((nint)src, (nint)datasize, freesrc);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, int, nint>)funcTable[196])((nint)src, (nint)datasize, freesrc);
 			#endif
 		}
 
@@ -154,12 +336,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* LoadFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, ulong*, void*>)vt[197])(file, datasize);
+			return ((delegate* unmanaged[Cdecl]<byte*, ulong*, void*>)funcTable[197])(file, datasize);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)vt[197])((nint)file, (nint)datasize);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[197])((nint)file, (nint)datasize);
 			#endif
 		}
 
@@ -389,12 +572,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadU8")]
 		[return: NativeName(NativeNameType.Type, "Uint8")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte ReadU8Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte>)vt[198])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte>)funcTable[198])(src);
 			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)vt[198])((nint)src);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[198])((nint)src);
 			#endif
 		}
 
@@ -440,12 +624,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ushort ReadLE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)vt[199])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[199])(src);
 			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)vt[199])((nint)src);
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[199])((nint)src);
 			#endif
 		}
 
@@ -497,12 +682,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE16")]
 		[return: NativeName(NativeNameType.Type, "Uint16")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ushort ReadBE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)vt[200])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[200])(src);
 			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)vt[200])((nint)src);
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[200])((nint)src);
 			#endif
 		}
 
@@ -554,12 +740,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint ReadLE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)vt[201])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[201])(src);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[201])((nint)src);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[201])((nint)src);
 			#endif
 		}
 
@@ -611,12 +798,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE32")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint ReadBE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)vt[202])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[202])(src);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)vt[202])((nint)src);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[202])((nint)src);
 			#endif
 		}
 
@@ -668,12 +856,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadLE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong ReadLE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)vt[203])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[203])(src);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)vt[203])((nint)src);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[203])((nint)src);
 			#endif
 		}
 
@@ -725,12 +914,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ReadBE64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong ReadBE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)vt[204])(src);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[204])(src);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)vt[204])((nint)src);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[204])((nint)src);
 			#endif
 		}
 
@@ -779,12 +969,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteU8")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong WriteU8Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, ulong>)vt[205])(dst, value);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, ulong>)funcTable[205])(dst, value);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, byte, ulong>)vt[205])((nint)dst, value);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, byte, ulong>)funcTable[205])((nint)dst, value);
 			#endif
 		}
 
@@ -831,12 +1022,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong WriteLE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)vt[206])(dst, value);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)funcTable[206])(dst, value);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ushort, ulong>)vt[206])((nint)dst, value);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ushort, ulong>)funcTable[206])((nint)dst, value);
 			#endif
 		}
 
@@ -890,12 +1082,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE16")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong WriteBE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)vt[207])(dst, value);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)funcTable[207])(dst, value);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ushort, ulong>)vt[207])((nint)dst, value);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ushort, ulong>)funcTable[207])((nint)dst, value);
 			#endif
 		}
 
@@ -948,12 +1141,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong WriteLE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)vt[208])(dst, value);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)funcTable[208])(dst, value);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, uint, ulong>)vt[208])((nint)dst, value);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, uint, ulong>)funcTable[208])((nint)dst, value);
 			#endif
 		}
 
@@ -1007,12 +1201,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE32")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong WriteBE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)vt[209])(dst, value);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)funcTable[209])(dst, value);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, uint, ulong>)vt[209])((nint)dst, value);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, uint, ulong>)funcTable[209])((nint)dst, value);
 			#endif
 		}
 
@@ -1065,12 +1260,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteLE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong WriteLE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)vt[210])(dst, value);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)funcTable[210])(dst, value);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong, ulong>)vt[210])((nint)dst, value);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong, ulong>)funcTable[210])((nint)dst, value);
 			#endif
 		}
 
@@ -1124,12 +1320,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WriteBE64")]
 		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong WriteBE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)vt[211])(dst, value);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)funcTable[211])(dst, value);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong, ulong>)vt[211])((nint)dst, value);
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong, ulong>)funcTable[211])((nint)dst, value);
 			#endif
 		}
 
@@ -1186,12 +1383,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDrivers")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumAudioDriversNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[212])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[212])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[212])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[212])();
 			#endif
 		}
 
@@ -1231,12 +1429,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetAudioDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)vt[213])(index);
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[213])(index);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)vt[213])(index);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[213])(index);
 			#endif
 		}
 
@@ -1291,12 +1490,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AudioInitNative([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[214])(driverName);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[214])(driverName);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[214])((nint)driverName);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[214])((nint)driverName);
 			#endif
 		}
 
@@ -1406,12 +1606,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AudioQuit")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void AudioQuitNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[215])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[215])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[215])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[215])();
 			#endif
 		}
 
@@ -1444,12 +1645,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetCurrentAudioDriver")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetCurrentAudioDriverNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)vt[216])();
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[216])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)vt[216])();
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[216])();
 			#endif
 		}
 
@@ -1521,12 +1723,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int OpenAudioNative([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioSpec*, SDLAudioSpec*, int>)vt[217])(desired, obtained);
+			return ((delegate* unmanaged[Cdecl]<SDLAudioSpec*, SDLAudioSpec*, int>)funcTable[217])(desired, obtained);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[217])((nint)desired, (nint)obtained);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[217])((nint)desired, (nint)obtained);
 			#endif
 		}
 
@@ -1723,12 +1926,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDevices")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumAudioDevicesNative([NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[218])(iscapture);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[218])(iscapture);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[218])(iscapture);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[218])(iscapture);
 			#endif
 		}
 
@@ -1791,12 +1995,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceName")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetAudioDeviceNameNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, byte*>)vt[219])(index, iscapture);
+			return ((delegate* unmanaged[Cdecl]<int, int, byte*>)funcTable[219])(index, iscapture);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, int, nint>)vt[219])(index, iscapture);
+			return (byte*)((delegate* unmanaged[Cdecl]<int, int, nint>)funcTable[219])(index, iscapture);
 			#endif
 		}
 
@@ -1858,12 +2063,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceSpec")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetAudioDeviceSpecNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLAudioSpec*, int>)vt[220])(index, iscapture, spec);
+			return ((delegate* unmanaged[Cdecl]<int, int, SDLAudioSpec*, int>)funcTable[220])(index, iscapture, spec);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, nint, int>)vt[220])(index, iscapture, (nint)spec);
+			return (int)((delegate* unmanaged[Cdecl]<int, int, nint, int>)funcTable[220])(index, iscapture, (nint)spec);
 			#endif
 		}
 
@@ -1928,12 +2134,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetDefaultAudioInfoNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, SDLAudioSpec*, int, int>)vt[221])(name, spec, iscapture);
+			return ((delegate* unmanaged[Cdecl]<byte**, SDLAudioSpec*, int, int>)funcTable[221])(name, spec, iscapture);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)vt[221])((nint)name, (nint)spec, iscapture);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[221])((nint)name, (nint)spec, iscapture);
 			#endif
 		}
 
@@ -2124,12 +2331,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint OpenAudioDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLAudioSpec*, SDLAudioSpec*, int, uint>)vt[222])(device, iscapture, desired, obtained, allowedChanges);
+			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLAudioSpec*, SDLAudioSpec*, int, uint>)funcTable[222])(device, iscapture, desired, obtained, allowedChanges);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, int, uint>)vt[222])((nint)device, iscapture, (nint)desired, (nint)obtained, allowedChanges);
+			return (uint)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, int, uint>)funcTable[222])((nint)device, iscapture, (nint)desired, (nint)obtained, allowedChanges);
 			#endif
 		}
 
@@ -3663,12 +3871,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioStatus")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLAudioStatus GetAudioStatusNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStatus>)vt[223])();
+			return ((delegate* unmanaged[Cdecl]<SDLAudioStatus>)funcTable[223])();
 			#else
-			return (SDLAudioStatus)((delegate* unmanaged[Cdecl]<SDLAudioStatus>)vt[223])();
+			return (SDLAudioStatus)((delegate* unmanaged[Cdecl]<SDLAudioStatus>)funcTable[223])();
 			#endif
 		}
 
@@ -3700,12 +3909,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceStatus")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLAudioStatus GetAudioDeviceStatusNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioStatus>)vt[224])(dev);
+			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioStatus>)funcTable[224])(dev);
 			#else
-			return (SDLAudioStatus)((delegate* unmanaged[Cdecl]<uint, SDLAudioStatus>)vt[224])(dev);
+			return (SDLAudioStatus)((delegate* unmanaged[Cdecl]<uint, SDLAudioStatus>)funcTable[224])(dev);
 			#endif
 		}
 
@@ -3737,12 +3947,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PauseAudio")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void PauseAudioNative([NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, void>)vt[225])(pauseOn);
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[225])(pauseOn);
 			#else
-			((delegate* unmanaged[Cdecl]<int, void>)vt[225])(pauseOn);
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[225])(pauseOn);
 			#endif
 		}
 
@@ -3788,12 +3999,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_PauseAudioDevice")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void PauseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[226])(dev, pauseOn);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[226])(dev, pauseOn);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, void>)vt[226])(dev, pauseOn);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[226])(dev, pauseOn);
 			#endif
 		}
 
@@ -3890,12 +4102,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
 		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLAudioSpec* LoadWAVRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLAudioSpec*, byte**, uint*, SDLAudioSpec*>)vt[227])(src, freesrc, spec, audioBuf, audioLen);
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLAudioSpec*, byte**, uint*, SDLAudioSpec*>)funcTable[227])(src, freesrc, spec, audioBuf, audioLen);
 			#else
-			return (SDLAudioSpec*)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, nint, nint>)vt[227])((nint)src, freesrc, (nint)spec, (nint)audioBuf, (nint)audioLen);
+			return (SDLAudioSpec*)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, nint, nint>)funcTable[227])((nint)src, freesrc, (nint)spec, (nint)audioBuf, (nint)audioLen);
 			#endif
 		}
 
@@ -4805,243 +5018,6 @@ namespace Hexa.NET.SDL2
 					fixed (uint* paudioLen = &audioLen)
 					{
 						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
-		{
-			fixed (byte** paudioBuf = &audioBuf)
-			{
-				fixed (uint* paudioLen = &audioLen)
-				{
-					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					fixed (uint* paudioLen = &audioLen)
-					{
-						SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
 						return ret;
 					}
 				}

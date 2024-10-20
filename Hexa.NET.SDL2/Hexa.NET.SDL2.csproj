@@ -14,9 +14,9 @@
 		<IsAotCompatible>true</IsAotCompatible>
 
 		<PackageId>Hexa.NET.SDL2</PackageId>
-		<AssemblyVersion>2.30.6</AssemblyVersion>
-		<PackageVersion>1.2.2</PackageVersion>
-		<Description>A .NET Wrapper for SDL2 (v 2.30.6), generated with the HexaGen code generator. HexaGen allows users to access native libraries easily and with high performance.</Description>
+		<AssemblyVersion>2.30.8</AssemblyVersion>
+		<PackageVersion>1.2.6</PackageVersion>
+		<Description>A .NET Wrapper for SDL2 (v 2.30.8), generated with the HexaGen code generator. HexaGen allows users to access native libraries easily and with high performance.</Description>
 		<PackageTags>SDL SDL2 Hexa HexaGen Source Generator C# .NET DotNet Sharp Windows macOS Android Bindings Wrapper Native</PackageTags>
 		<Authors>Juna Meinhold</Authors>
 		<Copyright>Copyright (c) 2023 Juna Meinhold</Copyright>
@@ -26,32 +26,24 @@
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="../LICENSE.txt">
-	    <PackagePath>/</PackagePath>
-	    <Pack>true</Pack>
-	  </Content>
-	  <Content Include="../README.md">
-	    <PackagePath>/</PackagePath>
-	    <Pack>true</Pack>
-	  </Content>
+		<PackageReference Include="HexaGen.Runtime" Version="1.1.13" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="HexaGen.Runtime" Version="1.1.6" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="native\android-x64\libSDL2-2.0.so">
+		<None Include="native\android-x64\libSDL2.so">
 			<Link>runtimes\android-x64\native\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackagePath>runtimes/android-x64/native</PackagePath>
 			<Pack>true</Pack>
 		</None>
-		<None Include="native\android-arm64\libSDL2-2.0.so">
+		<None Include="native\android-arm64\libSDL2.so">
 			<Link>runtimes\android-arm64\native\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackagePath>runtimes/android-arm64/native</PackagePath>
@@ -102,8 +94,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Generated\" />
+		<Content Include="../LICENSE.txt" Pack="true" PackagePath="\" />
+		<Content Include="../README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
-
 	
 </Project>

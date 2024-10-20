@@ -18,6 +18,659 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Get a string from a HID device, based on its string index.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (char* pstr = &str)
+			{
+				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a string from a HID device, based on its string index.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			char* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF16(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = (char*)pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = '\0';
+			}
+			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
+			str = Utils.DecodeStringUTF16(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a string from a HID device, based on its string index.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				fixed (char* pstr = &str)
+				{
+					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get a string from a HID device, based on its string index.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		{
+			fixed (SDLHidDevice* pdev = &dev)
+			{
+				char* pStr0 = null;
+				int pStrSize0 = 0;
+				if (str != null)
+				{
+					pStrSize0 = Utils.GetByteCountUTF16(str);
+					if (pStrSize0 >= Utils.MaxStackallocSize)
+					{
+						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					}
+					else
+					{
+						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+						pStr0 = (char*)pStrStack0;
+					}
+					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
+					pStr0[pStrOffset0] = '\0';
+				}
+				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
+				str = Utils.DecodeStringUTF16(pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void HidBleScanNative([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLBool, void>)funcTable[688])(active);
+			#else
+			((delegate* unmanaged[Cdecl]<SDLBool, void>)funcTable[688])(active);
+			#endif
+		}
+
+		/// <summary>
+		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void HidBleScan([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool active)
+		{
+			HidBleScanNative(active);
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool SetHintWithPriorityNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLHintPriority, SDLBool>)funcTable[689])(name, value, priority);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLHintPriority, SDLBool>)funcTable[689])((nint)name, (nint)value, priority);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			SDLBool ret = SetHintWithPriorityNative(name, value, priority);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLBool ret = SetHintWithPriorityNative((byte*)pname, value, priority);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLBool ret = SetHintWithPriorityNative(pStr0, value, priority);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			fixed (byte* pvalue = &value)
+			{
+				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			fixed (byte* pvalue = value)
+			{
+				SDLBool ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (value != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(value);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLBool ret = SetHintWithPriorityNative(name, pStr0, priority);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			fixed (byte* pname = &name)
+			{
+				fixed (byte* pvalue = &value)
+				{
+					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			fixed (byte* pname = name)
+			{
+				fixed (byte* pvalue = value)
+				{
+					SDLBool ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with a specific priority.<br/>
+		/// The priority controls the behavior when setting a hint that already has a<br/>
+		/// value. Hints will replace existing hints of their priority and lower.<br/>
+		/// Environment variables are considered to have override priority.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (value != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(value);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			SDLBool ret = SetHintWithPriorityNative(pStr0, pStr1, priority);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool SetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLBool>)funcTable[690])(name, value);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[690])((nint)name, (nint)value);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		{
+			SDLBool ret = SetHintNative(name, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLBool ret = SetHintNative((byte*)pname, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLBool ret = SetHintNative((byte*)pname, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLBool ret = SetHintNative(pStr0, value);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
+		{
+			fixed (byte* pvalue = &value)
+			{
+				SDLBool ret = SetHintNative(name, (byte*)pvalue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value)
+		{
+			fixed (byte* pvalue = value)
+			{
+				SDLBool ret = SetHintNative(name, (byte*)pvalue);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (value != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(value);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLBool ret = SetHintNative(name, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a hint with normal priority.<br/>
+		/// Hints will not be set if there is an existing override hint or environment<br/>
+		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
+		/// set the hint with override priority instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetHint")]
+		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		public static SDLBool SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value)
+		{
+			fixed (byte* pname = &name)
+			{
+				fixed (byte* pvalue = &value)
+				{
+					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
 		/// Set a hint with normal priority.<br/>
 		/// Hints will not be set if there is an existing override hint or environment<br/>
 		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
@@ -110,12 +763,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool ResetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)vt[691])(name);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)funcTable[691])(name);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[691])((nint)name);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[691])((nint)name);
 			#endif
 		}
 
@@ -224,12 +878,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ResetHints")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ResetHintsNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[692])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[692])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[692])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[692])();
 			#endif
 		}
 
@@ -256,12 +911,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHint")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)vt[693])(name);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[693])(name);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[693])((nint)name);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[693])((nint)name);
 			#endif
 		}
 
@@ -439,12 +1095,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool GetHintBooleanNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool defaultValue)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool, SDLBool>)vt[694])(name, defaultValue);
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool, SDLBool>)funcTable[694])(name, defaultValue);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool, SDLBool>)vt[694])((nint)name, defaultValue);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool, SDLBool>)funcTable[694])((nint)name, defaultValue);
 			#endif
 		}
 
@@ -539,12 +1196,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void AddHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)vt[695])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)funcTable[695])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[695])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[695])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
 			#endif
 		}
 
@@ -635,12 +1293,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DelHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)vt[696])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)funcTable[696])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[696])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[696])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
 			#endif
 		}
 
@@ -735,12 +1394,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ClearHints")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void ClearHintsNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[697])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[697])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[697])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[697])();
 			#endif
 		}
 
@@ -769,12 +1429,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadObject")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* LoadObjectNative([NativeName(NativeNameType.Param, "sofile")] [NativeName(NativeNameType.Type, "const char*")] byte* sofile)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, void*>)vt[698])(sofile);
+			return ((delegate* unmanaged[Cdecl]<byte*, void*>)funcTable[698])(sofile);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[698])((nint)sofile);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[698])((nint)sofile);
 			#endif
 		}
 
@@ -877,12 +1538,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LoadFunction")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* LoadFunctionNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, byte*, void*>)vt[699])(handle, name);
+			return ((delegate* unmanaged[Cdecl]<void*, byte*, void*>)funcTable[699])(handle, name);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)vt[699])((nint)handle, (nint)name);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[699])((nint)handle, (nint)name);
 			#endif
 		}
 
@@ -1009,12 +1671,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_UnloadObject")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void UnloadObjectNative([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void*, void>)vt[700])(handle);
+			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[700])(handle);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[700])((nint)handle);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[700])((nint)handle);
 			#endif
 		}
 
@@ -1039,12 +1702,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetAllPriority")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogSetAllPriorityNative([NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)vt[701])(priority);
+			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[701])(priority);
 			#else
-			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)vt[701])(priority);
+			((delegate* unmanaged[Cdecl]<SDLLogPriority, void>)funcTable[701])(priority);
 			#endif
 		}
 
@@ -1069,12 +1733,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetPriority")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogSetPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)vt[702])(category, priority);
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[702])(category, priority);
 			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)vt[702])(category, priority);
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, void>)funcTable[702])(category, priority);
 			#endif
 		}
 
@@ -1099,12 +1764,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogGetPriority")]
 		[return: NativeName(NativeNameType.Type, "SDL_LogPriority")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLLogPriority LogGetPriorityNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)vt[703])(category);
+			return ((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[703])(category);
 			#else
-			return (SDLLogPriority)((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)vt[703])(category);
+			return (SDLLogPriority)((delegate* unmanaged[Cdecl]<int, SDLLogPriority>)funcTable[703])(category);
 			#endif
 		}
 
@@ -1130,12 +1796,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogResetPriorities")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogResetPrioritiesNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[704])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[704])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[704])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[704])();
 			#endif
 		}
 
@@ -1154,12 +1821,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_Log")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[705])(fmt);
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[705])(fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[705])((nint)fmt);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[705])((nint)fmt);
 			#endif
 		}
 
@@ -1226,12 +1894,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogVerbose")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogVerboseNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[706])(category, fmt);
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[706])(category, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[706])(category, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[706])(category, (nint)fmt);
 			#endif
 		}
 
@@ -1322,12 +1991,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogDebug")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogDebugNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[707])(category, fmt);
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[707])(category, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[707])(category, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[707])(category, (nint)fmt);
 			#endif
 		}
 
@@ -1418,12 +2088,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogInfo")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogInfoNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[708])(category, fmt);
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[708])(category, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[708])(category, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[708])(category, (nint)fmt);
 			#endif
 		}
 
@@ -1514,12 +2185,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogWarn")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogWarnNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[709])(category, fmt);
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[709])(category, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[709])(category, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[709])(category, (nint)fmt);
 			#endif
 		}
 
@@ -1610,12 +2282,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogError")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogErrorNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[710])(category, fmt);
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[710])(category, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[710])(category, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[710])(category, (nint)fmt);
 			#endif
 		}
 
@@ -1706,12 +2379,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogCritical")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogCriticalNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, byte*, void>)vt[711])(category, fmt);
+			((delegate* unmanaged[Cdecl]<int, byte*, void>)funcTable[711])(category, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<int, nint, void>)vt[711])(category, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[711])(category, (nint)fmt);
 			#endif
 		}
 
@@ -1802,12 +2476,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessage")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogMessageNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, void>)vt[712])(category, priority, fmt);
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, void>)funcTable[712])(category, priority, fmt);
 			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, void>)vt[712])(category, priority, (nint)fmt);
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, void>)funcTable[712])(category, priority, (nint)fmt);
 			#endif
 		}
 
@@ -1898,12 +2573,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogMessageV")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogMessageVNative([NativeName(NativeNameType.Param, "category")] [NativeName(NativeNameType.Type, "int")] int category, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_LogPriority")] SDLLogPriority priority, [NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "const char*")] byte* fmt, [NativeName(NativeNameType.Param, "ap")] [NativeName(NativeNameType.Type, "va_list")] nint ap)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, nint, void>)vt[713])(category, priority, fmt, ap);
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, byte*, nint, void>)funcTable[713])(category, priority, fmt, ap);
 			#else
-			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, nint, void>)vt[713])(category, priority, (nint)fmt, ap);
+			((delegate* unmanaged[Cdecl]<int, SDLLogPriority, nint, nint, void>)funcTable[713])(category, priority, (nint)fmt, ap);
 			#endif
 		}
 
@@ -1994,12 +2670,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogGetOutputFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogGetOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction*")] delegate*<void*, int, SDLLogPriority, byte*, void>* callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void**")] void** userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>*, void**, void>)vt[714])(callback, userdata);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>*, void**, void>)funcTable[714])(callback, userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[714])((nint)callback, (nint)userdata);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[714])((nint)callback, (nint)userdata);
 			#endif
 		}
 
@@ -2024,12 +2701,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LogSetOutputFunction")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void LogSetOutputFunctionNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_LogOutputFunction")] SDLLogOutputFunction callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>, void*, void>)vt[715])((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, int, SDLLogPriority, byte*, void>, void*, void>)funcTable[715])((delegate*<void*, int, SDLLogPriority, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[715])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[715])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
 			#endif
 		}
 
@@ -2069,12 +2747,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int ShowMessageBoxNative([NativeName(NativeNameType.Param, "messageboxdata")] [NativeName(NativeNameType.Type, "const SDL_MessageBoxData*")] SDLMessageBoxData* messageboxdata, [NativeName(NativeNameType.Param, "buttonid")] [NativeName(NativeNameType.Type, "int*")] int* buttonid)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxData*, int*, int>)vt[716])(messageboxdata, buttonid);
+			return ((delegate* unmanaged[Cdecl]<SDLMessageBoxData*, int*, int>)funcTable[716])(messageboxdata, buttonid);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[716])((nint)messageboxdata, (nint)buttonid);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[716])((nint)messageboxdata, (nint)buttonid);
 			#endif
 		}
 
@@ -2233,12 +2912,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_ShowSimpleMessageBox")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int ShowSimpleMessageBoxNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags, [NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "message")] [NativeName(NativeNameType.Type, "const char*")] byte* message, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, SDLWindow*, int>)vt[717])(flags, title, message, window);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, SDLWindow*, int>)funcTable[717])(flags, title, message, window);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, int>)vt[717])(flags, (nint)title, (nint)message, (nint)window);
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, int>)funcTable[717])(flags, (nint)title, (nint)message, (nint)window);
 			#endif
 		}
 
@@ -3160,12 +3840,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_CreateView")]
 		[return: NativeName(NativeNameType.Type, "SDL_MetalView")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLMetalView MetalCreateViewNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLMetalView>)vt[718])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLMetalView>)funcTable[718])(window);
 			#else
-			return (SDLMetalView)((delegate* unmanaged[Cdecl]<nint, SDLMetalView>)vt[718])((nint)window);
+			return (SDLMetalView)((delegate* unmanaged[Cdecl]<nint, SDLMetalView>)funcTable[718])((nint)window);
 			#endif
 		}
 
@@ -3217,12 +3898,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MetalDestroyViewNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)vt[719])(view);
+			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[719])(view);
 			#else
-			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)vt[719])(view);
+			((delegate* unmanaged[Cdecl]<SDLMetalView, void>)funcTable[719])(view);
 			#endif
 		}
 
@@ -3247,12 +3929,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* MetalGetLayerNative([NativeName(NativeNameType.Param, "view")] [NativeName(NativeNameType.Type, "SDL_MetalView")] SDLMetalView view)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLMetalView, void*>)vt[720])(view);
+			return ((delegate* unmanaged[Cdecl]<SDLMetalView, void*>)funcTable[720])(view);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<SDLMetalView, nint>)vt[720])(view);
+			return (void*)((delegate* unmanaged[Cdecl]<SDLMetalView, nint>)funcTable[720])(view);
 			#endif
 		}
 
@@ -3280,12 +3963,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Metal_GetDrawableSize")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void MetalGetDrawableSizeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)vt[721])(window, w, h);
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[721])(window, w, h);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)vt[721])((nint)window, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[721])((nint)window, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -3470,12 +4154,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPowerInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_PowerState")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLPowerState GetPowerInfoNative([NativeName(NativeNameType.Param, "seconds")] [NativeName(NativeNameType.Type, "int*")] int* seconds, [NativeName(NativeNameType.Param, "percent")] [NativeName(NativeNameType.Type, "int*")] int* percent)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, SDLPowerState>)vt[722])(seconds, percent);
+			return ((delegate* unmanaged[Cdecl]<int*, int*, SDLPowerState>)funcTable[722])(seconds, percent);
 			#else
-			return (SDLPowerState)((delegate* unmanaged[Cdecl]<nint, nint, SDLPowerState>)vt[722])((nint)seconds, (nint)percent);
+			return (SDLPowerState)((delegate* unmanaged[Cdecl]<nint, nint, SDLPowerState>)funcTable[722])((nint)seconds, (nint)percent);
 			#endif
 		}
 
@@ -3595,12 +4280,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetNumRenderDrivers")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumRenderDriversNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[723])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[723])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[723])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[723])();
 			#endif
 		}
 
@@ -3630,12 +4316,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderDriverInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetRenderDriverInfoNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLRendererInfo*, int>)vt[724])(index, info);
+			return ((delegate* unmanaged[Cdecl]<int, SDLRendererInfo*, int>)funcTable[724])(index, info);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)vt[724])(index, (nint)info);
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[724])(index, (nint)info);
 			#endif
 		}
 
@@ -3678,12 +4365,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateWindowAndRenderer")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int CreateWindowAndRendererNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "int")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "int")] int height, [NativeName(NativeNameType.Param, "window_flags")] [NativeName(NativeNameType.Type, "Uint32")] uint windowFlags, [NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window**")] SDLWindow** window, [NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer**")] SDLRenderer** renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, uint, SDLWindow**, SDLRenderer**, int>)vt[725])(width, height, windowFlags, window, renderer);
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, SDLWindow**, SDLRenderer**, int>)funcTable[725])(width, height, windowFlags, window, renderer);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, nint, int>)vt[725])(width, height, windowFlags, (nint)window, (nint)renderer);
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, nint, int>)funcTable[725])(width, height, windowFlags, (nint)window, (nint)renderer);
 			#endif
 		}
 
@@ -3763,12 +4451,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRenderer* CreateRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int, uint, SDLRenderer*>)vt[726])(window, index, flags);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, int, uint, SDLRenderer*>)funcTable[726])(window, index, flags);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, int, uint, nint>)vt[726])((nint)window, index, flags);
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, int, uint, nint>)funcTable[726])((nint)window, index, flags);
 			#endif
 		}
 
@@ -3815,12 +4504,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateSoftwareRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRenderer* CreateSoftwareRendererNative([NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRenderer*>)vt[727])(surface);
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRenderer*>)funcTable[727])(surface);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[727])((nint)surface);
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[727])((nint)surface);
 			#endif
 		}
 
@@ -3871,12 +4561,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRenderer")]
 		[return: NativeName(NativeNameType.Type, "SDL_Renderer*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLRenderer* GetRendererNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRenderer*>)vt[728])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLRenderer*>)funcTable[728])(window);
 			#else
-			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[728])((nint)window);
+			return (SDLRenderer*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[728])((nint)window);
 			#endif
 		}
 
@@ -3918,12 +4609,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLWindow* RenderGetWindowNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*>)vt[729])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLWindow*>)funcTable[729])(renderer);
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[729])((nint)renderer);
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[729])((nint)renderer);
 			#endif
 		}
 
@@ -3964,12 +4656,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererInfo")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetRendererInfoNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_RendererInfo*")] SDLRendererInfo* info)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRendererInfo*, int>)vt[730])(renderer, info);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRendererInfo*, int>)funcTable[730])(renderer, info);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[730])((nint)renderer, (nint)info);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[730])((nint)renderer, (nint)info);
 			#endif
 		}
 
@@ -4052,12 +4745,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRendererOutputSize")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetRendererOutputSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, int>)vt[731])(renderer, w, h);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, int>)funcTable[731])(renderer, w, h);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)vt[731])((nint)renderer, (nint)w, (nint)h);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[731])((nint)renderer, (nint)w, (nint)h);
 			#endif
 		}
 
@@ -4243,12 +4937,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTexture")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLTexture* CreateTextureNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int")] int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, int, int, int, SDLTexture*>)vt[732])(renderer, format, access, w, h);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, uint, int, int, int, SDLTexture*>)funcTable[732])(renderer, format, access, w, h);
 			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, uint, int, int, int, nint>)vt[732])((nint)renderer, format, access, w, h);
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, uint, int, int, int, nint>)funcTable[732])((nint)renderer, format, access, w, h);
 			#endif
 		}
 
@@ -4301,12 +4996,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
 		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLTexture* CreateTextureFromSurfaceNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLSurface*, SDLTexture*>)vt[733])(renderer, surface);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLSurface*, SDLTexture*>)funcTable[733])(renderer, surface);
 			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)vt[733])((nint)renderer, (nint)surface);
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[733])((nint)renderer, (nint)surface);
 			#endif
 		}
 
@@ -4328,702 +5024,6 @@ namespace Hexa.NET.SDL2
 		{
 			SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, surface);
 			return ret;
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
-		/// the texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
-		/// the texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
-		/// the texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLSurface* psurface = &surface)
-				{
-					SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		internal static int QueryTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint*, int*, int*, int*, int>)vt[734])(texture, format, access, w, h);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)vt[734])((nint)texture, (nint)format, (nint)access, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			int ret = QueryTextureNative(texture, format, access, w, h);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				int ret = QueryTextureNative(texture, (uint*)pformat, access, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (int* paccess = &access)
-			{
-				int ret = QueryTextureNative(texture, format, (int*)paccess, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* paccess = &access)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* paccess = &access)
-				{
-					int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* paccess = &access)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				int ret = QueryTextureNative(texture, format, access, (int*)pw, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* pw = &w)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* pw = &w)
-				{
-					int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* pw = &w)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (int* paccess = &access)
-			{
-				fixed (int* pw = &w)
-				{
-					int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* pw = &w)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* pw = &w)
-					{
-						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, (int*)pw, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* paccess = &access)
-					{
-						fixed (int* pw = &w)
-						{
-							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, h);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				int ret = QueryTextureNative(texture, format, access, w, (int*)ph);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative(texture, (uint*)pformat, access, w, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* paccess = &access)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative(texture, format, (int*)paccess, w, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* paccess = &access)
-					{
-						fixed (int* ph = &h)
-						{
-							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, (int*)ph);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative(texture, format, access, (int*)pw, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* pw = &w)
-					{
-						fixed (int* ph = &h)
-						{
-							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, (int*)ph);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* paccess = &access)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, (int*)ph);
-						return ret;
-					}
-				}
-			}
 		}
 	}
 }

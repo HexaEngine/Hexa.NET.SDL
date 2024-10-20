@@ -19,6 +19,745 @@ namespace Hexa.NET.SDL2
 
 		/// <summary>
 		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLVertex* pvertices = &vertices)
+					{
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (int* pindices = &indices)
+			{
+				int ret = RenderGeometryNative(renderer, texture, vertices, numVertices, (int*)pindices, numIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pindices = &indices)
+				{
+					int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, (int*)pindices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* pindices = &indices)
+				{
+					int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (int* pindices = &indices)
+					{
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, (int*)pindices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLVertex* pvertices = &vertices)
+			{
+				fixed (int* pindices = &indices)
+				{
+					int ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					fixed (int* pindices = &indices)
+					{
+						int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLVertex* pvertices = &vertices)
+				{
+					fixed (int* pindices = &indices)
+					{
+						int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex array Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] ref int indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLVertex* pvertices = &vertices)
+					{
+						fixed (int* pindices = &indices)
+						{
+							int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLVertex*)pvertices, numVertices, (int*)pindices, numIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderGeometryRawNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, float*, int, SDLColor*, int, float*, int, int, void*, int, int, int>)funcTable[793])(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int, nint, int, int, int>)funcTable[793])((nint)renderer, (nint)texture, (nint)xy, xyStride, (nint)color, colorStride, (nint)uv, uvStride, numVertices, (nint)indices, numIndices, sizeIndices);
+			#endif
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			int ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+			return ret;
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				int ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, color, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLColor* pcolor = &color)
+			{
+				int ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (SDLColor* pcolor = &color)
+				{
+					int ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* pxy = &xy)
+				{
+					fixed (SDLColor* pcolor = &color)
+					{
+						int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] float* uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* pxy = &xy)
+					{
+						fixed (SDLColor* pcolor = &color)
+						{
+							int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (float*)pxy, xyStride, (SDLColor*)pcolor, colorStride, uv, uvStride, numVertices, indices, numIndices, sizeIndices);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (float* puv = &uv)
+			{
+				int ret = RenderGeometryRawNative(renderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, texture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative(renderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] float* xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (float* puv = &uv)
+					{
+						int ret = RenderGeometryRawNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, xy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
+		/// vertex arrays Color and alpha modulation is done per vertex<br/>
+		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenderGeometryRaw")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int RenderGeometryRaw([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "xy")] [NativeName(NativeNameType.Type, "const float*")] ref float xy, [NativeName(NativeNameType.Param, "xy_stride")] [NativeName(NativeNameType.Type, "int")] int xyStride, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* color, [NativeName(NativeNameType.Param, "color_stride")] [NativeName(NativeNameType.Type, "int")] int colorStride, [NativeName(NativeNameType.Param, "uv")] [NativeName(NativeNameType.Type, "const float*")] ref float uv, [NativeName(NativeNameType.Param, "uv_stride")] [NativeName(NativeNameType.Type, "int")] int uvStride, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices, [NativeName(NativeNameType.Param, "size_indices")] [NativeName(NativeNameType.Type, "int")] int sizeIndices)
+		{
+			fixed (float* pxy = &xy)
+			{
+				fixed (float* puv = &uv)
+				{
+					int ret = RenderGeometryRawNative(renderer, texture, (float*)pxy, xyStride, color, colorStride, (float*)puv, uvStride, numVertices, indices, numIndices, sizeIndices);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Render a list of triangles, optionally using a texture and indices into the<br/>
 		/// vertex arrays Color and alpha modulation is done per vertex<br/>
 		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
 		/// <br/>
@@ -323,12 +1062,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderReadPixels")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderReadPixelsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void*")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, uint, void*, int, int>)vt[794])(renderer, rect, format, pixels, pitch);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, uint, void*, int, int>)funcTable[794])(renderer, rect, format, pixels, pitch);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int, int>)vt[794])((nint)renderer, (nint)rect, format, (nint)pixels, pitch);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint, int, int>)funcTable[794])((nint)renderer, (nint)rect, format, (nint)pixels, pitch);
 			#endif
 		}
 
@@ -458,12 +1198,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderPresent")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void RenderPresentNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, void>)vt[795])(renderer);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, void>)funcTable[795])(renderer);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[795])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[795])((nint)renderer);
 			#endif
 		}
 
@@ -542,12 +1283,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyTexture")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DestroyTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)vt[796])(texture);
+			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[796])(texture);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[796])((nint)texture);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[796])((nint)texture);
 			#endif
 		}
 
@@ -594,12 +1336,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DestroyRenderer")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DestroyRendererNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, void>)vt[797])(renderer);
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, void>)funcTable[797])(renderer);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[797])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[797])((nint)renderer);
 			#endif
 		}
 
@@ -659,12 +1402,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderFlush")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderFlushNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int>)vt[798])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int>)funcTable[798])(renderer);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[798])((nint)renderer);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[798])((nint)renderer);
 			#endif
 		}
 
@@ -752,12 +1496,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_BindTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLBindTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "texw")] [NativeName(NativeNameType.Type, "float*")] float* texw, [NativeName(NativeNameType.Param, "texh")] [NativeName(NativeNameType.Type, "float*")] float* texh)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, int>)vt[799])(texture, texw, texh);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, float*, float*, int>)funcTable[799])(texture, texw, texh);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)vt[799])((nint)texture, (nint)texw, (nint)texh);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[799])((nint)texture, (nint)texw, (nint)texh);
 			#endif
 		}
 
@@ -1038,12 +1783,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_UnbindTexture")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GLUnbindTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, int>)vt[800])(texture);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, int>)funcTable[800])(texture);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[800])((nint)texture);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[800])((nint)texture);
 			#endif
 		}
 
@@ -1090,12 +1836,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetMetalLayer")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* RenderGetMetalLayerNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)vt[801])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)funcTable[801])(renderer);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[801])((nint)renderer);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[801])((nint)renderer);
 			#endif
 		}
 
@@ -1150,12 +1897,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetMetalCommandEncoder")]
 		[return: NativeName(NativeNameType.Type, "void*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void* RenderGetMetalCommandEncoderNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)vt[802])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, void*>)funcTable[802])(renderer);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[802])((nint)renderer);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[802])((nint)renderer);
 			#endif
 		}
 
@@ -1213,12 +1961,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderSetVSync")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int RenderSetVSyncNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "vsync")] [NativeName(NativeNameType.Type, "int")] int vsync)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int>)vt[803])(renderer, vsync);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int>)funcTable[803])(renderer, vsync);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)vt[803])((nint)renderer, vsync);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[803])((nint)renderer, vsync);
 			#endif
 		}
 
@@ -1260,12 +2009,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CreateShapedWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_Window*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLWindow* CreateShapedWindowNative([NativeName(NativeNameType.Param, "title")] [NativeName(NativeNameType.Type, "const char*")] byte* title, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "unsigned int")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "unsigned int")] uint y, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "unsigned int")] uint w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "unsigned int")] uint h, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, uint, uint, uint, uint, uint, SDLWindow*>)vt[804])(title, x, y, w, h, flags);
+			return ((delegate* unmanaged[Cdecl]<byte*, uint, uint, uint, uint, uint, SDLWindow*>)funcTable[804])(title, x, y, w, h, flags);
 			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, uint, nint>)vt[804])((nint)title, x, y, w, h, flags);
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, uint, nint>)funcTable[804])((nint)title, x, y, w, h, flags);
 			#endif
 		}
 
@@ -1364,12 +2114,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsShapedWindow")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool IsShapedWindowNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "const SDL_Window*")] SDLWindow* window)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)vt[805])(window);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[805])(window);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)vt[805])((nint)window);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[805])((nint)window);
 			#endif
 		}
 
@@ -1412,12 +2163,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowShape")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int SetWindowShapeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "shape")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* shape, [NativeName(NativeNameType.Param, "shape_mode")] [NativeName(NativeNameType.Type, "SDL_WindowShapeMode*")] SDLWindowShapeMode* shapeMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, SDLWindowShapeMode*, int>)vt[806])(window, shape, shapeMode);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, SDLWindowShapeMode*, int>)funcTable[806])(window, shape, shapeMode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)vt[806])((nint)window, (nint)shape, (nint)shapeMode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[806])((nint)window, (nint)shape, (nint)shapeMode);
 			#endif
 		}
 
@@ -1577,12 +2329,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetShapedWindowMode")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetShapedWindowModeNative([NativeName(NativeNameType.Param, "window")] [NativeName(NativeNameType.Type, "SDL_Window*")] SDLWindow* window, [NativeName(NativeNameType.Param, "shape_mode")] [NativeName(NativeNameType.Type, "SDL_WindowShapeMode*")] SDLWindowShapeMode* shapeMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindowShapeMode*, int>)vt[807])(window, shapeMode);
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindowShapeMode*, int>)funcTable[807])(window, shapeMode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)vt[807])((nint)window, (nint)shapeMode);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[807])((nint)window, (nint)shapeMode);
 			#endif
 		}
 
@@ -1661,12 +2414,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetWindowsMessageHook")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void SetWindowsMessageHookNative([NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_WindowsMessageHook")] SDLWindowsMessageHook callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, void*, uint, ulong, long, void>, void*, void>)vt[808])((delegate*<void*, void*, uint, ulong, long, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, void*, uint, ulong, long, void>, void*, void>)funcTable[808])((delegate*<void*, void*, uint, ulong, long, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)vt[808])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[808])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
 			#endif
 		}
 
@@ -1691,12 +2445,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Direct3D9GetAdapterIndex")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int Direct3D9GetAdapterIndexNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)vt[809])(displayIndex);
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[809])(displayIndex);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)vt[809])(displayIndex);
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[809])(displayIndex);
 			#endif
 		}
 
@@ -1724,12 +2479,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetD3D9Device")]
 		[return: NativeName(NativeNameType.Type, "IDirect3DDevice9*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static IDirect3DDevice9* RenderGetD3D9DeviceNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, IDirect3DDevice9*>)vt[810])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, IDirect3DDevice9*>)funcTable[810])(renderer);
 			#else
-			return (IDirect3DDevice9*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[810])((nint)renderer);
+			return (IDirect3DDevice9*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[810])((nint)renderer);
 			#endif
 		}
 
@@ -1775,12 +2531,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetD3D11Device")]
 		[return: NativeName(NativeNameType.Type, "ID3D11Device*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ID3D11Device* RenderGetD3D11DeviceNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D11Device*>)vt[811])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D11Device*>)funcTable[811])(renderer);
 			#else
-			return (ID3D11Device*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[811])((nint)renderer);
+			return (ID3D11Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[811])((nint)renderer);
 			#endif
 		}
 
@@ -1826,12 +2583,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RenderGetD3D12Device")]
 		[return: NativeName(NativeNameType.Type, "ID3D12Device*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ID3D12Device* RenderGetD3D12DeviceNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D12Device*>)vt[812])(renderer);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D12Device*>)funcTable[812])(renderer);
 			#else
-			return (ID3D12Device*)((delegate* unmanaged[Cdecl]<nint, nint>)vt[812])((nint)renderer);
+			return (ID3D12Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[812])((nint)renderer);
 			#endif
 		}
 
@@ -1880,12 +2638,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_DXGIGetOutputInfo")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool DXGIGetOutputInfoNative([NativeName(NativeNameType.Param, "displayIndex")] [NativeName(NativeNameType.Type, "int")] int displayIndex, [NativeName(NativeNameType.Param, "adapterIndex")] [NativeName(NativeNameType.Type, "int*")] int* adapterIndex, [NativeName(NativeNameType.Param, "outputIndex")] [NativeName(NativeNameType.Type, "int*")] int* outputIndex)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int*, int*, SDLBool>)vt[813])(displayIndex, adapterIndex, outputIndex);
+			return ((delegate* unmanaged[Cdecl]<int, int*, int*, SDLBool>)funcTable[813])(displayIndex, adapterIndex, outputIndex);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<int, nint, nint, SDLBool>)vt[813])(displayIndex, (nint)adapterIndex, (nint)outputIndex);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<int, nint, nint, SDLBool>)funcTable[813])(displayIndex, (nint)adapterIndex, (nint)outputIndex);
 			#endif
 		}
 
@@ -1981,12 +2740,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_IsTablet")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool IsTabletNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)vt[814])();
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[814])();
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)vt[814])();
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[814])();
 			#endif
 		}
 
@@ -2009,12 +2769,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillTerminate")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void OnApplicationWillTerminateNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[815])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[815])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[815])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[815])();
 			#endif
 		}
 
@@ -2030,12 +2791,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidReceiveMemoryWarning")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void OnApplicationDidReceiveMemoryWarningNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[816])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[816])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[816])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[816])();
 			#endif
 		}
 
@@ -2048,12 +2810,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillResignActive")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void OnApplicationWillResignActiveNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[817])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[817])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[817])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[817])();
 			#endif
 		}
 
@@ -2066,12 +2829,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidEnterBackground")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void OnApplicationDidEnterBackgroundNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[818])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[818])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[818])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[818])();
 			#endif
 		}
 
@@ -2084,12 +2848,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_OnApplicationWillEnterForeground")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void OnApplicationWillEnterForegroundNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[819])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[819])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[819])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[819])();
 			#endif
 		}
 
@@ -2102,12 +2867,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "SDL_OnApplicationDidBecomeActive")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void OnApplicationDidBecomeActiveNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[820])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[820])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
 			#endif
 		}
 
@@ -2132,12 +2898,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTicks")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint GetTicksNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[821])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[821])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[821])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[821])();
 			#endif
 		}
 
@@ -2181,12 +2948,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetTicks64")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong GetTicks64Native()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)vt[822])();
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[822])();
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)vt[822])();
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[822])();
 			#endif
 		}
 
@@ -2228,12 +2996,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPerformanceCounter")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong GetPerformanceCounterNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)vt[823])();
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[823])();
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)vt[823])();
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[823])();
 			#endif
 		}
 
@@ -2263,12 +3032,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPerformanceFrequency")]
 		[return: NativeName(NativeNameType.Type, "Uint64")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static ulong GetPerformanceFrequencyNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)vt[824])();
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[824])();
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)vt[824])();
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[824])();
 			#endif
 		}
 
@@ -2296,12 +3066,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Delay")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void DelayNative([NativeName(NativeNameType.Param, "ms")] [NativeName(NativeNameType.Type, "Uint32")] uint ms)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[825])(ms);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[825])(ms);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[825])(ms);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[825])(ms);
 			#endif
 		}
 
@@ -2341,12 +3112,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_AddTimer")]
 		[return: NativeName(NativeNameType.Type, "SDL_TimerID")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int AddTimerNative([NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "Uint32")] uint interval, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_TimerCallback")] SDLTimerCallback callback, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "void*")] void* param)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, delegate*<uint, void*, uint>, void*, int>)vt[826])(interval, (delegate*<uint, void*, uint>)Utils.GetFunctionPointerForDelegate(callback), param);
+			return ((delegate* unmanaged[Cdecl]<uint, delegate*<uint, void*, uint>, void*, int>)funcTable[826])(interval, (delegate*<uint, void*, uint>)Utils.GetFunctionPointerForDelegate(callback), param);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)vt[826])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)param);
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[826])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)param);
 			#endif
 		}
 
@@ -2385,12 +3157,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_RemoveTimer")]
 		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLBool RemoveTimerNative([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "SDL_TimerID")] int id)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLBool>)vt[827])(id);
+			return ((delegate* unmanaged[Cdecl]<int, SDLBool>)funcTable[827])(id);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<int, SDLBool>)vt[827])(id);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<int, SDLBool>)funcTable[827])(id);
 			#endif
 		}
 
@@ -2421,12 +3194,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetVersion")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void GetVersionNative([NativeName(NativeNameType.Param, "ver")] [NativeName(NativeNameType.Type, "SDL_version*")] SDLVersion* ver)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLVersion*, void>)vt[828])(ver);
+			((delegate* unmanaged[Cdecl]<SDLVersion*, void>)funcTable[828])(ver);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[828])((nint)ver);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[828])((nint)ver);
 			#endif
 		}
 
@@ -2489,12 +3263,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRevision")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetRevisionNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)vt[829])();
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[829])();
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)vt[829])();
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[829])();
 			#endif
 		}
 
@@ -2566,12 +3341,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetRevisionNumber")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetRevisionNumberNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[830])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[830])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[830])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[830])();
 			#endif
 		}
 
@@ -2632,12 +3408,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GetPreferredLocales")]
 		[return: NativeName(NativeNameType.Type, "SDL_Locale*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static SDLLocale* GetPreferredLocalesNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLLocale*>)vt[831])();
+			return ((delegate* unmanaged[Cdecl]<SDLLocale*>)funcTable[831])();
 			#else
-			return (SDLLocale*)((delegate* unmanaged[Cdecl]<nint>)vt[831])();
+			return (SDLLocale*)((delegate* unmanaged[Cdecl]<nint>)funcTable[831])();
 			#endif
 		}
 
@@ -2704,12 +3481,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_OpenURL")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int OpenURLNative([NativeName(NativeNameType.Param, "url")] [NativeName(NativeNameType.Type, "const char*")] byte* url)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)vt[832])(url);
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[832])(url);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)vt[832])((nint)url);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[832])((nint)url);
 			#endif
 		}
 
@@ -2887,12 +3665,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Init")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int InitNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int>)vt[833])(flags);
+			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[833])(flags);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, int>)vt[833])(flags);
+			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[833])(flags);
 			#endif
 		}
 
@@ -2946,12 +3725,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_InitSubSystem")]
 		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int InitSubSystemNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int>)vt[834])(flags);
+			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[834])(flags);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, int>)vt[834])(flags);
+			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[834])(flags);
 			#endif
 		}
 
@@ -2986,12 +3766,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_QuitSubSystem")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void QuitSubSystemNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[835])(flags);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[835])(flags);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[835])(flags);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[835])(flags);
 			#endif
 		}
 
@@ -3025,12 +3806,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_WasInit")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint WasInitNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "Uint32")] uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)vt[836])(flags);
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[836])(flags);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)vt[836])(flags);
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[836])(flags);
 			#endif
 		}
 
@@ -3067,12 +3849,13 @@ namespace Hexa.NET.SDL2
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Quit")]
 		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static void QuitNative()
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)vt[837])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[837])();
 			#else
-			((delegate* unmanaged[Cdecl]<void>)vt[837])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[837])();
 			#endif
 		}
 
@@ -3101,12 +3884,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglChooseConfig")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglChooseConfigNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, EGLConfig*, int, int*, uint>)vt[838])(dpy, attribList, configs, configSize, numConfig);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, EGLConfig*, int, int*, uint>)funcTable[838])(dpy, attribList, configs, configSize, numConfig);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, int, nint, uint>)vt[838])(dpy, (nint)attribList, (nint)configs, configSize, (nint)numConfig);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, int, nint, uint>)funcTable[838])(dpy, (nint)attribList, (nint)configs, configSize, (nint)numConfig);
 			#endif
 		}
 
@@ -3212,12 +3996,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCopyBuffers")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglCopyBuffersNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint target)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)vt[839])(dpy, surface, target);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)funcTable[839])(dpy, surface, target);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)vt[839])(dpy, surface, target);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)funcTable[839])(dpy, surface, target);
 			#endif
 		}
 
@@ -3231,12 +4016,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCreateContext")]
 		[return: NativeName(NativeNameType.Type, "EGLContext")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLContext EglCreateContextNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "share_context")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext shareContext, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, int*, EGLContext>)vt[840])(dpy, config, shareContext, attribList);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, int*, EGLContext>)funcTable[840])(dpy, config, shareContext, attribList);
 			#else
-			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, nint, EGLContext>)vt[840])(dpy, config, shareContext, (nint)attribList);
+			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, nint, EGLContext>)funcTable[840])(dpy, config, shareContext, (nint)attribList);
 			#endif
 		}
 
@@ -3261,12 +4047,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCreatePbufferSurface")]
 		[return: NativeName(NativeNameType.Type, "EGLSurface")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLSurface EglCreatePbufferSurfaceNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int*, EGLSurface>)vt[841])(dpy, config, attribList);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int*, EGLSurface>)funcTable[841])(dpy, config, attribList);
 			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, EGLSurface>)vt[841])(dpy, config, (nint)attribList);
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, EGLSurface>)funcTable[841])(dpy, config, (nint)attribList);
 			#endif
 		}
 
@@ -3291,12 +4078,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCreatePixmapSurface")]
 		[return: NativeName(NativeNameType.Type, "EGLSurface")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLSurface EglCreatePixmapSurfaceNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint pixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)vt[842])(dpy, config, pixmap, attribList);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)funcTable[842])(dpy, config, pixmap, attribList);
 			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)vt[842])(dpy, config, pixmap, (nint)attribList);
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[842])(dpy, config, pixmap, (nint)attribList);
 			#endif
 		}
 
@@ -3321,12 +4109,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCreateWindowSurface")]
 		[return: NativeName(NativeNameType.Type, "EGLSurface")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLSurface EglCreateWindowSurfaceNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "EGLNativeWindowType")] nint win, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)vt[843])(dpy, config, win, attribList);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)funcTable[843])(dpy, config, win, attribList);
 			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)vt[843])(dpy, config, win, (nint)attribList);
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[843])(dpy, config, win, (nint)attribList);
 			#endif
 		}
 
@@ -3351,12 +4140,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglDestroyContext")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglDestroyContextNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)vt[844])(dpy, ctx);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)funcTable[844])(dpy, ctx);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)vt[844])(dpy, ctx);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)funcTable[844])(dpy, ctx);
 			#endif
 		}
 
@@ -3370,12 +4160,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglDestroySurface")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglDestroySurfaceNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)vt[845])(dpy, surface);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[845])(dpy, surface);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)vt[845])(dpy, surface);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[845])(dpy, surface);
 			#endif
 		}
 
@@ -3389,12 +4180,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetConfigAttrib")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglGetConfigAttribNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] int* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, int*, uint>)vt[846])(dpy, config, attribute, value);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, int*, uint>)funcTable[846])(dpy, config, attribute, value);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, nint, uint>)vt[846])(dpy, config, attribute, (nint)value);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, nint, uint>)funcTable[846])(dpy, config, attribute, (nint)value);
 			#endif
 		}
 
@@ -3419,12 +4211,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetConfigs")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglGetConfigsNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig*, int, int*, uint>)vt[847])(dpy, configs, configSize, numConfig);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig*, int, int*, uint>)funcTable[847])(dpy, configs, configSize, numConfig);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, int, nint, uint>)vt[847])(dpy, (nint)configs, configSize, (nint)numConfig);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, int, nint, uint>)funcTable[847])(dpy, (nint)configs, configSize, (nint)numConfig);
 			#endif
 		}
 
@@ -3474,12 +4267,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetCurrentDisplay")]
 		[return: NativeName(NativeNameType.Type, "EGLDisplay")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLDisplay EglGetCurrentDisplayNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay>)vt[848])();
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay>)funcTable[848])();
 			#else
-			return (EGLDisplay)((delegate* unmanaged[Cdecl]<EGLDisplay>)vt[848])();
+			return (EGLDisplay)((delegate* unmanaged[Cdecl]<EGLDisplay>)funcTable[848])();
 			#endif
 		}
 
@@ -3493,12 +4287,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetCurrentSurface")]
 		[return: NativeName(NativeNameType.Type, "EGLSurface")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLSurface EglGetCurrentSurfaceNative([NativeName(NativeNameType.Param, "readdraw")] [NativeName(NativeNameType.Type, "EGLint")] int readdraw)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, EGLSurface>)vt[849])(readdraw);
+			return ((delegate* unmanaged[Cdecl]<int, EGLSurface>)funcTable[849])(readdraw);
 			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<int, EGLSurface>)vt[849])(readdraw);
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<int, EGLSurface>)funcTable[849])(readdraw);
 			#endif
 		}
 
@@ -3512,12 +4307,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetDisplay")]
 		[return: NativeName(NativeNameType.Type, "EGLDisplay")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLDisplay EglGetDisplayNative([NativeName(NativeNameType.Param, "display_id")] [NativeName(NativeNameType.Type, "EGLNativeDisplayType")] nint displayId)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)vt[850])(displayId);
+			return ((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)funcTable[850])(displayId);
 			#else
-			return (EGLDisplay)((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)vt[850])(displayId);
+			return (EGLDisplay)((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)funcTable[850])(displayId);
 			#endif
 		}
 
@@ -3531,12 +4327,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetError")]
 		[return: NativeName(NativeNameType.Type, "EGLint")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int EglGetErrorNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)vt[851])();
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[851])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)vt[851])();
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[851])();
 			#endif
 		}
 
@@ -3550,12 +4347,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetProcAddress")]
 		[return: NativeName(NativeNameType.Type, "__eglMustCastToProperFunctionPointerType")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static delegate*<void> EglGetProcAddressNative([NativeName(NativeNameType.Param, "procname")] [NativeName(NativeNameType.Type, "const char*")] byte* procname)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void>>)vt[852])(procname);
+			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void>>)funcTable[852])(procname);
 			#else
-			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint>)vt[852])((nint)procname);
+			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[852])((nint)procname);
 			#endif
 		}
 
@@ -3620,12 +4418,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglInitialize")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglInitializeNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint*")] int* major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint*")] int* minor)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, int*, uint>)vt[853])(dpy, major, minor);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, int*, uint>)funcTable[853])(dpy, major, minor);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, uint>)vt[853])(dpy, (nint)major, (nint)minor);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, uint>)funcTable[853])(dpy, (nint)major, (nint)minor);
 			#endif
 		}
 
@@ -3675,12 +4474,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglMakeCurrent")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglMakeCurrentNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "draw")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface draw, [NativeName(NativeNameType.Param, "read")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface read, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)vt[854])(dpy, draw, read, ctx);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)funcTable[854])(dpy, draw, read, ctx);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)vt[854])(dpy, draw, read, ctx);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)funcTable[854])(dpy, draw, read, ctx);
 			#endif
 		}
 
@@ -3694,12 +4494,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglQueryContext")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglQueryContextNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] int* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, int*, uint>)vt[855])(dpy, ctx, attribute, value);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, int*, uint>)funcTable[855])(dpy, ctx, attribute, value);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, nint, uint>)vt[855])(dpy, ctx, attribute, (nint)value);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, nint, uint>)funcTable[855])(dpy, ctx, attribute, (nint)value);
 			#endif
 		}
 
@@ -3724,12 +4525,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglQueryString")]
 		[return: NativeName(NativeNameType.Type, "const char*")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* EglQueryStringNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, byte*>)vt[856])(dpy, name);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, byte*>)funcTable[856])(dpy, name);
 			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<EGLDisplay, int, nint>)vt[856])(dpy, name);
+			return (byte*)((delegate* unmanaged[Cdecl]<EGLDisplay, int, nint>)funcTable[856])(dpy, name);
 			#endif
 		}
 
@@ -3751,12 +4553,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglQuerySurface")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglQuerySurfaceNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] int* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int*, uint>)vt[857])(dpy, surface, attribute, value);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int*, uint>)funcTable[857])(dpy, surface, attribute, value);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, nint, uint>)vt[857])(dpy, surface, attribute, (nint)value);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, nint, uint>)funcTable[857])(dpy, surface, attribute, (nint)value);
 			#endif
 		}
 
@@ -3781,12 +4584,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglSwapBuffers")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglSwapBuffersNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)vt[858])(dpy, surface);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[858])(dpy, surface);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)vt[858])(dpy, surface);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[858])(dpy, surface);
 			#endif
 		}
 
@@ -3800,12 +4604,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglTerminate")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglTerminateNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)vt[859])(dpy);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)funcTable[859])(dpy);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)vt[859])(dpy);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)funcTable[859])(dpy);
 			#endif
 		}
 
@@ -3819,12 +4624,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglWaitGL")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglWaitGLNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[860])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[860])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[860])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[860])();
 			#endif
 		}
 
@@ -3838,12 +4644,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglWaitNative")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglWaitNativeNative([NativeName(NativeNameType.Param, "engine")] [NativeName(NativeNameType.Type, "EGLint")] int engine)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint>)vt[861])(engine);
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[861])(engine);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)vt[861])(engine);
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[861])(engine);
 			#endif
 		}
 
@@ -3857,12 +4664,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglBindTexImage")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglBindTexImageNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)vt[862])(dpy, surface, buffer);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[862])(dpy, surface, buffer);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)vt[862])(dpy, surface, buffer);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[862])(dpy, surface, buffer);
 			#endif
 		}
 
@@ -3876,12 +4684,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglReleaseTexImage")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglReleaseTexImageNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)vt[863])(dpy, surface, buffer);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[863])(dpy, surface, buffer);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)vt[863])(dpy, surface, buffer);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[863])(dpy, surface, buffer);
 			#endif
 		}
 
@@ -3895,12 +4704,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglSurfaceAttrib")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglSurfaceAttribNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)vt[864])(dpy, surface, attribute, value);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)funcTable[864])(dpy, surface, attribute, value);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)vt[864])(dpy, surface, attribute, value);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)funcTable[864])(dpy, surface, attribute, value);
 			#endif
 		}
 
@@ -3914,12 +4724,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglSwapInterval")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglSwapIntervalNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "EGLint")] int interval)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)vt[865])(dpy, interval);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)funcTable[865])(dpy, interval);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)vt[865])(dpy, interval);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)funcTable[865])(dpy, interval);
 			#endif
 		}
 
@@ -3933,12 +4744,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglBindAPI")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglBindAPINative([NativeName(NativeNameType.Param, "api")] [NativeName(NativeNameType.Type, "EGLenum")] uint api)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)vt[866])(api);
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[866])(api);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)vt[866])(api);
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[866])(api);
 			#endif
 		}
 
@@ -3952,12 +4764,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglQueryAPI")]
 		[return: NativeName(NativeNameType.Type, "EGLenum")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglQueryAPINative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[867])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[867])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[867])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[867])();
 			#endif
 		}
 
@@ -3971,12 +4784,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCreatePbufferFromClientBuffer")]
 		[return: NativeName(NativeNameType.Type, "EGLSurface")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLSurface EglCreatePbufferFromClientBufferNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "buftype")] [NativeName(NativeNameType.Type, "EGLenum")] uint buftype, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, int*, EGLSurface>)vt[868])(dpy, buftype, buffer, config, attribList);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, int*, EGLSurface>)funcTable[868])(dpy, buftype, buffer, config, attribList);
 			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, nint, EGLSurface>)vt[868])(dpy, buftype, buffer, config, (nint)attribList);
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, nint, EGLSurface>)funcTable[868])(dpy, buftype, buffer, config, (nint)attribList);
 			#endif
 		}
 
@@ -4001,12 +4815,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglReleaseThread")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglReleaseThreadNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[869])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[869])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[869])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[869])();
 			#endif
 		}
 
@@ -4020,12 +4835,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglWaitClient")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglWaitClientNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)vt[870])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[870])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)vt[870])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[870])();
 			#endif
 		}
 
@@ -4039,12 +4855,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetCurrentContext")]
 		[return: NativeName(NativeNameType.Type, "EGLContext")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLContext EglGetCurrentContextNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLContext>)vt[871])();
+			return ((delegate* unmanaged[Cdecl]<EGLContext>)funcTable[871])();
 			#else
-			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLContext>)vt[871])();
+			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLContext>)funcTable[871])();
 			#endif
 		}
 
@@ -4058,12 +4875,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCreateSync")]
 		[return: NativeName(NativeNameType.Type, "EGLSync")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLSync EglCreateSyncNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint*, EGLSync>)vt[872])(dpy, type, attribList);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint*, EGLSync>)funcTable[872])(dpy, type, attribList);
 			#else
-			return (EGLSync)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint, EGLSync>)vt[872])(dpy, type, (nint)attribList);
+			return (EGLSync)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint, EGLSync>)funcTable[872])(dpy, type, (nint)attribList);
 			#endif
 		}
 
@@ -4088,12 +4906,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglDestroySync")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglDestroySyncNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)vt[873])(dpy, sync);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)funcTable[873])(dpy, sync);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)vt[873])(dpy, sync);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)funcTable[873])(dpy, sync);
 			#endif
 		}
 
@@ -4107,12 +4926,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglClientWaitSync")]
 		[return: NativeName(NativeNameType.Type, "EGLint")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int EglClientWaitSyncNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)vt[874])(dpy, sync, flags, timeout);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)funcTable[874])(dpy, sync, flags, timeout);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)vt[874])(dpy, sync, flags, timeout);
+			return (int)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)funcTable[874])(dpy, sync, flags, timeout);
 			#endif
 		}
 
@@ -4126,12 +4946,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglGetSyncAttrib")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglGetSyncAttribNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib*")] nint* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint*, uint>)vt[875])(dpy, sync, attribute, value);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint*, uint>)funcTable[875])(dpy, sync, attribute, value);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint, uint>)vt[875])(dpy, sync, attribute, (nint)value);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint, uint>)funcTable[875])(dpy, sync, attribute, (nint)value);
 			#endif
 		}
 
@@ -4156,12 +4977,13 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglCreateImage")]
 		[return: NativeName(NativeNameType.Type, "EGLImage")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static EGLImage EglCreateImageNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint*, EGLImage>)vt[876])(dpy, ctx, target, buffer, attribList);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint*, EGLImage>)funcTable[876])(dpy, ctx, target, buffer, attribList);
 			#else
-			return (EGLImage)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint, EGLImage>)vt[876])(dpy, ctx, target, buffer, (nint)attribList);
+			return (EGLImage)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint, EGLImage>)funcTable[876])(dpy, ctx, target, buffer, (nint)attribList);
 			#endif
 		}
 
@@ -4186,839 +5008,14 @@ namespace Hexa.NET.SDL2
 
 		[NativeName(NativeNameType.Func, "eglDestroyImage")]
 		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static uint EglDestroyImageNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] EGLImage image)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)vt[877])(dpy, image);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)funcTable[877])(dpy, image);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)vt[877])(dpy, image);
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)funcTable[877])(dpy, image);
 			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "eglDestroyImage")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint EglDestroyImage([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] EGLImage image)
-		{
-			uint ret = EglDestroyImageNative(dpy, image);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "eglGetPlatformDisplay")]
-		[return: NativeName(NativeNameType.Type, "EGLDisplay")]
-		internal static EGLDisplay EglGetPlatformDisplayNative([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void*")] void* nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, nint*, EGLDisplay>)vt[878])(platform, nativeDisplay, attribList);
-			#else
-			return (EGLDisplay)((delegate* unmanaged[Cdecl]<uint, nint, nint, EGLDisplay>)vt[878])(platform, (nint)nativeDisplay, (nint)attribList);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "eglGetPlatformDisplay")]
-		[return: NativeName(NativeNameType.Type, "EGLDisplay")]
-		public static EGLDisplay EglGetPlatformDisplay([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void*")] void* nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
-		{
-			EGLDisplay ret = EglGetPlatformDisplayNative(platform, nativeDisplay, attribList);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "eglGetPlatformDisplay")]
-		[return: NativeName(NativeNameType.Type, "EGLDisplay")]
-		public static EGLDisplay EglGetPlatformDisplay([NativeName(NativeNameType.Param, "platform")] [NativeName(NativeNameType.Type, "EGLenum")] uint platform, [NativeName(NativeNameType.Param, "native_display")] [NativeName(NativeNameType.Type, "void*")] void* nativeDisplay, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] ref nint attribList)
-		{
-			fixed (nint* pattribList = &attribList)
-			{
-				EGLDisplay ret = EglGetPlatformDisplayNative(platform, nativeDisplay, (nint*)pattribList);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "eglCreatePlatformWindowSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		internal static EGLSurface EglCreatePlatformWindowSurfaceNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void*")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, void*, nint*, EGLSurface>)vt[879])(dpy, config, nativeWindow, attribList);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)vt[879])(dpy, config, (nint)nativeWindow, (nint)attribList);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "eglCreatePlatformWindowSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface EglCreatePlatformWindowSurface([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void*")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
-		{
-			EGLSurface ret = EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, attribList);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "eglCreatePlatformWindowSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface EglCreatePlatformWindowSurface([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void*")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] ref nint attribList)
-		{
-			fixed (nint* pattribList = &attribList)
-			{
-				EGLSurface ret = EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, (nint*)pattribList);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "eglCreatePlatformPixmapSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		internal static EGLSurface EglCreatePlatformPixmapSurfaceNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void*")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, void*, nint*, EGLSurface>)vt[880])(dpy, config, nativePixmap, attribList);
-			#else
-			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)vt[880])(dpy, config, (nint)nativePixmap, (nint)attribList);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "eglCreatePlatformPixmapSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface EglCreatePlatformPixmapSurface([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void*")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
-		{
-			EGLSurface ret = EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, attribList);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "eglCreatePlatformPixmapSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface EglCreatePlatformPixmapSurface([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void*")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] ref nint attribList)
-		{
-			fixed (nint* pattribList = &attribList)
-			{
-				EGLSurface ret = EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, (nint*)pattribList);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "eglWaitSync")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		internal static uint EglWaitSyncNative([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, uint>)vt[881])(dpy, sync, flags);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, uint>)vt[881])(dpy, sync, flags);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "eglWaitSync")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint EglWaitSync([NativeName(NativeNameType.Param, "dpy")] [NativeName(NativeNameType.Type, "EGLDisplay")] EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags)
-		{
-			uint ret = EglWaitSyncNative(dpy, sync, flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Miscellaneous<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "glClearIndex")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlClearIndexNative([NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "GLfloat")] float c)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)vt[882])(c);
-			#else
-			((delegate* unmanaged[Cdecl]<float, void>)vt[882])(c);
-			#endif
-		}
-
-		/// <summary>
-		/// Miscellaneous<br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "glClearIndex")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlClearIndex([NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "GLfloat")] float c)
-		{
-			GlClearIndexNative(c);
-		}
-
-		[NativeName(NativeNameType.Func, "glClearColor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlClearColorNative([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLclampf")] float red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLclampf")] float green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLclampf")] float blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLclampf")] float alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)vt[883])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)vt[883])(red, green, blue, alpha);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glClearColor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlClearColor([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLclampf")] float red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLclampf")] float green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLclampf")] float blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLclampf")] float alpha)
-		{
-			GlClearColorNative(red, green, blue, alpha);
-		}
-
-		[NativeName(NativeNameType.Func, "glClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlClearNative([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[884])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[884])(mask);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlClear([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask)
-		{
-			GlClearNative(mask);
-		}
-
-		[NativeName(NativeNameType.Func, "glIndexMask")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlIndexMaskNative([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[885])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[885])(mask);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glIndexMask")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlIndexMask([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask)
-		{
-			GlIndexMaskNative(mask);
-		}
-
-		[NativeName(NativeNameType.Func, "glColorMask")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlColorMaskNative([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLboolean")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLboolean")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLboolean")] byte blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLboolean")] byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)vt[886])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)vt[886])(red, green, blue, alpha);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glColorMask")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlColorMask([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLboolean")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLboolean")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLboolean")] byte blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLboolean")] byte alpha)
-		{
-			GlColorMaskNative(red, green, blue, alpha);
-		}
-
-		[NativeName(NativeNameType.Func, "glAlphaFunc")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlAlphaFuncNative([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func, [NativeName(NativeNameType.Param, "ref")] [NativeName(NativeNameType.Type, "GLclampf")] float reference)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[887])(func, reference);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, float, void>)vt[887])(func, reference);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glAlphaFunc")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlAlphaFunc([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func, [NativeName(NativeNameType.Param, "ref")] [NativeName(NativeNameType.Type, "GLclampf")] float reference)
-		{
-			GlAlphaFuncNative(func, reference);
-		}
-
-		[NativeName(NativeNameType.Func, "glBlendFunc")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlBlendFuncNative([NativeName(NativeNameType.Param, "sfactor")] [NativeName(NativeNameType.Type, "GLenum")] uint sfactor, [NativeName(NativeNameType.Param, "dfactor")] [NativeName(NativeNameType.Type, "GLenum")] uint dfactor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)vt[888])(sfactor, dfactor);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)vt[888])(sfactor, dfactor);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glBlendFunc")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlBlendFunc([NativeName(NativeNameType.Param, "sfactor")] [NativeName(NativeNameType.Type, "GLenum")] uint sfactor, [NativeName(NativeNameType.Param, "dfactor")] [NativeName(NativeNameType.Type, "GLenum")] uint dfactor)
-		{
-			GlBlendFuncNative(sfactor, dfactor);
-		}
-
-		[NativeName(NativeNameType.Func, "glLogicOp")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlLogicOpNative([NativeName(NativeNameType.Param, "opcode")] [NativeName(NativeNameType.Type, "GLenum")] uint opcode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[889])(opcode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[889])(opcode);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glLogicOp")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlLogicOp([NativeName(NativeNameType.Param, "opcode")] [NativeName(NativeNameType.Type, "GLenum")] uint opcode)
-		{
-			GlLogicOpNative(opcode);
-		}
-
-		[NativeName(NativeNameType.Func, "glCullFace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlCullFaceNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[890])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[890])(mode);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glCullFace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlCullFace([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			GlCullFaceNative(mode);
-		}
-
-		[NativeName(NativeNameType.Func, "glFrontFace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlFrontFaceNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[891])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[891])(mode);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glFrontFace")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlFrontFace([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			GlFrontFaceNative(mode);
-		}
-
-		[NativeName(NativeNameType.Func, "glPointSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlPointSizeNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLfloat")] float size)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)vt[892])(size);
-			#else
-			((delegate* unmanaged[Cdecl]<float, void>)vt[892])(size);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glPointSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlPointSize([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLfloat")] float size)
-		{
-			GlPointSizeNative(size);
-		}
-
-		[NativeName(NativeNameType.Func, "glLineWidth")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlLineWidthNative([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLfloat")] float width)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, void>)vt[893])(width);
-			#else
-			((delegate* unmanaged[Cdecl]<float, void>)vt[893])(width);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glLineWidth")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlLineWidth([NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLfloat")] float width)
-		{
-			GlLineWidthNative(width);
-		}
-
-		[NativeName(NativeNameType.Func, "glLineStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlLineStippleNative([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLint")] int factor, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "GLushort")] ushort pattern)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, ushort, void>)vt[894])(factor, pattern);
-			#else
-			((delegate* unmanaged[Cdecl]<int, ushort, void>)vt[894])(factor, pattern);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glLineStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlLineStipple([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLint")] int factor, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "GLushort")] ushort pattern)
-		{
-			GlLineStippleNative(factor, pattern);
-		}
-
-		[NativeName(NativeNameType.Func, "glPolygonMode")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlPolygonModeNative([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)vt[895])(face, mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, void>)vt[895])(face, mode);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glPolygonMode")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlPolygonMode([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			GlPolygonModeNative(face, mode);
-		}
-
-		[NativeName(NativeNameType.Func, "glPolygonOffset")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlPolygonOffsetNative([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "units")] [NativeName(NativeNameType.Type, "GLfloat")] float units)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, void>)vt[896])(factor, units);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, void>)vt[896])(factor, units);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glPolygonOffset")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlPolygonOffset([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "units")] [NativeName(NativeNameType.Type, "GLfloat")] float units)
-		{
-			GlPolygonOffsetNative(factor, units);
-		}
-
-		[NativeName(NativeNameType.Func, "glPolygonStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlPolygonStippleNative([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "const GLubyte*")] byte* mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[897])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[897])((nint)mask);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glPolygonStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlPolygonStipple([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "const GLubyte*")] byte* mask)
-		{
-			GlPolygonStippleNative(mask);
-		}
-
-		[NativeName(NativeNameType.Func, "glPolygonStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlPolygonStipple([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "const GLubyte*")] ref byte mask)
-		{
-			fixed (byte* pmask = &mask)
-			{
-				GlPolygonStippleNative((byte*)pmask);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glGetPolygonStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlGetPolygonStippleNative([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLubyte*")] byte* mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[898])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[898])((nint)mask);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glGetPolygonStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetPolygonStipple([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLubyte*")] byte* mask)
-		{
-			GlGetPolygonStippleNative(mask);
-		}
-
-		[NativeName(NativeNameType.Func, "glGetPolygonStipple")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetPolygonStipple([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLubyte*")] ref byte mask)
-		{
-			fixed (byte* pmask = &mask)
-			{
-				GlGetPolygonStippleNative((byte*)pmask);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glEdgeFlag")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlEdgeFlagNative([NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "GLboolean")] byte flag)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, void>)vt[899])(flag);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, void>)vt[899])(flag);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glEdgeFlag")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlEdgeFlag([NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "GLboolean")] byte flag)
-		{
-			GlEdgeFlagNative(flag);
-		}
-
-		[NativeName(NativeNameType.Func, "glEdgeFlagv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlEdgeFlagvNative([NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "const GLboolean*")] byte* flag)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)vt[900])(flag);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)vt[900])((nint)flag);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glEdgeFlagv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlEdgeFlagv([NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "const GLboolean*")] byte* flag)
-		{
-			GlEdgeFlagvNative(flag);
-		}
-
-		[NativeName(NativeNameType.Func, "glEdgeFlagv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlEdgeFlagv([NativeName(NativeNameType.Param, "flag")] [NativeName(NativeNameType.Type, "const GLboolean*")] ref byte flag)
-		{
-			fixed (byte* pflag = &flag)
-			{
-				GlEdgeFlagvNative((byte*)pflag);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlScissorNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)vt[901])(x, y, width, height);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)vt[901])(x, y, width, height);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glScissor")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlScissor([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height)
-		{
-			GlScissorNative(x, y, width, height);
-		}
-
-		[NativeName(NativeNameType.Func, "glClipPlane")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlClipPlaneNative([NativeName(NativeNameType.Param, "plane")] [NativeName(NativeNameType.Type, "GLenum")] uint plane, [NativeName(NativeNameType.Param, "equation")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* equation)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[902])(plane, equation);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[902])(plane, (nint)equation);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glClipPlane")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlClipPlane([NativeName(NativeNameType.Param, "plane")] [NativeName(NativeNameType.Type, "GLenum")] uint plane, [NativeName(NativeNameType.Param, "equation")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* equation)
-		{
-			GlClipPlaneNative(plane, equation);
-		}
-
-		[NativeName(NativeNameType.Func, "glClipPlane")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlClipPlane([NativeName(NativeNameType.Param, "plane")] [NativeName(NativeNameType.Type, "GLenum")] uint plane, [NativeName(NativeNameType.Param, "equation")] [NativeName(NativeNameType.Type, "const GLdouble*")] ref double equation)
-		{
-			fixed (double* pequation = &equation)
-			{
-				GlClipPlaneNative(plane, (double*)pequation);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glGetClipPlane")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlGetClipPlaneNative([NativeName(NativeNameType.Param, "plane")] [NativeName(NativeNameType.Type, "GLenum")] uint plane, [NativeName(NativeNameType.Param, "equation")] [NativeName(NativeNameType.Type, "GLdouble*")] double* equation)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[903])(plane, equation);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[903])(plane, (nint)equation);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glGetClipPlane")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetClipPlane([NativeName(NativeNameType.Param, "plane")] [NativeName(NativeNameType.Type, "GLenum")] uint plane, [NativeName(NativeNameType.Param, "equation")] [NativeName(NativeNameType.Type, "GLdouble*")] double* equation)
-		{
-			GlGetClipPlaneNative(plane, equation);
-		}
-
-		[NativeName(NativeNameType.Func, "glGetClipPlane")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetClipPlane([NativeName(NativeNameType.Param, "plane")] [NativeName(NativeNameType.Type, "GLenum")] uint plane, [NativeName(NativeNameType.Param, "equation")] [NativeName(NativeNameType.Type, "GLdouble*")] ref double equation)
-		{
-			fixed (double* pequation = &equation)
-			{
-				GlGetClipPlaneNative(plane, (double*)pequation);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glDrawBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlDrawBufferNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[904])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[904])(mode);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glDrawBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlDrawBuffer([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			GlDrawBufferNative(mode);
-		}
-
-		[NativeName(NativeNameType.Func, "glReadBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlReadBufferNative([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[905])(mode);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[905])(mode);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glReadBuffer")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlReadBuffer([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode)
-		{
-			GlReadBufferNative(mode);
-		}
-
-		[NativeName(NativeNameType.Func, "glEnable")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlEnableNative([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[906])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[906])(cap);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glEnable")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlEnable([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			GlEnableNative(cap);
-		}
-
-		[NativeName(NativeNameType.Func, "glDisable")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlDisableNative([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[907])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[907])(cap);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glDisable")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlDisable([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			GlDisableNative(cap);
-		}
-
-		[NativeName(NativeNameType.Func, "glIsEnabled")]
-		[return: NativeName(NativeNameType.Type, "GLboolean")]
-		internal static byte GlIsEnabledNative([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte>)vt[908])(cap);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)vt[908])(cap);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glIsEnabled")]
-		[return: NativeName(NativeNameType.Type, "GLboolean")]
-		public static byte GlIsEnabled([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			byte ret = GlIsEnabledNative(cap);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "glEnableClientState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlEnableClientStateNative([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[909])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[909])(cap);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glEnableClientState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlEnableClientState([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			GlEnableClientStateNative(cap);
-		}
-
-		[NativeName(NativeNameType.Func, "glDisableClientState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlDisableClientStateNative([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[910])(cap);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[910])(cap);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glDisableClientState")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlDisableClientState([NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap)
-		{
-			GlDisableClientStateNative(cap);
-		}
-
-		[NativeName(NativeNameType.Func, "glGetBooleanv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlGetBooleanvNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLboolean*")] byte* @params)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, byte*, void>)vt[911])(pname, @params);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[911])(pname, (nint)@params);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glGetBooleanv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetBooleanv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLboolean*")] byte* @params)
-		{
-			GlGetBooleanvNative(pname, @params);
-		}
-
-		[NativeName(NativeNameType.Func, "glGetBooleanv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetBooleanv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLboolean*")] ref byte @params)
-		{
-			fixed (byte* pparams = &@params)
-			{
-				GlGetBooleanvNative(pname, (byte*)pparams);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glGetDoublev")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlGetDoublevNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] double* @params)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, double*, void>)vt[912])(pname, @params);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[912])(pname, (nint)@params);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glGetDoublev")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetDoublev([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] double* @params)
-		{
-			GlGetDoublevNative(pname, @params);
-		}
-
-		[NativeName(NativeNameType.Func, "glGetDoublev")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetDoublev([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] ref double @params)
-		{
-			fixed (double* pparams = &@params)
-			{
-				GlGetDoublevNative(pname, (double*)pparams);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glGetFloatv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlGetFloatvNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, float*, void>)vt[913])(pname, @params);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[913])(pname, (nint)@params);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glGetFloatv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetFloatv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params)
-		{
-			GlGetFloatvNative(pname, @params);
-		}
-
-		[NativeName(NativeNameType.Func, "glGetFloatv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetFloatv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] ref float @params)
-		{
-			fixed (float* pparams = &@params)
-			{
-				GlGetFloatvNative(pname, (float*)pparams);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glGetIntegerv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlGetIntegervNative([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int*, void>)vt[914])(pname, @params);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, void>)vt[914])(pname, (nint)@params);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glGetIntegerv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetIntegerv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params)
-		{
-			GlGetIntegervNative(pname, @params);
-		}
-
-		[NativeName(NativeNameType.Func, "glGetIntegerv")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlGetIntegerv([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] ref int @params)
-		{
-			fixed (int* pparams = &@params)
-			{
-				GlGetIntegervNative(pname, (int*)pparams);
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "glPushAttrib")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		internal static void GlPushAttribNative([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[915])(mask);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)vt[915])(mask);
-			#endif
-		}
-
-		[NativeName(NativeNameType.Func, "glPushAttrib")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GlPushAttrib([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask)
-		{
-			GlPushAttribNative(mask);
 		}
 	}
 }
