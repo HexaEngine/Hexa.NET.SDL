@@ -17,11 +17,6 @@ jobs:
         ref: 'release-2.30.8'
         path: 'SDL'
 
-    - name: Checkout specific commit
-      run: |
-        cd SDL
-        git checkout ba2f78a
-
     - name: Install dependencies on Ubuntu
       if: matrix.os == 'ubuntu-latest'
       run: |
