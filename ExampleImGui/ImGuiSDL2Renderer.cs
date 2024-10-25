@@ -193,7 +193,7 @@ namespace ExampleImGui
             SetTextureScaleMode(bd->FontTexture, SDLScaleMode.Linear);
 
             // Store our identifier
-            io.Fonts.SetTexID((ImTextureID)(nint)bd->FontTexture);
+            io.Fonts.SetTexID((ImTextureID)(ulong)bd->FontTexture);
 
             return true;
         }

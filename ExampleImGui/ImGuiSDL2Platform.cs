@@ -56,7 +56,7 @@
             return !ImGui.GetCurrentContext().IsNull ? (BackendData*)ImGui.GetIO().BackendPlatformUserData : null;
         }
 
-        private static unsafe byte* GetClipboardText(void* data)
+        private static unsafe byte* GetClipboardText(ImGuiContext* context)
         {
             BackendData* bd = GetBackendData();
             if (bd->ClipboardTextData != null)
@@ -65,7 +65,7 @@
             return bd->ClipboardTextData;
         }
 
-        private static unsafe void SetClipboardText(void* data, byte* text)
+        private static unsafe void SetClipboardText(ImGuiContext* context, byte* text)
         {
             SDL.SetClipboardText(text);
         }
@@ -408,12 +408,7 @@
             }
             bd->WantUpdateMonitors = true;
 
-            io.SetClipboardTextFn = (void*)Marshal.GetFunctionPointerForDelegate<SetClipboardTextFn>(SetClipboardText);
-            io.GetClipboardTextFn = (void*)Marshal.GetFunctionPointerForDelegate<GetClipboardTextFn>(GetClipboardText);
-            io.ClipboardUserData = null;
-
-            io.PlatformSetImeDataFn = (void*)Marshal.GetFunctionPointerForDelegate<PlatformSetImeDataFn>(SetPlatformImeData);
-            io.PlatformOpenInShellFn = (void*)Marshal.GetFunctionPointerForDelegate<PlatformOpenInShellFn>(OpenPlatformInShell);
+         
 
             bd->MouseCursors = (SDLCursor**)AllocArray((uint)ImGuiMouseCursor.Count);
             bd->MouseCursors[(int)ImGuiMouseCursor.Arrow] = SDL.CreateSystemCursor(SDLSystemCursor.Arrow);
@@ -1056,6 +1051,13 @@
                 platform_io->PlatformGetWindowPos = (void*)Marshal.GetFunctionPointerForDelegate<PlatformGetWindowPosDefault>(GetWindowPos);
                 platform_io->PlatformGetWindowSize = (void*)Marshal.GetFunctionPointerForDelegate<PlatformGetWindowSizeDefault>(GetWindowSize);
             }
+
+            platform_io->PlatformSetClipboardTextFn = (void*)Marshal.GetFunctionPointerForDelegate<PlatformSetClipboardTextFn>(SetClipboardText);
+            platform_io->PlatformGetClipboardTextFn = (void*)Marshal.GetFunctionPointerForDelegate<PlatformGetClipboardTextFn>(GetClipboardText);
+            platform_io->PlatformClipboardUserData = null;
+
+            platform_io->PlatformSetImeDataFn = (void*)Marshal.GetFunctionPointerForDelegate<PlatformSetImeDataFn>(SetPlatformImeData);
+            platform_io->PlatformOpenInShellFn = (void*)Marshal.GetFunctionPointerForDelegate<PlatformOpenInShellFn>(OpenPlatformInShell);
 
             ImGuiViewport* main_viewport = ImGui.GetMainViewport().Handle;
             ViewportData* vd = AllocT<ViewportData>();
