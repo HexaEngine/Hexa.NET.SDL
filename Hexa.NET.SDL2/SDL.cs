@@ -31,12 +31,7 @@ namespace Hexa.NET.SDL2
                 return "SDL2";
             }
 
-            if (RuntimeInformation.IsOSPlatform(LibraryLoader.Android))
-            {
-                return "libSDL2";
-            }
-
-            return "libSDL2-2.0";
+            return "libSDL2";
         }
     }
 }
