@@ -18,12 +18,9 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_atomic_t")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAtomic
 	{
-		[NativeName(NativeNameType.Field, "value")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Value;
 
 		public unsafe SDLAtomic(int value = default)

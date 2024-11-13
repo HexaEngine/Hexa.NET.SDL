@@ -15,29 +15,22 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The access pattern allowed for a texture.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_TextureAccess")]
 	[Flags]
 	public enum SDLTextureAccess : int
 	{
 		/// <summary>
 		/// Changes rarely, not lockable <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TEXTUREACCESS_STATIC")]
-		[NativeName(NativeNameType.Value, "0")]
 		Static = unchecked(0),
 
 		/// <summary>
 		/// Changes frequently, lockable <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TEXTUREACCESS_STREAMING")]
-		[NativeName(NativeNameType.Value, "1")]
 		Streaming = unchecked(1),
 
 		/// <summary>
 		/// Texture can be used as a render target <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TEXTUREACCESS_TARGET")]
-		[NativeName(NativeNameType.Value, "2")]
 		Target = unchecked(2),
 	}
 }

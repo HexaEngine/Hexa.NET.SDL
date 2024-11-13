@@ -6,25 +6,12 @@
   "GenerateConstructorsForStructs": true,
   "GenerateSizeOfStructs": false,
   "GeneratePlaceholderComments": false,
-  "GenerateMetadata": true,
+  "GenerateMetadata": false,
   "ImportType": "FunctionTable",
   "IncludeFolders": [
     "C:\\VulkanSDK\\1.3.250.0\\Include\\"
   ],
   "ConstantNamingConvention": "Unknown",
-  "KnownConstantNames": {
-  },
-  "KnownEnumValueNames": {
-    "": ""
-  },
-  "KnownEnumPrefixes": {
-  },
-  "KnownExtensionPrefixes": {
-  },
-  "KnownExtensionNames": {
-  },
-  "KnownStructMethods": {
-  },
   "IgnoredParts": [
     "bit",
     "PIXELTYPE",
@@ -34,15 +21,6 @@
     "SDLK",
     "KMOD"
   ],
-  "PreserveCaps": [
-    ""
-  ],
-  "Keywords": [
-    "object",
-    "event",
-    "lock"
-  ],
-
   "IgnoredTypes": [ "SDL_SysWMinfo", "SDL_SysWMmsg", "SDL_AudioCVT" ],
   "TypeMappings": {
     "PFNGLGETTRANSFORMFEEDBACKI_VPROC": "PFNGLGETTRANSFORMFEEDBACKI_VPROC",

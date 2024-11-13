@@ -18,24 +18,13 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Context structure for the random number generator state.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_RandomContext")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestRandomContext
 	{
-		[NativeName(NativeNameType.Field, "a")]
-		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint A;
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint X;
-		[NativeName(NativeNameType.Field, "c")]
-		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint C;
-		[NativeName(NativeNameType.Field, "ah")]
-		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint Ah;
-		[NativeName(NativeNameType.Field, "al")]
-		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint Al;
 
 		public unsafe SDLTestRandomContext(uint a = default, uint x = default, uint c = default, uint ah = default, uint al = default)

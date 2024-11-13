@@ -18,29 +18,22 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_ControllerDeviceEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLControllerDeviceEvent
 	{
 		/// <summary>
 		/// ::SDL_CONTROLLERDEVICEADDED, ::SDL_CONTROLLERDEVICEREMOVED, ::SDL_CONTROLLERDEVICEREMAPPED, or ::SDL_CONTROLLERSTEAMHANDLEUPDATED <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The joystick device index for the ADDED event, instance id for the REMOVED or REMAPPED event <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Which;
 
 

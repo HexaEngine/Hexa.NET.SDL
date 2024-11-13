@@ -18,23 +18,18 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Data structure for MD5 (Message-Digest) computation <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_Md5Context")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestMd5Context
 	{
 		/// <summary>
 		/// number of _bits_ handled mod 2^64 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "i")]
-		[NativeName(NativeNameType.Type, "MD5UINT4[2]")]
 		public uint I_0;
 		public uint I_1;
 
 		/// <summary>
 		/// scratch buffer <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "buf")]
-		[NativeName(NativeNameType.Type, "MD5UINT4[4]")]
 		public uint Buf_0;
 		public uint Buf_1;
 		public uint Buf_2;
@@ -43,8 +38,6 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// input buffer <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "in")]
-		[NativeName(NativeNameType.Type, "unsigned char[64]")]
 		public byte In_0;
 		public byte In_1;
 		public byte In_2;
@@ -113,8 +106,6 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// actual digest after Md5Final call <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "digest")]
-		[NativeName(NativeNameType.Type, "unsigned char[16]")]
 		public byte Digest_0;
 		public byte Digest_1;
 		public byte Digest_2;

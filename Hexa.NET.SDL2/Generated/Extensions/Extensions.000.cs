@@ -16,100 +16,82 @@ namespace Hexa.NET.SDL2
 {
 	public static unsafe partial class Extensions
 	{
-		[NativeName(NativeNameType.Func, "SDL_iconv_close")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		public static int Close(this SDLIconv cd)
 		{
 			int ret = SDL.IconvCloseNative(cd);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
-			ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
+			nuint ret = SDL.IconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
-				ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, outbytesleft);
+				nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, outbytesleft);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
-				ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, outbuf, outbytesleft);
+				nuint ret = SDL.IconvNative(cd, inbuf, (nuint*)pinbytesleft, outbuf, outbytesleft);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
 				fixed (nuint* pinbytesleft = &inbytesleft)
 				{
-					ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, outbuf, outbytesleft);
+					nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, outbuf, outbytesleft);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
-				ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
+				nuint ret = SDL.IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
 				fixed (byte** poutbuf = &outbuf)
 				{
-					ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
+					nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
 				fixed (byte** poutbuf = &outbuf)
 				{
-					ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, (byte**)poutbuf, outbytesleft);
+					nuint ret = SDL.IconvNative(cd, inbuf, (nuint*)pinbytesleft, (byte**)poutbuf, outbytesleft);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, nuint* outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -117,55 +99,47 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (byte** poutbuf = &outbuf)
 					{
-						ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, (byte**)poutbuf, outbytesleft);
+						nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, (byte**)poutbuf, outbytesleft);
 						return ret;
 					}
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* poutbytesleft = &outbytesleft)
 			{
-				ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, outbuf, (ulong*)poutbytesleft);
+				nuint ret = SDL.IconvNative(cd, inbuf, inbytesleft, outbuf, (nuint*)poutbytesleft);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
 				fixed (nuint* poutbytesleft = &outbytesleft)
 				{
-					ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, (ulong*)poutbytesleft);
+					nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, (nuint*)poutbytesleft);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
 				fixed (nuint* poutbytesleft = &outbytesleft)
 				{
-					ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, outbuf, (ulong*)poutbytesleft);
+					nuint ret = SDL.IconvNative(cd, inbuf, (nuint*)pinbytesleft, outbuf, (nuint*)poutbytesleft);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, byte** outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -173,30 +147,26 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (nuint* poutbytesleft = &outbytesleft)
 					{
-						ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, outbuf, (ulong*)poutbytesleft);
+						nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, outbuf, (nuint*)poutbytesleft);
 						return ret;
 					}
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** poutbuf = &outbuf)
 			{
 				fixed (nuint* poutbytesleft = &outbytesleft)
 				{
-					ulong ret = SDL.IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+					nuint ret = SDL.IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ulong* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, nuint* inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -204,16 +174,14 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (nuint* poutbytesleft = &outbytesleft)
 					{
-						ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+						nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
 						return ret;
 					}
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, byte** inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
@@ -221,16 +189,14 @@ namespace Hexa.NET.SDL2
 				{
 					fixed (nuint* poutbytesleft = &outbytesleft)
 					{
-						ulong ret = SDL.IconvNative(cd, inbuf, (ulong*)pinbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+						nuint ret = SDL.IconvNative(cd, inbuf, (nuint*)pinbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
 						return ret;
 					}
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iconv")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Iconv(this SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "const char**")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char**")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint outbytesleft)
+		public static nuint Iconv(this SDLIconv cd, ref byte* inbuf, ref nuint inbytesleft, ref byte* outbuf, ref nuint outbytesleft)
 		{
 			fixed (byte** pinbuf = &inbuf)
 			{
@@ -240,7 +206,7 @@ namespace Hexa.NET.SDL2
 					{
 						fixed (nuint* poutbytesleft = &outbytesleft)
 						{
-							ulong ret = SDL.IconvNative(cd, (byte**)pinbuf, (ulong*)pinbytesleft, (byte**)poutbuf, (ulong*)poutbytesleft);
+							nuint ret = SDL.IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
 							return ret;
 						}
 					}
@@ -254,8 +220,6 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GL_DeleteContext")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		public static void DeleteContext(this SDLGLContext context)
 		{
 			SDL.GLDeleteContextNative(context);
@@ -268,8 +232,6 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_DestroyView")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		public static void DestroyView(this SDLMetalView view)
 		{
 			SDL.MetalDestroyViewNative(view);
@@ -280,25 +242,19 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Metal_GetLayer")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		public static void* GetLayer(this SDLMetalView view)
 		{
 			void* ret = SDL.MetalGetLayerNative(view);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, int* numConfig)
 		{
 			uint ret = SDL.EglChooseConfigNative(dpy, attribList, configs, configSize, numConfig);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, int* numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -307,9 +263,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] ref EGLConfig configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, int* numConfig)
 		{
 			fixed (EGLConfig* pconfigs = &configs)
 			{
@@ -318,9 +272,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] ref EGLConfig configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, int* numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -332,9 +284,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] ref int numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pnumConfig = &numConfig)
 			{
@@ -343,9 +293,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] ref int numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -357,9 +305,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] ref EGLConfig configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] ref int numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, ref int numConfig)
 		{
 			fixed (EGLConfig* pconfigs = &configs)
 			{
@@ -371,9 +317,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglChooseConfig")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ChooseConfig(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] ref EGLConfig configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] ref int numConfig)
+		public static uint ChooseConfig(this EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -388,25 +332,19 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglCopyBuffers")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint CopyBuffers(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint target)
+		public static uint CopyBuffers(this EGLDisplay dpy, EGLSurface surface, nint target)
 		{
 			uint ret = SDL.EglCopyBuffersNative(dpy, surface, target);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateContext")]
-		[return: NativeName(NativeNameType.Type, "EGLContext")]
-		public static EGLContext CreateContext(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "share_context")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext shareContext, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
+		public static EGLContext CreateContext(this EGLDisplay dpy, EGLConfig config, EGLContext shareContext, int* attribList)
 		{
 			EGLContext ret = SDL.EglCreateContextNative(dpy, config, shareContext, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateContext")]
-		[return: NativeName(NativeNameType.Type, "EGLContext")]
-		public static EGLContext CreateContext(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "share_context")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext shareContext, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList)
+		public static EGLContext CreateContext(this EGLDisplay dpy, EGLConfig config, EGLContext shareContext, ref int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -415,17 +353,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePbufferSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePbufferSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
+		public static EGLSurface CreatePbufferSurface(this EGLDisplay dpy, EGLConfig config, int* attribList)
 		{
 			EGLSurface ret = SDL.EglCreatePbufferSurfaceNative(dpy, config, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePbufferSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePbufferSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList)
+		public static EGLSurface CreatePbufferSurface(this EGLDisplay dpy, EGLConfig config, ref int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -434,17 +368,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePixmapSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePixmapSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint pixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
+		public static EGLSurface CreatePixmapSurface(this EGLDisplay dpy, EGLConfig config, nint pixmap, int* attribList)
 		{
 			EGLSurface ret = SDL.EglCreatePixmapSurfaceNative(dpy, config, pixmap, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePixmapSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePixmapSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "pixmap")] [NativeName(NativeNameType.Type, "EGLNativePixmapType")] nint pixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList)
+		public static EGLSurface CreatePixmapSurface(this EGLDisplay dpy, EGLConfig config, nint pixmap, ref int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -453,17 +383,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateWindowSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreateWindowSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "EGLNativeWindowType")] nint win, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
+		public static EGLSurface CreateWindowSurface(this EGLDisplay dpy, EGLConfig config, nint win, int* attribList)
 		{
 			EGLSurface ret = SDL.EglCreateWindowSurfaceNative(dpy, config, win, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateWindowSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreateWindowSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "EGLNativeWindowType")] nint win, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList)
+		public static EGLSurface CreateWindowSurface(this EGLDisplay dpy, EGLConfig config, nint win, ref int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -472,33 +398,25 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglDestroyContext")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint DestroyContext(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx)
+		public static uint DestroyContext(this EGLDisplay dpy, EGLContext ctx)
 		{
 			uint ret = SDL.EglDestroyContextNative(dpy, ctx);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglDestroySurface")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint DestroySurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface)
+		public static uint DestroySurface(this EGLDisplay dpy, EGLSurface surface)
 		{
 			uint ret = SDL.EglDestroySurfaceNative(dpy, surface);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetConfigAttrib")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetConfigAttrib(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] int* value)
+		public static uint GetConfigAttrib(this EGLDisplay dpy, EGLConfig config, int attribute, int* value)
 		{
 			uint ret = SDL.EglGetConfigAttribNative(dpy, config, attribute, value);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetConfigAttrib")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetConfigAttrib(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] ref int value)
+		public static uint GetConfigAttrib(this EGLDisplay dpy, EGLConfig config, int attribute, ref int value)
 		{
 			fixed (int* pvalue = &value)
 			{
@@ -507,17 +425,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetConfigs")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetConfigs(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
+		public static uint GetConfigs(this EGLDisplay dpy, EGLConfig* configs, int configSize, int* numConfig)
 		{
 			uint ret = SDL.EglGetConfigsNative(dpy, configs, configSize, numConfig);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetConfigs")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetConfigs(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] ref EGLConfig configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] int* numConfig)
+		public static uint GetConfigs(this EGLDisplay dpy, ref EGLConfig configs, int configSize, int* numConfig)
 		{
 			fixed (EGLConfig* pconfigs = &configs)
 			{
@@ -526,9 +440,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetConfigs")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetConfigs(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] EGLConfig* configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] ref int numConfig)
+		public static uint GetConfigs(this EGLDisplay dpy, EGLConfig* configs, int configSize, ref int numConfig)
 		{
 			fixed (int* pnumConfig = &numConfig)
 			{
@@ -537,9 +449,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetConfigs")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetConfigs(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "configs")] [NativeName(NativeNameType.Type, "EGLConfig*")] ref EGLConfig configs, [NativeName(NativeNameType.Param, "config_size")] [NativeName(NativeNameType.Type, "EGLint")] int configSize, [NativeName(NativeNameType.Param, "num_config")] [NativeName(NativeNameType.Type, "EGLint*")] ref int numConfig)
+		public static uint GetConfigs(this EGLDisplay dpy, ref EGLConfig configs, int configSize, ref int numConfig)
 		{
 			fixed (EGLConfig* pconfigs = &configs)
 			{
@@ -551,17 +461,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglInitialize")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint Initialize(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint*")] int* major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint*")] int* minor)
+		public static uint Initialize(this EGLDisplay dpy, int* major, int* minor)
 		{
 			uint ret = SDL.EglInitializeNative(dpy, major, minor);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglInitialize")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint Initialize(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint*")] ref int major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint*")] int* minor)
+		public static uint Initialize(this EGLDisplay dpy, ref int major, int* minor)
 		{
 			fixed (int* pmajor = &major)
 			{
@@ -570,9 +476,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglInitialize")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint Initialize(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint*")] int* major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint*")] ref int minor)
+		public static uint Initialize(this EGLDisplay dpy, int* major, ref int minor)
 		{
 			fixed (int* pminor = &minor)
 			{
@@ -581,9 +485,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglInitialize")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint Initialize(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "major")] [NativeName(NativeNameType.Type, "EGLint*")] ref int major, [NativeName(NativeNameType.Param, "minor")] [NativeName(NativeNameType.Type, "EGLint*")] ref int minor)
+		public static uint Initialize(this EGLDisplay dpy, ref int major, ref int minor)
 		{
 			fixed (int* pmajor = &major)
 			{
@@ -595,25 +497,19 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglMakeCurrent")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint MakeCurrent(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "draw")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface draw, [NativeName(NativeNameType.Param, "read")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface read, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx)
+		public static uint MakeCurrent(this EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx)
 		{
 			uint ret = SDL.EglMakeCurrentNative(dpy, draw, read, ctx);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglQueryContext")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint QueryContext(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] int* value)
+		public static uint QueryContext(this EGLDisplay dpy, EGLContext ctx, int attribute, int* value)
 		{
 			uint ret = SDL.EglQueryContextNative(dpy, ctx, attribute, value);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglQueryContext")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint QueryContext(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] ref int value)
+		public static uint QueryContext(this EGLDisplay dpy, EGLContext ctx, int attribute, ref int value)
 		{
 			fixed (int* pvalue = &value)
 			{
@@ -622,33 +518,25 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglQueryString")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* QueryString(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name)
+		public static byte* QueryString(this EGLDisplay dpy, int name)
 		{
 			byte* ret = SDL.EglQueryStringNative(dpy, name);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglQueryString")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string QueryStringS(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "EGLint")] int name)
+		public static string QueryStringS(this EGLDisplay dpy, int name)
 		{
 			string ret = Utils.DecodeStringUTF8(SDL.EglQueryStringNative(dpy, name));
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglQuerySurface")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint QuerySurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] int* value)
+		public static uint QuerySurface(this EGLDisplay dpy, EGLSurface surface, int attribute, int* value)
 		{
 			uint ret = SDL.EglQuerySurfaceNative(dpy, surface, attribute, value);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglQuerySurface")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint QuerySurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint*")] ref int value)
+		public static uint QuerySurface(this EGLDisplay dpy, EGLSurface surface, int attribute, ref int value)
 		{
 			fixed (int* pvalue = &value)
 			{
@@ -657,65 +545,49 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglSwapBuffers")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint SwapBuffers(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface)
+		public static uint SwapBuffers(this EGLDisplay dpy, EGLSurface surface)
 		{
 			uint ret = SDL.EglSwapBuffersNative(dpy, surface);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglTerminate")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
 		public static uint Terminate(this EGLDisplay dpy)
 		{
 			uint ret = SDL.EglTerminateNative(dpy);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglBindTexImage")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint BindTexImage(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer)
+		public static uint BindTexImage(this EGLDisplay dpy, EGLSurface surface, int buffer)
 		{
 			uint ret = SDL.EglBindTexImageNative(dpy, surface, buffer);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglReleaseTexImage")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint ReleaseTexImage(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLint")] int buffer)
+		public static uint ReleaseTexImage(this EGLDisplay dpy, EGLSurface surface, int buffer)
 		{
 			uint ret = SDL.EglReleaseTexImageNative(dpy, surface, buffer);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglSurfaceAttrib")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint SurfaceAttrib(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "EGLSurface")] EGLSurface surface, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLint")] int value)
+		public static uint SurfaceAttrib(this EGLDisplay dpy, EGLSurface surface, int attribute, int value)
 		{
 			uint ret = SDL.EglSurfaceAttribNative(dpy, surface, attribute, value);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglSwapInterval")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint SwapInterval(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "interval")] [NativeName(NativeNameType.Type, "EGLint")] int interval)
+		public static uint SwapInterval(this EGLDisplay dpy, int interval)
 		{
 			uint ret = SDL.EglSwapIntervalNative(dpy, interval);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePbufferFromClientBuffer")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePbufferFromClientBuffer(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "buftype")] [NativeName(NativeNameType.Type, "EGLenum")] uint buftype, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] int* attribList)
+		public static EGLSurface CreatePbufferFromClientBuffer(this EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, int* attribList)
 		{
 			EGLSurface ret = SDL.EglCreatePbufferFromClientBufferNative(dpy, buftype, buffer, config, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePbufferFromClientBuffer")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePbufferFromClientBuffer(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "buftype")] [NativeName(NativeNameType.Type, "EGLenum")] uint buftype, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLint*")] ref int attribList)
+		public static EGLSurface CreatePbufferFromClientBuffer(this EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, ref int attribList)
 		{
 			fixed (int* pattribList = &attribList)
 			{
@@ -724,17 +596,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateSync")]
-		[return: NativeName(NativeNameType.Type, "EGLSync")]
-		public static EGLSync CreateSync(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
+		public static EGLSync CreateSync(this EGLDisplay dpy, uint type, nint* attribList)
 		{
 			EGLSync ret = SDL.EglCreateSyncNative(dpy, type, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateSync")]
-		[return: NativeName(NativeNameType.Type, "EGLSync")]
-		public static EGLSync CreateSync(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "EGLenum")] uint type, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] ref nint attribList)
+		public static EGLSync CreateSync(this EGLDisplay dpy, uint type, ref nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
@@ -743,33 +611,25 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglDestroySync")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint DestroySync(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync)
+		public static uint DestroySync(this EGLDisplay dpy, EGLSync sync)
 		{
 			uint ret = SDL.EglDestroySyncNative(dpy, sync);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglClientWaitSync")]
-		[return: NativeName(NativeNameType.Type, "EGLint")]
-		public static int ClientWaitSync(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "EGLTime")] ulong timeout)
+		public static int ClientWaitSync(this EGLDisplay dpy, EGLSync sync, int flags, ulong timeout)
 		{
 			int ret = SDL.EglClientWaitSyncNative(dpy, sync, flags, timeout);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetSyncAttrib")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetSyncAttrib(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib*")] nint* value)
+		public static uint GetSyncAttrib(this EGLDisplay dpy, EGLSync sync, int attribute, nint* value)
 		{
 			uint ret = SDL.EglGetSyncAttribNative(dpy, sync, attribute, value);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglGetSyncAttrib")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint GetSyncAttrib(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "attribute")] [NativeName(NativeNameType.Type, "EGLint")] int attribute, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "EGLAttrib*")] ref nint value)
+		public static uint GetSyncAttrib(this EGLDisplay dpy, EGLSync sync, int attribute, ref nint value)
 		{
 			fixed (nint* pvalue = &value)
 			{
@@ -778,17 +638,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateImage")]
-		[return: NativeName(NativeNameType.Type, "EGLImage")]
-		public static EGLImage CreateImage(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
+		public static EGLImage CreateImage(this EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, nint* attribList)
 		{
 			EGLImage ret = SDL.EglCreateImageNative(dpy, ctx, target, buffer, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreateImage")]
-		[return: NativeName(NativeNameType.Type, "EGLImage")]
-		public static EGLImage CreateImage(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "ctx")] [NativeName(NativeNameType.Type, "EGLContext")] EGLContext ctx, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "EGLenum")] uint target, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "EGLClientBuffer")] EGLClientBuffer buffer, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] ref nint attribList)
+		public static EGLImage CreateImage(this EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, ref nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
@@ -797,25 +653,19 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglDestroyImage")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint DestroyImage(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "image")] [NativeName(NativeNameType.Type, "EGLImage")] EGLImage image)
+		public static uint DestroyImage(this EGLDisplay dpy, EGLImage image)
 		{
 			uint ret = SDL.EglDestroyImageNative(dpy, image);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePlatformWindowSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePlatformWindowSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void*")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
+		public static EGLSurface CreatePlatformWindowSurface(this EGLDisplay dpy, EGLConfig config, void* nativeWindow, nint* attribList)
 		{
 			EGLSurface ret = SDL.EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePlatformWindowSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePlatformWindowSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_window")] [NativeName(NativeNameType.Type, "void*")] void* nativeWindow, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] ref nint attribList)
+		public static EGLSurface CreatePlatformWindowSurface(this EGLDisplay dpy, EGLConfig config, void* nativeWindow, ref nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
@@ -824,17 +674,13 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePlatformPixmapSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePlatformPixmapSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void*")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] nint* attribList)
+		public static EGLSurface CreatePlatformPixmapSurface(this EGLDisplay dpy, EGLConfig config, void* nativePixmap, nint* attribList)
 		{
 			EGLSurface ret = SDL.EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, attribList);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "eglCreatePlatformPixmapSurface")]
-		[return: NativeName(NativeNameType.Type, "EGLSurface")]
-		public static EGLSurface CreatePlatformPixmapSurface(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "EGLConfig")] EGLConfig config, [NativeName(NativeNameType.Param, "native_pixmap")] [NativeName(NativeNameType.Type, "void*")] void* nativePixmap, [NativeName(NativeNameType.Param, "attrib_list")] [NativeName(NativeNameType.Type, "const EGLAttrib*")] ref nint attribList)
+		public static EGLSurface CreatePlatformPixmapSurface(this EGLDisplay dpy, EGLConfig config, void* nativePixmap, ref nint attribList)
 		{
 			fixed (nint* pattribList = &attribList)
 			{
@@ -843,9 +689,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "eglWaitSync")]
-		[return: NativeName(NativeNameType.Type, "EGLBoolean")]
-		public static uint WaitSync(this EGLDisplay dpy, [NativeName(NativeNameType.Param, "sync")] [NativeName(NativeNameType.Type, "EGLSync")] EGLSync sync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "EGLint")] int flags)
+		public static uint WaitSync(this EGLDisplay dpy, EGLSync sync, int flags)
 		{
 			uint ret = SDL.EglWaitSyncNative(dpy, sync, flags);
 			return ret;

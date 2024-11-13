@@ -18,22 +18,17 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_WindowShapeMode")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLWindowShapeMode
 	{
 		/// <summary>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mode")]
-		[NativeName(NativeNameType.Type, "WindowShapeMode")]
 		public WindowShapeMode Mode;
 
 		/// <summary>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "parameters")]
-		[NativeName(NativeNameType.Type, "SDL_WindowShapeParams")]
 		public SDLWindowShapeParams Parameters;
 
 

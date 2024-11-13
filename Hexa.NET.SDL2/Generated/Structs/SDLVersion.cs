@@ -24,29 +24,22 @@ namespace Hexa.NET.SDL2
 	/// revision).<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_version")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVersion
 	{
 		/// <summary>
 		/// major version <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "major")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Major;
 
 		/// <summary>
 		/// minor version <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "minor")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Minor;
 
 		/// <summary>
 		/// update version <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "patch")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Patch;
 
 

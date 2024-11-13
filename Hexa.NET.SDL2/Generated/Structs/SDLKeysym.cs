@@ -19,33 +19,24 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Keysym")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLKeysym
 	{
 		/// <summary>
 		/// SDL physical key code - see ::SDL_Scancode for details <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "scancode")]
-		[NativeName(NativeNameType.Type, "SDL_Scancode")]
 		public SDLScancode Scancode;
 
 		/// <summary>
 		/// SDL virtual key code - see ::SDL_Keycode for details <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "sym")]
-		[NativeName(NativeNameType.Type, "SDL_Keycode")]
 		public int Sym;
 
 		/// <summary>
 		/// current key modifiers <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mod")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Mod;
 
-		[NativeName(NativeNameType.Field, "unused")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Unused;
 
 		public unsafe SDLKeysym(SDLScancode scancode = default, int sym = default, ushort mod = default, uint unused = default)

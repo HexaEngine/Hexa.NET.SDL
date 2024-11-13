@@ -18,25 +18,16 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Type for test images.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_SurfaceImage_s")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestSurfaceImageS
 	{
-		[NativeName(NativeNameType.Field, "width")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Width;
-		[NativeName(NativeNameType.Field, "height")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Height;
 		/// <summary>
 		/// 3:RGB, 4:RGBA <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "bytes_per_pixel")]
-		[NativeName(NativeNameType.Type, "unsigned int")]
 		public uint BytesPerPixel;
 
-		[NativeName(NativeNameType.Field, "pixel_data")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* PixelData;
 
 		public unsafe SDLTestSurfaceImageS(int width = default, int height = default, uint bytesPerPixel = default, byte* pixelData = default)

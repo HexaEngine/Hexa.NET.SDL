@@ -18,20 +18,15 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_WindowShapeParams")]
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct SDLWindowShapeParams
 	{
 		/// <summary>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "binarizationCutoff")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		[FieldOffset(0)]
 		public byte BinarizationCutoff;
 
-		[NativeName(NativeNameType.Field, "colorKey")]
-		[NativeName(NativeNameType.Type, "SDL_Color")]
 		[FieldOffset(0)]
 		public SDLColor ColorKey;
 

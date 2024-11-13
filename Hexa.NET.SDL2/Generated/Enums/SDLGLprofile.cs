@@ -12,21 +12,14 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.Enum, "SDL_GLprofile")]
 	[Flags]
 	public enum SDLGLprofile : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_PROFILE_CORE")]
-		[NativeName(NativeNameType.Value, "1")]
 		GlContextProfileCore = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_PROFILE_COMPATIBILITY")]
-		[NativeName(NativeNameType.Value, "2")]
 		GlContextProfileCompatibility = unchecked(2),
 		/// <summary>
 		/// GLX_CONTEXT_ES2_PROFILE_BIT_EXT <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_PROFILE_ES")]
-		[NativeName(NativeNameType.Value, "4")]
 		GlContextProfileEs = unchecked(4),
 	}
 }

@@ -18,71 +18,52 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MouseMotionEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMouseMotionEvent
 	{
 		/// <summary>
 		/// ::SDL_MOUSEMOTION <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The window with mouse focus, if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The mouse instance id, or SDL_TOUCH_MOUSEID <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Which;
 
 		/// <summary>
 		/// The current button state <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint State;
 
 		/// <summary>
 		/// X coordinate, relative to window <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int X;
 
 		/// <summary>
 		/// Y coordinate, relative to window <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Y;
 
 		/// <summary>
 		/// The relative motion in the X direction <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "xrel")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Xrel;
 
 		/// <summary>
 		/// The relative motion in the Y direction <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "yrel")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Yrel;
 
 

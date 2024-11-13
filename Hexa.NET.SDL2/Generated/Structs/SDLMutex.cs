@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The SDL mutex structure, defined in SDL_sysmutex.c <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_mutex")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMutex
 	{

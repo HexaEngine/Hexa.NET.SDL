@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_hid_device_")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHidDevice
 	{

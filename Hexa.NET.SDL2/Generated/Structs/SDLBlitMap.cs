@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "SDL_BlitMap")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLBlitMap
 	{

@@ -18,4698 +18,2013 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] ulong num)
-		{
-			ulong ret = RWwriteNative(context, ptr, size, num);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] ulong num)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			ulong ret = RWwriteNative(context, ptr, size, num);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			ulong ret = RWwriteNative(context, ptr, size, num);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write to an SDL_RWops data stream.<br/>
-		/// This function writes exactly `num` objects each of size `size` from the<br/>
-		/// area pointed at by `ptr` to the stream. If this fails for any reason, it'll<br/>
-		/// return less than `num` to demonstrate how far the write progressed. On<br/>
-		/// success, it returns `num`.<br/>
-		/// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's<br/>
-		/// `write` method appropriately, to simplify application development.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWwrite")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong RWwrite([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context, [NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "const void*")] void* ptr, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "size_t")] nuint num)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				ulong ret = RWwriteNative((SDLRWops*)pcontext, ptr, size, num);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWclose")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RWcloseNative([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int>)funcTable[195])(context);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[195])((nint)context);
-			#endif
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWclose")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RWclose([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* context)
-		{
-			int ret = RWcloseNative(context);
-			return ret;
-		}
-
-		/// <summary>
-		/// Close and free an allocated SDL_RWops structure.<br/>
-		/// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any<br/>
-		/// resources used by the stream and frees the SDL_RWops itself with<br/>
-		/// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to<br/>
-		/// flush to its output (e.g. to disk).<br/>
-		/// Note that if this fails to flush the stream to disk, this function reports<br/>
-		/// an error, but the SDL_RWops is still invalid once this function returns.<br/>
-		/// Prior to SDL 2.0.10, this function was a macro.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RWclose")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RWclose([NativeName(NativeNameType.Param, "context")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops context)
-		{
-			fixed (SDLRWops* pcontext = &context)
-			{
-				int ret = RWcloseNative((SDLRWops*)pcontext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* LoadFileRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong*, int, void*>)funcTable[196])(src, datasize, freesrc);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, int, nint>)funcTable[196])((nint)src, (nint)datasize, freesrc);
-			#endif
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
-		{
-			void* ret = LoadFileRWNative(src, datasize, freesrc);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				void* ret = LoadFileRWNative((SDLRWops*)psrc, datasize, freesrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = LoadFileRWNative(src, (ulong*)pdatasize, freesrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from an SDL data stream.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile_RW")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFileRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileRWNative((SDLRWops*)psrc, (ulong*)pdatasize, freesrc);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* LoadFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, ulong*, void*>)funcTable[197])(file, datasize);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[197])((nint)file, (nint)datasize);
-			#endif
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
-		{
-			void* ret = LoadFileNative(file, datasize);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
-		{
-			fixed (byte* pfile = &file)
-			{
-				void* ret = LoadFileNative((byte*)pfile, datasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
-		{
-			fixed (byte* pfile = file)
-			{
-				void* ret = LoadFileNative((byte*)pfile, datasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ulong* datasize)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			void* ret = LoadFileNative(pStr0, datasize);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] byte* file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
-		{
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = LoadFileNative(file, (ulong*)pdatasize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ref byte file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
-		{
-			fixed (byte* pfile = &file)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileNative((byte*)pfile, (ulong*)pdatasize);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
-		{
-			fixed (byte* pfile = file)
-			{
-				fixed (nuint* pdatasize = &datasize)
-				{
-					void* ret = LoadFileNative((byte*)pfile, (ulong*)pdatasize);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load all the data from a file path.<br/>
-		/// The data is allocated with a zero byte at the end (null terminated) for<br/>
-		/// convenience. This extra byte is not included in the value reported via<br/>
-		/// `datasize`.<br/>
-		/// The data should be freed with SDL_free().<br/>
-		/// Prior to SDL 2.0.10, this function was a macro wrapping around<br/>
-		/// SDL_LoadFile_RW.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadFile")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* LoadFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "const char*")] string file, [NativeName(NativeNameType.Param, "datasize")] [NativeName(NativeNameType.Type, "size_t*")] ref nuint datasize)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (nuint* pdatasize = &datasize)
-			{
-				void* ret = LoadFileNative(pStr0, (ulong*)pdatasize);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadU8")]
-		[return: NativeName(NativeNameType.Type, "Uint8")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte ReadU8Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte>)funcTable[198])(src);
-			#else
-			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[198])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadU8")]
-		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte ReadU8([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			byte ret = ReadU8Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read a byte from an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadU8")]
-		[return: NativeName(NativeNameType.Type, "Uint8")]
-		public static byte ReadU8([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				byte ret = ReadU8Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort ReadLE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[199])(src);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[199])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort ReadLE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			ushort ret = ReadLE16Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort ReadLE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ushort ret = ReadLE16Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort ReadBE16Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[200])(src);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[200])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort ReadBE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			ushort ret = ReadBE16Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort ReadBE16([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ushort ret = ReadBE16Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint ReadLE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[201])(src);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[201])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint ReadLE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			uint ret = ReadLE32Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint ReadLE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				uint ret = ReadLE32Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint ReadBE32Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[202])(src);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[202])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint ReadBE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			uint ret = ReadBE32Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint ReadBE32([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				uint ret = ReadBE32Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong ReadLE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[203])(src);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[203])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong ReadLE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			ulong ret = ReadLE64Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadLE64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong ReadLE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ulong ret = ReadLE64Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong ReadBE64Native([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[204])(src);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[204])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong ReadBE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src)
-		{
-			ulong ret = ReadBE64Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ReadBE64")]
-		[return: NativeName(NativeNameType.Type, "Uint64")]
-		public static ulong ReadBE64([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ulong ret = ReadBE64Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteU8")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WriteU8Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, ulong>)funcTable[205])(dst, value);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, byte, ulong>)funcTable[205])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteU8")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteU8([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
-		{
-			ulong ret = WriteU8Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteU8")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteU8([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint8")] byte value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				ulong ret = WriteU8Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE16")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WriteLE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)funcTable[206])(dst, value);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ushort, ulong>)funcTable[206])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE16")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteLE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
-		{
-			ulong ret = WriteLE16Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE16")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteLE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				ulong ret = WriteLE16Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE16")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WriteBE16Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, ulong>)funcTable[207])(dst, value);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ushort, ulong>)funcTable[207])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE16")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteBE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
-		{
-			ulong ret = WriteBE16Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE16")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteBE16([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint16")] ushort value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				ulong ret = WriteBE16Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE32")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WriteLE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)funcTable[208])(dst, value);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, uint, ulong>)funcTable[208])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE32")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteLE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
-		{
-			ulong ret = WriteLE32Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE32")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteLE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				ulong ret = WriteLE32Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE32")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WriteBE32Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, ulong>)funcTable[209])(dst, value);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, uint, ulong>)funcTable[209])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE32")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteBE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
-		{
-			ulong ret = WriteBE32Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE32")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteBE32([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint32")] uint value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				ulong ret = WriteBE32Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE64")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WriteLE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)funcTable[210])(dst, value);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong, ulong>)funcTable[210])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE64")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteLE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
-		{
-			ulong ret = WriteLE64Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteLE64")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteLE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				ulong ret = WriteLE64Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE64")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WriteBE64Native([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong, ulong>)funcTable[211])(dst, value);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong, ulong>)funcTable[211])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE64")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteBE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
-		{
-			ulong ret = WriteBE64Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WriteBE64")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong WriteBE64([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops dst, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Uint64")] ulong value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				ulong ret = WriteBE64Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to get the number of built-in audio drivers.<br/>
-		/// This function returns a hardcoded number. This never returns a negative<br/>
-		/// value; if there are no drivers compiled into this build of SDL, this<br/>
-		/// function returns zero. The presence of a driver in this list does not mean<br/>
-		/// it will function, it just means SDL is capable of interacting with that<br/>
-		/// interface. For example, a build of SDL might have esound support, but if<br/>
-		/// there's no esound server available, SDL's esound driver would fail if used.<br/>
-		/// By default, SDL tries all drivers, in its preferred order, until one is<br/>
-		/// found to be usable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumAudioDriversNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[212])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[212])();
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the number of built-in audio drivers.<br/>
-		/// This function returns a hardcoded number. This never returns a negative<br/>
-		/// value; if there are no drivers compiled into this build of SDL, this<br/>
-		/// function returns zero. The presence of a driver in this list does not mean<br/>
-		/// it will function, it just means SDL is capable of interacting with that<br/>
-		/// interface. For example, a build of SDL might have esound support, but if<br/>
-		/// there's no esound server available, SDL's esound driver would fail if used.<br/>
-		/// By default, SDL tries all drivers, in its preferred order, until one is<br/>
-		/// found to be usable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDrivers")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumAudioDrivers()
-		{
-			int ret = GetNumAudioDriversNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in audio driver.<br/>
-		/// The list of audio drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "xaudio2". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDriver")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetAudioDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[213])(index);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[213])(index);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in audio driver.<br/>
-		/// The list of audio drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "xaudio2". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDriver")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* GetAudioDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			byte* ret = GetAudioDriverNative(index);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to get the name of a built in audio driver.<br/>
-		/// The list of audio drivers is given in the order that they are normally<br/>
-		/// initialized by default; the drivers that seem more reasonable to choose<br/>
-		/// first (as far as the SDL developers believe) are earlier in the list.<br/>
-		/// The names of drivers are all simple, low-ASCII identifiers, like "alsa",<br/>
-		/// "coreaudio" or "xaudio2". These never have Unicode characters, and are not<br/>
-		/// meant to be proper names.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDriver")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string GetAudioDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
-		{
-			string ret = Utils.DecodeStringUTF8(GetAudioDriverNative(index));
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to initialize a particular audio driver.<br/>
-		/// This function is used internally, and should not be used unless you have a<br/>
-		/// specific need to designate the audio driver you want to use. You should<br/>
-		/// normally use SDL_Init() or SDL_InitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioInitNative([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[214])(driverName);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[214])((nint)driverName);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to initialize a particular audio driver.<br/>
-		/// This function is used internally, and should not be used unless you have a<br/>
-		/// specific need to designate the audio driver you want to use. You should<br/>
-		/// normally use SDL_Init() or SDL_InitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] byte* driverName)
-		{
-			int ret = AudioInitNative(driverName);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to initialize a particular audio driver.<br/>
-		/// This function is used internally, and should not be used unless you have a<br/>
-		/// specific need to designate the audio driver you want to use. You should<br/>
-		/// normally use SDL_Init() or SDL_InitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] ref byte driverName)
-		{
-			fixed (byte* pdriverName = &driverName)
-			{
-				int ret = AudioInitNative((byte*)pdriverName);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to initialize a particular audio driver.<br/>
-		/// This function is used internally, and should not be used unless you have a<br/>
-		/// specific need to designate the audio driver you want to use. You should<br/>
-		/// normally use SDL_Init() or SDL_InitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> driverName)
-		{
-			fixed (byte* pdriverName = driverName)
-			{
-				int ret = AudioInitNative((byte*)pdriverName);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to initialize a particular audio driver.<br/>
-		/// This function is used internally, and should not be used unless you have a<br/>
-		/// specific need to designate the audio driver you want to use. You should<br/>
-		/// normally use SDL_Init() or SDL_InitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioInit([NativeName(NativeNameType.Param, "driver_name")] [NativeName(NativeNameType.Type, "const char*")] string driverName)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (driverName != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(driverName);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(driverName, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = AudioInitNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to shut down audio if you initialized it with<br/>
-		/// SDL_AudioInit().<br/>
-		/// This function is used internally, and should not be used unless you have a<br/>
-		/// specific need to specify the audio driver you want to use. You should<br/>
-		/// normally use SDL_Quit() or SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioQuit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AudioQuitNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[215])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[215])();
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to shut down audio if you initialized it with<br/>
-		/// SDL_AudioInit().<br/>
-		/// This function is used internally, and should not be used unless you have a<br/>
-		/// specific need to specify the audio driver you want to use. You should<br/>
-		/// normally use SDL_Quit() or SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioQuit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void AudioQuit()
-		{
-			AudioQuitNative();
-		}
-
-		/// <summary>
-		/// Get the name of the current audio driver.<br/>
-		/// The returned string points to internal static memory and thus never becomes<br/>
-		/// invalid, even if you quit the audio subsystem and initialize a new driver<br/>
-		/// (although such a case would return a different static string from another<br/>
-		/// call to this function, of course). As such, you should not modify or free<br/>
-		/// the returned string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentAudioDriver")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetCurrentAudioDriverNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[216])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[216])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name of the current audio driver.<br/>
-		/// The returned string points to internal static memory and thus never becomes<br/>
-		/// invalid, even if you quit the audio subsystem and initialize a new driver<br/>
-		/// (although such a case would return a different static string from another<br/>
-		/// call to this function, of course). As such, you should not modify or free<br/>
-		/// the returned string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentAudioDriver")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* GetCurrentAudioDriver()
-		{
-			byte* ret = GetCurrentAudioDriverNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name of the current audio driver.<br/>
-		/// The returned string points to internal static memory and thus never becomes<br/>
-		/// invalid, even if you quit the audio subsystem and initialize a new driver<br/>
-		/// (although such a case would return a different static string from another<br/>
-		/// call to this function, of course). As such, you should not modify or free<br/>
-		/// the returned string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCurrentAudioDriver")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string GetCurrentAudioDriverS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetCurrentAudioDriverNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// This function is a legacy means of opening the audio device.<br/>
-		/// This function remains for compatibility with SDL 1.2, but also because it's<br/>
-		/// slightly easier to use than the new functions in SDL 2.0. The new, more<br/>
-		/// powerful, and preferred way to do this is SDL_OpenAudioDevice().<br/>
-		/// This function is roughly equivalent to:<br/>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
 		/// ```c<br/>
-		/// SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
 		/// ```<br/>
-		/// With two notable exceptions:<br/>
-		/// - If `obtained` is NULL, we use `desired` (and allow no changes), which<br/>
-		/// means desired will be modified to have the correct values for silence,<br/>
-		/// etc, and SDL will convert any differences between your app's specific<br/>
-		/// request and the hardware behind the scenes.<br/>
-		/// - The return value is always success or failure, and not a device ID, which<br/>
-		/// means you can only have one device open at a time with this function.<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
 		/// <br/>
-		/// If `obtained` is NULL, the audio data passed to the callback<br/>
-		/// function will be guaranteed to be in the requested format, and<br/>
-		/// will be automatically converted to the actual hardware audio<br/>
-		/// format if necessary. If `obtained` is NULL, `desired` will have<br/>
-		/// fields modified.<br/>
-		/// This function returns a negative error code on failure to open the<br/>
-		/// audio device or failure to set up the audio thread; call<br/>
-		/// SDL_GetError() for more information.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		public static void MixAudio(byte* dst, byte* src, uint len, int volume)
+		{
+			MixAudioNative(dst, src, len, volume);
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(ref byte dst, byte* src, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				MixAudioNative((byte*)pdst, src, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(byte* dst, ref byte src, uint len, int volume)
+		{
+			fixed (byte* psrc = &src)
+			{
+				MixAudioNative(dst, (byte*)psrc, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(ref byte dst, ref byte src, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					MixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int OpenAudioNative([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
+		internal static void MixAudioFormatNative(byte* dst, byte* src, ushort format, uint len, int volume)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioSpec*, SDLAudioSpec*, int>)funcTable[217])(desired, obtained);
+			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)funcTable[239])(dst, src, format, len, volume);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[217])((nint)desired, (nint)obtained);
+			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)funcTable[239])((nint)dst, (nint)src, format, len, volume);
 			#endif
 		}
 
 		/// <summary>
-		/// This function is a legacy means of opening the audio device.<br/>
-		/// This function remains for compatibility with SDL 1.2, but also because it's<br/>
-		/// slightly easier to use than the new functions in SDL 2.0. The new, more<br/>
-		/// powerful, and preferred way to do this is SDL_OpenAudioDevice().<br/>
-		/// This function is roughly equivalent to:<br/>
-		/// ```c<br/>
-		/// SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);<br/>
-		/// ```<br/>
-		/// With two notable exceptions:<br/>
-		/// - If `obtained` is NULL, we use `desired` (and allow no changes), which<br/>
-		/// means desired will be modified to have the correct values for silence,<br/>
-		/// etc, and SDL will convert any differences between your app's specific<br/>
-		/// request and the hardware behind the scenes.<br/>
-		/// - The return value is always success or failure, and not a device ID, which<br/>
-		/// means you can only have one device open at a time with this function.<br/>
-		/// <br/>
-		/// If `obtained` is NULL, the audio data passed to the callback<br/>
-		/// function will be guaranteed to be in the requested format, and<br/>
-		/// will be automatically converted to the actual hardware audio<br/>
-		/// format if necessary. If `obtained` is NULL, `desired` will have<br/>
-		/// fields modified.<br/>
-		/// This function returns a negative error code on failure to open the<br/>
-		/// audio device or failure to set up the audio thread; call<br/>
-		/// SDL_GetError() for more information.<br/>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
+		public static void MixAudioFormat(byte* dst, byte* src, ushort format, uint len, int volume)
 		{
-			int ret = OpenAudioNative(desired, obtained);
-			return ret;
+			MixAudioFormatNative(dst, src, format, len, volume);
 		}
 
 		/// <summary>
-		/// This function is a legacy means of opening the audio device.<br/>
-		/// This function remains for compatibility with SDL 1.2, but also because it's<br/>
-		/// slightly easier to use than the new functions in SDL 2.0. The new, more<br/>
-		/// powerful, and preferred way to do this is SDL_OpenAudioDevice().<br/>
-		/// This function is roughly equivalent to:<br/>
-		/// ```c<br/>
-		/// SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);<br/>
-		/// ```<br/>
-		/// With two notable exceptions:<br/>
-		/// - If `obtained` is NULL, we use `desired` (and allow no changes), which<br/>
-		/// means desired will be modified to have the correct values for silence,<br/>
-		/// etc, and SDL will convert any differences between your app's specific<br/>
-		/// request and the hardware behind the scenes.<br/>
-		/// - The return value is always success or failure, and not a device ID, which<br/>
-		/// means you can only have one device open at a time with this function.<br/>
-		/// <br/>
-		/// If `obtained` is NULL, the audio data passed to the callback<br/>
-		/// function will be guaranteed to be in the requested format, and<br/>
-		/// will be automatically converted to the actual hardware audio<br/>
-		/// format if necessary. If `obtained` is NULL, `desired` will have<br/>
-		/// fields modified.<br/>
-		/// This function returns a negative error code on failure to open the<br/>
-		/// audio device or failure to set up the audio thread; call<br/>
-		/// SDL_GetError() for more information.<br/>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained)
+		public static void MixAudioFormat(ref byte dst, byte* src, ushort format, uint len, int volume)
 		{
-			fixed (SDLAudioSpec* pdesired = &desired)
+			fixed (byte* pdst = &dst)
 			{
-				int ret = OpenAudioNative((SDLAudioSpec*)pdesired, obtained);
-				return ret;
+				MixAudioFormatNative((byte*)pdst, src, format, len, volume);
 			}
 		}
 
 		/// <summary>
-		/// This function is a legacy means of opening the audio device.<br/>
-		/// This function remains for compatibility with SDL 1.2, but also because it's<br/>
-		/// slightly easier to use than the new functions in SDL 2.0. The new, more<br/>
-		/// powerful, and preferred way to do this is SDL_OpenAudioDevice().<br/>
-		/// This function is roughly equivalent to:<br/>
-		/// ```c<br/>
-		/// SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);<br/>
-		/// ```<br/>
-		/// With two notable exceptions:<br/>
-		/// - If `obtained` is NULL, we use `desired` (and allow no changes), which<br/>
-		/// means desired will be modified to have the correct values for silence,<br/>
-		/// etc, and SDL will convert any differences between your app's specific<br/>
-		/// request and the hardware behind the scenes.<br/>
-		/// - The return value is always success or failure, and not a device ID, which<br/>
-		/// means you can only have one device open at a time with this function.<br/>
-		/// <br/>
-		/// If `obtained` is NULL, the audio data passed to the callback<br/>
-		/// function will be guaranteed to be in the requested format, and<br/>
-		/// will be automatically converted to the actual hardware audio<br/>
-		/// format if necessary. If `obtained` is NULL, `desired` will have<br/>
-		/// fields modified.<br/>
-		/// This function returns a negative error code on failure to open the<br/>
-		/// audio device or failure to set up the audio thread; call<br/>
-		/// SDL_GetError() for more information.<br/>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained)
+		public static void MixAudioFormat(byte* dst, ref byte src, ushort format, uint len, int volume)
 		{
-			fixed (SDLAudioSpec* pobtained = &obtained)
+			fixed (byte* psrc = &src)
 			{
-				int ret = OpenAudioNative(desired, (SDLAudioSpec*)pobtained);
-				return ret;
+				MixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
 			}
 		}
 
 		/// <summary>
-		/// This function is a legacy means of opening the audio device.<br/>
-		/// This function remains for compatibility with SDL 1.2, but also because it's<br/>
-		/// slightly easier to use than the new functions in SDL 2.0. The new, more<br/>
-		/// powerful, and preferred way to do this is SDL_OpenAudioDevice().<br/>
-		/// This function is roughly equivalent to:<br/>
-		/// ```c<br/>
-		/// SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);<br/>
-		/// ```<br/>
-		/// With two notable exceptions:<br/>
-		/// - If `obtained` is NULL, we use `desired` (and allow no changes), which<br/>
-		/// means desired will be modified to have the correct values for silence,<br/>
-		/// etc, and SDL will convert any differences between your app's specific<br/>
-		/// request and the hardware behind the scenes.<br/>
-		/// - The return value is always success or failure, and not a device ID, which<br/>
-		/// means you can only have one device open at a time with this function.<br/>
-		/// <br/>
-		/// If `obtained` is NULL, the audio data passed to the callback<br/>
-		/// function will be guaranteed to be in the requested format, and<br/>
-		/// will be automatically converted to the actual hardware audio<br/>
-		/// format if necessary. If `obtained` is NULL, `desired` will have<br/>
-		/// fields modified.<br/>
-		/// This function returns a negative error code on failure to open the<br/>
-		/// audio device or failure to set up the audio thread; call<br/>
-		/// SDL_GetError() for more information.<br/>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int OpenAudio([NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained)
+		public static void MixAudioFormat(ref byte dst, ref byte src, ushort format, uint len, int volume)
 		{
-			fixed (SDLAudioSpec* pdesired = &desired)
+			fixed (byte* pdst = &dst)
 			{
-				fixed (SDLAudioSpec* pobtained = &obtained)
+				fixed (byte* psrc = &src)
 				{
-					int ret = OpenAudioNative((SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained);
-					return ret;
+					MixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the number of built-in audio devices.<br/>
-		/// This function is only valid after successfully initializing the audio<br/>
-		/// subsystem.<br/>
-		/// Note that audio capture support is not implemented as of SDL 2.0.4, so the<br/>
-		/// `iscapture` parameter is for future expansion and should always be zero for<br/>
-		/// now.<br/>
-		/// This function will return -1 if an explicit list of devices can't be<br/>
-		/// determined. Returning -1 is not an error. For example, if SDL is set up to<br/>
-		/// talk to a remote audio server, it can't list every one available on the<br/>
-		/// Internet, but it will still allow a specific host to be specified in<br/>
-		/// SDL_OpenAudioDevice().<br/>
-		/// In many common cases, when this function returns a value <br/>
-		/// <<br/>
-		/// = 0, it can still<br/>
-		/// successfully open the default device (NULL for first argument of<br/>
-		/// SDL_OpenAudioDevice()).<br/>
-		/// This function may trigger a complete redetect of available hardware. It<br/>
-		/// should not be called for each iteration of a loop, but rather once at the<br/>
-		/// start of a loop:<br/>
-		/// ```c<br/>
-		/// // Don't do this:<br/>
-		/// for (int i = 0; i <br/>
-		/// <<br/>
-		/// SDL_GetNumAudioDevices(0); i++)<br/>
-		/// // do this instead:<br/>
-		/// const int count = SDL_GetNumAudioDevices(0);<br/>
-		/// for (int i = 0; i <br/>
-		/// <<br/>
-		/// count; ++i) { do_something_here(); }<br/>
-		/// ```<br/>
+		/// Queue more audio on non-callback devices.<br/>
+		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
+		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
+		/// -1 to signify an error if you use it with capture devices.<br/>
+		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
+		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
+		/// method), or you can supply no callback, and then SDL will expect you to<br/>
+		/// supply data at regular intervals (push method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Queued data will drain to the device as<br/>
+		/// necessary without further intervention from you. If the device needs audio<br/>
+		/// but there is not enough queued, it will play silence to make up the<br/>
+		/// difference. This means you will have skips in your audio playback if you<br/>
+		/// aren't routinely queueing sufficient data.<br/>
+		/// This function copies the supplied data, so you are safe to free it when the<br/>
+		/// function returns. This function is thread-safe, but queueing to the same<br/>
+		/// device from two threads at once does not promise which buffer will be<br/>
+		/// queued first.<br/>
+		/// You may not queue audio on a device that is using an application-supplied<br/>
+		/// callback; doing so returns an error. You have to use the audio callback or<br/>
+		/// queue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
+		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
+		/// before queuing audio.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDevices")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetNumAudioDevicesNative([NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
+		internal static int QueueAudioNative(uint dev, void* data, uint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[218])(iscapture);
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)funcTable[240])(dev, data, len);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[218])(iscapture);
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)funcTable[240])(dev, (nint)data, len);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the number of built-in audio devices.<br/>
-		/// This function is only valid after successfully initializing the audio<br/>
-		/// subsystem.<br/>
-		/// Note that audio capture support is not implemented as of SDL 2.0.4, so the<br/>
-		/// `iscapture` parameter is for future expansion and should always be zero for<br/>
-		/// now.<br/>
-		/// This function will return -1 if an explicit list of devices can't be<br/>
-		/// determined. Returning -1 is not an error. For example, if SDL is set up to<br/>
-		/// talk to a remote audio server, it can't list every one available on the<br/>
-		/// Internet, but it will still allow a specific host to be specified in<br/>
-		/// SDL_OpenAudioDevice().<br/>
-		/// In many common cases, when this function returns a value <br/>
-		/// <<br/>
-		/// = 0, it can still<br/>
-		/// successfully open the default device (NULL for first argument of<br/>
-		/// SDL_OpenAudioDevice()).<br/>
-		/// This function may trigger a complete redetect of available hardware. It<br/>
-		/// should not be called for each iteration of a loop, but rather once at the<br/>
-		/// start of a loop:<br/>
+		/// Queue more audio on non-callback devices.<br/>
+		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
+		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
+		/// -1 to signify an error if you use it with capture devices.<br/>
+		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
+		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
+		/// method), or you can supply no callback, and then SDL will expect you to<br/>
+		/// supply data at regular intervals (push method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Queued data will drain to the device as<br/>
+		/// necessary without further intervention from you. If the device needs audio<br/>
+		/// but there is not enough queued, it will play silence to make up the<br/>
+		/// difference. This means you will have skips in your audio playback if you<br/>
+		/// aren't routinely queueing sufficient data.<br/>
+		/// This function copies the supplied data, so you are safe to free it when the<br/>
+		/// function returns. This function is thread-safe, but queueing to the same<br/>
+		/// device from two threads at once does not promise which buffer will be<br/>
+		/// queued first.<br/>
+		/// You may not queue audio on a device that is using an application-supplied<br/>
+		/// callback; doing so returns an error. You have to use the audio callback or<br/>
+		/// queue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
+		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
+		/// before queuing audio.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueueAudio(uint dev, void* data, uint len)
+		{
+			int ret = QueueAudioNative(dev, data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Dequeue more audio on non-callback devices.<br/>
+		/// If you are looking to queue audio for output on a non-callback playback<br/>
+		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
+		/// return 0 if you use it with playback devices.<br/>
+		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
+		/// supply a callback that SDL triggers with some frequency as the device<br/>
+		/// records more audio data, (push method), or you can supply no callback, and<br/>
+		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
+		/// method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Data from the device will keep queuing as<br/>
+		/// necessary without further intervention from you. This means you will<br/>
+		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
+		/// Capture devices will not queue data when paused; if you are expecting to<br/>
+		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
+		/// to stop the capture device from queueing more data. This can be useful<br/>
+		/// during, say, level loading times. When unpaused, capture devices will start<br/>
+		/// queueing data from that point, having flushed any capturable data available<br/>
+		/// while paused.<br/>
+		/// This function is thread-safe, but dequeueing from the same device from two<br/>
+		/// threads at once does not promise which thread will dequeue data first.<br/>
+		/// You may not dequeue audio from a device that is using an<br/>
+		/// application-supplied callback; doing so returns an error. You have to use<br/>
+		/// the audio callback, or dequeue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint DequeueAudioNative(uint dev, void* data, uint len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)funcTable[241])(dev, data, len);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)funcTable[241])(dev, (nint)data, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Dequeue more audio on non-callback devices.<br/>
+		/// If you are looking to queue audio for output on a non-callback playback<br/>
+		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
+		/// return 0 if you use it with playback devices.<br/>
+		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
+		/// supply a callback that SDL triggers with some frequency as the device<br/>
+		/// records more audio data, (push method), or you can supply no callback, and<br/>
+		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
+		/// method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Data from the device will keep queuing as<br/>
+		/// necessary without further intervention from you. This means you will<br/>
+		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
+		/// Capture devices will not queue data when paused; if you are expecting to<br/>
+		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
+		/// to stop the capture device from queueing more data. This can be useful<br/>
+		/// during, say, level loading times. When unpaused, capture devices will start<br/>
+		/// queueing data from that point, having flushed any capturable data available<br/>
+		/// while paused.<br/>
+		/// This function is thread-safe, but dequeueing from the same device from two<br/>
+		/// threads at once does not promise which thread will dequeue data first.<br/>
+		/// You may not dequeue audio from a device that is using an<br/>
+		/// application-supplied callback; doing so returns an error. You have to use<br/>
+		/// the audio callback, or dequeue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint DequeueAudio(uint dev, void* data, uint len)
+		{
+			uint ret = DequeueAudioNative(dev, data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of bytes of still-queued audio.<br/>
+		/// For playback devices: this is the number of bytes that have been queued for<br/>
+		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
+		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
+		/// byte boundary of what has been played. It's possible that we just gave the<br/>
+		/// hardware several kilobytes right before you called this function, but it<br/>
+		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
+		/// For capture devices, this is the number of bytes that have been captured by<br/>
+		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
+		/// time, so this only informs of the lower-bound of available data.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetQueuedAudioSizeNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of bytes of still-queued audio.<br/>
+		/// For playback devices: this is the number of bytes that have been queued for<br/>
+		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
+		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
+		/// byte boundary of what has been played. It's possible that we just gave the<br/>
+		/// hardware several kilobytes right before you called this function, but it<br/>
+		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
+		/// For capture devices, this is the number of bytes that have been captured by<br/>
+		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
+		/// time, so this only informs of the lower-bound of available data.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetQueuedAudioSize(uint dev)
+		{
+			uint ret = GetQueuedAudioSizeNative(dev);
+			return ret;
+		}
+
+		/// <summary>
+		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
+		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
+		/// output devices, the hardware will start playing silence if more audio isn't<br/>
+		/// queued. For capture devices, the hardware will start filling the empty<br/>
+		/// queue with new data if the capture device isn't paused.<br/>
+		/// This will not prevent playback of queued audio that's already been sent to<br/>
+		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
+		/// of a second of audio that might still be heard. This can be useful if you<br/>
+		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
+		/// during a level change in your game.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
+		/// queue; SDL handles locking internally for this function.<br/>
+		/// This function always succeeds and thus returns void.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ClearQueuedAudioNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
+		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
+		/// output devices, the hardware will start playing silence if more audio isn't<br/>
+		/// queued. For capture devices, the hardware will start filling the empty<br/>
+		/// queue with new data if the capture device isn't paused.<br/>
+		/// This will not prevent playback of queued audio that's already been sent to<br/>
+		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
+		/// of a second of audio that might still be heard. This can be useful if you<br/>
+		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
+		/// during a level change in your game.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
+		/// queue; SDL handles locking internally for this function.<br/>
+		/// This function always succeeds and thus returns void.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ClearQueuedAudio(uint dev)
+		{
+			ClearQueuedAudioNative(dev);
+		}
+
+		/// <summary>
+		/// This function is a legacy means of locking the audio device.<br/>
+		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
+		/// is equivalent to calling...<br/>
 		/// ```c<br/>
-		/// // Don't do this:<br/>
-		/// for (int i = 0; i <br/>
-		/// <<br/>
-		/// SDL_GetNumAudioDevices(0); i++)<br/>
-		/// // do this instead:<br/>
-		/// const int count = SDL_GetNumAudioDevices(0);<br/>
-		/// for (int i = 0; i <br/>
-		/// <<br/>
-		/// count; ++i) { do_something_here(); }<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAudioDevices")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumAudioDevices([NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			int ret = GetNumAudioDevicesNative(iscapture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the human-readable name of a specific audio device.<br/>
-		/// This function is only valid after successfully initializing the audio<br/>
-		/// subsystem. The values returned by this function reflect the latest call to<br/>
-		/// SDL_GetNumAudioDevices(); re-call that function to redetect available<br/>
-		/// hardware.<br/>
-		/// The string returned by this function is UTF-8 encoded, read-only, and<br/>
-		/// managed internally. You are not to free it. If you need to keep the string<br/>
-		/// for any length of time, you should make your own copy of it, as it will be<br/>
-		/// invalid next time any of several other SDL functions are called.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetAudioDeviceNameNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, byte*>)funcTable[219])(index, iscapture);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, int, nint>)funcTable[219])(index, iscapture);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the human-readable name of a specific audio device.<br/>
-		/// This function is only valid after successfully initializing the audio<br/>
-		/// subsystem. The values returned by this function reflect the latest call to<br/>
-		/// SDL_GetNumAudioDevices(); re-call that function to redetect available<br/>
-		/// hardware.<br/>
-		/// The string returned by this function is UTF-8 encoded, read-only, and<br/>
-		/// managed internally. You are not to free it. If you need to keep the string<br/>
-		/// for any length of time, you should make your own copy of it, as it will be<br/>
-		/// invalid next time any of several other SDL functions are called.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* GetAudioDeviceName([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			byte* ret = GetAudioDeviceNameNative(index, iscapture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the human-readable name of a specific audio device.<br/>
-		/// This function is only valid after successfully initializing the audio<br/>
-		/// subsystem. The values returned by this function reflect the latest call to<br/>
-		/// SDL_GetNumAudioDevices(); re-call that function to redetect available<br/>
-		/// hardware.<br/>
-		/// The string returned by this function is UTF-8 encoded, read-only, and<br/>
-		/// managed internally. You are not to free it. If you need to keep the string<br/>
-		/// for any length of time, you should make your own copy of it, as it will be<br/>
-		/// invalid next time any of several other SDL functions are called.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string GetAudioDeviceNameS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			string ret = Utils.DecodeStringUTF8(GetAudioDeviceNameNative(index, iscapture));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the preferred audio format of a specific audio device.<br/>
-		/// This function is only valid after a successfully initializing the audio<br/>
-		/// subsystem. The values returned by this function reflect the latest call to<br/>
-		/// SDL_GetNumAudioDevices(); re-call that function to redetect available<br/>
-		/// hardware.<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceSpec")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetAudioDeviceSpecNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int, SDLAudioSpec*, int>)funcTable[220])(index, iscapture, spec);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int, nint, int>)funcTable[220])(index, iscapture, (nint)spec);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the preferred audio format of a specific audio device.<br/>
-		/// This function is only valid after a successfully initializing the audio<br/>
-		/// subsystem. The values returned by this function reflect the latest call to<br/>
-		/// SDL_GetNumAudioDevices(); re-call that function to redetect available<br/>
-		/// hardware.<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceSpec")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetAudioDeviceSpec([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec)
-		{
-			int ret = GetAudioDeviceSpecNative(index, iscapture, spec);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the preferred audio format of a specific audio device.<br/>
-		/// This function is only valid after a successfully initializing the audio<br/>
-		/// subsystem. The values returned by this function reflect the latest call to<br/>
-		/// SDL_GetNumAudioDevices(); re-call that function to redetect available<br/>
-		/// hardware.<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceSpec")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetAudioDeviceSpec([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				int ret = GetAudioDeviceSpecNative(index, iscapture, (SDLAudioSpec*)pspec);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the name and preferred format of the default audio device.<br/>
-		/// Some (but not all!) platforms have an isolated mechanism to get information<br/>
-		/// about the "default" device. This can actually be a completely different<br/>
-		/// device that's not in the list you get from SDL_GetAudioDeviceSpec(). It can<br/>
-		/// even be a network address! (This is discussed in SDL_OpenAudioDevice().)<br/>
-		/// As a result, this call is not guaranteed to be performant, as it can query<br/>
-		/// the sound server directly every time, unlike the other query functions. You<br/>
-		/// should call this function sparingly!<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count, if a default device exists on the system. If `name` is provided,<br/>
-		/// will be filled with either a dynamically-allocated UTF-8 string or NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetDefaultAudioInfoNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte**, SDLAudioSpec*, int, int>)funcTable[221])(name, spec, iscapture);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[221])((nint)name, (nint)spec, iscapture);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the name and preferred format of the default audio device.<br/>
-		/// Some (but not all!) platforms have an isolated mechanism to get information<br/>
-		/// about the "default" device. This can actually be a completely different<br/>
-		/// device that's not in the list you get from SDL_GetAudioDeviceSpec(). It can<br/>
-		/// even be a network address! (This is discussed in SDL_OpenAudioDevice().)<br/>
-		/// As a result, this call is not guaranteed to be performant, as it can query<br/>
-		/// the sound server directly every time, unlike the other query functions. You<br/>
-		/// should call this function sparingly!<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count, if a default device exists on the system. If `name` is provided,<br/>
-		/// will be filled with either a dynamically-allocated UTF-8 string or NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			int ret = GetDefaultAudioInfoNative(name, spec, iscapture);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the name and preferred format of the default audio device.<br/>
-		/// Some (but not all!) platforms have an isolated mechanism to get information<br/>
-		/// about the "default" device. This can actually be a completely different<br/>
-		/// device that's not in the list you get from SDL_GetAudioDeviceSpec(). It can<br/>
-		/// even be a network address! (This is discussed in SDL_OpenAudioDevice().)<br/>
-		/// As a result, this call is not guaranteed to be performant, as it can query<br/>
-		/// the sound server directly every time, unlike the other query functions. You<br/>
-		/// should call this function sparingly!<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count, if a default device exists on the system. If `name` is provided,<br/>
-		/// will be filled with either a dynamically-allocated UTF-8 string or NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] ref byte* name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			fixed (byte** pname = &name)
-			{
-				int ret = GetDefaultAudioInfoNative((byte**)pname, spec, iscapture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the name and preferred format of the default audio device.<br/>
-		/// Some (but not all!) platforms have an isolated mechanism to get information<br/>
-		/// about the "default" device. This can actually be a completely different<br/>
-		/// device that's not in the list you get from SDL_GetAudioDeviceSpec(). It can<br/>
-		/// even be a network address! (This is discussed in SDL_OpenAudioDevice().)<br/>
-		/// As a result, this call is not guaranteed to be performant, as it can query<br/>
-		/// the sound server directly every time, unlike the other query functions. You<br/>
-		/// should call this function sparingly!<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count, if a default device exists on the system. If `name` is provided,<br/>
-		/// will be filled with either a dynamically-allocated UTF-8 string or NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] byte** name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			fixed (SDLAudioSpec* pspec = &spec)
-			{
-				int ret = GetDefaultAudioInfoNative(name, (SDLAudioSpec*)pspec, iscapture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the name and preferred format of the default audio device.<br/>
-		/// Some (but not all!) platforms have an isolated mechanism to get information<br/>
-		/// about the "default" device. This can actually be a completely different<br/>
-		/// device that's not in the list you get from SDL_GetAudioDeviceSpec(). It can<br/>
-		/// even be a network address! (This is discussed in SDL_OpenAudioDevice().)<br/>
-		/// As a result, this call is not guaranteed to be performant, as it can query<br/>
-		/// the sound server directly every time, unlike the other query functions. You<br/>
-		/// should call this function sparingly!<br/>
-		/// `spec` will be filled with the sample rate, sample format, and channel<br/>
-		/// count, if a default device exists on the system. If `name` is provided,<br/>
-		/// will be filled with either a dynamically-allocated UTF-8 string or NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetDefaultAudioInfo")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetDefaultAudioInfo([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char**")] ref byte* name, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture)
-		{
-			fixed (byte** pname = &name)
-			{
-				fixed (SDLAudioSpec* pspec = &spec)
-				{
-					int ret = GetDefaultAudioInfoNative((byte**)pname, (SDLAudioSpec*)pspec, iscapture);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint OpenAudioDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLAudioSpec*, SDLAudioSpec*, int, uint>)funcTable[222])(device, iscapture, desired, obtained, allowedChanges);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, int, uint>)funcTable[222])((nint)device, iscapture, (nint)desired, (nint)obtained, allowedChanges);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			uint ret = OpenAudioDeviceNative(device, iscapture, desired, obtained, allowedChanges);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = &device)
-			{
-				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = device)
-			{
-				uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, obtained, allowedChanges);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (device != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(device);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(device, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			uint ret = OpenAudioDeviceNative(pStr0, iscapture, desired, obtained, allowedChanges);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (SDLAudioSpec* pdesired = &desired)
-			{
-				uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = &device)
-			{
-				fixed (SDLAudioSpec* pdesired = &desired)
-				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = device)
-			{
-				fixed (SDLAudioSpec* pdesired = &desired)
-				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (device != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(device);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(device, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLAudioSpec* pdesired = &desired)
-			{
-				uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, obtained, allowedChanges);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (SDLAudioSpec* pobtained = &obtained)
-			{
-				uint ret = OpenAudioDeviceNative(device, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = &device)
-			{
-				fixed (SDLAudioSpec* pobtained = &obtained)
-				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = device)
-			{
-				fixed (SDLAudioSpec* pobtained = &obtained)
-				{
-					uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] SDLAudioSpec* desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (device != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(device);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(device, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLAudioSpec* pobtained = &obtained)
-			{
-				uint ret = OpenAudioDeviceNative(pStr0, iscapture, desired, (SDLAudioSpec*)pobtained, allowedChanges);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] byte* device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (SDLAudioSpec* pdesired = &desired)
-			{
-				fixed (SDLAudioSpec* pobtained = &obtained)
-				{
-					uint ret = OpenAudioDeviceNative(device, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ref byte device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = &device)
-			{
-				fixed (SDLAudioSpec* pdesired = &desired)
-				{
-					fixed (SDLAudioSpec* pobtained = &obtained)
-					{
-						uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			fixed (byte* pdevice = device)
-			{
-				fixed (SDLAudioSpec* pdesired = &desired)
-				{
-					fixed (SDLAudioSpec* pobtained = &obtained)
-					{
-						uint ret = OpenAudioDeviceNative((byte*)pdevice, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Open a specific audio device.<br/>
-		/// SDL_OpenAudio(), unlike this function, always acts on device ID 1. As such,<br/>
-		/// this function will never return a 1 so as not to conflict with the legacy<br/>
-		/// function.<br/>
-		/// Please note that SDL 2.0 before 2.0.5 did not support recording; as such,<br/>
-		/// this function would fail if `iscapture` was not zero. Starting with SDL<br/>
-		/// 2.0.5, recording is implemented and this value can be non-zero.<br/>
-		/// Passing in a `device` name of NULL requests the most reasonable default<br/>
-		/// (and is equivalent to what SDL_OpenAudio() does to choose a device). The<br/>
-		/// `device` name is a UTF-8 string reported by SDL_GetAudioDeviceName(), but<br/>
-		/// some drivers allow arbitrary and driver-specific strings, such as a<br/>
-		/// hostname/IP address for a remote audio server, or a filename in the<br/>
-		/// diskaudio driver.<br/>
-		/// An opened audio device starts out paused, and should be enabled for playing<br/>
-		/// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio<br/>
-		/// callback function to be called. Since the audio driver may modify the<br/>
-		/// requested size of the audio buffer, you should allocate any local mixing<br/>
-		/// buffers after you open the audio device.<br/>
-		/// The audio callback runs in a separate thread in most cases; you can prevent<br/>
-		/// race conditions between your callback and other threads without fully<br/>
-		/// pausing playback with SDL_LockAudioDevice(). For more information about the<br/>
-		/// callback, see SDL_AudioSpec.<br/>
-		/// Managing the audio spec via 'desired' and 'obtained':<br/>
-		/// When filling in the desired audio spec structure:<br/>
-		/// - `desired->freq` should be the frequency in sample-frames-per-second (Hz).<br/>
-		/// - `desired->format` should be the audio format (`AUDIO_S16SYS`, etc).<br/>
-		/// - `desired->samples` is the desired size of the audio buffer, in _sample<br/>
-		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
-		/// single sample frame). This number should be a power of two, and may be<br/>
-		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
-		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
-		/// lead to underflow if the application is doing heavy processing and cannot<br/>
-		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
-		/// directly related to time by the following formula: `ms =<br/>
-		/// (sampleframes*1000)/freq`<br/>
-		/// - `desired->size` is the size in _bytes_ of the audio buffer, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->silence` is the value used to set the buffer to silence, and is<br/>
-		/// calculated by SDL_OpenAudioDevice(). You don't initialize this.<br/>
-		/// - `desired->callback` should be set to a function that will be called when<br/>
-		/// the audio device is ready for more data. It is passed a pointer to the<br/>
-		/// audio buffer, and the length in bytes of the audio buffer. This function<br/>
-		/// usually runs in a separate thread, and so you should protect data<br/>
-		/// structures that it accesses by calling SDL_LockAudioDevice() and<br/>
-		/// SDL_UnlockAudioDevice() in your code. Alternately, you may pass a NULL<br/>
-		/// pointer here, and call SDL_QueueAudio() with some frequency, to queue<br/>
-		/// more audio samples to be played (or for capture devices, call<br/>
-		/// SDL_DequeueAudio() with some frequency, to obtain audio samples).<br/>
-		/// - `desired->userdata` is passed as the first parameter to your callback<br/>
-		/// function. If you passed a NULL callback, this value is ignored.<br/>
-		/// `allowed_changes` can have the following flags OR'd together:<br/>
-		/// - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`<br/>
-		/// - `SDL_AUDIO_ALLOW_ANY_CHANGE`<br/>
-		/// These flags specify how SDL should behave when a device cannot offer a<br/>
-		/// specific feature. If the application requests a feature that the hardware<br/>
-		/// doesn't offer, SDL will always try to get the closest equivalent.<br/>
-		/// For example, if you ask for float32 audio format, but the sound card only<br/>
-		/// supports int16, SDL will set the hardware to int16. If you had set<br/>
-		/// SDL_AUDIO_ALLOW_FORMAT_CHANGE, SDL will change the format in the `obtained`<br/>
-		/// structure. If that flag was *not* set, SDL will prepare to convert your<br/>
-		/// callback's float32 audio to int16 before feeding it to the hardware and<br/>
-		/// will keep the originally requested format in the `obtained` structure.<br/>
-		/// The resulting audio specs, varying depending on hardware and on what<br/>
-		/// changes were allowed, will then be written back to `obtained`.<br/>
-		/// If your application can only handle one specific data format, pass a zero<br/>
-		/// for `allowed_changes` and let SDL transparently handle any differences.<br/>
-		/// <br/>
-		/// For compatibility with SDL 1.2, this will never return 1, since<br/>
-		/// SDL reserves that ID for the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_OpenAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioDeviceID")]
-		public static uint OpenAudioDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "const char*")] string device, [NativeName(NativeNameType.Param, "iscapture")] [NativeName(NativeNameType.Type, "int")] int iscapture, [NativeName(NativeNameType.Param, "desired")] [NativeName(NativeNameType.Type, "const SDL_AudioSpec*")] ref SDLAudioSpec desired, [NativeName(NativeNameType.Param, "obtained")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec obtained, [NativeName(NativeNameType.Param, "allowed_changes")] [NativeName(NativeNameType.Type, "int")] int allowedChanges)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (device != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(device);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(device, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			fixed (SDLAudioSpec* pdesired = &desired)
-			{
-				fixed (SDLAudioSpec* pobtained = &obtained)
-				{
-					uint ret = OpenAudioDeviceNative(pStr0, iscapture, (SDLAudioSpec*)pdesired, (SDLAudioSpec*)pobtained, allowedChanges);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						Utils.Free(pStr0);
-					}
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of querying the audio device.<br/>
-		/// New programs might want to use SDL_GetAudioDeviceStatus() instead. This<br/>
-		/// function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_GetAudioDeviceStatus(1);<br/>
+		/// SDL_LockAudioDevice(1);<br/>
 		/// ```<br/>
 		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioStatus")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioStatus GetAudioStatusNative()
+		internal static void LockAudioNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStatus>)funcTable[223])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
 			#else
-			return (SDLAudioStatus)((delegate* unmanaged[Cdecl]<SDLAudioStatus>)funcTable[223])();
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
 			#endif
 		}
 
 		/// <summary>
-		/// This function is a legacy means of querying the audio device.<br/>
-		/// New programs might want to use SDL_GetAudioDeviceStatus() instead. This<br/>
-		/// function is equivalent to calling...<br/>
+		/// This function is a legacy means of locking the audio device.<br/>
+		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
+		/// is equivalent to calling...<br/>
 		/// ```c<br/>
-		/// SDL_GetAudioDeviceStatus(1);<br/>
+		/// SDL_LockAudioDevice(1);<br/>
 		/// ```<br/>
 		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioStatus")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
-		public static SDLAudioStatus GetAudioStatus()
+		public static void LockAudio()
 		{
-			SDLAudioStatus ret = GetAudioStatusNative();
-			return ret;
+			LockAudioNative();
 		}
 
 		/// <summary>
-		/// Use this function to get the current audio state of an audio device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceStatus")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioStatus GetAudioDeviceStatusNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLAudioStatus>)funcTable[224])(dev);
-			#else
-			return (SDLAudioStatus)((delegate* unmanaged[Cdecl]<uint, SDLAudioStatus>)funcTable[224])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to get the current audio state of an audio device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetAudioDeviceStatus")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioStatus")]
-		public static SDLAudioStatus GetAudioDeviceStatus([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			SDLAudioStatus ret = GetAudioDeviceStatusNative(dev);
-			return ret;
-		}
-
-		/// <summary>
-		/// This function is a legacy means of pausing the audio device.<br/>
-		/// New programs might want to use SDL_PauseAudioDevice() instead. This<br/>
-		/// function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_PauseAudioDevice(1, pause_on);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PauseAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PauseAudioNative([NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, void>)funcTable[225])(pauseOn);
-			#else
-			((delegate* unmanaged[Cdecl]<int, void>)funcTable[225])(pauseOn);
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of pausing the audio device.<br/>
-		/// New programs might want to use SDL_PauseAudioDevice() instead. This<br/>
-		/// function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_PauseAudioDevice(1, pause_on);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PauseAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PauseAudio([NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
-		{
-			PauseAudioNative(pauseOn);
-		}
-
-		/// <summary>
-		/// Use this function to pause and unpause audio playback on a specified<br/>
+		/// Use this function to lock out the audio callback function for a specified<br/>
 		/// device.<br/>
-		/// This function pauses and unpauses the audio callback processing for a given<br/>
-		/// device. Newly-opened audio devices start in the paused state, so you must<br/>
-		/// call this function with **pause_on**=0 after opening the specified audio<br/>
-		/// device to start playing sound. This allows you to safely initialize data<br/>
-		/// for your callback function after opening the audio device. Silence will be<br/>
-		/// written to the audio device while paused, and the audio callback is<br/>
-		/// guaranteed to not be called. Pausing one device does not prevent other<br/>
-		/// unpaused devices from running their callbacks.<br/>
-		/// Pausing state does not stack; even if you pause a device several times, a<br/>
-		/// single unpause will start the device playing again, and vice versa. This is<br/>
-		/// different from how SDL_LockAudioDevice() works.<br/>
-		/// If you just need to protect a few variables from race conditions vs your<br/>
-		/// callback, you shouldn't pause the audio device, as it will lead to dropouts<br/>
-		/// in the audio playback. Instead, you should use SDL_LockAudioDevice().<br/>
+		/// The lock manipulated by these functions protects the audio callback<br/>
+		/// function specified in SDL_OpenAudioDevice(). During a<br/>
+		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
+		/// that the callback function for that device is not running, even if the<br/>
+		/// device is not paused. While a device is locked, any other unpaused,<br/>
+		/// unlocked devices may still run their callbacks.<br/>
+		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
+		/// obtains this lock before calling your function, and releases it when the<br/>
+		/// function returns.<br/>
+		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
+		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
+		/// your application locks the device, sets a few variables and unlocks again.<br/>
+		/// Do not do heavy work while holding the lock for a device.<br/>
+		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
+		/// it an equivalent number of times. The callback will not run until the<br/>
+		/// device has been unlocked completely in this way. If your application fails<br/>
+		/// to unlock the device appropriately, your callback will never run, you might<br/>
+		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
+		/// deadlock.<br/>
+		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
+		/// at once, not only will you block the audio callback, you'll block the other<br/>
+		/// thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PauseAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void PauseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
+		internal static void LockAudioDeviceNative(uint dev)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[226])(dev, pauseOn);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[226])(dev, pauseOn);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
 			#endif
 		}
 
 		/// <summary>
-		/// Use this function to pause and unpause audio playback on a specified<br/>
+		/// Use this function to lock out the audio callback function for a specified<br/>
 		/// device.<br/>
-		/// This function pauses and unpauses the audio callback processing for a given<br/>
-		/// device. Newly-opened audio devices start in the paused state, so you must<br/>
-		/// call this function with **pause_on**=0 after opening the specified audio<br/>
-		/// device to start playing sound. This allows you to safely initialize data<br/>
-		/// for your callback function after opening the audio device. Silence will be<br/>
-		/// written to the audio device while paused, and the audio callback is<br/>
-		/// guaranteed to not be called. Pausing one device does not prevent other<br/>
-		/// unpaused devices from running their callbacks.<br/>
-		/// Pausing state does not stack; even if you pause a device several times, a<br/>
-		/// single unpause will start the device playing again, and vice versa. This is<br/>
-		/// different from how SDL_LockAudioDevice() works.<br/>
-		/// If you just need to protect a few variables from race conditions vs your<br/>
-		/// callback, you shouldn't pause the audio device, as it will lead to dropouts<br/>
-		/// in the audio playback. Instead, you should use SDL_LockAudioDevice().<br/>
+		/// The lock manipulated by these functions protects the audio callback<br/>
+		/// function specified in SDL_OpenAudioDevice(). During a<br/>
+		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
+		/// that the callback function for that device is not running, even if the<br/>
+		/// device is not paused. While a device is locked, any other unpaused,<br/>
+		/// unlocked devices may still run their callbacks.<br/>
+		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
+		/// obtains this lock before calling your function, and releases it when the<br/>
+		/// function returns.<br/>
+		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
+		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
+		/// your application locks the device, sets a few variables and unlocks again.<br/>
+		/// Do not do heavy work while holding the lock for a device.<br/>
+		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
+		/// it an equivalent number of times. The callback will not run until the<br/>
+		/// device has been unlocked completely in this way. If your application fails<br/>
+		/// to unlock the device appropriately, your callback will never run, you might<br/>
+		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
+		/// deadlock.<br/>
+		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
+		/// at once, not only will you block the audio callback, you'll block the other<br/>
+		/// thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PauseAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void PauseAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "pause_on")] [NativeName(NativeNameType.Type, "int")] int pauseOn)
+		public static void LockAudioDevice(uint dev)
 		{
-			PauseAudioDeviceNative(dev, pauseOn);
+			LockAudioDeviceNative(dev);
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
+		/// This function is a legacy means of unlocking the audio device.<br/>
+		/// New programs might want to use SDL_UnlockAudioDevice() instead. This<br/>
+		/// function is equivalent to calling...<br/>
 		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
+		/// SDL_UnlockAudioDevice(1);<br/>
 		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioSpec* LoadWAVRWNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		internal static void UnlockAudioNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLAudioSpec*, byte**, uint*, SDLAudioSpec*>)funcTable[227])(src, freesrc, spec, audioBuf, audioLen);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[246])();
 			#else
-			return (SDLAudioSpec*)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, nint, nint>)funcTable[227])((nint)src, freesrc, (nint)spec, (nint)audioBuf, (nint)audioLen);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[246])();
 			#endif
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
+		/// This function is a legacy means of unlocking the audio device.<br/>
+		/// New programs might want to use SDL_UnlockAudioDevice() instead. This<br/>
+		/// function is equivalent to calling...<br/>
 		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
+		/// SDL_UnlockAudioDevice(1);<br/>
 		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static void UnlockAudio()
 		{
-			SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, audioBuf, audioLen);
+			UnlockAudioNative();
+		}
+
+		/// <summary>
+		/// Use this function to unlock the audio callback function for a specified<br/>
+		/// device.<br/>
+		/// This function should be paired with a previous SDL_LockAudioDevice() call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockAudioDeviceNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[247])(dev);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[247])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to unlock the audio callback function for a specified<br/>
+		/// device.<br/>
+		/// This function should be paired with a previous SDL_LockAudioDevice() call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnlockAudioDevice(uint dev)
+		{
+			UnlockAudioDeviceNative(dev);
+		}
+
+		/// <summary>
+		/// This function is a legacy means of closing the audio device.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_CloseAudioDevice(1);<br/>
+		/// ```<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseAudioNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[248])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[248])();
+			#endif
+		}
+
+		/// <summary>
+		/// This function is a legacy means of closing the audio device.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_CloseAudioDevice(1);<br/>
+		/// ```<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CloseAudio()
+		{
+			CloseAudioNative();
+		}
+
+		/// <summary>
+		/// Use this function to shut down audio processing and close the audio device.<br/>
+		/// The application should close open audio devices once they are no longer<br/>
+		/// needed. Calling this function will wait until the device's audio callback<br/>
+		/// is not running, release the audio hardware and then clean up internal<br/>
+		/// state. No further audio will play from this device once this function<br/>
+		/// returns.<br/>
+		/// This function may block briefly while pending audio data is played by the<br/>
+		/// hardware, so that applications don't drop the last buffer of data they<br/>
+		/// supplied.<br/>
+		/// The device ID is invalid as soon as the device is closed, and is eligible<br/>
+		/// for reuse in a new SDL_OpenAudioDevice() call immediately.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CloseAudioDeviceNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[249])(dev);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[249])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to shut down audio processing and close the audio device.<br/>
+		/// The application should close open audio devices once they are no longer<br/>
+		/// needed. Calling this function will wait until the device's audio callback<br/>
+		/// is not running, release the audio hardware and then clean up internal<br/>
+		/// state. No further audio will play from this device once this function<br/>
+		/// returns.<br/>
+		/// This function may block briefly while pending audio data is played by the<br/>
+		/// hardware, so that applications don't drop the last buffer of data they<br/>
+		/// supplied.<br/>
+		/// The device ID is invalid as soon as the device is closed, and is eligible<br/>
+		/// for reuse in a new SDL_OpenAudioDevice() call immediately.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CloseAudioDevice(uint dev)
+		{
+			CloseAudioDeviceNative(dev);
+		}
+
+		/// <summary>
+		/// Put UTF-8 text into the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetClipboardTextNative(byte* text)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[250])(text);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[250])((nint)text);
+			#endif
+		}
+
+		/// <summary>
+		/// Put UTF-8 text into the clipboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetClipboardText(byte* text)
+		{
+			int ret = SetClipboardTextNative(text);
 			return ret;
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static int SetClipboardText(ref byte text)
 		{
-			fixed (SDLRWops* psrc = &src)
+			fixed (byte* ptext = &text)
 			{
-				SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, audioLen);
+				int ret = SetClipboardTextNative((byte*)ptext);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static int SetClipboardText(ReadOnlySpan<byte> text)
 		{
-			fixed (SDLAudioSpec* pspec = &spec)
+			fixed (byte* ptext = text)
 			{
-				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+				int ret = SetClipboardTextNative((byte*)ptext);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Put UTF-8 text into the clipboard.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static int SetClipboardText(string text)
 		{
-			fixed (SDLRWops* psrc = &src)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
 			{
-				fixed (SDLAudioSpec* pspec = &spec)
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, audioLen);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = SetClipboardTextNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the clipboard, which must be freed with SDL_free().<br/>
+		/// This functions returns empty string if there was not enough memory left for<br/>
+		/// a copy of the clipboard's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetClipboardTextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[251])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[251])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the clipboard, which must be freed with SDL_free().<br/>
+		/// This functions returns empty string if there was not enough memory left for<br/>
+		/// a copy of the clipboard's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetClipboardText()
+		{
+			byte* ret = GetClipboardTextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the clipboard, which must be freed with SDL_free().<br/>
+		/// This functions returns empty string if there was not enough memory left for<br/>
+		/// a copy of the clipboard's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetClipboardTextS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetClipboardTextNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether the clipboard exists and contains a non-empty text string.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasClipboardTextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[252])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[252])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether the clipboard exists and contains a non-empty text string.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasClipboardText()
+		{
+			SDLBool ret = HasClipboardTextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetPrimarySelectionTextNative(byte* text)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[253])(text);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[253])((nint)text);
+			#endif
+		}
+
+		/// <summary>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPrimarySelectionText(byte* text)
+		{
+			int ret = SetPrimarySelectionTextNative(text);
+			return ret;
+		}
+
+		/// <summary>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPrimarySelectionText(ref byte text)
+		{
+			fixed (byte* ptext = &text)
+			{
+				int ret = SetPrimarySelectionTextNative((byte*)ptext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPrimarySelectionText(ReadOnlySpan<byte> text)
+		{
+			fixed (byte* ptext = text)
+			{
+				int ret = SetPrimarySelectionTextNative((byte*)ptext);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Put UTF-8 text into the primary selection.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPrimarySelectionText(string text)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (text != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(text);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = SetPrimarySelectionTextNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the primary selection, which must be freed with<br/>
+		/// SDL_free().<br/>
+		/// This functions returns empty string if there was not enough memory left for<br/>
+		/// a copy of the primary selection's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPrimarySelectionTextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[254])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[254])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the primary selection, which must be freed with<br/>
+		/// SDL_free().<br/>
+		/// This functions returns empty string if there was not enough memory left for<br/>
+		/// a copy of the primary selection's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrimarySelectionText()
+		{
+			byte* ret = GetPrimarySelectionTextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get UTF-8 text from the primary selection, which must be freed with<br/>
+		/// SDL_free().<br/>
+		/// This functions returns empty string if there was not enough memory left for<br/>
+		/// a copy of the primary selection's content.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrimarySelectionTextS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetPrimarySelectionTextNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Query whether the primary selection exists and contains a non-empty text<br/>
+		/// string.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasPrimarySelectionTextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[255])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[255])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query whether the primary selection exists and contains a non-empty text<br/>
+		/// string.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasPrimarySelectionText()
+		{
+			SDLBool ret = HasPrimarySelectionTextNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of CPU cores available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetCPUCountNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[256])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[256])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of CPU cores available.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetCPUCount()
+		{
+			int ret = GetCPUCountNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine the L1 cache line size of the CPU.<br/>
+		/// This is useful for determining multi-threaded structure padding or SIMD<br/>
+		/// prefetch sizes.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetCPUCacheLineSizeNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[257])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[257])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine the L1 cache line size of the CPU.<br/>
+		/// This is useful for determining multi-threaded structure padding or SIMD<br/>
+		/// prefetch sizes.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetCPUCacheLineSize()
+		{
+			int ret = GetCPUCacheLineSizeNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has the RDTSC instruction.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasRDTSCNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[258])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[258])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has the RDTSC instruction.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasRDTSC()
+		{
+			SDLBool ret = HasRDTSCNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AltiVec features.<br/>
+		/// This always returns false on CPUs that aren't using PowerPC instruction<br/>
+		/// sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasAltiVecNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[259])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[259])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AltiVec features.<br/>
+		/// This always returns false on CPUs that aren't using PowerPC instruction<br/>
+		/// sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasAltiVec()
+		{
+			SDLBool ret = HasAltiVecNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has MMX features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasMMXNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[260])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[260])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has MMX features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasMMX()
+		{
+			SDLBool ret = HasMMXNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has 3DNow! features.<br/>
+		/// This always returns false on CPUs that aren't using AMD instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool Has3DNowNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[261])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[261])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has 3DNow! features.<br/>
+		/// This always returns false on CPUs that aren't using AMD instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool Has3DNow()
+		{
+			SDLBool ret = Has3DNowNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasSSENative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[262])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[262])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasSSE()
+		{
+			SDLBool ret = HasSSENative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE2 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasSSE2Native()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[263])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[263])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE2 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasSSE2()
+		{
+			SDLBool ret = HasSSE2Native();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE3 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasSSE3Native()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[264])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[264])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE3 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasSSE3()
+		{
+			SDLBool ret = HasSSE3Native();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE4.1 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasSSE41Native()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[265])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[265])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE4.1 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasSSE41()
+		{
+			SDLBool ret = HasSSE41Native();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE4.2 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasSSE42Native()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[266])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[266])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has SSE4.2 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasSSE42()
+		{
+			SDLBool ret = HasSSE42Native();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AVX features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasAVXNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[267])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[267])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AVX features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasAVX()
+		{
+			SDLBool ret = HasAVXNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AVX2 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasAVX2Native()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[268])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[268])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AVX2 features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasAVX2()
+		{
+			SDLBool ret = HasAVX2Native();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AVX-512F (foundation) features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasAVX512FNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[269])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[269])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has AVX-512F (foundation) features.<br/>
+		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasAVX512F()
+		{
+			SDLBool ret = HasAVX512FNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has ARM SIMD (ARMv6) features.<br/>
+		/// This is different from ARM NEON, which is a different instruction set.<br/>
+		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasARMSIMDNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[270])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[270])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has ARM SIMD (ARMv6) features.<br/>
+		/// This is different from ARM NEON, which is a different instruction set.<br/>
+		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasARMSIMD()
+		{
+			SDLBool ret = HasARMSIMDNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has NEON (ARM SIMD) features.<br/>
+		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasNEONNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[271])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[271])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has NEON (ARM SIMD) features.<br/>
+		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasNEON()
+		{
+			SDLBool ret = HasNEONNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has LSX (LOONGARCH SIMD) features.<br/>
+		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
+		/// sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasLSXNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[272])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[272])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has LSX (LOONGARCH SIMD) features.<br/>
+		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
+		/// sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasLSX()
+		{
+			SDLBool ret = HasLSXNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has LASX (LOONGARCH SIMD) features.<br/>
+		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
+		/// sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasLASXNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[273])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[273])();
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether the CPU has LASX (LOONGARCH SIMD) features.<br/>
+		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
+		/// sets.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasLASX()
+		{
+			SDLBool ret = HasLASXNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the amount of RAM configured in the system.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSystemRAMNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[274])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[274])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the amount of RAM configured in the system.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSystemRAM()
+		{
+			int ret = GetSystemRAMNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Report the alignment this system needs for SIMD allocations.<br/>
+		/// This will return the minimum number of bytes to which a pointer must be<br/>
+		/// aligned to be compatible with SIMD instructions on the current machine. For<br/>
+		/// example, if the machine supports SSE only, it will return 16, but if it<br/>
+		/// supports AVX-512F, it'll return 64 (etc). This only reports values for<br/>
+		/// instruction sets SDL knows about, so if your SDL build doesn't have<br/>
+		/// SDL_HasAVX512F(), then it might return 16 for the SSE support it sees and<br/>
+		/// not 64 for the AVX-512 instructions that exist but SDL doesn't know about.<br/>
+		/// Plan accordingly.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint SIMDGetAlignmentNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<nuint>)funcTable[275])();
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nuint>)funcTable[275])();
+			#endif
+		}
+
+		/// <summary>
+		/// Report the alignment this system needs for SIMD allocations.<br/>
+		/// This will return the minimum number of bytes to which a pointer must be<br/>
+		/// aligned to be compatible with SIMD instructions on the current machine. For<br/>
+		/// example, if the machine supports SSE only, it will return 16, but if it<br/>
+		/// supports AVX-512F, it'll return 64 (etc). This only reports values for<br/>
+		/// instruction sets SDL knows about, so if your SDL build doesn't have<br/>
+		/// SDL_HasAVX512F(), then it might return 16 for the SSE support it sees and<br/>
+		/// not 64 for the AVX-512 instructions that exist but SDL doesn't know about.<br/>
+		/// Plan accordingly.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint SIMDGetAlignment()
+		{
+			nuint ret = SIMDGetAlignmentNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate memory in a SIMD-friendly way.<br/>
+		/// This will allocate a block of memory that is suitable for use with SIMD<br/>
+		/// instructions. Specifically, it will be properly aligned and padded for the<br/>
+		/// system's supported vector instructions.<br/>
+		/// The memory returned will be padded such that it is safe to read or write an<br/>
+		/// incomplete vector at the end of the memory block. This can be useful so you<br/>
+		/// don't have to drop back to a scalar fallback at the end of your SIMD<br/>
+		/// processing loop to deal with the final elements without overflowing the<br/>
+		/// allocated buffer.<br/>
+		/// You must free this memory with SDL_FreeSIMD(), not free() or SDL_free() or<br/>
+		/// delete[], etc.<br/>
+		/// Note that SDL will only deal with SIMD instruction sets it is aware of; for<br/>
+		/// example, SDL 2.0.8 knows that SSE wants 16-byte vectors (SDL_HasSSE()), and<br/>
+		/// AVX2 wants 32 bytes (SDL_HasAVX2()), but doesn't know that AVX-512 wants<br/>
+		/// 64. To be clear: if you can't decide to use an instruction set with an<br/>
+		/// SDL_Has*() function, don't use that instruction set with memory allocated<br/>
+		/// through here.<br/>
+		/// SDL_AllocSIMD(0) will return a non-NULL pointer, assuming the system isn't<br/>
+		/// out of memory, but you are not allowed to dereference it (because you only<br/>
+		/// own zero bytes of that buffer).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* SIMDAllocNative(nuint len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<nuint, void*>)funcTable[276])(len);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nuint, nint>)funcTable[276])(len);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate memory in a SIMD-friendly way.<br/>
+		/// This will allocate a block of memory that is suitable for use with SIMD<br/>
+		/// instructions. Specifically, it will be properly aligned and padded for the<br/>
+		/// system's supported vector instructions.<br/>
+		/// The memory returned will be padded such that it is safe to read or write an<br/>
+		/// incomplete vector at the end of the memory block. This can be useful so you<br/>
+		/// don't have to drop back to a scalar fallback at the end of your SIMD<br/>
+		/// processing loop to deal with the final elements without overflowing the<br/>
+		/// allocated buffer.<br/>
+		/// You must free this memory with SDL_FreeSIMD(), not free() or SDL_free() or<br/>
+		/// delete[], etc.<br/>
+		/// Note that SDL will only deal with SIMD instruction sets it is aware of; for<br/>
+		/// example, SDL 2.0.8 knows that SSE wants 16-byte vectors (SDL_HasSSE()), and<br/>
+		/// AVX2 wants 32 bytes (SDL_HasAVX2()), but doesn't know that AVX-512 wants<br/>
+		/// 64. To be clear: if you can't decide to use an instruction set with an<br/>
+		/// SDL_Has*() function, don't use that instruction set with memory allocated<br/>
+		/// through here.<br/>
+		/// SDL_AllocSIMD(0) will return a non-NULL pointer, assuming the system isn't<br/>
+		/// out of memory, but you are not allowed to dereference it (because you only<br/>
+		/// own zero bytes of that buffer).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SIMDAlloc(nuint len)
+		{
+			void* ret = SIMDAllocNative(len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Reallocate memory obtained from SDL_SIMDAlloc<br/>
+		/// It is not valid to use this function on a pointer from anything but<br/>
+		/// SDL_SIMDAlloc(). It can't be used on pointers from malloc, realloc,<br/>
+		/// SDL_malloc, memalign, new[], etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* SIMDReallocNative(void* mem, nuint len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, nuint, void*>)funcTable[277])(mem, len);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[277])((nint)mem, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Reallocate memory obtained from SDL_SIMDAlloc<br/>
+		/// It is not valid to use this function on a pointer from anything but<br/>
+		/// SDL_SIMDAlloc(). It can't be used on pointers from malloc, realloc,<br/>
+		/// SDL_malloc, memalign, new[], etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* SIMDRealloc(void* mem, nuint len)
+		{
+			void* ret = SIMDReallocNative(mem, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Deallocate memory obtained from SDL_SIMDAlloc<br/>
+		/// It is not valid to use this function on a pointer from anything but<br/>
+		/// SDL_SIMDAlloc() or SDL_SIMDRealloc(). It can't be used on pointers from<br/>
+		/// malloc, realloc, SDL_malloc, memalign, new[], etc.<br/>
+		/// However, SDL_SIMDFree(NULL) is a legal no-op.<br/>
+		/// The memory pointed to by `ptr` is no longer valid for access upon return,<br/>
+		/// and may be returned to the system or reused by a future allocation. The<br/>
+		/// pointer passed to this function is no longer safe to dereference once this<br/>
+		/// function returns, and should be discarded.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SIMDFreeNative(void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[278])(ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[278])((nint)ptr);
+			#endif
+		}
+
+		/// <summary>
+		/// Deallocate memory obtained from SDL_SIMDAlloc<br/>
+		/// It is not valid to use this function on a pointer from anything but<br/>
+		/// SDL_SIMDAlloc() or SDL_SIMDRealloc(). It can't be used on pointers from<br/>
+		/// malloc, realloc, SDL_malloc, memalign, new[], etc.<br/>
+		/// However, SDL_SIMDFree(NULL) is a legal no-op.<br/>
+		/// The memory pointed to by `ptr` is no longer valid for access upon return,<br/>
+		/// and may be returned to the system or reused by a future allocation. The<br/>
+		/// pointer passed to this function is no longer safe to dereference once this<br/>
+		/// function returns, and should be discarded.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SIMDFree(void* ptr)
+		{
+			SIMDFreeNative(ptr);
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPixelFormatNameNative(uint format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[279])(format);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[279])(format);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPixelFormatName(uint format)
+		{
+			byte* ret = GetPixelFormatNameNative(format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the human readable name of a pixel format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPixelFormatNameS(uint format)
+		{
+			string ret = Utils.DecodeStringUTF8(GetPixelFormatNameNative(format));
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool PixelFormatEnumToMasksNative(uint format, int* bpp, uint* rmask, uint* gmask, uint* bmask, uint* amask)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int*, uint*, uint*, uint*, uint*, SDLBool>)funcTable[280])(format, bpp, rmask, gmask, bmask, amask);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, SDLBool>)funcTable[280])(format, (nint)bpp, (nint)rmask, (nint)gmask, (nint)bmask, (nint)amask);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, uint* gmask, uint* bmask, uint* amask)
+		{
+			SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, amask);
+			return ret;
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, uint* gmask, uint* bmask, uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, amask);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, uint* gmask, uint* bmask, uint* amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, amask);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, uint* gmask, uint* bmask, uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, amask);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, ref uint gmask, uint* bmask, uint* amask)
 		{
-			fixed (byte** paudioBuf = &audioBuf)
+			fixed (uint* pgmask = &gmask)
 			{
-				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, audioLen);
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, amask);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, ref uint gmask, uint* bmask, uint* amask)
 		{
-			fixed (SDLRWops* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (byte** paudioBuf = &audioBuf)
+				fixed (uint* pgmask = &gmask)
 				{
-					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, audioLen);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, amask);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, ref uint gmask, uint* bmask, uint* amask)
 		{
-			fixed (SDLAudioSpec* pspec = &spec)
+			fixed (uint* prmask = &rmask)
 			{
-				fixed (byte** paudioBuf = &audioBuf)
+				fixed (uint* pgmask = &gmask)
 				{
-					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] uint* audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, ref uint gmask, uint* bmask, uint* amask)
 		{
-			fixed (SDLRWops* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLAudioSpec* pspec = &spec)
+				fixed (uint* prmask = &rmask)
 				{
-					fixed (byte** paudioBuf = &audioBuf)
+					fixed (uint* pgmask = &gmask)
 					{
-						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, audioLen);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
 						return ret;
 					}
 				}
@@ -4717,309 +2032,2998 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, uint* gmask, ref uint bmask, uint* amask)
 		{
-			fixed (uint* paudioLen = &audioLen)
+			fixed (uint* pbmask = &bmask)
 			{
-				SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, audioBuf, (uint*)paudioLen);
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, amask);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, uint* gmask, ref uint bmask, uint* amask)
 		{
-			fixed (SDLRWops* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (uint* paudioLen = &audioLen)
+				fixed (uint* pbmask = &bmask)
 				{
-					SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, audioBuf, (uint*)paudioLen);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, amask);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, uint* gmask, ref uint bmask, uint* amask)
 		{
-			fixed (SDLAudioSpec* pspec = &spec)
+			fixed (uint* prmask = &rmask)
 			{
-				fixed (uint* paudioLen = &audioLen)
+				fixed (uint* pbmask = &bmask)
 				{
-					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
 		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] byte** audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, uint* gmask, ref uint bmask, uint* amask)
 		{
-			fixed (SDLRWops* psrc = &src)
+			fixed (int* pbpp = &bpp)
 			{
-				fixed (SDLAudioSpec* pspec = &spec)
+				fixed (uint* prmask = &rmask)
 				{
-					fixed (uint* paudioLen = &audioLen)
+					fixed (uint* pbmask = &bmask)
 					{
-						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, audioBuf, (uint*)paudioLen);
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
 						return ret;
 					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, ref uint gmask, ref uint bmask, uint* amask)
+		{
+			fixed (uint* pgmask = &gmask)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, ref uint gmask, ref uint bmask, uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, ref uint gmask, ref uint bmask, uint* amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, ref uint gmask, ref uint bmask, uint* amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						fixed (uint* pbmask = &bmask)
+						{
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, uint* gmask, uint* bmask, ref uint amask)
+		{
+			fixed (uint* pamask = &amask)
+			{
+				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, (uint*)pamask);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, uint* gmask, uint* bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, (uint*)pamask);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, uint* gmask, uint* bmask, ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, uint* gmask, uint* bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, ref uint gmask, uint* bmask, ref uint amask)
+		{
+			fixed (uint* pgmask = &gmask)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, ref uint gmask, uint* bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, ref uint gmask, uint* bmask, ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, ref uint gmask, uint* bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, uint* gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (uint* pbmask = &bmask)
+			{
+				fixed (uint* pamask = &amask)
+				{
+					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, uint* gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, uint* gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, uint* gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, uint* rmask, ref uint gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (uint* pgmask = &gmask)
+			{
+				fixed (uint* pbmask = &bmask)
+				{
+					fixed (uint* pamask = &amask)
+					{
+						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, uint* rmask, ref uint gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, int* bpp, ref uint rmask, ref uint gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (uint* prmask = &rmask)
+			{
+				fixed (uint* pgmask = &gmask)
+				{
+					fixed (uint* pbmask = &bmask)
+					{
+						fixed (uint* pamask = &amask)
+						{
+							SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool PixelFormatEnumToMasks(uint format, ref int bpp, ref uint rmask, ref uint gmask, ref uint bmask, ref uint amask)
+		{
+			fixed (int* pbpp = &bpp)
+			{
+				fixed (uint* prmask = &rmask)
+				{
+					fixed (uint* pgmask = &gmask)
+					{
+						fixed (uint* pbmask = &bmask)
+						{
+							fixed (uint* pamask = &amask)
+							{
+								SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Convert a bpp value and RGBA masks to an enumerated pixel format.<br/>
+		/// This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't<br/>
+		/// possible.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint MasksToPixelFormatEnumNative(int bpp, uint rmask, uint gmask, uint bmask, uint amask)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)funcTable[281])(bpp, rmask, gmask, bmask, amask);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)funcTable[281])(bpp, rmask, gmask, bmask, amask);
+			#endif
+		}
+
+		/// <summary>
+		/// Convert a bpp value and RGBA masks to an enumerated pixel format.<br/>
+		/// This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't<br/>
+		/// possible.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint MasksToPixelFormatEnum(int bpp, uint rmask, uint gmask, uint bmask, uint amask)
+		{
+			uint ret = MasksToPixelFormatEnumNative(bpp, rmask, gmask, bmask, amask);
+			return ret;
+		}
+
+		/// <summary>
+		/// Create an SDL_PixelFormat structure corresponding to a pixel format.<br/>
+		/// Returned structure may come from a shared global cache (i.e. not newly<br/>
+		/// allocated), and hence should not be modified, especially the palette. Weird<br/>
+		/// errors such as `Blit combination not supported` may occur.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPixelFormat* AllocFormatNative(uint pixelFormat)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*>)funcTable[282])(pixelFormat);
+			#else
+			return (SDLPixelFormat*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[282])(pixelFormat);
+			#endif
+		}
+
+		/// <summary>
+		/// Create an SDL_PixelFormat structure corresponding to a pixel format.<br/>
+		/// Returned structure may come from a shared global cache (i.e. not newly<br/>
+		/// allocated), and hence should not be modified, especially the palette. Weird<br/>
+		/// errors such as `Blit combination not supported` may occur.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLPixelFormat* AllocFormat(uint pixelFormat)
+		{
+			SDLPixelFormat* ret = AllocFormatNative(pixelFormat);
+			return ret;
+		}
+
+		/// <summary>
+		/// Free an SDL_PixelFormat structure allocated by SDL_AllocFormat().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FreeFormatNative(SDLPixelFormat* format)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLPixelFormat*, void>)funcTable[283])(format);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[283])((nint)format);
+			#endif
+		}
+
+		/// <summary>
+		/// Free an SDL_PixelFormat structure allocated by SDL_AllocFormat().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeFormat(SDLPixelFormat* format)
+		{
+			FreeFormatNative(format);
+		}
+
+		/// <summary>
+		/// Free an SDL_PixelFormat structure allocated by SDL_AllocFormat().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeFormat(ref SDLPixelFormat format)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				FreeFormatNative((SDLPixelFormat*)pformat);
+			}
+		}
+
+		/// <summary>
+		/// Create a palette structure with the specified number of color entries.<br/>
+		/// The palette entries are initialized to white.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLPalette* AllocPaletteNative(int ncolors)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLPalette*>)funcTable[284])(ncolors);
+			#else
+			return (SDLPalette*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[284])(ncolors);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a palette structure with the specified number of color entries.<br/>
+		/// The palette entries are initialized to white.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLPalette* AllocPalette(int ncolors)
+		{
+			SDLPalette* ret = AllocPaletteNative(ncolors);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the palette for a pixel format structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetPixelFormatPaletteNative(SDLPixelFormat* format, SDLPalette* palette)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, SDLPalette*, int>)funcTable[285])(format, palette);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[285])((nint)format, (nint)palette);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the palette for a pixel format structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPixelFormatPalette(SDLPixelFormat* format, SDLPalette* palette)
+		{
+			int ret = SetPixelFormatPaletteNative(format, palette);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the palette for a pixel format structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPixelFormatPalette(ref SDLPixelFormat format, SDLPalette* palette)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, palette);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the palette for a pixel format structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPixelFormatPalette(SDLPixelFormat* format, ref SDLPalette palette)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				int ret = SetPixelFormatPaletteNative(format, (SDLPalette*)ppalette);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the palette for a pixel format structure.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPixelFormatPalette(ref SDLPixelFormat format, ref SDLPalette palette)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, (SDLPalette*)ppalette);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetPaletteColorsNative(SDLPalette* palette, SDLColor* colors, int firstcolor, int ncolors)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPalette*, SDLColor*, int, int, int>)funcTable[286])(palette, colors, firstcolor, ncolors);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int>)funcTable[286])((nint)palette, (nint)colors, firstcolor, ncolors);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPaletteColors(SDLPalette* palette, SDLColor* colors, int firstcolor, int ncolors)
+		{
+			int ret = SetPaletteColorsNative(palette, colors, firstcolor, ncolors);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPaletteColors(ref SDLPalette palette, SDLColor* colors, int firstcolor, int ncolors)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				int ret = SetPaletteColorsNative((SDLPalette*)ppalette, colors, firstcolor, ncolors);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPaletteColors(SDLPalette* palette, ref SDLColor colors, int firstcolor, int ncolors)
+		{
+			fixed (SDLColor* pcolors = &colors)
+			{
+				int ret = SetPaletteColorsNative(palette, (SDLColor*)pcolors, firstcolor, ncolors);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a range of colors in a palette.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetPaletteColors(ref SDLPalette palette, ref SDLColor colors, int firstcolor, int ncolors)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				fixed (SDLColor* pcolors = &colors)
+				{
+					int ret = SetPaletteColorsNative((SDLPalette*)ppalette, (SDLColor*)pcolors, firstcolor, ncolors);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Free a palette created with SDL_AllocPalette().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FreePaletteNative(SDLPalette* palette)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLPalette*, void>)funcTable[287])(palette);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[287])((nint)palette);
+			#endif
+		}
+
+		/// <summary>
+		/// Free a palette created with SDL_AllocPalette().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreePalette(SDLPalette* palette)
+		{
+			FreePaletteNative(palette);
+		}
+
+		/// <summary>
+		/// Free a palette created with SDL_AllocPalette().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreePalette(ref SDLPalette palette)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				FreePaletteNative((SDLPalette*)ppalette);
+			}
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint MapRGBNative(SDLPixelFormat* format, byte r, byte g, byte b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, uint>)funcTable[288])(format, r, g, b);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, uint>)funcTable[288])((nint)format, r, g, b);
+			#endif
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint MapRGB(SDLPixelFormat* format, byte r, byte g, byte b)
+		{
+			uint ret = MapRGBNative(format, r, g, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
+		/// This function maps the RGB color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGB color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the specified pixel format has an alpha component it will be returned as<br/>
+		/// all 1 bits (fully opaque).<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint MapRGB(ref SDLPixelFormat format, byte r, byte g, byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				uint ret = MapRGBNative((SDLPixelFormat*)pformat, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint MapRGBANative(SDLPixelFormat* format, byte r, byte g, byte b, byte a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, byte, uint>)funcTable[289])(format, r, g, b, a);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, uint>)funcTable[289])((nint)format, r, g, b, a);
+			#endif
+		}
+
+		/// <summary>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint MapRGBA(SDLPixelFormat* format, byte r, byte g, byte b, byte a)
+		{
+			uint ret = MapRGBANative(format, r, g, b, a);
+			return ret;
+		}
+
+		/// <summary>
+		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
+		/// This function maps the RGBA color value to the specified pixel format and<br/>
+		/// returns the pixel value best approximating the given RGBA color value for<br/>
+		/// the given pixel format.<br/>
+		/// If the specified pixel format has no alpha component the alpha value will<br/>
+		/// be ignored (as it will be in formats with a palette).<br/>
+		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
+		/// in the palette will be returned.<br/>
+		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
+		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
+		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
+		/// for an 8-bpp format).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint MapRGBA(ref SDLPixelFormat format, byte r, byte g, byte b, byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				uint ret = MapRGBANative((SDLPixelFormat*)pformat, r, g, b, a);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetRGBNative(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, void>)funcTable[290])(pixel, format, r, g, b);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, void>)funcTable[290])(pixel, (nint)format, (nint)r, (nint)g, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b)
+		{
+			GetRGBNative(pixel, format, r, g, b);
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, byte* b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, b);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				GetRGBNative(pixel, format, (byte*)pr, g, b);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, byte* b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, byte* b)
+		{
+			fixed (byte* pg = &g)
+			{
+				GetRGBNative(pixel, format, r, (byte*)pg, b);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, byte* b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, b);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, byte* b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, byte* g, ref byte b)
+		{
+			fixed (byte* pb = &b)
+			{
+				GetRGBNative(pixel, format, r, g, (byte*)pb);
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, format, (byte*)pr, g, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, ref byte b)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBNative(pixel, format, r, (byte*)pg, (byte*)pb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGB values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGB(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetRGBANative(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b, byte* a)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, byte*, void>)funcTable[291])(pixel, format, r, g, b, a);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, void>)funcTable[291])(pixel, (nint)format, (nint)r, (nint)g, (nint)b, (nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b, byte* a)
+		{
+			GetRGBANative(pixel, format, r, g, b, a);
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				GetRGBANative(pixel, format, (byte*)pr, g, b, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				GetRGBANative(pixel, format, r, (byte*)pg, b, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pb = &b)
+			{
+				GetRGBANative(pixel, format, r, g, (byte*)pb, a);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, a);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, a);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pa = &a)
+			{
+				GetRGBANative(pixel, format, r, g, b, (byte*)pa);
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, format, (byte*)pr, g, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, format, r, (byte*)pg, b, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pb = &b)
+			{
+				fixed (byte* pa = &a)
+				{
+					GetRGBANative(pixel, format, r, g, (byte*)pb, (byte*)pa);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, (byte*)pa);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, SDLPixelFormat* format, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get RGBA values from a pixel in the specified format.<br/>
+		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
+		/// components from pixel formats with less than 8-bits per RGB component<br/>
+		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
+		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
+		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
+		/// (100% opaque).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetRGBA(uint pixel, ref SDLPixelFormat format, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLPixelFormat* pformat = &format)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void CalculateGammaRampNative(float gamma, ushort* ramp)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, ushort*, void>)funcTable[292])(gamma, ramp);
+			#else
+			((delegate* unmanaged[Cdecl]<float, nint, void>)funcTable[292])(gamma, (nint)ramp);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CalculateGammaRamp(float gamma, ushort* ramp)
+		{
+			CalculateGammaRampNative(gamma, ramp);
+		}
+
+		/// <summary>
+		/// Calculate a 256 entry gamma ramp for a gamma value.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void CalculateGammaRamp(float gamma, ref ushort ramp)
+		{
+			fixed (ushort* pramp = &ramp)
+			{
+				CalculateGammaRampNative(gamma, (ushort*)pramp);
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasIntersectionNative(SDLRect* a, SDLRect* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLBool>)funcTable[293])(a, b);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[293])((nint)a, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(SDLRect* a, SDLRect* b)
+		{
+			SDLBool ret = HasIntersectionNative(a, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(ref SDLRect a, SDLRect* b)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				SDLBool ret = HasIntersectionNative((SDLRect*)pa, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(SDLRect* a, ref SDLRect b)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				SDLBool ret = HasIntersectionNative(a, (SDLRect*)pb);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersection(ref SDLRect a, ref SDLRect b)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					SDLBool ret = HasIntersectionNative((SDLRect*)pa, (SDLRect*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IntersectRectNative(SDLRect* a, SDLRect* b, SDLRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, SDLBool>)funcTable[294])(a, b, result);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLBool>)funcTable[294])((nint)a, (nint)b, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRect* a, SDLRect* b, SDLRect* result)
+		{
+			SDLBool ret = IntersectRectNative(a, b, result);
+			return ret;
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(ref SDLRect a, SDLRect* b, SDLRect* result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				SDLBool ret = IntersectRectNative((SDLRect*)pa, b, result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRect* a, ref SDLRect b, SDLRect* result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				SDLBool ret = IntersectRectNative(a, (SDLRect*)pb, result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(ref SDLRect a, ref SDLRect b, SDLRect* result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, result);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRect* a, SDLRect* b, ref SDLRect result)
+		{
+			fixed (SDLRect* presult = &result)
+			{
+				SDLBool ret = IntersectRectNative(a, b, (SDLRect*)presult);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(ref SDLRect a, SDLRect* b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = IntersectRectNative((SDLRect*)pa, b, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(SDLRect* a, ref SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = IntersectRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRect(ref SDLRect a, ref SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					fixed (SDLRect* presult = &result)
+					{
+						SDLBool ret = IntersectRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnionRectNative(SDLRect* a, SDLRect* b, SDLRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRect*, SDLRect*, SDLRect*, void>)funcTable[295])(a, b, result);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[295])((nint)a, (nint)b, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRect* a, SDLRect* b, SDLRect* result)
+		{
+			UnionRectNative(a, b, result);
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(ref SDLRect a, SDLRect* b, SDLRect* result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				UnionRectNative((SDLRect*)pa, b, result);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRect* a, ref SDLRect b, SDLRect* result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				UnionRectNative(a, (SDLRect*)pb, result);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(ref SDLRect a, ref SDLRect b, SDLRect* result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					UnionRectNative((SDLRect*)pa, (SDLRect*)pb, result);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRect* a, SDLRect* b, ref SDLRect result)
+		{
+			fixed (SDLRect* presult = &result)
+			{
+				UnionRectNative(a, b, (SDLRect*)presult);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(ref SDLRect a, SDLRect* b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					UnionRectNative((SDLRect*)pa, b, (SDLRect*)presult);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(SDLRect* a, ref SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pb = &b)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					UnionRectNative(a, (SDLRect*)pb, (SDLRect*)presult);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionRect(ref SDLRect a, ref SDLRect b, ref SDLRect result)
+		{
+			fixed (SDLRect* pa = &a)
+			{
+				fixed (SDLRect* pb = &b)
+				{
+					fixed (SDLRect* presult = &result)
+					{
+						UnionRectNative((SDLRect*)pa, (SDLRect*)pb, (SDLRect*)presult);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool EnclosePointsNative(SDLPoint* points, int count, SDLRect* clip, SDLRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLPoint*, int, SDLRect*, SDLRect*, SDLBool>)funcTable[296])(points, count, clip, result);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, SDLBool>)funcTable[296])((nint)points, count, (nint)clip, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPoint* points, int count, SDLRect* clip, SDLRect* result)
+		{
+			SDLBool ret = EnclosePointsNative(points, count, clip, result);
+			return ret;
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(ref SDLPoint points, int count, SDLRect* clip, SDLRect* result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, clip, result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPoint* points, int count, ref SDLRect clip, SDLRect* result)
+		{
+			fixed (SDLRect* pclip = &clip)
+			{
+				SDLBool ret = EnclosePointsNative(points, count, (SDLRect*)pclip, result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(ref SDLPoint points, int count, ref SDLRect clip, SDLRect* result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				fixed (SDLRect* pclip = &clip)
+				{
+					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, result);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPoint* points, int count, SDLRect* clip, ref SDLRect result)
+		{
+			fixed (SDLRect* presult = &result)
+			{
+				SDLBool ret = EnclosePointsNative(points, count, clip, (SDLRect*)presult);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(ref SDLPoint points, int count, SDLRect* clip, ref SDLRect result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, clip, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(SDLPoint* points, int count, ref SDLRect clip, ref SDLRect result)
+		{
+			fixed (SDLRect* pclip = &clip)
+			{
+				fixed (SDLRect* presult = &result)
+				{
+					SDLBool ret = EnclosePointsNative(points, count, (SDLRect*)pclip, (SDLRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EnclosePoints(ref SDLPoint points, int count, ref SDLRect clip, ref SDLRect result)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				fixed (SDLRect* pclip = &clip)
+				{
+					fixed (SDLRect* presult = &result)
+					{
+						SDLBool ret = EnclosePointsNative((SDLPoint*)ppoints, count, (SDLRect*)pclip, (SDLRect*)presult);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IntersectRectAndLineNative(SDLRect* rect, int* x1, int* y1, int* x2, int* y2)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRect*, int*, int*, int*, int*, SDLBool>)funcTable[297])(rect, x1, y1, x2, y2);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, SDLBool>)funcTable[297])((nint)rect, (nint)x1, (nint)y1, (nint)x2, (nint)y2);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, int* x2, int* y2)
+		{
+			SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, y2);
+			return ret;
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, int* x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, int* x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (int* px2 = &x2)
+			{
+				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px2 = &x2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, y2);
+					return ret;
 				}
 			}
 		}

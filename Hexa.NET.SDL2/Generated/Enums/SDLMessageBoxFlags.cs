@@ -15,43 +15,32 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// SDL_MessageBox flags. If supported will display warning icon, etc.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_MessageBoxFlags")]
 	[Flags]
 	public enum SDLMessageBoxFlags : int
 	{
 		/// <summary>
 		/// error dialog <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_ERROR")]
-		[NativeName(NativeNameType.Value, "16")]
 		Error = unchecked(16),
 
 		/// <summary>
 		/// warning dialog <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_WARNING")]
-		[NativeName(NativeNameType.Value, "32")]
 		Warning = unchecked(32),
 
 		/// <summary>
 		/// informational dialog <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_INFORMATION")]
-		[NativeName(NativeNameType.Value, "64")]
 		Information = unchecked(64),
 
 		/// <summary>
 		/// buttons placed left to right <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT")]
-		[NativeName(NativeNameType.Value, "128")]
 		ButtonsLeftToRight = unchecked(128),
 
 		/// <summary>
 		/// buttons placed right to left <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT")]
-		[NativeName(NativeNameType.Value, "256")]
 		ButtonsRightToLeft = unchecked(256),
 	}
 }

@@ -18,59 +18,40 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_WindowEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLWindowEvent
 	{
 		/// <summary>
 		/// ::SDL_WINDOWEVENT <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The associated window <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint WindowID;
 
 		/// <summary>
 		/// ::SDL_WindowEventID <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "event")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Event;
 
-		[NativeName(NativeNameType.Field, "padding1")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding1;
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
-		[NativeName(NativeNameType.Field, "padding3")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 		/// <summary>
 		/// event dependent data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data1")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Data1;
 
 		/// <summary>
 		/// event dependent data <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data2")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Data2;
 
 

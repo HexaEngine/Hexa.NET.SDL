@@ -18,36 +18,27 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_TextEditingEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTextEditingEvent
 	{
 		/// <summary>
 		/// ::SDL_TEXTEDITING <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The window with keyboard focus, if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The editing text <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "text")]
-		[NativeName(NativeNameType.Type, "char[32]")]
 		public byte Text_0;
 		public byte Text_1;
 		public byte Text_2;
@@ -84,15 +75,11 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// The start cursor of selected editing text <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "start")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Start;
 
 		/// <summary>
 		/// The length of selected editing text <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "length")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Length;
 
 

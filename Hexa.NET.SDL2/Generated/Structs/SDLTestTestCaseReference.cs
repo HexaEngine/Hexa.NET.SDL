@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Holds information about a single test case.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_TestCaseReference")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestTestCaseReference
 	{
@@ -27,16 +26,12 @@ namespace Hexa.NET.SDL2
 		/// <<br/>
 		/// Func2Stress <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "testCase")]
-		[NativeName(NativeNameType.Type, "SDLTest_TestCaseFp")]
 		public unsafe void* TestCase;
 		/// <summary>
 		/// !<br/>
 		/// <<br/>
 		/// Short name (or function name) "Func2Stress" <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "name")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Name;
 
 		/// <summary>
@@ -44,8 +39,6 @@ namespace Hexa.NET.SDL2
 		/// <<br/>
 		/// Long name or full description "This test pushes func2() to the limit." <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "description")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Description;
 
 		/// <summary>
@@ -53,14 +46,12 @@ namespace Hexa.NET.SDL2
 		/// <<br/>
 		/// Set to TEST_ENABLED or TEST_DISABLED (test won't be run) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "enabled")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Enabled;
 
 
 		public unsafe SDLTestTestCaseReference(SDLTestTestCaseFp testCase = default, byte* name = default, byte* description = default, int enabled = default)
 		{
-			TestCase = (void*)Marshal.GetFunctionPointerForDelegate(testCase);
+			TestCase = (delegate*<void*, int>)Marshal.GetFunctionPointerForDelegate(testCase);
 			Name = name;
 			Description = description;
 			Enabled = enabled;

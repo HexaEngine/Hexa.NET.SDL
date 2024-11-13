@@ -18,67 +18,28 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_PixelFormat")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPixelFormat
 	{
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Format;
-		[NativeName(NativeNameType.Field, "palette")]
-		[NativeName(NativeNameType.Type, "SDL_Palette*")]
 		public unsafe SDLPalette* Palette;
-		[NativeName(NativeNameType.Field, "BitsPerPixel")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte BitsPerPixel;
-		[NativeName(NativeNameType.Field, "BytesPerPixel")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte BytesPerPixel;
-		[NativeName(NativeNameType.Field, "padding")]
-		[NativeName(NativeNameType.Type, "Uint8[2]")]
 		public byte Padding_0;
 		public byte Padding_1;
-		[NativeName(NativeNameType.Field, "Rmask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Rmask;
-		[NativeName(NativeNameType.Field, "Gmask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Gmask;
-		[NativeName(NativeNameType.Field, "Bmask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Bmask;
-		[NativeName(NativeNameType.Field, "Amask")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Amask;
-		[NativeName(NativeNameType.Field, "Rloss")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Rloss;
-		[NativeName(NativeNameType.Field, "Gloss")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Gloss;
-		[NativeName(NativeNameType.Field, "Bloss")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Bloss;
-		[NativeName(NativeNameType.Field, "Aloss")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Aloss;
-		[NativeName(NativeNameType.Field, "Rshift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Rshift;
-		[NativeName(NativeNameType.Field, "Gshift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Gshift;
-		[NativeName(NativeNameType.Field, "Bshift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Bshift;
-		[NativeName(NativeNameType.Field, "Ashift")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Ashift;
-		[NativeName(NativeNameType.Field, "refcount")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Refcount;
-		[NativeName(NativeNameType.Field, "next")]
-		[NativeName(NativeNameType.Type, "SDL_PixelFormat*")]
 		public unsafe SDLPixelFormat* Next;
 
 		public unsafe SDLPixelFormat(uint format = default, SDLPalette* palette = default, byte bitsPerPixel = default, byte bytesPerPixel = default, byte* padding = default, uint rmask = default, uint gmask = default, uint bmask = default, uint amask = default, byte rloss = default, byte gloss = default, byte bloss = default, byte aloss = default, byte rshift = default, byte gshift = default, byte bshift = default, byte ashift = default, int refcount = default, SDLPixelFormat* next = default)

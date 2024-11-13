@@ -37,63 +37,48 @@ namespace Hexa.NET.SDL2
 	/// effect level.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_HapticEffect")]
 	[StructLayout(LayoutKind.Explicit)]
 	public partial struct SDLHapticEffect
 	{
 		/// <summary>
 		/// Effect type. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		[FieldOffset(0)]
 		public ushort Type;
 
 		/// <summary>
 		/// Constant effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "constant")]
-		[NativeName(NativeNameType.Type, "SDL_HapticConstant")]
 		[FieldOffset(0)]
 		public SDLHapticConstant Constant;
 
 		/// <summary>
 		/// Periodic effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "periodic")]
-		[NativeName(NativeNameType.Type, "SDL_HapticPeriodic")]
 		[FieldOffset(0)]
 		public SDLHapticPeriodic Periodic;
 
 		/// <summary>
 		/// Condition effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "condition")]
-		[NativeName(NativeNameType.Type, "SDL_HapticCondition")]
 		[FieldOffset(0)]
 		public SDLHapticCondition Condition;
 
 		/// <summary>
 		/// Ramp effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "ramp")]
-		[NativeName(NativeNameType.Type, "SDL_HapticRamp")]
 		[FieldOffset(0)]
 		public SDLHapticRamp Ramp;
 
 		/// <summary>
 		/// Left/Right effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "leftright")]
-		[NativeName(NativeNameType.Type, "SDL_HapticLeftRight")]
 		[FieldOffset(0)]
 		public SDLHapticLeftRight Leftright;
 
 		/// <summary>
 		/// Custom effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "custom")]
-		[NativeName(NativeNameType.Type, "SDL_HapticCustom")]
 		[FieldOffset(0)]
 		public SDLHapticCustom Custom;
 

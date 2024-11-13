@@ -18,36 +18,27 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Information on the capabilities of a render driver or context.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_RendererInfo")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRendererInfo
 	{
 		/// <summary>
 		/// The name of the renderer <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "name")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Name;
 
 		/// <summary>
 		/// Supported ::SDL_RendererFlags <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "flags")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Flags;
 
 		/// <summary>
 		/// The number of available texture formats <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "num_texture_formats")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumTextureFormats;
 
 		/// <summary>
 		/// The available texture formats <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "texture_formats")]
-		[NativeName(NativeNameType.Type, "Uint32[16]")]
 		public uint TextureFormats_0;
 		public uint TextureFormats_1;
 		public uint TextureFormats_2;
@@ -68,15 +59,11 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// The maximum texture width <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "max_texture_width")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int MaxTextureWidth;
 
 		/// <summary>
 		/// The maximum texture height <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "max_texture_height")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int MaxTextureHeight;
 
 

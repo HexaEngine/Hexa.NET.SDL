@@ -19,21 +19,12 @@ namespace Hexa.NET.SDL2
 	/// A rectangle, with the origin at the upper left (integer).<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Rect")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRect
 	{
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int X;
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Y;
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int W;
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		public unsafe SDLRect(int x = default, int y = default, int w = default, int h = default)

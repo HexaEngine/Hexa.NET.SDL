@@ -18,12 +18,9 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// A set of colors to use for message box dialogs<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MessageBoxColorScheme")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMessageBoxColorScheme
 	{
-		[NativeName(NativeNameType.Field, "colors")]
-		[NativeName(NativeNameType.Type, "SDL_MessageBoxColor[5]")]
 		public SDLMessageBoxColor Colors_0;
 		public SDLMessageBoxColor Colors_1;
 		public SDLMessageBoxColor Colors_2;

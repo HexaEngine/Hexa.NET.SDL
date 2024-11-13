@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The SDL condition variable structure, defined in SDL_syscond.c <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_cond")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCond
 	{

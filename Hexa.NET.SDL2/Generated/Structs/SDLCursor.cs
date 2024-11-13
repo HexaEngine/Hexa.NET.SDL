@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "SDL_Cursor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCursor
 	{

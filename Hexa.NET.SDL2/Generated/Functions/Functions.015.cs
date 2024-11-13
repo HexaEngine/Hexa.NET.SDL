@@ -17,5022 +17,5013 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		public static void GlColor3Ub(byte red, byte green, byte blue)
+		{
+			GlColor3UbNative(red, green, blue);
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderLogicalToWindowNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
+		internal static void GlColor3UiNative(uint red, uint green, uint blue)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int*, int*, void>)funcTable[766])(renderer, logicalX, logicalY, windowX, windowY);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, float, float, nint, nint, void>)funcTable[766])((nint)renderer, logicalX, logicalY, (nint)windowX, (nint)windowY);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Ui(uint red, uint green, uint blue)
+		{
+			GlColor3UiNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UsNative(ushort red, ushort green, ushort blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Us(ushort red, ushort green, ushort blue)
+		{
+			GlColor3UsNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4BNative(byte red, byte green, byte blue, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4B(byte red, byte green, byte blue, byte alpha)
+		{
+			GlColor4BNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4DNative(double red, double green, double blue, double alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4D(double red, double green, double blue, double alpha)
+		{
+			GlColor4DNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4FNative(float red, float green, float blue, float alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4F(float red, float green, float blue, float alpha)
+		{
+			GlColor4FNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4INative(int red, int green, int blue, int alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4I(int red, int green, int blue, int alpha)
+		{
+			GlColor4INative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4SNative(short red, short green, short blue, short alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4S(short red, short green, short blue, short alpha)
+		{
+			GlColor4SNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UbNative(byte red, byte green, byte blue, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Ub(byte red, byte green, byte blue, byte alpha)
+		{
+			GlColor4UbNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UiNative(uint red, uint green, uint blue, uint alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Ui(uint red, uint green, uint blue, uint alpha)
+		{
+			GlColor4UiNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UsNative(ushort red, ushort green, ushort blue, ushort alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Us(ushort red, ushort green, ushort blue, ushort alpha)
+		{
+			GlColor4UsNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1018])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1018])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Bv(byte* v)
+		{
+			GlColor3BvNative(v);
+		}
+
+		public static void GlColor3Bv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor3Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlColor3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor3Bv(string v)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (v != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(v);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GlColor3BvNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1019])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1019])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Dv(double* v)
+		{
+			GlColor3DvNative(v);
+		}
+
+		public static void GlColor3Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlColor3DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1020])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1020])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Fv(float* v)
+		{
+			GlColor3FvNative(v);
+		}
+
+		public static void GlColor3Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlColor3FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1021])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1021])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Iv(int* v)
+		{
+			GlColor3IvNative(v);
+		}
+
+		public static void GlColor3Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlColor3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1022])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1022])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Sv(short* v)
+		{
+			GlColor3SvNative(v);
+		}
+
+		public static void GlColor3Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlColor3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UbvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1023])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1023])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Ubv(byte* v)
+		{
+			GlColor3UbvNative(v);
+		}
+
+		public static void GlColor3Ubv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor3UbvNative((byte*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UivNative(uint* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1024])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1024])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Uiv(uint* v)
+		{
+			GlColor3UivNative(v);
+		}
+
+		public static void GlColor3Uiv(ref uint v)
+		{
+			fixed (uint* pv = &v)
+			{
+				GlColor3UivNative((uint*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UsvNative(ushort* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1025])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1025])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Usv(ushort* v)
+		{
+			GlColor3UsvNative(v);
+		}
+
+		public static void GlColor3Usv(ref ushort v)
+		{
+			fixed (ushort* pv = &v)
+			{
+				GlColor3UsvNative((ushort*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1026])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1026])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Bv(byte* v)
+		{
+			GlColor4BvNative(v);
+		}
+
+		public static void GlColor4Bv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor4BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor4Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlColor4BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor4Bv(string v)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (v != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(v);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GlColor4BvNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1027])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1027])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Dv(double* v)
+		{
+			GlColor4DvNative(v);
+		}
+
+		public static void GlColor4Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlColor4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1028])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1028])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Fv(float* v)
+		{
+			GlColor4FvNative(v);
+		}
+
+		public static void GlColor4Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlColor4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1029])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1029])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Iv(int* v)
+		{
+			GlColor4IvNative(v);
+		}
+
+		public static void GlColor4Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlColor4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1030])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1030])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Sv(short* v)
+		{
+			GlColor4SvNative(v);
+		}
+
+		public static void GlColor4Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlColor4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UbvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1031])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Ubv(byte* v)
+		{
+			GlColor4UbvNative(v);
+		}
+
+		public static void GlColor4Ubv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor4UbvNative((byte*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UivNative(uint* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1032])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1032])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Uiv(uint* v)
+		{
+			GlColor4UivNative(v);
+		}
+
+		public static void GlColor4Uiv(ref uint v)
+		{
+			fixed (uint* pv = &v)
+			{
+				GlColor4UivNative((uint*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UsvNative(ushort* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1033])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1033])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Usv(ushort* v)
+		{
+			GlColor4UsvNative(v);
+		}
+
+		public static void GlColor4Usv(ref ushort v)
+		{
+			fixed (ushort* pv = &v)
+			{
+				GlColor4UsvNative((ushort*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1DNative(double s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1D(double s)
+		{
+			GlTexCoord1DNative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1FNative(float s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1035])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1035])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1F(float s)
+		{
+			GlTexCoord1FNative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1INative(int s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1036])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1036])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1I(int s)
+		{
+			GlTexCoord1INative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1SNative(short s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[1037])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[1037])(s);
+			#endif
+		}
+
+		public static void GlTexCoord1S(short s)
+		{
+			GlTexCoord1SNative(s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2DNative(double s, double t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1038])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1038])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2D(double s, double t)
+		{
+			GlTexCoord2DNative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2FNative(float s, float t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1039])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1039])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2F(float s, float t)
+		{
+			GlTexCoord2FNative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2INative(int s, int t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1040])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1040])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2I(int s, int t)
+		{
+			GlTexCoord2INative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2SNative(short s, short t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1041])(s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1041])(s, t);
+			#endif
+		}
+
+		public static void GlTexCoord2S(short s, short t)
+		{
+			GlTexCoord2SNative(s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3DNative(double s, double t, double r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1042])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1042])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3D(double s, double t, double r)
+		{
+			GlTexCoord3DNative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3FNative(float s, float t, float r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1043])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1043])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3F(float s, float t, float r)
+		{
+			GlTexCoord3FNative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3INative(int s, int t, int r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1044])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1044])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3I(int s, int t, int r)
+		{
+			GlTexCoord3INative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3SNative(short s, short t, short r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1045])(s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1045])(s, t, r);
+			#endif
+		}
+
+		public static void GlTexCoord3S(short s, short t, short r)
+		{
+			GlTexCoord3SNative(s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4DNative(double s, double t, double r, double q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1046])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1046])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4D(double s, double t, double r, double q)
+		{
+			GlTexCoord4DNative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4FNative(float s, float t, float r, float q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1047])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1047])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4F(float s, float t, float r, float q)
+		{
+			GlTexCoord4FNative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4INative(int s, int t, int r, int q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1048])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1048])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4I(int s, int t, int r, int q)
+		{
+			GlTexCoord4INative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4SNative(short s, short t, short r, short q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1049])(s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1049])(s, t, r, q);
+			#endif
+		}
+
+		public static void GlTexCoord4S(short s, short t, short r, short q)
+		{
+			GlTexCoord4SNative(s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1050])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1050])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Dv(double* v)
+		{
+			GlTexCoord1DvNative(v);
+		}
+
+		public static void GlTexCoord1Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord1DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1051])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1051])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Fv(float* v)
+		{
+			GlTexCoord1FvNative(v);
+		}
+
+		public static void GlTexCoord1Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord1FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1052])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1052])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Iv(int* v)
+		{
+			GlTexCoord1IvNative(v);
+		}
+
+		public static void GlTexCoord1Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord1IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1053])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1053])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord1Sv(short* v)
+		{
+			GlTexCoord1SvNative(v);
+		}
+
+		public static void GlTexCoord1Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord1SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1054])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1054])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Dv(double* v)
+		{
+			GlTexCoord2DvNative(v);
+		}
+
+		public static void GlTexCoord2Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord2DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1055])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1055])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Fv(float* v)
+		{
+			GlTexCoord2FvNative(v);
+		}
+
+		public static void GlTexCoord2Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord2FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1056])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1056])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Iv(int* v)
+		{
+			GlTexCoord2IvNative(v);
+		}
+
+		public static void GlTexCoord2Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord2IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord2SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1057])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1057])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord2Sv(short* v)
+		{
+			GlTexCoord2SvNative(v);
+		}
+
+		public static void GlTexCoord2Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord2SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1058])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1058])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Dv(double* v)
+		{
+			GlTexCoord3DvNative(v);
+		}
+
+		public static void GlTexCoord3Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord3DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1059])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1059])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Fv(float* v)
+		{
+			GlTexCoord3FvNative(v);
+		}
+
+		public static void GlTexCoord3Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord3FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1060])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1060])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Iv(int* v)
+		{
+			GlTexCoord3IvNative(v);
+		}
+
+		public static void GlTexCoord3Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1061])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1061])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord3Sv(short* v)
+		{
+			GlTexCoord3SvNative(v);
+		}
+
+		public static void GlTexCoord3Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1062])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1062])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Dv(double* v)
+		{
+			GlTexCoord4DvNative(v);
+		}
+
+		public static void GlTexCoord4Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlTexCoord4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1063])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1063])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Fv(float* v)
+		{
+			GlTexCoord4FvNative(v);
+		}
+
+		public static void GlTexCoord4Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlTexCoord4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1064])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1064])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Iv(int* v)
+		{
+			GlTexCoord4IvNative(v);
+		}
+
+		public static void GlTexCoord4Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlTexCoord4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1065])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1065])((nint)v);
+			#endif
+		}
+
+		public static void GlTexCoord4Sv(short* v)
+		{
+			GlTexCoord4SvNative(v);
+		}
+
+		public static void GlTexCoord4Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlTexCoord4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2DNative(double x, double y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1066])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1066])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2D(double x, double y)
+		{
+			GlRasterPos2DNative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2FNative(float x, float y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1067])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1067])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2F(float x, float y)
+		{
+			GlRasterPos2FNative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2INative(int x, int y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1068])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1068])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2I(int x, int y)
+		{
+			GlRasterPos2INative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2SNative(short x, short y)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1069])(x, y);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[1069])(x, y);
+			#endif
+		}
+
+		public static void GlRasterPos2S(short x, short y)
+		{
+			GlRasterPos2SNative(x, y);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3DNative(double x, double y, double z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1070])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1070])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3D(double x, double y, double z)
+		{
+			GlRasterPos3DNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3FNative(float x, float y, float z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1071])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1071])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3F(float x, float y, float z)
+		{
+			GlRasterPos3FNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3INative(int x, int y, int z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1072])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1072])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3I(int x, int y, int z)
+		{
+			GlRasterPos3INative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3SNative(short x, short y, short z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1073])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1073])(x, y, z);
+			#endif
+		}
+
+		public static void GlRasterPos3S(short x, short y, short z)
+		{
+			GlRasterPos3SNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4DNative(double x, double y, double z, double w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1074])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1074])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4D(double x, double y, double z, double w)
+		{
+			GlRasterPos4DNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4FNative(float x, float y, float z, float w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1075])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1075])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4F(float x, float y, float z, float w)
+		{
+			GlRasterPos4FNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4INative(int x, int y, int z, int w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1076])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1076])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4I(int x, int y, int z, int w)
+		{
+			GlRasterPos4INative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4SNative(short x, short y, short z, short w)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1077])(x, y, z, w);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1077])(x, y, z, w);
+			#endif
+		}
+
+		public static void GlRasterPos4S(short x, short y, short z, short w)
+		{
+			GlRasterPos4SNative(x, y, z, w);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1078])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1078])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Dv(double* v)
+		{
+			GlRasterPos2DvNative(v);
+		}
+
+		public static void GlRasterPos2Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlRasterPos2DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1079])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1079])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Fv(float* v)
+		{
+			GlRasterPos2FvNative(v);
+		}
+
+		public static void GlRasterPos2Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlRasterPos2FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1080])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1080])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Iv(int* v)
+		{
+			GlRasterPos2IvNative(v);
+		}
+
+		public static void GlRasterPos2Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlRasterPos2IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos2SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1081])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1081])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos2Sv(short* v)
+		{
+			GlRasterPos2SvNative(v);
+		}
+
+		public static void GlRasterPos2Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlRasterPos2SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1082])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1082])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Dv(double* v)
+		{
+			GlRasterPos3DvNative(v);
+		}
+
+		public static void GlRasterPos3Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlRasterPos3DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1083])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1083])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Fv(float* v)
+		{
+			GlRasterPos3FvNative(v);
+		}
+
+		public static void GlRasterPos3Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlRasterPos3FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1084])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1084])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Iv(int* v)
+		{
+			GlRasterPos3IvNative(v);
+		}
+
+		public static void GlRasterPos3Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlRasterPos3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1085])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1085])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos3Sv(short* v)
+		{
+			GlRasterPos3SvNative(v);
+		}
+
+		public static void GlRasterPos3Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlRasterPos3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1086])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1086])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Dv(double* v)
+		{
+			GlRasterPos4DvNative(v);
+		}
+
+		public static void GlRasterPos4Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlRasterPos4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1087])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1087])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Fv(float* v)
+		{
+			GlRasterPos4FvNative(v);
+		}
+
+		public static void GlRasterPos4Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlRasterPos4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1088])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1088])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Iv(int* v)
+		{
+			GlRasterPos4IvNative(v);
+		}
+
+		public static void GlRasterPos4Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlRasterPos4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRasterPos4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1089])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1089])((nint)v);
+			#endif
+		}
+
+		public static void GlRasterPos4Sv(short* v)
+		{
+			GlRasterPos4SvNative(v);
+		}
+
+		public static void GlRasterPos4Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlRasterPos4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectdNative(double x1, double y1, double x2, double y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1090])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1090])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRectd(double x1, double y1, double x2, double y2)
+		{
+			GlRectdNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectfNative(float x1, float y1, float x2, float y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1091])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1091])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRectf(float x1, float y1, float x2, float y2)
+		{
+			GlRectfNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectiNative(int x1, int y1, int x2, int y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1092])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1092])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRecti(int x1, int y1, int x2, int y2)
+		{
+			GlRectiNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectsNative(short x1, short y1, short x2, short y2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1093])(x1, y1, x2, y2);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1093])(x1, y1, x2, y2);
+			#endif
+		}
+
+		public static void GlRects(short x1, short y1, short x2, short y2)
+		{
+			GlRectsNative(x1, y1, x2, y2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectdvNative(double* v1, double* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, double*, void>)funcTable[1094])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1094])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectdv(double* v1, double* v2)
+		{
+			GlRectdvNative(v1, v2);
+		}
+
+		public static void GlRectdv(ref double v1, double* v2)
+		{
+			fixed (double* pv1 = &v1)
+			{
+				GlRectdvNative((double*)pv1, v2);
+			}
+		}
+
+		public static void GlRectdv(double* v1, ref double v2)
+		{
+			fixed (double* pv2 = &v2)
+			{
+				GlRectdvNative(v1, (double*)pv2);
+			}
+		}
+
+		public static void GlRectdv(ref double v1, ref double v2)
+		{
+			fixed (double* pv1 = &v1)
+			{
+				fixed (double* pv2 = &v2)
+				{
+					GlRectdvNative((double*)pv1, (double*)pv2);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectfvNative(float* v1, float* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, float*, void>)funcTable[1095])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1095])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectfv(float* v1, float* v2)
+		{
+			GlRectfvNative(v1, v2);
+		}
+
+		public static void GlRectfv(ref float v1, float* v2)
+		{
+			fixed (float* pv1 = &v1)
+			{
+				GlRectfvNative((float*)pv1, v2);
+			}
+		}
+
+		public static void GlRectfv(float* v1, ref float v2)
+		{
+			fixed (float* pv2 = &v2)
+			{
+				GlRectfvNative(v1, (float*)pv2);
+			}
+		}
+
+		public static void GlRectfv(ref float v1, ref float v2)
+		{
+			fixed (float* pv1 = &v1)
+			{
+				fixed (float* pv2 = &v2)
+				{
+					GlRectfvNative((float*)pv1, (float*)pv2);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectivNative(int* v1, int* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, int*, void>)funcTable[1096])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1096])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectiv(int* v1, int* v2)
+		{
+			GlRectivNative(v1, v2);
+		}
+
+		public static void GlRectiv(ref int v1, int* v2)
+		{
+			fixed (int* pv1 = &v1)
+			{
+				GlRectivNative((int*)pv1, v2);
+			}
+		}
+
+		public static void GlRectiv(int* v1, ref int v2)
+		{
+			fixed (int* pv2 = &v2)
+			{
+				GlRectivNative(v1, (int*)pv2);
+			}
+		}
+
+		public static void GlRectiv(ref int v1, ref int v2)
+		{
+			fixed (int* pv1 = &v1)
+			{
+				fixed (int* pv2 = &v2)
+				{
+					GlRectivNative((int*)pv1, (int*)pv2);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRectsvNative(short* v1, short* v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, short*, void>)funcTable[1097])(v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[1097])((nint)v1, (nint)v2);
+			#endif
+		}
+
+		public static void GlRectsv(short* v1, short* v2)
+		{
+			GlRectsvNative(v1, v2);
+		}
+
+		public static void GlRectsv(ref short v1, short* v2)
+		{
+			fixed (short* pv1 = &v1)
+			{
+				GlRectsvNative((short*)pv1, v2);
+			}
+		}
+
+		public static void GlRectsv(short* v1, ref short v2)
+		{
+			fixed (short* pv2 = &v2)
+			{
+				GlRectsvNative(v1, (short*)pv2);
+			}
+		}
+
+		public static void GlRectsv(ref short v1, ref short v2)
+		{
+			fixed (short* pv1 = &v1)
+			{
+				fixed (short* pv2 = &v2)
+				{
+					GlRectsvNative((short*)pv1, (short*)pv2);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Vertex Arrays  (1.1)<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertexPointerNative(int size, uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1098])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1098])(size, type, stride, (nint)ptr);
 			#endif
 		}
 
 		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Vertex Arrays  (1.1)<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
+		public static void GlVertexPointer(int size, uint type, int stride, void* ptr)
 		{
-			RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, windowY);
+			GlVertexPointerNative(size, type, stride, ptr);
 		}
 
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, windowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			fixed (int* pwindowX = &windowX)
-			{
-				RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, windowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] int* windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowX = &windowX)
-				{
-					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, windowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (int* pwindowY = &windowY)
-			{
-				RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, (int*)pwindowY);
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] int* windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowY = &windowY)
-				{
-					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, (int*)pwindowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (int* pwindowX = &windowX)
-			{
-				fixed (int* pwindowY = &windowY)
-				{
-					RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get real coordinates of point in window when given logical coordinates of<br/>
-		/// point in renderer.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderLogicalToWindow")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderLogicalToWindow([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float")] float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float")] float logicalY, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int*")] ref int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int*")] ref int windowY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pwindowX = &windowX)
-				{
-					fixed (int* pwindowY = &windowY)
-					{
-						RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetRenderDrawColorNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		internal static void GlNormalPointerNative(uint type, int stride, void* ptr)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte, byte, byte, byte, int>)funcTable[767])(renderer, r, g, b, a);
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1099])(type, stride, ptr);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, int>)funcTable[767])((nint)renderer, r, g, b, a);
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1099])(type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlNormalPointer(uint type, int stride, void* ptr)
+		{
+			GlNormalPointerNative(type, stride, ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColorPointerNative(int size, uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1100])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1100])(size, type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlColorPointer(int size, uint type, int stride, void* ptr)
+		{
+			GlColorPointerNative(size, type, stride, ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexPointerNative(uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1101])(type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1101])(type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlIndexPointer(uint type, int stride, void* ptr)
+		{
+			GlIndexPointerNative(type, stride, ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoordPointerNative(int size, uint type, int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, int, void*, void>)funcTable[1102])(size, type, stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, int, nint, void>)funcTable[1102])(size, type, stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlTexCoordPointer(int size, uint type, int stride, void* ptr)
+		{
+			GlTexCoordPointerNative(size, type, stride, ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEdgeFlagPointerNative(int stride, void* ptr)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void*, void>)funcTable[1103])(stride, ptr);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1103])(stride, (nint)ptr);
+			#endif
+		}
+
+		public static void GlEdgeFlagPointer(int stride, void* ptr)
+		{
+			GlEdgeFlagPointerNative(stride, ptr);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPointervNative(uint pname, void** @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void**, void>)funcTable[1104])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1104])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetPointerv(uint pname, void** @params)
+		{
+			GlGetPointervNative(pname, @params);
+		}
+
+		public static void GlGetPointerv(uint pname, ref void* @params)
+		{
+			fixed (void** pparams = &@params)
+			{
+				GlGetPointervNative(pname, (void**)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlArrayElementNative(int i)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1105])(i);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1105])(i);
+			#endif
+		}
+
+		public static void GlArrayElement(int i)
+		{
+			GlArrayElementNative(i);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawArraysNative(uint mode, int first, int count)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1106])(mode, first, count);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1106])(mode, first, count);
+			#endif
+		}
+
+		public static void GlDrawArrays(uint mode, int first, int count)
+		{
+			GlDrawArraysNative(mode, first, count);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawElementsNative(uint mode, int count, uint type, void* indices)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void*, void>)funcTable[1107])(mode, count, type, indices);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1107])(mode, count, type, (nint)indices);
+			#endif
+		}
+
+		public static void GlDrawElements(uint mode, int count, uint type, void* indices)
+		{
+			GlDrawElementsNative(mode, count, type, indices);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlInterleavedArraysNative(uint format, int stride, void* pointer)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1108])(format, stride, pointer);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1108])(format, stride, (nint)pointer);
+			#endif
+		}
+
+		public static void GlInterleavedArrays(uint format, int stride, void* pointer)
+		{
+			GlInterleavedArraysNative(format, stride, pointer);
+		}
+
+		/// <summary>
+		/// Lighting<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlShadeModelNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1109])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1109])(mode);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Lighting<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		public static void GlShadeModel(uint mode)
 		{
-			int ret = SetRenderDrawColorNative(renderer, r, g, b, a);
+			GlShadeModelNative(mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightfNative(uint light, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1110])(light, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1110])(light, pname, param);
+			#endif
+		}
+
+		public static void GlLightf(uint light, uint pname, float param)
+		{
+			GlLightfNative(light, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightiNative(uint light, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1111])(light, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1111])(light, pname, param);
+			#endif
+		}
+
+		public static void GlLighti(uint light, uint pname, int param)
+		{
+			GlLightiNative(light, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightfvNative(uint light, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1112])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1112])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightfv(uint light, uint pname, float* @params)
+		{
+			GlLightfvNative(light, pname, @params);
+		}
+
+		public static void GlLightfv(uint light, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlLightfvNative(light, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightivNative(uint light, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1113])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1113])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightiv(uint light, uint pname, int* @params)
+		{
+			GlLightivNative(light, pname, @params);
+		}
+
+		public static void GlLightiv(uint light, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlLightivNative(light, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetLightfvNative(uint light, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1114])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1114])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetLightfv(uint light, uint pname, float* @params)
+		{
+			GlGetLightfvNative(light, pname, @params);
+		}
+
+		public static void GlGetLightfv(uint light, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetLightfvNative(light, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetLightivNative(uint light, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1115])(light, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1115])(light, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetLightiv(uint light, uint pname, int* @params)
+		{
+			GlGetLightivNative(light, pname, @params);
+		}
+
+		public static void GlGetLightiv(uint light, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetLightivNative(light, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelfNative(uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1116])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1116])(pname, param);
+			#endif
+		}
+
+		public static void GlLightModelf(uint pname, float param)
+		{
+			GlLightModelfNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModeliNative(uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1117])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1117])(pname, param);
+			#endif
+		}
+
+		public static void GlLightModeli(uint pname, int param)
+		{
+			GlLightModeliNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelfvNative(uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1118])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1118])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightModelfv(uint pname, float* @params)
+		{
+			GlLightModelfvNative(pname, @params);
+		}
+
+		public static void GlLightModelfv(uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlLightModelfvNative(pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLightModelivNative(uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1119])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1119])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlLightModeliv(uint pname, int* @params)
+		{
+			GlLightModelivNative(pname, @params);
+		}
+
+		public static void GlLightModeliv(uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlLightModelivNative(pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialfNative(uint face, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1120])(face, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1120])(face, pname, param);
+			#endif
+		}
+
+		public static void GlMaterialf(uint face, uint pname, float param)
+		{
+			GlMaterialfNative(face, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialiNative(uint face, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1121])(face, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1121])(face, pname, param);
+			#endif
+		}
+
+		public static void GlMateriali(uint face, uint pname, int param)
+		{
+			GlMaterialiNative(face, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialfvNative(uint face, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1122])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1122])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlMaterialfv(uint face, uint pname, float* @params)
+		{
+			GlMaterialfvNative(face, pname, @params);
+		}
+
+		public static void GlMaterialfv(uint face, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlMaterialfvNative(face, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMaterialivNative(uint face, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1123])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1123])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlMaterialiv(uint face, uint pname, int* @params)
+		{
+			GlMaterialivNative(face, pname, @params);
+		}
+
+		public static void GlMaterialiv(uint face, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlMaterialivNative(face, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMaterialfvNative(uint face, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1124])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1124])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetMaterialfv(uint face, uint pname, float* @params)
+		{
+			GlGetMaterialfvNative(face, pname, @params);
+		}
+
+		public static void GlGetMaterialfv(uint face, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetMaterialfvNative(face, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMaterialivNative(uint face, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1125])(face, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1125])(face, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetMaterialiv(uint face, uint pname, int* @params)
+		{
+			GlGetMaterialivNative(face, pname, @params);
+		}
+
+		public static void GlGetMaterialiv(uint face, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetMaterialivNative(face, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColorMaterialNative(uint face, uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1126])(face, mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1126])(face, mode);
+			#endif
+		}
+
+		public static void GlColorMaterial(uint face, uint mode)
+		{
+			GlColorMaterialNative(face, mode);
+		}
+
+		/// <summary>
+		/// Raster functions<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelZoomNative(float xfactor, float yfactor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1127])(xfactor, yfactor);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1127])(xfactor, yfactor);
+			#endif
+		}
+
+		/// <summary>
+		/// Raster functions<br/>
+		/// </summary>
+		public static void GlPixelZoom(float xfactor, float yfactor)
+		{
+			GlPixelZoomNative(xfactor, yfactor);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelStorefNative(uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1128])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1128])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelStoref(uint pname, float param)
+		{
+			GlPixelStorefNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelStoreiNative(uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1129])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1129])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelStorei(uint pname, int param)
+		{
+			GlPixelStoreiNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelTransferfNative(uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1130])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1130])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelTransferf(uint pname, float param)
+		{
+			GlPixelTransferfNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelTransferiNative(uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1131])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1131])(pname, param);
+			#endif
+		}
+
+		public static void GlPixelTransferi(uint pname, int param)
+		{
+			GlPixelTransferiNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapfvNative(uint map, int mapsize, float* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, float*, void>)funcTable[1132])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1132])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		public static void GlPixelMapfv(uint map, int mapsize, float* values)
+		{
+			GlPixelMapfvNative(map, mapsize, values);
+		}
+
+		public static void GlPixelMapfv(uint map, int mapsize, ref float values)
+		{
+			fixed (float* pvalues = &values)
+			{
+				GlPixelMapfvNative(map, mapsize, (float*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapuivNative(uint map, int mapsize, uint* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint*, void>)funcTable[1133])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1133])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		public static void GlPixelMapuiv(uint map, int mapsize, uint* values)
+		{
+			GlPixelMapuivNative(map, mapsize, values);
+		}
+
+		public static void GlPixelMapuiv(uint map, int mapsize, ref uint values)
+		{
+			fixed (uint* pvalues = &values)
+			{
+				GlPixelMapuivNative(map, mapsize, (uint*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPixelMapusvNative(uint map, int mapsize, ushort* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, ushort*, void>)funcTable[1134])(map, mapsize, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1134])(map, mapsize, (nint)values);
+			#endif
+		}
+
+		public static void GlPixelMapusv(uint map, int mapsize, ushort* values)
+		{
+			GlPixelMapusvNative(map, mapsize, values);
+		}
+
+		public static void GlPixelMapusv(uint map, int mapsize, ref ushort values)
+		{
+			fixed (ushort* pvalues = &values)
+			{
+				GlPixelMapusvNative(map, mapsize, (ushort*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapfvNative(uint map, float* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1135])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1135])(map, (nint)values);
+			#endif
+		}
+
+		public static void GlGetPixelMapfv(uint map, float* values)
+		{
+			GlGetPixelMapfvNative(map, values);
+		}
+
+		public static void GlGetPixelMapfv(uint map, ref float values)
+		{
+			fixed (float* pvalues = &values)
+			{
+				GlGetPixelMapfvNative(map, (float*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapuivNative(uint map, uint* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint*, void>)funcTable[1136])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1136])(map, (nint)values);
+			#endif
+		}
+
+		public static void GlGetPixelMapuiv(uint map, uint* values)
+		{
+			GlGetPixelMapuivNative(map, values);
+		}
+
+		public static void GlGetPixelMapuiv(uint map, ref uint values)
+		{
+			fixed (uint* pvalues = &values)
+			{
+				GlGetPixelMapuivNative(map, (uint*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPixelMapusvNative(uint map, ushort* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, ushort*, void>)funcTable[1137])(map, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1137])(map, (nint)values);
+			#endif
+		}
+
+		public static void GlGetPixelMapusv(uint map, ushort* values)
+		{
+			GlGetPixelMapusvNative(map, values);
+		}
+
+		public static void GlGetPixelMapusv(uint map, ref ushort values)
+		{
+			fixed (ushort* pvalues = &values)
+			{
+				GlGetPixelMapusvNative(map, (ushort*)pvalues);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlBitmapNative(int width, int height, float xorig, float yorig, float xmove, float ymove, byte* bitmap)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, byte*, void>)funcTable[1138])(width, height, xorig, yorig, xmove, ymove, bitmap);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, float, float, float, float, nint, void>)funcTable[1138])(width, height, xorig, yorig, xmove, ymove, (nint)bitmap);
+			#endif
+		}
+
+		public static void GlBitmap(int width, int height, float xorig, float yorig, float xmove, float ymove, byte* bitmap)
+		{
+			GlBitmapNative(width, height, xorig, yorig, xmove, ymove, bitmap);
+		}
+
+		public static void GlBitmap(int width, int height, float xorig, float yorig, float xmove, float ymove, ref byte bitmap)
+		{
+			fixed (byte* pbitmap = &bitmap)
+			{
+				GlBitmapNative(width, height, xorig, yorig, xmove, ymove, (byte*)pbitmap);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlReadPixelsNative(int x, int y, int width, int height, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, void*, void>)funcTable[1139])(x, y, width, height, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, uint, nint, void>)funcTable[1139])(x, y, width, height, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlReadPixels(int x, int y, int width, int height, uint format, uint type, void* pixels)
+		{
+			GlReadPixelsNative(x, y, width, height, format, type, pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawPixelsNative(int width, int height, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, uint, uint, void*, void>)funcTable[1140])(width, height, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, uint, uint, nint, void>)funcTable[1140])(width, height, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlDrawPixels(int width, int height, uint format, uint type, void* pixels)
+		{
+			GlDrawPixelsNative(width, height, format, type, pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyPixelsNative(int x, int y, int width, int height, uint type)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)funcTable[1141])(x, y, width, height, type);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, uint, void>)funcTable[1141])(x, y, width, height, type);
+			#endif
+		}
+
+		public static void GlCopyPixels(int x, int y, int width, int height, uint type)
+		{
+			GlCopyPixelsNative(x, y, width, height, type);
+		}
+
+		/// <summary>
+		/// Stenciling<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlStencilFuncNative(uint func, int reference, uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)funcTable[1142])(func, reference, mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, void>)funcTable[1142])(func, reference, mask);
+			#endif
+		}
+
+		/// <summary>
+		/// Stenciling<br/>
+		/// </summary>
+		public static void GlStencilFunc(uint func, int reference, uint mask)
+		{
+			GlStencilFuncNative(func, reference, mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlStencilMaskNative(uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1143])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1143])(mask);
+			#endif
+		}
+
+		public static void GlStencilMask(uint mask)
+		{
+			GlStencilMaskNative(mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlStencilOpNative(uint fail, uint zfail, uint zpass)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1144])(fail, zfail, zpass);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1144])(fail, zfail, zpass);
+			#endif
+		}
+
+		public static void GlStencilOp(uint fail, uint zfail, uint zpass)
+		{
+			GlStencilOpNative(fail, zfail, zpass);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClearStencilNative(int s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1145])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1145])(s);
+			#endif
+		}
+
+		public static void GlClearStencil(int s)
+		{
+			GlClearStencilNative(s);
+		}
+
+		/// <summary>
+		/// Texture mapping<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGendNative(uint coord, uint pname, double param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)funcTable[1146])(coord, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, double, void>)funcTable[1146])(coord, pname, param);
+			#endif
+		}
+
+		/// <summary>
+		/// Texture mapping<br/>
+		/// </summary>
+		public static void GlTexGend(uint coord, uint pname, double param)
+		{
+			GlTexGendNative(coord, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGenfNative(uint coord, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1147])(coord, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1147])(coord, pname, param);
+			#endif
+		}
+
+		public static void GlTexGenf(uint coord, uint pname, float param)
+		{
+			GlTexGenfNative(coord, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGeniNative(uint coord, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1148])(coord, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1148])(coord, pname, param);
+			#endif
+		}
+
+		public static void GlTexGeni(uint coord, uint pname, int param)
+		{
+			GlTexGeniNative(coord, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGendvNative(uint coord, uint pname, double* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1149])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1149])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexGendv(uint coord, uint pname, double* @params)
+		{
+			GlTexGendvNative(coord, pname, @params);
+		}
+
+		public static void GlTexGendv(uint coord, uint pname, ref double @params)
+		{
+			fixed (double* pparams = &@params)
+			{
+				GlTexGendvNative(coord, pname, (double*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGenfvNative(uint coord, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1150])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1150])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexGenfv(uint coord, uint pname, float* @params)
+		{
+			GlTexGenfvNative(coord, pname, @params);
+		}
+
+		public static void GlTexGenfv(uint coord, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlTexGenfvNative(coord, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexGenivNative(uint coord, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1151])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1151])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexGeniv(uint coord, uint pname, int* @params)
+		{
+			GlTexGenivNative(coord, pname, @params);
+		}
+
+		public static void GlTexGeniv(uint coord, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlTexGenivNative(coord, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexGendvNative(uint coord, uint pname, double* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1152])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1152])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexGendv(uint coord, uint pname, double* @params)
+		{
+			GlGetTexGendvNative(coord, pname, @params);
+		}
+
+		public static void GlGetTexGendv(uint coord, uint pname, ref double @params)
+		{
+			fixed (double* pparams = &@params)
+			{
+				GlGetTexGendvNative(coord, pname, (double*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexGenfvNative(uint coord, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1153])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1153])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexGenfv(uint coord, uint pname, float* @params)
+		{
+			GlGetTexGenfvNative(coord, pname, @params);
+		}
+
+		public static void GlGetTexGenfv(uint coord, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexGenfvNative(coord, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexGenivNative(uint coord, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1154])(coord, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1154])(coord, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexGeniv(uint coord, uint pname, int* @params)
+		{
+			GlGetTexGenivNative(coord, pname, @params);
+		}
+
+		public static void GlGetTexGeniv(uint coord, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexGenivNative(coord, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnvfNative(uint target, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1155])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1155])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexEnvf(uint target, uint pname, float param)
+		{
+			GlTexEnvfNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnviNative(uint target, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1156])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1156])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexEnvi(uint target, uint pname, int param)
+		{
+			GlTexEnviNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnvfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1157])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1157])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexEnvfv(uint target, uint pname, float* @params)
+		{
+			GlTexEnvfvNative(target, pname, @params);
+		}
+
+		public static void GlTexEnvfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlTexEnvfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexEnvivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1158])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1158])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexEnviv(uint target, uint pname, int* @params)
+		{
+			GlTexEnvivNative(target, pname, @params);
+		}
+
+		public static void GlTexEnviv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlTexEnvivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexEnvfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1159])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1159])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexEnvfv(uint target, uint pname, float* @params)
+		{
+			GlGetTexEnvfvNative(target, pname, @params);
+		}
+
+		public static void GlGetTexEnvfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexEnvfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexEnvivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1160])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1160])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexEnviv(uint target, uint pname, int* @params)
+		{
+			GlGetTexEnvivNative(target, pname, @params);
+		}
+
+		public static void GlGetTexEnviv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexEnvivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameterfNative(uint target, uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1161])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1161])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexParameterf(uint target, uint pname, float param)
+		{
+			GlTexParameterfNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameteriNative(uint target, uint pname, int param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1162])(target, pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1162])(target, pname, param);
+			#endif
+		}
+
+		public static void GlTexParameteri(uint target, uint pname, int param)
+		{
+			GlTexParameteriNative(target, pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1163])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1163])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexParameterfv(uint target, uint pname, float* @params)
+		{
+			GlTexParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlTexParameterfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlTexParameterfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexParameterivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1164])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1164])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlTexParameteriv(uint target, uint pname, int* @params)
+		{
+			GlTexParameterivNative(target, pname, @params);
+		}
+
+		public static void GlTexParameteriv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlTexParameterivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1165])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1165])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexParameterfv(uint target, uint pname, float* @params)
+		{
+			GlGetTexParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlGetTexParameterfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexParameterfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexParameterivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1166])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1166])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexParameteriv(uint target, uint pname, int* @params)
+		{
+			GlGetTexParameterivNative(target, pname, @params);
+		}
+
+		public static void GlGetTexParameteriv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexParameterivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexLevelParameterfvNative(uint target, int level, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, float*, void>)funcTable[1167])(target, level, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1167])(target, level, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexLevelParameterfv(uint target, int level, uint pname, float* @params)
+		{
+			GlGetTexLevelParameterfvNative(target, level, pname, @params);
+		}
+
+		public static void GlGetTexLevelParameterfv(uint target, int level, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetTexLevelParameterfvNative(target, level, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexLevelParameterivNative(uint target, int level, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int*, void>)funcTable[1168])(target, level, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, nint, void>)funcTable[1168])(target, level, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetTexLevelParameteriv(uint target, int level, uint pname, int* @params)
+		{
+			GlGetTexLevelParameterivNative(target, level, pname, @params);
+		}
+
+		public static void GlGetTexLevelParameteriv(uint target, int level, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetTexLevelParameterivNative(target, level, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexImage1DNative(uint target, int level, int internalFormat, int width, int border, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, void*, void>)funcTable[1169])(target, level, internalFormat, width, border, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, uint, uint, nint, void>)funcTable[1169])(target, level, internalFormat, width, border, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlTexImage1D(uint target, int level, int internalFormat, int width, int border, uint format, uint type, void* pixels)
+		{
+			GlTexImage1DNative(target, level, internalFormat, width, border, format, type, pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexImage2DNative(uint target, int level, int internalFormat, int width, int height, int border, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)funcTable[1170])(target, level, internalFormat, width, height, border, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)funcTable[1170])(target, level, internalFormat, width, height, border, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlTexImage2D(uint target, int level, int internalFormat, int width, int height, int border, uint format, uint type, void* pixels)
+		{
+			GlTexImage2DNative(target, level, internalFormat, width, height, border, format, type, pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetTexImageNative(uint target, int level, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, void*, void>)funcTable[1171])(target, level, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, uint, nint, void>)funcTable[1171])(target, level, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlGetTexImage(uint target, int level, uint format, uint type, void* pixels)
+		{
+			GlGetTexImageNative(target, level, format, type, pixels);
+		}
+
+		/// <summary>
+		/// 1.1 functions <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGenTexturesNative(int n, uint* textures)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1172])(n, textures);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1172])(n, (nint)textures);
+			#endif
+		}
+
+		/// <summary>
+		/// 1.1 functions <br/>
+		/// </summary>
+		public static void GlGenTextures(int n, uint* textures)
+		{
+			GlGenTexturesNative(n, textures);
+		}
+
+		/// <summary>
+		/// 1.1 functions <br/>
+		/// </summary>
+		public static void GlGenTextures(int n, ref uint textures)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				GlGenTexturesNative(n, (uint*)ptextures);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDeleteTexturesNative(int n, uint* textures)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1173])(n, textures);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1173])(n, (nint)textures);
+			#endif
+		}
+
+		public static void GlDeleteTextures(int n, uint* textures)
+		{
+			GlDeleteTexturesNative(n, textures);
+		}
+
+		public static void GlDeleteTextures(int n, ref uint textures)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				GlDeleteTexturesNative(n, (uint*)ptextures);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlBindTextureNative(uint target, uint texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1174])(target, texture);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[1174])(target, texture);
+			#endif
+		}
+
+		public static void GlBindTexture(uint target, uint texture)
+		{
+			GlBindTextureNative(target, texture);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPrioritizeTexturesNative(int n, uint* textures, float* priorities)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint*, float*, void>)funcTable[1175])(n, textures, priorities);
+			#else
+			((delegate* unmanaged[Cdecl]<int, nint, nint, void>)funcTable[1175])(n, (nint)textures, (nint)priorities);
+			#endif
+		}
+
+		public static void GlPrioritizeTextures(int n, uint* textures, float* priorities)
+		{
+			GlPrioritizeTexturesNative(n, textures, priorities);
+		}
+
+		public static void GlPrioritizeTextures(int n, ref uint textures, float* priorities)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				GlPrioritizeTexturesNative(n, (uint*)ptextures, priorities);
+			}
+		}
+
+		public static void GlPrioritizeTextures(int n, uint* textures, ref float priorities)
+		{
+			fixed (float* ppriorities = &priorities)
+			{
+				GlPrioritizeTexturesNative(n, textures, (float*)ppriorities);
+			}
+		}
+
+		public static void GlPrioritizeTextures(int n, ref uint textures, ref float priorities)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				fixed (float* ppriorities = &priorities)
+				{
+					GlPrioritizeTexturesNative(n, (uint*)ptextures, (float*)ppriorities);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GlAreTexturesResidentNative(int n, uint* textures, byte* residences)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint*, byte*, byte>)funcTable[1176])(n, textures, residences);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<int, nint, nint, byte>)funcTable[1176])(n, (nint)textures, (nint)residences);
+			#endif
+		}
+
+		public static byte GlAreTexturesResident(int n, uint* textures, byte* residences)
+		{
+			byte ret = GlAreTexturesResidentNative(n, textures, residences);
 			return ret;
 		}
 
-		/// <summary>
-		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
-		/// SDL_RenderClear().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		public static byte GlAreTexturesResident(int n, ref uint textures, byte* residences)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (uint* ptextures = &textures)
 			{
-				int ret = SetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
+				byte ret = GlAreTexturesResidentNative(n, (uint*)ptextures, residences);
 				return ret;
 			}
 		}
 
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		public static byte GlAreTexturesResident(int n, uint* textures, ref byte residences)
+		{
+			fixed (byte* presidences = &residences)
+			{
+				byte ret = GlAreTexturesResidentNative(n, textures, (byte*)presidences);
+				return ret;
+			}
+		}
+
+		public static byte GlAreTexturesResident(int n, ref uint textures, ref byte residences)
+		{
+			fixed (uint* ptextures = &textures)
+			{
+				fixed (byte* presidences = &residences)
+				{
+					byte ret = GlAreTexturesResidentNative(n, (uint*)ptextures, (byte*)presidences);
+					return ret;
+				}
+			}
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetRenderDrawColorNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		internal static byte GlIsTextureNative(uint texture)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*, byte*, byte*, byte*, int>)funcTable[768])(renderer, r, g, b, a);
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[1177])(texture);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[768])((nint)renderer, (nint)r, (nint)g, (nint)b, (nint)a);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[1177])(texture);
+			#endif
+		}
+
+		public static byte GlIsTexture(uint texture)
+		{
+			byte ret = GlIsTextureNative(texture);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexSubImage1DNative(uint target, int level, int xoffset, int width, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, void*, void>)funcTable[1178])(target, level, xoffset, width, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, nint, void>)funcTable[1178])(target, level, xoffset, width, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlTexSubImage1D(uint target, int level, int xoffset, int width, uint format, uint type, void* pixels)
+		{
+			GlTexSubImage1DNative(target, level, xoffset, width, format, type, pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexSubImage2DNative(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, void* pixels)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, void*, void>)funcTable[1179])(target, level, xoffset, yoffset, width, height, format, type, pixels);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, uint, nint, void>)funcTable[1179])(target, level, xoffset, yoffset, width, height, format, type, (nint)pixels);
+			#endif
+		}
+
+		public static void GlTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, uint type, void* pixels)
+		{
+			GlTexSubImage2DNative(target, level, xoffset, yoffset, width, height, format, type, pixels);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyTexImage1DNative(uint target, int level, uint internalformat, int x, int y, int width, int border)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)funcTable[1180])(target, level, internalformat, x, y, width, border);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void>)funcTable[1180])(target, level, internalformat, x, y, width, border);
+			#endif
+		}
+
+		public static void GlCopyTexImage1D(uint target, int level, uint internalformat, int x, int y, int width, int border)
+		{
+			GlCopyTexImage1DNative(target, level, internalformat, x, y, width, border);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyTexImage2DNative(uint target, int level, uint internalformat, int x, int y, int width, int height, int border)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)funcTable[1181])(target, level, internalformat, x, y, width, height, border);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void>)funcTable[1181])(target, level, internalformat, x, y, width, height, border);
+			#endif
+		}
+
+		public static void GlCopyTexImage2D(uint target, int level, uint internalformat, int x, int y, int width, int height, int border)
+		{
+			GlCopyTexImage2DNative(target, level, internalformat, x, y, width, height, border);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyTexSubImage1DNative(uint target, int level, int xoffset, int x, int y, int width)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)funcTable[1182])(target, level, xoffset, x, y, width);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, void>)funcTable[1182])(target, level, xoffset, x, y, width);
+			#endif
+		}
+
+		public static void GlCopyTexSubImage1D(uint target, int level, int xoffset, int x, int y, int width)
+		{
+			GlCopyTexSubImage1DNative(target, level, xoffset, x, y, width);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyTexSubImage2DNative(uint target, int level, int xoffset, int yoffset, int x, int y, int width, int height)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)funcTable[1183])(target, level, xoffset, yoffset, x, y, width, height);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, void>)funcTable[1183])(target, level, xoffset, yoffset, x, y, width, height);
+			#endif
+		}
+
+		public static void GlCopyTexSubImage2D(uint target, int level, int xoffset, int yoffset, int x, int y, int width, int height)
+		{
+			GlCopyTexSubImage2DNative(target, level, xoffset, yoffset, x, y, width, height);
+		}
+
+		/// <summary>
+		/// Evaluators<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMap1DNative(uint target, double u1, double u2, int stride, int order, double* points)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double*, void>)funcTable[1184])(target, u1, u2, stride, order, points);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, nint, void>)funcTable[1184])(target, u1, u2, stride, order, (nint)points);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Evaluators<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GlMap1D(uint target, double u1, double u2, int stride, int order, double* points)
 		{
-			int ret = GetRenderDrawColorNative(renderer, r, g, b, a);
-			return ret;
+			GlMap1DNative(target, u1, u2, stride, order, points);
 		}
 
 		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Evaluators<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static void GlMap1D(uint target, double u1, double u2, int stride, int order, ref double points)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (double* ppoints = &points)
 			{
-				int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
-				return ret;
+				GlMap1DNative(target, u1, u2, stride, order, (double*)ppoints);
 			}
 		}
 
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pb = &b)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, a);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, a);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pa = &a)
-			{
-				int ret = GetRenderDrawColorNative(renderer, r, g, b, (byte*)pa);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pb = &b)
-			{
-				fixed (byte* pa = &a)
-				{
-					int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, (byte*)pa);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					fixed (byte* pa = &a)
-					{
-						int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						fixed (byte* pa = &a)
-						{
-							int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawColor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawColor([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte a)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							fixed (byte* pa = &a)
-							{
-								int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		internal static void GlMap1FNative(uint target, float u1, float u2, int stride, int order, float* points)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode, int>)funcTable[769])(renderer, blendMode);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float*, void>)funcTable[1185])(target, u1, u2, stride, order, points);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[769])((nint)renderer, blendMode);
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, nint, void>)funcTable[1185])(target, u1, u2, stride, order, (nint)points);
+			#endif
+		}
+
+		public static void GlMap1F(uint target, float u1, float u2, int stride, int order, float* points)
+		{
+			GlMap1FNative(target, u1, u2, stride, order, points);
+		}
+
+		public static void GlMap1F(uint target, float u1, float u2, int stride, int order, ref float points)
+		{
+			fixed (float* ppoints = &points)
+			{
+				GlMap1FNative(target, u1, u2, stride, order, (float*)ppoints);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMap2DNative(uint target, double u1, double u2, int ustride, int uorder, double v1, double v2, int vstride, int vorder, double* points)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, double*, void>)funcTable[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, int, int, double, double, int, int, nint, void>)funcTable[1186])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
+			#endif
+		}
+
+		public static void GlMap2D(uint target, double u1, double u2, int ustride, int uorder, double v1, double v2, int vstride, int vorder, double* points)
+		{
+			GlMap2DNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+		}
+
+		public static void GlMap2D(uint target, double u1, double u2, int ustride, int uorder, double v1, double v2, int vstride, int vorder, ref double points)
+		{
+			fixed (double* ppoints = &points)
+			{
+				GlMap2DNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (double*)ppoints);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMap2FNative(uint target, float u1, float u2, int ustride, int uorder, float v1, float v2, int vstride, int vorder, float* points)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, float*, void>)funcTable[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, int, int, float, float, int, int, nint, void>)funcTable[1187])(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (nint)points);
+			#endif
+		}
+
+		public static void GlMap2F(uint target, float u1, float u2, int ustride, int uorder, float v1, float v2, int vstride, int vorder, float* points)
+		{
+			GlMap2FNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+		}
+
+		public static void GlMap2F(uint target, float u1, float u2, int ustride, int uorder, float v1, float v2, int vstride, int vorder, ref float points)
+		{
+			fixed (float* ppoints = &points)
+			{
+				GlMap2FNative(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, (float*)ppoints);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMapdvNative(uint target, uint query, double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, double*, void>)funcTable[1188])(target, query, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1188])(target, query, (nint)v);
+			#endif
+		}
+
+		public static void GlGetMapdv(uint target, uint query, double* v)
+		{
+			GlGetMapdvNative(target, query, v);
+		}
+
+		public static void GlGetMapdv(uint target, uint query, ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlGetMapdvNative(target, query, (double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMapfvNative(uint target, uint query, float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1189])(target, query, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1189])(target, query, (nint)v);
+			#endif
+		}
+
+		public static void GlGetMapfv(uint target, uint query, float* v)
+		{
+			GlGetMapfvNative(target, query, v);
+		}
+
+		public static void GlGetMapfv(uint target, uint query, ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlGetMapfvNative(target, query, (float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMapivNative(uint target, uint query, int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1190])(target, query, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1190])(target, query, (nint)v);
+			#endif
+		}
+
+		public static void GlGetMapiv(uint target, uint query, int* v)
+		{
+			GlGetMapivNative(target, query, v);
+		}
+
+		public static void GlGetMapiv(uint target, uint query, ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlGetMapivNative(target, query, (int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord1DNative(double u)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1191])(u);
+			#else
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1191])(u);
+			#endif
+		}
+
+		public static void GlEvalCoord1D(double u)
+		{
+			GlEvalCoord1DNative(u);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord1FNative(float u)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1192])(u);
+			#else
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1192])(u);
+			#endif
+		}
+
+		public static void GlEvalCoord1F(float u)
+		{
+			GlEvalCoord1FNative(u);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord1DvNative(double* u)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1193])(u);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1193])((nint)u);
+			#endif
+		}
+
+		public static void GlEvalCoord1Dv(double* u)
+		{
+			GlEvalCoord1DvNative(u);
+		}
+
+		public static void GlEvalCoord1Dv(ref double u)
+		{
+			fixed (double* pu = &u)
+			{
+				GlEvalCoord1DvNative((double*)pu);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord1FvNative(float* u)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1194])(u);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1194])((nint)u);
+			#endif
+		}
+
+		public static void GlEvalCoord1Fv(float* u)
+		{
+			GlEvalCoord1FvNative(u);
+		}
+
+		public static void GlEvalCoord1Fv(ref float u)
+		{
+			fixed (float* pu = &u)
+			{
+				GlEvalCoord1FvNative((float*)pu);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord2DNative(double u, double v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1195])(u, v);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[1195])(u, v);
+			#endif
+		}
+
+		public static void GlEvalCoord2D(double u, double v)
+		{
+			GlEvalCoord2DNative(u, v);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord2FNative(float u, float v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1196])(u, v);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[1196])(u, v);
+			#endif
+		}
+
+		public static void GlEvalCoord2F(float u, float v)
+		{
+			GlEvalCoord2FNative(u, v);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord2DvNative(double* u)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1197])(u);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1197])((nint)u);
+			#endif
+		}
+
+		public static void GlEvalCoord2Dv(double* u)
+		{
+			GlEvalCoord2DvNative(u);
+		}
+
+		public static void GlEvalCoord2Dv(ref double u)
+		{
+			fixed (double* pu = &u)
+			{
+				GlEvalCoord2DvNative((double*)pu);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalCoord2FvNative(float* u)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1198])(u);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1198])((nint)u);
+			#endif
+		}
+
+		public static void GlEvalCoord2Fv(float* u)
+		{
+			GlEvalCoord2FvNative(u);
+		}
+
+		public static void GlEvalCoord2Fv(ref float u)
+		{
+			fixed (float* pu = &u)
+			{
+				GlEvalCoord2FvNative((float*)pu);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMapGrid1DNative(int un, double u1, double u2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, double, double, void>)funcTable[1199])(un, u1, u2);
+			#else
+			((delegate* unmanaged[Cdecl]<int, double, double, void>)funcTable[1199])(un, u1, u2);
+			#endif
+		}
+
+		public static void GlMapGrid1D(int un, double u1, double u2)
+		{
+			GlMapGrid1DNative(un, u1, u2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMapGrid1FNative(int un, float u1, float u2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, float, float, void>)funcTable[1200])(un, u1, u2);
+			#else
+			((delegate* unmanaged[Cdecl]<int, float, float, void>)funcTable[1200])(un, u1, u2);
+			#endif
+		}
+
+		public static void GlMapGrid1F(int un, float u1, float u2)
+		{
+			GlMapGrid1FNative(un, u1, u2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMapGrid2DNative(int un, double u1, double u2, int vn, double v1, double v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, double, double, int, double, double, void>)funcTable[1201])(un, u1, u2, vn, v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<int, double, double, int, double, double, void>)funcTable[1201])(un, u1, u2, vn, v1, v2);
+			#endif
+		}
+
+		public static void GlMapGrid2D(int un, double u1, double u2, int vn, double v1, double v2)
+		{
+			GlMapGrid2DNative(un, u1, u2, vn, v1, v2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMapGrid2FNative(int un, float u1, float u2, int vn, float v1, float v2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, float, float, int, float, float, void>)funcTable[1202])(un, u1, u2, vn, v1, v2);
+			#else
+			((delegate* unmanaged[Cdecl]<int, float, float, int, float, float, void>)funcTable[1202])(un, u1, u2, vn, v1, v2);
+			#endif
+		}
+
+		public static void GlMapGrid2F(int un, float u1, float u2, int vn, float v1, float v2)
+		{
+			GlMapGrid2FNative(un, u1, u2, vn, v1, v2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalPoint1Native(int i)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1203])(i);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[1203])(i);
+			#endif
+		}
+
+		public static void GlEvalPoint1(int i)
+		{
+			GlEvalPoint1Native(i);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalPoint2Native(int i, int j)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1204])(i, j);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[1204])(i, j);
+			#endif
+		}
+
+		public static void GlEvalPoint2(int i, int j)
+		{
+			GlEvalPoint2Native(i, j);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalMesh1Native(uint mode, int i1, int i2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1205])(mode, i1, i2);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1205])(mode, i1, i2);
+			#endif
+		}
+
+		public static void GlEvalMesh1(uint mode, int i1, int i2)
+		{
+			GlEvalMesh1Native(mode, i1, i2);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEvalMesh2Native(uint mode, int i1, int i2, int j1, int j2)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1206])(mode, i1, i2, j1, j2);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1206])(mode, i1, i2, j1, j2);
+			#endif
+		}
+
+		public static void GlEvalMesh2(uint mode, int i1, int i2, int j1, int j2)
+		{
+			GlEvalMesh2Native(mode, i1, i2, j1, j2);
+		}
+
+		/// <summary>
+		/// Fog<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlFogfNative(uint pname, float param)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1207])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1207])(pname, param);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Fog<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static void GlFogf(uint pname, float param)
 		{
-			int ret = SetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret;
+			GlFogfNative(pname, param);
 		}
 
-		/// <summary>
-		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlFogiNative(uint pname, int param)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1208])(pname, param);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1208])(pname, param);
+			#endif
+		}
+
+		public static void GlFogi(uint pname, int param)
+		{
+			GlFogiNative(pname, param);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlFogfvNative(uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1209])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1209])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlFogfv(uint pname, float* @params)
+		{
+			GlFogfvNative(pname, @params);
+		}
+
+		public static void GlFogfv(uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
 			{
-				int ret = SetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret;
+				GlFogfvNative(pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlFogivNative(uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1210])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1210])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlFogiv(uint pname, int* @params)
+		{
+			GlFogivNative(pname, @params);
+		}
+
+		public static void GlFogiv(uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlFogivNative(pname, (int*)pparams);
 			}
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Selection and Feedback<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetRenderDrawBlendModeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		internal static void GlFeedbackBufferNative(int size, uint type, float* buffer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode*, int>)funcTable[770])(renderer, blendMode);
+			((delegate* unmanaged[Cdecl]<int, uint, float*, void>)funcTable[1211])(size, type, buffer);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[770])((nint)renderer, (nint)blendMode);
+			((delegate* unmanaged[Cdecl]<int, uint, nint, void>)funcTable[1211])(size, type, (nint)buffer);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Selection and Feedback<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		public static void GlFeedbackBuffer(int size, uint type, float* buffer)
 		{
-			int ret = GetRenderDrawBlendModeNative(renderer, blendMode);
-			return ret;
+			GlFeedbackBufferNative(size, type, buffer);
 		}
 
 		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Selection and Feedback<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		public static void GlFeedbackBuffer(int size, uint type, ref float buffer)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (float* pbuffer = &buffer)
 			{
-				int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
-				return ret;
+				GlFeedbackBufferNative(size, type, (float*)pbuffer);
 			}
 		}
 
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				int ret = GetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for drawing operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderDrawBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetRenderDrawBlendMode([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderClearNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		internal static void GlPassThroughNative(float token)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int>)funcTable[771])(renderer);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1212])(token);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[771])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[1212])(token);
 			#endif
 		}
 
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		public static void GlPassThrough(float token)
 		{
-			int ret = RenderClearNative(renderer);
-			return ret;
+			GlPassThroughNative(token);
 		}
 
-		/// <summary>
-		/// Clear the current rendering target with the drawing color.<br/>
-		/// This function clears the entire rendering target, ignoring the viewport and<br/>
-		/// the clip rectangle.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderClear")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderClear([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderClearNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target.<br/>
-		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
-		/// use SDL_RenderDrawPoints() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoint")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawPointNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		internal static void GlSelectBufferNative(int size, uint* buffer)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)funcTable[772])(renderer, x, y);
+			((delegate* unmanaged[Cdecl]<int, uint*, void>)funcTable[1213])(size, buffer);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)funcTable[772])((nint)renderer, x, y);
+			((delegate* unmanaged[Cdecl]<int, nint, void>)funcTable[1213])(size, (nint)buffer);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a point on the current rendering target.<br/>
-		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
-		/// use SDL_RenderDrawPoints() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		public static void GlSelectBuffer(int size, uint* buffer)
 		{
-			int ret = RenderDrawPointNative(renderer, x, y);
-			return ret;
+			GlSelectBufferNative(size, buffer);
 		}
 
-		/// <summary>
-		/// Draw a point on the current rendering target.<br/>
-		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
-		/// use SDL_RenderDrawPoints() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPoint([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "int")] int y)
+		public static void GlSelectBuffer(int size, ref uint buffer)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (uint* pbuffer = &buffer)
 			{
-				int ret = RenderDrawPointNative((SDLRenderer*)prenderer, x, y);
-				return ret;
+				GlSelectBufferNative(size, (uint*)pbuffer);
 			}
 		}
 
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawPointsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlInitNamesNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)funcTable[773])(renderer, points, count);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1214])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[773])((nint)renderer, (nint)points, count);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1214])();
 			#endif
 		}
 
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlInitNames()
 		{
-			int ret = RenderDrawPointsNative(renderer, points, count);
-			return ret;
+			GlInitNamesNative();
 		}
 
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, points, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				int ret = RenderDrawPointsNative(renderer, (SDLPoint*)ppoints, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPoints")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPoints([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLPoint* ppoints = &points)
-				{
-					int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a line on the current rendering target.<br/>
-		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
-		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLine")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawLineNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
+		internal static void GlLoadNameNative(uint name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int, int, int>)funcTable[774])(renderer, x1, y1, x2, y2);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1215])(name);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, int>)funcTable[774])((nint)renderer, x1, y1, x2, y2);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1215])(name);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a line on the current rendering target.<br/>
-		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
-		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLine")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
+		public static void GlLoadName(uint name)
 		{
-			int ret = RenderDrawLineNative(renderer, x1, y1, x2, y2);
-			return ret;
+			GlLoadNameNative(name);
 		}
 
-		/// <summary>
-		/// Draw a line on the current rendering target.<br/>
-		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
-		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLine")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLine([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "int")] int x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "int")] int y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "int")] int x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "int")] int y2)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawLinesNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlPushNameNative(uint name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)funcTable[775])(renderer, points, count);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1216])(name);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[775])((nint)renderer, (nint)points, count);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1216])(name);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlPushName(uint name)
 		{
-			int ret = RenderDrawLinesNative(renderer, points, count);
-			return ret;
+			GlPushNameNative(name);
 		}
 
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, points, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLPoint* ppoints = &points)
-			{
-				int ret = RenderDrawLinesNative(renderer, (SDLPoint*)ppoints, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLines")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLines([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLPoint* ppoints = &points)
-				{
-					int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static void GlPopNameNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[776])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1217])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[776])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[1217])();
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static void GlPopName()
 		{
-			int ret = RenderDrawRectNative(renderer, rect);
-			return ret;
+			GlPopNameNative();
 		}
 
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawRectNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderDrawRectNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderDrawRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlDrawRangeElementsNative(uint mode, uint start, uint end, int count, uint type, void* indices)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)funcTable[777])(renderer, rects, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, int, uint, void*, void>)funcTable[1218])(mode, start, end, count, type, indices);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[777])((nint)renderer, (nint)rects, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, int, uint, nint, void>)funcTable[1218])(mode, start, end, count, type, (nint)indices);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlDrawRangeElements(uint mode, uint start, uint end, int count, uint type, void* indices)
 		{
-			int ret = RenderDrawRectsNative(renderer, rects, count);
-			return ret;
+			GlDrawRangeElementsNative(mode, start, end, count, type, indices);
 		}
 
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRect* prects = &rects)
-			{
-				int ret = RenderDrawRectsNative(renderer, (SDLRect*)prects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prects = &rects)
-				{
-					int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderFillRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static void GlTexImage3DNative(uint target, int level, int internalFormat, int width, int height, int depth, int border, uint format, uint type, void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[778])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, uint, uint, void*, void>)funcTable[1219])(target, level, internalFormat, width, height, depth, border, format, type, pixels);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[778])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, uint, uint, nint, void>)funcTable[1219])(target, level, internalFormat, width, height, depth, border, format, type, (nint)pixels);
 			#endif
 		}
 
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static void GlTexImage3D(uint target, int level, int internalFormat, int width, int height, int depth, int border, uint format, uint type, void* pixels)
 		{
-			int ret = RenderFillRectNative(renderer, rect);
-			return ret;
+			GlTexImage3DNative(target, level, internalFormat, width, height, depth, border, format, type, pixels);
 		}
 
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderFillRectNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderFillRectNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
-		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
-		/// color's alpha value is ignored unless blending is enabled with the<br/>
-		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderFillRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderFillRectsNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlTexSubImage3DNative(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, void* pixels)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)funcTable[779])(renderer, rects, count);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, uint, void*, void>)funcTable[1220])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[779])((nint)renderer, (nint)rects, count);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, uint, nint, void>)funcTable[1220])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, (nint)pixels);
 			#endif
 		}
 
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, uint type, void* pixels)
 		{
-			int ret = RenderFillRectsNative(renderer, rects, count);
-			return ret;
+			GlTexSubImage3DNative(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 		}
 
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRect* prects = &rects)
-			{
-				int ret = RenderFillRectsNative(renderer, (SDLRect*)prects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRects([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prects = &rects)
-				{
-					int ret = RenderFillRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderCopyNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		internal static void GlCopyTexSubImage3DNative(uint target, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width, int height)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLRect*, int>)funcTable[780])(renderer, texture, srcrect, dstrect);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, int, void>)funcTable[1221])(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[780])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, int, void>)funcTable[1221])(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 			#endif
 		}
 
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
+		public static void GlCopyTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int x, int y, int width, int height)
 		{
-			int ret = RenderCopyNative(renderer, texture, srcrect, dstrect);
-			return ret;
+			GlCopyTexSubImage3DNative(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 		}
 
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = RenderCopyNative(renderer, texture, srcrect, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopy")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopy([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderCopyExNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		internal static void GlColorTableNative(uint target, uint internalformat, int width, uint format, uint type, void* table)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLRect*, double, SDLPoint*, SDLRendererFlip, int>)funcTable[781])(renderer, texture, srcrect, dstrect, angle, center, flip);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, void*, void>)funcTable[1222])(target, internalformat, width, format, type, table);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, double, nint, SDLRendererFlip, int>)funcTable[781])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect, angle, (nint)center, flip);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, nint, void>)funcTable[1222])(target, internalformat, width, format, type, (nint)table);
 			#endif
 		}
 
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static void GlColorTable(uint target, uint internalformat, int width, uint format, uint type, void* table)
 		{
-			int ret = RenderCopyExNative(renderer, texture, srcrect, dstrect, angle, center, flip);
-			return ret;
+			GlColorTableNative(target, internalformat, width, format, type, table);
 		}
 
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = RenderCopyExNative(renderer, texture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] SDLPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, center, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLPoint* pcenter = &center)
-			{
-				int ret = RenderCopyExNative(renderer, texture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				fixed (SDLPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExNative(renderer, texture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					fixed (SDLPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					fixed (SDLPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						fixed (SDLPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					fixed (SDLPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						fixed (SDLPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						fixed (SDLPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering, with optional<br/>
-		/// rotation and flipping.<br/>
-		/// Copy a portion of the texture to the current rendering target, optionally<br/>
-		/// rotating it by angle around the given center and also flipping it<br/>
-		/// top-bottom and/or left-right.<br/>
-		/// The texture is blended with the destination based on its blend mode set<br/>
-		/// with SDL_SetTextureBlendMode().<br/>
-		/// The texture color is affected based on its color modulation set by<br/>
-		/// SDL_SetTextureColorMod().<br/>
-		/// The texture alpha is affected based on its alpha modulation set by<br/>
-		/// SDL_SetTextureAlphaMod().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyEx")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyEx([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_Point*")] ref SDLPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							fixed (SDLPoint* pcenter = &center)
-							{
-								int ret = RenderCopyExNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLRect*)pdstrect, angle, (SDLPoint*)pcenter, flip);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawPointFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		internal static void GlColorSubTableNative(uint target, int start, int count, uint format, uint type, void* data)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)funcTable[782])(renderer, x, y);
+			((delegate* unmanaged[Cdecl]<uint, int, int, uint, uint, void*, void>)funcTable[1223])(target, start, count, format, type, data);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, int>)funcTable[782])((nint)renderer, x, y);
+			((delegate* unmanaged[Cdecl]<uint, int, int, uint, uint, nint, void>)funcTable[1223])(target, start, count, format, type, (nint)data);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPointF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
+		public static void GlColorSubTable(uint target, int start, int count, uint format, uint type, void* data)
 		{
-			int ret = RenderDrawPointFNative(renderer, x, y);
-			return ret;
+			GlColorSubTableNative(target, start, count, format, type, data);
 		}
 
-		/// <summary>
-		/// Draw a point on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPointF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "float")] float y)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawPointFNative((SDLRenderer*)prenderer, x, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawPointsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlColorTableParameterivNative(uint target, uint pname, int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, int>)funcTable[783])(renderer, points, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1224])(target, pname, @params);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[783])((nint)renderer, (nint)points, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1224])(target, pname, (nint)@params);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlColorTableParameteriv(uint target, uint pname, int* @params)
 		{
-			int ret = RenderDrawPointsFNative(renderer, points, count);
-			return ret;
+			GlColorTableParameterivNative(target, pname, @params);
 		}
 
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlColorTableParameteriv(uint target, uint pname, ref int @params)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (int* pparams = &@params)
 			{
-				int ret = RenderDrawPointsFNative((SDLRenderer*)prenderer, points, count);
-				return ret;
+				GlColorTableParameterivNative(target, pname, (int*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				int ret = RenderDrawPointsFNative(renderer, (SDLFPoint*)ppoints, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw multiple points on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawPointsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawPointsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* ppoints = &points)
-				{
-					int ret = RenderDrawPointsFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLineF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawLineFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		internal static void GlColorTableParameterfvNative(uint target, uint pname, float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, float, float, int>)funcTable[784])(renderer, x1, y1, x2, y2);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1225])(target, pname, @params);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, float, float, int>)funcTable[784])((nint)renderer, x1, y1, x2, y2);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1225])(target, pname, (nint)@params);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLineF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLineF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		public static void GlColorTableParameterfv(uint target, uint pname, float* @params)
 		{
-			int ret = RenderDrawLineFNative(renderer, x1, y1, x2, y2);
-			return ret;
+			GlColorTableParameterfvNative(target, pname, @params);
 		}
 
-		/// <summary>
-		/// Draw a line on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLineF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLineF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "float")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "float")] float y1, [NativeName(NativeNameType.Param, "x2")] [NativeName(NativeNameType.Type, "float")] float x2, [NativeName(NativeNameType.Param, "y2")] [NativeName(NativeNameType.Type, "float")] float y2)
+		public static void GlColorTableParameterfv(uint target, uint pname, ref float @params)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (float* pparams = &@params)
 			{
-				int ret = RenderDrawLineFNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
-				return ret;
+				GlColorTableParameterfvNative(target, pname, (float*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawLinesFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlCopyColorSubTableNative(uint target, int start, int x, int y, int width)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFPoint*, int, int>)funcTable[785])(renderer, points, count);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1226])(target, start, x, y, width);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[785])((nint)renderer, (nint)points, count);
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1226])(target, start, x, y, width);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlCopyColorSubTable(uint target, int start, int x, int y, int width)
 		{
-			int ret = RenderDrawLinesFNative(renderer, points, count);
-			return ret;
+			GlCopyColorSubTableNative(target, start, x, y, width);
 		}
 
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawLinesFNative((SDLRenderer*)prenderer, points, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFPoint* ppoints = &points)
-			{
-				int ret = RenderDrawLinesFNative(renderer, (SDLFPoint*)ppoints, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a series of connected lines on the current rendering target at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawLinesF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawLinesF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint points, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* ppoints = &points)
-				{
-					int ret = RenderDrawLinesFNative((SDLRenderer*)prenderer, (SDLFPoint*)ppoints, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawRectFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		internal static void GlCopyColorTableNative(uint target, uint internalformat, int x, int y, int width)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int>)funcTable[786])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1227])(target, internalformat, x, y, width);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[786])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1227])(target, internalformat, x, y, width);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		public static void GlCopyColorTable(uint target, uint internalformat, int x, int y, int width)
 		{
-			int ret = RenderDrawRectFNative(renderer, rect);
-			return ret;
+			GlCopyColorTableNative(target, internalformat, x, y, width);
 		}
 
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawRectFNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				int ret = RenderDrawRectFNative(renderer, (SDLFRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw a rectangle on the current rendering target at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prect = &rect)
-				{
-					int ret = RenderDrawRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderDrawRectsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlGetColorTableNative(uint target, uint format, uint type, void* table)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, int>)funcTable[787])(renderer, rects, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void>)funcTable[1228])(target, format, type, table);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[787])((nint)renderer, (nint)rects, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, void>)funcTable[1228])(target, format, type, (nint)table);
 			#endif
 		}
 
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlGetColorTable(uint target, uint format, uint type, void* table)
 		{
-			int ret = RenderDrawRectsFNative(renderer, rects, count);
-			return ret;
+			GlGetColorTableNative(target, format, type, table);
 		}
 
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderDrawRectsFNative((SDLRenderer*)prenderer, rects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFRect* prects = &rects)
-			{
-				int ret = RenderDrawRectsFNative(renderer, (SDLFRect*)prects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Draw some number of rectangles on the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderDrawRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderDrawRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prects = &rects)
-				{
-					int ret = RenderDrawRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderFillRectFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		internal static void GlGetColorTableParameterfvNative(uint target, uint pname, float* @params)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int>)funcTable[788])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1229])(target, pname, @params);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[788])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1229])(target, pname, (nint)@params);
 			#endif
 		}
 
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		public static void GlGetColorTableParameterfv(uint target, uint pname, float* @params)
 		{
-			int ret = RenderFillRectFNative(renderer, rect);
-			return ret;
+			GlGetColorTableParameterfvNative(target, pname, @params);
 		}
 
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rect)
+		public static void GlGetColorTableParameterfv(uint target, uint pname, ref float @params)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (float* pparams = &@params)
 			{
-				int ret = RenderFillRectFNative((SDLRenderer*)prenderer, rect);
-				return ret;
+				GlGetColorTableParameterfvNative(target, pname, (float*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
-		{
-			fixed (SDLFRect* prect = &rect)
-			{
-				int ret = RenderFillRectFNative(renderer, (SDLFRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill a rectangle on the current rendering target with the drawing color at<br/>
-		/// subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prect = &rect)
-				{
-					int ret = RenderFillRectFNative((SDLRenderer*)prenderer, (SDLFRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderFillRectsFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		internal static void GlGetColorTableParameterivNative(uint target, uint pname, int* @params)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLFRect*, int, int>)funcTable[789])(renderer, rects, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1230])(target, pname, @params);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[789])((nint)renderer, (nint)rects, count);
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1230])(target, pname, (nint)@params);
 			#endif
 		}
 
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlGetColorTableParameteriv(uint target, uint pname, int* @params)
 		{
-			int ret = RenderFillRectsFNative(renderer, rects, count);
-			return ret;
+			GlGetColorTableParameterivNative(target, pname, @params);
 		}
 
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
+		public static void GlGetColorTableParameteriv(uint target, uint pname, ref int @params)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (int* pparams = &@params)
 			{
-				int ret = RenderFillRectsFNative((SDLRenderer*)prenderer, rects, count);
-				return ret;
+				GlGetColorTableParameterivNative(target, pname, (int*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLFRect* prects = &rects)
-			{
-				int ret = RenderFillRectsFNative(renderer, (SDLFRect*)prects, count);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Fill some number of rectangles on the current rendering target with the<br/>
-		/// drawing color at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderFillRectsF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderFillRectsF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rects")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect rects, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int")] int count)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* prects = &rects)
-				{
-					int ret = RenderFillRectsFNative((SDLRenderer*)prenderer, (SDLFRect*)prects, count);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderCopyFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		internal static void GlBlendEquationNative(uint mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLFRect*, int>)funcTable[790])(renderer, texture, srcrect, dstrect);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1231])(mode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[790])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1231])(mode);
 			#endif
 		}
 
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
+		public static void GlBlendEquation(uint mode)
 		{
-			int ret = RenderCopyFNative(renderer, texture, srcrect, dstrect);
-			return ret;
+			GlBlendEquationNative(mode);
 		}
 
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = RenderCopyFNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				int ret = RenderCopyFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the texture to the current rendering target at subpixel<br/>
-		/// precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							int ret = RenderCopyFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderCopyExFNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		internal static void GlBlendColorNative(float red, float green, float blue, float alpha)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLFRect*, double, SDLFPoint*, SDLRendererFlip, int>)funcTable[791])(renderer, texture, srcrect, dstrect, angle, center, flip);
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1232])(red, green, blue, alpha);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, double, nint, SDLRendererFlip, int>)funcTable[791])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect, angle, (nint)center, flip);
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1232])(red, green, blue, alpha);
 			#endif
 		}
 
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
+		public static void GlBlendColor(float red, float green, float blue, float alpha)
 		{
-			int ret = RenderCopyExFNative(renderer, texture, srcrect, dstrect, angle, center, flip);
-			return ret;
+			GlBlendColorNative(red, green, blue, alpha);
 		}
 
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				int ret = RenderCopyExFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] SDLFPoint* center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, center, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLFPoint* pcenter = &center)
-			{
-				int ret = RenderCopyExFNative(renderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] SDLFRect* dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLFRect* pdstrect = &dstrect)
-			{
-				fixed (SDLFPoint* pcenter = &center)
-				{
-					int ret = RenderCopyExFNative(renderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLFRect* pdstrect = &dstrect)
-				{
-					fixed (SDLFPoint* pcenter = &center)
-					{
-						int ret = RenderCopyExFNative(renderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExFNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLFRect* pdstrect = &dstrect)
-					{
-						fixed (SDLFPoint* pcenter = &center)
-						{
-							int ret = RenderCopyExFNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Copy a portion of the source texture to the current rendering target, with<br/>
-		/// rotation and flipping, at subpixel precision.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderCopyExF")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderCopyExF([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "srcrect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect srcrect, [NativeName(NativeNameType.Param, "dstrect")] [NativeName(NativeNameType.Type, "const SDL_FRect*")] ref SDLFRect dstrect, [NativeName(NativeNameType.Param, "angle")] [NativeName(NativeNameType.Type, "const double")] double angle, [NativeName(NativeNameType.Param, "center")] [NativeName(NativeNameType.Type, "const SDL_FPoint*")] ref SDLFPoint center, [NativeName(NativeNameType.Param, "flip")] [NativeName(NativeNameType.Type, "const SDL_RendererFlip")] SDLRendererFlip flip)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					fixed (SDLRect* psrcrect = &srcrect)
-					{
-						fixed (SDLFRect* pdstrect = &dstrect)
-						{
-							fixed (SDLFPoint* pcenter = &center)
-							{
-								int ret = RenderCopyExFNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, (SDLFRect*)pdstrect, angle, (SDLFPoint*)pcenter, flip);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderGeometryNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		internal static void GlHistogramNative(uint target, int width, uint internalformat, byte sink)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLVertex*, int, int*, int, int>)funcTable[792])(renderer, texture, vertices, numVertices, indices, numIndices);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, byte, void>)funcTable[1233])(target, width, internalformat, sink);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, int>)funcTable[792])((nint)renderer, (nint)texture, (nint)vertices, numVertices, (nint)indices, numIndices);
+			((delegate* unmanaged[Cdecl]<uint, int, uint, byte, void>)funcTable[1233])(target, width, internalformat, sink);
 			#endif
 		}
 
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		public static void GlHistogram(uint target, int width, uint internalformat, byte sink)
 		{
-			int ret = RenderGeometryNative(renderer, texture, vertices, numVertices, indices, numIndices);
-			return ret;
+			GlHistogramNative(target, width, internalformat, sink);
 		}
 
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlResetHistogramNative(uint target)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1234])(target);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1234])(target);
+			#endif
+		}
+
+		public static void GlResetHistogram(uint target)
+		{
+			GlResetHistogramNative(target);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetHistogramNative(uint target, byte reset, uint format, uint type, void* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, void*, void>)funcTable[1235])(target, reset, format, type, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, nint, void>)funcTable[1235])(target, reset, format, type, (nint)values);
+			#endif
+		}
+
+		public static void GlGetHistogram(uint target, byte reset, uint format, uint type, void* values)
+		{
+			GlGetHistogramNative(target, reset, format, type, values);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetHistogramParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1236])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1236])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetHistogramParameterfv(uint target, uint pname, float* @params)
+		{
+			GlGetHistogramParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlGetHistogramParameterfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
 			{
-				int ret = RenderGeometryNative((SDLRenderer*)prenderer, texture, vertices, numVertices, indices, numIndices);
-				return ret;
+				GlGetHistogramParameterfvNative(target, pname, (float*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetHistogramParameterivNative(uint target, uint pname, int* @params)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1237])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1237])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetHistogramParameteriv(uint target, uint pname, int* @params)
+		{
+			GlGetHistogramParameterivNative(target, pname, @params);
+		}
+
+		public static void GlGetHistogramParameteriv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
 			{
-				int ret = RenderGeometryNative(renderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
-				return ret;
+				GlGetHistogramParameterivNative(target, pname, (int*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] SDLVertex* vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMinmaxNative(uint target, uint internalformat, byte sink)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, byte, void>)funcTable[1238])(target, internalformat, sink);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, byte, void>)funcTable[1238])(target, internalformat, sink);
+			#endif
+		}
+
+		public static void GlMinmax(uint target, uint internalformat, byte sink)
+		{
+			GlMinmaxNative(target, internalformat, sink);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlResetMinmaxNative(uint target)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1239])(target);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1239])(target);
+			#endif
+		}
+
+		public static void GlResetMinmax(uint target)
+		{
+			GlResetMinmaxNative(target);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMinmaxNative(uint target, byte reset, uint format, uint types, void* values)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, void*, void>)funcTable[1240])(target, reset, format, types, values);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, byte, uint, uint, nint, void>)funcTable[1240])(target, reset, format, types, (nint)values);
+			#endif
+		}
+
+		public static void GlGetMinmax(uint target, byte reset, uint format, uint types, void* values)
+		{
+			GlGetMinmaxNative(target, reset, format, types, values);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMinmaxParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1241])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1241])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetMinmaxParameterfv(uint target, uint pname, float* @params)
+		{
+			GlGetMinmaxParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlGetMinmaxParameterfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
 			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = RenderGeometryNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, vertices, numVertices, indices, numIndices);
-					return ret;
-				}
+				GlGetMinmaxParameterfvNative(target, pname, (float*)pparams);
 			}
 		}
 
-		/// <summary>
-		/// Render a list of triangles, optionally using a texture and indices into the<br/>
-		/// vertex array Color and alpha modulation is done per vertex<br/>
-		/// (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGeometry")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderGeometry([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "vertices")] [NativeName(NativeNameType.Type, "const SDL_Vertex*")] ref SDLVertex vertices, [NativeName(NativeNameType.Param, "num_vertices")] [NativeName(NativeNameType.Type, "int")] int numVertices, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const int*")] int* indices, [NativeName(NativeNameType.Param, "num_indices")] [NativeName(NativeNameType.Type, "int")] int numIndices)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetMinmaxParameterivNative(uint target, uint pname, int* @params)
 		{
-			fixed (SDLVertex* pvertices = &vertices)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1242])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1242])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetMinmaxParameteriv(uint target, uint pname, int* @params)
+		{
+			GlGetMinmaxParameterivNative(target, pname, @params);
+		}
+
+		public static void GlGetMinmaxParameteriv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
 			{
-				int ret = RenderGeometryNative(renderer, texture, (SDLVertex*)pvertices, numVertices, indices, numIndices);
-				return ret;
+				GlGetMinmaxParameterivNative(target, pname, (int*)pparams);
 			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlConvolutionFilter1DNative(uint target, uint internalformat, int width, uint format, uint type, void* image)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, void*, void>)funcTable[1243])(target, internalformat, width, format, type, image);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, uint, uint, nint, void>)funcTable[1243])(target, internalformat, width, format, type, (nint)image);
+			#endif
+		}
+
+		public static void GlConvolutionFilter1D(uint target, uint internalformat, int width, uint format, uint type, void* image)
+		{
+			GlConvolutionFilter1DNative(target, internalformat, width, format, type, image);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlConvolutionFilter2DNative(uint target, uint internalformat, int width, int height, uint format, uint type, void* image)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, void*, void>)funcTable[1244])(target, internalformat, width, height, format, type, image);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, nint, void>)funcTable[1244])(target, internalformat, width, height, format, type, (nint)image);
+			#endif
+		}
+
+		public static void GlConvolutionFilter2D(uint target, uint internalformat, int width, int height, uint format, uint type, void* image)
+		{
+			GlConvolutionFilter2DNative(target, internalformat, width, height, format, type, image);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlConvolutionParameterfNative(uint target, uint pname, float @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1245])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, float, void>)funcTable[1245])(target, pname, @params);
+			#endif
+		}
+
+		public static void GlConvolutionParameterf(uint target, uint pname, float @params)
+		{
+			GlConvolutionParameterfNative(target, pname, @params);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlConvolutionParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1246])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1246])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlConvolutionParameterfv(uint target, uint pname, float* @params)
+		{
+			GlConvolutionParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlConvolutionParameterfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlConvolutionParameterfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlConvolutionParameteriNative(uint target, uint pname, int @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1247])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, void>)funcTable[1247])(target, pname, @params);
+			#endif
+		}
+
+		public static void GlConvolutionParameteri(uint target, uint pname, int @params)
+		{
+			GlConvolutionParameteriNative(target, pname, @params);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlConvolutionParameterivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1248])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1248])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlConvolutionParameteriv(uint target, uint pname, int* @params)
+		{
+			GlConvolutionParameterivNative(target, pname, @params);
+		}
+
+		public static void GlConvolutionParameteriv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlConvolutionParameterivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyConvolutionFilter1DNative(uint target, uint internalformat, int x, int y, int width)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1249])(target, internalformat, x, y, width);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, void>)funcTable[1249])(target, internalformat, x, y, width);
+			#endif
+		}
+
+		public static void GlCopyConvolutionFilter1D(uint target, uint internalformat, int x, int y, int width)
+		{
+			GlCopyConvolutionFilter1DNative(target, internalformat, x, y, width);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCopyConvolutionFilter2DNative(uint target, uint internalformat, int x, int y, int width, int height)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, int, void>)funcTable[1250])(target, internalformat, x, y, width, height);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, int, int, void>)funcTable[1250])(target, internalformat, x, y, width, height);
+			#endif
+		}
+
+		public static void GlCopyConvolutionFilter2D(uint target, uint internalformat, int x, int y, int width, int height)
+		{
+			GlCopyConvolutionFilter2DNative(target, internalformat, x, y, width, height);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetConvolutionFilterNative(uint target, uint format, uint type, void* image)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void>)funcTable[1251])(target, format, type, image);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, void>)funcTable[1251])(target, format, type, (nint)image);
+			#endif
+		}
+
+		public static void GlGetConvolutionFilter(uint target, uint format, uint type, void* image)
+		{
+			GlGetConvolutionFilterNative(target, format, type, image);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetConvolutionParameterfvNative(uint target, uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, float*, void>)funcTable[1252])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1252])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetConvolutionParameterfv(uint target, uint pname, float* @params)
+		{
+			GlGetConvolutionParameterfvNative(target, pname, @params);
+		}
+
+		public static void GlGetConvolutionParameterfv(uint target, uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetConvolutionParameterfvNative(target, pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetConvolutionParameterivNative(uint target, uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int*, void>)funcTable[1253])(target, pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, nint, void>)funcTable[1253])(target, pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetConvolutionParameteriv(uint target, uint pname, int* @params)
+		{
+			GlGetConvolutionParameterivNative(target, pname, @params);
+		}
+
+		public static void GlGetConvolutionParameteriv(uint target, uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetConvolutionParameterivNative(target, pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlSeparableFilter2DNative(uint target, uint internalformat, int width, int height, uint format, uint type, void* row, void* column)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, void*, void*, void>)funcTable[1254])(target, internalformat, width, height, format, type, row, column);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, int, int, uint, uint, nint, nint, void>)funcTable[1254])(target, internalformat, width, height, format, type, (nint)row, (nint)column);
+			#endif
+		}
+
+		public static void GlSeparableFilter2D(uint target, uint internalformat, int width, int height, uint format, uint type, void* row, void* column)
+		{
+			GlSeparableFilter2DNative(target, internalformat, width, height, format, type, row, column);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetSeparableFilterNative(uint target, uint format, uint type, void* row, void* column, void* span)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void*, void*, void*, void>)funcTable[1255])(target, format, type, row, column, span);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, nint, nint, nint, void>)funcTable[1255])(target, format, type, (nint)row, (nint)column, (nint)span);
+			#endif
+		}
+
+		public static void GlGetSeparableFilter(uint target, uint format, uint type, void* row, void* column, void* span)
+		{
+			GlGetSeparableFilterNative(target, format, type, row, column, span);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlActiveTextureNative(uint texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1256])(texture);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1256])(texture);
+			#endif
+		}
+
+		public static void GlActiveTexture(uint texture)
+		{
+			GlActiveTextureNative(texture);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClientActiveTextureNative(uint texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1257])(texture);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[1257])(texture);
+			#endif
+		}
+
+		public static void GlClientActiveTexture(uint texture)
+		{
+			GlClientActiveTextureNative(texture);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCompressedTexImage1DNative(uint target, int level, uint internalformat, int width, int border, int imageSize, void* data)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, void*, void>)funcTable[1258])(target, level, internalformat, width, border, imageSize, data);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, nint, void>)funcTable[1258])(target, level, internalformat, width, border, imageSize, (nint)data);
+			#endif
+		}
+
+		public static void GlCompressedTexImage1D(uint target, int level, uint internalformat, int width, int border, int imageSize, void* data)
+		{
+			GlCompressedTexImage1DNative(target, level, internalformat, width, border, imageSize, data);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCompressedTexImage2DNative(uint target, int level, uint internalformat, int width, int height, int border, int imageSize, void* data)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, void*, void>)funcTable[1259])(target, level, internalformat, width, height, border, imageSize, data);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, nint, void>)funcTable[1259])(target, level, internalformat, width, height, border, imageSize, (nint)data);
+			#endif
+		}
+
+		public static void GlCompressedTexImage2D(uint target, int level, uint internalformat, int width, int height, int border, int imageSize, void* data)
+		{
+			GlCompressedTexImage2DNative(target, level, internalformat, width, height, border, imageSize, data);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCompressedTexImage3DNative(uint target, int level, uint internalformat, int width, int height, int depth, int border, int imageSize, void* data)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, void*, void>)funcTable[1260])(target, level, internalformat, width, height, depth, border, imageSize, data);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, uint, int, int, int, int, int, nint, void>)funcTable[1260])(target, level, internalformat, width, height, depth, border, imageSize, (nint)data);
+			#endif
+		}
+
+		public static void GlCompressedTexImage3D(uint target, int level, uint internalformat, int width, int height, int depth, int border, int imageSize, void* data)
+		{
+			GlCompressedTexImage3DNative(target, level, internalformat, width, height, depth, border, imageSize, data);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCompressedTexSubImage1DNative(uint target, int level, int xoffset, int width, uint format, int imageSize, void* data)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, int, void*, void>)funcTable[1261])(target, level, xoffset, width, format, imageSize, data);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, int, nint, void>)funcTable[1261])(target, level, xoffset, width, format, imageSize, (nint)data);
+			#endif
+		}
+
+		public static void GlCompressedTexSubImage1D(uint target, int level, int xoffset, int width, uint format, int imageSize, void* data)
+		{
+			GlCompressedTexSubImage1DNative(target, level, xoffset, width, format, imageSize, data);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCompressedTexSubImage2DNative(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, int imageSize, void* data)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, int, void*, void>)funcTable[1262])(target, level, xoffset, yoffset, width, height, format, imageSize, data);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, uint, int, nint, void>)funcTable[1262])(target, level, xoffset, yoffset, width, height, format, imageSize, (nint)data);
+			#endif
+		}
+
+		public static void GlCompressedTexSubImage2D(uint target, int level, int xoffset, int yoffset, int width, int height, uint format, int imageSize, void* data)
+		{
+			GlCompressedTexSubImage2DNative(target, level, xoffset, yoffset, width, height, format, imageSize, data);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCompressedTexSubImage3DNative(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, int imageSize, void* data)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, int, void*, void>)funcTable[1263])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, int, int, int, uint, int, nint, void>)funcTable[1263])(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, (nint)data);
+			#endif
+		}
+
+		public static void GlCompressedTexSubImage3D(uint target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, uint format, int imageSize, void* data)
+		{
+			GlCompressedTexSubImage3DNative(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetCompressedTexImageNative(uint target, int lod, void* img)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1264])(target, lod, img);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1264])(target, lod, (nint)img);
+			#endif
 		}
 	}
 }

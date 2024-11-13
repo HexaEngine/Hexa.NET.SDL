@@ -12,21 +12,12 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.Enum, "SDL_GLcontextFlag")]
 	[Flags]
 	public enum SDLGLcontextFlag : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_DEBUG_FLAG")]
-		[NativeName(NativeNameType.Value, "1")]
 		GlContextDebugFlag = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG")]
-		[NativeName(NativeNameType.Value, "2")]
 		GlContextForwardCompatibleFlag = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG")]
-		[NativeName(NativeNameType.Value, "4")]
 		GlContextRobustAccessFlag = unchecked(4),
-		[NativeName(NativeNameType.EnumItem, "SDL_GL_CONTEXT_RESET_ISOLATION_FLAG")]
-		[NativeName(NativeNameType.Value, "8")]
 		GlContextResetIsolationFlag = unchecked(8),
 	}
 }

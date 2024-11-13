@@ -18,36 +18,27 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_JoyBatteryEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoyBatteryEvent
 	{
 		/// <summary>
 		/// ::SDL_JOYBATTERYUPDATED <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The joystick battery level <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "level")]
-		[NativeName(NativeNameType.Type, "SDL_JoystickPowerLevel")]
 		public SDLJoystickPowerLevel Level;
 
 

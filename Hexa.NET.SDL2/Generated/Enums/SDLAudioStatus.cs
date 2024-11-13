@@ -19,18 +19,11 @@ namespace Hexa.NET.SDL2
 	/// @<br/>
 	/// { <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_AudioStatus")]
 	[Flags]
 	public enum SDLAudioStatus : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_STOPPED")]
-		[NativeName(NativeNameType.Value, "0")]
 		Stopped = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_PLAYING")]
-		[NativeName(NativeNameType.Value, "1")]
 		Playing = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_PAUSED")]
-		[NativeName(NativeNameType.Value, "2")]
 		Paused = unchecked(2),
 	}
 }

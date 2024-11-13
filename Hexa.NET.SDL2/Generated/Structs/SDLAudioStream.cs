@@ -24,7 +24,6 @@ namespace Hexa.NET.SDL2
 	/// - You push data as you have it, and pull it when you need it<br/>
 	/// this is opaque to the outside world. <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "_SDL_AudioStream")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioStream
 	{

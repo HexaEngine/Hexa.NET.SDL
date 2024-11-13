@@ -18,43 +18,32 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_ControllerSensorEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLControllerSensorEvent
 	{
 		/// <summary>
 		/// ::SDL_CONTROLLERSENSORUPDATE <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The type of the sensor, one of the values of ::SDL_SensorType <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "sensor")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Sensor;
 
 		/// <summary>
 		/// Up to 3 values from the sensor, as defined in SDL_sensor.h <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data")]
-		[NativeName(NativeNameType.Type, "float[3]")]
 		public float Data_0;
 		public float Data_1;
 		public float Data_2;
@@ -62,8 +51,6 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// The timestamp of the sensor reading in microseconds, if the hardware provides this information. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp_us")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong TimestampUs;
 
 

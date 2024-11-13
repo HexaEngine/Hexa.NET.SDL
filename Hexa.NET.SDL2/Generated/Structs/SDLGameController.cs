@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The gamecontroller structure used to identify an SDL game controller<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "_SDL_GameController")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGameController
 	{

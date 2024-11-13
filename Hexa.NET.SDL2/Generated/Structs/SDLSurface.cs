@@ -19,92 +19,67 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Surface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSurface
 	{
 		/// <summary>
 		/// Read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "flags")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Flags;
 
 		/// <summary>
 		/// Read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_PixelFormat*")]
 		public unsafe SDLPixelFormat* Format;
 
 		/// <summary>
 		/// Read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int W;
 
 		/// <summary>
 		/// Read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		/// <summary>
 		/// Read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pitch")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Pitch;
 
 		/// <summary>
 		/// Read-write <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pixels")]
-		[NativeName(NativeNameType.Type, "void*")]
 		public unsafe void* Pixels;
 
 		/// <summary>
 		/// Read-write <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "userdata")]
-		[NativeName(NativeNameType.Type, "void*")]
 		public unsafe void* Userdata;
 
 		/// <summary>
 		/// Read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "locked")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Locked;
 
 		/// <summary>
 		/// Private <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "list_blitmap")]
-		[NativeName(NativeNameType.Type, "void*")]
 		public unsafe void* ListBlitmap;
 
 		/// <summary>
 		/// Read-only <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "clip_rect")]
-		[NativeName(NativeNameType.Type, "SDL_Rect")]
 		public SDLRect ClipRect;
 
 		/// <summary>
 		/// Private <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "map")]
-		[NativeName(NativeNameType.Type, "SDL_BlitMap*")]
 		public unsafe SDLBlitMap* Map;
 
 		/// <summary>
 		/// Read-mostly <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "refcount")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Refcount;
 
 

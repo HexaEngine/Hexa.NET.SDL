@@ -20,21 +20,12 @@ namespace Hexa.NET.SDL2
 	/// color which uses the SDL_PIXELFORMAT_RGBA32 format (SDL_PIXELFORMAT_ABGR8888<br/>
 	/// on little-endian systems and SDL_PIXELFORMAT_RGBA8888 on big-endian systems).<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Color")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLColor
 	{
-		[NativeName(NativeNameType.Field, "r")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte R;
-		[NativeName(NativeNameType.Field, "g")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte G;
-		[NativeName(NativeNameType.Field, "b")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte B;
-		[NativeName(NativeNameType.Field, "a")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte A;
 
 		public unsafe SDLColor(byte r = default, byte g = default, byte b = default, byte a = default)

@@ -18,64 +18,47 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_ControllerTouchpadEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLControllerTouchpadEvent
 	{
 		/// <summary>
 		/// ::SDL_CONTROLLERTOUCHPADDOWN or ::SDL_CONTROLLERTOUCHPADMOTION or ::SDL_CONTROLLERTOUCHPADUP <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The joystick instance id <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "SDL_JoystickID")]
 		public int Which;
 
 		/// <summary>
 		/// The index of the touchpad <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "touchpad")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Touchpad;
 
 		/// <summary>
 		/// The index of the finger on the touchpad <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "finger")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Finger;
 
 		/// <summary>
 		/// Normalized in the range 0...1 with 0 being on the left <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// Normalized in the range 0...1 with 0 being at the top <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
 		/// Normalized in the range 0...1 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "pressure")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Pressure;
 
 

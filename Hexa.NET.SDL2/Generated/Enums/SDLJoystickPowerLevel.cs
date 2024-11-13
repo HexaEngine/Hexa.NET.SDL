@@ -12,20 +12,15 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.Enum, "SDL_JoystickPowerLevel")]
 	[Flags]
 	public enum SDLJoystickPowerLevel : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_UNKNOWN")]
-		[NativeName(NativeNameType.Value, "-1")]
 		Unknown = unchecked(-1),
 		/// <summary>
 		/// <br/>
 		/// <<br/>
 		/// = 5% <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_EMPTY")]
-		[NativeName(NativeNameType.Value, "0")]
 		Empty = unchecked(0),
 
 		/// <summary>
@@ -33,8 +28,6 @@ namespace Hexa.NET.SDL2
 		/// <<br/>
 		/// = 20% <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_LOW")]
-		[NativeName(NativeNameType.Value, "1")]
 		Low = unchecked(1),
 
 		/// <summary>
@@ -42,8 +35,6 @@ namespace Hexa.NET.SDL2
 		/// <<br/>
 		/// = 70% <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_MEDIUM")]
-		[NativeName(NativeNameType.Value, "2")]
 		Medium = unchecked(2),
 
 		/// <summary>
@@ -51,15 +42,9 @@ namespace Hexa.NET.SDL2
 		/// <<br/>
 		/// = 100% <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_FULL")]
-		[NativeName(NativeNameType.Value, "3")]
 		Full = unchecked(3),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_WIRED")]
-		[NativeName(NativeNameType.Value, "4")]
 		Wired = unchecked(4),
-		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_POWER_MAX")]
-		[NativeName(NativeNameType.Value, "5")]
 		Max = unchecked(5),
 	}
 }

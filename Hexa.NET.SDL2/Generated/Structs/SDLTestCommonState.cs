@@ -15,191 +15,84 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_CommonState")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestCommonState
 	{
 		/// <summary>
 		/// SDL init flags <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "argv")]
-		[NativeName(NativeNameType.Type, "char**")]
 		public unsafe byte** Argv;
 
-		[NativeName(NativeNameType.Field, "flags")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Flags;
-		[NativeName(NativeNameType.Field, "verbose")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Verbose;
 		/// <summary>
 		/// Video info <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "videodriver")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Videodriver;
 
-		[NativeName(NativeNameType.Field, "display")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Display;
-		[NativeName(NativeNameType.Field, "window_title")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* WindowTitle;
-		[NativeName(NativeNameType.Field, "window_icon")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* WindowIcon;
-		[NativeName(NativeNameType.Field, "window_flags")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint WindowFlags;
-		[NativeName(NativeNameType.Field, "flash_on_focus_loss")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
 		public SDLBool FlashOnFocusLoss;
-		[NativeName(NativeNameType.Field, "window_x")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowX;
-		[NativeName(NativeNameType.Field, "window_y")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowY;
-		[NativeName(NativeNameType.Field, "window_w")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowW;
-		[NativeName(NativeNameType.Field, "window_h")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowH;
-		[NativeName(NativeNameType.Field, "window_minW")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowMinW;
-		[NativeName(NativeNameType.Field, "window_minH")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowMinH;
-		[NativeName(NativeNameType.Field, "window_maxW")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowMaxW;
-		[NativeName(NativeNameType.Field, "window_maxH")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int WindowMaxH;
-		[NativeName(NativeNameType.Field, "logical_w")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int LogicalW;
-		[NativeName(NativeNameType.Field, "logical_h")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int LogicalH;
-		[NativeName(NativeNameType.Field, "scale")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Scale;
-		[NativeName(NativeNameType.Field, "depth")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Depth;
-		[NativeName(NativeNameType.Field, "refresh_rate")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int RefreshRate;
-		[NativeName(NativeNameType.Field, "num_windows")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int NumWindows;
-		[NativeName(NativeNameType.Field, "windows")]
-		[NativeName(NativeNameType.Type, "SDL_Window**")]
 		public unsafe SDLWindow** Windows;
 		/// <summary>
 		/// Renderer info <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "renderdriver")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Renderdriver;
 
-		[NativeName(NativeNameType.Field, "render_flags")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint RenderFlags;
-		[NativeName(NativeNameType.Field, "skip_renderer")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
 		public SDLBool SkipRenderer;
-		[NativeName(NativeNameType.Field, "renderers")]
-		[NativeName(NativeNameType.Type, "SDL_Renderer**")]
 		public unsafe SDLRenderer** Renderers;
-		[NativeName(NativeNameType.Field, "targets")]
-		[NativeName(NativeNameType.Type, "SDL_Texture**")]
 		public unsafe SDLTexture** Targets;
 		/// <summary>
 		/// Audio info <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "audiodriver")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Audiodriver;
 
-		[NativeName(NativeNameType.Field, "audiospec")]
-		[NativeName(NativeNameType.Type, "SDL_AudioSpec")]
 		public SDLAudioSpec Audiospec;
 		/// <summary>
 		/// GL settings <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "gl_red_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlRedSize;
 
-		[NativeName(NativeNameType.Field, "gl_green_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlGreenSize;
-		[NativeName(NativeNameType.Field, "gl_blue_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlBlueSize;
-		[NativeName(NativeNameType.Field, "gl_alpha_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlAlphaSize;
-		[NativeName(NativeNameType.Field, "gl_buffer_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlBufferSize;
-		[NativeName(NativeNameType.Field, "gl_depth_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlDepthSize;
-		[NativeName(NativeNameType.Field, "gl_stencil_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlStencilSize;
-		[NativeName(NativeNameType.Field, "gl_double_buffer")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlDoubleBuffer;
-		[NativeName(NativeNameType.Field, "gl_accum_red_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlAccumRedSize;
-		[NativeName(NativeNameType.Field, "gl_accum_green_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlAccumGreenSize;
-		[NativeName(NativeNameType.Field, "gl_accum_blue_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlAccumBlueSize;
-		[NativeName(NativeNameType.Field, "gl_accum_alpha_size")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlAccumAlphaSize;
-		[NativeName(NativeNameType.Field, "gl_stereo")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlStereo;
-		[NativeName(NativeNameType.Field, "gl_multisamplebuffers")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlMultisamplebuffers;
-		[NativeName(NativeNameType.Field, "gl_multisamplesamples")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlMultisamplesamples;
-		[NativeName(NativeNameType.Field, "gl_retained_backing")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlRetainedBacking;
-		[NativeName(NativeNameType.Field, "gl_accelerated")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlAccelerated;
-		[NativeName(NativeNameType.Field, "gl_major_version")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlMajorVersion;
-		[NativeName(NativeNameType.Field, "gl_minor_version")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlMinorVersion;
-		[NativeName(NativeNameType.Field, "gl_debug")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlDebug;
-		[NativeName(NativeNameType.Field, "gl_profile_mask")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int GlProfileMask;
 		/// <summary>
 		/// Additional fields added in 2.0.18 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "confine")]
-		[NativeName(NativeNameType.Type, "SDL_Rect")]
 		public SDLRect Confine;
 
 

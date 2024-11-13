@@ -15,22 +15,17 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "SDL_Locale")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLLocale
 	{
 		/// <summary>
 		/// A language name, like "en" for English. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "language")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Language;
 
 		/// <summary>
 		/// A country, like "US" for America. Can be NULL. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "country")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Country;
 
 

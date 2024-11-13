@@ -15,22 +15,17 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_MouseWheelDirection")]
 	[Flags]
 	public enum SDLMouseWheelDirection : int
 	{
 		/// <summary>
 		/// The scroll direction is normal <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MOUSEWHEEL_NORMAL")]
-		[NativeName(NativeNameType.Value, "0")]
 		Normal = unchecked(0),
 
 		/// <summary>
 		/// The scroll direction is flipped / natural <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MOUSEWHEEL_FLIPPED")]
-		[NativeName(NativeNameType.Value, "1")]
 		Flipped = unchecked(1),
 	}
 }

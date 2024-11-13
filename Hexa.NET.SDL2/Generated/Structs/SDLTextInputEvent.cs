@@ -18,36 +18,27 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_TextInputEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTextInputEvent
 	{
 		/// <summary>
 		/// ::SDL_TEXTINPUT <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The window with keyboard focus, if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The input text <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "text")]
-		[NativeName(NativeNameType.Type, "char[32]")]
 		public byte Text_0;
 		public byte Text_1;
 		public byte Text_2;

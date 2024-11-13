@@ -18,21 +18,12 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDLTest_TextWindow")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTestTextWindow
 	{
-		[NativeName(NativeNameType.Field, "rect")]
-		[NativeName(NativeNameType.Type, "SDL_Rect")]
 		public SDLRect Rect;
-		[NativeName(NativeNameType.Field, "current")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Current;
-		[NativeName(NativeNameType.Field, "numlines")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Numlines;
-		[NativeName(NativeNameType.Field, "lines")]
-		[NativeName(NativeNameType.Type, "char**")]
 		public unsafe byte** Lines;
 
 		public unsafe SDLTestTextWindow(SDLRect rect = default, int current = default, int numlines = default, byte** lines = default)

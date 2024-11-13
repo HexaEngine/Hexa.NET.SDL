@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "_SDL_Joystick")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLJoystick
 	{

@@ -15,21 +15,12 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "SDL_Palette")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLPalette
 	{
-		[NativeName(NativeNameType.Field, "ncolors")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Ncolors;
-		[NativeName(NativeNameType.Field, "colors")]
-		[NativeName(NativeNameType.Type, "SDL_Color*")]
 		public unsafe SDLColor* Colors;
-		[NativeName(NativeNameType.Field, "version")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Version;
-		[NativeName(NativeNameType.Field, "refcount")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Refcount;
 
 		public unsafe SDLPalette(int ncolors = default, SDLColor* colors = default, uint version = default, int refcount = default)

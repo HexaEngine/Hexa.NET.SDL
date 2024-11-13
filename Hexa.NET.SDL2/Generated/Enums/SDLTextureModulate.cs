@@ -15,29 +15,22 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The texture channel modulation used in SDL_RenderCopy().<br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_TextureModulate")]
 	[Flags]
 	public enum SDLTextureModulate : int
 	{
 		/// <summary>
 		/// No modulation <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TEXTUREMODULATE_NONE")]
-		[NativeName(NativeNameType.Value, "0")]
 		None = unchecked(0),
 
 		/// <summary>
 		/// srcC = srcC * color <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TEXTUREMODULATE_COLOR")]
-		[NativeName(NativeNameType.Value, "1")]
 		Color = unchecked(1),
 
 		/// <summary>
 		/// srcA = srcA * alpha <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_TEXTUREMODULATE_ALPHA")]
-		[NativeName(NativeNameType.Value, "2")]
 		Alpha = unchecked(2),
 	}
 }

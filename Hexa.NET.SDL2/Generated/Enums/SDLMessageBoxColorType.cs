@@ -12,27 +12,14 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.Enum, "SDL_MessageBoxColorType")]
 	[Flags]
 	public enum SDLMessageBoxColorType : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BACKGROUND")]
-		[NativeName(NativeNameType.Value, "0")]
 		Background = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_TEXT")]
-		[NativeName(NativeNameType.Value, "1")]
 		Text = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BUTTON_BORDER")]
-		[NativeName(NativeNameType.Value, "2")]
 		ButtonBorder = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND")]
-		[NativeName(NativeNameType.Value, "3")]
 		ButtonBackground = unchecked(3),
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED")]
-		[NativeName(NativeNameType.Value, "4")]
 		ButtonSelected = unchecked(4),
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_MAX")]
-		[NativeName(NativeNameType.Value, "5")]
 		Max = unchecked(5),
 	}
 }

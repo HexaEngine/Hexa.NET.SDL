@@ -26,70 +26,51 @@ namespace Hexa.NET.SDL2
 	/// 7:  FL  FR  FC LFE  BC  SL  SR      (6.1 surround)<br/>
 	/// 8:  FL  FR  FC LFE  BL  BR  SL  SR  (7.1 surround)<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_AudioSpec")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLAudioSpec
 	{
 		/// <summary>
 		/// DSP frequency -- samples per second <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "freq")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Freq;
 
 		/// <summary>
 		/// Audio data format <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "SDL_AudioFormat")]
 		public ushort Format;
 
 		/// <summary>
 		/// Number of channels: 1 mono, 2 stereo <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "channels")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Channels;
 
 		/// <summary>
 		/// Audio buffer silence value (calculated) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "silence")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Silence;
 
 		/// <summary>
 		/// Audio buffer size in sample FRAMES (total samples divided by channel count) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "samples")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Samples;
 
 		/// <summary>
 		/// Necessary for some compile environments <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "padding")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Padding;
 
 		/// <summary>
 		/// Audio buffer size in bytes (calculated) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "size")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Size;
 
 		/// <summary>
 		/// Callback that feeds the audio device (NULL to use SDL_QueueAudio()). <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "callback")]
-		[NativeName(NativeNameType.Type, "SDL_AudioCallback")]
 		public unsafe void* Callback;
 		/// <summary>
 		/// Userdata passed to callback (ignored for NULL callbacks). <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "userdata")]
-		[NativeName(NativeNameType.Type, "void*")]
 		public unsafe void* Userdata;
 
 
@@ -102,7 +83,7 @@ namespace Hexa.NET.SDL2
 			Samples = samples;
 			Padding = padding;
 			Size = size;
-			Callback = (void*)Marshal.GetFunctionPointerForDelegate(callback);
+			Callback = (delegate*<void*, byte*, int, void>)Marshal.GetFunctionPointerForDelegate(callback);
 			Userdata = userdata;
 		}
 

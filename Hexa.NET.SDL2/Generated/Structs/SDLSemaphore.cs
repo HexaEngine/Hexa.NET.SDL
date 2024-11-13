@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The SDL semaphore structure, defined in SDL_syssem.c <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_semaphore")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSemaphore
 	{

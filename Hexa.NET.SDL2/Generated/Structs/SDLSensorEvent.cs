@@ -18,36 +18,27 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_SensorEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensorEvent
 	{
 		/// <summary>
 		/// ::SDL_SENSORUPDATE <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The instance ID of the sensor <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Which;
 
 		/// <summary>
 		/// Up to 6 values from the sensor - additional values can be queried using SDL_SensorGetData() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "data")]
-		[NativeName(NativeNameType.Type, "float[6]")]
 		public float Data_0;
 		public float Data_1;
 		public float Data_2;
@@ -58,8 +49,6 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// The timestamp of the sensor reading in microseconds, if the hardware provides this information. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp_us")]
-		[NativeName(NativeNameType.Type, "Uint64")]
 		public ulong TimestampUs;
 
 

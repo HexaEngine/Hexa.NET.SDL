@@ -12,21 +12,12 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.Enum, "SDL_GameControllerBindType")]
 	[Flags]
 	public enum SDLGameControllerBindType : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_BINDTYPE_NONE")]
-		[NativeName(NativeNameType.Value, "0")]
 		None = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_BINDTYPE_BUTTON")]
-		[NativeName(NativeNameType.Value, "1")]
 		Button = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_BINDTYPE_AXIS")]
-		[NativeName(NativeNameType.Value, "2")]
 		Axis = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_BINDTYPE_HAT")]
-		[NativeName(NativeNameType.Value, "3")]
 		Hat = unchecked(3),
 	}
 }

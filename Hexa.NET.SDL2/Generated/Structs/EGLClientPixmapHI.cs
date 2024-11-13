@@ -15,21 +15,12 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "EGLClientPixmapHI")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct EGLClientPixmapHI
 	{
-		[NativeName(NativeNameType.Field, "pData")]
-		[NativeName(NativeNameType.Type, "void*")]
 		public unsafe void* PData;
-		[NativeName(NativeNameType.Field, "iWidth")]
-		[NativeName(NativeNameType.Type, "EGLint")]
 		public int IWidth;
-		[NativeName(NativeNameType.Field, "iHeight")]
-		[NativeName(NativeNameType.Type, "EGLint")]
 		public int IHeight;
-		[NativeName(NativeNameType.Field, "iStride")]
-		[NativeName(NativeNameType.Type, "EGLint")]
 		public int IStride;
 
 		public unsafe EGLClientPixmapHI(void* pData = default, int iWidth = default, int iHeight = default, int iStride = default)

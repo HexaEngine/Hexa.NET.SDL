@@ -12,15 +12,10 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.Enum, "SDL_bool")]
 	[Flags]
 	public enum SDLBool : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_FALSE")]
-		[NativeName(NativeNameType.Value, "0")]
 		False = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_TRUE")]
-		[NativeName(NativeNameType.Value, "1")]
 		True = unchecked(1),
 	}
 }

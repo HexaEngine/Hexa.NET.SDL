@@ -17,18 +17,11 @@ namespace Hexa.NET.SDL2
 	/// @<br/>
 	/// { <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_eventaction")]
 	[Flags]
 	public enum SDLEventaction : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_ADDEVENT")]
-		[NativeName(NativeNameType.Value, "0")]
 		Addevent = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_PEEKEVENT")]
-		[NativeName(NativeNameType.Value, "1")]
 		Peekevent = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_GETEVENT")]
-		[NativeName(NativeNameType.Value, "2")]
 		Getevent = unchecked(2),
 	}
 }

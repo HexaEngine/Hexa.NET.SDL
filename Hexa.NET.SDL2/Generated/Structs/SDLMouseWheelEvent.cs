@@ -18,85 +18,62 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MouseWheelEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMouseWheelEvent
 	{
 		/// <summary>
 		/// ::SDL_MOUSEWHEEL <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The window with mouse focus, if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint WindowID;
 
 		/// <summary>
 		/// The mouse instance id, or SDL_TOUCH_MOUSEID <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "which")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Which;
 
 		/// <summary>
 		/// The amount scrolled horizontally, positive to the right and negative to the left <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int X;
 
 		/// <summary>
 		/// The amount scrolled vertically, positive away from the user and negative toward the user <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int Y;
 
 		/// <summary>
 		/// Set to one of the SDL_MOUSEWHEEL_* defines. When FLIPPED the values in X and Y will be opposite. Multiply by -1 to change them back <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "direction")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Direction;
 
 		/// <summary>
 		/// The amount scrolled horizontally, positive to the right and negative to the left, with float precision (added in 2.0.18) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "preciseX")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float PreciseX;
 
 		/// <summary>
 		/// The amount scrolled vertically, positive away from the user and negative toward the user, with float precision (added in 2.0.18) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "preciseY")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float PreciseY;
 
 		/// <summary>
 		/// X coordinate, relative to window (added in 2.26.0) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mouseX")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int MouseX;
 
 		/// <summary>
 		/// Y coordinate, relative to window (added in 2.26.0) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "mouseY")]
-		[NativeName(NativeNameType.Type, "Sint32")]
 		public int MouseY;
 
 

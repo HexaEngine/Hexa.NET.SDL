@@ -18,33 +18,23 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// This is the read/write operation structure -- very basic.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_RWops")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLRWops
 	{
-		[NativeName(NativeNameType.StructOrClass, "SDL_RWops::")]
 		[StructLayout(LayoutKind.Explicit)]
 		public partial struct HiddenUnion
 		{
-			[NativeName(NativeNameType.StructOrClass, "SDL_RWops::::")]
 			[StructLayout(LayoutKind.Sequential)]
 			public partial struct WindowsioUnion
 			{
-				[NativeName(NativeNameType.StructOrClass, "SDL_RWops::::::")]
 				[StructLayout(LayoutKind.Sequential)]
 				public partial struct BufferUnion
 				{
-					[NativeName(NativeNameType.Field, "data")]
-					[NativeName(NativeNameType.Type, "void*")]
 					public unsafe void* Data;
-					[NativeName(NativeNameType.Field, "size")]
-					[NativeName(NativeNameType.Type, "size_t")]
-					public ulong Size;
-					[NativeName(NativeNameType.Field, "left")]
-					[NativeName(NativeNameType.Type, "size_t")]
-					public ulong Left;
+					public nuint Size;
+					public nuint Left;
 
-					public unsafe BufferUnion(void* data = default, ulong size = default, ulong left = default)
+					public unsafe BufferUnion(void* data = default, nuint size = default, nuint left = default)
 					{
 						Data = data;
 						Size = size;
@@ -54,14 +44,8 @@ namespace Hexa.NET.SDL2
 
 				}
 
-				[NativeName(NativeNameType.Field, "append")]
-				[NativeName(NativeNameType.Type, "SDL_bool")]
 				public SDLBool Append;
-				[NativeName(NativeNameType.Field, "h")]
-				[NativeName(NativeNameType.Type, "void*")]
 				public unsafe void* H;
-				[NativeName(NativeNameType.Field, "buffer")]
-				[NativeName(NativeNameType.Type, "")]
 				public BufferUnion Buffer;
 
 				public unsafe WindowsioUnion(SDLBool append = default, void* h = default, BufferUnion buffer = default)
@@ -74,18 +58,11 @@ namespace Hexa.NET.SDL2
 
 			}
 
-			[NativeName(NativeNameType.StructOrClass, "SDL_RWops::::")]
 			[StructLayout(LayoutKind.Sequential)]
 			public partial struct MemUnion
 			{
-				[NativeName(NativeNameType.Field, "base")]
-				[NativeName(NativeNameType.Type, "Uint8*")]
 				public unsafe byte* Base;
-				[NativeName(NativeNameType.Field, "here")]
-				[NativeName(NativeNameType.Type, "Uint8*")]
 				public unsafe byte* Here;
-				[NativeName(NativeNameType.Field, "stop")]
-				[NativeName(NativeNameType.Type, "Uint8*")]
 				public unsafe byte* Stop;
 
 				public unsafe MemUnion(byte* baseValue = default, byte* here = default, byte* stop = default)
@@ -98,15 +75,10 @@ namespace Hexa.NET.SDL2
 
 			}
 
-			[NativeName(NativeNameType.StructOrClass, "SDL_RWops::::")]
 			[StructLayout(LayoutKind.Sequential)]
 			public partial struct UnknownUnion
 			{
-				[NativeName(NativeNameType.Field, "data1")]
-				[NativeName(NativeNameType.Type, "void*")]
 				public unsafe void* Data1;
-				[NativeName(NativeNameType.Field, "data2")]
-				[NativeName(NativeNameType.Type, "void*")]
 				public unsafe void* Data2;
 
 				public unsafe UnknownUnion(void* data1 = default, void* data2 = default)
@@ -118,16 +90,10 @@ namespace Hexa.NET.SDL2
 
 			}
 
-			[NativeName(NativeNameType.Field, "windowsio")]
-			[NativeName(NativeNameType.Type, "")]
 			[FieldOffset(0)]
 			public WindowsioUnion Windowsio;
-			[NativeName(NativeNameType.Field, "mem")]
-			[NativeName(NativeNameType.Type, "")]
 			[FieldOffset(0)]
 			public MemUnion Mem;
-			[NativeName(NativeNameType.Field, "unknown")]
-			[NativeName(NativeNameType.Type, "")]
 			[FieldOffset(0)]
 			public UnknownUnion Unknown;
 
@@ -144,8 +110,6 @@ namespace Hexa.NET.SDL2
 		/// <summary>
 		/// Return the size of the file in this rwops, or -1 if unknown<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "size")]
-		[NativeName(NativeNameType.Type, "Sint64 (*)(SDL_RWops* context)*")]
 		public unsafe void* Size;
 
 		/// <summary>
@@ -155,8 +119,6 @@ namespace Hexa.NET.SDL2
 		/// RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "seek")]
-		[NativeName(NativeNameType.Type, "Sint64 (*)(SDL_RWops* context, Sint64 offset, int whence)*")]
 		public unsafe void* Seek;
 
 		/// <summary>
@@ -166,8 +128,6 @@ namespace Hexa.NET.SDL2
 		/// stream to the area pointed at by <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "read")]
-		[NativeName(NativeNameType.Type, "size_t (*)(SDL_RWops* context, void* ptr, size_t size, size_t maxnum)*")]
 		public unsafe void* Read;
 
 		/// <summary>
@@ -178,32 +138,24 @@ namespace Hexa.NET.SDL2
 		/// to data stream.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "write")]
-		[NativeName(NativeNameType.Type, "size_t (*)(SDL_RWops* context, const void* ptr, size_t size, size_t num)*")]
 		public unsafe void* Write;
 
 		/// <summary>
 		/// Close and free an allocated SDL_RWops structure.<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "close")]
-		[NativeName(NativeNameType.Type, "int (*)(SDL_RWops* context)*")]
 		public unsafe void* Close;
 
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
-		[NativeName(NativeNameType.Field, "hidden")]
-		[NativeName(NativeNameType.Type, "")]
 		public HiddenUnion Union;
 
-		public unsafe SDLRWops(delegate*<SDLRWops*, long> size = default, delegate*<SDLRWops*, long, int, long> seek = default, delegate*<SDLRWops*, void*, ulong, ulong, ulong> read = default, delegate*<SDLRWops*, void*, ulong, ulong, ulong> write = default, delegate*<SDLRWops*, int> close = default, uint type = default, HiddenUnion union = default)
+		public unsafe SDLRWops(delegate*<SDLRWops*, long> size = default, delegate*<SDLRWops*, long, int, long> seek = default, delegate*<SDLRWops*, void*, nuint, nuint, nuint> read = default, delegate*<SDLRWops*, void*, nuint, nuint, nuint> write = default, delegate*<SDLRWops*, int> close = default, uint type = default, HiddenUnion union = default)
 		{
-			Size = (void*)size;
-			Seek = (void*)seek;
-			Read = (void*)read;
-			Write = (void*)write;
-			Close = (void*)close;
+			Size = (delegate*<SDLRWops*, long>*)size;
+			Seek = (delegate*<SDLRWops*, long, int, long>*)seek;
+			Read = (delegate*<SDLRWops*, void*, nuint, nuint, nuint>*)read;
+			Write = (delegate*<SDLRWops*, void*, nuint, nuint, nuint>*)write;
+			Close = (delegate*<SDLRWops*, int>*)close;
 			Type = type;
 			Union = union;
 		}

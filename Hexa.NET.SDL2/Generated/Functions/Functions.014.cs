@@ -18,1010 +18,326 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
-		/// the texture.<br/>
-		/// <br/>
+		/// Toggle VSync of the given renderer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] SDLSurface* surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
-		/// the texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
-		{
-			fixed (SDLSurface* psurface = &surface)
-			{
-				SDLTexture* ret = CreateTextureFromSurfaceNative(renderer, (SDLSurface*)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a texture from an existing surface.<br/>
-		/// The surface is not modified or freed by this function.<br/>
-		/// The SDL_TextureAccess hint for the created texture is<br/>
-		/// `SDL_TEXTUREACCESS_STATIC`.<br/>
-		/// The pixel format of the created texture may be different from the pixel<br/>
-		/// format of the surface. Use SDL_QueryTexture() to query the pixel format of<br/>
-		/// the texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateTextureFromSurface")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* CreateTextureFromSurface([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface*")] ref SDLSurface surface)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLSurface* psurface = &surface)
-				{
-					SDLTexture* ret = CreateTextureFromSurfaceNative((SDLRenderer*)prenderer, (SDLSurface*)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int QueryTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static int RenderSetVSyncNative(SDLRenderer* renderer, int vsync)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, uint*, int*, int*, int*, int>)funcTable[734])(texture, format, access, w, h);
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int>)funcTable[803])(renderer, vsync);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[734])((nint)texture, (nint)format, (nint)access, (nint)w, (nint)h);
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[803])((nint)renderer, vsync);
 			#endif
 		}
 
 		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
+		/// Toggle VSync of the given renderer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int RenderSetVSync(SDLRenderer* renderer, int vsync)
 		{
-			int ret = QueryTextureNative(texture, format, access, w, h);
+			int ret = RenderSetVSyncNative(renderer, vsync);
 			return ret;
 		}
 
 		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
+		/// Toggle VSync of the given renderer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static int RenderSetVSync(ref SDLRenderer renderer, int vsync)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, h);
+				int ret = RenderSetVSyncNative((SDLRenderer*)prenderer, vsync);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Query the attributes of a texture.<br/>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				int ret = QueryTextureNative(texture, (uint*)pformat, access, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (int* paccess = &access)
-			{
-				int ret = QueryTextureNative(texture, format, (int*)paccess, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* paccess = &access)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* paccess = &access)
-				{
-					int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* paccess = &access)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				int ret = QueryTextureNative(texture, format, access, (int*)pw, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* pw = &w)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* pw = &w)
-				{
-					int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* pw = &w)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (int* paccess = &access)
-			{
-				fixed (int* pw = &w)
-				{
-					int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, h);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* pw = &w)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* pw = &w)
-					{
-						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, (int*)pw, h);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* paccess = &access)
-					{
-						fixed (int* pw = &w)
-						{
-							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, h);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				int ret = QueryTextureNative(texture, format, access, w, (int*)ph);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, w, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative(texture, (uint*)pformat, access, w, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, w, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* paccess = &access)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative(texture, format, (int*)paccess, w, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, w, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, w, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* paccess = &access)
-					{
-						fixed (int* ph = &h)
-						{
-							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, w, (int*)ph);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					int ret = QueryTextureNative(texture, format, access, (int*)pw, (int*)ph);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative((SDLTexture*)ptexture, format, access, (int*)pw, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative(texture, (uint*)pformat, access, (int*)pw, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] int* access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* pw = &w)
-					{
-						fixed (int* ph = &h)
-						{
-							int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, access, (int*)pw, (int*)ph);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* paccess = &access)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						int ret = QueryTextureNative(texture, format, (int*)paccess, (int*)pw, (int*)ph);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] uint* format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* pw = &w)
-					{
-						fixed (int* ph = &h)
-						{
-							int ret = QueryTextureNative((SDLTexture*)ptexture, format, (int*)paccess, (int*)pw, (int*)ph);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (uint* pformat = &format)
-			{
-				fixed (int* paccess = &access)
-				{
-					fixed (int* pw = &w)
-					{
-						fixed (int* ph = &h)
-						{
-							int ret = QueryTextureNative(texture, (uint*)pformat, (int*)paccess, (int*)pw, (int*)ph);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Query the attributes of a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueryTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueryTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint format, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "int*")] ref int access, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (uint* pformat = &format)
-				{
-					fixed (int* paccess = &access)
-					{
-						fixed (int* pw = &w)
-						{
-							fixed (int* ph = &h)
-							{
-								int ret = QueryTextureNative((SDLTexture*)ptexture, (uint*)pformat, (int*)paccess, (int*)pw, (int*)ph);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return -1<br/>
-		/// if color modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureColorModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		internal static SDLWindow* CreateShapedWindowNative(byte* title, uint x, uint y, uint w, uint h, uint flags)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, byte, byte, int>)funcTable[735])(texture, r, g, b);
+			return ((delegate* unmanaged[Cdecl]<byte*, uint, uint, uint, uint, uint, SDLWindow*>)funcTable[804])(title, x, y, w, h, flags);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[735])((nint)texture, r, g, b);
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, uint, nint>)funcTable[804])((nint)title, x, y, w, h, flags);
 			#endif
 		}
 
 		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return -1<br/>
-		/// if color modulation is not supported.<br/>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		public static SDLWindow* CreateShapedWindow(byte* title, uint x, uint y, uint w, uint h, uint flags)
 		{
-			int ret = SetTextureColorModNative(texture, r, g, b);
+			SDLWindow* ret = CreateShapedWindowNative(title, x, y, w, h, flags);
 			return ret;
 		}
 
 		/// <summary>
-		/// Set an additional color value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation each source color<br/>
-		/// channel is modulated by the appropriate color value according to the<br/>
-		/// following formula:<br/>
-		/// `srcC = srcC * (color / 255)`<br/>
-		/// Color modulation is not always supported by the renderer; it will return -1<br/>
-		/// if color modulation is not supported.<br/>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
+		public static SDLWindow* CreateShapedWindow(ref byte title, uint x, uint y, uint w, uint h, uint flags)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (byte* ptitle = &title)
 			{
-				int ret = SetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
+				SDLWindow* ret = CreateShapedWindowNative((byte*)ptitle, x, y, w, h, flags);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureColorModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLWindow* CreateShapedWindow(ReadOnlySpan<byte> title, uint x, uint y, uint w, uint h, uint flags)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, byte*, byte*, int>)funcTable[736])(texture, r, g, b);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[736])((nint)texture, (nint)r, (nint)g, (nint)b);
-			#endif
+			fixed (byte* ptitle = title)
+			{
+				SDLWindow* ret = CreateShapedWindowNative((byte*)ptitle, x, y, w, h, flags);
+				return ret;
+			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Create a window that can be shaped with the specified position, dimensions,<br/>
+		/// and flags.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLWindow* CreateShapedWindow(string title, uint x, uint y, uint w, uint h, uint flags)
 		{
-			int ret = GetTextureColorModNative(texture, r, g, b);
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (title != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(title);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLWindow* ret = CreateShapedWindowNative(pStr0, x, y, w, h, flags);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret;
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Return whether the given window is a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsShapedWindowNative(SDLWindow* window)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[805])(window);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[805])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Return whether the given window is a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsShapedWindow(SDLWindow* window)
+		{
+			SDLBool ret = IsShapedWindowNative(window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Return whether the given window is a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsShapedWindow(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, b);
+				SDLBool ret = IsShapedWindowNative((SDLWindow*)pwindow);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Set the shape and parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetWindowShapeNative(SDLWindow* window, SDLSurface* shape, SDLWindowShapeMode* shapeMode)
 		{
-			fixed (byte* pr = &r)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, SDLWindowShapeMode*, int>)funcTable[806])(window, shape, shapeMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[806])((nint)window, (nint)shape, (nint)shapeMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(SDLWindow* window, SDLSurface* shape, SDLWindowShapeMode* shapeMode)
+		{
+			int ret = SetWindowShapeNative(window, shape, shapeMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(ref SDLWindow window, SDLSurface* shape, SDLWindowShapeMode* shapeMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = GetTextureColorModNative(texture, (byte*)pr, g, b);
+				int ret = SetWindowShapeNative((SDLWindow*)pwindow, shape, shapeMode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Set the shape and parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int SetWindowShape(SDLWindow* window, ref SDLSurface shape, SDLWindowShapeMode* shapeMode)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLSurface* pshape = &shape)
 			{
-				fixed (byte* pr = &r)
+				int ret = SetWindowShapeNative(window, (SDLSurface*)pshape, shapeMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the shape and parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetWindowShape(ref SDLWindow window, ref SDLSurface shape, SDLWindowShapeMode* shapeMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLSurface* pshape = &shape)
 				{
-					int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, b);
+					int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)pshape, shapeMode);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Set the shape and parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int SetWindowShape(SDLWindow* window, SDLSurface* shape, ref SDLWindowShapeMode shapeMode)
 		{
-			fixed (byte* pg = &g)
+			fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 			{
-				int ret = GetTextureColorModNative(texture, r, (byte*)pg, b);
+				int ret = SetWindowShapeNative(window, shape, (SDLWindowShapeMode*)pshapeMode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Set the shape and parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int SetWindowShape(ref SDLWindow window, SDLSurface* shape, ref SDLWindowShapeMode shapeMode)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* pg = &g)
+				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 				{
-					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
+					int ret = SetWindowShapeNative((SDLWindow*)pwindow, shape, (SDLWindowShapeMode*)pshapeMode);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Set the shape and parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int SetWindowShape(SDLWindow* window, ref SDLSurface shape, ref SDLWindowShapeMode shapeMode)
 		{
-			fixed (byte* pr = &r)
+			fixed (SDLSurface* pshape = &shape)
 			{
-				fixed (byte* pg = &g)
+				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 				{
-					int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, b);
+					int ret = SetWindowShapeNative(window, (SDLSurface*)pshape, (SDLWindowShapeMode*)pshapeMode);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Set the shape and parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static int SetWindowShape(ref SDLWindow window, ref SDLSurface shape, ref SDLWindowShapeMode shapeMode)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindow* pwindow = &window)
 			{
-				fixed (byte* pr = &r)
+				fixed (SDLSurface* pshape = &shape)
 				{
-					fixed (byte* pg = &g)
+					fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 					{
-						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
+						int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)pshape, (SDLWindowShapeMode*)pshapeMode);
 						return ret;
 					}
 				}
@@ -1029,4011 +345,4678 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Get the shape parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetShapedWindowModeNative(SDLWindow* window, SDLWindowShapeMode* shapeMode)
 		{
-			fixed (byte* pb = &b)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindowShapeMode*, int>)funcTable[807])(window, shapeMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[807])((nint)window, (nint)shapeMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the shape parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetShapedWindowMode(SDLWindow* window, SDLWindowShapeMode* shapeMode)
+		{
+			int ret = GetShapedWindowModeNative(window, shapeMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the shape parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetShapedWindowMode(ref SDLWindow window, SDLWindowShapeMode* shapeMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
 			{
-				int ret = GetTextureColorModNative(texture, r, g, (byte*)pb);
+				int ret = GetShapedWindowModeNative((SDLWindow*)pwindow, shapeMode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Get the shape parameters of a shaped window.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static int GetShapedWindowMode(SDLWindow* window, ref SDLWindowShapeMode shapeMode)
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 			{
-				fixed (byte* pb = &b)
+				int ret = GetShapedWindowModeNative(window, (SDLWindowShapeMode*)pshapeMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the shape parameters of a shaped window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetShapedWindowMode(ref SDLWindow window, ref SDLWindowShapeMode shapeMode)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
 				{
-					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
+					int ret = GetShapedWindowModeNative((SDLWindow*)pwindow, (SDLWindowShapeMode*)pshapeMode);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
+		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowsMessageHookNative(SDLWindowsMessageHook callback, void* userdata)
 		{
-			fixed (byte* pr = &r)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, void*, uint, ulong, long, void>, void*, void>)funcTable[808])((delegate*<void*, void*, uint, ulong, long, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[808])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowsMessageHook(SDLWindowsMessageHook callback, void* userdata)
+		{
+			SetWindowsMessageHookNative(callback, userdata);
+		}
+
+		/// <summary>
+		/// Get the D3D9 adapter index that matches the specified display index.<br/>
+		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
+		/// controls on which monitor a full screen application will appear.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int Direct3D9GetAdapterIndexNative(int displayIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[809])(displayIndex);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[809])(displayIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the D3D9 adapter index that matches the specified display index.<br/>
+		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
+		/// controls on which monitor a full screen application will appear.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int Direct3D9GetAdapterIndex(int displayIndex)
+		{
+			int ret = Direct3D9GetAdapterIndexNative(displayIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the D3D9 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static IDirect3DDevice9* RenderGetD3D9DeviceNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, IDirect3DDevice9*>)funcTable[810])(renderer);
+			#else
+			return (IDirect3DDevice9*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[810])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the D3D9 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static IDirect3DDevice9* RenderGetD3D9Device(SDLRenderer* renderer)
+		{
+			IDirect3DDevice9* ret = RenderGetD3D9DeviceNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the D3D9 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static IDirect3DDevice9* RenderGetD3D9Device(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
 			{
-				fixed (byte* pb = &b)
+				IDirect3DDevice9* ret = RenderGetD3D9DeviceNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the D3D11 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ID3D11Device* RenderGetD3D11DeviceNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D11Device*>)funcTable[811])(renderer);
+			#else
+			return (ID3D11Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[811])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the D3D11 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D11Device* RenderGetD3D11Device(SDLRenderer* renderer)
+		{
+			ID3D11Device* ret = RenderGetD3D11DeviceNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the D3D11 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D11Device* RenderGetD3D11Device(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				ID3D11Device* ret = RenderGetD3D11DeviceNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the D3D12 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ID3D12Device* RenderGetD3D12DeviceNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D12Device*>)funcTable[812])(renderer);
+			#else
+			return (ID3D12Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[812])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the D3D12 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D12Device* RenderGetD3D12Device(SDLRenderer* renderer)
+		{
+			ID3D12Device* ret = RenderGetD3D12DeviceNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the D3D12 device associated with a renderer.<br/>
+		/// Once you are done using the device, you should release it to avoid a<br/>
+		/// resource leak.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ID3D12Device* RenderGetD3D12Device(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				ID3D12Device* ret = RenderGetD3D12DeviceNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
+		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
+		/// returns an SDL_bool.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool DXGIGetOutputInfoNative(int displayIndex, int* adapterIndex, int* outputIndex)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int*, int*, SDLBool>)funcTable[813])(displayIndex, adapterIndex, outputIndex);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<int, nint, nint, SDLBool>)funcTable[813])(displayIndex, (nint)adapterIndex, (nint)outputIndex);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
+		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
+		/// returns an SDL_bool.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool DXGIGetOutputInfo(int displayIndex, int* adapterIndex, int* outputIndex)
+		{
+			SDLBool ret = DXGIGetOutputInfoNative(displayIndex, adapterIndex, outputIndex);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
+		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
+		/// returns an SDL_bool.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool DXGIGetOutputInfo(int displayIndex, ref int adapterIndex, int* outputIndex)
+		{
+			fixed (int* padapterIndex = &adapterIndex)
+			{
+				SDLBool ret = DXGIGetOutputInfoNative(displayIndex, (int*)padapterIndex, outputIndex);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
+		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
+		/// returns an SDL_bool.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool DXGIGetOutputInfo(int displayIndex, int* adapterIndex, ref int outputIndex)
+		{
+			fixed (int* poutputIndex = &outputIndex)
+			{
+				SDLBool ret = DXGIGetOutputInfoNative(displayIndex, adapterIndex, (int*)poutputIndex);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
+		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
+		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
+		/// DX11 device and swap chain.<br/>
+		/// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it<br/>
+		/// returns an SDL_bool.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool DXGIGetOutputInfo(int displayIndex, ref int adapterIndex, ref int outputIndex)
+		{
+			fixed (int* padapterIndex = &adapterIndex)
+			{
+				fixed (int* poutputIndex = &outputIndex)
 				{
-					int ret = GetTextureColorModNative(texture, (byte*)pr, g, (byte*)pb);
+					SDLBool ret = DXGIGetOutputInfoNative(displayIndex, (int*)padapterIndex, (int*)poutputIndex);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// Query if the current device is a tablet.<br/>
+		/// If SDL can't determine this, it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsTabletNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[814])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[814])();
+			#endif
+		}
+
+		/// <summary>
+		/// Query if the current device is a tablet.<br/>
+		/// If SDL can't determine this, it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsTablet()
+		{
+			SDLBool ret = IsTabletNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Functions used by iOS application delegates to notify SDL about state changes <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void OnApplicationWillTerminateNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[815])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[815])();
+			#endif
+		}
+
+		/// <summary>
+		/// Functions used by iOS application delegates to notify SDL about state changes <br/>
+		/// </summary>
+		public static void OnApplicationWillTerminate()
+		{
+			OnApplicationWillTerminateNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void OnApplicationDidReceiveMemoryWarningNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[816])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[816])();
+			#endif
+		}
+
+		public static void OnApplicationDidReceiveMemoryWarning()
+		{
+			OnApplicationDidReceiveMemoryWarningNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void OnApplicationWillResignActiveNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[817])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[817])();
+			#endif
+		}
+
+		public static void OnApplicationWillResignActive()
+		{
+			OnApplicationWillResignActiveNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void OnApplicationDidEnterBackgroundNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[818])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[818])();
+			#endif
+		}
+
+		public static void OnApplicationDidEnterBackground()
+		{
+			OnApplicationDidEnterBackgroundNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void OnApplicationWillEnterForegroundNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[819])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[819])();
+			#endif
+		}
+
+		public static void OnApplicationWillEnterForeground()
+		{
+			OnApplicationWillEnterForegroundNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void OnApplicationDidBecomeActiveNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[820])();
+			#endif
+		}
+
+		public static void OnApplicationDidBecomeActive()
+		{
+			OnApplicationDidBecomeActiveNative();
+		}
+
+		/// <summary>
+		/// Get the number of milliseconds since SDL library initialization.<br/>
+		/// This value wraps if the program runs for more than ~49 days.<br/>
+		/// This function is not recommended as of SDL 2.0.18; use SDL_GetTicks64()<br/>
+		/// instead, where the value doesn't wrap every ~49 days. There are places in<br/>
+		/// SDL where we provide a 32-bit timestamp that can not change without<br/>
+		/// breaking binary compatibility, though, so this function isn't officially<br/>
+		/// deprecated.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetTicksNative()
 		{
-			fixed (SDLTexture* ptexture = &texture)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[821])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[821])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of milliseconds since SDL library initialization.<br/>
+		/// This value wraps if the program runs for more than ~49 days.<br/>
+		/// This function is not recommended as of SDL 2.0.18; use SDL_GetTicks64()<br/>
+		/// instead, where the value doesn't wrap every ~49 days. There are places in<br/>
+		/// SDL where we provide a 32-bit timestamp that can not change without<br/>
+		/// breaking binary compatibility, though, so this function isn't officially<br/>
+		/// deprecated.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetTicks()
+		{
+			uint ret = GetTicksNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of milliseconds since SDL library initialization.<br/>
+		/// Note that you should not use the SDL_TICKS_PASSED macro with values<br/>
+		/// returned by this function, as that macro does clever math to compensate for<br/>
+		/// the 32-bit overflow every ~49 days that SDL_GetTicks() suffers from. 64-bit<br/>
+		/// values from this function can be safely compared directly.<br/>
+		/// For example, if you want to wait 100 ms, you could do this:<br/>
+		/// ```c<br/>
+		/// const Uint64 timeout = SDL_GetTicks64() + 100;<br/>
+		/// while (SDL_GetTicks64() <br/>
+		/// <<br/>
+		/// timeout) {<br/>
+		/// // ... do work until timeout has elapsed<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetTicks64Native()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[822])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[822])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of milliseconds since SDL library initialization.<br/>
+		/// Note that you should not use the SDL_TICKS_PASSED macro with values<br/>
+		/// returned by this function, as that macro does clever math to compensate for<br/>
+		/// the 32-bit overflow every ~49 days that SDL_GetTicks() suffers from. 64-bit<br/>
+		/// values from this function can be safely compared directly.<br/>
+		/// For example, if you want to wait 100 ms, you could do this:<br/>
+		/// ```c<br/>
+		/// const Uint64 timeout = SDL_GetTicks64() + 100;<br/>
+		/// while (SDL_GetTicks64() <br/>
+		/// <<br/>
+		/// timeout) {<br/>
+		/// // ... do work until timeout has elapsed<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong GetTicks64()
+		{
+			ulong ret = GetTicks64Native();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current value of the high resolution counter.<br/>
+		/// This function is typically used for profiling.<br/>
+		/// The counter values are only meaningful relative to each other. Differences<br/>
+		/// between values can be converted to times by using<br/>
+		/// SDL_GetPerformanceFrequency().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetPerformanceCounterNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[823])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[823])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current value of the high resolution counter.<br/>
+		/// This function is typically used for profiling.<br/>
+		/// The counter values are only meaningful relative to each other. Differences<br/>
+		/// between values can be converted to times by using<br/>
+		/// SDL_GetPerformanceFrequency().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong GetPerformanceCounter()
+		{
+			ulong ret = GetPerformanceCounterNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the count per second of the high resolution counter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong GetPerformanceFrequencyNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[824])();
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[824])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the count per second of the high resolution counter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong GetPerformanceFrequency()
+		{
+			ulong ret = GetPerformanceFrequencyNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Wait a specified number of milliseconds before returning.<br/>
+		/// This function waits a specified number of milliseconds before returning. It<br/>
+		/// waits at least the specified time, but possibly longer due to OS<br/>
+		/// scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DelayNative(uint ms)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[825])(ms);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[825])(ms);
+			#endif
+		}
+
+		/// <summary>
+		/// Wait a specified number of milliseconds before returning.<br/>
+		/// This function waits a specified number of milliseconds before returning. It<br/>
+		/// waits at least the specified time, but possibly longer due to OS<br/>
+		/// scheduling.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void Delay(uint ms)
+		{
+			DelayNative(ms);
+		}
+
+		/// <summary>
+		/// Call a callback function at a future time.<br/>
+		/// If you use this function, you must pass `SDL_INIT_TIMER` to SDL_Init().<br/>
+		/// The callback function is passed the current timer interval and the user<br/>
+		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
+		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
+		/// canceled.<br/>
+		/// The callback is run on a separate thread.<br/>
+		/// Timers take into account the amount of time it took to execute the<br/>
+		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
+		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
+		/// iteration.<br/>
+		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
+		/// time with SDL_GetTicks() or SDL_GetPerformanceCounter() in case your<br/>
+		/// callback needs to adjust for variances.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AddTimerNative(uint interval, SDLTimerCallback callback, void* param)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, delegate*<uint, void*, uint>, void*, int>)funcTable[826])(interval, (delegate*<uint, void*, uint>)Utils.GetFunctionPointerForDelegate(callback), param);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[826])(interval, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)param);
+			#endif
+		}
+
+		/// <summary>
+		/// Call a callback function at a future time.<br/>
+		/// If you use this function, you must pass `SDL_INIT_TIMER` to SDL_Init().<br/>
+		/// The callback function is passed the current timer interval and the user<br/>
+		/// supplied parameter from the SDL_AddTimer() call and should return the next<br/>
+		/// timer interval. If the value returned from the callback is 0, the timer is<br/>
+		/// canceled.<br/>
+		/// The callback is run on a separate thread.<br/>
+		/// Timers take into account the amount of time it took to execute the<br/>
+		/// callback. For example, if the callback took 250 ms to execute and returned<br/>
+		/// 1000 (ms), the timer would only wait another 750 ms before its next<br/>
+		/// iteration.<br/>
+		/// Timing may be inexact due to OS scheduling. Be sure to note the current<br/>
+		/// time with SDL_GetTicks() or SDL_GetPerformanceCounter() in case your<br/>
+		/// callback needs to adjust for variances.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int AddTimer(uint interval, SDLTimerCallback callback, void* param)
+		{
+			int ret = AddTimerNative(interval, callback, param);
+			return ret;
+		}
+
+		/// <summary>
+		/// Remove a timer created with SDL_AddTimer().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool RemoveTimerNative(int id)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, SDLBool>)funcTable[827])(id);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<int, SDLBool>)funcTable[827])(id);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove a timer created with SDL_AddTimer().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool RemoveTimer(int id)
+		{
+			SDLBool ret = RemoveTimerNative(id);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the version of SDL that is linked against your program.<br/>
+		/// If you are linking to SDL dynamically, then it is possible that the current<br/>
+		/// version will be different than the version you compiled against. This<br/>
+		/// function returns the current version, while SDL_VERSION() is a macro that<br/>
+		/// tells you what version you compiled with.<br/>
+		/// This function may be called safely at any time, even before SDL_Init().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetVersionNative(SDLVersion* ver)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLVersion*, void>)funcTable[828])(ver);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[828])((nint)ver);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the version of SDL that is linked against your program.<br/>
+		/// If you are linking to SDL dynamically, then it is possible that the current<br/>
+		/// version will be different than the version you compiled against. This<br/>
+		/// function returns the current version, while SDL_VERSION() is a macro that<br/>
+		/// tells you what version you compiled with.<br/>
+		/// This function may be called safely at any time, even before SDL_Init().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetVersion(SDLVersion* ver)
+		{
+			GetVersionNative(ver);
+		}
+
+		/// <summary>
+		/// Get the version of SDL that is linked against your program.<br/>
+		/// If you are linking to SDL dynamically, then it is possible that the current<br/>
+		/// version will be different than the version you compiled against. This<br/>
+		/// function returns the current version, while SDL_VERSION() is a macro that<br/>
+		/// tells you what version you compiled with.<br/>
+		/// This function may be called safely at any time, even before SDL_Init().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetVersion(ref SDLVersion ver)
+		{
+			fixed (SDLVersion* pver = &ver)
 			{
-				fixed (byte* pr = &r)
+				GetVersionNative((SDLVersion*)pver);
+			}
+		}
+
+		/// <summary>
+		/// Get the code revision of SDL that is linked against your program.<br/>
+		/// This value is the revision of the code you are linked with and may be<br/>
+		/// different from the code you are compiling with, which is found in the<br/>
+		/// constant SDL_REVISION.<br/>
+		/// The revision is arbitrary string (a hash value) uniquely identifying the<br/>
+		/// exact revision of the SDL library in use, and is only useful in comparing<br/>
+		/// against other revisions. It is NOT an incrementing number.<br/>
+		/// If SDL wasn't built from a git repository with the appropriate tools, this<br/>
+		/// will return an empty string.<br/>
+		/// Prior to SDL 2.0.16, before development moved to GitHub, this returned a<br/>
+		/// hash for a Mercurial repository.<br/>
+		/// You shouldn't use this function for anything but logging it for debugging<br/>
+		/// purposes. The string is not intended to be reliable in any way.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetRevisionNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[829])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[829])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the code revision of SDL that is linked against your program.<br/>
+		/// This value is the revision of the code you are linked with and may be<br/>
+		/// different from the code you are compiling with, which is found in the<br/>
+		/// constant SDL_REVISION.<br/>
+		/// The revision is arbitrary string (a hash value) uniquely identifying the<br/>
+		/// exact revision of the SDL library in use, and is only useful in comparing<br/>
+		/// against other revisions. It is NOT an incrementing number.<br/>
+		/// If SDL wasn't built from a git repository with the appropriate tools, this<br/>
+		/// will return an empty string.<br/>
+		/// Prior to SDL 2.0.16, before development moved to GitHub, this returned a<br/>
+		/// hash for a Mercurial repository.<br/>
+		/// You shouldn't use this function for anything but logging it for debugging<br/>
+		/// purposes. The string is not intended to be reliable in any way.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetRevision()
+		{
+			byte* ret = GetRevisionNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the code revision of SDL that is linked against your program.<br/>
+		/// This value is the revision of the code you are linked with and may be<br/>
+		/// different from the code you are compiling with, which is found in the<br/>
+		/// constant SDL_REVISION.<br/>
+		/// The revision is arbitrary string (a hash value) uniquely identifying the<br/>
+		/// exact revision of the SDL library in use, and is only useful in comparing<br/>
+		/// against other revisions. It is NOT an incrementing number.<br/>
+		/// If SDL wasn't built from a git repository with the appropriate tools, this<br/>
+		/// will return an empty string.<br/>
+		/// Prior to SDL 2.0.16, before development moved to GitHub, this returned a<br/>
+		/// hash for a Mercurial repository.<br/>
+		/// You shouldn't use this function for anything but logging it for debugging<br/>
+		/// purposes. The string is not intended to be reliable in any way.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetRevisionS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetRevisionNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Obsolete function, do not use.<br/>
+		/// When SDL was hosted in a Mercurial repository, and was built carefully,<br/>
+		/// this would return the revision number that the build was created from. This<br/>
+		/// number was not reliable for several reasons, but more importantly, SDL is<br/>
+		/// now hosted in a git repository, which does not offer numbers at all, only<br/>
+		/// hashes. This function only ever returns zero now. Don't use it.<br/>
+		/// Before SDL 2.0.16, this might have returned an unreliable, but non-zero<br/>
+		/// number.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetRevisionNumberNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[830])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[830])();
+			#endif
+		}
+
+		/// <summary>
+		/// Obsolete function, do not use.<br/>
+		/// When SDL was hosted in a Mercurial repository, and was built carefully,<br/>
+		/// this would return the revision number that the build was created from. This<br/>
+		/// number was not reliable for several reasons, but more importantly, SDL is<br/>
+		/// now hosted in a git repository, which does not offer numbers at all, only<br/>
+		/// hashes. This function only ever returns zero now. Don't use it.<br/>
+		/// Before SDL 2.0.16, this might have returned an unreliable, but non-zero<br/>
+		/// number.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRevisionNumber()
+		{
+			int ret = GetRevisionNumberNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Report the user's preferred locale.<br/>
+		/// This returns an array of SDL_Locale structs, the final item zeroed out.<br/>
+		/// When the caller is done with this array, it should call SDL_free() on the<br/>
+		/// returned value; all the memory involved is allocated in a single block, so<br/>
+		/// a single SDL_free() will suffice.<br/>
+		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
+		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
+		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
+		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
+		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
+		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
+		/// language, generically"). Language strings are never NULL, except to<br/>
+		/// terminate the array.<br/>
+		/// Please note that not all of these strings are 2 characters; some are three<br/>
+		/// or more.<br/>
+		/// The returned list of locales are in the order of the user's preference. For<br/>
+		/// example, a German citizen that is fluent in US English and knows enough<br/>
+		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
+		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
+		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
+		/// "en_GB", "en", NULL }.<br/>
+		/// This function returns NULL on error, including when the platform does not<br/>
+		/// supply this information at all.<br/>
+		/// This might be a "slow" call that has to query the operating system. It's<br/>
+		/// best to ask for this once and save the results. However, this list can<br/>
+		/// change, usually because the user has changed a system preference outside of<br/>
+		/// your program; SDL will send an SDL_LOCALECHANGED event in this case, if<br/>
+		/// possible, and you can call this function again to get an updated copy of<br/>
+		/// preferred locales.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLLocale* GetPreferredLocalesNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLLocale*>)funcTable[831])();
+			#else
+			return (SDLLocale*)((delegate* unmanaged[Cdecl]<nint>)funcTable[831])();
+			#endif
+		}
+
+		/// <summary>
+		/// Report the user's preferred locale.<br/>
+		/// This returns an array of SDL_Locale structs, the final item zeroed out.<br/>
+		/// When the caller is done with this array, it should call SDL_free() on the<br/>
+		/// returned value; all the memory involved is allocated in a single block, so<br/>
+		/// a single SDL_free() will suffice.<br/>
+		/// Returned language strings are in the format xx, where 'xx' is an ISO-639<br/>
+		/// language specifier (such as "en" for English, "de" for German, etc).<br/>
+		/// Country strings are in the format YY, where "YY" is an ISO-3166 country<br/>
+		/// code (such as "US" for the United States, "CA" for Canada, etc). Country<br/>
+		/// might be NULL if there's no specific guidance on them (so you might get {<br/>
+		/// "en", "US" } for American English, but { "en", NULL } means "English<br/>
+		/// language, generically"). Language strings are never NULL, except to<br/>
+		/// terminate the array.<br/>
+		/// Please note that not all of these strings are 2 characters; some are three<br/>
+		/// or more.<br/>
+		/// The returned list of locales are in the order of the user's preference. For<br/>
+		/// example, a German citizen that is fluent in US English and knows enough<br/>
+		/// Japanese to navigate around Tokyo might have a list like: { "de", "en_US",<br/>
+		/// "jp", NULL }. Someone from England might prefer British English (where<br/>
+		/// "color" is spelled "colour", etc), but will settle for anything like it: {<br/>
+		/// "en_GB", "en", NULL }.<br/>
+		/// This function returns NULL on error, including when the platform does not<br/>
+		/// supply this information at all.<br/>
+		/// This might be a "slow" call that has to query the operating system. It's<br/>
+		/// best to ask for this once and save the results. However, this list can<br/>
+		/// change, usually because the user has changed a system preference outside of<br/>
+		/// your program; SDL will send an SDL_LOCALECHANGED event in this case, if<br/>
+		/// possible, and you can call this function again to get an updated copy of<br/>
+		/// preferred locales.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLLocale* GetPreferredLocales()
+		{
+			SDLLocale* ret = GetPreferredLocalesNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a URL/URI in the browser or other appropriate external application.<br/>
+		/// Open a URL in a separate, system-provided application. How this works will<br/>
+		/// vary wildly depending on the platform. This will likely launch what makes<br/>
+		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
+		/// etc), but it might also be able to launch file managers for directories and<br/>
+		/// other things.<br/>
+		/// What happens when you open a URL varies wildly as well: your game window<br/>
+		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
+		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
+		/// move to the background or your process might be paused. Any given platform<br/>
+		/// may or may not handle a given URL.<br/>
+		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
+		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
+		/// that we launched _something_ to handle it (or at least believe we did).<br/>
+		/// All this to say: this function can be useful, but you should definitely<br/>
+		/// test it on every platform you target.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int OpenURLNative(byte* url)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[832])(url);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[832])((nint)url);
+			#endif
+		}
+
+		/// <summary>
+		/// Open a URL/URI in the browser or other appropriate external application.<br/>
+		/// Open a URL in a separate, system-provided application. How this works will<br/>
+		/// vary wildly depending on the platform. This will likely launch what makes<br/>
+		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
+		/// etc), but it might also be able to launch file managers for directories and<br/>
+		/// other things.<br/>
+		/// What happens when you open a URL varies wildly as well: your game window<br/>
+		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
+		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
+		/// move to the background or your process might be paused. Any given platform<br/>
+		/// may or may not handle a given URL.<br/>
+		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
+		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
+		/// that we launched _something_ to handle it (or at least believe we did).<br/>
+		/// All this to say: this function can be useful, but you should definitely<br/>
+		/// test it on every platform you target.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int OpenURL(byte* url)
+		{
+			int ret = OpenURLNative(url);
+			return ret;
+		}
+
+		/// <summary>
+		/// Open a URL/URI in the browser or other appropriate external application.<br/>
+		/// Open a URL in a separate, system-provided application. How this works will<br/>
+		/// vary wildly depending on the platform. This will likely launch what makes<br/>
+		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
+		/// etc), but it might also be able to launch file managers for directories and<br/>
+		/// other things.<br/>
+		/// What happens when you open a URL varies wildly as well: your game window<br/>
+		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
+		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
+		/// move to the background or your process might be paused. Any given platform<br/>
+		/// may or may not handle a given URL.<br/>
+		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
+		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
+		/// that we launched _something_ to handle it (or at least believe we did).<br/>
+		/// All this to say: this function can be useful, but you should definitely<br/>
+		/// test it on every platform you target.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int OpenURL(ref byte url)
+		{
+			fixed (byte* purl = &url)
+			{
+				int ret = OpenURLNative((byte*)purl);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a URL/URI in the browser or other appropriate external application.<br/>
+		/// Open a URL in a separate, system-provided application. How this works will<br/>
+		/// vary wildly depending on the platform. This will likely launch what makes<br/>
+		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
+		/// etc), but it might also be able to launch file managers for directories and<br/>
+		/// other things.<br/>
+		/// What happens when you open a URL varies wildly as well: your game window<br/>
+		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
+		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
+		/// move to the background or your process might be paused. Any given platform<br/>
+		/// may or may not handle a given URL.<br/>
+		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
+		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
+		/// that we launched _something_ to handle it (or at least believe we did).<br/>
+		/// All this to say: this function can be useful, but you should definitely<br/>
+		/// test it on every platform you target.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int OpenURL(ReadOnlySpan<byte> url)
+		{
+			fixed (byte* purl = url)
+			{
+				int ret = OpenURLNative((byte*)purl);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Open a URL/URI in the browser or other appropriate external application.<br/>
+		/// Open a URL in a separate, system-provided application. How this works will<br/>
+		/// vary wildly depending on the platform. This will likely launch what makes<br/>
+		/// sense to handle a specific URL's protocol (a web browser for `http://`,<br/>
+		/// etc), but it might also be able to launch file managers for directories and<br/>
+		/// other things.<br/>
+		/// What happens when you open a URL varies wildly as well: your game window<br/>
+		/// may lose focus (and may or may not lose focus if your game was fullscreen<br/>
+		/// or grabbing input at the time). On mobile devices, your app will likely<br/>
+		/// move to the background or your process might be paused. Any given platform<br/>
+		/// may or may not handle a given URL.<br/>
+		/// If this is unimplemented (or simply unavailable) for a platform, this will<br/>
+		/// fail with an error. A successful result does not mean the URL loaded, just<br/>
+		/// that we launched _something_ to handle it (or at least believe we did).<br/>
+		/// All this to say: this function can be useful, but you should definitely<br/>
+		/// test it on every platform you target.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int OpenURL(string url)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (url != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(url);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					fixed (byte* pb = &b)
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(url, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = OpenURLNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Initialize the SDL library.<br/>
+		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
+		/// two may be used interchangeably. Though for readability of your code<br/>
+		/// SDL_InitSubSystem() might be preferred.<br/>
+		/// The file I/O (for example: SDL_RWFromFile) and threading (SDL_CreateThread)<br/>
+		/// subsystems are initialized by default. Message boxes<br/>
+		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
+		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
+		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
+		/// use them in your application.<br/>
+		/// Logging (such as SDL_Log) works without initialization, too.<br/>
+		/// `flags` may be any of the following OR'd together:<br/>
+		/// - `SDL_INIT_TIMER`: timer subsystem<br/>
+		/// - `SDL_INIT_AUDIO`: audio subsystem<br/>
+		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
+		/// subsystem<br/>
+		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
+		/// events subsystem<br/>
+		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
+		/// - `SDL_INIT_GAMECONTROLLER`: controller subsystem; automatically<br/>
+		/// initializes the joystick subsystem<br/>
+		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
+		/// - `SDL_INIT_EVERYTHING`: all of the above subsystems<br/>
+		/// - `SDL_INIT_NOPARACHUTE`: compatibility; this flag is ignored<br/>
+		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
+		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
+		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
+		/// this call will increase the ref-count and return.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int InitNative(uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[833])(flags);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[833])(flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Initialize the SDL library.<br/>
+		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
+		/// two may be used interchangeably. Though for readability of your code<br/>
+		/// SDL_InitSubSystem() might be preferred.<br/>
+		/// The file I/O (for example: SDL_RWFromFile) and threading (SDL_CreateThread)<br/>
+		/// subsystems are initialized by default. Message boxes<br/>
+		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
+		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
+		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
+		/// use them in your application.<br/>
+		/// Logging (such as SDL_Log) works without initialization, too.<br/>
+		/// `flags` may be any of the following OR'd together:<br/>
+		/// - `SDL_INIT_TIMER`: timer subsystem<br/>
+		/// - `SDL_INIT_AUDIO`: audio subsystem<br/>
+		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
+		/// subsystem<br/>
+		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
+		/// events subsystem<br/>
+		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
+		/// - `SDL_INIT_GAMECONTROLLER`: controller subsystem; automatically<br/>
+		/// initializes the joystick subsystem<br/>
+		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
+		/// - `SDL_INIT_EVERYTHING`: all of the above subsystems<br/>
+		/// - `SDL_INIT_NOPARACHUTE`: compatibility; this flag is ignored<br/>
+		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
+		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
+		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
+		/// this call will increase the ref-count and return.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int Init(uint flags)
+		{
+			int ret = InitNative(flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Compatibility function to initialize the SDL library.<br/>
+		/// In SDL2, this function and SDL_Init() are interchangeable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int InitSubSystemNative(uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[834])(flags);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[834])(flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Compatibility function to initialize the SDL library.<br/>
+		/// In SDL2, this function and SDL_Init() are interchangeable.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int InitSubSystem(uint flags)
+		{
+			int ret = InitSubSystemNative(flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Shut down specific SDL subsystems.<br/>
+		/// If you start a subsystem using a call to that subsystem's init function<br/>
+		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
+		/// SDL_QuitSubSystem() and SDL_WasInit() will not work. You will need to use<br/>
+		/// that subsystem's quit function (SDL_VideoQuit()) directly instead. But<br/>
+		/// generally, you should not be using those functions directly anyhow; use<br/>
+		/// SDL_Init() instead.<br/>
+		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
+		/// with SDL_QuitSubSystem().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void QuitSubSystemNative(uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[835])(flags);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[835])(flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Shut down specific SDL subsystems.<br/>
+		/// If you start a subsystem using a call to that subsystem's init function<br/>
+		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
+		/// SDL_QuitSubSystem() and SDL_WasInit() will not work. You will need to use<br/>
+		/// that subsystem's quit function (SDL_VideoQuit()) directly instead. But<br/>
+		/// generally, you should not be using those functions directly anyhow; use<br/>
+		/// SDL_Init() instead.<br/>
+		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
+		/// with SDL_QuitSubSystem().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void QuitSubSystem(uint flags)
+		{
+			QuitSubSystemNative(flags);
+		}
+
+		/// <summary>
+		/// Get a mask of the specified subsystems which are currently initialized.<br/>
+		/// <br/>
+		/// The return value does not include SDL_INIT_NOPARACHUTE.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint WasInitNative(uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[836])(flags);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[836])(flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a mask of the specified subsystems which are currently initialized.<br/>
+		/// <br/>
+		/// The return value does not include SDL_INIT_NOPARACHUTE.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint WasInit(uint flags)
+		{
+			uint ret = WasInitNative(flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Clean up all initialized subsystems.<br/>
+		/// You should call this function even if you have already shutdown each<br/>
+		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
+		/// function even in the case of errors in initialization.<br/>
+		/// If you start a subsystem using a call to that subsystem's init function<br/>
+		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
+		/// then you must use that subsystem's quit function (SDL_VideoQuit()) to shut<br/>
+		/// it down before calling SDL_Quit(). But generally, you should not be using<br/>
+		/// those functions directly anyhow; use SDL_Init() instead.<br/>
+		/// You can use this function with atexit() to ensure that it is run when your<br/>
+		/// application is shutdown, but it is not wise to do this from a library or<br/>
+		/// other dynamically loaded code.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void QuitNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[837])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[837])();
+			#endif
+		}
+
+		/// <summary>
+		/// Clean up all initialized subsystems.<br/>
+		/// You should call this function even if you have already shutdown each<br/>
+		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
+		/// function even in the case of errors in initialization.<br/>
+		/// If you start a subsystem using a call to that subsystem's init function<br/>
+		/// (for example SDL_VideoInit()) instead of SDL_Init() or SDL_InitSubSystem(),<br/>
+		/// then you must use that subsystem's quit function (SDL_VideoQuit()) to shut<br/>
+		/// it down before calling SDL_Quit(). But generally, you should not be using<br/>
+		/// those functions directly anyhow; use SDL_Init() instead.<br/>
+		/// You can use this function with atexit() to ensure that it is run when your<br/>
+		/// application is shutdown, but it is not wise to do this from a library or<br/>
+		/// other dynamically loaded code.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void Quit()
+		{
+			QuitNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglChooseConfigNative(EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, int* numConfig)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, EGLConfig*, int, int*, uint>)funcTable[838])(dpy, attribList, configs, configSize, numConfig);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, int, nint, uint>)funcTable[838])(dpy, (nint)attribList, (nint)configs, configSize, (nint)numConfig);
+			#endif
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, int* numConfig)
+		{
+			uint ret = EglChooseConfigNative(dpy, attribList, configs, configSize, numConfig);
+			return ret;
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, int* numConfig)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				uint ret = EglChooseConfigNative(dpy, (int*)pattribList, configs, configSize, numConfig);
+				return ret;
+			}
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, int* numConfig)
+		{
+			fixed (EGLConfig* pconfigs = &configs)
+			{
+				uint ret = EglChooseConfigNative(dpy, attribList, (EGLConfig*)pconfigs, configSize, numConfig);
+				return ret;
+			}
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, int* numConfig)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				fixed (EGLConfig* pconfigs = &configs)
+				{
+					uint ret = EglChooseConfigNative(dpy, (int*)pattribList, (EGLConfig*)pconfigs, configSize, numConfig);
+					return ret;
+				}
+			}
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, EGLConfig* configs, int configSize, ref int numConfig)
+		{
+			fixed (int* pnumConfig = &numConfig)
+			{
+				uint ret = EglChooseConfigNative(dpy, attribList, configs, configSize, (int*)pnumConfig);
+				return ret;
+			}
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, EGLConfig* configs, int configSize, ref int numConfig)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				fixed (int* pnumConfig = &numConfig)
+				{
+					uint ret = EglChooseConfigNative(dpy, (int*)pattribList, configs, configSize, (int*)pnumConfig);
+					return ret;
+				}
+			}
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, int* attribList, ref EGLConfig configs, int configSize, ref int numConfig)
+		{
+			fixed (EGLConfig* pconfigs = &configs)
+			{
+				fixed (int* pnumConfig = &numConfig)
+				{
+					uint ret = EglChooseConfigNative(dpy, attribList, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
+					return ret;
+				}
+			}
+		}
+
+		public static uint EglChooseConfig(EGLDisplay dpy, ref int attribList, ref EGLConfig configs, int configSize, ref int numConfig)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				fixed (EGLConfig* pconfigs = &configs)
+				{
+					fixed (int* pnumConfig = &numConfig)
 					{
-						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
+						uint ret = EglChooseConfigNative(dpy, (int*)pattribList, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
 						return ret;
 					}
 				}
 			}
 		}
 
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglCopyBuffersNative(EGLDisplay dpy, EGLSurface surface, nint target)
 		{
-			fixed (byte* pg = &g)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)funcTable[839])(dpy, surface, target);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, nint, uint>)funcTable[839])(dpy, surface, target);
+			#endif
+		}
+
+		public static uint EglCopyBuffers(EGLDisplay dpy, EGLSurface surface, nint target)
+		{
+			uint ret = EglCopyBuffersNative(dpy, surface, target);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLContext EglCreateContextNative(EGLDisplay dpy, EGLConfig config, EGLContext shareContext, int* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, int*, EGLContext>)funcTable[840])(dpy, config, shareContext, attribList);
+			#else
+			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, EGLContext, nint, EGLContext>)funcTable[840])(dpy, config, shareContext, (nint)attribList);
+			#endif
+		}
+
+		public static EGLContext EglCreateContext(EGLDisplay dpy, EGLConfig config, EGLContext shareContext, int* attribList)
+		{
+			EGLContext ret = EglCreateContextNative(dpy, config, shareContext, attribList);
+			return ret;
+		}
+
+		public static EGLContext EglCreateContext(EGLDisplay dpy, EGLConfig config, EGLContext shareContext, ref int attribList)
+		{
+			fixed (int* pattribList = &attribList)
 			{
-				fixed (byte* pb = &b)
+				EGLContext ret = EglCreateContextNative(dpy, config, shareContext, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSurface EglCreatePbufferSurfaceNative(EGLDisplay dpy, EGLConfig config, int* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int*, EGLSurface>)funcTable[841])(dpy, config, attribList);
+			#else
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, EGLSurface>)funcTable[841])(dpy, config, (nint)attribList);
+			#endif
+		}
+
+		public static EGLSurface EglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, int* attribList)
+		{
+			EGLSurface ret = EglCreatePbufferSurfaceNative(dpy, config, attribList);
+			return ret;
+		}
+
+		public static EGLSurface EglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, ref int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				EGLSurface ret = EglCreatePbufferSurfaceNative(dpy, config, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSurface EglCreatePixmapSurfaceNative(EGLDisplay dpy, EGLConfig config, nint pixmap, int* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)funcTable[842])(dpy, config, pixmap, attribList);
+			#else
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[842])(dpy, config, pixmap, (nint)attribList);
+			#endif
+		}
+
+		public static EGLSurface EglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config, nint pixmap, int* attribList)
+		{
+			EGLSurface ret = EglCreatePixmapSurfaceNative(dpy, config, pixmap, attribList);
+			return ret;
+		}
+
+		public static EGLSurface EglCreatePixmapSurface(EGLDisplay dpy, EGLConfig config, nint pixmap, ref int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				EGLSurface ret = EglCreatePixmapSurfaceNative(dpy, config, pixmap, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSurface EglCreateWindowSurfaceNative(EGLDisplay dpy, EGLConfig config, nint win, int* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, int*, EGLSurface>)funcTable[843])(dpy, config, win, attribList);
+			#else
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[843])(dpy, config, win, (nint)attribList);
+			#endif
+		}
+
+		public static EGLSurface EglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, nint win, int* attribList)
+		{
+			EGLSurface ret = EglCreateWindowSurfaceNative(dpy, config, win, attribList);
+			return ret;
+		}
+
+		public static EGLSurface EglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, nint win, ref int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				EGLSurface ret = EglCreateWindowSurfaceNative(dpy, config, win, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglDestroyContextNative(EGLDisplay dpy, EGLContext ctx)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)funcTable[844])(dpy, ctx);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint>)funcTable[844])(dpy, ctx);
+			#endif
+		}
+
+		public static uint EglDestroyContext(EGLDisplay dpy, EGLContext ctx)
+		{
+			uint ret = EglDestroyContextNative(dpy, ctx);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglDestroySurfaceNative(EGLDisplay dpy, EGLSurface surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[845])(dpy, surface);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[845])(dpy, surface);
+			#endif
+		}
+
+		public static uint EglDestroySurface(EGLDisplay dpy, EGLSurface surface)
+		{
+			uint ret = EglDestroySurfaceNative(dpy, surface);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglGetConfigAttribNative(EGLDisplay dpy, EGLConfig config, int attribute, int* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, int*, uint>)funcTable[846])(dpy, config, attribute, value);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, int, nint, uint>)funcTable[846])(dpy, config, attribute, (nint)value);
+			#endif
+		}
+
+		public static uint EglGetConfigAttrib(EGLDisplay dpy, EGLConfig config, int attribute, int* value)
+		{
+			uint ret = EglGetConfigAttribNative(dpy, config, attribute, value);
+			return ret;
+		}
+
+		public static uint EglGetConfigAttrib(EGLDisplay dpy, EGLConfig config, int attribute, ref int value)
+		{
+			fixed (int* pvalue = &value)
+			{
+				uint ret = EglGetConfigAttribNative(dpy, config, attribute, (int*)pvalue);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglGetConfigsNative(EGLDisplay dpy, EGLConfig* configs, int configSize, int* numConfig)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig*, int, int*, uint>)funcTable[847])(dpy, configs, configSize, numConfig);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, int, nint, uint>)funcTable[847])(dpy, (nint)configs, configSize, (nint)numConfig);
+			#endif
+		}
+
+		public static uint EglGetConfigs(EGLDisplay dpy, EGLConfig* configs, int configSize, int* numConfig)
+		{
+			uint ret = EglGetConfigsNative(dpy, configs, configSize, numConfig);
+			return ret;
+		}
+
+		public static uint EglGetConfigs(EGLDisplay dpy, ref EGLConfig configs, int configSize, int* numConfig)
+		{
+			fixed (EGLConfig* pconfigs = &configs)
+			{
+				uint ret = EglGetConfigsNative(dpy, (EGLConfig*)pconfigs, configSize, numConfig);
+				return ret;
+			}
+		}
+
+		public static uint EglGetConfigs(EGLDisplay dpy, EGLConfig* configs, int configSize, ref int numConfig)
+		{
+			fixed (int* pnumConfig = &numConfig)
+			{
+				uint ret = EglGetConfigsNative(dpy, configs, configSize, (int*)pnumConfig);
+				return ret;
+			}
+		}
+
+		public static uint EglGetConfigs(EGLDisplay dpy, ref EGLConfig configs, int configSize, ref int numConfig)
+		{
+			fixed (EGLConfig* pconfigs = &configs)
+			{
+				fixed (int* pnumConfig = &numConfig)
 				{
-					int ret = GetTextureColorModNative(texture, r, (byte*)pg, (byte*)pb);
+					uint ret = EglGetConfigsNative(dpy, (EGLConfig*)pconfigs, configSize, (int*)pnumConfig);
 					return ret;
 				}
 			}
 		}
 
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureColorMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureColorMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
-		/// if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureAlphaModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		internal static EGLDisplay EglGetCurrentDisplayNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, int>)funcTable[737])(texture, alpha);
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay>)funcTable[848])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[737])((nint)texture, alpha);
+			return (EGLDisplay)((delegate* unmanaged[Cdecl]<EGLDisplay>)funcTable[848])();
 			#endif
 		}
 
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
-		/// if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
+		public static EGLDisplay EglGetCurrentDisplay()
 		{
-			int ret = SetTextureAlphaModNative(texture, alpha);
+			EGLDisplay ret = EglGetCurrentDisplayNative();
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSurface EglGetCurrentSurfaceNative(int readdraw)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, EGLSurface>)funcTable[849])(readdraw);
+			#else
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<int, EGLSurface>)funcTable[849])(readdraw);
+			#endif
+		}
+
+		public static EGLSurface EglGetCurrentSurface(int readdraw)
+		{
+			EGLSurface ret = EglGetCurrentSurfaceNative(readdraw);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLDisplay EglGetDisplayNative(nint displayId)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)funcTable[850])(displayId);
+			#else
+			return (EGLDisplay)((delegate* unmanaged[Cdecl]<nint, EGLDisplay>)funcTable[850])(displayId);
+			#endif
+		}
+
+		public static EGLDisplay EglGetDisplay(nint displayId)
+		{
+			EGLDisplay ret = EglGetDisplayNative(displayId);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int EglGetErrorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[851])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[851])();
+			#endif
+		}
+
+		public static int EglGetError()
+		{
+			int ret = EglGetErrorNative();
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static delegate*<void> EglGetProcAddressNative(byte* procname)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void>>)funcTable[852])(procname);
+			#else
+			return (delegate*<void>)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[852])((nint)procname);
+			#endif
+		}
+
+		public static delegate*<void> EglGetProcAddress(byte* procname)
+		{
+			delegate*<void> ret = EglGetProcAddressNative(procname);
+			return ret;
+		}
+
+		public static delegate*<void> EglGetProcAddress(ref byte procname)
+		{
+			fixed (byte* pprocname = &procname)
+			{
+				delegate*<void> ret = EglGetProcAddressNative((byte*)pprocname);
+				return ret;
+			}
+		}
+
+		public static delegate*<void> EglGetProcAddress(ReadOnlySpan<byte> procname)
+		{
+			fixed (byte* pprocname = procname)
+			{
+				delegate*<void> ret = EglGetProcAddressNative((byte*)pprocname);
+				return ret;
+			}
+		}
+
+		public static delegate*<void> EglGetProcAddress(string procname)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (procname != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(procname);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(procname, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			delegate*<void> ret = EglGetProcAddressNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglInitializeNative(EGLDisplay dpy, int* major, int* minor)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int*, int*, uint>)funcTable[853])(dpy, major, minor);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, nint, nint, uint>)funcTable[853])(dpy, (nint)major, (nint)minor);
+			#endif
+		}
+
+		public static uint EglInitialize(EGLDisplay dpy, int* major, int* minor)
+		{
+			uint ret = EglInitializeNative(dpy, major, minor);
+			return ret;
+		}
+
+		public static uint EglInitialize(EGLDisplay dpy, ref int major, int* minor)
+		{
+			fixed (int* pmajor = &major)
+			{
+				uint ret = EglInitializeNative(dpy, (int*)pmajor, minor);
+				return ret;
+			}
+		}
+
+		public static uint EglInitialize(EGLDisplay dpy, int* major, ref int minor)
+		{
+			fixed (int* pminor = &minor)
+			{
+				uint ret = EglInitializeNative(dpy, major, (int*)pminor);
+				return ret;
+			}
+		}
+
+		public static uint EglInitialize(EGLDisplay dpy, ref int major, ref int minor)
+		{
+			fixed (int* pmajor = &major)
+			{
+				fixed (int* pminor = &minor)
+				{
+					uint ret = EglInitializeNative(dpy, (int*)pmajor, (int*)pminor);
+					return ret;
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglMakeCurrentNative(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)funcTable[854])(dpy, draw, read, ctx);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, EGLSurface, EGLContext, uint>)funcTable[854])(dpy, draw, read, ctx);
+			#endif
+		}
+
+		public static uint EglMakeCurrent(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx)
+		{
+			uint ret = EglMakeCurrentNative(dpy, draw, read, ctx);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglQueryContextNative(EGLDisplay dpy, EGLContext ctx, int attribute, int* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, int*, uint>)funcTable[855])(dpy, ctx, attribute, value);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, int, nint, uint>)funcTable[855])(dpy, ctx, attribute, (nint)value);
+			#endif
+		}
+
+		public static uint EglQueryContext(EGLDisplay dpy, EGLContext ctx, int attribute, int* value)
+		{
+			uint ret = EglQueryContextNative(dpy, ctx, attribute, value);
+			return ret;
+		}
+
+		public static uint EglQueryContext(EGLDisplay dpy, EGLContext ctx, int attribute, ref int value)
+		{
+			fixed (int* pvalue = &value)
+			{
+				uint ret = EglQueryContextNative(dpy, ctx, attribute, (int*)pvalue);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* EglQueryStringNative(EGLDisplay dpy, int name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, byte*>)funcTable[856])(dpy, name);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<EGLDisplay, int, nint>)funcTable[856])(dpy, name);
+			#endif
+		}
+
+		public static byte* EglQueryString(EGLDisplay dpy, int name)
+		{
+			byte* ret = EglQueryStringNative(dpy, name);
+			return ret;
+		}
+
+		public static string EglQueryStringS(EGLDisplay dpy, int name)
+		{
+			string ret = Utils.DecodeStringUTF8(EglQueryStringNative(dpy, name));
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglQuerySurfaceNative(EGLDisplay dpy, EGLSurface surface, int attribute, int* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int*, uint>)funcTable[857])(dpy, surface, attribute, value);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, nint, uint>)funcTable[857])(dpy, surface, attribute, (nint)value);
+			#endif
+		}
+
+		public static uint EglQuerySurface(EGLDisplay dpy, EGLSurface surface, int attribute, int* value)
+		{
+			uint ret = EglQuerySurfaceNative(dpy, surface, attribute, value);
+			return ret;
+		}
+
+		public static uint EglQuerySurface(EGLDisplay dpy, EGLSurface surface, int attribute, ref int value)
+		{
+			fixed (int* pvalue = &value)
+			{
+				uint ret = EglQuerySurfaceNative(dpy, surface, attribute, (int*)pvalue);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglSwapBuffersNative(EGLDisplay dpy, EGLSurface surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[858])(dpy, surface);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, uint>)funcTable[858])(dpy, surface);
+			#endif
+		}
+
+		public static uint EglSwapBuffers(EGLDisplay dpy, EGLSurface surface)
+		{
+			uint ret = EglSwapBuffersNative(dpy, surface);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglTerminateNative(EGLDisplay dpy)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)funcTable[859])(dpy);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, uint>)funcTable[859])(dpy);
+			#endif
+		}
+
+		public static uint EglTerminate(EGLDisplay dpy)
+		{
+			uint ret = EglTerminateNative(dpy);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglWaitGLNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[860])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[860])();
+			#endif
+		}
+
+		public static uint EglWaitGL()
+		{
+			uint ret = EglWaitGLNative();
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglWaitNativeNative(int engine)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[861])(engine);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[861])(engine);
+			#endif
+		}
+
+		public static uint EglWaitNative(int engine)
+		{
+			uint ret = EglWaitNativeNative(engine);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglBindTexImageNative(EGLDisplay dpy, EGLSurface surface, int buffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[862])(dpy, surface, buffer);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[862])(dpy, surface, buffer);
+			#endif
+		}
+
+		public static uint EglBindTexImage(EGLDisplay dpy, EGLSurface surface, int buffer)
+		{
+			uint ret = EglBindTexImageNative(dpy, surface, buffer);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglReleaseTexImageNative(EGLDisplay dpy, EGLSurface surface, int buffer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[863])(dpy, surface, buffer);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, uint>)funcTable[863])(dpy, surface, buffer);
+			#endif
+		}
+
+		public static uint EglReleaseTexImage(EGLDisplay dpy, EGLSurface surface, int buffer)
+		{
+			uint ret = EglReleaseTexImageNative(dpy, surface, buffer);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglSurfaceAttribNative(EGLDisplay dpy, EGLSurface surface, int attribute, int value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)funcTable[864])(dpy, surface, attribute, value);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSurface, int, int, uint>)funcTable[864])(dpy, surface, attribute, value);
+			#endif
+		}
+
+		public static uint EglSurfaceAttrib(EGLDisplay dpy, EGLSurface surface, int attribute, int value)
+		{
+			uint ret = EglSurfaceAttribNative(dpy, surface, attribute, value);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglSwapIntervalNative(EGLDisplay dpy, int interval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)funcTable[865])(dpy, interval);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, int, uint>)funcTable[865])(dpy, interval);
+			#endif
+		}
+
+		public static uint EglSwapInterval(EGLDisplay dpy, int interval)
+		{
+			uint ret = EglSwapIntervalNative(dpy, interval);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglBindAPINative(uint api)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[866])(api);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[866])(api);
+			#endif
+		}
+
+		public static uint EglBindAPI(uint api)
+		{
+			uint ret = EglBindAPINative(api);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglQueryAPINative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[867])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[867])();
+			#endif
+		}
+
+		public static uint EglQueryAPI()
+		{
+			uint ret = EglQueryAPINative();
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSurface EglCreatePbufferFromClientBufferNative(EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, int* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, int*, EGLSurface>)funcTable[868])(dpy, buftype, buffer, config, attribList);
+			#else
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, EGLClientBuffer, EGLConfig, nint, EGLSurface>)funcTable[868])(dpy, buftype, buffer, config, (nint)attribList);
+			#endif
+		}
+
+		public static EGLSurface EglCreatePbufferFromClientBuffer(EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, int* attribList)
+		{
+			EGLSurface ret = EglCreatePbufferFromClientBufferNative(dpy, buftype, buffer, config, attribList);
+			return ret;
+		}
+
+		public static EGLSurface EglCreatePbufferFromClientBuffer(EGLDisplay dpy, uint buftype, EGLClientBuffer buffer, EGLConfig config, ref int attribList)
+		{
+			fixed (int* pattribList = &attribList)
+			{
+				EGLSurface ret = EglCreatePbufferFromClientBufferNative(dpy, buftype, buffer, config, (int*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglReleaseThreadNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[869])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[869])();
+			#endif
+		}
+
+		public static uint EglReleaseThread()
+		{
+			uint ret = EglReleaseThreadNative();
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglWaitClientNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[870])();
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[870])();
+			#endif
+		}
+
+		public static uint EglWaitClient()
+		{
+			uint ret = EglWaitClientNative();
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLContext EglGetCurrentContextNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLContext>)funcTable[871])();
+			#else
+			return (EGLContext)((delegate* unmanaged[Cdecl]<EGLContext>)funcTable[871])();
+			#endif
+		}
+
+		public static EGLContext EglGetCurrentContext()
+		{
+			EGLContext ret = EglGetCurrentContextNative();
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSync EglCreateSyncNative(EGLDisplay dpy, uint type, nint* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint*, EGLSync>)funcTable[872])(dpy, type, attribList);
+			#else
+			return (EGLSync)((delegate* unmanaged[Cdecl]<EGLDisplay, uint, nint, EGLSync>)funcTable[872])(dpy, type, (nint)attribList);
+			#endif
+		}
+
+		public static EGLSync EglCreateSync(EGLDisplay dpy, uint type, nint* attribList)
+		{
+			EGLSync ret = EglCreateSyncNative(dpy, type, attribList);
+			return ret;
+		}
+
+		public static EGLSync EglCreateSync(EGLDisplay dpy, uint type, ref nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				EGLSync ret = EglCreateSyncNative(dpy, type, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglDestroySyncNative(EGLDisplay dpy, EGLSync sync)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)funcTable[873])(dpy, sync);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, uint>)funcTable[873])(dpy, sync);
+			#endif
+		}
+
+		public static uint EglDestroySync(EGLDisplay dpy, EGLSync sync)
+		{
+			uint ret = EglDestroySyncNative(dpy, sync);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int EglClientWaitSyncNative(EGLDisplay dpy, EGLSync sync, int flags, ulong timeout)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)funcTable[874])(dpy, sync, flags, timeout);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, ulong, int>)funcTable[874])(dpy, sync, flags, timeout);
+			#endif
+		}
+
+		public static int EglClientWaitSync(EGLDisplay dpy, EGLSync sync, int flags, ulong timeout)
+		{
+			int ret = EglClientWaitSyncNative(dpy, sync, flags, timeout);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglGetSyncAttribNative(EGLDisplay dpy, EGLSync sync, int attribute, nint* value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint*, uint>)funcTable[875])(dpy, sync, attribute, value);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, nint, uint>)funcTable[875])(dpy, sync, attribute, (nint)value);
+			#endif
+		}
+
+		public static uint EglGetSyncAttrib(EGLDisplay dpy, EGLSync sync, int attribute, nint* value)
+		{
+			uint ret = EglGetSyncAttribNative(dpy, sync, attribute, value);
+			return ret;
+		}
+
+		public static uint EglGetSyncAttrib(EGLDisplay dpy, EGLSync sync, int attribute, ref nint value)
+		{
+			fixed (nint* pvalue = &value)
+			{
+				uint ret = EglGetSyncAttribNative(dpy, sync, attribute, (nint*)pvalue);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLImage EglCreateImageNative(EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, nint* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint*, EGLImage>)funcTable[876])(dpy, ctx, target, buffer, attribList);
+			#else
+			return (EGLImage)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLContext, uint, EGLClientBuffer, nint, EGLImage>)funcTable[876])(dpy, ctx, target, buffer, (nint)attribList);
+			#endif
+		}
+
+		public static EGLImage EglCreateImage(EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, nint* attribList)
+		{
+			EGLImage ret = EglCreateImageNative(dpy, ctx, target, buffer, attribList);
+			return ret;
+		}
+
+		public static EGLImage EglCreateImage(EGLDisplay dpy, EGLContext ctx, uint target, EGLClientBuffer buffer, ref nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				EGLImage ret = EglCreateImageNative(dpy, ctx, target, buffer, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglDestroyImageNative(EGLDisplay dpy, EGLImage image)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)funcTable[877])(dpy, image);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLImage, uint>)funcTable[877])(dpy, image);
+			#endif
+		}
+
+		public static uint EglDestroyImage(EGLDisplay dpy, EGLImage image)
+		{
+			uint ret = EglDestroyImageNative(dpy, image);
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLDisplay EglGetPlatformDisplayNative(uint platform, void* nativeDisplay, nint* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, void*, nint*, EGLDisplay>)funcTable[878])(platform, nativeDisplay, attribList);
+			#else
+			return (EGLDisplay)((delegate* unmanaged[Cdecl]<uint, nint, nint, EGLDisplay>)funcTable[878])(platform, (nint)nativeDisplay, (nint)attribList);
+			#endif
+		}
+
+		public static EGLDisplay EglGetPlatformDisplay(uint platform, void* nativeDisplay, nint* attribList)
+		{
+			EGLDisplay ret = EglGetPlatformDisplayNative(platform, nativeDisplay, attribList);
+			return ret;
+		}
+
+		public static EGLDisplay EglGetPlatformDisplay(uint platform, void* nativeDisplay, ref nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				EGLDisplay ret = EglGetPlatformDisplayNative(platform, nativeDisplay, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSurface EglCreatePlatformWindowSurfaceNative(EGLDisplay dpy, EGLConfig config, void* nativeWindow, nint* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, void*, nint*, EGLSurface>)funcTable[879])(dpy, config, nativeWindow, attribList);
+			#else
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[879])(dpy, config, (nint)nativeWindow, (nint)attribList);
+			#endif
+		}
+
+		public static EGLSurface EglCreatePlatformWindowSurface(EGLDisplay dpy, EGLConfig config, void* nativeWindow, nint* attribList)
+		{
+			EGLSurface ret = EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, attribList);
+			return ret;
+		}
+
+		public static EGLSurface EglCreatePlatformWindowSurface(EGLDisplay dpy, EGLConfig config, void* nativeWindow, ref nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				EGLSurface ret = EglCreatePlatformWindowSurfaceNative(dpy, config, nativeWindow, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static EGLSurface EglCreatePlatformPixmapSurfaceNative(EGLDisplay dpy, EGLConfig config, void* nativePixmap, nint* attribList)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, void*, nint*, EGLSurface>)funcTable[880])(dpy, config, nativePixmap, attribList);
+			#else
+			return (EGLSurface)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLConfig, nint, nint, EGLSurface>)funcTable[880])(dpy, config, (nint)nativePixmap, (nint)attribList);
+			#endif
+		}
+
+		public static EGLSurface EglCreatePlatformPixmapSurface(EGLDisplay dpy, EGLConfig config, void* nativePixmap, nint* attribList)
+		{
+			EGLSurface ret = EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, attribList);
+			return ret;
+		}
+
+		public static EGLSurface EglCreatePlatformPixmapSurface(EGLDisplay dpy, EGLConfig config, void* nativePixmap, ref nint attribList)
+		{
+			fixed (nint* pattribList = &attribList)
+			{
+				EGLSurface ret = EglCreatePlatformPixmapSurfaceNative(dpy, config, nativePixmap, (nint*)pattribList);
+				return ret;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint EglWaitSyncNative(EGLDisplay dpy, EGLSync sync, int flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, uint>)funcTable[881])(dpy, sync, flags);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<EGLDisplay, EGLSync, int, uint>)funcTable[881])(dpy, sync, flags);
+			#endif
+		}
+
+		public static uint EglWaitSync(EGLDisplay dpy, EGLSync sync, int flags)
+		{
+			uint ret = EglWaitSyncNative(dpy, sync, flags);
 			return ret;
 		}
 
 		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
-		/// if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Miscellaneous<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8")] byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureAlphaModNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		internal static void GlClearIndexNative(float c)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, int>)funcTable[738])(texture, alpha);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[882])(c);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[738])((nint)texture, (nint)alpha);
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[882])(c);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Miscellaneous<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
+		public static void GlClearIndex(float c)
 		{
-			int ret = GetTextureAlphaModNative(texture, alpha);
+			GlClearIndexNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClearColorNative(float red, float green, float blue, float alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[883])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[883])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlClearColor(float red, float green, float blue, float alpha)
+		{
+			GlClearColorNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClearNative(uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[884])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[884])(mask);
+			#endif
+		}
+
+		public static void GlClear(uint mask)
+		{
+			GlClearNative(mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexMaskNative(uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[885])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[885])(mask);
+			#endif
+		}
+
+		public static void GlIndexMask(uint mask)
+		{
+			GlIndexMaskNative(mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColorMaskNative(byte red, byte green, byte blue, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[886])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[886])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColorMask(byte red, byte green, byte blue, byte alpha)
+		{
+			GlColorMaskNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlAlphaFuncNative(uint func, float reference)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[887])(func, reference);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[887])(func, reference);
+			#endif
+		}
+
+		public static void GlAlphaFunc(uint func, float reference)
+		{
+			GlAlphaFuncNative(func, reference);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlBlendFuncNative(uint sfactor, uint dfactor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[888])(sfactor, dfactor);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[888])(sfactor, dfactor);
+			#endif
+		}
+
+		public static void GlBlendFunc(uint sfactor, uint dfactor)
+		{
+			GlBlendFuncNative(sfactor, dfactor);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLogicOpNative(uint opcode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[889])(opcode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[889])(opcode);
+			#endif
+		}
+
+		public static void GlLogicOp(uint opcode)
+		{
+			GlLogicOpNative(opcode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCullFaceNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[890])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[890])(mode);
+			#endif
+		}
+
+		public static void GlCullFace(uint mode)
+		{
+			GlCullFaceNative(mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlFrontFaceNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[891])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[891])(mode);
+			#endif
+		}
+
+		public static void GlFrontFace(uint mode)
+		{
+			GlFrontFaceNative(mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPointSizeNative(float size)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[892])(size);
+			#else
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[892])(size);
+			#endif
+		}
+
+		public static void GlPointSize(float size)
+		{
+			GlPointSizeNative(size);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLineWidthNative(float width)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[893])(width);
+			#else
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[893])(width);
+			#endif
+		}
+
+		public static void GlLineWidth(float width)
+		{
+			GlLineWidthNative(width);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLineStippleNative(int factor, ushort pattern)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, ushort, void>)funcTable[894])(factor, pattern);
+			#else
+			((delegate* unmanaged[Cdecl]<int, ushort, void>)funcTable[894])(factor, pattern);
+			#endif
+		}
+
+		public static void GlLineStipple(int factor, ushort pattern)
+		{
+			GlLineStippleNative(factor, pattern);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPolygonModeNative(uint face, uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[895])(face, mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[895])(face, mode);
+			#endif
+		}
+
+		public static void GlPolygonMode(uint face, uint mode)
+		{
+			GlPolygonModeNative(face, mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPolygonOffsetNative(float factor, float units)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[896])(factor, units);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[896])(factor, units);
+			#endif
+		}
+
+		public static void GlPolygonOffset(float factor, float units)
+		{
+			GlPolygonOffsetNative(factor, units);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPolygonStippleNative(byte* mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[897])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[897])((nint)mask);
+			#endif
+		}
+
+		public static void GlPolygonStipple(byte* mask)
+		{
+			GlPolygonStippleNative(mask);
+		}
+
+		public static void GlPolygonStipple(ref byte mask)
+		{
+			fixed (byte* pmask = &mask)
+			{
+				GlPolygonStippleNative((byte*)pmask);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetPolygonStippleNative(byte* mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[898])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[898])((nint)mask);
+			#endif
+		}
+
+		public static void GlGetPolygonStipple(byte* mask)
+		{
+			GlGetPolygonStippleNative(mask);
+		}
+
+		public static void GlGetPolygonStipple(ref byte mask)
+		{
+			fixed (byte* pmask = &mask)
+			{
+				GlGetPolygonStippleNative((byte*)pmask);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEdgeFlagNative(byte flag)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[899])(flag);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[899])(flag);
+			#endif
+		}
+
+		public static void GlEdgeFlag(byte flag)
+		{
+			GlEdgeFlagNative(flag);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEdgeFlagvNative(byte* flag)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[900])(flag);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[900])((nint)flag);
+			#endif
+		}
+
+		public static void GlEdgeFlagv(byte* flag)
+		{
+			GlEdgeFlagvNative(flag);
+		}
+
+		public static void GlEdgeFlagv(ref byte flag)
+		{
+			fixed (byte* pflag = &flag)
+			{
+				GlEdgeFlagvNative((byte*)pflag);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlScissorNative(int x, int y, int width, int height)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[901])(x, y, width, height);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[901])(x, y, width, height);
+			#endif
+		}
+
+		public static void GlScissor(int x, int y, int width, int height)
+		{
+			GlScissorNative(x, y, width, height);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClipPlaneNative(uint plane, double* equation)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[902])(plane, equation);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[902])(plane, (nint)equation);
+			#endif
+		}
+
+		public static void GlClipPlane(uint plane, double* equation)
+		{
+			GlClipPlaneNative(plane, equation);
+		}
+
+		public static void GlClipPlane(uint plane, ref double equation)
+		{
+			fixed (double* pequation = &equation)
+			{
+				GlClipPlaneNative(plane, (double*)pequation);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetClipPlaneNative(uint plane, double* equation)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[903])(plane, equation);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[903])(plane, (nint)equation);
+			#endif
+		}
+
+		public static void GlGetClipPlane(uint plane, double* equation)
+		{
+			GlGetClipPlaneNative(plane, equation);
+		}
+
+		public static void GlGetClipPlane(uint plane, ref double equation)
+		{
+			fixed (double* pequation = &equation)
+			{
+				GlGetClipPlaneNative(plane, (double*)pequation);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDrawBufferNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[904])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[904])(mode);
+			#endif
+		}
+
+		public static void GlDrawBuffer(uint mode)
+		{
+			GlDrawBufferNative(mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlReadBufferNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[905])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[905])(mode);
+			#endif
+		}
+
+		public static void GlReadBuffer(uint mode)
+		{
+			GlReadBufferNative(mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEnableNative(uint cap)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[906])(cap);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[906])(cap);
+			#endif
+		}
+
+		public static void GlEnable(uint cap)
+		{
+			GlEnableNative(cap);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDisableNative(uint cap)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[907])(cap);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[907])(cap);
+			#endif
+		}
+
+		public static void GlDisable(uint cap)
+		{
+			GlDisableNative(cap);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GlIsEnabledNative(uint cap)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[908])(cap);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[908])(cap);
+			#endif
+		}
+
+		public static byte GlIsEnabled(uint cap)
+		{
+			byte ret = GlIsEnabledNative(cap);
 			return ret;
 		}
 
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] byte* alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
-		{
-			fixed (byte* palpha = &alpha)
-			{
-				int ret = GetTextureAlphaModNative(texture, (byte*)palpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureAlphaMod")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureAlphaMod([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* palpha = &alpha)
-				{
-					int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureBlendModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		internal static void GlEnableClientStateNative(uint cap)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, int>)funcTable[739])(texture, blendMode);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[909])(cap);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[739])((nint)texture, blendMode);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[909])(cap);
 			#endif
 		}
 
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
+		public static void GlEnableClientState(uint cap)
 		{
-			int ret = SetTextureBlendModeNative(texture, blendMode);
+			GlEnableClientStateNative(cap);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDisableClientStateNative(uint cap)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[910])(cap);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[910])(cap);
+			#endif
+		}
+
+		public static void GlDisableClientState(uint cap)
+		{
+			GlDisableClientStateNative(cap);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetBooleanvNative(uint pname, byte* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, byte*, void>)funcTable[911])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[911])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetBooleanv(uint pname, byte* @params)
+		{
+			GlGetBooleanvNative(pname, @params);
+		}
+
+		public static void GlGetBooleanv(uint pname, ref byte @params)
+		{
+			fixed (byte* pparams = &@params)
+			{
+				GlGetBooleanvNative(pname, (byte*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetDoublevNative(uint pname, double* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[912])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[912])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetDoublev(uint pname, double* @params)
+		{
+			GlGetDoublevNative(pname, @params);
+		}
+
+		public static void GlGetDoublev(uint pname, ref double @params)
+		{
+			fixed (double* pparams = &@params)
+			{
+				GlGetDoublevNative(pname, (double*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetFloatvNative(uint pname, float* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[913])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[913])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetFloatv(uint pname, float* @params)
+		{
+			GlGetFloatvNative(pname, @params);
+		}
+
+		public static void GlGetFloatv(uint pname, ref float @params)
+		{
+			fixed (float* pparams = &@params)
+			{
+				GlGetFloatvNative(pname, (float*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlGetIntegervNative(uint pname, int* @params)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[914])(pname, @params);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[914])(pname, (nint)@params);
+			#endif
+		}
+
+		public static void GlGetIntegerv(uint pname, int* @params)
+		{
+			GlGetIntegervNative(pname, @params);
+		}
+
+		public static void GlGetIntegerv(uint pname, ref int @params)
+		{
+			fixed (int* pparams = &@params)
+			{
+				GlGetIntegervNative(pname, (int*)pparams);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPushAttribNative(uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[915])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[915])(mask);
+			#endif
+		}
+
+		public static void GlPushAttrib(uint mask)
+		{
+			GlPushAttribNative(mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPopAttribNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[916])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[916])();
+			#endif
+		}
+
+		public static void GlPopAttrib()
+		{
+			GlPopAttribNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPushClientAttribNative(uint mask)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[917])(mask);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[917])(mask);
+			#endif
+		}
+
+		public static void GlPushClientAttrib(uint mask)
+		{
+			GlPushClientAttribNative(mask);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPopClientAttribNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[918])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[918])();
+			#endif
+		}
+
+		public static void GlPopClientAttrib()
+		{
+			GlPopClientAttribNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GlRenderModeNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[919])(mode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[919])(mode);
+			#endif
+		}
+
+		public static int GlRenderMode(uint mode)
+		{
+			int ret = GlRenderModeNative(mode);
 			return ret;
 		}
 
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode")] SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureBlendModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		internal static uint GlGetErrorNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, int>)funcTable[740])(texture, blendMode);
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[920])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[740])((nint)texture, (nint)blendMode);
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[920])();
 			#endif
 		}
 
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
+		public static uint GlGetError()
 		{
-			int ret = GetTextureBlendModeNative(texture, blendMode);
+			uint ret = GlGetErrorNative();
 			return ret;
 		}
 
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] SDLBlendMode* blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				int ret = GetTextureBlendModeNative(texture, (SDLBlendMode*)pblendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureBlendMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureBlendMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "blendMode")] [NativeName(NativeNameType.Type, "SDL_BlendMode*")] ref SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureScaleModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		internal static byte* GlGetStringNative(uint name)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)funcTable[741])(texture, scaleMode);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[921])(name);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)funcTable[741])((nint)texture, scaleMode);
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[921])(name);
 			#endif
 		}
 
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		public static byte* GlGetString(uint name)
 		{
-			int ret = SetTextureScaleModeNative(texture, scaleMode);
+			byte* ret = GlGetStringNative(name);
 			return ret;
 		}
 
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode")] SDLScaleMode scaleMode)
+		public static string GlGetStringS(uint name)
 		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureScaleModeNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode*")] SDLScaleMode* scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)funcTable[742])(texture, scaleMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[742])((nint)texture, (nint)scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode*")] SDLScaleMode* scaleMode)
-		{
-			int ret = GetTextureScaleModeNative(texture, scaleMode);
+			string ret = Utils.DecodeStringUTF8(GlGetStringNative(name));
 			return ret;
 		}
 
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode*")] SDLScaleMode* scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode*")] ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLScaleMode* pscaleMode = &scaleMode)
-			{
-				int ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureScaleMode")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetTextureScaleMode([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "scaleMode")] [NativeName(NativeNameType.Type, "SDL_ScaleMode*")] ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLScaleMode* pscaleMode = &scaleMode)
-				{
-					int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Associate a user-specified pointer with a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureUserData")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureUserDataNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		internal static void GlFinishNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*, int>)funcTable[743])(texture, userdata);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[922])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[743])((nint)texture, (nint)userdata);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[922])();
+			#endif
+		}
+
+		public static void GlFinish()
+		{
+			GlFinishNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlFlushNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[923])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[923])();
+			#endif
+		}
+
+		public static void GlFlush()
+		{
+			GlFlushNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlHintNative(uint target, uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[924])(target, mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[924])(target, mode);
+			#endif
+		}
+
+		public static void GlHint(uint target, uint mode)
+		{
+			GlHintNative(target, mode);
+		}
+
+		/// <summary>
+		/// Depth Buffer<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClearDepthNative(double depth)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[925])(depth);
+			#else
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[925])(depth);
 			#endif
 		}
 
 		/// <summary>
-		/// Associate a user-specified pointer with a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Depth Buffer<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureUserData")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureUserData([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
+		public static void GlClearDepth(double depth)
 		{
-			int ret = SetTextureUserDataNative(texture, userdata);
+			GlClearDepthNative(depth);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDepthFuncNative(uint func)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[926])(func);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[926])(func);
+			#endif
+		}
+
+		public static void GlDepthFunc(uint func)
+		{
+			GlDepthFuncNative(func);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDepthMaskNative(byte flag)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[927])(flag);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[927])(flag);
+			#endif
+		}
+
+		public static void GlDepthMask(byte flag)
+		{
+			GlDepthMaskNative(flag);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlDepthRangeNative(double nearVal, double farVal)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[928])(nearVal, farVal);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[928])(nearVal, farVal);
+			#endif
+		}
+
+		public static void GlDepthRange(double nearVal, double farVal)
+		{
+			GlDepthRangeNative(nearVal, farVal);
+		}
+
+		/// <summary>
+		/// Accumulation Buffer<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlClearAccumNative(float red, float green, float blue, float alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[929])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[929])(red, green, blue, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Accumulation Buffer<br/>
+		/// </summary>
+		public static void GlClearAccum(float red, float green, float blue, float alpha)
+		{
+			GlClearAccumNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlAccumNative(uint op, float value)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[930])(op, value);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[930])(op, value);
+			#endif
+		}
+
+		public static void GlAccum(uint op, float value)
+		{
+			GlAccumNative(op, value);
+		}
+
+		/// <summary>
+		/// Transformation<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMatrixModeNative(uint mode)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[931])(mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[931])(mode);
+			#endif
+		}
+
+		/// <summary>
+		/// Transformation<br/>
+		/// </summary>
+		public static void GlMatrixMode(uint mode)
+		{
+			GlMatrixModeNative(mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlOrthoNative(double left, double right, double bottom, double top, double nearVal, double farVal)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[932])(left, right, bottom, top, nearVal, farVal);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[932])(left, right, bottom, top, nearVal, farVal);
+			#endif
+		}
+
+		public static void GlOrtho(double left, double right, double bottom, double top, double nearVal, double farVal)
+		{
+			GlOrthoNative(left, right, bottom, top, nearVal, farVal);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlFrustumNative(double left, double right, double bottom, double top, double nearVal, double farVal)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[933])(left, right, bottom, top, nearVal, farVal);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, double, double, void>)funcTable[933])(left, right, bottom, top, nearVal, farVal);
+			#endif
+		}
+
+		public static void GlFrustum(double left, double right, double bottom, double top, double nearVal, double farVal)
+		{
+			GlFrustumNative(left, right, bottom, top, nearVal, farVal);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlViewportNative(int x, int y, int width, int height)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[934])(x, y, width, height);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[934])(x, y, width, height);
+			#endif
+		}
+
+		public static void GlViewport(int x, int y, int width, int height)
+		{
+			GlViewportNative(x, y, width, height);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPushMatrixNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[935])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[935])();
+			#endif
+		}
+
+		public static void GlPushMatrix()
+		{
+			GlPushMatrixNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlPopMatrixNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[936])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[936])();
+			#endif
+		}
+
+		public static void GlPopMatrix()
+		{
+			GlPopMatrixNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLoadIdentityNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[937])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[937])();
+			#endif
+		}
+
+		public static void GlLoadIdentity()
+		{
+			GlLoadIdentityNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLoadMatrixdNative(double* m)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[938])(m);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[938])((nint)m);
+			#endif
+		}
+
+		public static void GlLoadMatrixd(double* m)
+		{
+			GlLoadMatrixdNative(m);
+		}
+
+		public static void GlLoadMatrixd(ref double m)
+		{
+			fixed (double* pm = &m)
+			{
+				GlLoadMatrixdNative((double*)pm);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlLoadMatrixfNative(float* m)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[939])(m);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[939])((nint)m);
+			#endif
+		}
+
+		public static void GlLoadMatrixf(float* m)
+		{
+			GlLoadMatrixfNative(m);
+		}
+
+		public static void GlLoadMatrixf(ref float m)
+		{
+			fixed (float* pm = &m)
+			{
+				GlLoadMatrixfNative((float*)pm);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultMatrixdNative(double* m)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[940])(m);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[940])((nint)m);
+			#endif
+		}
+
+		public static void GlMultMatrixd(double* m)
+		{
+			GlMultMatrixdNative(m);
+		}
+
+		public static void GlMultMatrixd(ref double m)
+		{
+			fixed (double* pm = &m)
+			{
+				GlMultMatrixdNative((double*)pm);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultMatrixfNative(float* m)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[941])(m);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[941])((nint)m);
+			#endif
+		}
+
+		public static void GlMultMatrixf(float* m)
+		{
+			GlMultMatrixfNative(m);
+		}
+
+		public static void GlMultMatrixf(ref float m)
+		{
+			fixed (float* pm = &m)
+			{
+				GlMultMatrixfNative((float*)pm);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRotatedNative(double angle, double x, double y, double z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[942])(angle, x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[942])(angle, x, y, z);
+			#endif
+		}
+
+		public static void GlRotated(double angle, double x, double y, double z)
+		{
+			GlRotatedNative(angle, x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlRotatefNative(float angle, float x, float y, float z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[943])(angle, x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[943])(angle, x, y, z);
+			#endif
+		}
+
+		public static void GlRotatef(float angle, float x, float y, float z)
+		{
+			GlRotatefNative(angle, x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlScaledNative(double x, double y, double z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[944])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[944])(x, y, z);
+			#endif
+		}
+
+		public static void GlScaled(double x, double y, double z)
+		{
+			GlScaledNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlScalefNative(float x, float y, float z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[945])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[945])(x, y, z);
+			#endif
+		}
+
+		public static void GlScalef(float x, float y, float z)
+		{
+			GlScalefNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTranslatedNative(double x, double y, double z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[946])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[946])(x, y, z);
+			#endif
+		}
+
+		public static void GlTranslated(double x, double y, double z)
+		{
+			GlTranslatedNative(x, y, z);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTranslatefNative(float x, float y, float z)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[947])(x, y, z);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[947])(x, y, z);
+			#endif
+		}
+
+		public static void GlTranslatef(float x, float y, float z)
+		{
+			GlTranslatefNative(x, y, z);
+		}
+
+		/// <summary>
+		/// Display Lists<br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GlIsListNative(uint list)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[948])(list);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[948])(list);
+			#endif
+		}
+
+		/// <summary>
+		/// Display Lists<br/>
+		/// </summary>
+		public static byte GlIsList(uint list)
+		{
+			byte ret = GlIsListNative(list);
 			return ret;
 		}
 
-		/// <summary>
-		/// Associate a user-specified pointer with a texture.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetTextureUserData")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetTextureUserData([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void*")] void* userdata)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureUserDataNative((SDLTexture*)ptexture, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-specified pointer associated with a texture<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureUserData")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* GetTextureUserDataNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
+		internal static void GlDeleteListsNative(uint list, int range)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*>)funcTable[744])(texture);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[949])(list, range);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[744])((nint)texture);
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[949])(list, range);
 			#endif
 		}
 
-		/// <summary>
-		/// Get the user-specified pointer associated with a texture<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureUserData")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* GetTextureUserData([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
+		public static void GlDeleteLists(uint list, int range)
 		{
-			void* ret = GetTextureUserDataNative(texture);
+			GlDeleteListsNative(list, range);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GlGenListsNative(int range)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[950])(range);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[950])(range);
+			#endif
+		}
+
+		public static uint GlGenLists(int range)
+		{
+			uint ret = GlGenListsNative(range);
 			return ret;
 		}
 
-		/// <summary>
-		/// Get the user-specified pointer associated with a texture<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetTextureUserData")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* GetTextureUserData([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNewListNative(uint list, uint mode)
 		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				void* ret = GetTextureUserDataNative((SDLTexture*)ptexture);
-				return ret;
-			}
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[951])(list, mode);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, void>)funcTable[951])(list, mode);
+			#endif
+		}
+
+		public static void GlNewList(uint list, uint mode)
+		{
+			GlNewListNative(list, mode);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlEndListNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[952])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[952])();
+			#endif
+		}
+
+		public static void GlEndList()
+		{
+			GlEndListNative();
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCallListNative(uint list)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[953])(list);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[953])(list);
+			#endif
+		}
+
+		public static void GlCallList(uint list)
+		{
+			GlCallListNative(list);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlCallListsNative(int n, uint type, void* lists)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, uint, void*, void>)funcTable[954])(n, type, lists);
+			#else
+			((delegate* unmanaged[Cdecl]<int, uint, nint, void>)funcTable[954])(n, type, (nint)lists);
+			#endif
+		}
+
+		public static void GlCallLists(int n, uint type, void* lists)
+		{
+			GlCallListsNative(n, type, lists);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlListBaseNative(uint baseValue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[955])(baseValue);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[955])(baseValue);
+			#endif
+		}
+
+		public static void GlListBase(uint baseValue)
+		{
+			GlListBaseNative(baseValue);
 		}
 
 		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture. Use<br/>
-		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Drawing Functions<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpdateTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
+		internal static void GlBeginNative(uint mode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void*, int, int>)funcTable[745])(texture, rect, pixels, pitch);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[956])(mode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)funcTable[745])((nint)texture, (nint)rect, (nint)pixels, pitch);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[956])(mode);
 			#endif
 		}
 
 		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture. Use<br/>
-		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
+		/// Drawing Functions<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
+		public static void GlBegin(uint mode)
 		{
-			int ret = UpdateTextureNative(texture, rect, pixels, pitch);
-			return ret;
+			GlBeginNative(mode);
 		}
 
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture. Use<br/>
-		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = UpdateTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture. Use<br/>
-		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = UpdateTextureNative(texture, (SDLRect*)prect, pixels, pitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the given texture rectangle with new pixel data.<br/>
-		/// The pixel data must be in the pixel format of the texture. Use<br/>
-		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
-		/// This is a fairly slow function, intended for use with static textures that<br/>
-		/// do not change often.<br/>
-		/// If the texture is intended to be updated often, it is preferred to create<br/>
-		/// the texture as streaming and use the locking functions referenced below.<br/>
-		/// While this function will work with streaming textures, for optimization<br/>
-		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int")] int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpdateYUVTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
+		internal static void GlEndNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, byte*, int, int>)funcTable[746])(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[957])();
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int>)funcTable[746])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uplane, upitch, (nint)vplane, vpitch);
+			((delegate* unmanaged[Cdecl]<void>)funcTable[957])();
 			#endif
 		}
 
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
+		public static void GlEnd()
 		{
-			int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-			return ret;
+			GlEndNative();
 		}
 
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (byte* puplane = &uplane)
-			{
-				int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* puplane = &uplane)
-						{
-							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (byte* pvplane = &vplane)
-			{
-				int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (byte* puplane = &uplane)
-			{
-				fixed (byte* pvplane = &vplane)
-				{
-					int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* puplane = &uplane)
-				{
-					fixed (byte* pvplane = &vplane)
-					{
-						int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puplane = &uplane)
-					{
-						fixed (byte* pvplane = &vplane)
-						{
-							int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
-		/// data.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of Y and U/V planes in the proper order, but this function is<br/>
-		/// available if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateYUVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateYUVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "Uplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uplane, [NativeName(NativeNameType.Param, "Upitch")] [NativeName(NativeNameType.Type, "int")] int upitch, [NativeName(NativeNameType.Param, "Vplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte vplane, [NativeName(NativeNameType.Param, "Vpitch")] [NativeName(NativeNameType.Type, "int")] int vpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* puplane = &uplane)
-						{
-							fixed (byte* pvplane = &vplane)
-							{
-								int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpdateNVTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
+		internal static void GlVertex2DNative(double x, double y)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, int>)funcTable[747])(texture, rect, yplane, ypitch, uVplane, uVpitch);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[958])(x, y);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, int>)funcTable[747])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uVplane, uVpitch);
+			((delegate* unmanaged[Cdecl]<double, double, void>)funcTable[958])(x, y);
 			#endif
 		}
 
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
+		public static void GlVertex2D(double x, double y)
 		{
-			int ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, uVplane, uVpitch);
-			return ret;
+			GlVertex2DNative(x, y);
 		}
 
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				int ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (byte* puVplane = &uVplane)
-			{
-				int ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* puVplane = &uVplane)
-				{
-					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* puVplane = &uVplane)
-				{
-					int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* puVplane = &uVplane)
-					{
-						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (byte* pyplane = &yplane)
-			{
-				fixed (byte* puVplane = &uVplane)
-				{
-					int ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puVplane = &uVplane)
-					{
-						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (byte* pyplane = &yplane)
-				{
-					fixed (byte* puVplane = &uVplane)
-					{
-						int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
-		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
-		/// block of NV12/21 planes in the proper order, but this function is available<br/>
-		/// if your pixel data is not contiguous.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateNVTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateNVTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "Yplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte yplane, [NativeName(NativeNameType.Param, "Ypitch")] [NativeName(NativeNameType.Type, "int")] int ypitch, [NativeName(NativeNameType.Param, "UVplane")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte uVplane, [NativeName(NativeNameType.Param, "UVpitch")] [NativeName(NativeNameType.Type, "int")] int uVpitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (byte* pyplane = &yplane)
-					{
-						fixed (byte* puVplane = &uVplane)
-						{
-							int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LockTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] int* pitch)
+		internal static void GlVertex2FNative(float x, float y)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void**, int*, int>)funcTable[748])(texture, rect, pixels, pitch);
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[959])(x, y);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[748])((nint)texture, (nint)rect, (nint)pixels, (nint)pitch);
+			((delegate* unmanaged[Cdecl]<float, float, void>)funcTable[959])(x, y);
 			#endif
 		}
 
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] int* pitch)
+		public static void GlVertex2F(float x, float y)
 		{
-			int ret = LockTextureNative(texture, rect, pixels, pitch);
-			return ret;
+			GlVertex2FNative(x, y);
 		}
 
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] int* pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] int* pitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = LockTextureNative(texture, (SDLRect*)prect, pixels, pitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] int* pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] ref int pitch)
-		{
-			fixed (int* ppitch = &pitch)
-			{
-				int ret = LockTextureNative(texture, rect, pixels, (int*)ppitch);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] ref int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (int* ppitch = &pitch)
-				{
-					int ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, (int*)ppitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] ref int pitch)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* ppitch = &pitch)
-				{
-					int ret = LockTextureNative(texture, (SDLRect*)prect, pixels, (int*)ppitch);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTexture")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void**")] void** pixels, [NativeName(NativeNameType.Param, "pitch")] [NativeName(NativeNameType.Type, "int*")] ref int pitch)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (int* ppitch = &pitch)
-					{
-						int ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, (int*)ppitch);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LockTextureToSurfaceNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] SDLSurface** surface)
+		internal static void GlVertex2INative(int x, int y)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, SDLSurface**, int>)funcTable[749])(texture, rect, surface);
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[960])(x, y);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[749])((nint)texture, (nint)rect, (nint)surface);
+			((delegate* unmanaged[Cdecl]<int, int, void>)funcTable[960])(x, y);
 			#endif
 		}
 
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] SDLSurface** surface)
+		public static void GlVertex2I(int x, int y)
 		{
-			int ret = LockTextureToSurfaceNative(texture, rect, surface);
-			return ret;
+			GlVertex2INative(x, y);
 		}
 
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] SDLSurface** surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] SDLSurface** surface)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, surface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] SDLSurface** surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, surface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] ref SDLSurface* surface)
-		{
-			fixed (SDLSurface** psurface = &surface)
-			{
-				int ret = LockTextureToSurfaceNative(texture, rect, (SDLSurface**)psurface);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] ref SDLSurface* surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLSurface** psurface = &surface)
-				{
-					int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, (SDLSurface**)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] ref SDLSurface* surface)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (SDLSurface** psurface = &surface)
-				{
-					int ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, (SDLSurface**)psurface);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
-		/// it as a SDL surface.<br/>
-		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
-		/// operates like SDL_LockTexture.<br/>
-		/// As an optimization, the pixels made available for editing don't necessarily<br/>
-		/// contain the old texture data. This is a write-only operation, and if you<br/>
-		/// need to keep a copy of the texture data you should do that at the<br/>
-		/// application level.<br/>
-		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
-		/// changes.<br/>
-		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
-		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockTextureToSurface")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockTextureToSurface([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect, [NativeName(NativeNameType.Param, "surface")] [NativeName(NativeNameType.Type, "SDL_Surface**")] ref SDLSurface* surface)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					fixed (SDLSurface** psurface = &surface)
-					{
-						int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, (SDLSurface**)psurface);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
-		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
-		/// write-only; it will not guarantee the previous contents of the texture will<br/>
-		/// be provided. You must fully initialize any area of a texture that you lock<br/>
-		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
-		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
-		/// corrupted textures, depending on the renderer in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockTextureNative([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
+		internal static void GlVertex2SNative(short x, short y)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[750])(texture);
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[961])(x, y);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[750])((nint)texture);
+			((delegate* unmanaged[Cdecl]<short, short, void>)funcTable[961])(x, y);
 			#endif
 		}
 
-		/// <summary>
-		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
-		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
-		/// write-only; it will not guarantee the previous contents of the texture will<br/>
-		/// be provided. You must fully initialize any area of a texture that you lock<br/>
-		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
-		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
-		/// corrupted textures, depending on the renderer in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
+		public static void GlVertex2S(short x, short y)
 		{
-			UnlockTextureNative(texture);
+			GlVertex2SNative(x, y);
 		}
 
-		/// <summary>
-		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
-		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
-		/// write-only; it will not guarantee the previous contents of the texture will<br/>
-		/// be provided. You must fully initialize any area of a texture that you lock<br/>
-		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
-		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
-		/// corrupted textures, depending on the renderer in use.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockTexture")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockTexture([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				UnlockTextureNative((SDLTexture*)ptexture);
-			}
-		}
-
-		/// <summary>
-		/// Determine whether a renderer supports the use of render targets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTargetSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool RenderTargetSupportedNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		internal static void GlVertex3DNative(double x, double y, double z)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[751])(renderer);
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[962])(x, y, z);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[751])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[962])(x, y, z);
 			#endif
 		}
 
-		/// <summary>
-		/// Determine whether a renderer supports the use of render targets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTargetSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool RenderTargetSupported([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		public static void GlVertex3D(double x, double y, double z)
 		{
-			SDLBool ret = RenderTargetSupportedNative(renderer);
-			return ret;
+			GlVertex3DNative(x, y, z);
 		}
 
-		/// <summary>
-		/// Determine whether a renderer supports the use of render targets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderTargetSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool RenderTargetSupported([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLBool ret = RenderTargetSupportedNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetRenderTargetNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
+		internal static void GlVertex3FNative(float x, float y, float z)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, int>)funcTable[752])(renderer, texture);
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[963])(x, y, z);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[752])((nint)renderer, (nint)texture);
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[963])(x, y, z);
 			#endif
 		}
 
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderTarget([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
+		public static void GlVertex3F(float x, float y, float z)
 		{
-			int ret = SetRenderTargetNative(renderer, texture);
-			return ret;
+			GlVertex3FNative(x, y, z);
 		}
 
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderTarget([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] SDLTexture* texture)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = SetRenderTargetNative((SDLRenderer*)prenderer, texture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderTarget([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetRenderTargetNative(renderer, (SDLTexture*)ptexture);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a texture as the current rendering target.<br/>
-		/// Before using this function, you should check the<br/>
-		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
-		/// render targets are supported.<br/>
-		/// The default render target is the window for which the renderer was created.<br/>
-		/// To stop rendering to a texture and render to the window again, call this<br/>
-		/// function with a NULL `texture`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetRenderTarget([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "SDL_Texture*")] ref SDLTexture texture)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLTexture* ptexture = &texture)
-				{
-					int ret = SetRenderTargetNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current render target.<br/>
-		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported a NULL here.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLTexture* GetRenderTargetNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		internal static void GlVertex3INative(int x, int y, int z)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*>)funcTable[753])(renderer);
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[964])(x, y, z);
 			#else
-			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[753])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[964])(x, y, z);
 			#endif
 		}
 
-		/// <summary>
-		/// Get the current render target.<br/>
-		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported a NULL here.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* GetRenderTarget([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		public static void GlVertex3I(int x, int y, int z)
 		{
-			SDLTexture* ret = GetRenderTargetNative(renderer);
-			return ret;
+			GlVertex3INative(x, y, z);
 		}
 
-		/// <summary>
-		/// Get the current render target.<br/>
-		/// The default render target is the window for which the renderer was created,<br/>
-		/// and is reported a NULL here.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRenderTarget")]
-		[return: NativeName(NativeNameType.Type, "SDL_Texture*")]
-		public static SDLTexture* GetRenderTarget([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLTexture* ret = GetRenderTargetNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a device independent resolution for rendering.<br/>
-		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
-		/// logical resolution for rendering, regardless of the actual output<br/>
-		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
-		/// ratio the output rendering will be centered within the output display.<br/>
-		/// If the output display is a window, mouse and touch events in the window<br/>
-		/// will be filtered and scaled so they seem to arrive within the logical<br/>
-		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
-		/// relative motion events are also scaled.<br/>
-		/// If this function results in scaling or subpixel drawing by the rendering<br/>
-		/// backend, it will be handled using the appropriate quality hints.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetLogicalSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		internal static void GlVertex3SNative(short x, short y, short z)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)funcTable[754])(renderer, w, h);
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[965])(x, y, z);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)funcTable[754])((nint)renderer, w, h);
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[965])(x, y, z);
 			#endif
 		}
 
-		/// <summary>
-		/// Set a device independent resolution for rendering.<br/>
-		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
-		/// logical resolution for rendering, regardless of the actual output<br/>
-		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
-		/// ratio the output rendering will be centered within the output display.<br/>
-		/// If the output display is a window, mouse and touch events in the window<br/>
-		/// will be filtered and scaled so they seem to arrive within the logical<br/>
-		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
-		/// relative motion events are also scaled.<br/>
-		/// If this function results in scaling or subpixel drawing by the rendering<br/>
-		/// backend, it will be handled using the appropriate quality hints.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
+		public static void GlVertex3S(short x, short y, short z)
 		{
-			int ret = RenderSetLogicalSizeNative(renderer, w, h);
-			return ret;
+			GlVertex3SNative(x, y, z);
 		}
 
-		/// <summary>
-		/// Set a device independent resolution for rendering.<br/>
-		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
-		/// logical resolution for rendering, regardless of the actual output<br/>
-		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
-		/// ratio the output rendering will be centered within the output display.<br/>
-		/// If the output display is a window, mouse and touch events in the window<br/>
-		/// will be filtered and scaled so they seem to arrive within the logical<br/>
-		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
-		/// relative motion events are also scaled.<br/>
-		/// If this function results in scaling or subpixel drawing by the rendering<br/>
-		/// backend, it will be handled using the appropriate quality hints.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int")] int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int")] int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetLogicalSizeNative((SDLRenderer*)prenderer, w, h);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetLogicalSizeNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		internal static void GlVertex4DNative(double x, double y, double z, double w)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, void>)funcTable[755])(renderer, w, h);
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[966])(x, y, z, w);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[755])((nint)renderer, (nint)w, (nint)h);
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[966])(x, y, z, w);
 			#endif
 		}
 
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
+		public static void GlVertex4D(double x, double y, double z, double w)
 		{
-			RenderGetLogicalSizeNative(renderer, w, h);
+			GlVertex4DNative(x, y, z, w);
 		}
 
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				RenderGetLogicalSizeNative((SDLRenderer*)prenderer, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				RenderGetLogicalSizeNative(renderer, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] int* h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					RenderGetLogicalSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				RenderGetLogicalSizeNative(renderer, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] int* w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* ph = &h)
-				{
-					RenderGetLogicalSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					RenderGetLogicalSizeNative(renderer, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get device independent resolution for rendering.<br/>
-		/// When using the main rendering target (eg no target texture is set): this<br/>
-		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
-		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
-		/// width and height.<br/>
-		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
-		/// it returns the logical width and height that are set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetLogicalSize")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetLogicalSize([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "int*")] ref int w, [NativeName(NativeNameType.Param, "h")] [NativeName(NativeNameType.Type, "int*")] ref int h)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						RenderGetLogicalSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set whether to force integer scales for resolution-independent rendering.<br/>
-		/// This function restricts the logical viewport to integer values - that is,<br/>
-		/// when a resolution is between two multiples of a logical size, the viewport<br/>
-		/// size is rounded down to the lower multiple.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetIntegerScale")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetIntegerScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "enable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enable)
+		internal static void GlVertex4FNative(float x, float y, float z, float w)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool, int>)funcTable[756])(renderer, enable);
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[967])(x, y, z, w);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBool, int>)funcTable[756])((nint)renderer, enable);
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[967])(x, y, z, w);
 			#endif
 		}
 
-		/// <summary>
-		/// Set whether to force integer scales for resolution-independent rendering.<br/>
-		/// This function restricts the logical viewport to integer values - that is,<br/>
-		/// when a resolution is between two multiples of a logical size, the viewport<br/>
-		/// size is rounded down to the lower multiple.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetIntegerScale")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetIntegerScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "enable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enable)
+		public static void GlVertex4F(float x, float y, float z, float w)
 		{
-			int ret = RenderSetIntegerScaleNative(renderer, enable);
-			return ret;
+			GlVertex4FNative(x, y, z, w);
 		}
 
-		/// <summary>
-		/// Set whether to force integer scales for resolution-independent rendering.<br/>
-		/// This function restricts the logical viewport to integer values - that is,<br/>
-		/// when a resolution is between two multiples of a logical size, the viewport<br/>
-		/// size is rounded down to the lower multiple.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetIntegerScale")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetIntegerScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "enable")] [NativeName(NativeNameType.Type, "SDL_bool")] SDLBool enable)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetIntegerScaleNative((SDLRenderer*)prenderer, enable);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetIntegerScale")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool RenderGetIntegerScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		internal static void GlVertex4INative(int x, int y, int z, int w)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[757])(renderer);
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[968])(x, y, z, w);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[757])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[968])(x, y, z, w);
 			#endif
 		}
 
-		/// <summary>
-		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetIntegerScale")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool RenderGetIntegerScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		public static void GlVertex4I(int x, int y, int z, int w)
 		{
-			SDLBool ret = RenderGetIntegerScaleNative(renderer);
-			return ret;
+			GlVertex4INative(x, y, z, w);
 		}
 
-		/// <summary>
-		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetIntegerScale")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool RenderGetIntegerScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				SDLBool ret = RenderGetIntegerScaleNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetViewport")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetViewportNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static void GlVertex4SNative(short x, short y, short z, short w)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[758])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[969])(x, y, z, w);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[758])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[969])(x, y, z, w);
 			#endif
 		}
 
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetViewport")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static void GlVertex4S(short x, short y, short z, short w)
 		{
-			int ret = RenderSetViewportNative(renderer, rect);
-			return ret;
+			GlVertex4SNative(x, y, z, w);
 		}
 
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetViewport")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetViewportNative((SDLRenderer*)prenderer, rect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetViewport")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderSetViewportNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the drawing area for rendering on the current target.<br/>
-		/// When the window is resized, the viewport is reset to fill the entire new<br/>
-		/// window size.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetViewport")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderSetViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetViewportNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
+		internal static void GlVertex2DvNative(double* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[759])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[970])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[759])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[970])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
+		public static void GlVertex2Dv(double* v)
 		{
-			RenderGetViewportNative(renderer, rect);
+			GlVertex2DvNative(v);
 		}
 
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
+		public static void GlVertex2Dv(ref double v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (double* pv = &v)
 			{
-				RenderGetViewportNative((SDLRenderer*)prenderer, rect);
+				GlVertex2DvNative((double*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				RenderGetViewportNative(renderer, (SDLRect*)prect);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing area for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetViewport")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetViewport([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					RenderGetViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetClipRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetClipRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		internal static void GlVertex2FvNative(float* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[760])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[971])(v);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[760])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[971])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetClipRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static void GlVertex2Fv(float* v)
 		{
-			int ret = RenderSetClipRectNative(renderer, rect);
-			return ret;
+			GlVertex2FvNative(v);
 		}
 
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetClipRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] SDLRect* rect)
+		public static void GlVertex2Fv(ref float v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (float* pv = &v)
 			{
-				int ret = RenderSetClipRectNative((SDLRenderer*)prenderer, rect);
-				return ret;
+				GlVertex2FvNative((float*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetClipRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				int ret = RenderSetClipRectNative(renderer, (SDLRect*)prect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the clip rectangle for rendering on the specified target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetClipRect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "const SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					int ret = RenderSetClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetClipRect")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetClipRectNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
+		internal static void GlVertex2IvNative(int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[761])(renderer, rect);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[972])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[761])((nint)renderer, (nint)rect);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[972])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetClipRect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
+		public static void GlVertex2Iv(int* v)
 		{
-			RenderGetClipRectNative(renderer, rect);
+			GlVertex2IvNative(v);
 		}
 
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetClipRect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] SDLRect* rect)
+		public static void GlVertex2Iv(ref int v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (int* pv = &v)
 			{
-				RenderGetClipRectNative((SDLRenderer*)prenderer, rect);
+				GlVertex2IvNative((int*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetClipRect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				RenderGetClipRectNative(renderer, (SDLRect*)prect);
-			}
-		}
-
-		/// <summary>
-		/// Get the clip rectangle for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetClipRect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetClipRect([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "rect")] [NativeName(NativeNameType.Type, "SDL_Rect*")] ref SDLRect rect)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (SDLRect* prect = &rect)
-				{
-					RenderGetClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderIsClipEnabled")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool RenderIsClipEnabledNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		internal static void GlVertex2SvNative(short* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[762])(renderer);
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[973])(v);
 			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[762])((nint)renderer);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[973])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderIsClipEnabled")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool RenderIsClipEnabled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer)
+		public static void GlVertex2Sv(short* v)
 		{
-			SDLBool ret = RenderIsClipEnabledNative(renderer);
-			return ret;
+			GlVertex2SvNative(v);
 		}
 
-		/// <summary>
-		/// Get whether clipping is enabled on the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderIsClipEnabled")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool RenderIsClipEnabled([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer)
+		public static void GlVertex2Sv(ref short v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (short* pv = &v)
 			{
-				SDLBool ret = RenderIsClipEnabledNative((SDLRenderer*)prenderer);
-				return ret;
+				GlVertex2SvNative((short*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Set the drawing scale for rendering on the current target.<br/>
-		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
-		/// are used by the renderer. This allows resolution independent drawing with a<br/>
-		/// single coordinate system.<br/>
-		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
-		/// will be handled using the appropriate quality hints. For best results use<br/>
-		/// integer scaling factors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetScale")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float")] float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float")] float scaleY)
+		internal static void GlVertex3DvNative(double* v)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)funcTable[763])(renderer, scaleX, scaleY);
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[974])(v);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, int>)funcTable[763])((nint)renderer, scaleX, scaleY);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[974])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// Set the drawing scale for rendering on the current target.<br/>
-		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
-		/// are used by the renderer. This allows resolution independent drawing with a<br/>
-		/// single coordinate system.<br/>
-		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
-		/// will be handled using the appropriate quality hints. For best results use<br/>
-		/// integer scaling factors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetScale")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float")] float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float")] float scaleY)
+		public static void GlVertex3Dv(double* v)
 		{
-			int ret = RenderSetScaleNative(renderer, scaleX, scaleY);
-			return ret;
+			GlVertex3DvNative(v);
 		}
 
-		/// <summary>
-		/// Set the drawing scale for rendering on the current target.<br/>
-		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
-		/// are used by the renderer. This allows resolution independent drawing with a<br/>
-		/// single coordinate system.<br/>
-		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
-		/// will be handled using the appropriate quality hints. For best results use<br/>
-		/// integer scaling factors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderSetScale")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RenderSetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float")] float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float")] float scaleY)
+		public static void GlVertex3Dv(ref double v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (double* pv = &v)
 			{
-				int ret = RenderSetScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
-				return ret;
+				GlVertex3DvNative((double*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderGetScaleNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] float* scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] float* scaleY)
+		internal static void GlVertex3FvNative(float* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, float*, void>)funcTable[764])(renderer, scaleX, scaleY);
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[975])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[764])((nint)renderer, (nint)scaleX, (nint)scaleY);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[975])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] float* scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] float* scaleY)
+		public static void GlVertex3Fv(float* v)
 		{
-			RenderGetScaleNative(renderer, scaleX, scaleY);
+			GlVertex3FvNative(v);
 		}
 
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] float* scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] float* scaleY)
+		public static void GlVertex3Fv(ref float v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (float* pv = &v)
 			{
-				RenderGetScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
+				GlVertex3FvNative((float*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] ref float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] float* scaleY)
-		{
-			fixed (float* pscaleX = &scaleX)
-			{
-				RenderGetScaleNative(renderer, (float*)pscaleX, scaleY);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] ref float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] float* scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pscaleX = &scaleX)
-				{
-					RenderGetScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, scaleY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] float* scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] ref float scaleY)
-		{
-			fixed (float* pscaleY = &scaleY)
-			{
-				RenderGetScaleNative(renderer, scaleX, (float*)pscaleY);
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] float* scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] ref float scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pscaleY = &scaleY)
-				{
-					RenderGetScaleNative((SDLRenderer*)prenderer, scaleX, (float*)pscaleY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] ref float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] ref float scaleY)
-		{
-			fixed (float* pscaleX = &scaleX)
-			{
-				fixed (float* pscaleY = &scaleY)
-				{
-					RenderGetScaleNative(renderer, (float*)pscaleX, (float*)pscaleY);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the drawing scale for the current target.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderGetScale")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderGetScale([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "scaleX")] [NativeName(NativeNameType.Type, "float*")] ref float scaleX, [NativeName(NativeNameType.Param, "scaleY")] [NativeName(NativeNameType.Type, "float*")] ref float scaleY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* pscaleX = &scaleX)
-				{
-					fixed (float* pscaleY = &scaleY)
-					{
-						RenderGetScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, (float*)pscaleY);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void RenderWindowToLogicalNative([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] float* logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] float* logicalY)
+		internal static void GlVertex3IvNative(int* v)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, float*, float*, void>)funcTable[765])(renderer, windowX, windowY, logicalX, logicalY);
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[976])(v);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, void>)funcTable[765])((nint)renderer, windowX, windowY, (nint)logicalX, (nint)logicalY);
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[976])((nint)v);
 			#endif
 		}
 
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] float* logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] float* logicalY)
+		public static void GlVertex3Iv(int* v)
 		{
-			RenderWindowToLogicalNative(renderer, windowX, windowY, logicalX, logicalY);
+			GlVertex3IvNative(v);
 		}
 
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] float* logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] float* logicalY)
+		public static void GlVertex3Iv(ref int v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			fixed (int* pv = &v)
 			{
-				RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, logicalX, logicalY);
+				GlVertex3IvNative((int*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] ref float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] float* logicalY)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex3SvNative(short* v)
 		{
-			fixed (float* plogicalX = &logicalX)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[977])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[977])((nint)v);
+			#endif
+		}
+
+		public static void GlVertex3Sv(short* v)
+		{
+			GlVertex3SvNative(v);
+		}
+
+		public static void GlVertex3Sv(ref short v)
+		{
+			fixed (short* pv = &v)
 			{
-				RenderWindowToLogicalNative(renderer, windowX, windowY, (float*)plogicalX, logicalY);
+				GlVertex3SvNative((short*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] ref float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] float* logicalY)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex4DvNative(double* v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[978])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[978])((nint)v);
+			#endif
+		}
+
+		public static void GlVertex4Dv(double* v)
+		{
+			GlVertex4DvNative(v);
+		}
+
+		public static void GlVertex4Dv(ref double v)
+		{
+			fixed (double* pv = &v)
 			{
-				fixed (float* plogicalX = &logicalX)
+				GlVertex4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[979])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[979])((nint)v);
+			#endif
+		}
+
+		public static void GlVertex4Fv(float* v)
+		{
+			GlVertex4FvNative(v);
+		}
+
+		public static void GlVertex4Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlVertex4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[980])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[980])((nint)v);
+			#endif
+		}
+
+		public static void GlVertex4Iv(int* v)
+		{
+			GlVertex4IvNative(v);
+		}
+
+		public static void GlVertex4Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlVertex4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlVertex4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[981])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[981])((nint)v);
+			#endif
+		}
+
+		public static void GlVertex4Sv(short* v)
+		{
+			GlVertex4SvNative(v);
+		}
+
+		public static void GlVertex4Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlVertex4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3BNative(byte nx, byte ny, byte nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[982])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[982])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3B(byte nx, byte ny, byte nz)
+		{
+			GlNormal3BNative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3DNative(double nx, double ny, double nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[983])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[983])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3D(double nx, double ny, double nz)
+		{
+			GlNormal3DNative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3FNative(float nx, float ny, float nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[984])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[984])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3F(float nx, float ny, float nz)
+		{
+			GlNormal3FNative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3INative(int nx, int ny, int nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[985])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[985])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3I(int nx, int ny, int nz)
+		{
+			GlNormal3INative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3SNative(short nx, short ny, short nz)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[986])(nx, ny, nz);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[986])(nx, ny, nz);
+			#endif
+		}
+
+		public static void GlNormal3S(short nx, short ny, short nz)
+		{
+			GlNormal3SNative(nx, ny, nz);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[987])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[987])((nint)v);
+			#endif
+		}
+
+		public static void GlNormal3Bv(byte* v)
+		{
+			GlNormal3BvNative(v);
+		}
+
+		public static void GlNormal3Bv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlNormal3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlNormal3Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlNormal3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlNormal3Bv(string v)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (v != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(v);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, (float*)plogicalX, logicalY);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] float* logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] ref float logicalY)
-		{
-			fixed (float* plogicalY = &logicalY)
-			{
-				RenderWindowToLogicalNative(renderer, windowX, windowY, logicalX, (float*)plogicalY);
-			}
-		}
-
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] float* logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] ref float logicalY)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				fixed (float* plogicalY = &logicalY)
+				else
 				{
-					RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, logicalX, (float*)plogicalY);
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
 				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GlNormal3BvNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
 			}
 		}
 
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] SDLRenderer* renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] ref float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] ref float logicalY)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3DvNative(double* v)
 		{
-			fixed (float* plogicalX = &logicalX)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[988])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[988])((nint)v);
+			#endif
+		}
+
+		public static void GlNormal3Dv(double* v)
+		{
+			GlNormal3DvNative(v);
+		}
+
+		public static void GlNormal3Dv(ref double v)
+		{
+			fixed (double* pv = &v)
 			{
-				fixed (float* plogicalY = &logicalY)
-				{
-					RenderWindowToLogicalNative(renderer, windowX, windowY, (float*)plogicalX, (float*)plogicalY);
-				}
+				GlNormal3DvNative((double*)pv);
 			}
 		}
 
-		/// <summary>
-		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
-		/// point in window.<br/>
-		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
-		/// and logical renderer size set<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RenderWindowToLogical")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void RenderWindowToLogical([NativeName(NativeNameType.Param, "renderer")] [NativeName(NativeNameType.Type, "SDL_Renderer*")] ref SDLRenderer renderer, [NativeName(NativeNameType.Param, "windowX")] [NativeName(NativeNameType.Type, "int")] int windowX, [NativeName(NativeNameType.Param, "windowY")] [NativeName(NativeNameType.Type, "int")] int windowY, [NativeName(NativeNameType.Param, "logicalX")] [NativeName(NativeNameType.Type, "float*")] ref float logicalX, [NativeName(NativeNameType.Param, "logicalY")] [NativeName(NativeNameType.Type, "float*")] ref float logicalY)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3FvNative(float* v)
 		{
-			fixed (SDLRenderer* prenderer = &renderer)
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[989])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[989])((nint)v);
+			#endif
+		}
+
+		public static void GlNormal3Fv(float* v)
+		{
+			GlNormal3FvNative(v);
+		}
+
+		public static void GlNormal3Fv(ref float v)
+		{
+			fixed (float* pv = &v)
 			{
-				fixed (float* plogicalX = &logicalX)
-				{
-					fixed (float* plogicalY = &logicalY)
-					{
-						RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, (float*)plogicalX, (float*)plogicalY);
-					}
-				}
+				GlNormal3FvNative((float*)pv);
 			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[990])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[990])((nint)v);
+			#endif
+		}
+
+		public static void GlNormal3Iv(int* v)
+		{
+			GlNormal3IvNative(v);
+		}
+
+		public static void GlNormal3Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlNormal3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlNormal3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[991])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[991])((nint)v);
+			#endif
+		}
+
+		public static void GlNormal3Sv(short* v)
+		{
+			GlNormal3SvNative(v);
+		}
+
+		public static void GlNormal3Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlNormal3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexdNative(double c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[992])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[992])(c);
+			#endif
+		}
+
+		public static void GlIndexd(double c)
+		{
+			GlIndexdNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexfNative(float c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[993])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<float, void>)funcTable[993])(c);
+			#endif
+		}
+
+		public static void GlIndexf(float c)
+		{
+			GlIndexfNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexiNative(int c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[994])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<int, void>)funcTable[994])(c);
+			#endif
+		}
+
+		public static void GlIndexi(int c)
+		{
+			GlIndexiNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexsNative(short c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[995])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<short, void>)funcTable[995])(c);
+			#endif
+		}
+
+		public static void GlIndexs(short c)
+		{
+			GlIndexsNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexubNative(byte c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[996])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, void>)funcTable[996])(c);
+			#endif
+		}
+
+		public static void GlIndexub(byte c)
+		{
+			GlIndexubNative(c);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexdvNative(double* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[997])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[997])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexdv(double* c)
+		{
+			GlIndexdvNative(c);
+		}
+
+		public static void GlIndexdv(ref double c)
+		{
+			fixed (double* pc = &c)
+			{
+				GlIndexdvNative((double*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexfvNative(float* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[998])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[998])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexfv(float* c)
+		{
+			GlIndexfvNative(c);
+		}
+
+		public static void GlIndexfv(ref float c)
+		{
+			fixed (float* pc = &c)
+			{
+				GlIndexfvNative((float*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexivNative(int* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[999])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[999])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexiv(int* c)
+		{
+			GlIndexivNative(c);
+		}
+
+		public static void GlIndexiv(ref int c)
+		{
+			fixed (int* pc = &c)
+			{
+				GlIndexivNative((int*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexsvNative(short* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1000])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1000])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexsv(short* c)
+		{
+			GlIndexsvNative(c);
+		}
+
+		public static void GlIndexsv(ref short c)
+		{
+			fixed (short* pc = &c)
+			{
+				GlIndexsvNative((short*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlIndexubvNative(byte* c)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1001])(c);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1001])((nint)c);
+			#endif
+		}
+
+		public static void GlIndexubv(byte* c)
+		{
+			GlIndexubvNative(c);
+		}
+
+		public static void GlIndexubv(ref byte c)
+		{
+			fixed (byte* pc = &c)
+			{
+				GlIndexubvNative((byte*)pc);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3BNative(byte red, byte green, byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1002])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1002])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3B(byte red, byte green, byte blue)
+		{
+			GlColor3BNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3DNative(double red, double green, double blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1003])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, void>)funcTable[1003])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3D(double red, double green, double blue)
+		{
+			GlColor3DNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3FNative(float red, float green, float blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1004])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, void>)funcTable[1004])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3F(float red, float green, float blue)
+		{
+			GlColor3FNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3INative(int red, int green, int blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1005])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, void>)funcTable[1005])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3I(int red, int green, int blue)
+		{
+			GlColor3INative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3SNative(short red, short green, short blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1006])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, void>)funcTable[1006])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3S(short red, short green, short blue)
+		{
+			GlColor3SNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UbNative(byte red, byte green, byte blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
+			#endif
 		}
 	}
 }

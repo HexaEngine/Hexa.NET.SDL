@@ -18,49 +18,34 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// MessageBox structure containing title, text, window, etc.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MessageBoxData")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMessageBoxData
 	{
 		/// <summary>
 		/// ::SDL_MessageBoxFlags <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "flags")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Flags;
 
 		/// <summary>
 		/// Parent window, can be NULL <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "window")]
-		[NativeName(NativeNameType.Type, "SDL_Window*")]
 		public unsafe SDLWindow* Window;
 
 		/// <summary>
 		/// UTF-8 title <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "title")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Title;
 
 		/// <summary>
 		/// UTF-8 message text <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "message")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Message;
 
-		[NativeName(NativeNameType.Field, "numbuttons")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Numbuttons;
-		[NativeName(NativeNameType.Field, "buttons")]
-		[NativeName(NativeNameType.Type, "const SDL_MessageBoxButtonData*")]
 		public unsafe SDLMessageBoxButtonData* Buttons;
 		/// <summary>
 		/// ::SDL_MessageBoxColorScheme, can be NULL to use system settings <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "colorScheme")]
-		[NativeName(NativeNameType.Type, "const SDL_MessageBoxColorScheme*")]
 		public unsafe SDLMessageBoxColorScheme* ColorScheme;
 
 

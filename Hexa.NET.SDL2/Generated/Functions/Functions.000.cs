@@ -27,8 +27,6 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static byte* GetPlatformNative()
 		{
@@ -50,8 +48,6 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
 		public static byte* GetPlatform()
 		{
 			byte* ret = GetPlatformNative();
@@ -69,118 +65,62 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPlatform")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
 		public static string GetPlatformS()
 		{
 			string ret = Utils.DecodeStringUTF8(GetPlatformNative());
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_malloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MallocNative([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size)
+		internal static void* MallocNative(nuint size)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, void*>)funcTable[1])(size);
+			return ((delegate* unmanaged[Cdecl]<nuint, void*>)funcTable[1])(size);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<ulong, nint>)funcTable[1])(size);
+			return (void*)((delegate* unmanaged[Cdecl]<nuint, nint>)funcTable[1])(size);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_malloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Malloc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size)
+		public static void* Malloc(nuint size)
 		{
 			void* ret = MallocNative(size);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_malloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Malloc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			void* ret = MallocNative(size);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_calloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* CallocNative([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size)
+		internal static void* CallocNative(nuint nmemb, nuint size)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, ulong, void*>)funcTable[2])(nmemb, size);
+			return ((delegate* unmanaged[Cdecl]<nuint, nuint, void*>)funcTable[2])(nmemb, size);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<ulong, ulong, nint>)funcTable[2])(nmemb, size);
+			return (void*)((delegate* unmanaged[Cdecl]<nuint, nuint, nint>)funcTable[2])(nmemb, size);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_calloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Calloc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size)
+		public static void* Calloc(nuint nmemb, nuint size)
 		{
 			void* ret = CallocNative(nmemb, size);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_calloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Calloc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size)
-		{
-			void* ret = CallocNative(nmemb, size);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_calloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Calloc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			void* ret = CallocNative(nmemb, size);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_calloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Calloc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			void* ret = CallocNative(nmemb, size);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_realloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* ReallocNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size)
+		internal static void* ReallocNative(void* mem, nuint size)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, ulong, void*>)funcTable[3])(mem, size);
+			return ((delegate* unmanaged[Cdecl]<void*, nuint, void*>)funcTable[3])(mem, size);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, ulong, nint>)funcTable[3])((nint)mem, size);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[3])((nint)mem, size);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_realloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Realloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size)
+		public static void* Realloc(void* mem, nuint size)
 		{
 			void* ret = ReallocNative(mem, size);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_realloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Realloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			void* ret = ReallocNative(mem, size);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_free")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem)
+		internal static void FreeNative(void* mem)
 		{
 			#if NET5_0_OR_GREATER
 			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[4])(mem);
@@ -189,9 +129,7 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_free")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Free([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem)
+		public static void Free(void* mem)
 		{
 			FreeNative(mem);
 		}
@@ -200,13 +138,11 @@ namespace Hexa.NET.SDL2
 		/// Get the original set of SDL memory functions<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetOriginalMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetOriginalMemoryFunctionsNative([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func*")] delegate*<ulong, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func*")] delegate*<ulong, ulong, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func*")] delegate*<void*, ulong, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func*")] delegate*<void*, void>* freeFunc)
+		internal static void GetOriginalMemoryFunctionsNative(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<ulong, void*>*, delegate*<ulong, ulong, void*>*, delegate*<void*, ulong, void*>*, delegate*<void*, void>*, void>)funcTable[5])(mallocFunc, callocFunc, reallocFunc, freeFunc);
+			((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>*, delegate*<nuint, nuint, void*>*, delegate*<void*, nuint, void*>*, delegate*<void*, void>*, void>)funcTable[5])(mallocFunc, callocFunc, reallocFunc, freeFunc);
 			#else
 			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, void>)funcTable[5])((nint)mallocFunc, (nint)callocFunc, (nint)reallocFunc, (nint)freeFunc);
 			#endif
@@ -216,9 +152,7 @@ namespace Hexa.NET.SDL2
 		/// Get the original set of SDL memory functions<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetOriginalMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetOriginalMemoryFunctions([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func*")] delegate*<ulong, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func*")] delegate*<ulong, ulong, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func*")] delegate*<void*, ulong, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func*")] delegate*<void*, void>* freeFunc)
+		public static void GetOriginalMemoryFunctions(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			GetOriginalMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
 		}
@@ -227,13 +161,11 @@ namespace Hexa.NET.SDL2
 		/// Get the current set of SDL memory functions<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetMemoryFunctionsNative([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func*")] delegate*<ulong, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func*")] delegate*<ulong, ulong, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func*")] delegate*<void*, ulong, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func*")] delegate*<void*, void>* freeFunc)
+		internal static void GetMemoryFunctionsNative(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<ulong, void*>*, delegate*<ulong, ulong, void*>*, delegate*<void*, ulong, void*>*, delegate*<void*, void>*, void>)funcTable[6])(mallocFunc, callocFunc, reallocFunc, freeFunc);
+			((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>*, delegate*<nuint, nuint, void*>*, delegate*<void*, nuint, void*>*, delegate*<void*, void>*, void>)funcTable[6])(mallocFunc, callocFunc, reallocFunc, freeFunc);
 			#else
 			((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, void>)funcTable[6])((nint)mallocFunc, (nint)callocFunc, (nint)reallocFunc, (nint)freeFunc);
 			#endif
@@ -243,9 +175,7 @@ namespace Hexa.NET.SDL2
 		/// Get the current set of SDL memory functions<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetMemoryFunctions([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func*")] delegate*<ulong, void*>* mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func*")] delegate*<ulong, ulong, void*>* callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func*")] delegate*<void*, ulong, void*>* reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func*")] delegate*<void*, void>* freeFunc)
+		public static void GetMemoryFunctions(delegate*<nuint, void*>* mallocFunc, delegate*<nuint, nuint, void*>* callocFunc, delegate*<void*, nuint, void*>* reallocFunc, delegate*<void*, void>* freeFunc)
 		{
 			GetMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
 		}
@@ -254,13 +184,11 @@ namespace Hexa.NET.SDL2
 		/// Replace SDL's memory allocation functions with a custom set<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetMemoryFunctionsNative([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func")] SDLMallocFunc mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func")] SDLCallocFunc callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func")] SDLReallocFunc reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func")] SDLFreeFunc freeFunc)
+		internal static int SetMemoryFunctionsNative(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<delegate*<ulong, void*>, delegate*<ulong, ulong, void*>, delegate*<void*, ulong, void*>, delegate*<void*, void>, int>)funcTable[7])((delegate*<ulong, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<ulong, ulong, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, ulong, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
+			return ((delegate* unmanaged[Cdecl]<delegate*<nuint, void*>, delegate*<nuint, nuint, void*>, delegate*<void*, nuint, void*>, delegate*<void*, void>, int>)funcTable[7])((delegate*<nuint, void*>)Utils.GetFunctionPointerForDelegate(mallocFunc), (delegate*<nuint, nuint, void*>)Utils.GetFunctionPointerForDelegate(callocFunc), (delegate*<void*, nuint, void*>)Utils.GetFunctionPointerForDelegate(reallocFunc), (delegate*<void*, void>)Utils.GetFunctionPointerForDelegate(freeFunc));
 			#else
 			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[7])((nint)Utils.GetFunctionPointerForDelegate(mallocFunc), (nint)Utils.GetFunctionPointerForDelegate(callocFunc), (nint)Utils.GetFunctionPointerForDelegate(reallocFunc), (nint)Utils.GetFunctionPointerForDelegate(freeFunc));
 			#endif
@@ -270,9 +198,7 @@ namespace Hexa.NET.SDL2
 		/// Replace SDL's memory allocation functions with a custom set<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetMemoryFunctions")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetMemoryFunctions([NativeName(NativeNameType.Param, "malloc_func")] [NativeName(NativeNameType.Type, "SDL_malloc_func")] SDLMallocFunc mallocFunc, [NativeName(NativeNameType.Param, "calloc_func")] [NativeName(NativeNameType.Type, "SDL_calloc_func")] SDLCallocFunc callocFunc, [NativeName(NativeNameType.Param, "realloc_func")] [NativeName(NativeNameType.Type, "SDL_realloc_func")] SDLReallocFunc reallocFunc, [NativeName(NativeNameType.Param, "free_func")] [NativeName(NativeNameType.Type, "SDL_free_func")] SDLFreeFunc freeFunc)
+		public static int SetMemoryFunctions(SDLMallocFunc mallocFunc, SDLCallocFunc callocFunc, SDLReallocFunc reallocFunc, SDLFreeFunc freeFunc)
 		{
 			int ret = SetMemoryFunctionsNative(mallocFunc, callocFunc, reallocFunc, freeFunc);
 			return ret;
@@ -282,8 +208,6 @@ namespace Hexa.NET.SDL2
 		/// Get the number of outstanding (unfreed) allocations<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAllocations")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static int GetNumAllocationsNative()
 		{
@@ -298,18 +222,14 @@ namespace Hexa.NET.SDL2
 		/// Get the number of outstanding (unfreed) allocations<br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumAllocations")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		public static int GetNumAllocations()
 		{
 			int ret = GetNumAllocationsNative();
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetenvNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		internal static byte* GetenvNative(byte* name)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[9])(name);
@@ -318,25 +238,19 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static byte* Getenv(byte* name)
 		{
 			byte* ret = GetenvNative(name);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name)
+		public static string GetenvS(byte* name)
 		{
 			string ret = Utils.DecodeStringUTF8(GetenvNative(name));
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static byte* Getenv(ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -345,9 +259,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name)
+		public static string GetenvS(ref byte name)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -356,9 +268,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static byte* Getenv(ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -367,9 +277,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name)
+		public static string GetenvS(ReadOnlySpan<byte> name)
 		{
 			fixed (byte* pname = name)
 			{
@@ -378,9 +286,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Getenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static byte* Getenv(string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -407,9 +313,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_getenv")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetenvS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name)
+		public static string GetenvS(string name)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -436,10 +340,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetenvNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		internal static int SetenvNative(byte* name, byte* value, int overwrite)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int, int>)funcTable[10])(name, value, overwrite);
@@ -448,17 +350,13 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(byte* name, byte* value, int overwrite)
 		{
 			int ret = SetenvNative(name, value, overwrite);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(ref byte name, byte* value, int overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -467,9 +365,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(ReadOnlySpan<byte> name, byte* value, int overwrite)
 		{
 			fixed (byte* pname = name)
 			{
@@ -478,9 +374,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] byte* value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(string name, byte* value, int overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -507,9 +401,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(byte* name, ref byte value, int overwrite)
 		{
 			fixed (byte* pvalue = &value)
 			{
@@ -518,9 +410,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(byte* name, ReadOnlySpan<byte> value, int overwrite)
 		{
 			fixed (byte* pvalue = value)
 			{
@@ -529,9 +419,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(byte* name, string value, int overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -558,9 +446,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ref byte value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(ref byte name, ref byte value, int overwrite)
 		{
 			fixed (byte* pname = &name)
 			{
@@ -572,9 +458,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(ReadOnlySpan<byte> name, ReadOnlySpan<byte> value, int overwrite)
 		{
 			fixed (byte* pname = name)
 			{
@@ -586,9 +470,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_setenv")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Setenv([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const char*")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const char*")] string value, [NativeName(NativeNameType.Param, "overwrite")] [NativeName(NativeNameType.Type, "int")] int overwrite)
+		public static int Setenv(string name, string value, int overwrite)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -636,94 +518,39 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_qsort")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QsortNative([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
+		internal static void QsortNative(void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void*, ulong, ulong, delegate*<void*, ulong, ulong, delegate*<void*, void*, int>, int>, void>)funcTable[11])(baseValue, nmemb, size, compare);
+			((delegate* unmanaged[Cdecl]<void*, nuint, nuint, delegate*<void*, void*, int>, void>)funcTable[11])(baseValue, nmemb, size, compare);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, ulong, ulong, nint, void>)funcTable[11])((nint)baseValue, nmemb, size, (nint)compare);
+			((delegate* unmanaged[Cdecl]<nint, nuint, nuint, nint, void>)funcTable[11])((nint)baseValue, nmemb, size, (nint)compare);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_qsort")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Qsort([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
+		public static void Qsort(void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
 		{
 			QsortNative(baseValue, nmemb, size, compare);
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_qsort")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Qsort([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
-		{
-			QsortNative(baseValue, nmemb, size, compare);
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_qsort")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Qsort([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
-		{
-			QsortNative(baseValue, nmemb, size, compare);
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_qsort")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Qsort([NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
-		{
-			QsortNative(baseValue, nmemb, size, compare);
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_bsearch")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* BsearchNative([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "const void*")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "const void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(const void* key, const void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
+		internal static void* BsearchNative(void* key, void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, void*, ulong, ulong, delegate*<void*, void*, ulong, ulong, delegate*<void*, void*, int>, int>, void*>)funcTable[12])(key, baseValue, nmemb, size, compare);
+			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, nuint, delegate*<void*, void*, int>, void*>)funcTable[12])(key, baseValue, nmemb, size, compare);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong, nint, nint>)funcTable[12])((nint)key, (nint)baseValue, nmemb, size, (nint)compare);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint, nint, nint>)funcTable[12])((nint)key, (nint)baseValue, nmemb, size, (nint)compare);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_bsearch")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Bsearch([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "const void*")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "const void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(const void* key, const void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
+		public static void* Bsearch(void* key, void* baseValue, nuint nmemb, nuint size, delegate*<void*, void*, int> compare)
 		{
 			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_bsearch")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Bsearch([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "const void*")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "const void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] ulong size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(const void* key, const void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
-		{
-			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_bsearch")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Bsearch([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "const void*")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "const void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] ulong nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(const void* key, const void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
-		{
-			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_bsearch")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Bsearch([NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "const void*")] void* key, [NativeName(NativeNameType.Param, "base")] [NativeName(NativeNameType.Type, "const void*")] void* baseValue, [NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size, [NativeName(NativeNameType.Param, "compare")] [NativeName(NativeNameType.Type, "int (*)(const void* key, const void* base, size_t nmemb, size_t size, int (*)(const void*, const void*)* compare)*")] delegate*<void*, void*, ulong, ulong, delegate*<void*, void*, int>, int> compare)
-		{
-			void* ret = BsearchNative(key, baseValue, nmemb, size, compare);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_abs")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AbsNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int AbsNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[13])(x);
@@ -732,18 +559,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_abs")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Abs([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Abs(int x)
 		{
 			int ret = AbsNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isalpha")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsalphaNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsalphaNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[14])(x);
@@ -752,18 +575,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isalpha")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isalpha([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isalpha(int x)
 		{
 			int ret = IsalphaNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isalnum")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsalnumNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsalnumNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[15])(x);
@@ -772,18 +591,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isalnum")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isalnum([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isalnum(int x)
 		{
 			int ret = IsalnumNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isblank")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsblankNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsblankNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[16])(x);
@@ -792,18 +607,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isblank")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isblank([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isblank(int x)
 		{
 			int ret = IsblankNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iscntrl")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IscntrlNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IscntrlNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[17])(x);
@@ -812,18 +623,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_iscntrl")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Iscntrl([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Iscntrl(int x)
 		{
 			int ret = IscntrlNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsdigitNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsdigitNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[18])(x);
@@ -832,18 +639,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isdigit([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isdigit(int x)
 		{
 			int ret = IsdigitNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isxdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsxdigitNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsxdigitNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[19])(x);
@@ -852,18 +655,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isxdigit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isxdigit([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isxdigit(int x)
 		{
 			int ret = IsxdigitNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_ispunct")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IspunctNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IspunctNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[20])(x);
@@ -872,18 +671,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_ispunct")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Ispunct([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Ispunct(int x)
 		{
 			int ret = IspunctNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isspace")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsspaceNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsspaceNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[21])(x);
@@ -892,18 +687,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isspace")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isspace([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isspace(int x)
 		{
 			int ret = IsspaceNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsupperNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsupperNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[22])(x);
@@ -912,18 +703,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isupper([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isupper(int x)
 		{
 			int ret = IsupperNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_islower")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IslowerNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IslowerNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[23])(x);
@@ -932,18 +719,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_islower")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Islower([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Islower(int x)
 		{
 			int ret = IslowerNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isprint")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsprintNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsprintNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[24])(x);
@@ -952,18 +735,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isprint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isprint([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isprint(int x)
 		{
 			int ret = IsprintNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isgraph")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int IsgraphNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int IsgraphNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[25])(x);
@@ -972,18 +751,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_isgraph")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Isgraph([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Isgraph(int x)
 		{
 			int ret = IsgraphNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_toupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ToupperNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int ToupperNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[26])(x);
@@ -992,18 +767,14 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_toupper")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Toupper([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Toupper(int x)
 		{
 			int ret = ToupperNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_tolower")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TolowerNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		internal static int TolowerNative(int x)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[27])(x);
@@ -1012,227 +783,143 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_tolower")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Tolower([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "int")] int x)
+		public static int Tolower(int x)
 		{
 			int ret = TolowerNative(x);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_crc16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort Crc16Native([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint16")] ushort crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		internal static ushort Crc16Native(ushort crc, void* data, nuint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, void*, ulong, ushort>)funcTable[28])(crc, data, len);
+			return ((delegate* unmanaged[Cdecl]<ushort, void*, nuint, ushort>)funcTable[28])(crc, data, len);
 			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<ushort, nint, ulong, ushort>)funcTable[28])(crc, (nint)data, len);
+			return (ushort)((delegate* unmanaged[Cdecl]<ushort, nint, nuint, ushort>)funcTable[28])(crc, (nint)data, len);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_crc16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort Crc16([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint16")] ushort crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static ushort Crc16(ushort crc, void* data, nuint len)
 		{
 			ushort ret = Crc16Native(crc, data, len);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_crc16")]
-		[return: NativeName(NativeNameType.Type, "Uint16")]
-		public static ushort Crc16([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint16")] ushort crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			ushort ret = Crc16Native(crc, data, len);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_crc32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint Crc32Native([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint32")] uint crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		internal static uint Crc32Native(uint crc, void* data, nuint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, ulong, uint>)funcTable[29])(crc, data, len);
+			return ((delegate* unmanaged[Cdecl]<uint, void*, nuint, uint>)funcTable[29])(crc, data, len);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, ulong, uint>)funcTable[29])(crc, (nint)data, len);
+			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, nuint, uint>)funcTable[29])(crc, (nint)data, len);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_crc32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint Crc32([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint32")] uint crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static uint Crc32(uint crc, void* data, nuint len)
 		{
 			uint ret = Crc32Native(crc, data, len);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_crc32")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint Crc32([NativeName(NativeNameType.Param, "crc")] [NativeName(NativeNameType.Type, "Uint32")] uint crc, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			uint ret = Crc32Native(crc, data, len);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_memset")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MemsetNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		internal static void* MemsetNative(void* dst, int c, nuint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, int, ulong, void*>)funcTable[30])(dst, c, len);
+			return ((delegate* unmanaged[Cdecl]<void*, int, nuint, void*>)funcTable[30])(dst, c, len);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, int, ulong, nint>)funcTable[30])((nint)dst, c, len);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, int, nuint, nint>)funcTable[30])((nint)dst, c, len);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memset")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Memset([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static void* Memset(void* dst, int c, nuint len)
 		{
 			void* ret = MemsetNative(dst, c, len);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memset")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Memset([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "c")] [NativeName(NativeNameType.Type, "int")] int c, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			void* ret = MemsetNative(dst, c, len);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_memcpy")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MemcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		internal static void* MemcpyNative(void* dst, void* src, nuint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, void*, ulong, void*>)funcTable[31])(dst, src, len);
+			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, void*>)funcTable[31])(dst, src, len);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, ulong, nint>)funcTable[31])((nint)dst, (nint)src, len);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nint>)funcTable[31])((nint)dst, (nint)src, len);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memcpy")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Memcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static void* Memcpy(void* dst, void* src, nuint len)
 		{
 			void* ret = MemcpyNative(dst, src, len);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memcpy")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Memcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			void* ret = MemcpyNative(dst, src, len);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_memmove")]
-		[return: NativeName(NativeNameType.Type, "void*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* MemmoveNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		internal static void* MemmoveNative(void* dst, void* src, nuint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, void*, ulong, void*>)funcTable[32])(dst, src, len);
+			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, void*>)funcTable[32])(dst, src, len);
 			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, ulong, nint>)funcTable[32])((nint)dst, (nint)src, len);
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nint>)funcTable[32])((nint)dst, (nint)src, len);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memmove")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Memmove([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static void* Memmove(void* dst, void* src, nuint len)
 		{
 			void* ret = MemmoveNative(dst, src, len);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memmove")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* Memmove([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "void*")] void* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const void*")] void* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			void* ret = MemmoveNative(dst, src, len);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_memcmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int MemcmpNative([NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "const void*")] void* s1, [NativeName(NativeNameType.Param, "s2")] [NativeName(NativeNameType.Type, "const void*")] void* s2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		internal static int MemcmpNative(void* s1, void* s2, nuint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, void*, ulong, int>)funcTable[33])(s1, s2, len);
+			return ((delegate* unmanaged[Cdecl]<void*, void*, nuint, int>)funcTable[33])(s1, s2, len);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[33])((nint)s1, (nint)s2, len);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[33])((nint)s1, (nint)s2, len);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memcmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Memcmp([NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "const void*")] void* s1, [NativeName(NativeNameType.Param, "s2")] [NativeName(NativeNameType.Type, "const void*")] void* s2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Memcmp(void* s1, void* s2, nuint len)
 		{
 			int ret = MemcmpNative(s1, s2, len);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_memcmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Memcmp([NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "const void*")] void* s1, [NativeName(NativeNameType.Param, "s2")] [NativeName(NativeNameType.Type, "const void*")] void* s2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			int ret = MemcmpNative(s1, s2, len);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WcslenNative([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] char* wstr)
+		internal static nuint WcslenNative(char* wstr)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<char*, ulong>)funcTable[34])(wstr);
+			return ((delegate* unmanaged[Cdecl]<char*, nuint>)funcTable[34])(wstr);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[34])((nint)wstr);
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint>)funcTable[34])((nint)wstr);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] char* wstr)
+		public static nuint Wcslen(char* wstr)
 		{
-			ulong ret = WcslenNative(wstr);
+			nuint ret = WcslenNative(wstr);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] ref char wstr)
+		public static nuint Wcslen(ref char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
-				ulong ret = WcslenNative((char*)pwstr);
+				nuint ret = WcslenNative((char*)pwstr);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> wstr)
+		public static nuint Wcslen(ReadOnlySpan<char> wstr)
 		{
 			fixed (char* pwstr = wstr)
 			{
-				ulong ret = WcslenNative((char*)pwstr);
+				nuint ret = WcslenNative((char*)pwstr);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslen([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] string wstr)
+		public static nuint Wcslen(string wstr)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1251,7 +938,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(wstr, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			ulong ret = WcslenNative(pStr0);
+			nuint ret = WcslenNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1259,40 +946,32 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WcslcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static nuint WcslcpyNative(char* dst, char* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<char*, char*, ulong, ulong>)funcTable[35])(dst, src, maxlen);
+			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, nuint>)funcTable[35])(dst, src, maxlen);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong>)funcTable[35])((nint)dst, (nint)src, maxlen);
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[35])((nint)dst, (nint)src, maxlen);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(char* dst, char* src, nuint maxlen)
 		{
-			ulong ret = WcslcpyNative(dst, src, maxlen);
+			nuint ret = WcslcpyNative(dst, src, maxlen);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(ref char dst, char* src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
-				ulong ret = WcslcpyNative((char*)pdst, src, maxlen);
+				nuint ret = WcslcpyNative((char*)pdst, src, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(ref string dst, char* src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1311,7 +990,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			ulong ret = WcslcpyNative(pStr0, src, maxlen);
+			nuint ret = WcslcpyNative(pStr0, src, maxlen);
 			dst = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -1320,31 +999,25 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(char* dst, ref char src, nuint maxlen)
 		{
 			fixed (char* psrc = &src)
 			{
-				ulong ret = WcslcpyNative(dst, (char*)psrc, maxlen);
+				nuint ret = WcslcpyNative(dst, (char*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(char* dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* psrc = src)
 			{
-				ulong ret = WcslcpyNative(dst, (char*)psrc, maxlen);
+				nuint ret = WcslcpyNative(dst, (char*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(char* dst, string src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1363,7 +1036,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(src, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			ulong ret = WcslcpyNative(dst, pStr0, maxlen);
+			nuint ret = WcslcpyNative(dst, pStr0, maxlen);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1371,37 +1044,31 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(ref char dst, ref char src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
 				fixed (char* psrc = &src)
 				{
-					ulong ret = WcslcpyNative((char*)pdst, (char*)psrc, maxlen);
+					nuint ret = WcslcpyNative((char*)pdst, (char*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(ref char dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
 				fixed (char* psrc = src)
 				{
-					ulong ret = WcslcpyNative((char*)pdst, (char*)psrc, maxlen);
+					nuint ret = WcslcpyNative((char*)pdst, (char*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcpy(ref string dst, string src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1437,7 +1104,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF16(src, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = '\0';
 			}
-			ulong ret = WcslcpyNative(pStr0, pStr1, maxlen);
+			nuint ret = WcslcpyNative(pStr0, pStr1, maxlen);
 			dst = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
@@ -1450,219 +1117,32 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			ulong ret = WcslcpyNative(dst, src, maxlen);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pdst = &dst)
-			{
-				ulong ret = WcslcpyNative((char*)pdst, src, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			ulong ret = WcslcpyNative(pStr0, src, maxlen);
-			dst = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* psrc = &src)
-			{
-				ulong ret = WcslcpyNative(dst, (char*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* psrc = src)
-			{
-				ulong ret = WcslcpyNative(dst, (char*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (src != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(src);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(src, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			ulong ret = WcslcpyNative(dst, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pdst = &dst)
-			{
-				fixed (char* psrc = &src)
-				{
-					ulong ret = WcslcpyNative((char*)pdst, (char*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pdst = &dst)
-			{
-				fixed (char* psrc = src)
-				{
-					ulong ret = WcslcpyNative((char*)pdst, (char*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (src != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(src);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(src, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			ulong ret = WcslcpyNative(pStr0, pStr1, maxlen);
-			dst = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong WcslcatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static nuint WcslcatNative(char* dst, char* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<char*, char*, ulong, ulong>)funcTable[36])(dst, src, maxlen);
+			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, nuint>)funcTable[36])(dst, src, maxlen);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong>)funcTable[36])((nint)dst, (nint)src, maxlen);
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[36])((nint)dst, (nint)src, maxlen);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(char* dst, char* src, nuint maxlen)
 		{
-			ulong ret = WcslcatNative(dst, src, maxlen);
+			nuint ret = WcslcatNative(dst, src, maxlen);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(ref char dst, char* src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
-				ulong ret = WcslcatNative((char*)pdst, src, maxlen);
+				nuint ret = WcslcatNative((char*)pdst, src, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(ref string dst, char* src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1681,7 +1161,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			ulong ret = WcslcatNative(pStr0, src, maxlen);
+			nuint ret = WcslcatNative(pStr0, src, maxlen);
 			dst = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -1690,31 +1170,25 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(char* dst, ref char src, nuint maxlen)
 		{
 			fixed (char* psrc = &src)
 			{
-				ulong ret = WcslcatNative(dst, (char*)psrc, maxlen);
+				nuint ret = WcslcatNative(dst, (char*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(char* dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* psrc = src)
 			{
-				ulong ret = WcslcatNative(dst, (char*)psrc, maxlen);
+				nuint ret = WcslcatNative(dst, (char*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(char* dst, string src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1733,7 +1207,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(src, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			ulong ret = WcslcatNative(dst, pStr0, maxlen);
+			nuint ret = WcslcatNative(dst, pStr0, maxlen);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -1741,37 +1215,31 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(ref char dst, ref char src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
 				fixed (char* psrc = &src)
 				{
-					ulong ret = WcslcatNative((char*)pdst, (char*)psrc, maxlen);
+					nuint ret = WcslcatNative((char*)pdst, (char*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(ref char dst, ReadOnlySpan<char> src, nuint maxlen)
 		{
 			fixed (char* pdst = &dst)
 			{
 				fixed (char* psrc = src)
 				{
-					ulong ret = WcslcatNative((char*)pdst, (char*)psrc, maxlen);
+					nuint ret = WcslcatNative((char*)pdst, (char*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Wcslcat(ref string dst, string src, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1807,7 +1275,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF16(src, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = '\0';
 			}
-			ulong ret = WcslcatNative(pStr0, pStr1, maxlen);
+			nuint ret = WcslcatNative(pStr0, pStr1, maxlen);
 			dst = Utils.DecodeStringUTF16(pStr0);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
@@ -1820,189 +1288,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			ulong ret = WcslcatNative(dst, src, maxlen);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pdst = &dst)
-			{
-				ulong ret = WcslcatNative((char*)pdst, src, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] char* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			ulong ret = WcslcatNative(pStr0, src, maxlen);
-			dst = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* psrc = &src)
-			{
-				ulong ret = WcslcatNative(dst, (char*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* psrc = src)
-			{
-				ulong ret = WcslcatNative(dst, (char*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] char* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (src != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(src);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(src, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			ulong ret = WcslcatNative(dst, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ref char src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pdst = &dst)
-			{
-				fixed (char* psrc = &src)
-				{
-					ulong ret = WcslcatNative((char*)pdst, (char*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref char dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pdst = &dst)
-			{
-				fixed (char* psrc = src)
-				{
-					ulong ret = WcslcatNative((char*)pdst, (char*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcslcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Wcslcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "wchar*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const wchar*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (src != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(src);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(src, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			ulong ret = WcslcatNative(pStr0, pStr1, maxlen);
-			dst = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static char* WcsdupNative([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] char* wstr)
+		internal static char* WcsdupNative(char* wstr)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*>)funcTable[37])(wstr);
@@ -2011,25 +1298,19 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] char* wstr)
+		public static char* Wcsdup(char* wstr)
 		{
 			char* ret = WcsdupNative(wstr);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] char* wstr)
+		public static string WcsdupS(char* wstr)
 		{
 			string ret = Utils.DecodeStringUTF16(WcsdupNative(wstr));
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] ref char wstr)
+		public static char* Wcsdup(ref char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -2038,9 +1319,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] ref char wstr)
+		public static string WcsdupS(ref char wstr)
 		{
 			fixed (char* pwstr = &wstr)
 			{
@@ -2049,9 +1328,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> wstr)
+		public static char* Wcsdup(ReadOnlySpan<char> wstr)
 		{
 			fixed (char* pwstr = wstr)
 			{
@@ -2060,9 +1337,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> wstr)
+		public static string WcsdupS(ReadOnlySpan<char> wstr)
 		{
 			fixed (char* pwstr = wstr)
 			{
@@ -2071,9 +1346,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsdup([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] string wstr)
+		public static char* Wcsdup(string wstr)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2100,9 +1373,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsdup")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsdupS([NativeName(NativeNameType.Param, "wstr")] [NativeName(NativeNameType.Type, "const wchar*")] string wstr)
+		public static string WcsdupS(string wstr)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2129,10 +1400,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static char* WcsstrNative([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		internal static char* WcsstrNative(char* haystack, char* needle)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, char*>)funcTable[38])(haystack, needle);
@@ -2141,25 +1410,19 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static char* Wcsstr(char* haystack, char* needle)
 		{
 			char* ret = WcsstrNative(haystack, needle);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static string WcsstrS(char* haystack, char* needle)
 		{
 			string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, needle));
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static char* Wcsstr(ref char haystack, char* needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -2168,9 +1431,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static string WcsstrS(ref char haystack, char* needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -2179,9 +1440,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static char* Wcsstr(ReadOnlySpan<char> haystack, char* needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -2190,9 +1449,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static string WcsstrS(ReadOnlySpan<char> haystack, char* needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -2201,9 +1458,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static char* Wcsstr(string haystack, char* needle)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2230,9 +1485,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] char* needle)
+		public static string WcsstrS(string haystack, char* needle)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2259,9 +1512,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ref char needle)
+		public static char* Wcsstr(char* haystack, ref char needle)
 		{
 			fixed (char* pneedle = &needle)
 			{
@@ -2270,9 +1521,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ref char needle)
+		public static string WcsstrS(char* haystack, ref char needle)
 		{
 			fixed (char* pneedle = &needle)
 			{
@@ -2281,9 +1530,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> needle)
+		public static char* Wcsstr(char* haystack, ReadOnlySpan<char> needle)
 		{
 			fixed (char* pneedle = needle)
 			{
@@ -2292,9 +1539,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> needle)
+		public static string WcsstrS(char* haystack, ReadOnlySpan<char> needle)
 		{
 			fixed (char* pneedle = needle)
 			{
@@ -2303,9 +1548,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] string needle)
+		public static char* Wcsstr(char* haystack, string needle)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2332,9 +1575,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] char* haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] string needle)
+		public static string WcsstrS(char* haystack, string needle)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2361,9 +1602,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ref char needle)
+		public static char* Wcsstr(ref char haystack, ref char needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -2375,9 +1614,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ref char haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ref char needle)
+		public static string WcsstrS(ref char haystack, ref char needle)
 		{
 			fixed (char* phaystack = &haystack)
 			{
@@ -2389,9 +1626,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> needle)
+		public static char* Wcsstr(ReadOnlySpan<char> haystack, ReadOnlySpan<char> needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -2403,9 +1638,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> needle)
+		public static string WcsstrS(ReadOnlySpan<char> haystack, ReadOnlySpan<char> needle)
 		{
 			fixed (char* phaystack = haystack)
 			{
@@ -2417,9 +1650,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static char* Wcsstr([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] string needle)
+		public static char* Wcsstr(string haystack, string needle)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2467,9 +1698,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsstr")]
-		[return: NativeName(NativeNameType.Type, "wchar*")]
-		public static string WcsstrS([NativeName(NativeNameType.Param, "haystack")] [NativeName(NativeNameType.Type, "const wchar*")] string haystack, [NativeName(NativeNameType.Param, "needle")] [NativeName(NativeNameType.Type, "const wchar*")] string needle)
+		public static string WcsstrS(string haystack, string needle)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2517,10 +1746,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcscmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		internal static int WcscmpNative(char* str1, char* str2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, int>)funcTable[39])(str1, str2);
@@ -2529,17 +1756,13 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscmp(char* str1, char* str2)
 		{
 			int ret = WcscmpNative(str1, str2);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscmp(ref char str1, char* str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -2548,9 +1771,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscmp(ReadOnlySpan<char> str1, char* str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2559,9 +1780,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscmp(string str1, char* str2)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2588,9 +1807,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2)
+		public static int Wcscmp(char* str1, ref char str2)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -2599,9 +1816,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2)
+		public static int Wcscmp(char* str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -2610,9 +1825,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2)
+		public static int Wcscmp(char* str1, string str2)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2639,9 +1852,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2)
+		public static int Wcscmp(ref char str1, ref char str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -2653,9 +1864,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2)
+		public static int Wcscmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2667,9 +1876,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2)
+		public static int Wcscmp(string str1, string str2)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2717,29 +1924,23 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcsncmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int WcsncmpNative(char* str1, char* str2, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<char*, char*, ulong, int>)funcTable[40])(str1, str2, maxlen);
+			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, int>)funcTable[40])(str1, str2, maxlen);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[40])((nint)str1, (nint)str2, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[40])((nint)str1, (nint)str2, maxlen);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(char* str1, char* str2, nuint maxlen)
 		{
 			int ret = WcsncmpNative(str1, str2, maxlen);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(ref char str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -2748,9 +1949,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(ReadOnlySpan<char> str1, char* str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2759,9 +1958,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(string str1, char* str2, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2788,9 +1985,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(char* str1, ref char str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -2799,9 +1994,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(char* str1, ReadOnlySpan<char> str2, nuint maxlen)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -2810,9 +2003,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(char* str1, string str2, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2839,9 +2030,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(ref char str1, ref char str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -2853,9 +2042,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2, nuint maxlen)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -2867,9 +2054,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int Wcsncmp(string str1, string str2, nuint maxlen)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2917,198 +2102,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = WcsncmpNative(str1, str2, maxlen);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr1 = &str1)
-			{
-				int ret = WcsncmpNative((char*)pstr1, str2, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr1 = str1)
-			{
-				int ret = WcsncmpNative((char*)pstr1, str2, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = WcsncmpNative(pStr0, str2, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr2 = &str2)
-			{
-				int ret = WcsncmpNative(str1, (char*)pstr2, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr2 = str2)
-			{
-				int ret = WcsncmpNative(str1, (char*)pstr2, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str2 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str2, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = WcsncmpNative(str1, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr1 = &str1)
-			{
-				fixed (char* pstr2 = &str2)
-				{
-					int ret = WcsncmpNative((char*)pstr1, (char*)pstr2, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr1 = str1)
-			{
-				fixed (char* pstr2 = str2)
-				{
-					int ret = WcsncmpNative((char*)pstr1, (char*)pstr2, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (str2 != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(str2, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			int ret = WcsncmpNative(pStr0, pStr1, maxlen);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcscasecmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		internal static int WcscasecmpNative(char* str1, char* str2)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<char*, char*, int>)funcTable[41])(str1, str2);
@@ -3117,17 +2112,13 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscasecmp(char* str1, char* str2)
 		{
 			int ret = WcscasecmpNative(str1, str2);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscasecmp(ref char str1, char* str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -3136,9 +2127,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscasecmp(ReadOnlySpan<char> str1, char* str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -3147,9 +2136,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2)
+		public static int Wcscasecmp(string str1, char* str2)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3176,9 +2163,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2)
+		public static int Wcscasecmp(char* str1, ref char str2)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -3187,9 +2172,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2)
+		public static int Wcscasecmp(char* str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -3198,9 +2181,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2)
+		public static int Wcscasecmp(char* str1, string str2)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3227,9 +2208,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2)
+		public static int Wcscasecmp(ref char str1, ref char str2)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -3241,9 +2220,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2)
+		public static int Wcscasecmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -3255,9 +2232,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcscasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcscasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2)
+		public static int Wcscasecmp(string str1, string str2)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3305,29 +2280,23 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WcsncasecmpNative([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		internal static int WcsncasecmpNative(char* str1, char* str2, nuint len)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<char*, char*, ulong, int>)funcTable[42])(str1, str2, len);
+			return ((delegate* unmanaged[Cdecl]<char*, char*, nuint, int>)funcTable[42])(str1, str2, len);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[42])((nint)str1, (nint)str2, len);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[42])((nint)str1, (nint)str2, len);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(char* str1, char* str2, nuint len)
 		{
 			int ret = WcsncasecmpNative(str1, str2, len);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(ref char str1, char* str2, nuint len)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -3336,9 +2305,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(ReadOnlySpan<char> str1, char* str2, nuint len)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -3347,9 +2314,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(string str1, char* str2, nuint len)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3376,9 +2341,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(char* str1, ref char str2, nuint len)
 		{
 			fixed (char* pstr2 = &str2)
 			{
@@ -3387,9 +2350,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(char* str1, ReadOnlySpan<char> str2, nuint len)
 		{
 			fixed (char* pstr2 = str2)
 			{
@@ -3398,9 +2359,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(char* str1, string str2, nuint len)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3427,9 +2386,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(ref char str1, ref char str2, nuint len)
 		{
 			fixed (char* pstr1 = &str1)
 			{
@@ -3441,9 +2398,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(ReadOnlySpan<char> str1, ReadOnlySpan<char> str2, nuint len)
 		{
 			fixed (char* pstr1 = str1)
 			{
@@ -3455,9 +2410,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] ulong len)
+		public static int Wcsncasecmp(string str1, string str2, nuint len)
 		{
 			char* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3505,239 +2458,41 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			int ret = WcsncasecmpNative(str1, str2, len);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (char* pstr1 = &str1)
-			{
-				int ret = WcsncasecmpNative((char*)pstr1, str2, len);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (char* pstr1 = str1)
-			{
-				int ret = WcsncasecmpNative((char*)pstr1, str2, len);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] char* str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = WcsncasecmpNative(pStr0, str2, len);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (char* pstr2 = &str2)
-			{
-				int ret = WcsncasecmpNative(str1, (char*)pstr2, len);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (char* pstr2 = str2)
-			{
-				int ret = WcsncasecmpNative(str1, (char*)pstr2, len);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] char* str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str2 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str2, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = WcsncasecmpNative(str1, pStr0, len);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ref char str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (char* pstr1 = &str1)
-			{
-				fixed (char* pstr2 = &str2)
-				{
-					int ret = WcsncasecmpNative((char*)pstr1, (char*)pstr2, len);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			fixed (char* pstr1 = str1)
-			{
-				fixed (char* pstr2 = str2)
-				{
-					int ret = WcsncasecmpNative((char*)pstr1, (char*)pstr2, len);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_wcsncasecmp")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Wcsncasecmp([NativeName(NativeNameType.Param, "str1")] [NativeName(NativeNameType.Type, "const wchar*")] string str1, [NativeName(NativeNameType.Param, "str2")] [NativeName(NativeNameType.Type, "const wchar*")] string str2, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "size_t")] nuint len)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (str2 != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(str2, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			int ret = WcsncasecmpNative(pStr0, pStr1, len);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong StrlenNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		internal static nuint StrlenNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, ulong>)funcTable[43])(str);
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint>)funcTable[43])(str);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[43])((nint)str);
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint>)funcTable[43])((nint)str);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		public static nuint Strlen(byte* str)
 		{
-			ulong ret = StrlenNative(str);
+			nuint ret = StrlenNative(str);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ref byte str)
+		public static nuint Strlen(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
-				ulong ret = StrlenNative((byte*)pstr);
+				nuint ret = StrlenNative((byte*)pstr);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> str)
+		public static nuint Strlen(ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
-				ulong ret = StrlenNative((byte*)pstr);
+				nuint ret = StrlenNative((byte*)pstr);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlen")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlen([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] string str)
+		public static nuint Strlen(string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3756,7 +2511,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			ulong ret = StrlenNative(pStr0);
+			nuint ret = StrlenNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -3764,40 +2519,32 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong StrlcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static nuint StrlcpyNative(byte* dst, byte* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, ulong, ulong>)funcTable[44])(dst, src, maxlen);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[44])(dst, src, maxlen);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong>)funcTable[44])((nint)dst, (nint)src, maxlen);
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[44])((nint)dst, (nint)src, maxlen);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(byte* dst, byte* src, nuint maxlen)
 		{
-			ulong ret = StrlcpyNative(dst, src, maxlen);
+			nuint ret = StrlcpyNative(dst, src, maxlen);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(ref byte dst, byte* src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
-				ulong ret = StrlcpyNative((byte*)pdst, src, maxlen);
+				nuint ret = StrlcpyNative((byte*)pdst, src, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(ref string dst, byte* src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3816,7 +2563,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			ulong ret = StrlcpyNative(pStr0, src, maxlen);
+			nuint ret = StrlcpyNative(pStr0, src, maxlen);
 			dst = Utils.DecodeStringUTF8(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -3825,31 +2572,25 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(byte* dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* psrc = &src)
 			{
-				ulong ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
+				nuint ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(byte* dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* psrc = src)
 			{
-				ulong ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
+				nuint ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(byte* dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3868,7 +2609,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			ulong ret = StrlcpyNative(dst, pStr0, maxlen);
+			nuint ret = StrlcpyNative(dst, pStr0, maxlen);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -3876,37 +2617,31 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(ref byte dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = &src)
 				{
-					ulong ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
+					nuint ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(ref byte dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = src)
 				{
-					ulong ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
+					nuint ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcpy(ref string dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -3942,7 +2677,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			ulong ret = StrlcpyNative(pStr0, pStr1, maxlen);
+			nuint ret = StrlcpyNative(pStr0, pStr1, maxlen);
 			dst = Utils.DecodeStringUTF8(pStr0);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
@@ -3955,219 +2690,32 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			ulong ret = StrlcpyNative(dst, src, maxlen);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				ulong ret = StrlcpyNative((byte*)pdst, src, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ulong ret = StrlcpyNative(pStr0, src, maxlen);
-			dst = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* psrc = &src)
-			{
-				ulong ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* psrc = src)
-			{
-				ulong ret = StrlcpyNative(dst, (byte*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (src != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(src);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ulong ret = StrlcpyNative(dst, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					ulong ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = src)
-				{
-					ulong ret = StrlcpyNative((byte*)pdst, (byte*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (src != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(src);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			ulong ret = StrlcpyNative(pStr0, pStr1, maxlen);
-			dst = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong Utf8StrlcpyNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		internal static nuint Utf8StrlcpyNative(byte* dst, byte* src, nuint dstBytes)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, ulong, ulong>)funcTable[45])(dst, src, dstBytes);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[45])(dst, src, dstBytes);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong>)funcTable[45])((nint)dst, (nint)src, dstBytes);
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[45])((nint)dst, (nint)src, dstBytes);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, byte* src, nuint dstBytes)
 		{
-			ulong ret = Utf8StrlcpyNative(dst, src, dstBytes);
+			nuint ret = Utf8StrlcpyNative(dst, src, dstBytes);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(ref byte dst, byte* src, nuint dstBytes)
 		{
 			fixed (byte* pdst = &dst)
 			{
-				ulong ret = Utf8StrlcpyNative((byte*)pdst, src, dstBytes);
+				nuint ret = Utf8StrlcpyNative((byte*)pdst, src, dstBytes);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(ref string dst, byte* src, nuint dstBytes)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4186,7 +2734,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			ulong ret = Utf8StrlcpyNative(pStr0, src, dstBytes);
+			nuint ret = Utf8StrlcpyNative(pStr0, src, dstBytes);
 			dst = Utils.DecodeStringUTF8(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -4195,31 +2743,25 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, ref byte src, nuint dstBytes)
 		{
 			fixed (byte* psrc = &src)
 			{
-				ulong ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
+				nuint ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, ReadOnlySpan<byte> src, nuint dstBytes)
 		{
 			fixed (byte* psrc = src)
 			{
-				ulong ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
+				nuint ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(byte* dst, string src, nuint dstBytes)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4238,7 +2780,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			ulong ret = Utf8StrlcpyNative(dst, pStr0, dstBytes);
+			nuint ret = Utf8StrlcpyNative(dst, pStr0, dstBytes);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4246,37 +2788,31 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(ref byte dst, ref byte src, nuint dstBytes)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = &src)
 				{
-					ulong ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
+					nuint ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(ref byte dst, ReadOnlySpan<byte> src, nuint dstBytes)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = src)
 				{
-					ulong ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
+					nuint ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] ulong dstBytes)
+		public static nuint Utf8Strlcpy(ref string dst, string src, nuint dstBytes)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4312,7 +2848,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			ulong ret = Utf8StrlcpyNative(pStr0, pStr1, dstBytes);
+			nuint ret = Utf8StrlcpyNative(pStr0, pStr1, dstBytes);
 			dst = Utils.DecodeStringUTF8(pStr0);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
@@ -4325,219 +2861,32 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			ulong ret = Utf8StrlcpyNative(dst, src, dstBytes);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				ulong ret = Utf8StrlcpyNative((byte*)pdst, src, dstBytes);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ulong ret = Utf8StrlcpyNative(pStr0, src, dstBytes);
-			dst = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			fixed (byte* psrc = &src)
-			{
-				ulong ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			fixed (byte* psrc = src)
-			{
-				ulong ret = Utf8StrlcpyNative(dst, (byte*)psrc, dstBytes);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (src != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(src);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ulong ret = Utf8StrlcpyNative(dst, pStr0, dstBytes);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					ulong ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = src)
-				{
-					ulong ret = Utf8StrlcpyNative((byte*)pdst, (byte*)psrc, dstBytes);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_utf8strlcpy")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Utf8Strlcpy([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "dst_bytes")] [NativeName(NativeNameType.Type, "size_t")] nuint dstBytes)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (src != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(src);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			ulong ret = Utf8StrlcpyNative(pStr0, pStr1, dstBytes);
-			dst = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong StrlcatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static nuint StrlcatNative(byte* dst, byte* src, nuint maxlen)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, ulong, ulong>)funcTable[46])(dst, src, maxlen);
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, nuint, nuint>)funcTable[46])(dst, src, maxlen);
 			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, nint, ulong, ulong>)funcTable[46])((nint)dst, (nint)src, maxlen);
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nint, nuint, nuint>)funcTable[46])((nint)dst, (nint)src, maxlen);
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(byte* dst, byte* src, nuint maxlen)
 		{
-			ulong ret = StrlcatNative(dst, src, maxlen);
+			nuint ret = StrlcatNative(dst, src, maxlen);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(ref byte dst, byte* src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
-				ulong ret = StrlcatNative((byte*)pdst, src, maxlen);
+				nuint ret = StrlcatNative((byte*)pdst, src, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(ref string dst, byte* src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4556,7 +2905,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			ulong ret = StrlcatNative(pStr0, src, maxlen);
+			nuint ret = StrlcatNative(pStr0, src, maxlen);
 			dst = Utils.DecodeStringUTF8(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
@@ -4565,31 +2914,25 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(byte* dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* psrc = &src)
 			{
-				ulong ret = StrlcatNative(dst, (byte*)psrc, maxlen);
+				nuint ret = StrlcatNative(dst, (byte*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(byte* dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* psrc = src)
 			{
-				ulong ret = StrlcatNative(dst, (byte*)psrc, maxlen);
+				nuint ret = StrlcatNative(dst, (byte*)psrc, maxlen);
 				return ret;
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(byte* dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4608,7 +2951,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			ulong ret = StrlcatNative(dst, pStr0, maxlen);
+			nuint ret = StrlcatNative(dst, pStr0, maxlen);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
@@ -4616,37 +2959,31 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(ref byte dst, ref byte src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = &src)
 				{
-					ulong ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
+					nuint ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(ref byte dst, ReadOnlySpan<byte> src, nuint maxlen)
 		{
 			fixed (byte* pdst = &dst)
 			{
 				fixed (byte* psrc = src)
 				{
-					ulong ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
+					nuint ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
 					return ret;
 				}
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static nuint Strlcat(ref string dst, string src, nuint maxlen)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4682,7 +3019,7 @@ namespace Hexa.NET.SDL2
 				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			ulong ret = StrlcatNative(pStr0, pStr1, maxlen);
+			nuint ret = StrlcatNative(pStr0, pStr1, maxlen);
 			dst = Utils.DecodeStringUTF8(pStr0);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
@@ -4695,189 +3032,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			ulong ret = StrlcatNative(dst, src, maxlen);
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				ulong ret = StrlcatNative((byte*)pdst, src, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] byte* src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ulong ret = StrlcatNative(pStr0, src, maxlen);
-			dst = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* psrc = &src)
-			{
-				ulong ret = StrlcatNative(dst, (byte*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* psrc = src)
-			{
-				ulong ret = StrlcatNative(dst, (byte*)psrc, maxlen);
-				return ret;
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (src != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(src);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(src, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			ulong ret = StrlcatNative(dst, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ref byte src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					ulong ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = src)
-				{
-					ulong ret = StrlcatNative((byte*)pdst, (byte*)psrc, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strlcat")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong Strlcat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "char*")] ref string dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const char*")] string src, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (dst != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(dst);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(dst, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (src != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(src);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(src, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			ulong ret = StrlcatNative(pStr0, pStr1, maxlen);
-			dst = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrdupNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		internal static byte* StrdupNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[47])(str);
@@ -4886,25 +3042,19 @@ namespace Hexa.NET.SDL2
 			#endif
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		public static byte* Strdup(byte* str)
 		{
 			byte* ret = StrdupNative(str);
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] byte* str)
+		public static string StrdupS(byte* str)
 		{
 			string ret = Utils.DecodeStringUTF8(StrdupNative(str));
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ref byte str)
+		public static byte* Strdup(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4913,9 +3063,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ref byte str)
+		public static string StrdupS(ref byte str)
 		{
 			fixed (byte* pstr = &str)
 			{
@@ -4924,9 +3072,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> str)
+		public static byte* Strdup(ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -4935,9 +3081,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> str)
+		public static string StrdupS(ReadOnlySpan<byte> str)
 		{
 			fixed (byte* pstr = str)
 			{
@@ -4946,9 +3090,7 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* Strdup([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] string str)
+		public static byte* Strdup(string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -4975,9 +3117,7 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strdup")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string StrdupS([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "const char*")] string str)
+		public static string StrdupS(string str)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -5004,16 +3144,1916 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
-		[NativeName(NativeNameType.Func, "SDL_strrev")]
-		[return: NativeName(NativeNameType.Type, "char*")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* StrrevNative([NativeName(NativeNameType.Param, "str")] [NativeName(NativeNameType.Type, "char*")] byte* str)
+		internal static byte* StrrevNative(byte* str)
 		{
 			#if NET5_0_OR_GREATER
 			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[48])(str);
 			#else
 			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[48])((nint)str);
 			#endif
+		}
+
+		public static byte* Strrev(byte* str)
+		{
+			byte* ret = StrrevNative(str);
+			return ret;
+		}
+
+		public static string StrrevS(byte* str)
+		{
+			string ret = Utils.DecodeStringUTF8(StrrevNative(str));
+			return ret;
+		}
+
+		public static byte* Strrev(ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrrevNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		public static string StrrevS(ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrevNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		public static byte* Strrev(ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrrevNative(pStr0);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrrevS(ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrrevNative(pStr0));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StruprNative(byte* str)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[49])(str);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[49])((nint)str);
+			#endif
+		}
+
+		public static byte* Strupr(byte* str)
+		{
+			byte* ret = StruprNative(str);
+			return ret;
+		}
+
+		public static string StruprS(byte* str)
+		{
+			string ret = Utils.DecodeStringUTF8(StruprNative(str));
+			return ret;
+		}
+
+		public static byte* Strupr(ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StruprNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		public static string StruprS(ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StruprNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		public static byte* Strupr(ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StruprNative(pStr0);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StruprS(ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StruprNative(pStr0));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrlwrNative(byte* str)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[50])(str);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[50])((nint)str);
+			#endif
+		}
+
+		public static byte* Strlwr(byte* str)
+		{
+			byte* ret = StrlwrNative(str);
+			return ret;
+		}
+
+		public static string StrlwrS(byte* str)
+		{
+			string ret = Utils.DecodeStringUTF8(StrlwrNative(str));
+			return ret;
+		}
+
+		public static byte* Strlwr(ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrlwrNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		public static string StrlwrS(ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrlwrNative((byte*)pstr));
+				return ret;
+			}
+		}
+
+		public static byte* Strlwr(ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrlwrNative(pStr0);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrlwrS(ref string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrlwrNative(pStr0));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrchrNative(byte* str, int c)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[51])(str, c);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[51])((nint)str, c);
+			#endif
+		}
+
+		public static byte* Strchr(byte* str, int c)
+		{
+			byte* ret = StrchrNative(str, c);
+			return ret;
+		}
+
+		public static string StrchrS(byte* str, int c)
+		{
+			string ret = Utils.DecodeStringUTF8(StrchrNative(str, c));
+			return ret;
+		}
+
+		public static byte* Strchr(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		public static string StrchrS(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		public static byte* Strchr(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		public static string StrchrS(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		public static byte* Strchr(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrchrNative(pStr0, c);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrchrS(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrchrNative(pStr0, c));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrrchrNative(byte* str, int c)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int, byte*>)funcTable[52])(str, c);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[52])((nint)str, c);
+			#endif
+		}
+
+		public static byte* Strrchr(byte* str, int c)
+		{
+			byte* ret = StrrchrNative(str, c);
+			return ret;
+		}
+
+		public static string StrrchrS(byte* str, int c)
+		{
+			string ret = Utils.DecodeStringUTF8(StrrchrNative(str, c));
+			return ret;
+		}
+
+		public static byte* Strrchr(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = StrrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		public static string StrrchrS(ref byte str, int c)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		public static byte* Strrchr(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				byte* ret = StrrchrNative((byte*)pstr, c);
+				return ret;
+			}
+		}
+
+		public static string StrrchrS(ReadOnlySpan<byte> str, int c)
+		{
+			fixed (byte* pstr = str)
+			{
+				string ret = Utils.DecodeStringUTF8(StrrchrNative((byte*)pstr, c));
+				return ret;
+			}
+		}
+
+		public static byte* Strrchr(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrrchrNative(pStr0, c);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrrchrS(string str, int c)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrrchrNative(pStr0, c));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrstrNative(byte* haystack, byte* needle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[53])(haystack, needle);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[53])((nint)haystack, (nint)needle);
+			#endif
+		}
+
+		public static byte* Strstr(byte* haystack, byte* needle)
+		{
+			byte* ret = StrstrNative(haystack, needle);
+			return ret;
+		}
+
+		public static string StrstrS(byte* haystack, byte* needle)
+		{
+			string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, needle));
+			return ret;
+		}
+
+		public static byte* Strstr(ref byte haystack, byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				byte* ret = StrstrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		public static string StrstrS(ref byte haystack, byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		public static byte* Strstr(ReadOnlySpan<byte> haystack, byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				byte* ret = StrstrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		public static string StrstrS(ReadOnlySpan<byte> haystack, byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		public static byte* Strstr(string haystack, byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrstrNative(pStr0, needle);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrstrS(string haystack, byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrstrNative(pStr0, needle));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static byte* Strstr(byte* haystack, ref byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				byte* ret = StrstrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		public static string StrstrS(byte* haystack, ref byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		public static byte* Strstr(byte* haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				byte* ret = StrstrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		public static string StrstrS(byte* haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		public static byte* Strstr(byte* haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (needle != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(needle, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrstrNative(haystack, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrstrS(byte* haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (needle != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(needle, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrstrNative(haystack, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static byte* Strstr(ref byte haystack, ref byte needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				fixed (byte* pneedle = &needle)
+				{
+					byte* ret = StrstrNative((byte*)phaystack, (byte*)pneedle);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrstrS(ref byte haystack, ref byte needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				fixed (byte* pneedle = &needle)
+				{
+					string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, (byte*)pneedle));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strstr(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				fixed (byte* pneedle = needle)
+				{
+					byte* ret = StrstrNative((byte*)phaystack, (byte*)pneedle);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrstrS(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				fixed (byte* pneedle = needle)
+				{
+					string ret = Utils.DecodeStringUTF8(StrstrNative((byte*)phaystack, (byte*)pneedle));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strstr(string haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (needle != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(needle, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = StrstrNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrstrS(string haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (needle != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(needle, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrstrNative(pStr0, pStr1));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrcasestrNative(byte* haystack, byte* needle)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[54])(haystack, needle);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[54])((nint)haystack, (nint)needle);
+			#endif
+		}
+
+		public static byte* Strcasestr(byte* haystack, byte* needle)
+		{
+			byte* ret = StrcasestrNative(haystack, needle);
+			return ret;
+		}
+
+		public static string StrcasestrS(byte* haystack, byte* needle)
+		{
+			string ret = Utils.DecodeStringUTF8(StrcasestrNative(haystack, needle));
+			return ret;
+		}
+
+		public static byte* Strcasestr(ref byte haystack, byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				byte* ret = StrcasestrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		public static string StrcasestrS(ref byte haystack, byte* needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrcasestrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		public static byte* Strcasestr(ReadOnlySpan<byte> haystack, byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				byte* ret = StrcasestrNative((byte*)phaystack, needle);
+				return ret;
+			}
+		}
+
+		public static string StrcasestrS(ReadOnlySpan<byte> haystack, byte* needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				string ret = Utils.DecodeStringUTF8(StrcasestrNative((byte*)phaystack, needle));
+				return ret;
+			}
+		}
+
+		public static byte* Strcasestr(string haystack, byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrcasestrNative(pStr0, needle);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrcasestrS(string haystack, byte* needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrcasestrNative(pStr0, needle));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static byte* Strcasestr(byte* haystack, ref byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				byte* ret = StrcasestrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		public static string StrcasestrS(byte* haystack, ref byte needle)
+		{
+			fixed (byte* pneedle = &needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrcasestrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		public static byte* Strcasestr(byte* haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				byte* ret = StrcasestrNative(haystack, (byte*)pneedle);
+				return ret;
+			}
+		}
+
+		public static string StrcasestrS(byte* haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* pneedle = needle)
+			{
+				string ret = Utils.DecodeStringUTF8(StrcasestrNative(haystack, (byte*)pneedle));
+				return ret;
+			}
+		}
+
+		public static byte* Strcasestr(byte* haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (needle != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(needle, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrcasestrNative(haystack, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrcasestrS(byte* haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (needle != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(needle, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrcasestrNative(haystack, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static byte* Strcasestr(ref byte haystack, ref byte needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				fixed (byte* pneedle = &needle)
+				{
+					byte* ret = StrcasestrNative((byte*)phaystack, (byte*)pneedle);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrcasestrS(ref byte haystack, ref byte needle)
+		{
+			fixed (byte* phaystack = &haystack)
+			{
+				fixed (byte* pneedle = &needle)
+				{
+					string ret = Utils.DecodeStringUTF8(StrcasestrNative((byte*)phaystack, (byte*)pneedle));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strcasestr(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				fixed (byte* pneedle = needle)
+				{
+					byte* ret = StrcasestrNative((byte*)phaystack, (byte*)pneedle);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrcasestrS(ReadOnlySpan<byte> haystack, ReadOnlySpan<byte> needle)
+		{
+			fixed (byte* phaystack = haystack)
+			{
+				fixed (byte* pneedle = needle)
+				{
+					string ret = Utils.DecodeStringUTF8(StrcasestrNative((byte*)phaystack, (byte*)pneedle));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strcasestr(string haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (needle != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(needle, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = StrcasestrNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrcasestrS(string haystack, string needle)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (haystack != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(haystack);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(haystack, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (needle != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(needle);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(needle, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrcasestrNative(pStr0, pStr1));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* StrtokrNative(byte* s1, byte* s2, byte** saveptr)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte**, byte*>)funcTable[55])(s1, s2, saveptr);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint>)funcTable[55])((nint)s1, (nint)s2, (nint)saveptr);
+			#endif
+		}
+
+		public static byte* Strtokr(byte* s1, byte* s2, byte** saveptr)
+		{
+			byte* ret = StrtokrNative(s1, s2, saveptr);
+			return ret;
+		}
+
+		public static string StrtokrS(byte* s1, byte* s2, byte** saveptr)
+		{
+			string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, s2, saveptr));
+			return ret;
+		}
+
+		public static byte* Strtokr(ref byte s1, byte* s2, byte** saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				byte* ret = StrtokrNative((byte*)ps1, s2, saveptr);
+				return ret;
+			}
+		}
+
+		public static string StrtokrS(ref byte s1, byte* s2, byte** saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				string ret = Utils.DecodeStringUTF8(StrtokrNative((byte*)ps1, s2, saveptr));
+				return ret;
+			}
+		}
+
+		public static byte* Strtokr(ref string s1, byte* s2, byte** saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrtokrNative(pStr0, s2, saveptr);
+			s1 = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrtokrS(ref string s1, byte* s2, byte** saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrtokrNative(pStr0, s2, saveptr));
+			s1 = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static byte* Strtokr(byte* s1, ref byte s2, byte** saveptr)
+		{
+			fixed (byte* ps2 = &s2)
+			{
+				byte* ret = StrtokrNative(s1, (byte*)ps2, saveptr);
+				return ret;
+			}
+		}
+
+		public static string StrtokrS(byte* s1, ref byte s2, byte** saveptr)
+		{
+			fixed (byte* ps2 = &s2)
+			{
+				string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, (byte*)ps2, saveptr));
+				return ret;
+			}
+		}
+
+		public static byte* Strtokr(byte* s1, ReadOnlySpan<byte> s2, byte** saveptr)
+		{
+			fixed (byte* ps2 = s2)
+			{
+				byte* ret = StrtokrNative(s1, (byte*)ps2, saveptr);
+				return ret;
+			}
+		}
+
+		public static string StrtokrS(byte* s1, ReadOnlySpan<byte> s2, byte** saveptr)
+		{
+			fixed (byte* ps2 = s2)
+			{
+				string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, (byte*)ps2, saveptr));
+				return ret;
+			}
+		}
+
+		public static byte* Strtokr(byte* s1, string s2, byte** saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s2 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s2, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = StrtokrNative(s1, pStr0, saveptr);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrtokrS(byte* s1, string s2, byte** saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s2 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s2, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, pStr0, saveptr));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static byte* Strtokr(ref byte s1, ref byte s2, byte** saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = &s2)
+				{
+					byte* ret = StrtokrNative((byte*)ps1, (byte*)ps2, saveptr);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrtokrS(ref byte s1, ref byte s2, byte** saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = &s2)
+				{
+					string ret = Utils.DecodeStringUTF8(StrtokrNative((byte*)ps1, (byte*)ps2, saveptr));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strtokr(ref byte s1, ReadOnlySpan<byte> s2, byte** saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = s2)
+				{
+					byte* ret = StrtokrNative((byte*)ps1, (byte*)ps2, saveptr);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrtokrS(ref byte s1, ReadOnlySpan<byte> s2, byte** saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = s2)
+				{
+					string ret = Utils.DecodeStringUTF8(StrtokrNative((byte*)ps1, (byte*)ps2, saveptr));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strtokr(ref string s1, string s2, byte** saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (s2 != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(s2, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = StrtokrNative(pStr0, pStr1, saveptr);
+			s1 = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string StrtokrS(ref string s1, string s2, byte** saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (s2 != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(s2, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(StrtokrNative(pStr0, pStr1, saveptr));
+			s1 = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static byte* Strtokr(byte* s1, byte* s2, ref byte* saveptr)
+		{
+			fixed (byte** psaveptr = &saveptr)
+			{
+				byte* ret = StrtokrNative(s1, s2, (byte**)psaveptr);
+				return ret;
+			}
+		}
+
+		public static string StrtokrS(byte* s1, byte* s2, ref byte* saveptr)
+		{
+			fixed (byte** psaveptr = &saveptr)
+			{
+				string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, s2, (byte**)psaveptr));
+				return ret;
+			}
+		}
+
+		public static byte* Strtokr(ref byte s1, byte* s2, ref byte* saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte** psaveptr = &saveptr)
+				{
+					byte* ret = StrtokrNative((byte*)ps1, s2, (byte**)psaveptr);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrtokrS(ref byte s1, byte* s2, ref byte* saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte** psaveptr = &saveptr)
+				{
+					string ret = Utils.DecodeStringUTF8(StrtokrNative((byte*)ps1, s2, (byte**)psaveptr));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strtokr(ref string s1, byte* s2, ref byte* saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** psaveptr = &saveptr)
+			{
+				byte* ret = StrtokrNative(pStr0, s2, (byte**)psaveptr);
+				s1 = Utils.DecodeStringUTF8(pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		public static string StrtokrS(ref string s1, byte* s2, ref byte* saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** psaveptr = &saveptr)
+			{
+				string ret = Utils.DecodeStringUTF8(StrtokrNative(pStr0, s2, (byte**)psaveptr));
+				s1 = Utils.DecodeStringUTF8(pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		public static byte* Strtokr(byte* s1, ref byte s2, ref byte* saveptr)
+		{
+			fixed (byte* ps2 = &s2)
+			{
+				fixed (byte** psaveptr = &saveptr)
+				{
+					byte* ret = StrtokrNative(s1, (byte*)ps2, (byte**)psaveptr);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrtokrS(byte* s1, ref byte s2, ref byte* saveptr)
+		{
+			fixed (byte* ps2 = &s2)
+			{
+				fixed (byte** psaveptr = &saveptr)
+				{
+					string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, (byte*)ps2, (byte**)psaveptr));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strtokr(byte* s1, ReadOnlySpan<byte> s2, ref byte* saveptr)
+		{
+			fixed (byte* ps2 = s2)
+			{
+				fixed (byte** psaveptr = &saveptr)
+				{
+					byte* ret = StrtokrNative(s1, (byte*)ps2, (byte**)psaveptr);
+					return ret;
+				}
+			}
+		}
+
+		public static string StrtokrS(byte* s1, ReadOnlySpan<byte> s2, ref byte* saveptr)
+		{
+			fixed (byte* ps2 = s2)
+			{
+				fixed (byte** psaveptr = &saveptr)
+				{
+					string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, (byte*)ps2, (byte**)psaveptr));
+					return ret;
+				}
+			}
+		}
+
+		public static byte* Strtokr(byte* s1, string s2, ref byte* saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s2 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s2, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** psaveptr = &saveptr)
+			{
+				byte* ret = StrtokrNative(s1, pStr0, (byte**)psaveptr);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		public static string StrtokrS(byte* s1, string s2, ref byte* saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s2 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s2, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (byte** psaveptr = &saveptr)
+			{
+				string ret = Utils.DecodeStringUTF8(StrtokrNative(s1, pStr0, (byte**)psaveptr));
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		public static byte* Strtokr(ref byte s1, ref byte s2, ref byte* saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = &s2)
+				{
+					fixed (byte** psaveptr = &saveptr)
+					{
+						byte* ret = StrtokrNative((byte*)ps1, (byte*)ps2, (byte**)psaveptr);
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static string StrtokrS(ref byte s1, ref byte s2, ref byte* saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = &s2)
+				{
+					fixed (byte** psaveptr = &saveptr)
+					{
+						string ret = Utils.DecodeStringUTF8(StrtokrNative((byte*)ps1, (byte*)ps2, (byte**)psaveptr));
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static byte* Strtokr(ref byte s1, ReadOnlySpan<byte> s2, ref byte* saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = s2)
+				{
+					fixed (byte** psaveptr = &saveptr)
+					{
+						byte* ret = StrtokrNative((byte*)ps1, (byte*)ps2, (byte**)psaveptr);
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static string StrtokrS(ref byte s1, ReadOnlySpan<byte> s2, ref byte* saveptr)
+		{
+			fixed (byte* ps1 = &s1)
+			{
+				fixed (byte* ps2 = s2)
+				{
+					fixed (byte** psaveptr = &saveptr)
+					{
+						string ret = Utils.DecodeStringUTF8(StrtokrNative((byte*)ps1, (byte*)ps2, (byte**)psaveptr));
+						return ret;
+					}
+				}
+			}
+		}
+
+		public static byte* Strtokr(ref string s1, string s2, ref byte* saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (s2 != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(s2, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			fixed (byte** psaveptr = &saveptr)
+			{
+				byte* ret = StrtokrNative(pStr0, pStr1, (byte**)psaveptr);
+				s1 = Utils.DecodeStringUTF8(pStr0);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		public static string StrtokrS(ref string s1, string s2, ref byte* saveptr)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (s1 != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(s1);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(s1, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (s2 != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(s2);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(s2, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			fixed (byte** psaveptr = &saveptr)
+			{
+				string ret = Utils.DecodeStringUTF8(StrtokrNative(pStr0, pStr1, (byte**)psaveptr));
+				s1 = Utils.DecodeStringUTF8(pStr0);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
 		}
 	}
 }

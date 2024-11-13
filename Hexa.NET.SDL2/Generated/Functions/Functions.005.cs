@@ -18,156 +18,24 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, int* y2)
 		{
-			fixed (byte** paudioBuf = &audioBuf)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* paudioLen = &audioLen)
+				fixed (int* py1 = &y1)
 				{
-					SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] SDLAudioSpec* spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				fixed (byte** paudioBuf = &audioBuf)
-				{
-					fixed (uint* paudioLen = &audioLen)
+					fixed (int* px2 = &x2)
 					{
-						SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, spec, (byte**)paudioBuf, (uint*)paudioLen);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
 						return ret;
 					}
 				}
@@ -175,79 +43,24 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] SDLRWops* src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, int* y2)
 		{
-			fixed (SDLAudioSpec* pspec = &spec)
+			fixed (int* px1 = &x1)
 			{
-				fixed (byte** paudioBuf = &audioBuf)
+				fixed (int* py1 = &y1)
 				{
-					fixed (uint* paudioLen = &audioLen)
+					fixed (int* px2 = &x2)
 					{
-						SDLAudioSpec* ret = LoadWAVRWNative(src, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, y2);
 						return ret;
 					}
 				}
@@ -255,81 +68,26 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Load the audio data of a WAVE file into memory.<br/>
-		/// Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len` to<br/>
-		/// be valid pointers. The entire data portion of the file is then loaded into<br/>
-		/// memory and decoded if necessary.<br/>
-		/// If `freesrc` is non-zero, the data source gets automatically closed and<br/>
-		/// freed before the function returns.<br/>
-		/// Supported formats are RIFF WAVE files with the formats PCM (8, 16, 24, and<br/>
-		/// 32 bits), IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and<br/>
-		/// A-law and mu-law (8 bits). Other formats are currently unsupported and<br/>
-		/// cause an error.<br/>
-		/// If this function succeeds, the pointer returned by it is equal to `spec`<br/>
-		/// and the pointer to the audio data allocated by the function is written to<br/>
-		/// `audio_buf` and its length in bytes to `audio_len`. The SDL_AudioSpec<br/>
-		/// members `freq`, `channels`, and `format` are set to the values of the audio<br/>
-		/// data in the buffer. The `samples` member is set to a sane default and all<br/>
-		/// others are set to zero.<br/>
-		/// It's necessary to use SDL_FreeWAV() to free the audio data returned in<br/>
-		/// `audio_buf` when it is no longer used.<br/>
-		/// Because of the underspecification of the .WAV format, there are many<br/>
-		/// problematic files in the wild that cause issues with strict decoders. To<br/>
-		/// provide compatibility with these files, this decoder is lenient in regards<br/>
-		/// to the truncation of the file, the fact chunk, and the size of the RIFF<br/>
-		/// chunk. The hints `SDL_HINT_WAVE_RIFF_CHUNK_SIZE`,<br/>
-		/// `SDL_HINT_WAVE_TRUNCATION`, and `SDL_HINT_WAVE_FACT_CHUNK` can be used to<br/>
-		/// tune the behavior of the loading process.<br/>
-		/// Any file that is invalid (due to truncation, corruption, or wrong values in<br/>
-		/// the headers), too big, or unsupported causes an error. Additionally, any<br/>
-		/// critical I/O error from the data source will terminate the loading process<br/>
-		/// with an error. The function returns NULL on error and in all cases (with<br/>
-		/// the exception of `src` being NULL), an appropriate error message will be<br/>
-		/// set.<br/>
-		/// It is required that the data source supports seeking.<br/>
-		/// Example:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// Note that the SDL_LoadWAV macro does this same thing for you, but in a less<br/>
-		/// messy way:<br/>
-		/// ```c<br/>
-		/// SDL_LoadWAV("sample.wav", <br/>
-		/// &spec<br/>
-		/// , <br/>
-		/// &buf<br/>
-		/// , <br/>
-		/// &len<br/>
-		/// );<br/>
-		/// ```<br/>
-		/// <br/>
-		/// This function returns NULL if the .WAV file cannot be opened, uses<br/>
-		/// an unknown data format, or is corrupt; call SDL_GetError() for<br/>
-		/// more information.<br/>
-		/// When the application is done with the data returned in<br/>
-		/// `audio_buf`, it should call SDL_FreeWAV() to dispose of it.<br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LoadWAV_RW")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioSpec*")]
-		public static SDLAudioSpec* LoadWAVRW([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_RWops*")] ref SDLRWops src, [NativeName(NativeNameType.Param, "freesrc")] [NativeName(NativeNameType.Type, "int")] int freesrc, [NativeName(NativeNameType.Param, "spec")] [NativeName(NativeNameType.Type, "SDL_AudioSpec*")] ref SDLAudioSpec spec, [NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8**")] ref byte* audioBuf, [NativeName(NativeNameType.Param, "audio_len")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint audioLen)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, int* y2)
 		{
-			fixed (SDLRWops* psrc = &src)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (SDLAudioSpec* pspec = &spec)
+				fixed (int* px1 = &x1)
 				{
-					fixed (byte** paudioBuf = &audioBuf)
+					fixed (int* py1 = &y1)
 					{
-						fixed (uint* paudioLen = &audioLen)
+						fixed (int* px2 = &x2)
 						{
-							SDLAudioSpec* ret = LoadWAVRWNative((SDLRWops*)psrc, freesrc, (SDLAudioSpec*)pspec, (byte**)paudioBuf, (uint*)paudioLen);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
 							return ret;
 						}
 					}
@@ -338,2876 +96,87 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
-		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
-		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
-		/// this function with a NULL pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeWAV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeWAVNative([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] byte* audioBuf)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[228])(audioBuf);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[228])((nint)audioBuf);
-			#endif
-		}
-
-		/// <summary>
-		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
-		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
-		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
-		/// this function with a NULL pointer.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeWAV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreeWAV([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] byte* audioBuf)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, int* x2, ref int y2)
 		{
-			FreeWAVNative(audioBuf);
-		}
-
-		/// <summary>
-		/// Free data previously allocated with SDL_LoadWAV() or SDL_LoadWAV_RW().<br/>
-		/// After a WAVE file has been opened with SDL_LoadWAV() or SDL_LoadWAV_RW()<br/>
-		/// its data can eventually be freed with SDL_FreeWAV(). It is safe to call<br/>
-		/// this function with a NULL pointer.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeWAV")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreeWAV([NativeName(NativeNameType.Param, "audio_buf")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte audioBuf)
-		{
-			fixed (byte* paudioBuf = &audioBuf)
+			fixed (int* py2 = &y2)
 			{
-				FreeWAVNative((byte*)paudioBuf);
-			}
-		}
-
-		/// <summary>
-		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
-		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
-		/// be initialized with source and destination information.<br/>
-		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
-		/// called before the application fills in the final buffer information.<br/>
-		/// Once this function has returned successfully, and reported that a<br/>
-		/// conversion is necessary, the application fills in the rest of the fields in<br/>
-		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
-		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BuildAudioCVT")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int BuildAudioCVTNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, ushort, byte, int, ushort, byte, int, int>)funcTable[229])(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, ushort, byte, int, ushort, byte, int, int>)funcTable[229])((nint)cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
-		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
-		/// be initialized with source and destination information.<br/>
-		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
-		/// called before the application fills in the final buffer information.<br/>
-		/// Once this function has returned successfully, and reported that a<br/>
-		/// conversion is necessary, the application fills in the rest of the fields in<br/>
-		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
-		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BuildAudioCVT")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int BuildAudioCVT([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
-		{
-			int ret = BuildAudioCVTNative(cvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize an SDL_AudioCVT structure for conversion.<br/>
-		/// Before an SDL_AudioCVT structure can be used to convert audio data it must<br/>
-		/// be initialized with source and destination information.<br/>
-		/// This function will zero out every field of the SDL_AudioCVT, so it must be<br/>
-		/// called before the application fills in the final buffer information.<br/>
-		/// Once this function has returned successfully, and reported that a<br/>
-		/// conversion is necessary, the application fills in the rest of the fields in<br/>
-		/// SDL_AudioCVT, now that it knows how large a buffer it needs to allocate,<br/>
-		/// and then can call SDL_ConvertAudio() to complete the conversion.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BuildAudioCVT")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int BuildAudioCVT([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] ref SDLAudioCVT cvt, [NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "int")] int dstRate)
-		{
-			fixed (SDLAudioCVT* pcvt = &cvt)
-			{
-				int ret = BuildAudioCVTNative((SDLAudioCVT*)pcvt, srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
+				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, (int*)py2);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Convert audio data to a desired audio format.<br/>
-		/// This function does the actual audio data conversion, after the application<br/>
-		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
-		/// then filled in the buffer details.<br/>
-		/// Once the application has initialized the `cvt` structure using<br/>
-		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
-		/// data in the source format, this function will convert the buffer, in-place,<br/>
-		/// to the desired format.<br/>
-		/// The data conversion may go through several passes; any given pass may<br/>
-		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
-		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
-		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
-		/// buffer will be both the source and destination, converting as necessary<br/>
-		/// in-place, the application must allocate a buffer that will fully contain<br/>
-		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
-		/// returns, the application should set the `cvt->len` field to the size, in<br/>
-		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
-		/// cvt->len_mult` bytes long for the `buf` field.<br/>
-		/// The source data should be copied into this buffer before the call to<br/>
-		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
-		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
-		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
-		/// this function returns.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ConvertAudioNative([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, int* x2, ref int y2)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioCVT*, int>)funcTable[230])(cvt);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[230])((nint)cvt);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert audio data to a desired audio format.<br/>
-		/// This function does the actual audio data conversion, after the application<br/>
-		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
-		/// then filled in the buffer details.<br/>
-		/// Once the application has initialized the `cvt` structure using<br/>
-		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
-		/// data in the source format, this function will convert the buffer, in-place,<br/>
-		/// to the desired format.<br/>
-		/// The data conversion may go through several passes; any given pass may<br/>
-		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
-		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
-		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
-		/// buffer will be both the source and destination, converting as necessary<br/>
-		/// in-place, the application must allocate a buffer that will fully contain<br/>
-		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
-		/// returns, the application should set the `cvt->len` field to the size, in<br/>
-		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
-		/// cvt->len_mult` bytes long for the `buf` field.<br/>
-		/// The source data should be copied into this buffer before the call to<br/>
-		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
-		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
-		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
-		/// this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ConvertAudio([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] SDLAudioCVT* cvt)
-		{
-			int ret = ConvertAudioNative(cvt);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert audio data to a desired audio format.<br/>
-		/// This function does the actual audio data conversion, after the application<br/>
-		/// has called SDL_BuildAudioCVT() to prepare the conversion information and<br/>
-		/// then filled in the buffer details.<br/>
-		/// Once the application has initialized the `cvt` structure using<br/>
-		/// SDL_BuildAudioCVT(), allocated an audio buffer and filled it with audio<br/>
-		/// data in the source format, this function will convert the buffer, in-place,<br/>
-		/// to the desired format.<br/>
-		/// The data conversion may go through several passes; any given pass may<br/>
-		/// possibly temporarily increase the size of the data. For example, SDL might<br/>
-		/// expand 16-bit data to 32 bits before resampling to a lower frequency,<br/>
-		/// shrinking the data size after having grown it briefly. Since the supplied<br/>
-		/// buffer will be both the source and destination, converting as necessary<br/>
-		/// in-place, the application must allocate a buffer that will fully contain<br/>
-		/// the data during its largest conversion pass. After SDL_BuildAudioCVT()<br/>
-		/// returns, the application should set the `cvt->len` field to the size, in<br/>
-		/// bytes, of the source data, and allocate a buffer that is `cvt->len *<br/>
-		/// cvt->len_mult` bytes long for the `buf` field.<br/>
-		/// The source data should be copied into this buffer before the call to<br/>
-		/// SDL_ConvertAudio(). Upon successful return, this buffer will contain the<br/>
-		/// converted audio, and `cvt->len_cvt` will be the size of the converted data,<br/>
-		/// in bytes. Any bytes in the buffer past `cvt->len_cvt` are undefined once<br/>
-		/// this function returns.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ConvertAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ConvertAudio([NativeName(NativeNameType.Param, "cvt")] [NativeName(NativeNameType.Type, "SDL_AudioCVT*")] ref SDLAudioCVT cvt)
-		{
-			fixed (SDLAudioCVT* pcvt = &cvt)
+			fixed (SDLRect* prect = &rect)
 			{
-				int ret = ConvertAudioNative((SDLAudioCVT*)pcvt);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_NewAudioStream")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioStream*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLAudioStream* NewAudioStreamNative([NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "const int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "const int")] int dstRate)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, SDLAudioStream*>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#else
-			return (SDLAudioStream*)((delegate* unmanaged[Cdecl]<ushort, byte, int, ushort, byte, int, nint>)funcTable[231])(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new audio stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_NewAudioStream")]
-		[return: NativeName(NativeNameType.Type, "SDL_AudioStream*")]
-		public static SDLAudioStream* NewAudioStream([NativeName(NativeNameType.Param, "src_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort srcFormat, [NativeName(NativeNameType.Param, "src_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte srcChannels, [NativeName(NativeNameType.Param, "src_rate")] [NativeName(NativeNameType.Type, "const int")] int srcRate, [NativeName(NativeNameType.Param, "dst_format")] [NativeName(NativeNameType.Type, "const SDL_AudioFormat")] ushort dstFormat, [NativeName(NativeNameType.Param, "dst_channels")] [NativeName(NativeNameType.Type, "const Uint8")] byte dstChannels, [NativeName(NativeNameType.Param, "dst_rate")] [NativeName(NativeNameType.Type, "const int")] int dstRate)
-		{
-			SDLAudioStream* ret = NewAudioStreamNative(srcFormat, srcChannels, srcRate, dstFormat, dstChannels, dstRate);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add data to be converted/resampled to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamPut")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamPutNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[232])(stream, buf, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[232])((nint)stream, (nint)buf, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Add data to be converted/resampled to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamPut")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamPut([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
-		{
-			int ret = AudioStreamPutNative(stream, buf, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add data to be converted/resampled to the stream.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamPut")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamPut([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "const void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamPutNative((SDLAudioStream*)pstream, buf, len);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamGet")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamGetNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, void*, int, int>)funcTable[233])(stream, buf, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[233])((nint)stream, (nint)buf, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamGet")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamGet([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
-		{
-			int ret = AudioStreamGetNative(stream, buf, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get converted/resampled data from the stream<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamGet")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamGet([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "void*")] void* buf, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "int")] int len)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamGetNative((SDLAudioStream*)pstream, buf, len);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamAvailable")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamAvailableNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[234])(stream);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[234])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamAvailable")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			int ret = AudioStreamAvailableNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of converted/resampled bytes available.<br/>
-		/// The stream may be buffering data behind the scenes until it has enough to<br/>
-		/// resample correctly, so this number might be lower than what you expect, or<br/>
-		/// even be zero. Add more data or flush the stream if you need the data now.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamAvailable")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamAvailable([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamAvailableNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there will be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamFlush")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AudioStreamFlushNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLAudioStream*, int>)funcTable[235])(stream);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[235])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there will be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamFlush")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamFlush([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			int ret = AudioStreamFlushNative(stream);
-			return ret;
-		}
-
-		/// <summary>
-		/// Tell the stream that you're done sending data, and anything being buffered<br/>
-		/// should be converted/resampled and made available immediately.<br/>
-		/// It is legal to add more data to a stream after flushing, but there will be<br/>
-		/// audio gaps in the output. Generally this is intended to signal the end of<br/>
-		/// input, so the complete output becomes available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamFlush")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AudioStreamFlush([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				int ret = AudioStreamFlushNative((SDLAudioStream*)pstream);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream without converting it<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void AudioStreamClearNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[236])(stream);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[236])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream without converting it<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void AudioStreamClear([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			AudioStreamClearNative(stream);
-		}
-
-		/// <summary>
-		/// Clear any pending data in the stream without converting it<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AudioStreamClear")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void AudioStreamClear([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				AudioStreamClearNative((SDLAudioStream*)pstream);
-			}
-		}
-
-		/// <summary>
-		/// Free an audio stream<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeAudioStream")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeAudioStreamNative([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLAudioStream*, void>)funcTable[237])(stream);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[237])((nint)stream);
-			#endif
-		}
-
-		/// <summary>
-		/// Free an audio stream<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeAudioStream")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreeAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] SDLAudioStream* stream)
-		{
-			FreeAudioStreamNative(stream);
-		}
-
-		/// <summary>
-		/// Free an audio stream<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeAudioStream")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreeAudioStream([NativeName(NativeNameType.Param, "stream")] [NativeName(NativeNameType.Type, "SDL_AudioStream*")] ref SDLAudioStream stream)
-		{
-			fixed (SDLAudioStream* pstream = &stream)
-			{
-				FreeAudioStreamNative((SDLAudioStream*)pstream);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MixAudioNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int, void>)funcTable[238])(dst, src, len, volume);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, uint, int, void>)funcTable[238])((nint)dst, (nint)src, len, volume);
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			MixAudioNative(dst, src, len, volume);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				MixAudioNative((byte*)pdst, src, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			fixed (byte* psrc = &src)
-			{
-				MixAudioNative(dst, (byte*)psrc, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudio([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
+				fixed (int* py2 = &y2)
 				{
-					MixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MixAudioFormatNative([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)funcTable[239])(dst, src, format, len, volume);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)funcTable[239])((nint)dst, (nint)src, format, len, volume);
-			#endif
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			MixAudioFormatNative(dst, src, format, len, volume);
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] byte* src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				MixAudioFormatNative((byte*)pdst, src, format, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] byte* dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			fixed (byte* psrc = &src)
-			{
-				MixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MixAudioFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void MixAudioFormat([NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte dst, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "const Uint8*")] ref byte src, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_AudioFormat")] ushort format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len, [NativeName(NativeNameType.Param, "volume")] [NativeName(NativeNameType.Type, "int")] int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					MixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Queue more audio on non-callback devices.<br/>
-		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
-		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
-		/// -1 to signify an error if you use it with capture devices.<br/>
-		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
-		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
-		/// method), or you can supply no callback, and then SDL will expect you to<br/>
-		/// supply data at regular intervals (push method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Queued data will drain to the device as<br/>
-		/// necessary without further intervention from you. If the device needs audio<br/>
-		/// but there is not enough queued, it will play silence to make up the<br/>
-		/// difference. This means you will have skips in your audio playback if you<br/>
-		/// aren't routinely queueing sufficient data.<br/>
-		/// This function copies the supplied data, so you are safe to free it when the<br/>
-		/// function returns. This function is thread-safe, but queueing to the same<br/>
-		/// device from two threads at once does not promise which buffer will be<br/>
-		/// queued first.<br/>
-		/// You may not queue audio on a device that is using an application-supplied<br/>
-		/// callback; doing so returns an error. You have to use the audio callback or<br/>
-		/// queue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
-		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
-		/// before queuing audio.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueueAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int QueueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)funcTable[240])(dev, data, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)funcTable[240])(dev, (nint)data, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Queue more audio on non-callback devices.<br/>
-		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
-		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
-		/// -1 to signify an error if you use it with capture devices.<br/>
-		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
-		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
-		/// method), or you can supply no callback, and then SDL will expect you to<br/>
-		/// supply data at regular intervals (push method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Queued data will drain to the device as<br/>
-		/// necessary without further intervention from you. If the device needs audio<br/>
-		/// but there is not enough queued, it will play silence to make up the<br/>
-		/// difference. This means you will have skips in your audio playback if you<br/>
-		/// aren't routinely queueing sufficient data.<br/>
-		/// This function copies the supplied data, so you are safe to free it when the<br/>
-		/// function returns. This function is thread-safe, but queueing to the same<br/>
-		/// device from two threads at once does not promise which buffer will be<br/>
-		/// queued first.<br/>
-		/// You may not queue audio on a device that is using an application-supplied<br/>
-		/// callback; doing so returns an error. You have to use the audio callback or<br/>
-		/// queue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
-		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
-		/// before queuing audio.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QueueAudio")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int QueueAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
-		{
-			int ret = QueueAudioNative(dev, data, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Dequeue more audio on non-callback devices.<br/>
-		/// If you are looking to queue audio for output on a non-callback playback<br/>
-		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
-		/// return 0 if you use it with playback devices.<br/>
-		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
-		/// supply a callback that SDL triggers with some frequency as the device<br/>
-		/// records more audio data, (push method), or you can supply no callback, and<br/>
-		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
-		/// method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Data from the device will keep queuing as<br/>
-		/// necessary without further intervention from you. This means you will<br/>
-		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
-		/// Capture devices will not queue data when paused; if you are expecting to<br/>
-		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
-		/// to stop the capture device from queueing more data. This can be useful<br/>
-		/// during, say, level loading times. When unpaused, capture devices will start<br/>
-		/// queueing data from that point, having flushed any capturable data available<br/>
-		/// while paused.<br/>
-		/// This function is thread-safe, but dequeueing from the same device from two<br/>
-		/// threads at once does not promise which thread will dequeue data first.<br/>
-		/// You may not dequeue audio from a device that is using an<br/>
-		/// application-supplied callback; doing so returns an error. You have to use<br/>
-		/// the audio callback, or dequeue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DequeueAudio")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint DequeueAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)funcTable[241])(dev, data, len);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)funcTable[241])(dev, (nint)data, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Dequeue more audio on non-callback devices.<br/>
-		/// If you are looking to queue audio for output on a non-callback playback<br/>
-		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
-		/// return 0 if you use it with playback devices.<br/>
-		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
-		/// supply a callback that SDL triggers with some frequency as the device<br/>
-		/// records more audio data, (push method), or you can supply no callback, and<br/>
-		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
-		/// method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Data from the device will keep queuing as<br/>
-		/// necessary without further intervention from you. This means you will<br/>
-		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
-		/// Capture devices will not queue data when paused; if you are expecting to<br/>
-		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
-		/// to stop the capture device from queueing more data. This can be useful<br/>
-		/// during, say, level loading times. When unpaused, capture devices will start<br/>
-		/// queueing data from that point, having flushed any capturable data available<br/>
-		/// while paused.<br/>
-		/// This function is thread-safe, but dequeueing from the same device from two<br/>
-		/// threads at once does not promise which thread will dequeue data first.<br/>
-		/// You may not dequeue audio from a device that is using an<br/>
-		/// application-supplied callback; doing so returns an error. You have to use<br/>
-		/// the audio callback, or dequeue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DequeueAudio")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint DequeueAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "Uint32")] uint len)
-		{
-			uint ret = DequeueAudioNative(dev, data, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of bytes of still-queued audio.<br/>
-		/// For playback devices: this is the number of bytes that have been queued for<br/>
-		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
-		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
-		/// byte boundary of what has been played. It's possible that we just gave the<br/>
-		/// hardware several kilobytes right before you called this function, but it<br/>
-		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
-		/// For capture devices, this is the number of bytes that have been captured by<br/>
-		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
-		/// time, so this only informs of the lower-bound of available data.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetQueuedAudioSize")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetQueuedAudioSizeNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of bytes of still-queued audio.<br/>
-		/// For playback devices: this is the number of bytes that have been queued for<br/>
-		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
-		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
-		/// byte boundary of what has been played. It's possible that we just gave the<br/>
-		/// hardware several kilobytes right before you called this function, but it<br/>
-		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
-		/// For capture devices, this is the number of bytes that have been captured by<br/>
-		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
-		/// time, so this only informs of the lower-bound of available data.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetQueuedAudioSize")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint GetQueuedAudioSize([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			uint ret = GetQueuedAudioSizeNative(dev);
-			return ret;
-		}
-
-		/// <summary>
-		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
-		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
-		/// output devices, the hardware will start playing silence if more audio isn't<br/>
-		/// queued. For capture devices, the hardware will start filling the empty<br/>
-		/// queue with new data if the capture device isn't paused.<br/>
-		/// This will not prevent playback of queued audio that's already been sent to<br/>
-		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
-		/// of a second of audio that might still be heard. This can be useful if you<br/>
-		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
-		/// during a level change in your game.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
-		/// queue; SDL handles locking internally for this function.<br/>
-		/// This function always succeeds and thus returns void.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearQueuedAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ClearQueuedAudioNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
-		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
-		/// output devices, the hardware will start playing silence if more audio isn't<br/>
-		/// queued. For capture devices, the hardware will start filling the empty<br/>
-		/// queue with new data if the capture device isn't paused.<br/>
-		/// This will not prevent playback of queued audio that's already been sent to<br/>
-		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
-		/// of a second of audio that might still be heard. This can be useful if you<br/>
-		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
-		/// during a level change in your game.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
-		/// queue; SDL handles locking internally for this function.<br/>
-		/// This function always succeeds and thus returns void.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearQueuedAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ClearQueuedAudio([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			ClearQueuedAudioNative(dev);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of locking the audio device.<br/>
-		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
-		/// is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_LockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockAudioNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of locking the audio device.<br/>
-		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
-		/// is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_LockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LockAudio()
-		{
-			LockAudioNative();
-		}
-
-		/// <summary>
-		/// Use this function to lock out the audio callback function for a specified<br/>
-		/// device.<br/>
-		/// The lock manipulated by these functions protects the audio callback<br/>
-		/// function specified in SDL_OpenAudioDevice(). During a<br/>
-		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
-		/// that the callback function for that device is not running, even if the<br/>
-		/// device is not paused. While a device is locked, any other unpaused,<br/>
-		/// unlocked devices may still run their callbacks.<br/>
-		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
-		/// obtains this lock before calling your function, and releases it when the<br/>
-		/// function returns.<br/>
-		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
-		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
-		/// your application locks the device, sets a few variables and unlocks again.<br/>
-		/// Do not do heavy work while holding the lock for a device.<br/>
-		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
-		/// it an equivalent number of times. The callback will not run until the<br/>
-		/// device has been unlocked completely in this way. If your application fails<br/>
-		/// to unlock the device appropriately, your callback will never run, you might<br/>
-		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
-		/// deadlock.<br/>
-		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
-		/// at once, not only will you block the audio callback, you'll block the other<br/>
-		/// thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to lock out the audio callback function for a specified<br/>
-		/// device.<br/>
-		/// The lock manipulated by these functions protects the audio callback<br/>
-		/// function specified in SDL_OpenAudioDevice(). During a<br/>
-		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
-		/// that the callback function for that device is not running, even if the<br/>
-		/// device is not paused. While a device is locked, any other unpaused,<br/>
-		/// unlocked devices may still run their callbacks.<br/>
-		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
-		/// obtains this lock before calling your function, and releases it when the<br/>
-		/// function returns.<br/>
-		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
-		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
-		/// your application locks the device, sets a few variables and unlocks again.<br/>
-		/// Do not do heavy work while holding the lock for a device.<br/>
-		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
-		/// it an equivalent number of times. The callback will not run until the<br/>
-		/// device has been unlocked completely in this way. If your application fails<br/>
-		/// to unlock the device appropriately, your callback will never run, you might<br/>
-		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
-		/// deadlock.<br/>
-		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
-		/// at once, not only will you block the audio callback, you'll block the other<br/>
-		/// thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LockAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			LockAudioDeviceNative(dev);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of unlocking the audio device.<br/>
-		/// New programs might want to use SDL_UnlockAudioDevice() instead. This<br/>
-		/// function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_UnlockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockAudioNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[246])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[246])();
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of unlocking the audio device.<br/>
-		/// New programs might want to use SDL_UnlockAudioDevice() instead. This<br/>
-		/// function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_UnlockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockAudio()
-		{
-			UnlockAudioNative();
-		}
-
-		/// <summary>
-		/// Use this function to unlock the audio callback function for a specified<br/>
-		/// device.<br/>
-		/// This function should be paired with a previous SDL_LockAudioDevice() call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[247])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[247])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to unlock the audio callback function for a specified<br/>
-		/// device.<br/>
-		/// This function should be paired with a previous SDL_LockAudioDevice() call.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			UnlockAudioDeviceNative(dev);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of closing the audio device.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_CloseAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CloseAudioNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[248])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[248])();
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of closing the audio device.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_CloseAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseAudio")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void CloseAudio()
-		{
-			CloseAudioNative();
-		}
-
-		/// <summary>
-		/// Use this function to shut down audio processing and close the audio device.<br/>
-		/// The application should close open audio devices once they are no longer<br/>
-		/// needed. Calling this function will wait until the device's audio callback<br/>
-		/// is not running, release the audio hardware and then clean up internal<br/>
-		/// state. No further audio will play from this device once this function<br/>
-		/// returns.<br/>
-		/// This function may block briefly while pending audio data is played by the<br/>
-		/// hardware, so that applications don't drop the last buffer of data they<br/>
-		/// supplied.<br/>
-		/// The device ID is invalid as soon as the device is closed, and is eligible<br/>
-		/// for reuse in a new SDL_OpenAudioDevice() call immediately.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void CloseAudioDeviceNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[249])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[249])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to shut down audio processing and close the audio device.<br/>
-		/// The application should close open audio devices once they are no longer<br/>
-		/// needed. Calling this function will wait until the device's audio callback<br/>
-		/// is not running, release the audio hardware and then clean up internal<br/>
-		/// state. No further audio will play from this device once this function<br/>
-		/// returns.<br/>
-		/// This function may block briefly while pending audio data is played by the<br/>
-		/// hardware, so that applications don't drop the last buffer of data they<br/>
-		/// supplied.<br/>
-		/// The device ID is invalid as soon as the device is closed, and is eligible<br/>
-		/// for reuse in a new SDL_OpenAudioDevice() call immediately.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CloseAudioDevice")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void CloseAudioDevice([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_AudioDeviceID")] uint dev)
-		{
-			CloseAudioDeviceNative(dev);
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the clipboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetClipboardTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[250])(text);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[250])((nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the clipboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
-		{
-			int ret = SetClipboardTextNative(text);
-			return ret;
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the clipboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				int ret = SetClipboardTextNative((byte*)ptext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the clipboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				int ret = SetClipboardTextNative((byte*)ptext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the clipboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetClipboardText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetClipboardTextNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get UTF-8 text from the clipboard, which must be freed with SDL_free().<br/>
-		/// This functions returns empty string if there was not enough memory left for<br/>
-		/// a copy of the clipboard's content.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetClipboardTextNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[251])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[251])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get UTF-8 text from the clipboard, which must be freed with SDL_free().<br/>
-		/// This functions returns empty string if there was not enough memory left for<br/>
-		/// a copy of the clipboard's content.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* GetClipboardText()
-		{
-			byte* ret = GetClipboardTextNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get UTF-8 text from the clipboard, which must be freed with SDL_free().<br/>
-		/// This functions returns empty string if there was not enough memory left for<br/>
-		/// a copy of the clipboard's content.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetClipboardText")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetClipboardTextS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetClipboardTextNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether the clipboard exists and contains a non-empty text string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasClipboardText")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasClipboardTextNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[252])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[252])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether the clipboard exists and contains a non-empty text string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasClipboardText")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasClipboardText()
-		{
-			SDLBool ret = HasClipboardTextNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the primary selection.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetPrimarySelectionTextNative([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[253])(text);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[253])((nint)text);
-			#endif
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the primary selection.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] byte* text)
-		{
-			int ret = SetPrimarySelectionTextNative(text);
-			return ret;
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the primary selection.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ref byte text)
-		{
-			fixed (byte* ptext = &text)
-			{
-				int ret = SetPrimarySelectionTextNative((byte*)ptext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the primary selection.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> text)
-		{
-			fixed (byte* ptext = text)
-			{
-				int ret = SetPrimarySelectionTextNative((byte*)ptext);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Put UTF-8 text into the primary selection.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPrimarySelectionText([NativeName(NativeNameType.Param, "text")] [NativeName(NativeNameType.Type, "const char*")] string text)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (text != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(text);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(text, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetPrimarySelectionTextNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get UTF-8 text from the primary selection, which must be freed with<br/>
-		/// SDL_free().<br/>
-		/// This functions returns empty string if there was not enough memory left for<br/>
-		/// a copy of the primary selection's content.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetPrimarySelectionTextNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[254])();
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[254])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get UTF-8 text from the primary selection, which must be freed with<br/>
-		/// SDL_free().<br/>
-		/// This functions returns empty string if there was not enough memory left for<br/>
-		/// a copy of the primary selection's content.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* GetPrimarySelectionText()
-		{
-			byte* ret = GetPrimarySelectionTextNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get UTF-8 text from the primary selection, which must be freed with<br/>
-		/// SDL_free().<br/>
-		/// This functions returns empty string if there was not enough memory left for<br/>
-		/// a copy of the primary selection's content.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetPrimarySelectionTextS()
-		{
-			string ret = Utils.DecodeStringUTF8(GetPrimarySelectionTextNative());
-			return ret;
-		}
-
-		/// <summary>
-		/// Query whether the primary selection exists and contains a non-empty text<br/>
-		/// string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasPrimarySelectionTextNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[255])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[255])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether the primary selection exists and contains a non-empty text<br/>
-		/// string.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasPrimarySelectionText")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasPrimarySelectionText()
-		{
-			SDLBool ret = HasPrimarySelectionTextNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of CPU cores available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCPUCount")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetCPUCountNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[256])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[256])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of CPU cores available.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCPUCount")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetCPUCount()
-		{
-			int ret = GetCPUCountNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine the L1 cache line size of the CPU.<br/>
-		/// This is useful for determining multi-threaded structure padding or SIMD<br/>
-		/// prefetch sizes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCPUCacheLineSize")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetCPUCacheLineSizeNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[257])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[257])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine the L1 cache line size of the CPU.<br/>
-		/// This is useful for determining multi-threaded structure padding or SIMD<br/>
-		/// prefetch sizes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetCPUCacheLineSize")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetCPUCacheLineSize()
-		{
-			int ret = GetCPUCacheLineSizeNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has the RDTSC instruction.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRDTSC")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasRDTSCNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[258])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[258])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has the RDTSC instruction.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasRDTSC")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasRDTSC()
-		{
-			SDLBool ret = HasRDTSCNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AltiVec features.<br/>
-		/// This always returns false on CPUs that aren't using PowerPC instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAltiVec")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasAltiVecNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[259])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[259])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AltiVec features.<br/>
-		/// This always returns false on CPUs that aren't using PowerPC instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAltiVec")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasAltiVec()
-		{
-			SDLBool ret = HasAltiVecNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has MMX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasMMX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasMMXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[260])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[260])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has MMX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasMMX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasMMX()
-		{
-			SDLBool ret = HasMMXNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has 3DNow! features.<br/>
-		/// This always returns false on CPUs that aren't using AMD instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Has3DNow")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool Has3DNowNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[261])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[261])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has 3DNow! features.<br/>
-		/// This always returns false on CPUs that aren't using AMD instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Has3DNow")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool Has3DNow()
-		{
-			SDLBool ret = Has3DNowNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasSSENative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[262])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[262])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasSSE()
-		{
-			SDLBool ret = HasSSENative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE2")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasSSE2Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[263])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[263])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE2")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasSSE2()
-		{
-			SDLBool ret = HasSSE2Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE3 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE3")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasSSE3Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[264])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[264])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE3 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE3")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasSSE3()
-		{
-			SDLBool ret = HasSSE3Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.1 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE41")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasSSE41Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[265])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[265])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.1 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE41")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasSSE41()
-		{
-			SDLBool ret = HasSSE41Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE42")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasSSE42Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[266])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[266])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has SSE4.2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasSSE42")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasSSE42()
-		{
-			SDLBool ret = HasSSE42Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAVX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasAVXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[267])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[267])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAVX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasAVX()
-		{
-			SDLBool ret = HasAVXNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAVX2")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasAVX2Native()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[268])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[268])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX2 features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAVX2")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasAVX2()
-		{
-			SDLBool ret = HasAVX2Native();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX-512F (foundation) features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAVX512F")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasAVX512FNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[269])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[269])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has AVX-512F (foundation) features.<br/>
-		/// This always returns false on CPUs that aren't using Intel instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasAVX512F")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasAVX512F()
-		{
-			SDLBool ret = HasAVX512FNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has ARM SIMD (ARMv6) features.<br/>
-		/// This is different from ARM NEON, which is a different instruction set.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasARMSIMD")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasARMSIMDNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[270])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[270])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has ARM SIMD (ARMv6) features.<br/>
-		/// This is different from ARM NEON, which is a different instruction set.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasARMSIMD")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasARMSIMD()
-		{
-			SDLBool ret = HasARMSIMDNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has NEON (ARM SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasNEON")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasNEONNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[271])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[271])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has NEON (ARM SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using ARM instruction sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasNEON")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasNEON()
-		{
-			SDLBool ret = HasNEONNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LSX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasLSX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasLSXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[272])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[272])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LSX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasLSX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasLSX()
-		{
-			SDLBool ret = HasLSXNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LASX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasLASX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasLASXNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[273])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[273])();
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether the CPU has LASX (LOONGARCH SIMD) features.<br/>
-		/// This always returns false on CPUs that aren't using LOONGARCH instruction<br/>
-		/// sets.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasLASX")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool HasLASX()
-		{
-			SDLBool ret = HasLASXNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the amount of RAM configured in the system.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSystemRAM")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetSystemRAMNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[274])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[274])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the amount of RAM configured in the system.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSystemRAM")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetSystemRAM()
-		{
-			int ret = GetSystemRAMNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Report the alignment this system needs for SIMD allocations.<br/>
-		/// This will return the minimum number of bytes to which a pointer must be<br/>
-		/// aligned to be compatible with SIMD instructions on the current machine. For<br/>
-		/// example, if the machine supports SSE only, it will return 16, but if it<br/>
-		/// supports AVX-512F, it'll return 64 (etc). This only reports values for<br/>
-		/// instruction sets SDL knows about, so if your SDL build doesn't have<br/>
-		/// SDL_HasAVX512F(), then it might return 16 for the SSE support it sees and<br/>
-		/// not 64 for the AVX-512 instructions that exist but SDL doesn't know about.<br/>
-		/// Plan accordingly.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDGetAlignment")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong SIMDGetAlignmentNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong>)funcTable[275])();
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<ulong>)funcTable[275])();
-			#endif
-		}
-
-		/// <summary>
-		/// Report the alignment this system needs for SIMD allocations.<br/>
-		/// This will return the minimum number of bytes to which a pointer must be<br/>
-		/// aligned to be compatible with SIMD instructions on the current machine. For<br/>
-		/// example, if the machine supports SSE only, it will return 16, but if it<br/>
-		/// supports AVX-512F, it'll return 64 (etc). This only reports values for<br/>
-		/// instruction sets SDL knows about, so if your SDL build doesn't have<br/>
-		/// SDL_HasAVX512F(), then it might return 16 for the SSE support it sees and<br/>
-		/// not 64 for the AVX-512 instructions that exist but SDL doesn't know about.<br/>
-		/// Plan accordingly.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDGetAlignment")]
-		[return: NativeName(NativeNameType.Type, "size_t")]
-		public static ulong SIMDGetAlignment()
-		{
-			ulong ret = SIMDGetAlignmentNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Allocate memory in a SIMD-friendly way.<br/>
-		/// This will allocate a block of memory that is suitable for use with SIMD<br/>
-		/// instructions. Specifically, it will be properly aligned and padded for the<br/>
-		/// system's supported vector instructions.<br/>
-		/// The memory returned will be padded such that it is safe to read or write an<br/>
-		/// incomplete vector at the end of the memory block. This can be useful so you<br/>
-		/// don't have to drop back to a scalar fallback at the end of your SIMD<br/>
-		/// processing loop to deal with the final elements without overflowing the<br/>
-		/// allocated buffer.<br/>
-		/// You must free this memory with SDL_FreeSIMD(), not free() or SDL_free() or<br/>
-		/// delete[], etc.<br/>
-		/// Note that SDL will only deal with SIMD instruction sets it is aware of; for<br/>
-		/// example, SDL 2.0.8 knows that SSE wants 16-byte vectors (SDL_HasSSE()), and<br/>
-		/// AVX2 wants 32 bytes (SDL_HasAVX2()), but doesn't know that AVX-512 wants<br/>
-		/// 64. To be clear: if you can't decide to use an instruction set with an<br/>
-		/// SDL_Has*() function, don't use that instruction set with memory allocated<br/>
-		/// through here.<br/>
-		/// SDL_AllocSIMD(0) will return a non-NULL pointer, assuming the system isn't<br/>
-		/// out of memory, but you are not allowed to dereference it (because you only<br/>
-		/// own zero bytes of that buffer).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDAlloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* SIMDAllocNative([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ulong, void*>)funcTable[276])(len);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<ulong, nint>)funcTable[276])(len);
-			#endif
-		}
-
-		/// <summary>
-		/// Allocate memory in a SIMD-friendly way.<br/>
-		/// This will allocate a block of memory that is suitable for use with SIMD<br/>
-		/// instructions. Specifically, it will be properly aligned and padded for the<br/>
-		/// system's supported vector instructions.<br/>
-		/// The memory returned will be padded such that it is safe to read or write an<br/>
-		/// incomplete vector at the end of the memory block. This can be useful so you<br/>
-		/// don't have to drop back to a scalar fallback at the end of your SIMD<br/>
-		/// processing loop to deal with the final elements without overflowing the<br/>
-		/// allocated buffer.<br/>
-		/// You must free this memory with SDL_FreeSIMD(), not free() or SDL_free() or<br/>
-		/// delete[], etc.<br/>
-		/// Note that SDL will only deal with SIMD instruction sets it is aware of; for<br/>
-		/// example, SDL 2.0.8 knows that SSE wants 16-byte vectors (SDL_HasSSE()), and<br/>
-		/// AVX2 wants 32 bytes (SDL_HasAVX2()), but doesn't know that AVX-512 wants<br/>
-		/// 64. To be clear: if you can't decide to use an instruction set with an<br/>
-		/// SDL_Has*() function, don't use that instruction set with memory allocated<br/>
-		/// through here.<br/>
-		/// SDL_AllocSIMD(0) will return a non-NULL pointer, assuming the system isn't<br/>
-		/// out of memory, but you are not allowed to dereference it (because you only<br/>
-		/// own zero bytes of that buffer).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDAlloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SIMDAlloc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
-		{
-			void* ret = SIMDAllocNative(len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Allocate memory in a SIMD-friendly way.<br/>
-		/// This will allocate a block of memory that is suitable for use with SIMD<br/>
-		/// instructions. Specifically, it will be properly aligned and padded for the<br/>
-		/// system's supported vector instructions.<br/>
-		/// The memory returned will be padded such that it is safe to read or write an<br/>
-		/// incomplete vector at the end of the memory block. This can be useful so you<br/>
-		/// don't have to drop back to a scalar fallback at the end of your SIMD<br/>
-		/// processing loop to deal with the final elements without overflowing the<br/>
-		/// allocated buffer.<br/>
-		/// You must free this memory with SDL_FreeSIMD(), not free() or SDL_free() or<br/>
-		/// delete[], etc.<br/>
-		/// Note that SDL will only deal with SIMD instruction sets it is aware of; for<br/>
-		/// example, SDL 2.0.8 knows that SSE wants 16-byte vectors (SDL_HasSSE()), and<br/>
-		/// AVX2 wants 32 bytes (SDL_HasAVX2()), but doesn't know that AVX-512 wants<br/>
-		/// 64. To be clear: if you can't decide to use an instruction set with an<br/>
-		/// SDL_Has*() function, don't use that instruction set with memory allocated<br/>
-		/// through here.<br/>
-		/// SDL_AllocSIMD(0) will return a non-NULL pointer, assuming the system isn't<br/>
-		/// out of memory, but you are not allowed to dereference it (because you only<br/>
-		/// own zero bytes of that buffer).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDAlloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SIMDAlloc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] nuint len)
-		{
-			void* ret = SIMDAllocNative(len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Reallocate memory obtained from SDL_SIMDAlloc<br/>
-		/// It is not valid to use this function on a pointer from anything but<br/>
-		/// SDL_SIMDAlloc(). It can't be used on pointers from malloc, realloc,<br/>
-		/// SDL_malloc, memalign, new[], etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDRealloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* SIMDReallocNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, ulong, void*>)funcTable[277])(mem, len);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<nint, ulong, nint>)funcTable[277])((nint)mem, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Reallocate memory obtained from SDL_SIMDAlloc<br/>
-		/// It is not valid to use this function on a pointer from anything but<br/>
-		/// SDL_SIMDAlloc(). It can't be used on pointers from malloc, realloc,<br/>
-		/// SDL_malloc, memalign, new[], etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDRealloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SIMDRealloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] ulong len)
-		{
-			void* ret = SIMDReallocNative(mem, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Reallocate memory obtained from SDL_SIMDAlloc<br/>
-		/// It is not valid to use this function on a pointer from anything but<br/>
-		/// SDL_SIMDAlloc(). It can't be used on pointers from malloc, realloc,<br/>
-		/// SDL_malloc, memalign, new[], etc.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDRealloc")]
-		[return: NativeName(NativeNameType.Type, "void*")]
-		public static void* SIMDRealloc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void*")] void* mem, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "const size_t")] nuint len)
-		{
-			void* ret = SIMDReallocNative(mem, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Deallocate memory obtained from SDL_SIMDAlloc<br/>
-		/// It is not valid to use this function on a pointer from anything but<br/>
-		/// SDL_SIMDAlloc() or SDL_SIMDRealloc(). It can't be used on pointers from<br/>
-		/// malloc, realloc, SDL_malloc, memalign, new[], etc.<br/>
-		/// However, SDL_SIMDFree(NULL) is a legal no-op.<br/>
-		/// The memory pointed to by `ptr` is no longer valid for access upon return,<br/>
-		/// and may be returned to the system or reused by a future allocation. The<br/>
-		/// pointer passed to this function is no longer safe to dereference once this<br/>
-		/// function returns, and should be discarded.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDFree")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SIMDFreeNative([NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void*, void>)funcTable[278])(ptr);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[278])((nint)ptr);
-			#endif
-		}
-
-		/// <summary>
-		/// Deallocate memory obtained from SDL_SIMDAlloc<br/>
-		/// It is not valid to use this function on a pointer from anything but<br/>
-		/// SDL_SIMDAlloc() or SDL_SIMDRealloc(). It can't be used on pointers from<br/>
-		/// malloc, realloc, SDL_malloc, memalign, new[], etc.<br/>
-		/// However, SDL_SIMDFree(NULL) is a legal no-op.<br/>
-		/// The memory pointed to by `ptr` is no longer valid for access upon return,<br/>
-		/// and may be returned to the system or reused by a future allocation. The<br/>
-		/// pointer passed to this function is no longer safe to dereference once this<br/>
-		/// function returns, and should be discarded.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SIMDFree")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void SIMDFree([NativeName(NativeNameType.Param, "ptr")] [NativeName(NativeNameType.Type, "void*")] void* ptr)
-		{
-			SIMDFreeNative(ptr);
-		}
-
-		/// <summary>
-		/// Get the human readable name of a pixel format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetPixelFormatNameNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*>)funcTable[279])(format);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[279])(format);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the human readable name of a pixel format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* GetPixelFormatName([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
-		{
-			byte* ret = GetPixelFormatNameNative(format);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the human readable name of a pixel format.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPixelFormatName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string GetPixelFormatNameS([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format)
-		{
-			string ret = Utils.DecodeStringUTF8(GetPixelFormatNameNative(format));
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool PixelFormatEnumToMasksNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int*, uint*, uint*, uint*, uint*, SDLBool>)funcTable[280])(format, bpp, rmask, gmask, bmask, amask);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, SDLBool>)funcTable[280])(format, (nint)bpp, (nint)rmask, (nint)gmask, (nint)bmask, (nint)amask);
-			#endif
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, amask);
-			return ret;
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (int* pbpp = &bpp)
-			{
-				SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, amask);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, amask);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (int* pbpp = &bpp)
-			{
-				fixed (uint* prmask = &rmask)
-				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, amask);
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (uint* pgmask = &gmask)
-			{
-				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, amask);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, int* x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (int* px1 = &x1)
 			{
-				fixed (uint* pgmask = &gmask)
+				fixed (int* py2 = &y2)
 				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, amask);
+					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, (int*)py2);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				fixed (uint* pgmask = &gmask)
-				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, int* x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* prmask = &rmask)
+				fixed (int* px1 = &x1)
 				{
-					fixed (uint* pgmask = &gmask)
+					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, amask);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
 						return ret;
 					}
 				}
@@ -3215,79 +184,46 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (uint* pbmask = &bmask)
-			{
-				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, amask);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, int* x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (int* py1 = &y1)
 			{
-				fixed (uint* pbmask = &bmask)
+				fixed (int* py2 = &y2)
 				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, amask);
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, (int*)py2);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				fixed (uint* pbmask = &bmask)
-				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, int* x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* prmask = &rmask)
+				fixed (int* py1 = &y1)
 				{
-					fixed (uint* pbmask = &bmask)
+					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, amask);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
 						return ret;
 					}
 				}
@@ -3295,42 +231,24 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (uint* pgmask = &gmask)
-			{
-				fixed (uint* pbmask = &bmask)
-				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, int* x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (int* px1 = &x1)
 			{
-				fixed (uint* pgmask = &gmask)
+				fixed (int* py1 = &y1)
 				{
-					fixed (uint* pbmask = &bmask)
+					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, amask);
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, (int*)py2);
 						return ret;
 					}
 				}
@@ -3338,47 +256,26 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				fixed (uint* pgmask = &gmask)
-				{
-					fixed (uint* pbmask = &bmask)
-					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* amask)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, int* x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* prmask = &rmask)
+				fixed (int* px1 = &x1)
 				{
-					fixed (uint* pgmask = &gmask)
+					fixed (int* py1 = &y1)
 					{
-						fixed (uint* pbmask = &bmask)
+						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, amask);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
 							return ret;
 						}
 					}
@@ -3387,79 +284,46 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* pamask = &amask)
-			{
-				SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, bmask, (uint*)pamask);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (int* px2 = &x2)
 			{
-				fixed (uint* pamask = &amask)
+				fixed (int* py2 = &y2)
 				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, bmask, (uint*)pamask);
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, (int*)py2);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				fixed (uint* pamask = &amask)
-				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* prmask = &rmask)
+				fixed (int* px2 = &x2)
 				{
-					fixed (uint* pamask = &amask)
+					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, bmask, (uint*)pamask);
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
 						return ret;
 					}
 				}
@@ -3467,42 +331,24 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* pgmask = &gmask)
-			{
-				fixed (uint* pamask = &amask)
-				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (int* px1 = &x1)
 			{
-				fixed (uint* pgmask = &gmask)
+				fixed (int* px2 = &x2)
 				{
-					fixed (uint* pamask = &amask)
+					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, bmask, (uint*)pamask);
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, (int*)py2);
 						return ret;
 					}
 				}
@@ -3510,47 +356,26 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				fixed (uint* pgmask = &gmask)
-				{
-					fixed (uint* pamask = &amask)
-					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* prmask = &rmask)
+				fixed (int* px1 = &x1)
 				{
-					fixed (uint* pgmask = &gmask)
+					fixed (int* px2 = &x2)
 					{
-						fixed (uint* pamask = &amask)
+						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, bmask, (uint*)pamask);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
 							return ret;
 						}
 					}
@@ -3559,42 +384,24 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* pbmask = &bmask)
-			{
-				fixed (uint* pamask = &amask)
-				{
-					SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (int* py1 = &y1)
 			{
-				fixed (uint* pbmask = &bmask)
+				fixed (int* px2 = &x2)
 				{
-					fixed (uint* pamask = &amask)
+					fixed (int* py2 = &y2)
 					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, gmask, (uint*)pbmask, (uint*)pamask);
+						SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, (int*)py2);
 						return ret;
 					}
 				}
@@ -3602,47 +409,26 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				fixed (uint* pbmask = &bmask)
-				{
-					fixed (uint* pamask = &amask)
-					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* prmask = &rmask)
+				fixed (int* py1 = &y1)
 				{
-					fixed (uint* pbmask = &bmask)
+					fixed (int* px2 = &x2)
 					{
-						fixed (uint* pamask = &amask)
+						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, gmask, (uint*)pbmask, (uint*)pamask);
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
 							return ret;
 						}
 					}
@@ -3651,47 +437,26 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* pgmask = &gmask)
-			{
-				fixed (uint* pbmask = &bmask)
-				{
-					fixed (uint* pamask = &amask)
-					{
-						SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] uint* rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (int* px1 = &x1)
 			{
-				fixed (uint* pgmask = &gmask)
+				fixed (int* py1 = &y1)
 				{
-					fixed (uint* pbmask = &bmask)
+					fixed (int* px2 = &x2)
 					{
-						fixed (uint* pamask = &amask)
+						fixed (int* py2 = &y2)
 						{
-							SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, rmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+							SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
 							return ret;
 						}
 					}
@@ -3700,52 +465,28 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] int* bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
-		{
-			fixed (uint* prmask = &rmask)
-			{
-				fixed (uint* pgmask = &gmask)
-				{
-					fixed (uint* pbmask = &bmask)
-					{
-						fixed (uint* pamask = &amask)
-						{
-							SDLBool ret = PixelFormatEnumToMasksNative(format, bpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Convert one of the enumerated pixel formats to a bpp value and RGBA masks.<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PixelFormatEnumToMasks")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static SDLBool PixelFormatEnumToMasks([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "Uint32")] uint format, [NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int*")] ref int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32*")] ref uint amask)
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, ref int y2)
 		{
-			fixed (int* pbpp = &bpp)
+			fixed (SDLRect* prect = &rect)
 			{
-				fixed (uint* prmask = &rmask)
+				fixed (int* px1 = &x1)
 				{
-					fixed (uint* pgmask = &gmask)
+					fixed (int* py1 = &y1)
 					{
-						fixed (uint* pbmask = &bmask)
+						fixed (int* px2 = &x2)
 						{
-							fixed (uint* pamask = &amask)
+							fixed (int* py2 = &y2)
 							{
-								SDLBool ret = PixelFormatEnumToMasksNative(format, (int*)pbpp, (uint*)prmask, (uint*)pgmask, (uint*)pbmask, (uint*)pamask);
+								SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
 								return ret;
 							}
 						}
@@ -3755,927 +496,923 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Convert a bpp value and RGBA masks to an enumerated pixel format.<br/>
-		/// This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't<br/>
-		/// possible.<br/>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MasksToPixelFormatEnum")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint MasksToPixelFormatEnumNative([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		internal static SDLBool HasIntersectionFNative(SDLFRect* a, SDLFRect* b)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)funcTable[281])(bpp, rmask, gmask, bmask, amask);
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLBool>)funcTable[298])(a, b);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<int, uint, uint, uint, uint, uint>)funcTable[281])(bpp, rmask, gmask, bmask, amask);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[298])((nint)a, (nint)b);
 			#endif
 		}
 
 		/// <summary>
-		/// Convert a bpp value and RGBA masks to an enumerated pixel format.<br/>
-		/// This will return `SDL_PIXELFORMAT_UNKNOWN` if the conversion wasn't<br/>
-		/// possible.<br/>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MasksToPixelFormatEnum")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint MasksToPixelFormatEnum([NativeName(NativeNameType.Param, "bpp")] [NativeName(NativeNameType.Type, "int")] int bpp, [NativeName(NativeNameType.Param, "Rmask")] [NativeName(NativeNameType.Type, "Uint32")] uint rmask, [NativeName(NativeNameType.Param, "Gmask")] [NativeName(NativeNameType.Type, "Uint32")] uint gmask, [NativeName(NativeNameType.Param, "Bmask")] [NativeName(NativeNameType.Type, "Uint32")] uint bmask, [NativeName(NativeNameType.Param, "Amask")] [NativeName(NativeNameType.Type, "Uint32")] uint amask)
+		public static SDLBool HasIntersectionF(SDLFRect* a, SDLFRect* b)
 		{
-			uint ret = MasksToPixelFormatEnumNative(bpp, rmask, gmask, bmask, amask);
+			SDLBool ret = HasIntersectionFNative(a, b);
 			return ret;
 		}
 
 		/// <summary>
-		/// Create an SDL_PixelFormat structure corresponding to a pixel format.<br/>
-		/// Returned structure may come from a shared global cache (i.e. not newly<br/>
-		/// allocated), and hence should not be modified, especially the palette. Weird<br/>
-		/// errors such as `Blit combination not supported` may occur.<br/>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AllocFormat")]
-		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLPixelFormat* AllocFormatNative([NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat)
+		public static SDLBool HasIntersectionF(ref SDLFRect a, SDLFRect* b)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*>)funcTable[282])(pixelFormat);
-			#else
-			return (SDLPixelFormat*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[282])(pixelFormat);
-			#endif
-		}
-
-		/// <summary>
-		/// Create an SDL_PixelFormat structure corresponding to a pixel format.<br/>
-		/// Returned structure may come from a shared global cache (i.e. not newly<br/>
-		/// allocated), and hence should not be modified, especially the palette. Weird<br/>
-		/// errors such as `Blit combination not supported` may occur.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AllocFormat")]
-		[return: NativeName(NativeNameType.Type, "SDL_PixelFormat*")]
-		public static SDLPixelFormat* AllocFormat([NativeName(NativeNameType.Param, "pixel_format")] [NativeName(NativeNameType.Type, "Uint32")] uint pixelFormat)
-		{
-			SDLPixelFormat* ret = AllocFormatNative(pixelFormat);
-			return ret;
-		}
-
-		/// <summary>
-		/// Free an SDL_PixelFormat structure allocated by SDL_AllocFormat().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreeFormatNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLPixelFormat*, void>)funcTable[283])(format);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[283])((nint)format);
-			#endif
-		}
-
-		/// <summary>
-		/// Free an SDL_PixelFormat structure allocated by SDL_AllocFormat().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreeFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format)
-		{
-			FreeFormatNative(format);
-		}
-
-		/// <summary>
-		/// Free an SDL_PixelFormat structure allocated by SDL_AllocFormat().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreeFormat")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreeFormat([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* pa = &a)
 			{
-				FreeFormatNative((SDLPixelFormat*)pformat);
-			}
-		}
-
-		/// <summary>
-		/// Create a palette structure with the specified number of color entries.<br/>
-		/// The palette entries are initialized to white.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AllocPalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLPalette* AllocPaletteNative([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLPalette*>)funcTable[284])(ncolors);
-			#else
-			return (SDLPalette*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[284])(ncolors);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a palette structure with the specified number of color entries.<br/>
-		/// The palette entries are initialized to white.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AllocPalette")]
-		[return: NativeName(NativeNameType.Type, "SDL_Palette*")]
-		public static SDLPalette* AllocPalette([NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
-		{
-			SDLPalette* ret = AllocPaletteNative(ncolors);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the palette for a pixel format structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetPixelFormatPaletteNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, SDLPalette*, int>)funcTable[285])(format, palette);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[285])((nint)format, (nint)palette);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the palette for a pixel format structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
-		{
-			int ret = SetPixelFormatPaletteNative(format, palette);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the palette for a pixel format structure.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, palette);
+				SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, b);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set the palette for a pixel format structure.<br/>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
+		public static SDLBool HasIntersectionF(SDLFRect* a, ref SDLFRect b)
 		{
-			fixed (SDLPalette* ppalette = &palette)
+			fixed (SDLFRect* pb = &b)
 			{
-				int ret = SetPixelFormatPaletteNative(format, (SDLPalette*)ppalette);
+				SDLBool ret = HasIntersectionFNative(a, (SDLFRect*)pb);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set the palette for a pixel format structure.<br/>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPixelFormatPalette")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPixelFormatPalette([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
+		public static SDLBool HasIntersectionF(ref SDLFRect a, ref SDLFRect b)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* pa = &a)
 			{
-				fixed (SDLPalette* ppalette = &palette)
+				fixed (SDLFRect* pb = &b)
 				{
-					int ret = SetPixelFormatPaletteNative((SDLPixelFormat*)pformat, (SDLPalette*)ppalette);
+					SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)pb);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set a range of colors in a palette.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetPaletteColorsNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		internal static SDLBool IntersectFRectNative(SDLFRect* a, SDLFRect* b, SDLFRect* result)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPalette*, SDLColor*, int, int, int>)funcTable[286])(palette, colors, firstcolor, ncolors);
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, SDLBool>)funcTable[299])(a, b, result);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int, int>)funcTable[286])((nint)palette, (nint)colors, firstcolor, ncolors);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, SDLBool>)funcTable[299])((nint)a, (nint)b, (nint)result);
 			#endif
 		}
 
 		/// <summary>
-		/// Set a range of colors in a palette.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static SDLBool IntersectFRect(SDLFRect* a, SDLFRect* b, SDLFRect* result)
 		{
-			int ret = SetPaletteColorsNative(palette, colors, firstcolor, ncolors);
+			SDLBool ret = IntersectFRectNative(a, b, result);
 			return ret;
 		}
 
 		/// <summary>
-		/// Set a range of colors in a palette.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] SDLColor* colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static SDLBool IntersectFRect(ref SDLFRect a, SDLFRect* b, SDLFRect* result)
 		{
-			fixed (SDLPalette* ppalette = &palette)
+			fixed (SDLFRect* pa = &a)
 			{
-				int ret = SetPaletteColorsNative((SDLPalette*)ppalette, colors, firstcolor, ncolors);
+				SDLBool ret = IntersectFRectNative((SDLFRect*)pa, b, result);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set a range of colors in a palette.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static SDLBool IntersectFRect(SDLFRect* a, ref SDLFRect b, SDLFRect* result)
 		{
-			fixed (SDLColor* pcolors = &colors)
+			fixed (SDLFRect* pb = &b)
 			{
-				int ret = SetPaletteColorsNative(palette, (SDLColor*)pcolors, firstcolor, ncolors);
+				SDLBool ret = IntersectFRectNative(a, (SDLFRect*)pb, result);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set a range of colors in a palette.<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetPaletteColors")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPaletteColors([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette, [NativeName(NativeNameType.Param, "colors")] [NativeName(NativeNameType.Type, "const SDL_Color*")] ref SDLColor colors, [NativeName(NativeNameType.Param, "firstcolor")] [NativeName(NativeNameType.Type, "int")] int firstcolor, [NativeName(NativeNameType.Param, "ncolors")] [NativeName(NativeNameType.Type, "int")] int ncolors)
+		public static SDLBool IntersectFRect(ref SDLFRect a, ref SDLFRect b, SDLFRect* result)
 		{
-			fixed (SDLPalette* ppalette = &palette)
+			fixed (SDLFRect* pa = &a)
 			{
-				fixed (SDLColor* pcolors = &colors)
+				fixed (SDLFRect* pb = &b)
 				{
-					int ret = SetPaletteColorsNative((SDLPalette*)ppalette, (SDLColor*)pcolors, firstcolor, ncolors);
+					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Free a palette created with SDL_AllocPalette().<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreePalette")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void FreePaletteNative([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
+		public static SDLBool IntersectFRect(SDLFRect* a, SDLFRect* b, ref SDLFRect result)
 		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLPalette*, void>)funcTable[287])(palette);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[287])((nint)palette);
-			#endif
-		}
-
-		/// <summary>
-		/// Free a palette created with SDL_AllocPalette().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreePalette")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreePalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] SDLPalette* palette)
-		{
-			FreePaletteNative(palette);
-		}
-
-		/// <summary>
-		/// Free a palette created with SDL_AllocPalette().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_FreePalette")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void FreePalette([NativeName(NativeNameType.Param, "palette")] [NativeName(NativeNameType.Type, "SDL_Palette*")] ref SDLPalette palette)
-		{
-			fixed (SDLPalette* ppalette = &palette)
+			fixed (SDLFRect* presult = &result)
 			{
-				FreePaletteNative((SDLPalette*)ppalette);
-			}
-		}
-
-		/// <summary>
-		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
-		/// This function maps the RGB color value to the specified pixel format and<br/>
-		/// returns the pixel value best approximating the given RGB color value for<br/>
-		/// the given pixel format.<br/>
-		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
-		/// in the palette will be returned.<br/>
-		/// If the specified pixel format has an alpha component it will be returned as<br/>
-		/// all 1 bits (fully opaque).<br/>
-		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
-		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
-		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
-		/// for an 8-bpp format).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint MapRGBNative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, uint>)funcTable[288])(format, r, g, b);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, uint>)funcTable[288])((nint)format, r, g, b);
-			#endif
-		}
-
-		/// <summary>
-		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
-		/// This function maps the RGB color value to the specified pixel format and<br/>
-		/// returns the pixel value best approximating the given RGB color value for<br/>
-		/// the given pixel format.<br/>
-		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
-		/// in the palette will be returned.<br/>
-		/// If the specified pixel format has an alpha component it will be returned as<br/>
-		/// all 1 bits (fully opaque).<br/>
-		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
-		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
-		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
-		/// for an 8-bpp format).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			uint ret = MapRGBNative(format, r, g, b);
-			return ret;
-		}
-
-		/// <summary>
-		/// Map an RGB triple to an opaque pixel value for a given pixel format.<br/>
-		/// This function maps the RGB color value to the specified pixel format and<br/>
-		/// returns the pixel value best approximating the given RGB color value for<br/>
-		/// the given pixel format.<br/>
-		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
-		/// in the palette will be returned.<br/>
-		/// If the specified pixel format has an alpha component it will be returned as<br/>
-		/// all 1 bits (fully opaque).<br/>
-		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
-		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
-		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
-		/// for an 8-bpp format).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MapRGB")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint MapRGB([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b)
-		{
-			fixed (SDLPixelFormat* pformat = &format)
-			{
-				uint ret = MapRGBNative((SDLPixelFormat*)pformat, r, g, b);
+				SDLBool ret = IntersectFRectNative(a, b, (SDLFRect*)presult);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
-		/// This function maps the RGBA color value to the specified pixel format and<br/>
-		/// returns the pixel value best approximating the given RGBA color value for<br/>
-		/// the given pixel format.<br/>
-		/// If the specified pixel format has no alpha component the alpha value will<br/>
-		/// be ignored (as it will be in formats with a palette).<br/>
-		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
-		/// in the palette will be returned.<br/>
-		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
-		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
-		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
-		/// for an 8-bpp format).<br/>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static SDLBool IntersectFRect(ref SDLFRect a, SDLFRect* b, ref SDLFRect result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					SDLBool ret = IntersectFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRect(SDLFRect* a, ref SDLFRect b, ref SDLFRect result)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					SDLBool ret = IntersectFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of two rectangles with float precision.<br/>
+		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRect(ref SDLFRect a, ref SDLFRect b, ref SDLFRect result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					fixed (SDLFRect* presult = &result)
+					{
+						SDLBool ret = IntersectFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint MapRGBANative([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		internal static void UnionFRectNative(SDLFRect* a, SDLFRect* b, SDLFRect* result)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLPixelFormat*, byte, byte, byte, byte, uint>)funcTable[289])(format, r, g, b, a);
+			((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLFRect*, void>)funcTable[300])(a, b, result);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, uint>)funcTable[289])((nint)format, r, g, b, a);
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[300])((nint)a, (nint)b, (nint)result);
 			#endif
 		}
 
 		/// <summary>
-		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
-		/// This function maps the RGBA color value to the specified pixel format and<br/>
-		/// returns the pixel value best approximating the given RGBA color value for<br/>
-		/// the given pixel format.<br/>
-		/// If the specified pixel format has no alpha component the alpha value will<br/>
-		/// be ignored (as it will be in formats with a palette).<br/>
-		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
-		/// in the palette will be returned.<br/>
-		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
-		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
-		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
-		/// for an 8-bpp format).<br/>
-		/// <br/>
+		/// Calculate the union of two rectangles with float precision.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		public static void UnionFRect(SDLFRect* a, SDLFRect* b, SDLFRect* result)
 		{
-			uint ret = MapRGBANative(format, r, g, b, a);
+			UnionFRectNative(a, b, result);
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionFRect(ref SDLFRect a, SDLFRect* b, SDLFRect* result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				UnionFRectNative((SDLFRect*)pa, b, result);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionFRect(SDLFRect* a, ref SDLFRect b, SDLFRect* result)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				UnionFRectNative(a, (SDLFRect*)pb, result);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionFRect(ref SDLFRect a, ref SDLFRect b, SDLFRect* result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					UnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, result);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionFRect(SDLFRect* a, SDLFRect* b, ref SDLFRect result)
+		{
+			fixed (SDLFRect* presult = &result)
+			{
+				UnionFRectNative(a, b, (SDLFRect*)presult);
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionFRect(ref SDLFRect a, SDLFRect* b, ref SDLFRect result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					UnionFRectNative((SDLFRect*)pa, b, (SDLFRect*)presult);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionFRect(SDLFRect* a, ref SDLFRect b, ref SDLFRect result)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					UnionFRectNative(a, (SDLFRect*)pb, (SDLFRect*)presult);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the union of two rectangles with float precision.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnionFRect(ref SDLFRect a, ref SDLFRect b, ref SDLFRect result)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					fixed (SDLFRect* presult = &result)
+					{
+						UnionFRectNative((SDLFRect*)pa, (SDLFRect*)pb, (SDLFRect*)presult);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool EncloseFPointsNative(SDLFPoint* points, int count, SDLFRect* clip, SDLFRect* result)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFPoint*, int, SDLFRect*, SDLFRect*, SDLBool>)funcTable[301])(points, count, clip, result);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, int, nint, nint, SDLBool>)funcTable[301])((nint)points, count, (nint)clip, (nint)result);
+			#endif
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, SDLFRect* clip, SDLFRect* result)
+		{
+			SDLBool ret = EncloseFPointsNative(points, count, clip, result);
 			return ret;
 		}
 
 		/// <summary>
-		/// Map an RGBA quadruple to a pixel value for a given pixel format.<br/>
-		/// This function maps the RGBA color value to the specified pixel format and<br/>
-		/// returns the pixel value best approximating the given RGBA color value for<br/>
-		/// the given pixel format.<br/>
-		/// If the specified pixel format has no alpha component the alpha value will<br/>
-		/// be ignored (as it will be in formats with a palette).<br/>
-		/// If the format has a palette (8-bit) the index of the closest matching color<br/>
-		/// in the palette will be returned.<br/>
-		/// If the pixel format bpp (color depth) is less than 32-bpp then the unused<br/>
-		/// upper bits of the return value can safely be ignored (e.g., with a 16-bpp<br/>
-		/// format the return value can be assigned to a Uint16, and similarly a Uint8<br/>
-		/// for an 8-bpp format).<br/>
-		/// <br/>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MapRGBA")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint MapRGBA([NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8")] byte a)
+		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, SDLFRect* clip, SDLFRect* result)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFPoint* ppoints = &points)
 			{
-				uint ret = MapRGBANative((SDLPixelFormat*)pformat, r, g, b, a);
+				SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, clip, result);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
+		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, ref SDLFRect clip, SDLFRect* result)
+		{
+			fixed (SDLFRect* pclip = &clip)
+			{
+				SDLBool ret = EncloseFPointsNative(points, count, (SDLFRect*)pclip, result);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, ref SDLFRect clip, SDLFRect* result)
+		{
+			fixed (SDLFPoint* ppoints = &points)
+			{
+				fixed (SDLFRect* pclip = &clip)
+				{
+					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, result);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, SDLFRect* clip, ref SDLFRect result)
+		{
+			fixed (SDLFRect* presult = &result)
+			{
+				SDLBool ret = EncloseFPointsNative(points, count, clip, (SDLFRect*)presult);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, SDLFRect* clip, ref SDLFRect result)
+		{
+			fixed (SDLFPoint* ppoints = &points)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, clip, (SDLFRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EncloseFPoints(SDLFPoint* points, int count, ref SDLFRect clip, ref SDLFRect result)
+		{
+			fixed (SDLFRect* pclip = &clip)
+			{
+				fixed (SDLFRect* presult = &result)
+				{
+					SDLBool ret = EncloseFPointsNative(points, count, (SDLFRect*)pclip, (SDLFRect*)presult);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate a minimal rectangle enclosing a set of points with float<br/>
+		/// precision.<br/>
+		/// If `clip` is not NULL then only points inside of the clipping rectangle are<br/>
+		/// considered.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool EncloseFPoints(ref SDLFPoint points, int count, ref SDLFRect clip, ref SDLFRect result)
+		{
+			fixed (SDLFPoint* ppoints = &points)
+			{
+				fixed (SDLFRect* pclip = &clip)
+				{
+					fixed (SDLFRect* presult = &result)
+					{
+						SDLBool ret = EncloseFPointsNative((SDLFPoint*)ppoints, count, (SDLFRect*)pclip, (SDLFRect*)presult);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetRGBNative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		internal static SDLBool IntersectFRectAndLineNative(SDLFRect* rect, float* x1, float* y1, float* x2, float* y2)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, void>)funcTable[290])(pixel, format, r, g, b);
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, float*, float*, float*, float*, SDLBool>)funcTable[302])(rect, x1, y1, x2, y2);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, void>)funcTable[290])(pixel, (nint)format, (nint)r, (nint)g, (nint)b);
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, SDLBool>)funcTable[302])((nint)rect, (nint)x1, (nint)y1, (nint)x2, (nint)y2);
 			#endif
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, float* x2, float* y2)
 		{
-			GetRGBNative(pixel, format, r, g, b);
+			SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, x2, y2);
+			return ret;
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, float* x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, b);
+				SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, x2, y2);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, float* x2, float* y2)
 		{
-			fixed (byte* pr = &r)
+			fixed (float* px1 = &x1)
 			{
-				GetRGBNative(pixel, format, (byte*)pr, g, b);
+				SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, x2, y2);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, float* x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (byte* pr = &r)
+				fixed (float* px1 = &x1)
 				{
-					GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, x2, y2);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, float* x2, float* y2)
 		{
-			fixed (byte* pg = &g)
+			fixed (float* py1 = &y1)
 			{
-				GetRGBNative(pixel, format, r, (byte*)pg, b);
+				SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, x2, y2);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, float* x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (byte* pg = &g)
+				fixed (float* py1 = &y1)
 				{
-					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, x2, y2);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, float* x2, float* y2)
 		{
-			fixed (byte* pr = &r)
+			fixed (float* px1 = &x1)
 			{
-				fixed (byte* pg = &g)
+				fixed (float* py1 = &y1)
 				{
-					GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, b);
+					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, y2);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, float* x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (byte* pr = &r)
+				fixed (float* px1 = &x1)
 				{
-					fixed (byte* pg = &g)
+					fixed (float* py1 = &y1)
 					{
-						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, y2);
+						return ret;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, ref float x2, float* y2)
 		{
-			fixed (byte* pb = &b)
+			fixed (float* px2 = &x2)
 			{
-				GetRGBNative(pixel, format, r, g, (byte*)pb);
+				SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, (float*)px2, y2);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, ref float x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (byte* pb = &b)
+				fixed (float* px2 = &x2)
 				{
-					GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb);
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, (float*)px2, y2);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, ref float x2, float* y2)
 		{
-			fixed (byte* pr = &r)
+			fixed (float* px1 = &x1)
 			{
-				fixed (byte* pb = &b)
+				fixed (float* px2 = &x2)
 				{
-					GetRGBNative(pixel, format, (byte*)pr, g, (byte*)pb);
+					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, y2);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, ref float x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (byte* pr = &r)
+				fixed (float* px1 = &x1)
 				{
-					fixed (byte* pb = &b)
+					fixed (float* px2 = &x2)
 					{
-						GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, y2);
+						return ret;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, ref float x2, float* y2)
 		{
-			fixed (byte* pg = &g)
+			fixed (float* py1 = &y1)
 			{
-				fixed (byte* pb = &b)
+				fixed (float* px2 = &x2)
 				{
-					GetRGBNative(pixel, format, r, (byte*)pg, (byte*)pb);
+					SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, y2);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, ref float x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (byte* pg = &g)
+				fixed (float* py1 = &y1)
 				{
-					fixed (byte* pb = &b)
+					fixed (float* px2 = &x2)
 					{
-						GetRGBNative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, (byte*)pb);
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, y2);
+						return ret;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, ref float x2, float* y2)
 		{
-			fixed (byte* pr = &r)
+			fixed (float* px1 = &x1)
 			{
-				fixed (byte* pg = &g)
+				fixed (float* py1 = &y1)
 				{
-					fixed (byte* pb = &b)
+					fixed (float* px2 = &x2)
 					{
-						GetRGBNative(pixel, format, (byte*)pr, (byte*)pg, (byte*)pb);
+						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, y2);
+						return ret;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGB values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// <br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGB")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGB([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b)
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, ref float x2, float* y2)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLFRect* prect = &rect)
 			{
-				fixed (byte* pr = &r)
+				fixed (float* px1 = &x1)
 				{
-					fixed (byte* pg = &g)
+					fixed (float* py1 = &y1)
 					{
-						fixed (byte* pb = &b)
+						fixed (float* px2 = &x2)
 						{
-							GetRGBNative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, (byte*)pb);
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, y2);
+							return ret;
 						}
 					}
 				}
@@ -4683,338 +1420,3600 @@ namespace Hexa.NET.SDL2
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, float* x2, ref float y2)
+		{
+			fixed (float* py2 = &y2)
+			{
+				SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, x2, (float*)py2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, float* x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py2 = &y2)
+				{
+					SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, x2, (float*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, float* x2, ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py2 = &y2)
+				{
+					SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, x2, (float*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, float* x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py2 = &y2)
+					{
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, x2, (float*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, float* x2, ref float y2)
+		{
+			fixed (float* py1 = &y1)
+			{
+				fixed (float* py2 = &y2)
+				{
+					SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, x2, (float*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, float* x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* py2 = &y2)
+					{
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, x2, (float*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, float* x2, ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* py2 = &y2)
+					{
+						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, x2, (float*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, float* x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py1 = &y1)
+					{
+						fixed (float* py2 = &y2)
+						{
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, x2, (float*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, float* y1, ref float x2, ref float y2)
+		{
+			fixed (float* px2 = &x2)
+			{
+				fixed (float* py2 = &y2)
+				{
+					SDLBool ret = IntersectFRectAndLineNative(rect, x1, y1, (float*)px2, (float*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, float* y1, ref float x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px2 = &x2)
+				{
+					fixed (float* py2 = &y2)
+					{
+						SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, y1, (float*)px2, (float*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, float* y1, ref float x2, ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* px2 = &x2)
+				{
+					fixed (float* py2 = &y2)
+					{
+						SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, y1, (float*)px2, (float*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, float* y1, ref float x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						fixed (float* py2 = &y2)
+						{
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, y1, (float*)px2, (float*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, float* x1, ref float y1, ref float x2, ref float y2)
+		{
+			fixed (float* py1 = &y1)
+			{
+				fixed (float* px2 = &x2)
+				{
+					fixed (float* py2 = &y2)
+					{
+						SDLBool ret = IntersectFRectAndLineNative(rect, x1, (float*)py1, (float*)px2, (float*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, float* x1, ref float y1, ref float x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						fixed (float* py2 = &y2)
+						{
+							SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, x1, (float*)py1, (float*)px2, (float*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(SDLFRect* rect, ref float x1, ref float y1, ref float x2, ref float y2)
+		{
+			fixed (float* px1 = &x1)
+			{
+				fixed (float* py1 = &y1)
+				{
+					fixed (float* px2 = &x2)
+					{
+						fixed (float* py2 = &y2)
+						{
+							SDLBool ret = IntersectFRectAndLineNative(rect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment with float<br/>
+		/// precision.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectFRectAndLine(ref SDLFRect rect, ref float x1, ref float y1, ref float x2, ref float y2)
+		{
+			fixed (SDLFRect* prect = &rect)
+			{
+				fixed (float* px1 = &x1)
+				{
+					fixed (float* py1 = &y1)
+					{
+						fixed (float* px2 = &x2)
+						{
+							fixed (float* py2 = &y2)
+							{
+								SDLBool ret = IntersectFRectAndLineNative((SDLFRect*)prect, (float*)px1, (float*)py1, (float*)px2, (float*)py2);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Compose a custom blend mode for renderers.<br/>
+		/// The functions SDL_SetRenderDrawBlendMode and SDL_SetTextureBlendMode accept<br/>
+		/// the SDL_BlendMode returned by this function if the renderer supports it.<br/>
+		/// A blend mode controls how the pixels from a drawing operation (source) get<br/>
+		/// combined with the pixels from the render target (destination). First, the<br/>
+		/// components of the source and destination pixels get multiplied with their<br/>
+		/// blend factors. Then, the blend operation takes the two products and<br/>
+		/// calculates the result that will get stored in the render target.<br/>
+		/// Expressed in pseudocode, it would look like this:<br/>
+		/// ```c<br/>
+		/// dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);<br/>
+		/// dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);<br/>
+		/// ```<br/>
+		/// Where the functions `colorOperation(src, dst)` and `alphaOperation(src,<br/>
+		/// dst)` can return one of the following:<br/>
+		/// - `src + dst`<br/>
+		/// - `src - dst`<br/>
+		/// - `dst - src`<br/>
+		/// - `min(src, dst)`<br/>
+		/// - `max(src, dst)`<br/>
+		/// The red, green, and blue components are always multiplied with the first,<br/>
+		/// second, and third components of the SDL_BlendFactor, respectively. The<br/>
+		/// fourth component is not used.<br/>
+		/// The alpha component is always multiplied with the fourth component of the<br/>
+		/// SDL_BlendFactor. The other components are not used in the alpha<br/>
+		/// calculation.<br/>
+		/// Support for these blend modes varies for each renderer. To check if a<br/>
+		/// specific SDL_BlendMode is supported, create a renderer and pass it to<br/>
+		/// either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will<br/>
+		/// return with an error if the blend mode is not supported.<br/>
+		/// This list describes the support of custom blend modes for each renderer in<br/>
+		/// SDL 2.0.6. All renderers support the four blend modes listed in the<br/>
+		/// SDL_BlendMode enumeration.<br/>
+		/// - **direct3d**: Supports all operations with all factors. However, some<br/>
+		/// factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and<br/>
+		/// `SDL_BLENDOPERATION_MAXIMUM`.<br/>
+		/// - **direct3d11**: Same as Direct3D 9.<br/>
+		/// - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly with SDL<br/>
+		/// 2.0.6.<br/>
+		/// - **opengles**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. Color and alpha factors need to be the same. OpenGL ES 1<br/>
+		/// implementation specific: May also support `SDL_BLENDOPERATION_SUBTRACT`<br/>
+		/// and `SDL_BLENDOPERATION_REV_SUBTRACT`. May support color and alpha<br/>
+		/// operations being different from each other. May support color and alpha<br/>
+		/// factors being different from each other.<br/>
+		/// - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,<br/>
+		/// `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`<br/>
+		/// operations with all factors.<br/>
+		/// - **psp**: No custom blend mode support.<br/>
+		/// - **software**: No custom blend mode support.<br/>
+		/// Some renderers do not provide an alpha component for the default render<br/>
+		/// target. The `SDL_BLENDFACTOR_DST_ALPHA` and<br/>
+		/// `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this<br/>
+		/// case.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetRGBANative([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		internal static SDLBlendMode ComposeCustomBlendModeNative(SDLBlendFactor srcColorFactor, SDLBlendFactor dstColorFactor, SDLBlendOperation colorOperation, SDLBlendFactor srcAlphaFactor, SDLBlendFactor dstAlphaFactor, SDLBlendOperation alphaOperation)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, SDLPixelFormat*, byte*, byte*, byte*, byte*, void>)funcTable[291])(pixel, format, r, g, b, a);
+			return ((delegate* unmanaged[Cdecl]<SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendMode>)funcTable[303])(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, nint, void>)funcTable[291])(pixel, (nint)format, (nint)r, (nint)g, (nint)b, (nint)a);
+			return (SDLBlendMode)((delegate* unmanaged[Cdecl]<SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendFactor, SDLBlendFactor, SDLBlendOperation, SDLBlendMode>)funcTable[303])(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
 			#endif
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Compose a custom blend mode for renderers.<br/>
+		/// The functions SDL_SetRenderDrawBlendMode and SDL_SetTextureBlendMode accept<br/>
+		/// the SDL_BlendMode returned by this function if the renderer supports it.<br/>
+		/// A blend mode controls how the pixels from a drawing operation (source) get<br/>
+		/// combined with the pixels from the render target (destination). First, the<br/>
+		/// components of the source and destination pixels get multiplied with their<br/>
+		/// blend factors. Then, the blend operation takes the two products and<br/>
+		/// calculates the result that will get stored in the render target.<br/>
+		/// Expressed in pseudocode, it would look like this:<br/>
+		/// ```c<br/>
+		/// dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);<br/>
+		/// dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);<br/>
+		/// ```<br/>
+		/// Where the functions `colorOperation(src, dst)` and `alphaOperation(src,<br/>
+		/// dst)` can return one of the following:<br/>
+		/// - `src + dst`<br/>
+		/// - `src - dst`<br/>
+		/// - `dst - src`<br/>
+		/// - `min(src, dst)`<br/>
+		/// - `max(src, dst)`<br/>
+		/// The red, green, and blue components are always multiplied with the first,<br/>
+		/// second, and third components of the SDL_BlendFactor, respectively. The<br/>
+		/// fourth component is not used.<br/>
+		/// The alpha component is always multiplied with the fourth component of the<br/>
+		/// SDL_BlendFactor. The other components are not used in the alpha<br/>
+		/// calculation.<br/>
+		/// Support for these blend modes varies for each renderer. To check if a<br/>
+		/// specific SDL_BlendMode is supported, create a renderer and pass it to<br/>
+		/// either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will<br/>
+		/// return with an error if the blend mode is not supported.<br/>
+		/// This list describes the support of custom blend modes for each renderer in<br/>
+		/// SDL 2.0.6. All renderers support the four blend modes listed in the<br/>
+		/// SDL_BlendMode enumeration.<br/>
+		/// - **direct3d**: Supports all operations with all factors. However, some<br/>
+		/// factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and<br/>
+		/// `SDL_BLENDOPERATION_MAXIMUM`.<br/>
+		/// - **direct3d11**: Same as Direct3D 9.<br/>
+		/// - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly with SDL<br/>
+		/// 2.0.6.<br/>
+		/// - **opengles**: Supports the `SDL_BLENDOPERATION_ADD` operation with all<br/>
+		/// factors. Color and alpha factors need to be the same. OpenGL ES 1<br/>
+		/// implementation specific: May also support `SDL_BLENDOPERATION_SUBTRACT`<br/>
+		/// and `SDL_BLENDOPERATION_REV_SUBTRACT`. May support color and alpha<br/>
+		/// operations being different from each other. May support color and alpha<br/>
+		/// factors being different from each other.<br/>
+		/// - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,<br/>
+		/// `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`<br/>
+		/// operations with all factors.<br/>
+		/// - **psp**: No custom blend mode support.<br/>
+		/// - **software**: No custom blend mode support.<br/>
+		/// Some renderers do not provide an alpha component for the default render<br/>
+		/// target. The `SDL_BLENDFACTOR_DST_ALPHA` and<br/>
+		/// `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this<br/>
+		/// case.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static SDLBlendMode ComposeCustomBlendMode(SDLBlendFactor srcColorFactor, SDLBlendFactor dstColorFactor, SDLBlendOperation colorOperation, SDLBlendFactor srcAlphaFactor, SDLBlendFactor dstAlphaFactor, SDLBlendOperation alphaOperation)
 		{
-			GetRGBANative(pixel, format, r, g, b, a);
+			SDLBlendMode ret = ComposeCustomBlendModeNative(srcColorFactor, dstColorFactor, colorOperation, srcAlphaFactor, dstAlphaFactor, alphaOperation);
+			return ret;
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Allocate a new RGB surface.<br/>
+		/// If `depth` is 4 or 8 bits, an empty palette is allocated for the surface.<br/>
+		/// If `depth` is greater than 8 bits, the pixel format is set using the<br/>
+		/// [RGBA]mask parameters.<br/>
+		/// The [RGBA]mask parameters are the bitmasks used to extract that color from<br/>
+		/// a pixel. For instance, `Rmask` being 0xFF000000 means the red data is<br/>
+		/// stored in the most significant byte. Using zeros for the RGB masks sets a<br/>
+		/// default value, based on the depth. For example:<br/>
+		/// ```c++<br/>
+		/// SDL_CreateRGBSurface(0,w,h,32,0,0,0,0);<br/>
+		/// ```<br/>
+		/// However, using zero for the Amask results in an Amask of 0.<br/>
+		/// By default surfaces with an alpha mask are set up for blending as with:<br/>
+		/// ```c++<br/>
+		/// SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND)<br/>
+		/// ```<br/>
+		/// You can change this by calling SDL_SetSurfaceBlendMode() and selecting a<br/>
+		/// different `blendMode`.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* CreateRGBSurfaceNative(uint flags, int width, int height, int depth, uint rmask, uint gmask, uint bmask, uint amask)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, uint, uint, SDLSurface*>)funcTable[304])(flags, width, height, depth, rmask, gmask, bmask, amask);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, uint, uint, uint, nint>)funcTable[304])(flags, width, height, depth, rmask, gmask, bmask, amask);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface.<br/>
+		/// If `depth` is 4 or 8 bits, an empty palette is allocated for the surface.<br/>
+		/// If `depth` is greater than 8 bits, the pixel format is set using the<br/>
+		/// [RGBA]mask parameters.<br/>
+		/// The [RGBA]mask parameters are the bitmasks used to extract that color from<br/>
+		/// a pixel. For instance, `Rmask` being 0xFF000000 means the red data is<br/>
+		/// stored in the most significant byte. Using zeros for the RGB masks sets a<br/>
+		/// default value, based on the depth. For example:<br/>
+		/// ```c++<br/>
+		/// SDL_CreateRGBSurface(0,w,h,32,0,0,0,0);<br/>
+		/// ```<br/>
+		/// However, using zero for the Amask results in an Amask of 0.<br/>
+		/// By default surfaces with an alpha mask are set up for blending as with:<br/>
+		/// ```c++<br/>
+		/// SDL_SetSurfaceBlendMode(surface, SDL_BLENDMODE_BLEND)<br/>
+		/// ```<br/>
+		/// You can change this by calling SDL_SetSurfaceBlendMode() and selecting a<br/>
+		/// different `blendMode`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* CreateRGBSurface(uint flags, int width, int height, int depth, uint rmask, uint gmask, uint bmask, uint amask)
+		{
+			SDLSurface* ret = CreateRGBSurfaceNative(flags, width, height, depth, rmask, gmask, bmask, amask);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with a specific pixel format.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurface(), except instead<br/>
+		/// of providing pixel color masks, you provide it with a predefined format<br/>
+		/// from SDL_PixelFormatEnum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* CreateRGBSurfaceWithFormatNative(uint flags, int width, int height, int depth, uint format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, SDLSurface*>)funcTable[305])(flags, width, height, depth, format);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<uint, int, int, int, uint, nint>)funcTable[305])(flags, width, height, depth, format);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with a specific pixel format.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurface(), except instead<br/>
+		/// of providing pixel color masks, you provide it with a predefined format<br/>
+		/// from SDL_PixelFormatEnum.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* CreateRGBSurfaceWithFormat(uint flags, int width, int height, int depth, uint format)
+		{
+			SDLSurface* ret = CreateRGBSurfaceWithFormatNative(flags, width, height, depth, format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with existing pixel data.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurface(), except it does<br/>
+		/// not allocate memory for the pixel data, instead the caller provides an<br/>
+		/// existing buffer of data for the surface to use.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* CreateRGBSurfaceFromNative(void* pixels, int width, int height, int depth, int pitch, uint rmask, uint gmask, uint bmask, uint amask)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, int, int, int, int, uint, uint, uint, uint, SDLSurface*>)funcTable[306])(pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, uint, uint, uint, uint, nint>)funcTable[306])((nint)pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with existing pixel data.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurface(), except it does<br/>
+		/// not allocate memory for the pixel data, instead the caller provides an<br/>
+		/// existing buffer of data for the surface to use.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* CreateRGBSurfaceFrom(void* pixels, int width, int height, int depth, int pitch, uint rmask, uint gmask, uint bmask, uint amask)
+		{
+			SDLSurface* ret = CreateRGBSurfaceFromNative(pixels, width, height, depth, pitch, rmask, gmask, bmask, amask);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with with a specific pixel format and existing<br/>
+		/// pixel data.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurfaceFrom(), except<br/>
+		/// instead of providing pixel color masks, you provide it with a predefined<br/>
+		/// format from SDL_PixelFormatEnum.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* CreateRGBSurfaceWithFormatFromNative(void* pixels, int width, int height, int depth, int pitch, uint format)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void*, int, int, int, int, uint, SDLSurface*>)funcTable[307])(pixels, width, height, depth, pitch, format);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, uint, nint>)funcTable[307])((nint)pixels, width, height, depth, pitch, format);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a new RGB surface with with a specific pixel format and existing<br/>
+		/// pixel data.<br/>
+		/// This function operates mostly like SDL_CreateRGBSurfaceFrom(), except<br/>
+		/// instead of providing pixel color masks, you provide it with a predefined<br/>
+		/// format from SDL_PixelFormatEnum.<br/>
+		/// No copy is made of the pixel data. Pixel data is not managed automatically;<br/>
+		/// you must free the surface before you free the pixel data.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* CreateRGBSurfaceWithFormatFrom(void* pixels, int width, int height, int depth, int pitch, uint format)
+		{
+			SDLSurface* ret = CreateRGBSurfaceWithFormatFromNative(pixels, width, height, depth, pitch, format);
+			return ret;
+		}
+
+		/// <summary>
+		/// Free an RGB surface.<br/>
+		/// It is safe to pass NULL to this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FreeSurfaceNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[308])(surface);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[308])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Free an RGB surface.<br/>
+		/// It is safe to pass NULL to this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeSurface(SDLSurface* surface)
+		{
+			FreeSurfaceNative(surface);
+		}
+
+		/// <summary>
+		/// Free an RGB surface.<br/>
+		/// It is safe to pass NULL to this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FreeSurface(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
 			{
-				GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, b, a);
+				FreeSurfaceNative((SDLSurface*)psurface);
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Set the palette used by a surface.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfacePaletteNative(SDLSurface* surface, SDLPalette* palette)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPalette*, int>)funcTable[309])(surface, palette);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[309])((nint)surface, (nint)palette);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfacePalette(SDLSurface* surface, SDLPalette* palette)
+		{
+			int ret = SetSurfacePaletteNative(surface, palette);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfacePalette(ref SDLSurface surface, SDLPalette* palette)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfacePaletteNative((SDLSurface*)psurface, palette);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfacePalette(SDLSurface* surface, ref SDLPalette palette)
+		{
+			fixed (SDLPalette* ppalette = &palette)
+			{
+				int ret = SetSurfacePaletteNative(surface, (SDLPalette*)ppalette);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the palette used by a surface.<br/>
+		/// A single palette can be shared with many surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfacePalette(ref SDLSurface surface, ref SDLPalette palette)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLPalette* ppalette = &palette)
+				{
+					int ret = SetSurfacePaletteNative((SDLSurface*)psurface, (SDLPalette*)ppalette);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set up a surface for directly accessing the pixels.<br/>
+		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
+		/// and read from `surface->pixels`, using the pixel format stored in<br/>
+		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
+		/// SDL_UnlockSurface() to release it.<br/>
+		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
+		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
+		/// format of the surface will not change.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int LockSurfaceNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int>)funcTable[310])(surface);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[310])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Set up a surface for directly accessing the pixels.<br/>
+		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
+		/// and read from `surface->pixels`, using the pixel format stored in<br/>
+		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
+		/// SDL_UnlockSurface() to release it.<br/>
+		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
+		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
+		/// format of the surface will not change.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockSurface(SDLSurface* surface)
+		{
+			int ret = LockSurfaceNative(surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set up a surface for directly accessing the pixels.<br/>
+		/// Between calls to SDL_LockSurface() / SDL_UnlockSurface(), you can write to<br/>
+		/// and read from `surface->pixels`, using the pixel format stored in<br/>
+		/// `surface->format`. Once you are done accessing the surface, you should use<br/>
+		/// SDL_UnlockSurface() to release it.<br/>
+		/// Not all surfaces require locking. If `SDL_MUSTLOCK(surface)` evaluates to<br/>
+		/// 0, then you can read and write to the surface at any time, and the pixel<br/>
+		/// format of the surface will not change.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockSurface(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = LockSurfaceNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Release a surface after directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockSurfaceNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSurface*, void>)funcTable[311])(surface);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[311])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Release a surface after directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnlockSurface(SDLSurface* surface)
+		{
+			UnlockSurfaceNative(surface);
+		}
+
+		/// <summary>
+		/// Release a surface after directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnlockSurface(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				UnlockSurfaceNative((SDLSurface*)psurface);
+			}
+		}
+
+		/// <summary>
+		/// Load a BMP image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_FreeSurface(). Not doing so will<br/>
+		/// result in a memory leak.<br/>
+		/// src is an open SDL_RWops buffer, typically loaded with SDL_RWFromFile.<br/>
+		/// Alternitavely, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
+		/// from a file, convert it to an SDL_Surface and then close the file.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* LoadBMPRWNative(SDLRWops* src, int freesrc)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, SDLSurface*>)funcTable[312])(src, freesrc);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[312])((nint)src, freesrc);
+			#endif
+		}
+
+		/// <summary>
+		/// Load a BMP image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_FreeSurface(). Not doing so will<br/>
+		/// result in a memory leak.<br/>
+		/// src is an open SDL_RWops buffer, typically loaded with SDL_RWFromFile.<br/>
+		/// Alternitavely, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
+		/// from a file, convert it to an SDL_Surface and then close the file.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* LoadBMPRW(SDLRWops* src, int freesrc)
+		{
+			SDLSurface* ret = LoadBMPRWNative(src, freesrc);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load a BMP image from a seekable SDL data stream.<br/>
+		/// The new surface should be freed with SDL_FreeSurface(). Not doing so will<br/>
+		/// result in a memory leak.<br/>
+		/// src is an open SDL_RWops buffer, typically loaded with SDL_RWFromFile.<br/>
+		/// Alternitavely, you might also use the macro SDL_LoadBMP to load a bitmap<br/>
+		/// from a file, convert it to an SDL_Surface and then close the file.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* LoadBMPRW(ref SDLRWops src, int freesrc)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				SDLSurface* ret = LoadBMPRWNative((SDLRWops*)psrc, freesrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SaveBMPRWNative(SDLSurface* surface, SDLRWops* dst, int freedst)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRWops*, int, int>)funcTable[313])(surface, dst, freedst);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[313])((nint)surface, (nint)dst, freedst);
+			#endif
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveBMPRW(SDLSurface* surface, SDLRWops* dst, int freedst)
+		{
+			int ret = SaveBMPRWNative(surface, dst, freedst);
+			return ret;
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveBMPRW(ref SDLSurface surface, SDLRWops* dst, int freedst)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SaveBMPRWNative((SDLSurface*)psurface, dst, freedst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveBMPRW(SDLSurface* surface, ref SDLRWops dst, int freedst)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				int ret = SaveBMPRWNative(surface, (SDLRWops*)pdst, freedst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Save a surface to a seekable SDL data stream in BMP format.<br/>
+		/// Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the<br/>
+		/// BMP directly. Other RGB formats with 8-bit or higher get converted to a<br/>
+		/// 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit<br/>
+		/// surface before they are saved. YUV and paletted 1-bit and 4-bit formats are<br/>
+		/// not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SaveBMPRW(ref SDLSurface surface, ref SDLRWops dst, int freedst)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLRWops* pdst = &dst)
+				{
+					int ret = SaveBMPRWNative((SDLSurface*)psurface, (SDLRWops*)pdst, freedst);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the RLE acceleration hint for a surface.<br/>
+		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
+		/// the surface must be locked before directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfaceRLENative(SDLSurface* surface, int flag)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, int>)funcTable[314])(surface, flag);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[314])((nint)surface, flag);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the RLE acceleration hint for a surface.<br/>
+		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
+		/// the surface must be locked before directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceRLE(SDLSurface* surface, int flag)
+		{
+			int ret = SetSurfaceRLENative(surface, flag);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the RLE acceleration hint for a surface.<br/>
+		/// If RLE is enabled, color key and alpha blending blits are much faster, but<br/>
+		/// the surface must be locked before directly accessing the pixels.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceRLE(ref SDLSurface surface, int flag)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceRLENative((SDLSurface*)psurface, flag);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns whether the surface is RLE enabled<br/>
+		/// It is safe to pass a NULL `surface` here; it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasSurfaceRLENative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBool>)funcTable[315])(surface);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[315])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns whether the surface is RLE enabled<br/>
+		/// It is safe to pass a NULL `surface` here; it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasSurfaceRLE(SDLSurface* surface)
+		{
+			SDLBool ret = HasSurfaceRLENative(surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns whether the surface is RLE enabled<br/>
+		/// It is safe to pass a NULL `surface` here; it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasSurfaceRLE(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLBool ret = HasSurfaceRLENative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the color key (transparent pixel) in a surface.<br/>
+		/// The color key defines a pixel value that will be treated as transparent in<br/>
+		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
+		/// considered transparent, and therefore not rendered.<br/>
+		/// It is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// RLE acceleration can substantially speed up blitting of images with large<br/>
+		/// horizontal runs of transparent pixels. See SDL_SetSurfaceRLE() for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetColorKeyNative(SDLSurface* surface, int flag, uint key)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, int, uint, int>)funcTable[316])(surface, flag, key);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, uint, int>)funcTable[316])((nint)surface, flag, key);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the color key (transparent pixel) in a surface.<br/>
+		/// The color key defines a pixel value that will be treated as transparent in<br/>
+		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
+		/// considered transparent, and therefore not rendered.<br/>
+		/// It is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// RLE acceleration can substantially speed up blitting of images with large<br/>
+		/// horizontal runs of transparent pixels. See SDL_SetSurfaceRLE() for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetColorKey(SDLSurface* surface, int flag, uint key)
+		{
+			int ret = SetColorKeyNative(surface, flag, key);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the color key (transparent pixel) in a surface.<br/>
+		/// The color key defines a pixel value that will be treated as transparent in<br/>
+		/// a blit. For example, one can use this to specify that cyan pixels should be<br/>
+		/// considered transparent, and therefore not rendered.<br/>
+		/// It is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// RLE acceleration can substantially speed up blitting of images with large<br/>
+		/// horizontal runs of transparent pixels. See SDL_SetSurfaceRLE() for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetColorKey(ref SDLSurface surface, int flag, uint key)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetColorKeyNative((SDLSurface*)psurface, flag, key);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns whether the surface has a color key<br/>
+		/// It is safe to pass a NULL `surface` here; it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasColorKeyNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBool>)funcTable[317])(surface);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[317])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns whether the surface has a color key<br/>
+		/// It is safe to pass a NULL `surface` here; it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasColorKey(SDLSurface* surface)
+		{
+			SDLBool ret = HasColorKeyNative(surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns whether the surface has a color key<br/>
+		/// It is safe to pass a NULL `surface` here; it will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasColorKey(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLBool ret = HasColorKeyNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetColorKeyNative(SDLSurface* surface, uint* key)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint*, int>)funcTable[318])(surface, key);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[318])((nint)surface, (nint)key);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetColorKey(SDLSurface* surface, uint* key)
+		{
+			int ret = GetColorKeyNative(surface, key);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetColorKey(ref SDLSurface surface, uint* key)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetColorKeyNative((SDLSurface*)psurface, key);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetColorKey(SDLSurface* surface, ref uint key)
+		{
+			fixed (uint* pkey = &key)
+			{
+				int ret = GetColorKeyNative(surface, (uint*)pkey);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color key (transparent pixel) for a surface.<br/>
+		/// The color key is a pixel of the format used by the surface, as generated by<br/>
+		/// SDL_MapRGB().<br/>
+		/// If the surface doesn't have color key enabled this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetColorKey(ref SDLSurface surface, ref uint key)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (uint* pkey = &key)
+				{
+					int ret = GetColorKeyNative((SDLSurface*)psurface, (uint*)pkey);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into blit operations.<br/>
+		/// When this surface is blitted, during the blit operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfaceColorModNative(SDLSurface* surface, byte r, byte g, byte b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, byte, byte, int>)funcTable[319])(surface, r, g, b);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, int>)funcTable[319])((nint)surface, r, g, b);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into blit operations.<br/>
+		/// When this surface is blitted, during the blit operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceColorMod(SDLSurface* surface, byte r, byte g, byte b)
+		{
+			int ret = SetSurfaceColorModNative(surface, r, g, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an additional color value multiplied into blit operations.<br/>
+		/// When this surface is blitted, during the blit operation each source color<br/>
+		/// channel is modulated by the appropriate color value according to the<br/>
+		/// following formula:<br/>
+		/// `srcC = srcC * (color / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceColorMod(ref SDLSurface surface, byte r, byte g, byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSurfaceColorModNative(SDLSurface* surface, byte* r, byte* g, byte* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, byte*, byte*, int>)funcTable[320])(surface, r, g, b);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[320])((nint)surface, (nint)r, (nint)g, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, byte* g, byte* b)
+		{
+			int ret = GetSurfaceColorModNative(surface, r, g, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, byte* g, byte* b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, byte* g, byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
-				GetRGBANative(pixel, format, (byte*)pr, g, b, a);
+				int ret = GetSurfaceColorModNative(surface, (byte*)pr, g, b);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, byte* g, byte* b)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pr = &r)
 				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, b, a);
+					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, b);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, ref byte g, byte* b)
 		{
 			fixed (byte* pg = &g)
 			{
-				GetRGBANative(pixel, format, r, (byte*)pg, b, a);
+				int ret = GetSurfaceColorModNative(surface, r, (byte*)pg, b);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, ref byte g, byte* b)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pg = &g)
 				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, (byte*)pg, b, a);
+					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, b);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, ref byte g, byte* b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pg = &g)
 				{
-					GetRGBANative(pixel, format, (byte*)pr, (byte*)pg, b, a);
+					int ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, b);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] byte* b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, ref byte g, byte* b)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pr = &r)
 				{
 					fixed (byte* pg = &g)
 					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, (byte*)pg, b, a);
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, b);
+						return ret;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, byte* g, ref byte b)
 		{
 			fixed (byte* pb = &b)
 			{
-				GetRGBANative(pixel, format, r, g, (byte*)pb, a);
+				int ret = GetSurfaceColorModNative(surface, r, g, (byte*)pb);
+				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, byte* g, ref byte b)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pb = &b)
 				{
-					GetRGBANative(pixel, (SDLPixelFormat*)pformat, r, g, (byte*)pb, a);
+					int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, g, (byte*)pb);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, byte* g, ref byte b)
 		{
 			fixed (byte* pr = &r)
 			{
 				fixed (byte* pb = &b)
 				{
-					GetRGBANative(pixel, format, (byte*)pr, g, (byte*)pb, a);
+					int ret = GetSurfaceColorModNative(surface, (byte*)pr, g, (byte*)pb);
+					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] ref SDLPixelFormat format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] byte* g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, byte* g, ref byte b)
 		{
-			fixed (SDLPixelFormat* pformat = &format)
+			fixed (SDLSurface* psurface = &surface)
 			{
 				fixed (byte* pr = &r)
 				{
 					fixed (byte* pb = &b)
 					{
-						GetRGBANative(pixel, (SDLPixelFormat*)pformat, (byte*)pr, g, (byte*)pb, a);
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, g, (byte*)pb);
+						return ret;
 					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get RGBA values from a pixel in the specified format.<br/>
-		/// This function uses the entire 8-bit [0..255] range when converting color<br/>
-		/// components from pixel formats with less than 8-bits per RGB component<br/>
-		/// (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,<br/>
-		/// 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).<br/>
-		/// If the surface has no alpha component, the alpha will be returned as 0xff<br/>
-		/// (100% opaque).<br/>
+		/// Get the additional color value multiplied into blit operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetRGBA")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void GetRGBA([NativeName(NativeNameType.Param, "pixel")] [NativeName(NativeNameType.Type, "Uint32")] uint pixel, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "const SDL_PixelFormat*")] SDLPixelFormat* format, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "Uint8*")] byte* r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "Uint8*")] ref byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "Uint8*")] byte* a)
+		public static int GetSurfaceColorMod(SDLSurface* surface, byte* r, ref byte g, ref byte b)
 		{
 			fixed (byte* pg = &g)
 			{
 				fixed (byte* pb = &b)
 				{
-					GetRGBANative(pixel, format, r, (byte*)pg, (byte*)pb, a);
+					int ret = GetSurfaceColorModNative(surface, r, (byte*)pg, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(ref SDLSurface surface, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetSurfaceColorModNative((SDLSurface*)psurface, r, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(SDLSurface* surface, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetSurfaceColorModNative(surface, (byte*)pr, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceColorMod(ref SDLSurface surface, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							int ret = GetSurfaceColorModNative((SDLSurface*)psurface, (byte*)pr, (byte*)pg, (byte*)pb);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfaceAlphaModNative(SDLSurface* surface, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte, int>)funcTable[321])(surface, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[321])((nint)surface, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceAlphaMod(SDLSurface* surface, byte alpha)
+		{
+			int ret = SetSurfaceAlphaModNative(surface, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an additional alpha value used in blit operations.<br/>
+		/// When this surface is blitted, during the blit operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceAlphaMod(ref SDLSurface surface, byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSurfaceAlphaModNative(SDLSurface* surface, byte* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, byte*, int>)funcTable[322])(surface, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[322])((nint)surface, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(SDLSurface* surface, byte* alpha)
+		{
+			int ret = GetSurfaceAlphaModNative(surface, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(ref SDLSurface surface, byte* alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(SDLSurface* surface, ref byte alpha)
+		{
+			fixed (byte* palpha = &alpha)
+			{
+				int ret = GetSurfaceAlphaModNative(surface, (byte*)palpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value used in blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceAlphaMod(ref SDLSurface surface, ref byte alpha)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (byte* palpha = &alpha)
+				{
+					int ret = GetSurfaceAlphaModNative((SDLSurface*)psurface, (byte*)palpha);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode, int>)funcTable[323])(surface, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[323])((nint)surface, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceBlendMode(SDLSurface* surface, SDLBlendMode blendMode)
+		{
+			int ret = SetSurfaceBlendModeNative(surface, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the blend mode used for blit operations.<br/>
+		/// To copy a surface to another surface (or texture) without blending with the<br/>
+		/// existing data, the blendmode of the SOURCE surface should be set to<br/>
+		/// `SDL_BLENDMODE_NONE`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = SetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetSurfaceBlendModeNative(SDLSurface* surface, SDLBlendMode* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLBlendMode*, int>)funcTable[324])(surface, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[324])((nint)surface, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(SDLSurface* surface, SDLBlendMode* blendMode)
+		{
+			int ret = GetSurfaceBlendModeNative(surface, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(ref SDLSurface surface, SDLBlendMode* blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(SDLSurface* surface, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLBlendMode* pblendMode = &blendMode)
+			{
+				int ret = GetSurfaceBlendModeNative(surface, (SDLBlendMode*)pblendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for blit operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetSurfaceBlendMode(ref SDLSurface surface, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLBlendMode* pblendMode = &blendMode)
+				{
+					int ret = GetSurfaceBlendModeNative((SDLSurface*)psurface, (SDLBlendMode*)pblendMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool SetClipRectNative(SDLSurface* surface, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLBool>)funcTable[325])(surface, rect);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[325])((nint)surface, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(SDLSurface* surface, SDLRect* rect)
+		{
+			SDLBool ret = SetClipRectNative(surface, rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(ref SDLSurface surface, SDLRect* rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLBool ret = SetClipRectNative((SDLSurface*)psurface, rect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(SDLSurface* surface, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				SDLBool ret = SetClipRectNative(surface, (SDLRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// Note that blits are automatically clipped to the edges of the source and<br/>
+		/// destination surfaces.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool SetClipRect(ref SDLSurface surface, ref SDLRect rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					SDLBool ret = SetClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetClipRectNative(SDLSurface* surface, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, void>)funcTable[326])(surface, rect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[326])((nint)surface, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(SDLSurface* surface, SDLRect* rect)
+		{
+			GetClipRectNative(surface, rect);
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(ref SDLSurface surface, SDLRect* rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				GetClipRectNative((SDLSurface*)psurface, rect);
+			}
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(SDLSurface* surface, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				GetClipRectNative(surface, (SDLRect*)prect);
+			}
+		}
+
+		/// <summary>
+		/// Get the clipping rectangle for a surface.<br/>
+		/// When `surface` is the destination of a blit, only the area within the clip<br/>
+		/// rectangle is drawn into.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetClipRect(ref SDLSurface surface, ref SDLRect rect)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					GetClipRectNative((SDLSurface*)psurface, (SDLRect*)prect);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Creates a new surface identical to the existing surface.<br/>
+		/// The returned surface should be freed with SDL_FreeSurface().<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* DuplicateSurfaceNative(SDLSurface* surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLSurface*>)funcTable[327])(surface);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[327])((nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a new surface identical to the existing surface.<br/>
+		/// The returned surface should be freed with SDL_FreeSurface().<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* DuplicateSurface(SDLSurface* surface)
+		{
+			SDLSurface* ret = DuplicateSurfaceNative(surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a new surface identical to the existing surface.<br/>
+		/// The returned surface should be freed with SDL_FreeSurface().<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* DuplicateSurface(ref SDLSurface surface)
+		{
+			fixed (SDLSurface* psurface = &surface)
+			{
+				SDLSurface* ret = DuplicateSurfaceNative((SDLSurface*)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* ConvertSurfaceNative(SDLSurface* src, SDLPixelFormat* fmt, uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLPixelFormat*, uint, SDLSurface*>)funcTable[328])(src, fmt, flags);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, nint, uint, nint>)funcTable[328])((nint)src, (nint)fmt, flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* ConvertSurface(SDLSurface* src, SDLPixelFormat* fmt, uint flags)
+		{
+			SDLSurface* ret = ConvertSurfaceNative(src, fmt, flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* ConvertSurface(ref SDLSurface src, SDLPixelFormat* fmt, uint flags)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				SDLSurface* ret = ConvertSurfaceNative((SDLSurface*)psrc, fmt, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* ConvertSurface(SDLSurface* src, ref SDLPixelFormat fmt, uint flags)
+		{
+			fixed (SDLPixelFormat* pfmt = &fmt)
+			{
+				SDLSurface* ret = ConvertSurfaceNative(src, (SDLPixelFormat*)pfmt, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format.<br/>
+		/// This function is used to optimize images for faster *repeat* blitting. This<br/>
+		/// is accomplished by converting the original and storing the result as a new<br/>
+		/// surface. The new, optimized surface can then be used as the source for<br/>
+		/// future blits, making them faster.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* ConvertSurface(ref SDLSurface src, ref SDLPixelFormat fmt, uint flags)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLPixelFormat* pfmt = &fmt)
+				{
+					SDLSurface* ret = ConvertSurfaceNative((SDLSurface*)psrc, (SDLPixelFormat*)pfmt, flags);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format enum.<br/>
+		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
+		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
+		/// it might be easier to call but it doesn't have access to palette<br/>
+		/// information for the destination surface, in case that would be important.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLSurface* ConvertSurfaceFormatNative(SDLSurface* src, uint pixelFormat, uint flags)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, uint, uint, SDLSurface*>)funcTable[329])(src, pixelFormat, flags);
+			#else
+			return (SDLSurface*)((delegate* unmanaged[Cdecl]<nint, uint, uint, nint>)funcTable[329])((nint)src, pixelFormat, flags);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format enum.<br/>
+		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
+		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
+		/// it might be easier to call but it doesn't have access to palette<br/>
+		/// information for the destination surface, in case that would be important.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* ConvertSurfaceFormat(SDLSurface* src, uint pixelFormat, uint flags)
+		{
+			SDLSurface* ret = ConvertSurfaceFormatNative(src, pixelFormat, flags);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy an existing surface to a new surface of the specified format enum.<br/>
+		/// This function operates just like SDL_ConvertSurface(), but accepts an<br/>
+		/// SDL_PixelFormatEnum value instead of an SDL_PixelFormat structure. As such,<br/>
+		/// it might be easier to call but it doesn't have access to palette<br/>
+		/// information for the destination surface, in case that would be important.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLSurface* ConvertSurfaceFormat(ref SDLSurface src, uint pixelFormat, uint flags)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				SDLSurface* ret = ConvertSurfaceFormatNative((SDLSurface*)psrc, pixelFormat, flags);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a block of pixels of one format to another format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int ConvertPixelsNative(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[330])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[330])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a block of pixels of one format to another format.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int ConvertPixels(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			int ret = ConvertPixelsNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Premultiply the alpha on a block of pixels.<br/>
+		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
+		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int PremultiplyAlphaNative(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, int, uint, void*, int, uint, void*, int, int>)funcTable[331])(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, int, uint, nint, int, uint, nint, int, int>)funcTable[331])(width, height, srcFormat, (nint)src, srcPitch, dstFormat, (nint)dst, dstPitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Premultiply the alpha on a block of pixels.<br/>
+		/// This is safe to use with src == dst, but not for other overlapping areas.<br/>
+		/// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int PremultiplyAlpha(int width, int height, uint srcFormat, void* src, int srcPitch, uint dstFormat, void* dst, int dstPitch)
+		{
+			int ret = PremultiplyAlphaNative(width, height, srcFormat, src, srcPitch, dstFormat, dst, dstPitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int FillRectNative(SDLSurface* dst, SDLRect* rect, uint color)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, uint, int>)funcTable[332])(dst, rect, color);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, uint, int>)funcTable[332])((nint)dst, (nint)rect, color);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(SDLSurface* dst, SDLRect* rect, uint color)
+		{
+			int ret = FillRectNative(dst, rect, color);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(ref SDLSurface dst, SDLRect* rect, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = FillRectNative((SDLSurface*)pdst, rect, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(SDLSurface* dst, ref SDLRect rect, uint color)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = FillRectNative(dst, (SDLRect*)prect, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a rectangle with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRect(ref SDLSurface dst, ref SDLRect rect, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = FillRectNative((SDLSurface*)pdst, (SDLRect*)prect, color);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int FillRectsNative(SDLSurface* dst, SDLRect* rects, int count, uint color)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, int, uint, int>)funcTable[333])(dst, rects, count, color);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, uint, int>)funcTable[333])((nint)dst, (nint)rects, count, color);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(SDLSurface* dst, SDLRect* rects, int count, uint color)
+		{
+			int ret = FillRectsNative(dst, rects, count, color);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(ref SDLSurface dst, SDLRect* rects, int count, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = FillRectsNative((SDLSurface*)pdst, rects, count, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(SDLSurface* dst, ref SDLRect rects, int count, uint color)
+		{
+			fixed (SDLRect* prects = &rects)
+			{
+				int ret = FillRectsNative(dst, (SDLRect*)prects, count, color);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast fill of a set of rectangles with a specific color.<br/>
+		/// `color` should be a pixel of the format used by the surface, and can be<br/>
+		/// generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an<br/>
+		/// alpha component then the destination is simply filled with that alpha<br/>
+		/// information, no blending takes place.<br/>
+		/// If there is a clip rectangle set on the destination (set via<br/>
+		/// SDL_SetClipRect()), then this function will fill based on the intersection<br/>
+		/// of the clip rectangle and `rect`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int FillRects(ref SDLSurface dst, ref SDLRect rects, int count, uint color)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* prects = &rects)
+				{
+					int ret = FillRectsNative((SDLSurface*)pdst, (SDLRect*)prects, count, color);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int UpperBlitNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[334])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[334])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			int ret = UpperBlitNative(src, srcrect, dst, dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = UpperBlitNative(src, (SDLRect*)psrcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = UpperBlitNative(src, srcrect, (SDLSurface*)pdst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = UpperBlitNative(src, srcrect, dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = UpperBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = UpperBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast blit from the source surface to the destination surface.<br/>
+		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
+		/// macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = UpperBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int LowerBlitNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[335])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[335])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			int ret = LowerBlitNative(src, srcrect, dst, dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = LowerBlitNative(src, (SDLRect*)psrcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = LowerBlitNative(src, srcrect, (SDLSurface*)pdst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = LowerBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = LowerBlitNative(src, srcrect, dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = LowerBlitNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = LowerBlitNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = LowerBlitNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = LowerBlitNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform low-level surface blitting only.<br/>
+		/// This is a semi-private blit function and it performs low-level surface<br/>
+		/// blitting, assuming the input rectangles have already been clipped.<br/>
+		/// Unless you know what you're doing, you should be using SDL_BlitSurface()<br/>
+		/// instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LowerBlit(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = LowerBlitNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SoftStretchNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[336])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[336])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			int ret = SoftStretchNative(src, srcrect, dst, dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = SoftStretchNative(src, (SDLRect*)psrcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = SoftStretchNative(src, srcrect, (SDLSurface*)pdst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = SoftStretchNative(src, srcrect, dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
 				}
 			}
 		}

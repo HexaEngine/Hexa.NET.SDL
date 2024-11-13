@@ -21,7 +21,6 @@ namespace Hexa.NET.SDL2
 	/// with the ::SDL_INIT_SENSOR flag.  This causes SDL to scan the system<br/>
 	/// for sensors, and load appropriate drivers.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "_SDL_Sensor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensor
 	{

@@ -18,56 +18,39 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_KeyboardEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLKeyboardEvent
 	{
 		/// <summary>
 		/// ::SDL_KEYDOWN or ::SDL_KEYUP <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The window with keyboard focus, if any <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "windowID")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint WindowID;
 
 		/// <summary>
 		/// ::SDL_PRESSED or ::SDL_RELEASED <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte State;
 
 		/// <summary>
 		/// Non-zero if this is a key repeat <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "repeat")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Repeat;
 
-		[NativeName(NativeNameType.Field, "padding2")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
-		[NativeName(NativeNameType.Field, "padding3")]
-		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 		/// <summary>
 		/// The key that was pressed or released <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "keysym")]
-		[NativeName(NativeNameType.Type, "SDL_Keysym")]
 		public SDLKeysym Keysym;
 
 

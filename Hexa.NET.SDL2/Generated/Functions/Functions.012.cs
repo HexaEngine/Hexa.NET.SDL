@@ -18,5015 +18,5012 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
+		/// Get the additional color value multiplied into render copy operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, byte* b)
 		{
-			fixed (byte* papp = &app)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
-		{
-			fixed (byte* papp = app)
-			{
-				byte* ret = GetPrefPathNative(org, (byte*)papp);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
-		{
-			fixed (byte* papp = app)
-			{
-				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (app != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(app);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* pg = &g)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetPrefPathNative(org, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (app != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(app);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
-		{
-			fixed (byte* porg = &org)
-			{
-				fixed (byte* papp = &app)
-				{
-					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
+		/// Get the additional color value multiplied into render copy operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ref byte app)
+		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, byte* b)
 		{
-			fixed (byte* porg = &org)
+			fixed (byte* pr = &r)
 			{
-				fixed (byte* papp = &app)
+				fixed (byte* pg = &g)
 				{
-					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, b);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
+		/// Get the additional color value multiplied into render copy operations.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, byte* b)
 		{
-			fixed (byte* porg = org)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				fixed (byte* papp = app)
+				fixed (byte* pr = &r)
 				{
-					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> app)
-		{
-			fixed (byte* porg = org)
-			{
-				fixed (byte* papp = app)
-				{
-					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (app != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(app);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* ret = GetPrefPathNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the user-and-app-specific path where files can be written.<br/>
-		/// Get the "pref dir". This is meant to be where users can write personal<br/>
-		/// files (preferences and save games, etc) that are specific to your<br/>
-		/// application. This directory is unique per user, per application.<br/>
-		/// This function will decide the appropriate location in the native<br/>
-		/// filesystem, create the directory if necessary, and return a string of the<br/>
-		/// absolute path to the directory in UTF-8 encoding.<br/>
-		/// On Windows, the string might look like:<br/>
-		/// `C:<br/>
-		/// \<br/>
-		/// Users<br/>
-		/// \<br/>
-		/// bob<br/>
-		/// \<br/>
-		/// AppData<br/>
-		/// \<br/>
-		/// Roaming<br/>
-		/// \<br/>
-		/// My Company<br/>
-		/// \<br/>
-		/// My Program Name<br/>
-		/// \<br/>
-		/// `<br/>
-		/// On Linux, the string might look like:<br/>
-		/// `/home/bob/.local/share/My Program Name/`<br/>
-		/// On Mac OS X, the string might look like:<br/>
-		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
-		/// You should assume the path returned by this function is the only safe place<br/>
-		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
-		/// even the parent of the returned path, isn't where you should be writing<br/>
-		/// things).<br/>
-		/// Both the org and app strings may become part of a directory name, so please<br/>
-		/// follow these rules:<br/>
-		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
-		/// your applications that use this function.<br/>
-		/// - Always use a unique app string for each one, and make sure it never<br/>
-		/// changes for an app once you've decided on it.<br/>
-		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
-		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
-		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
-		/// The returned path is guaranteed to end with a path separator ('<br/>
-		/// \<br/>
-		/// ' on<br/>
-		/// Windows, '/' on most other platforms).<br/>
-		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
-		/// pointer when done with it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
-		[return: NativeName(NativeNameType.Type, "char*")]
-		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "const char*")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "const char*")] string app)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (org != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(org);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (app != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(app);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, pStr1));
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Count the number of haptic devices attached to the system.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_NumHaptics")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int NumHapticsNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[640])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[640])();
-			#endif
-		}
-
-		/// <summary>
-		/// Count the number of haptic devices attached to the system.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_NumHaptics")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int NumHaptics()
-		{
-			int ret = NumHapticsNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// This can be called before any joysticks are opened. If no name can be<br/>
-		/// found, this function returns NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* HapticNameNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[641])(deviceIndex);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[641])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// This can be called before any joysticks are opened. If no name can be<br/>
-		/// found, this function returns NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static byte* HapticName([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			byte* ret = HapticNameNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the implementation dependent name of a haptic device.<br/>
-		/// This can be called before any joysticks are opened. If no name can be<br/>
-		/// found, this function returns NULL.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticName")]
-		[return: NativeName(NativeNameType.Type, "const char*")]
-		public static string HapticNameS([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			string ret = Utils.DecodeStringUTF8(HapticNameNative(deviceIndex));
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a haptic device for use.<br/>
-		/// The index passed as an argument refers to the N'th haptic device on this<br/>
-		/// system.<br/>
-		/// When opening a haptic device, its gain will be set to maximum and<br/>
-		/// autocenter will be disabled. To modify these values use SDL_HapticSetGain()<br/>
-		/// and SDL_HapticSetAutocenter().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpen")]
-		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHaptic* HapticOpenNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, SDLHaptic*>)funcTable[642])(deviceIndex);
-			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[642])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a haptic device for use.<br/>
-		/// The index passed as an argument refers to the N'th haptic device on this<br/>
-		/// system.<br/>
-		/// When opening a haptic device, its gain will be set to maximum and<br/>
-		/// autocenter will be disabled. To modify these values use SDL_HapticSetGain()<br/>
-		/// and SDL_HapticSetAutocenter().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpen")]
-		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* HapticOpen([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			SDLHaptic* ret = HapticOpenNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check if the haptic device at the designated index has been opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpened")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticOpenedNative([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[643])(deviceIndex);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[643])(deviceIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Check if the haptic device at the designated index has been opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpened")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticOpened([NativeName(NativeNameType.Param, "device_index")] [NativeName(NativeNameType.Type, "int")] int deviceIndex)
-		{
-			int ret = HapticOpenedNative(deviceIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the index of a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticIndex")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticIndexNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[644])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[644])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the index of a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticIndex")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticIndex([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticIndexNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the index of a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticIndex")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticIndex([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticIndexNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Query whether or not the current mouse has haptic capabilities.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MouseIsHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int MouseIsHapticNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[645])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[645])();
-			#endif
-		}
-
-		/// <summary>
-		/// Query whether or not the current mouse has haptic capabilities.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_MouseIsHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int MouseIsHaptic()
-		{
-			int ret = MouseIsHapticNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Try to open a haptic device from the current mouse.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromMouse")]
-		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHaptic* HapticOpenFromMouseNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*>)funcTable[646])();
-			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint>)funcTable[646])();
-			#endif
-		}
-
-		/// <summary>
-		/// Try to open a haptic device from the current mouse.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromMouse")]
-		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* HapticOpenFromMouse()
-		{
-			SDLHaptic* ret = HapticOpenFromMouseNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Query if a joystick has haptic features.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickIsHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int JoystickIsHapticNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, int>)funcTable[647])(joystick);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[647])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Query if a joystick has haptic features.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickIsHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickIsHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
-		{
-			int ret = JoystickIsHapticNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Query if a joystick has haptic features.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_JoystickIsHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int JoystickIsHaptic([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				int ret = JoystickIsHapticNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a haptic device for use from a joystick device.<br/>
-		/// You must still close the haptic device separately. It will not be closed<br/>
-		/// with the joystick.<br/>
-		/// When opened from a joystick you should first close the haptic device before<br/>
-		/// closing the joystick device. If not, on some implementations the haptic<br/>
-		/// device will also get unallocated and you'll be unable to use force feedback<br/>
-		/// on that device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromJoystick")]
-		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHaptic* HapticOpenFromJoystickNative([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLJoystick*, SDLHaptic*>)funcTable[648])(joystick);
-			#else
-			return (SDLHaptic*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[648])((nint)joystick);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a haptic device for use from a joystick device.<br/>
-		/// You must still close the haptic device separately. It will not be closed<br/>
-		/// with the joystick.<br/>
-		/// When opened from a joystick you should first close the haptic device before<br/>
-		/// closing the joystick device. If not, on some implementations the haptic<br/>
-		/// device will also get unallocated and you'll be unable to use force feedback<br/>
-		/// on that device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromJoystick")]
-		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* HapticOpenFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] SDLJoystick* joystick)
-		{
-			SDLHaptic* ret = HapticOpenFromJoystickNative(joystick);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a haptic device for use from a joystick device.<br/>
-		/// You must still close the haptic device separately. It will not be closed<br/>
-		/// with the joystick.<br/>
-		/// When opened from a joystick you should first close the haptic device before<br/>
-		/// closing the joystick device. If not, on some implementations the haptic<br/>
-		/// device will also get unallocated and you'll be unable to use force feedback<br/>
-		/// on that device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticOpenFromJoystick")]
-		[return: NativeName(NativeNameType.Type, "SDL_Haptic*")]
-		public static SDLHaptic* HapticOpenFromJoystick([NativeName(NativeNameType.Param, "joystick")] [NativeName(NativeNameType.Type, "SDL_Joystick*")] ref SDLJoystick joystick)
-		{
-			fixed (SDLJoystick* pjoystick = &joystick)
-			{
-				SDLHaptic* ret = HapticOpenFromJoystickNative((SDLJoystick*)pjoystick);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Close a haptic device previously opened with SDL_HapticOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticClose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HapticCloseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHaptic*, void>)funcTable[649])(haptic);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[649])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a haptic device previously opened with SDL_HapticOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticClose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HapticClose([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			HapticCloseNative(haptic);
-		}
-
-		/// <summary>
-		/// Close a haptic device previously opened with SDL_HapticOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticClose")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HapticClose([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				HapticCloseNative((SDLHaptic*)phaptic);
-			}
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_HapticNumEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumEffects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNumEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[650])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[650])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_HapticNumEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumEffects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNumEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticNumEffectsNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can store.<br/>
-		/// On some platforms this isn't fully supported, and therefore is an<br/>
-		/// approximation. Always check to see if your created effect was actually<br/>
-		/// created and do not rely solely on SDL_HapticNumEffects().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumEffects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNumEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNumEffectsNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumEffectsPlaying")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNumEffectsPlayingNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[651])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[651])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumEffectsPlaying")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNumEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticNumEffectsPlayingNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of effects a haptic device can play at the same time.<br/>
-		/// This is not supported on all platforms, but will always return a value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumEffectsPlaying")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNumEffectsPlaying([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNumEffectsPlayingNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticQuery")]
-		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint HapticQueryNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, uint>)funcTable[652])(haptic);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[652])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticQuery")]
-		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		public static uint HapticQuery([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			uint ret = HapticQueryNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the haptic device's supported features in bitwise manner.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticQuery")]
-		[return: NativeName(NativeNameType.Type, "unsigned int")]
-		public static uint HapticQuery([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				uint ret = HapticQueryNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumAxes")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNumAxesNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[653])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[653])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumAxes")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNumAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticNumAxesNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNumAxes")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNumAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNumAxesNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticEffectSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[654])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[654])((nint)haptic, (nint)effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
-		{
-			int ret = HapticEffectSupportedNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHapticEffect* peffect = &effect)
-			{
-				int ret = HapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* peffect = &effect)
-				{
-					int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticNewEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[655])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[655])((nint)haptic, (nint)effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
-		{
-			int ret = HapticNewEffectNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticNewEffectNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHapticEffect* peffect = &effect)
-			{
-				int ret = HapticNewEffectNative(haptic, (SDLHapticEffect*)peffect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticNewEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticNewEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* peffect = &effect)
-				{
-					int ret = HapticNewEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticUpdateEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, int>)funcTable[656])(haptic, effect, data);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, int>)funcTable[656])((nint)haptic, effect, (nint)data);
-			#endif
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
-		{
-			int ret = HapticUpdateEffectNative(haptic, effect, data);
-			return ret;
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] SDLHapticEffect* data)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticUpdateEffectNative((SDLHaptic*)phaptic, effect, data);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect data)
-		{
-			fixed (SDLHapticEffect* pdata = &data)
-			{
-				int ret = HapticUpdateEffectNative(haptic, effect, (SDLHapticEffect*)pdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_HapticUpdateEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUpdateEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticUpdateEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect*")] ref SDLHapticEffect data)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* pdata = &data)
-				{
-					int ret = HapticUpdateEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)pdata);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRunEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRunEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, int>)funcTable[657])(haptic, effect, iterations);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, uint, int>)funcTable[657])((nint)haptic, effect, iterations);
-			#endif
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRunEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRunEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
-		{
-			int ret = HapticRunEffectNative(haptic, effect, iterations);
-			return ret;
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRunEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRunEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRunEffectNative((SDLHaptic*)phaptic, effect, iterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// *<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticStopEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticStopEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[658])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[658])((nint)haptic, effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// *<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticStopEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticStopEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			int ret = HapticStopEffectNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// *<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticStopEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticStopEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticStopEffectNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticDestroyEffect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HapticDestroyEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)funcTable[659])(haptic, effect);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[659])((nint)haptic, effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticDestroyEffect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HapticDestroyEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			HapticDestroyEffectNative(haptic, effect);
-		}
-
-		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticDestroyEffect")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HapticDestroyEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				HapticDestroyEffectNative((SDLHaptic*)phaptic, effect);
-			}
-		}
-
-		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticGetEffectStatus")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticGetEffectStatusNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[660])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[660])((nint)haptic, effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticGetEffectStatus")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticGetEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			int ret = HapticGetEffectStatusNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticGetEffectStatus")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticGetEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticGetEffectStatusNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_HapticSetGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticSetGain")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticSetGainNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[661])(haptic, gain);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[661])((nint)haptic, gain);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_HapticSetGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticSetGain")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticSetGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
-		{
-			int ret = HapticSetGainNative(haptic, gain);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_HapticSetGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticSetGain")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticSetGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticSetGainNative((SDLHaptic*)phaptic, gain);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticSetAutocenter")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticSetAutocenterNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[662])(haptic, autocenter);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[662])((nint)haptic, autocenter);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticSetAutocenter")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticSetAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
-		{
-			int ret = HapticSetAutocenterNative(haptic, autocenter);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticSetAutocenter")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticSetAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticSetAutocenterNative((SDLHaptic*)phaptic, autocenter);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call<br/>
-		/// SDL_HapticUnpause() to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticPause")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticPauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[663])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[663])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call<br/>
-		/// SDL_HapticUnpause() to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticPause")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticPause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticPauseNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call<br/>
-		/// SDL_HapticUnpause() to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticPause")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticPause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticPauseNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Unpause a haptic device.<br/>
-		/// Call to unpause after SDL_HapticPause().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUnpause")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticUnpauseNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[664])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[664])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Unpause a haptic device.<br/>
-		/// Call to unpause after SDL_HapticPause().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUnpause")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticUnpause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticUnpauseNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Unpause a haptic device.<br/>
-		/// Call to unpause after SDL_HapticPause().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticUnpause")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticUnpause([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticUnpauseNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticStopAll")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticStopAllNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[665])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[665])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticStopAll")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticStopAll([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticStopAllNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticStopAll")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticStopAll([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticStopAllNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumbleSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[666])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[666])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticRumbleSupportedNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumbleSupportedNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumbleInitNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[667])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[667])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumbleInit([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticRumbleInitNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleInit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumbleInit([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumbleInitNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumblePlay")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumblePlayNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, int>)funcTable[668])(haptic, strength, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, uint, int>)funcTable[668])((nint)haptic, strength, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumblePlay")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumblePlay([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			int ret = HapticRumblePlayNative(haptic, strength, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumblePlay")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumblePlay([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumblePlayNative((SDLHaptic*)phaptic, strength, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleStop")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumbleStopNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[669])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[669])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleStop")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumbleStop([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] SDLHaptic* haptic)
-		{
-			int ret = HapticRumbleStopNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleStop")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HapticRumbleStop([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic*")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumbleStopNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Initialize the HIDAPI library.<br/>
-		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
-		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
-		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
-		/// be called at the beginning of execution however, if there is a chance of<br/>
-		/// HIDAPI handles being opened by different threads simultaneously.<br/>
-		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_init")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidInitNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[670])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[670])();
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize the HIDAPI library.<br/>
-		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
-		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
-		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
-		/// be called at the beginning of execution however, if there is a chance of<br/>
-		/// HIDAPI handles being opened by different threads simultaneously.<br/>
-		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_init")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidInit()
-		{
-			int ret = HidInitNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Finalize the HIDAPI library.<br/>
-		/// This function frees all of the static data associated with HIDAPI. It<br/>
-		/// should be called at the end of execution to avoid memory leaks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidExitNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[671])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[671])();
-			#endif
-		}
-
-		/// <summary>
-		/// Finalize the HIDAPI library.<br/>
-		/// This function frees all of the static data associated with HIDAPI. It<br/>
-		/// should be called at the end of execution to avoid memory leaks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidExit()
-		{
-			int ret = HidExitNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Check to see if devices may have been added or removed.<br/>
-		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
-		/// to see if there have been any system device changes since the last call to<br/>
-		/// this function. A change in the counter returned doesn't necessarily mean<br/>
-		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
-		/// updated device list.<br/>
-		/// Calling this function for the first time may cause a thread or other system<br/>
-		/// resource to be allocated to track device change notifications.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint HidDeviceChangeCountNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[672])();
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[672])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check to see if devices may have been added or removed.<br/>
-		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
-		/// to see if there have been any system device changes since the last call to<br/>
-		/// this function. A change in the counter returned doesn't necessarily mean<br/>
-		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
-		/// updated device list.<br/>
-		/// Calling this function for the first time may cause a thread or other system<br/>
-		/// resource to be allocated to track device change notifications.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint HidDeviceChangeCount()
-		{
-			uint ret = HidDeviceChangeCountNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate the HID Devices.<br/>
-		/// This function returns a linked list of all the HID devices attached to the<br/>
-		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
-		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
-		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
-		/// devices will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDeviceInfo* HidEnumerateNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)funcTable[673])(vendorId, productId);
-			#else
-			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint>)funcTable[673])(vendorId, productId);
-			#endif
-		}
-
-		/// <summary>
-		/// Enumerate the HID Devices.<br/>
-		/// This function returns a linked list of all the HID devices attached to the<br/>
-		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
-		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
-		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
-		/// devices will be returned.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info*")]
-		public static SDLHidDeviceInfo* HidEnumerate([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
-		{
-			SDLHidDeviceInfo* ret = HidEnumerateNative(vendorId, productId);
-			return ret;
-		}
-
-		/// <summary>
-		/// Free an enumeration Linked List<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidFreeEnumerationNative([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] SDLHidDeviceInfo* devs)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)funcTable[674])(devs);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[674])((nint)devs);
-			#endif
-		}
-
-		/// <summary>
-		/// Free an enumeration Linked List<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] SDLHidDeviceInfo* devs)
-		{
-			HidFreeEnumerationNative(devs);
-		}
-
-		/// <summary>
-		/// Free an enumeration Linked List<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info*")] ref SDLHidDeviceInfo devs)
-		{
-			fixed (SDLHidDeviceInfo* pdevs = &devs)
-			{
-				HidFreeEnumerationNative((SDLHidDeviceInfo*)pdevs);
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDevice* HidOpenNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] char* serialNumber)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)funcTable[675])(vendorId, productId, serialNumber);
-			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint, nint>)funcTable[675])(vendorId, productId, (nint)serialNumber);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] char* serialNumber)
-		{
-			SDLHidDevice* ret = HidOpenNative(vendorId, productId, serialNumber);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] ref char serialNumber)
-		{
-			fixed (char* pserialNumber = &serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] ReadOnlySpan<char> serialNumber)
-		{
-			fixed (char* pserialNumber = serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "const wchar*")] string serialNumber)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (serialNumber != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(serialNumber);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(serialNumber, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			SDLHidDevice* ret = HidOpenNative(vendorId, productId, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDevice* HidOpenPathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, SDLHidDevice*>)funcTable[676])(path, bExclusive);
-			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<nint, int, nint>)funcTable[676])((nint)path, bExclusive);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] byte* path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
-		{
-			SDLHidDevice* ret = HidOpenPathNative(path, bExclusive);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ref byte path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
-		{
-			fixed (byte* ppath = &path)
-			{
-				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath, bExclusive);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
-		{
-			fixed (byte* ppath = path)
-			{
-				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath, bExclusive);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device*")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "const char*")] string path, [NativeName(NativeNameType.Param, "bExclusive")] [NativeName(NativeNameType.Type, "int")] int bExclusive)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (path != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(path);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLHidDevice* ret = HidOpenPathNative(pStr0, bExclusive);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidWriteNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[677])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[677])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			int ret = HidWriteNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidWriteNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidWriteNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidWriteNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidReadTimeoutNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int, int>)funcTable[678])(dev, data, length, milliseconds);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int, int>)funcTable[678])((nint)dev, (nint)data, length, milliseconds);
-			#endif
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			int ret = HidReadTimeoutNative(dev, data, length, milliseconds);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			int ret = HidReadTimeoutNative(dev, data, length, milliseconds);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidReadNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[679])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[679])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			int ret = HidReadNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidReadNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidSetNonblockingNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)funcTable[680])(dev, nonblock);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[680])((nint)dev, nonblock);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
-		{
-			int ret = HidSetNonblockingNative(dev, nonblock);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidSetNonblockingNative((SDLHidDevice*)pdev, nonblock);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidSendFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[681])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[681])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			int ret = HidSendFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidSendFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, ulong, int>)funcTable[682])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[682])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			int ret = HidGetFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidGetFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] ulong length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidGetFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidGetFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char*")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidCloseNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHidDevice*, void>)funcTable[683])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[683])((nint)dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev)
-		{
-			HidCloseNative(dev);
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				HidCloseNative((SDLHidDevice*)pdev);
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetManufacturerStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)funcTable[684])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[684])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			int ret = HidGetManufacturerStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetManufacturerStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
+					fixed (byte* pg = &g)
 					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
+						return ret;
 					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
 				}
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, byte* r, byte* g, ref byte b)
+		{
+			fixed (byte* pb = &b)
+			{
+				int ret = GetTextureColorModNative(texture, r, g, (byte*)pb);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Get the additional color value multiplied into render copy operations.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetManufacturerStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, ref byte b)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (byte* pb = &b)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetManufacturerStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, byte* g, ref byte b)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (byte* pr = &r)
 			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
+				fixed (byte* pb = &b)
 				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
+					int ret = GetTextureColorModNative(texture, (byte*)pr, g, (byte*)pb);
+					return ret;
 				}
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get The Product String from a HID device.<br/>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetTextureColorModNative(texture, r, (byte*)pg, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetProductStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int SetTextureAlphaModNative(SDLTexture* texture, byte alpha)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)funcTable[685])(dev, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, int>)funcTable[737])(texture, alpha);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[685])((nint)dev, (nint)str, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[737])((nint)texture, alpha);
 			#endif
 		}
 
 		/// <summary>
-		/// Get The Product String from a HID device.<br/>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int SetTextureAlphaMod(SDLTexture* texture, byte alpha)
 		{
-			int ret = HidGetProductStringNative(dev, str, maxlen);
+			int ret = SetTextureAlphaModNative(texture, alpha);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get The Product String from a HID device.<br/>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int SetTextureAlphaMod(ref SDLTexture texture, byte alpha)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get The Product String from a HID device.<br/>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetProductStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetProductStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetProductStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetProductStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetProductStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetSerialNumberStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int GetTextureAlphaModNative(SDLTexture* texture, byte* alpha)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, ulong, int>)funcTable[686])(dev, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, int>)funcTable[738])(texture, alpha);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, ulong, int>)funcTable[686])((nint)dev, (nint)str, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[738])((nint)texture, (nint)alpha);
 			#endif
 		}
 
 		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int GetTextureAlphaMod(SDLTexture* texture, byte* alpha)
 		{
-			int ret = HidGetSerialNumberStringNative(dev, str, maxlen);
+			int ret = GetTextureAlphaModNative(texture, alpha);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int GetTextureAlphaMod(ref SDLTexture texture, byte* alpha)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
+				int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int GetTextureAlphaMod(SDLTexture* texture, ref byte alpha)
 		{
-			fixed (char* pstr = &str)
+			fixed (byte* palpha = &alpha)
 			{
-				int ret = HidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
+				int ret = GetTextureAlphaModNative(texture, (byte*)palpha);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetSerialNumberStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int GetTextureAlphaMod(ref SDLTexture texture, ref byte alpha)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				fixed (char* pstr = &str)
+				fixed (byte* palpha = &alpha)
 				{
-					int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
+					int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetSerialNumberStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetSerialNumberStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetIndexedStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		internal static int SetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode blendMode)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, char*, ulong, int>)funcTable[687])(dev, stringIndex, str, maxlen);
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, int>)funcTable[739])(texture, blendMode);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, ulong, int>)funcTable[687])((nint)dev, stringIndex, (nint)str, maxlen);
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[739])((nint)texture, blendMode);
 			#endif
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int SetTextureBlendMode(SDLTexture* texture, SDLBlendMode blendMode)
 		{
-			int ret = HidGetIndexedStringNative(dev, stringIndex, str, maxlen);
+			int ret = SetTextureBlendModeNative(texture, blendMode);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int SetTextureBlendMode(ref SDLTexture texture, SDLBlendMode blendMode)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
+				int ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode* blendMode)
 		{
-			fixed (char* pstr = &str)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, int>)funcTable[740])(texture, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[740])((nint)texture, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(SDLTexture* texture, SDLBlendMode* blendMode)
+		{
+			int ret = GetTextureBlendModeNative(texture, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(ref SDLTexture texture, SDLBlendMode* blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
+				int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int GetTextureBlendMode(SDLTexture* texture, ref SDLBlendMode blendMode)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
+			fixed (SDLBlendMode* pblendMode = &blendMode)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = GetTextureBlendModeNative(texture, (SDLBlendMode*)pblendMode);
+				return ret;
 			}
-			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		public static int GetTextureBlendMode(ref SDLTexture texture, ref SDLBlendMode blendMode)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				fixed (char* pstr = &str)
+				fixed (SDLBlendMode* pblendMode = &blendMode)
 				{
-					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
+					int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] ulong maxlen)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode scaleMode)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)funcTable[741])(texture, scaleMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)funcTable[741])((nint)texture, scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
+		{
+			int ret = SetTextureScaleModeNative(texture, scaleMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureScaleMode(ref SDLTexture texture, SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
+				int ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode* scaleMode)
 		{
-			int ret = HidGetIndexedStringNative(dev, stringIndex, str, maxlen);
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)funcTable[742])(texture, scaleMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[742])((nint)texture, (nint)scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
+		{
+			int ret = GetTextureScaleModeNative(texture, scaleMode);
 			return ret;
 		}
 
 		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device*")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar*")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
+		public static int GetTextureScaleMode(ref SDLTexture texture, SDLScaleMode* scaleMode)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (SDLTexture* ptexture = &texture)
 			{
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
+				int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLScaleMode* pscaleMode = &scaleMode)
+			{
+				int ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(ref SDLTexture texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLScaleMode* pscaleMode = &scaleMode)
+				{
+					int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Associate a user-specified pointer with a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureUserDataNative(SDLTexture* texture, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*, int>)funcTable[743])(texture, userdata);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[743])((nint)texture, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Associate a user-specified pointer with a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureUserData(SDLTexture* texture, void* userdata)
+		{
+			int ret = SetTextureUserDataNative(texture, userdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Associate a user-specified pointer with a texture.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureUserData(ref SDLTexture texture, void* userdata)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureUserDataNative((SDLTexture*)ptexture, userdata);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-specified pointer associated with a texture<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GetTextureUserDataNative(SDLTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, void*>)funcTable[744])(texture);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[744])((nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the user-specified pointer associated with a texture<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetTextureUserData(SDLTexture* texture)
+		{
+			void* ret = GetTextureUserDataNative(texture);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-specified pointer associated with a texture<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void* GetTextureUserData(ref SDLTexture texture)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				void* ret = GetTextureUserDataNative((SDLTexture*)ptexture);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int UpdateTextureNative(SDLTexture* texture, SDLRect* rect, void* pixels, int pitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void*, int, int>)funcTable[745])(texture, rect, pixels, pitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)funcTable[745])((nint)texture, (nint)rect, (nint)pixels, pitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(SDLTexture* texture, SDLRect* rect, void* pixels, int pitch)
+		{
+			int ret = UpdateTextureNative(texture, rect, pixels, pitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(ref SDLTexture texture, SDLRect* rect, void* pixels, int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = UpdateTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(SDLTexture* texture, ref SDLRect rect, void* pixels, int pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = UpdateTextureNative(texture, (SDLRect*)prect, pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update the given texture rectangle with new pixel data.<br/>
+		/// The pixel data must be in the pixel format of the texture. Use<br/>
+		/// SDL_QueryTexture() to query the pixel format of the texture.<br/>
+		/// This is a fairly slow function, intended for use with static textures that<br/>
+		/// do not change often.<br/>
+		/// If the texture is intended to be updated often, it is preferred to create<br/>
+		/// the texture as streaming and use the locking functions referenced below.<br/>
+		/// While this function will work with streaming textures, for optimization<br/>
+		/// reasons you may not get the pixels back if you lock the texture afterward.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateTexture(ref SDLTexture texture, ref SDLRect rect, void* pixels, int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = UpdateTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int UpdateYUVTextureNative(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, byte*, int, int>)funcTable[746])(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, nint, int, int>)funcTable[746])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uplane, upitch, (nint)vplane, vpitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, vplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, vplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (byte* puplane = &uplane)
+			{
+				int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, byte* vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						fixed (byte* puplane = &uplane)
+						{
+							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, vplane, vpitch);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* pvplane = &vplane)
+			{
+				int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						fixed (byte* pvplane = &vplane)
+						{
+							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uplane, upitch, (byte*)pvplane, vpitch);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* puplane = &uplane)
+			{
+				fixed (byte* pvplane = &vplane)
+				{
+					int ret = UpdateYUVTextureNative(texture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						fixed (byte* pvplane = &vplane)
+						{
+							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				fixed (byte* puplane = &uplane)
+				{
+					fixed (byte* pvplane = &vplane)
+					{
+						int ret = UpdateYUVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						fixed (byte* pvplane = &vplane)
+						{
+							int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puplane = &uplane)
+					{
+						fixed (byte* pvplane = &vplane)
+						{
+							int ret = UpdateYUVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar YV12 or IYUV texture with new pixel<br/>
+		/// data.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of Y and U/V planes in the proper order, but this function is<br/>
+		/// available if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateYUVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uplane, int upitch, ref byte vplane, int vpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						fixed (byte* puplane = &uplane)
+						{
+							fixed (byte* pvplane = &vplane)
+							{
+								int ret = UpdateYUVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puplane, upitch, (byte*)pvplane, vpitch);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int UpdateNVTextureNative(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, byte*, int, byte*, int, int>)funcTable[747])(texture, rect, yplane, ypitch, uVplane, uVpitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, nint, int, int>)funcTable[747])((nint)texture, (nint)rect, (nint)yplane, ypitch, (nint)uVplane, uVpitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			int ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, uVplane, uVpitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, uVplane, uVpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, uVplane, uVpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				int ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, uVplane, uVpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, byte* uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, uVplane, uVpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (byte* puVplane = &uVplane)
+			{
+				int ret = UpdateNVTextureNative(texture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* puVplane = &uVplane)
+				{
+					int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, yplane, ypitch, (byte*)puVplane, uVpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* puVplane = &uVplane)
+				{
+					int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, byte* yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* puVplane = &uVplane)
+					{
+						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, yplane, ypitch, (byte*)puVplane, uVpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (byte* pyplane = &yplane)
+			{
+				fixed (byte* puVplane = &uVplane)
+				{
+					int ret = UpdateNVTextureNative(texture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, SDLRect* rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puVplane = &uVplane)
+					{
+						int ret = UpdateNVTextureNative((SDLTexture*)ptexture, rect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(SDLTexture* texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (byte* pyplane = &yplane)
+				{
+					fixed (byte* puVplane = &uVplane)
+					{
+						int ret = UpdateNVTextureNative(texture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Update a rectangle within a planar NV12 or NV21 texture with new pixels.<br/>
+		/// You can use SDL_UpdateTexture() as long as your pixel data is a contiguous<br/>
+		/// block of NV12/21 planes in the proper order, but this function is available<br/>
+		/// if your pixel data is not contiguous.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpdateNVTexture(ref SDLTexture texture, ref SDLRect rect, ref byte yplane, int ypitch, ref byte uVplane, int uVpitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (byte* pyplane = &yplane)
+					{
+						fixed (byte* puVplane = &uVplane)
+						{
+							int ret = UpdateNVTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, (byte*)pyplane, ypitch, (byte*)puVplane, uVpitch);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int LockTextureNative(SDLTexture* texture, SDLRect* rect, void** pixels, int* pitch)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, void**, int*, int>)funcTable[748])(texture, rect, pixels, pitch);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[748])((nint)texture, (nint)rect, (nint)pixels, (nint)pitch);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(SDLTexture* texture, SDLRect* rect, void** pixels, int* pitch)
+		{
+			int ret = LockTextureNative(texture, rect, pixels, pitch);
+			return ret;
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(ref SDLTexture texture, SDLRect* rect, void** pixels, int* pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(SDLTexture* texture, ref SDLRect rect, void** pixels, int* pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = LockTextureNative(texture, (SDLRect*)prect, pixels, pitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(ref SDLTexture texture, ref SDLRect rect, void** pixels, int* pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, pitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(SDLTexture* texture, SDLRect* rect, void** pixels, ref int pitch)
+		{
+			fixed (int* ppitch = &pitch)
+			{
+				int ret = LockTextureNative(texture, rect, pixels, (int*)ppitch);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(ref SDLTexture texture, SDLRect* rect, void** pixels, ref int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (int* ppitch = &pitch)
+				{
+					int ret = LockTextureNative((SDLTexture*)ptexture, rect, pixels, (int*)ppitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(SDLTexture* texture, ref SDLRect rect, void** pixels, ref int pitch)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* ppitch = &pitch)
+				{
+					int ret = LockTextureNative(texture, (SDLRect*)prect, pixels, (int*)ppitch);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTexture(ref SDLTexture texture, ref SDLRect rect, void** pixels, ref int pitch)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (int* ppitch = &pitch)
+					{
+						int ret = LockTextureNative((SDLTexture*)ptexture, (SDLRect*)prect, pixels, (int*)ppitch);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int LockTextureToSurfaceNative(SDLTexture* texture, SDLRect* rect, SDLSurface** surface)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLRect*, SDLSurface**, int>)funcTable[749])(texture, rect, surface);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[749])((nint)texture, (nint)rect, (nint)surface);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(SDLTexture* texture, SDLRect* rect, SDLSurface** surface)
+		{
+			int ret = LockTextureToSurfaceNative(texture, rect, surface);
+			return ret;
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(ref SDLTexture texture, SDLRect* rect, SDLSurface** surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, surface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(SDLTexture* texture, ref SDLRect rect, SDLSurface** surface)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, surface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(ref SDLTexture texture, ref SDLRect rect, SDLSurface** surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, surface);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(SDLTexture* texture, SDLRect* rect, ref SDLSurface* surface)
+		{
+			fixed (SDLSurface** psurface = &surface)
+			{
+				int ret = LockTextureToSurfaceNative(texture, rect, (SDLSurface**)psurface);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(ref SDLTexture texture, SDLRect* rect, ref SDLSurface* surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLSurface** psurface = &surface)
+				{
+					int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, rect, (SDLSurface**)psurface);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(SDLTexture* texture, ref SDLRect rect, ref SDLSurface* surface)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (SDLSurface** psurface = &surface)
+				{
+					int ret = LockTextureToSurfaceNative(texture, (SDLRect*)prect, (SDLSurface**)psurface);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Lock a portion of the texture for **write-only** pixel access, and expose<br/>
+		/// it as a SDL surface.<br/>
+		/// Besides providing an SDL_Surface instead of raw pixel data, this function<br/>
+		/// operates like SDL_LockTexture.<br/>
+		/// As an optimization, the pixels made available for editing don't necessarily<br/>
+		/// contain the old texture data. This is a write-only operation, and if you<br/>
+		/// need to keep a copy of the texture data you should do that at the<br/>
+		/// application level.<br/>
+		/// You must use SDL_UnlockTexture() to unlock the pixels and apply any<br/>
+		/// changes.<br/>
+		/// The returned surface is freed internally after calling SDL_UnlockTexture()<br/>
+		/// or SDL_DestroyTexture(). The caller should not free it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int LockTextureToSurface(ref SDLTexture texture, ref SDLRect rect, ref SDLSurface* surface)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					fixed (SDLSurface** psurface = &surface)
+					{
+						int ret = LockTextureToSurfaceNative((SDLTexture*)ptexture, (SDLRect*)prect, (SDLSurface**)psurface);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
+		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
+		/// write-only; it will not guarantee the previous contents of the texture will<br/>
+		/// be provided. You must fully initialize any area of a texture that you lock<br/>
+		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
+		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
+		/// corrupted textures, depending on the renderer in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockTextureNative(SDLTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLTexture*, void>)funcTable[750])(texture);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[750])((nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
+		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
+		/// write-only; it will not guarantee the previous contents of the texture will<br/>
+		/// be provided. You must fully initialize any area of a texture that you lock<br/>
+		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
+		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
+		/// corrupted textures, depending on the renderer in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnlockTexture(SDLTexture* texture)
+		{
+			UnlockTextureNative(texture);
+		}
+
+		/// <summary>
+		/// Unlock a texture, uploading the changes to video memory, if needed.<br/>
+		/// **Warning**: Please note that SDL_LockTexture() is intended to be<br/>
+		/// write-only; it will not guarantee the previous contents of the texture will<br/>
+		/// be provided. You must fully initialize any area of a texture that you lock<br/>
+		/// before unlocking it, as the pixels might otherwise be uninitialized memory.<br/>
+		/// Which is to say: locking and immediately unlocking a texture can result in<br/>
+		/// corrupted textures, depending on the renderer in use.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void UnlockTexture(ref SDLTexture texture)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				UnlockTextureNative((SDLTexture*)ptexture);
+			}
+		}
+
+		/// <summary>
+		/// Determine whether a renderer supports the use of render targets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool RenderTargetSupportedNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[751])(renderer);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[751])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether a renderer supports the use of render targets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool RenderTargetSupported(SDLRenderer* renderer)
+		{
+			SDLBool ret = RenderTargetSupportedNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether a renderer supports the use of render targets.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool RenderTargetSupported(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLBool ret = RenderTargetSupportedNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// Before using this function, you should check the<br/>
+		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
+		/// render targets are supported.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetRenderTargetNative(SDLRenderer* renderer, SDLTexture* texture)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, int>)funcTable[752])(renderer, texture);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[752])((nint)renderer, (nint)texture);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// Before using this function, you should check the<br/>
+		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
+		/// render targets are supported.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderTarget(SDLRenderer* renderer, SDLTexture* texture)
+		{
+			int ret = SetRenderTargetNative(renderer, texture);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// Before using this function, you should check the<br/>
+		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
+		/// render targets are supported.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderTarget(ref SDLRenderer renderer, SDLTexture* texture)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = SetRenderTargetNative((SDLRenderer*)prenderer, texture);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// Before using this function, you should check the<br/>
+		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
+		/// render targets are supported.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderTarget(SDLRenderer* renderer, ref SDLTexture texture)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetRenderTargetNative(renderer, (SDLTexture*)ptexture);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a texture as the current rendering target.<br/>
+		/// Before using this function, you should check the<br/>
+		/// `SDL_RENDERER_TARGETTEXTURE` bit in the flags of SDL_RendererInfo to see if<br/>
+		/// render targets are supported.<br/>
+		/// The default render target is the window for which the renderer was created.<br/>
+		/// To stop rendering to a texture and render to the window again, call this<br/>
+		/// function with a NULL `texture`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderTarget(ref SDLRenderer renderer, ref SDLTexture texture)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = SetRenderTargetNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current render target.<br/>
+		/// The default render target is the window for which the renderer was created,<br/>
+		/// and is reported a NULL here.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLTexture* GetRenderTargetNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*>)funcTable[753])(renderer);
+			#else
+			return (SDLTexture*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[753])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current render target.<br/>
+		/// The default render target is the window for which the renderer was created,<br/>
+		/// and is reported a NULL here.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexture* GetRenderTarget(SDLRenderer* renderer)
+		{
+			SDLTexture* ret = GetRenderTargetNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current render target.<br/>
+		/// The default render target is the window for which the renderer was created,<br/>
+		/// and is reported a NULL here.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLTexture* GetRenderTarget(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLTexture* ret = GetRenderTargetNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a device independent resolution for rendering.<br/>
+		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
+		/// logical resolution for rendering, regardless of the actual output<br/>
+		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
+		/// ratio the output rendering will be centered within the output display.<br/>
+		/// If the output display is a window, mouse and touch events in the window<br/>
+		/// will be filtered and scaled so they seem to arrive within the logical<br/>
+		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
+		/// relative motion events are also scaled.<br/>
+		/// If this function results in scaling or subpixel drawing by the rendering<br/>
+		/// backend, it will be handled using the appropriate quality hints.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderSetLogicalSizeNative(SDLRenderer* renderer, int w, int h)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)funcTable[754])(renderer, w, h);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)funcTable[754])((nint)renderer, w, h);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a device independent resolution for rendering.<br/>
+		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
+		/// logical resolution for rendering, regardless of the actual output<br/>
+		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
+		/// ratio the output rendering will be centered within the output display.<br/>
+		/// If the output display is a window, mouse and touch events in the window<br/>
+		/// will be filtered and scaled so they seem to arrive within the logical<br/>
+		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
+		/// relative motion events are also scaled.<br/>
+		/// If this function results in scaling or subpixel drawing by the rendering<br/>
+		/// backend, it will be handled using the appropriate quality hints.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetLogicalSize(SDLRenderer* renderer, int w, int h)
+		{
+			int ret = RenderSetLogicalSizeNative(renderer, w, h);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set a device independent resolution for rendering.<br/>
+		/// This function uses the viewport and scaling functionality to allow a fixed<br/>
+		/// logical resolution for rendering, regardless of the actual output<br/>
+		/// resolution. If the actual output resolution doesn't have the same aspect<br/>
+		/// ratio the output rendering will be centered within the output display.<br/>
+		/// If the output display is a window, mouse and touch events in the window<br/>
+		/// will be filtered and scaled so they seem to arrive within the logical<br/>
+		/// resolution. The SDL_HINT_MOUSE_RELATIVE_SCALING hint controls whether<br/>
+		/// relative motion events are also scaled.<br/>
+		/// If this function results in scaling or subpixel drawing by the rendering<br/>
+		/// backend, it will be handled using the appropriate quality hints.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetLogicalSize(ref SDLRenderer renderer, int w, int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderSetLogicalSizeNative((SDLRenderer*)prenderer, w, h);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RenderGetLogicalSizeNative(SDLRenderer* renderer, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, int*, int*, void>)funcTable[755])(renderer, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[755])((nint)renderer, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(SDLRenderer* renderer, int* w, int* h)
+		{
+			RenderGetLogicalSizeNative(renderer, w, h);
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(ref SDLRenderer renderer, int* w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				RenderGetLogicalSizeNative((SDLRenderer*)prenderer, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(SDLRenderer* renderer, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				RenderGetLogicalSizeNative(renderer, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(ref SDLRenderer renderer, ref int w, int* h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					RenderGetLogicalSizeNative((SDLRenderer*)prenderer, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(SDLRenderer* renderer, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				RenderGetLogicalSizeNative(renderer, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(ref SDLRenderer renderer, int* w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* ph = &h)
+				{
+					RenderGetLogicalSizeNative((SDLRenderer*)prenderer, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(SDLRenderer* renderer, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					RenderGetLogicalSizeNative(renderer, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get device independent resolution for rendering.<br/>
+		/// When using the main rendering target (eg no target texture is set): this<br/>
+		/// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical<br/>
+		/// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical<br/>
+		/// width and height.<br/>
+		/// When using a target texture: Never return 0 for `w` and `h` at first. Then<br/>
+		/// it returns the logical width and height that are set.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetLogicalSize(ref SDLRenderer renderer, ref int w, ref int h)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						RenderGetLogicalSizeNative((SDLRenderer*)prenderer, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set whether to force integer scales for resolution-independent rendering.<br/>
+		/// This function restricts the logical viewport to integer values - that is,<br/>
+		/// when a resolution is between two multiples of a logical size, the viewport<br/>
+		/// size is rounded down to the lower multiple.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderSetIntegerScaleNative(SDLRenderer* renderer, SDLBool enable)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool, int>)funcTable[756])(renderer, enable);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBool, int>)funcTable[756])((nint)renderer, enable);
+			#endif
+		}
+
+		/// <summary>
+		/// Set whether to force integer scales for resolution-independent rendering.<br/>
+		/// This function restricts the logical viewport to integer values - that is,<br/>
+		/// when a resolution is between two multiples of a logical size, the viewport<br/>
+		/// size is rounded down to the lower multiple.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetIntegerScale(SDLRenderer* renderer, SDLBool enable)
+		{
+			int ret = RenderSetIntegerScaleNative(renderer, enable);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set whether to force integer scales for resolution-independent rendering.<br/>
+		/// This function restricts the logical viewport to integer values - that is,<br/>
+		/// when a resolution is between two multiples of a logical size, the viewport<br/>
+		/// size is rounded down to the lower multiple.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetIntegerScale(ref SDLRenderer renderer, SDLBool enable)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderSetIntegerScaleNative((SDLRenderer*)prenderer, enable);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool RenderGetIntegerScaleNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[757])(renderer);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[757])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool RenderGetIntegerScale(SDLRenderer* renderer)
+		{
+			SDLBool ret = RenderGetIntegerScaleNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get whether integer scales are forced for resolution-independent rendering.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool RenderGetIntegerScale(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLBool ret = RenderGetIntegerScaleNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// When the window is resized, the viewport is reset to fill the entire new<br/>
+		/// window size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderSetViewportNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[758])(renderer, rect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[758])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// When the window is resized, the viewport is reset to fill the entire new<br/>
+		/// window size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetViewport(SDLRenderer* renderer, SDLRect* rect)
+		{
+			int ret = RenderSetViewportNative(renderer, rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// When the window is resized, the viewport is reset to fill the entire new<br/>
+		/// window size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetViewport(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderSetViewportNative((SDLRenderer*)prenderer, rect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// When the window is resized, the viewport is reset to fill the entire new<br/>
+		/// window size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetViewport(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = RenderSetViewportNative(renderer, (SDLRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing area for rendering on the current target.<br/>
+		/// When the window is resized, the viewport is reset to fill the entire new<br/>
+		/// window size.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetViewport(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = RenderSetViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RenderGetViewportNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[759])(renderer, rect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[759])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetViewport(SDLRenderer* renderer, SDLRect* rect)
+		{
+			RenderGetViewportNative(renderer, rect);
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetViewport(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				RenderGetViewportNative((SDLRenderer*)prenderer, rect);
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetViewport(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				RenderGetViewportNative(renderer, (SDLRect*)prect);
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing area for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetViewport(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					RenderGetViewportNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderSetClipRectNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[760])(renderer, rect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[760])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetClipRect(SDLRenderer* renderer, SDLRect* rect)
+		{
+			int ret = RenderSetClipRectNative(renderer, rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetClipRect(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderSetClipRectNative((SDLRenderer*)prenderer, rect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetClipRect(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = RenderSetClipRectNative(renderer, (SDLRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the clip rectangle for rendering on the specified target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetClipRect(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = RenderSetClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RenderGetClipRectNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, void>)funcTable[761])(renderer, rect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[761])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetClipRect(SDLRenderer* renderer, SDLRect* rect)
+		{
+			RenderGetClipRectNative(renderer, rect);
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetClipRect(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				RenderGetClipRectNative((SDLRenderer*)prenderer, rect);
+			}
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetClipRect(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				RenderGetClipRectNative(renderer, (SDLRect*)prect);
+			}
+		}
+
+		/// <summary>
+		/// Get the clip rectangle for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetClipRect(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					RenderGetClipRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get whether clipping is enabled on the given renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool RenderIsClipEnabledNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBool>)funcTable[762])(renderer);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[762])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Get whether clipping is enabled on the given renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool RenderIsClipEnabled(SDLRenderer* renderer)
+		{
+			SDLBool ret = RenderIsClipEnabledNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get whether clipping is enabled on the given renderer.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool RenderIsClipEnabled(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				SDLBool ret = RenderIsClipEnabledNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set the drawing scale for rendering on the current target.<br/>
+		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
+		/// are used by the renderer. This allows resolution independent drawing with a<br/>
+		/// single coordinate system.<br/>
+		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
+		/// will be handled using the appropriate quality hints. For best results use<br/>
+		/// integer scaling factors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderSetScaleNative(SDLRenderer* renderer, float scaleX, float scaleY)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int>)funcTable[763])(renderer, scaleX, scaleY);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, float, float, int>)funcTable[763])((nint)renderer, scaleX, scaleY);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the drawing scale for rendering on the current target.<br/>
+		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
+		/// are used by the renderer. This allows resolution independent drawing with a<br/>
+		/// single coordinate system.<br/>
+		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
+		/// will be handled using the appropriate quality hints. For best results use<br/>
+		/// integer scaling factors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetScale(SDLRenderer* renderer, float scaleX, float scaleY)
+		{
+			int ret = RenderSetScaleNative(renderer, scaleX, scaleY);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the drawing scale for rendering on the current target.<br/>
+		/// The drawing coordinates are scaled by the x/y scaling factors before they<br/>
+		/// are used by the renderer. This allows resolution independent drawing with a<br/>
+		/// single coordinate system.<br/>
+		/// If this results in scaling or subpixel drawing by the rendering backend, it<br/>
+		/// will be handled using the appropriate quality hints. For best results use<br/>
+		/// integer scaling factors.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderSetScale(ref SDLRenderer renderer, float scaleX, float scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderSetScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RenderGetScaleNative(SDLRenderer* renderer, float* scaleX, float* scaleY)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, float*, float*, void>)funcTable[764])(renderer, scaleX, scaleY);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[764])((nint)renderer, (nint)scaleX, (nint)scaleY);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(SDLRenderer* renderer, float* scaleX, float* scaleY)
+		{
+			RenderGetScaleNative(renderer, scaleX, scaleY);
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(ref SDLRenderer renderer, float* scaleX, float* scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				RenderGetScaleNative((SDLRenderer*)prenderer, scaleX, scaleY);
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(SDLRenderer* renderer, ref float scaleX, float* scaleY)
+		{
+			fixed (float* pscaleX = &scaleX)
+			{
+				RenderGetScaleNative(renderer, (float*)pscaleX, scaleY);
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(ref SDLRenderer renderer, ref float scaleX, float* scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pscaleX = &scaleX)
+				{
+					RenderGetScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, scaleY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(SDLRenderer* renderer, float* scaleX, ref float scaleY)
+		{
+			fixed (float* pscaleY = &scaleY)
+			{
+				RenderGetScaleNative(renderer, scaleX, (float*)pscaleY);
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(ref SDLRenderer renderer, float* scaleX, ref float scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pscaleY = &scaleY)
+				{
+					RenderGetScaleNative((SDLRenderer*)prenderer, scaleX, (float*)pscaleY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(SDLRenderer* renderer, ref float scaleX, ref float scaleY)
+		{
+			fixed (float* pscaleX = &scaleX)
+			{
+				fixed (float* pscaleY = &scaleY)
+				{
+					RenderGetScaleNative(renderer, (float*)pscaleX, (float*)pscaleY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the drawing scale for the current target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderGetScale(ref SDLRenderer renderer, ref float scaleX, ref float scaleY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* pscaleX = &scaleX)
+				{
+					fixed (float* pscaleY = &scaleY)
+					{
+						RenderGetScaleNative((SDLRenderer*)prenderer, (float*)pscaleX, (float*)pscaleY);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RenderWindowToLogicalNative(SDLRenderer* renderer, int windowX, int windowY, float* logicalX, float* logicalY)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, float*, float*, void>)funcTable[765])(renderer, windowX, windowY, logicalX, logicalY);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, int, nint, nint, void>)funcTable[765])((nint)renderer, windowX, windowY, (nint)logicalX, (nint)logicalY);
+			#endif
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, float* logicalX, float* logicalY)
+		{
+			RenderWindowToLogicalNative(renderer, windowX, windowY, logicalX, logicalY);
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, float* logicalX, float* logicalY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, logicalX, logicalY);
+			}
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, ref float logicalX, float* logicalY)
+		{
+			fixed (float* plogicalX = &logicalX)
+			{
+				RenderWindowToLogicalNative(renderer, windowX, windowY, (float*)plogicalX, logicalY);
+			}
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, ref float logicalX, float* logicalY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* plogicalX = &logicalX)
+				{
+					RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, (float*)plogicalX, logicalY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, float* logicalX, ref float logicalY)
+		{
+			fixed (float* plogicalY = &logicalY)
+			{
+				RenderWindowToLogicalNative(renderer, windowX, windowY, logicalX, (float*)plogicalY);
+			}
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, float* logicalX, ref float logicalY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* plogicalY = &logicalY)
+				{
+					RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, logicalX, (float*)plogicalY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(SDLRenderer* renderer, int windowX, int windowY, ref float logicalX, ref float logicalY)
+		{
+			fixed (float* plogicalX = &logicalX)
+			{
+				fixed (float* plogicalY = &logicalY)
+				{
+					RenderWindowToLogicalNative(renderer, windowX, windowY, (float*)plogicalX, (float*)plogicalY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get logical coordinates of point in renderer when given real coordinates of<br/>
+		/// point in window.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderWindowToLogical(ref SDLRenderer renderer, int windowX, int windowY, ref float logicalX, ref float logicalY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (float* plogicalX = &logicalX)
+				{
+					fixed (float* plogicalY = &logicalY)
+					{
+						RenderWindowToLogicalNative((SDLRenderer*)prenderer, windowX, windowY, (float*)plogicalX, (float*)plogicalY);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void RenderLogicalToWindowNative(SDLRenderer* renderer, float logicalX, float logicalY, int* windowX, int* windowY)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRenderer*, float, float, int*, int*, void>)funcTable[766])(renderer, logicalX, logicalY, windowX, windowY);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, float, float, nint, nint, void>)funcTable[766])((nint)renderer, logicalX, logicalY, (nint)windowX, (nint)windowY);
+			#endif
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, int* windowX, int* windowY)
+		{
+			RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, windowY);
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, int* windowX, int* windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, windowY);
+			}
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, ref int windowX, int* windowY)
+		{
+			fixed (int* pwindowX = &windowX)
+			{
+				RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, windowY);
+			}
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, ref int windowX, int* windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pwindowX = &windowX)
+				{
+					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, windowY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, int* windowX, ref int windowY)
+		{
+			fixed (int* pwindowY = &windowY)
+			{
+				RenderLogicalToWindowNative(renderer, logicalX, logicalY, windowX, (int*)pwindowY);
+			}
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, int* windowX, ref int windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pwindowY = &windowY)
+				{
+					RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, windowX, (int*)pwindowY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(SDLRenderer* renderer, float logicalX, float logicalY, ref int windowX, ref int windowY)
+		{
+			fixed (int* pwindowX = &windowX)
+			{
+				fixed (int* pwindowY = &windowY)
+				{
+					RenderLogicalToWindowNative(renderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get real coordinates of point in window when given logical coordinates of<br/>
+		/// point in renderer.<br/>
+		/// Logical coordinates will differ from real coordinates when render is scaled<br/>
+		/// and logical renderer size set<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void RenderLogicalToWindow(ref SDLRenderer renderer, float logicalX, float logicalY, ref int windowX, ref int windowY)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (int* pwindowX = &windowX)
+				{
+					fixed (int* pwindowY = &windowY)
+					{
+						RenderLogicalToWindowNative((SDLRenderer*)prenderer, logicalX, logicalY, (int*)pwindowX, (int*)pwindowY);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetRenderDrawColorNative(SDLRenderer* renderer, byte r, byte g, byte b, byte a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte, byte, byte, byte, int>)funcTable[767])(renderer, r, g, b, a);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, byte, byte, byte, int>)funcTable[767])((nint)renderer, r, g, b, a);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderDrawColor(SDLRenderer* renderer, byte r, byte g, byte b, byte a)
+		{
+			int ret = SetRenderDrawColorNative(renderer, r, g, b, a);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// Set the color for drawing or filling rectangles, lines, and points, and for<br/>
+		/// SDL_RenderClear().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderDrawColor(ref SDLRenderer renderer, byte r, byte g, byte b, byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = SetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetRenderDrawColorNative(SDLRenderer* renderer, byte* r, byte* g, byte* b, byte* a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, byte*, byte*, byte*, byte*, int>)funcTable[768])(renderer, r, g, b, a);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, nint, int>)funcTable[768])((nint)renderer, (nint)r, (nint)g, (nint)b, (nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, byte* b, byte* a)
+		{
+			int ret = GetRenderDrawColorNative(renderer, r, g, b, a);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, a);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, a);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, a);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, a);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, a);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, a);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, byte* b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, a);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pb = &b)
+			{
+				int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, a);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, a);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, a);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, a);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, a);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, a);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, ref byte b, byte* a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, a);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pa = &a)
+			{
+				int ret = GetRenderDrawColorNative(renderer, r, g, b, (byte*)pa);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pa = &a)
+				{
+					int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, b, (byte*)pa);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pa = &a)
+				{
+					int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, b, (byte*)pa);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pa = &a)
+					{
+						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, b, (byte*)pa);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pa = &a)
+				{
+					int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, b, (byte*)pa);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, b, (byte*)pa);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pa = &a)
+					{
+						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, byte* b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pa = &a)
+						{
+							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, b, (byte*)pa);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pb = &b)
+			{
+				fixed (byte* pa = &a)
+				{
+					int ret = GetRenderDrawColorNative(renderer, r, g, (byte*)pb, (byte*)pa);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, g, (byte*)pb, (byte*)pa);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						int ret = GetRenderDrawColorNative(renderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, byte* g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, g, (byte*)pb, (byte*)pa);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					fixed (byte* pa = &a)
+					{
+						int ret = GetRenderDrawColorNative(renderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, byte* r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, r, (byte*)pg, (byte*)pb, (byte*)pa);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(SDLRenderer* renderer, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						fixed (byte* pa = &a)
+						{
+							int ret = GetRenderDrawColorNative(renderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the color used for drawing operations (Rect, Line and Clear).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawColor(ref SDLRenderer renderer, ref byte r, ref byte g, ref byte b, ref byte a)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							fixed (byte* pa = &a)
+							{
+								int ret = GetRenderDrawColorNative((SDLRenderer*)prenderer, (byte*)pr, (byte*)pg, (byte*)pb, (byte*)pa);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetRenderDrawBlendModeNative(SDLRenderer* renderer, SDLBlendMode blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode, int>)funcTable[769])(renderer, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[769])((nint)renderer, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderDrawBlendMode(SDLRenderer* renderer, SDLBlendMode blendMode)
+		{
+			int ret = SetRenderDrawBlendModeNative(renderer, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the blend mode used for drawing operations (Fill and Line).<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetRenderDrawBlendMode(ref SDLRenderer renderer, SDLBlendMode blendMode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = SetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for drawing operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetRenderDrawBlendModeNative(SDLRenderer* renderer, SDLBlendMode* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLBlendMode*, int>)funcTable[770])(renderer, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[770])((nint)renderer, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for drawing operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawBlendMode(SDLRenderer* renderer, SDLBlendMode* blendMode)
+		{
+			int ret = GetRenderDrawBlendModeNative(renderer, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for drawing operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawBlendMode(ref SDLRenderer renderer, SDLBlendMode* blendMode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for drawing operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawBlendMode(SDLRenderer* renderer, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLBlendMode* pblendMode = &blendMode)
+			{
+				int ret = GetRenderDrawBlendModeNative(renderer, (SDLBlendMode*)pblendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for drawing operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetRenderDrawBlendMode(ref SDLRenderer renderer, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLBlendMode* pblendMode = &blendMode)
+				{
+					int ret = GetRenderDrawBlendModeNative((SDLRenderer*)prenderer, (SDLBlendMode*)pblendMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Clear the current rendering target with the drawing color.<br/>
+		/// This function clears the entire rendering target, ignoring the viewport and<br/>
+		/// the clip rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderClearNative(SDLRenderer* renderer)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int>)funcTable[771])(renderer);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[771])((nint)renderer);
+			#endif
+		}
+
+		/// <summary>
+		/// Clear the current rendering target with the drawing color.<br/>
+		/// This function clears the entire rendering target, ignoring the viewport and<br/>
+		/// the clip rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderClear(SDLRenderer* renderer)
+		{
+			int ret = RenderClearNative(renderer);
+			return ret;
+		}
+
+		/// <summary>
+		/// Clear the current rendering target with the drawing color.<br/>
+		/// This function clears the entire rendering target, ignoring the viewport and<br/>
+		/// the clip rectangle.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderClear(ref SDLRenderer renderer)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderClearNative((SDLRenderer*)prenderer);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw a point on the current rendering target.<br/>
+		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
+		/// use SDL_RenderDrawPoints() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawPointNative(SDLRenderer* renderer, int x, int y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int>)funcTable[772])(renderer, x, y);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int>)funcTable[772])((nint)renderer, x, y);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a point on the current rendering target.<br/>
+		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
+		/// use SDL_RenderDrawPoints() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPoint(SDLRenderer* renderer, int x, int y)
+		{
+			int ret = RenderDrawPointNative(renderer, x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw a point on the current rendering target.<br/>
+		/// SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,<br/>
+		/// use SDL_RenderDrawPoints() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPoint(ref SDLRenderer renderer, int x, int y)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawPointNative((SDLRenderer*)prenderer, x, y);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw multiple points on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawPointsNative(SDLRenderer* renderer, SDLPoint* points, int count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)funcTable[773])(renderer, points, count);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[773])((nint)renderer, (nint)points, count);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw multiple points on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPoints(SDLRenderer* renderer, SDLPoint* points, int count)
+		{
+			int ret = RenderDrawPointsNative(renderer, points, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw multiple points on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPoints(ref SDLRenderer renderer, SDLPoint* points, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, points, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw multiple points on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPoints(SDLRenderer* renderer, ref SDLPoint points, int count)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				int ret = RenderDrawPointsNative(renderer, (SDLPoint*)ppoints, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw multiple points on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawPoints(ref SDLRenderer renderer, ref SDLPoint points, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLPoint* ppoints = &points)
+				{
+					int ret = RenderDrawPointsNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draw a line on the current rendering target.<br/>
+		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
+		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawLineNative(SDLRenderer* renderer, int x1, int y1, int x2, int y2)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int, int, int, int>)funcTable[774])(renderer, x1, y1, x2, y2);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int, int, int, int>)funcTable[774])((nint)renderer, x1, y1, x2, y2);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a line on the current rendering target.<br/>
+		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
+		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLine(SDLRenderer* renderer, int x1, int y1, int x2, int y2)
+		{
+			int ret = RenderDrawLineNative(renderer, x1, y1, x2, y2);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw a line on the current rendering target.<br/>
+		/// SDL_RenderDrawLine() draws the line to include both end points. If you want<br/>
+		/// to draw multiple, connecting lines use SDL_RenderDrawLines() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLine(ref SDLRenderer renderer, int x1, int y1, int x2, int y2)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawLineNative((SDLRenderer*)prenderer, x1, y1, x2, y2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawLinesNative(SDLRenderer* renderer, SDLPoint* points, int count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLPoint*, int, int>)funcTable[775])(renderer, points, count);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[775])((nint)renderer, (nint)points, count);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLines(SDLRenderer* renderer, SDLPoint* points, int count)
+		{
+			int ret = RenderDrawLinesNative(renderer, points, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLines(ref SDLRenderer renderer, SDLPoint* points, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, points, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLines(SDLRenderer* renderer, ref SDLPoint points, int count)
+		{
+			fixed (SDLPoint* ppoints = &points)
+			{
+				int ret = RenderDrawLinesNative(renderer, (SDLPoint*)ppoints, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw a series of connected lines on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawLines(ref SDLRenderer renderer, ref SDLPoint points, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLPoint* ppoints = &points)
+				{
+					int ret = RenderDrawLinesNative((SDLRenderer*)prenderer, (SDLPoint*)ppoints, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawRectNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[776])(renderer, rect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[776])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRect(SDLRenderer* renderer, SDLRect* rect)
+		{
+			int ret = RenderDrawRectNative(renderer, rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRect(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawRectNative((SDLRenderer*)prenderer, rect);
 				return ret;
 			}
 		}

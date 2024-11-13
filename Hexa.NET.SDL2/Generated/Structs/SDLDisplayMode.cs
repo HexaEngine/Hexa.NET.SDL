@@ -19,43 +19,32 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_DisplayMode")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDisplayMode
 	{
 		/// <summary>
 		/// pixel format <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "format")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Format;
 
 		/// <summary>
 		/// width, in screen coordinates <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "w")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int W;
 
 		/// <summary>
 		/// height, in screen coordinates <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "h")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		/// <summary>
 		/// refresh rate (or zero for unspecified) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "refresh_rate")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int RefreshRate;
 
 		/// <summary>
 		/// driver-specific data, initialize to 0 <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "driverdata")]
-		[NativeName(NativeNameType.Type, "void*")]
 		public unsafe void* Driverdata;
 
 

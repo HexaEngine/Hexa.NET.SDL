@@ -19,74 +19,55 @@ namespace Hexa.NET.SDL2
 	/// hidapi info structure <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_hid_device_info")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHidDeviceInfo
 	{
 		/// <summary>
 		/// Platform-specific device path <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "path")]
-		[NativeName(NativeNameType.Type, "char*")]
 		public unsafe byte* Path;
 
 		/// <summary>
 		/// Device Vendor ID <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "vendor_id")]
-		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort VendorId;
 
 		/// <summary>
 		/// Device Product ID <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "product_id")]
-		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort ProductId;
 
 		/// <summary>
 		/// Serial Number <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "serial_number")]
-		[NativeName(NativeNameType.Type, "wchar*")]
 		public unsafe char* SerialNumber;
 
 		/// <summary>
 		/// Device Release Number in binary-coded decimal,<br/>
 		/// also known as Device Version Number <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "release_number")]
-		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort ReleaseNumber;
 
 		/// <summary>
 		/// Manufacturer String <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "manufacturer_string")]
-		[NativeName(NativeNameType.Type, "wchar*")]
 		public unsafe char* ManufacturerString;
 
 		/// <summary>
 		/// Product string <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "product_string")]
-		[NativeName(NativeNameType.Type, "wchar*")]
 		public unsafe char* ProductString;
 
 		/// <summary>
 		/// Usage Page for this Device/Interface<br/>
 		/// (Windows/Mac only). <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "usage_page")]
-		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort UsagePage;
 
 		/// <summary>
 		/// Usage for this Device/Interface<br/>
 		/// (Windows/Mac only).<br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "usage")]
-		[NativeName(NativeNameType.Type, "unsigned short")]
 		public ushort Usage;
 
 		/// <summary>
@@ -96,29 +77,19 @@ namespace Hexa.NET.SDL2
 		/// Valid on the Windows implementation only if the device<br/>
 		/// contains more than one interface. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "interface_number")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceNumber;
 
 		/// <summary>
 		/// Additional information about the USB interface.<br/>
 		/// Valid on libusb and Android implementations. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "interface_class")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceClass;
 
-		[NativeName(NativeNameType.Field, "interface_subclass")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceSubclass;
-		[NativeName(NativeNameType.Field, "interface_protocol")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int InterfaceProtocol;
 		/// <summary>
 		/// Pointer to the next device <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "next")]
-		[NativeName(NativeNameType.Type, "SDL_hid_device_info*")]
 		public unsafe SDLHidDeviceInfo* Next;
 
 

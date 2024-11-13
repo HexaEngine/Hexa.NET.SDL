@@ -20,7 +20,6 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "_SDL_Haptic")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHaptic
 	{

@@ -24,92 +24,67 @@ namespace Hexa.NET.SDL2
 	/// quadratic instead of linear.<br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_HapticRamp")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLHapticRamp
 	{
 		/// <summary>
 		/// ::SDL_HAPTIC_RAMP <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Type;
 
 		/// <summary>
 		/// Direction of the effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "direction")]
-		[NativeName(NativeNameType.Type, "SDL_HapticDirection")]
 		public SDLHapticDirection Direction;
 
 		/// <summary>
 		/// Duration of the effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "length")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Length;
 
 		/// <summary>
 		/// Delay before starting the effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "delay")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Delay;
 
 		/// <summary>
 		/// Button that triggers the effect. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "button")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Button;
 
 		/// <summary>
 		/// How soon it can be triggered again after button. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "interval")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort Interval;
 
 		/// <summary>
 		/// Beginning strength level. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "start")]
-		[NativeName(NativeNameType.Type, "Sint16")]
 		public short Start;
 
 		/// <summary>
 		/// Ending strength level. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "end")]
-		[NativeName(NativeNameType.Type, "Sint16")]
 		public short End;
 
 		/// <summary>
 		/// Duration of the attack. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "attack_length")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort AttackLength;
 
 		/// <summary>
 		/// Level at the start of the attack. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "attack_level")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort AttackLevel;
 
 		/// <summary>
 		/// Duration of the fade. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "fade_length")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort FadeLength;
 
 		/// <summary>
 		/// Level at the end of the fade. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "fade_level")]
-		[NativeName(NativeNameType.Type, "Uint16")]
 		public ushort FadeLevel;
 
 

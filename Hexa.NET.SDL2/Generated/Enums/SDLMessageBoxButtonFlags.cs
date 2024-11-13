@@ -15,22 +15,17 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Flags for SDL_MessageBoxButtonData.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_MessageBoxButtonFlags")]
 	[Flags]
 	public enum SDLMessageBoxButtonFlags : int
 	{
 		/// <summary>
 		/// Marks the default button when return is hit <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT")]
-		[NativeName(NativeNameType.Value, "1")]
 		ReturnkeyDefault = unchecked(1),
 
 		/// <summary>
 		/// Marks the default button when escape is hit <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT")]
-		[NativeName(NativeNameType.Value, "2")]
 		EscapekeyDefault = unchecked(2),
 	}
 }

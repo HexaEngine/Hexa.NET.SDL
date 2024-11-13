@@ -18,52 +18,35 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_DollarGestureEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLDollarGestureEvent
 	{
 		/// <summary>
 		/// ::SDL_DOLLARGESTURE or ::SDL_DOLLARRECORD <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// The touch device id <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "touchId")]
-		[NativeName(NativeNameType.Type, "SDL_TouchID")]
 		public long TouchId;
 
-		[NativeName(NativeNameType.Field, "gestureId")]
-		[NativeName(NativeNameType.Type, "SDL_GestureID")]
 		public long GestureId;
-		[NativeName(NativeNameType.Field, "numFingers")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint NumFingers;
-		[NativeName(NativeNameType.Field, "error")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Error;
 		/// <summary>
 		/// Normalized center of gesture <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "x")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
 		/// Normalized center of gesture <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "y")]
-		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 

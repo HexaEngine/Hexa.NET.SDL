@@ -21,33 +21,16 @@ namespace Hexa.NET.SDL2
 	/// (fully pressed) when reported by SDL_GameControllerGetAxis(). Note that this is not the<br/>
 	/// same range that will be reported by the lower-level SDL_GetJoystickAxis().<br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_GameControllerAxis")]
 	[Flags]
 	public enum SDLGameControllerAxis : int
 	{
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_INVALID")]
-		[NativeName(NativeNameType.Value, "-1")]
 		Invalid = unchecked(-1),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_LEFTX")]
-		[NativeName(NativeNameType.Value, "0")]
 		Leftx = unchecked(0),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_LEFTY")]
-		[NativeName(NativeNameType.Value, "1")]
 		Lefty = unchecked(1),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_RIGHTX")]
-		[NativeName(NativeNameType.Value, "2")]
 		Rightx = unchecked(2),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_RIGHTY")]
-		[NativeName(NativeNameType.Value, "3")]
 		Righty = unchecked(3),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_TRIGGERLEFT")]
-		[NativeName(NativeNameType.Value, "4")]
 		Triggerleft = unchecked(4),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_TRIGGERRIGHT")]
-		[NativeName(NativeNameType.Value, "5")]
 		Triggerright = unchecked(5),
-		[NativeName(NativeNameType.EnumItem, "SDL_CONTROLLER_AXIS_MAX")]
-		[NativeName(NativeNameType.Value, "6")]
 		Max = unchecked(6),
 	}
 }

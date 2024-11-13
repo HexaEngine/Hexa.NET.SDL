@@ -16,5006 +16,5002 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL2
 {
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels);
+	public unsafe delegate void Pfnglwaitsemaphoreextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* textures, [NativeName(NativeNameType.Param, "srcLayouts")] [NativeName(NativeNameType.Type, "GLenum const *")] uint* srcLayouts);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] nint pixels);
+	public unsafe delegate void Pfnglwaitsemaphoreextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "GLuint const *")] nint buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] nint textures, [NativeName(NativeNameType.Param, "srcLayouts")] [NativeName(NativeNameType.Type, "GLenum const *")] nint srcLayouts);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOPYMULTITEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOPYMULTITEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglsignalsemaphoreextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* textures, [NativeName(NativeNameType.Param, "dstLayouts")] [NativeName(NativeNameType.Type, "GLenum const *")] uint* dstLayouts);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOPYMULTITEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOPYMULTITEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglsignalsemaphoreextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "GLuint const *")] nint buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] nint textures, [NativeName(NativeNameType.Param, "dstLayouts")] [NativeName(NativeNameType.Type, "GLenum const *")] nint dstLayouts);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLECLIENTSTATEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLECLIENTSTATEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglimportsemaphorefdextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "fd")] [NativeName(NativeNameType.Type, "GLint")] int fd);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLECLIENTSTATEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLECLIENTSTATEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglimportsemaphorefdextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "fd")] [NativeName(NativeNameType.Type, "GLint")] int fd);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLECLIENTSTATEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLECLIENTSTATEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglimportsemaphorewin32Handleextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void *")] void* handle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLECLIENTSTATEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLECLIENTSTATEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglimportsemaphorewin32Handleextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void *")] nint handle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFLOATINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFLOATINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat*")] float* data);
+	public unsafe delegate void Pfnglimportsemaphorewin32Nameextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "void const *")] void* name);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFLOATINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFLOATINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat*")] nint data);
+	public unsafe delegate void Pfnglimportsemaphorewin32Nameextproc([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "void const *")] nint name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETDOUBLEINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETDOUBLEINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLdouble*")] double* data);
+	public unsafe delegate void Pfngluseshaderprogramextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETDOUBLEINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETDOUBLEINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLdouble*")] nint data);
+	public unsafe delegate void Pfngluseshaderprogramextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPOINTERINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPOINTERINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void**")] void** data);
+	public unsafe delegate void Pfnglactiveprogramextproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPOINTERINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPOINTERINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void**")] nint data);
+	public unsafe delegate void Pfnglactiveprogramextproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate uint Pfnglcreateshaderprogramextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "GLchar const *")] byte* str);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate uint Pfnglcreateshaderprogramextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "GLchar const *")] nint str);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglframebufferfetchbarrierextproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLEINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLEINDEXEDEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglframebufferfetchbarrierextproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLISENABLEDINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISENABLEDINDEXEDEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglbindimagetextureextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layered")] [NativeName(NativeNameType.Type, "GLboolean")] byte layered, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLint")] int format);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLISENABLEDINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISENABLEDINDEXEDEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglbindimagetextureextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layered")] [NativeName(NativeNameType.Type, "GLboolean")] byte layered, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLint")] int format);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETINTEGERINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETINTEGERINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint*")] int* data);
+	public unsafe delegate void Pfnglmemorybarrierextproc([NativeName(NativeNameType.Param, "barriers")] [NativeName(NativeNameType.Type, "GLbitfield")] uint barriers);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETINTEGERINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETINTEGERINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint*")] nint data);
+	public unsafe delegate void Pfnglmemorybarrierextproc([NativeName(NativeNameType.Param, "barriers")] [NativeName(NativeNameType.Type, "GLbitfield")] uint barriers);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETBOOLEANINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETBOOLEANINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean*")] byte* data);
+	public unsafe delegate void Pfnglstencilcleartagextproc([NativeName(NativeNameType.Param, "stencilTagBits")] [NativeName(NativeNameType.Type, "GLsizei")] int stencilTagBits, [NativeName(NativeNameType.Param, "stencilClearTag")] [NativeName(NativeNameType.Type, "GLuint")] uint stencilClearTag);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETBOOLEANINDEXEDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETBOOLEANINDEXEDVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean*")] nint data);
+	public unsafe delegate void Pfnglstencilcleartagextproc([NativeName(NativeNameType.Param, "stencilTagBits")] [NativeName(NativeNameType.Type, "GLsizei")] int stencilTagBits, [NativeName(NativeNameType.Param, "stencilClearTag")] [NativeName(NativeNameType.Type, "GLuint")] uint stencilClearTag);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfnglactivestencilfaceextproc([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfnglactivestencilfaceextproc([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTUREIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTUREIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfngltexsubimage1Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] void* pixels);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTUREIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTUREIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfngltexsubimage1Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] nint pixels);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTUREIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTUREIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfngltexsubimage2Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] void* pixels);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTUREIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTUREIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfngltexsubimage2Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] nint pixels);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTURESUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfnglteximage3Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] void* pixels);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTURESUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfnglteximage3Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] nint pixels);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTURESUBIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfngltexsubimage3Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] void* pixels);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTURESUBIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfngltexsubimage3Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "void const *")] nint pixels);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTURESUBIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfnglframebuffertexturelayerextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDTEXTURESUBIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDTEXTURESUBIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfnglframebuffertexturelayerextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOMPRESSEDTEXTUREIMAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOMPRESSEDTEXTUREIMAGEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "lod")] [NativeName(NativeNameType.Type, "GLint")] int lod, [NativeName(NativeNameType.Param, "img")] [NativeName(NativeNameType.Type, "void*")] void* img);
+	public unsafe delegate void Pfngltexbufferextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOMPRESSEDTEXTUREIMAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOMPRESSEDTEXTUREIMAGEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "lod")] [NativeName(NativeNameType.Type, "GLint")] int lod, [NativeName(NativeNameType.Param, "img")] [NativeName(NativeNameType.Type, "void*")] nint img);
+	public unsafe delegate void Pfngltexbufferextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfngltexparameteriivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfngltexparameteriivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfngltexparameteriuivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfngltexparameteriuivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfnglgettexparameteriivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfnglgettexparameteriivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfnglgettexparameteriuivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfnglgettexparameteriuivextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXSUBIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXSUBIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfnglclearcoloriiextproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLint")] int red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLint")] int green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLint")] int blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLint")] int alpha);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXSUBIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXSUBIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfnglclearcoloriiextproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLint")] int red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLint")] int green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLint")] int blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLint")] int alpha);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXSUBIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXSUBIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] void* bits);
+	public unsafe delegate void Pfnglclearcoloriuiextproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLuint")] uint red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLuint")] uint green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLuint")] uint blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLuint")] uint alpha);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOMPRESSEDMULTITEXSUBIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOMPRESSEDMULTITEXSUBIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "imageSize")] [NativeName(NativeNameType.Type, "GLsizei")] int imageSize, [NativeName(NativeNameType.Param, "bits")] [NativeName(NativeNameType.Type, "const void*")] nint bits);
+	public unsafe delegate void Pfnglclearcoloriuiextproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLuint")] uint red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLuint")] uint green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLuint")] uint blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLuint")] uint alpha);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOMPRESSEDMULTITEXIMAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOMPRESSEDMULTITEXIMAGEEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "lod")] [NativeName(NativeNameType.Type, "GLint")] int lod, [NativeName(NativeNameType.Param, "img")] [NativeName(NativeNameType.Type, "void*")] void* img);
+	public unsafe delegate byte Pfnglaretexturesresidentextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* textures, [NativeName(NativeNameType.Param, "residences")] [NativeName(NativeNameType.Type, "GLboolean *")] byte* residences);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOMPRESSEDMULTITEXIMAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOMPRESSEDMULTITEXIMAGEEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "lod")] [NativeName(NativeNameType.Type, "GLint")] int lod, [NativeName(NativeNameType.Param, "img")] [NativeName(NativeNameType.Type, "void*")] nint img);
+	public unsafe delegate byte Pfnglaretexturesresidentextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] nint textures, [NativeName(NativeNameType.Param, "residences")] [NativeName(NativeNameType.Type, "GLboolean *")] nint residences);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXLOADTRANSPOSEFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXLOADTRANSPOSEFEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* m);
+	public unsafe delegate void Pfnglbindtextureextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXLOADTRANSPOSEFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXLOADTRANSPOSEFEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint m);
+	public unsafe delegate void Pfnglbindtextureextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXLOADTRANSPOSEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXLOADTRANSPOSEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* m);
+	public unsafe delegate void Pfngldeletetexturesextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* textures);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXLOADTRANSPOSEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXLOADTRANSPOSEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint m);
+	public unsafe delegate void Pfngldeletetexturesextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] nint textures);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXMULTTRANSPOSEFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXMULTTRANSPOSEFEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* m);
+	public unsafe delegate void Pfnglgentexturesextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint *")] uint* textures);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXMULTTRANSPOSEFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXMULTTRANSPOSEFEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint m);
+	public unsafe delegate void Pfnglgentexturesextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint *")] nint textures);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXMULTTRANSPOSEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXMULTTRANSPOSEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* m);
+	public unsafe delegate byte Pfnglistextureextproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMATRIXMULTTRANSPOSEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMATRIXMULTTRANSPOSEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint m);
+	public unsafe delegate byte Pfnglistextureextproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "GLenum")] uint usage);
+	public unsafe delegate void Pfnglprioritizetexturesextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* textures, [NativeName(NativeNameType.Param, "priorities")] [NativeName(NativeNameType.Type, "GLclampf const *")] float* priorities);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] nint data, [NativeName(NativeNameType.Param, "usage")] [NativeName(NativeNameType.Type, "GLenum")] uint usage);
+	public unsafe delegate void Pfnglprioritizetexturesextproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint const *")] nint textures, [NativeName(NativeNameType.Param, "priorities")] [NativeName(NativeNameType.Type, "GLclampf const *")] nint priorities);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data);
+	public unsafe delegate void Pfngltexturenormalextproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] nint data);
+	public unsafe delegate void Pfngltexturenormalextproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMAPNAMEDBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void* PFNGLMAPNAMEDBUFFEREXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
+	public unsafe delegate void Pfngltexstorage1Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMAPNAMEDBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint PFNGLMAPNAMEDBUFFEREXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
+	public unsafe delegate void Pfngltexstorage1Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNMAPNAMEDBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLUNMAPNAMEDBUFFEREXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfngltexstorage2Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNMAPNAMEDBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLUNMAPNAMEDBUFFEREXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfngltexstorage2Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfngltexstorage3Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfngltexstorage3Dextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDBUFFERPOINTERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDBUFFERPOINTERVEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void**")] void** @params);
+	public unsafe delegate void Pfnglgetqueryobjecti64Vextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64 *")] long* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDBUFFERPOINTERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDBUFFERPOINTERVEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void**")] nint @params);
+	public unsafe delegate void Pfnglgetqueryobjecti64Vextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64 *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data);
+	public unsafe delegate void Pfnglgetqueryobjectui64Vextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64 *")] ulong* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] nint data);
+	public unsafe delegate void Pfnglgetqueryobjectui64Vextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64 *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0);
+	public unsafe delegate void Pfnglbegintransformfeedbackextproc([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0);
+	public unsafe delegate void Pfnglbegintransformfeedbackextproc([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1);
+	public unsafe delegate void Pfnglendtransformfeedbackextproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1);
+	public unsafe delegate void Pfnglendtransformfeedbackextproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLfloat")] float v2);
+	public unsafe delegate void Pfnglbindbufferrangeextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLfloat")] float v2);
+	public unsafe delegate void Pfnglbindbufferrangeextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLfloat")] float v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLfloat")] float v3);
+	public unsafe delegate void Pfnglbindbufferoffsetextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLfloat")] float v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLfloat")] float v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLfloat")] float v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLfloat")] float v3);
+	public unsafe delegate void Pfnglbindbufferoffsetextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0);
+	public unsafe delegate void Pfnglbindbufferbaseextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0);
+	public unsafe delegate void Pfnglbindbufferbaseextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLint")] int v1);
+	public unsafe delegate void Pfngltransformfeedbackvaryingsextproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "varyings")] [NativeName(NativeNameType.Type, "GLchar const * const *")] byte** varyings, [NativeName(NativeNameType.Param, "bufferMode")] [NativeName(NativeNameType.Type, "GLenum")] uint bufferMode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLint")] int v1);
+	public unsafe delegate void Pfngltransformfeedbackvaryingsextproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "varyings")] [NativeName(NativeNameType.Type, "GLchar const * const *")] nint varyings, [NativeName(NativeNameType.Param, "bufferMode")] [NativeName(NativeNameType.Type, "GLenum")] uint bufferMode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLint")] int v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLint")] int v2);
+	public unsafe delegate void Pfnglgettransformfeedbackvaryingextproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "bufSize")] [NativeName(NativeNameType.Type, "GLsizei")] int bufSize, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei *")] int* length, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizei *")] int* size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum *")] uint* type, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLchar *")] byte* name);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLint")] int v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLint")] int v2);
+	public unsafe delegate void Pfnglgettransformfeedbackvaryingextproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "bufSize")] [NativeName(NativeNameType.Type, "GLsizei")] int bufSize, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei *")] nint length, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizei *")] nint size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum *")] nint type, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLchar *")] nint name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLint")] int v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLint")] int v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLint")] int v3);
+	public unsafe delegate void Pfnglarrayelementextproc([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLint")] int v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLint")] int v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLint")] int v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLint")] int v3);
+	public unsafe delegate void Pfnglarrayelementextproc([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglcolorpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglcolorpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfngldrawarraysextproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfngldrawarraysextproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfngledgeflagpointerextproc([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "GLboolean const *")] byte* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfngledgeflagpointerextproc([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "GLboolean const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglgetpointervextproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void * *")] void** @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglgetpointervextproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void * *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] int* value);
+	public unsafe delegate void Pfnglindexpointerextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] nint value);
+	public unsafe delegate void Pfnglindexpointerextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] int* value);
+	public unsafe delegate void Pfnglnormalpointerextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] nint value);
+	public unsafe delegate void Pfnglnormalpointerextproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] int* value);
+	public unsafe delegate void Pfngltexcoordpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] nint value);
+	public unsafe delegate void Pfngltexcoordpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] int* value);
+	public unsafe delegate void Pfnglvertexpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLint*")] nint value);
+	public unsafe delegate void Pfnglvertexpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl1Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl1Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl2Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl2Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl3Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl3Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl4Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl4Dextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl1Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl1Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl2Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl2Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl3Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X2FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X2FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl3Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattribl4Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattribl4Dvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* value);
+	public unsafe delegate void Pfnglvertexattriblpointerextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X3FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint value);
+	public unsafe delegate void Pfnglvertexattriblpointerextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREBUFFEREXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglgetvertexattribldvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble *")] double* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREBUFFEREXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglgetvertexattribldvextproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXBUFFEREXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglbeginvertexshaderextproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXBUFFEREXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglbeginvertexshaderextproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params);
+	public unsafe delegate void Pfnglendvertexshaderextproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] nint @params);
+	public unsafe delegate void Pfnglendvertexshaderextproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglbindvertexshaderextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] nint @params);
+	public unsafe delegate void Pfnglbindvertexshaderextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXTUREPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXTUREPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate uint Pfnglgenvertexshadersextproc([NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLuint")] uint range);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXTUREPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXTUREPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate uint Pfnglgenvertexshadersextproc([NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLuint")] uint range);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXTUREPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXTUREPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] uint* @params);
+	public unsafe delegate void Pfngldeletevertexshaderextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXTUREPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXTUREPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] nint @params);
+	public unsafe delegate void Pfngldeletevertexshaderextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params);
+	public unsafe delegate void Pfnglshaderop1Extproc([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] nint @params);
+	public unsafe delegate void Pfnglshaderop1Extproc([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglshaderop2Extproc([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] nint @params);
+	public unsafe delegate void Pfnglshaderop2Extproc([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMULTITEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMULTITEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglshaderop3Extproc([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2, [NativeName(NativeNameType.Param, "arg3")] [NativeName(NativeNameType.Type, "GLuint")] uint arg3);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMULTITEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMULTITEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglshaderop3Extproc([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2, [NativeName(NativeNameType.Param, "arg3")] [NativeName(NativeNameType.Type, "GLuint")] uint arg3);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMULTITEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMULTITEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglswizzleextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMULTITEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMULTITEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] nint @params);
+	public unsafe delegate void Pfnglswizzleextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0);
+	public unsafe delegate void Pfnglwritemaskextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0);
+	public unsafe delegate void Pfnglwritemaskextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1);
+	public unsafe delegate void Pfnglinsertcomponentextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1);
+	public unsafe delegate void Pfnglinsertcomponentextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2);
+	public unsafe delegate void Pfnglextractcomponentextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2);
+	public unsafe delegate void Pfnglextractcomponentextproc([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLuint")] uint v3);
+	public unsafe delegate uint Pfnglgensymbolsextproc([NativeName(NativeNameType.Param, "datatype")] [NativeName(NativeNameType.Type, "GLenum")] uint datatype, [NativeName(NativeNameType.Param, "storagetype")] [NativeName(NativeNameType.Type, "GLenum")] uint storagetype, [NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLenum")] uint range, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLuint")] uint components);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLuint")] uint v3);
+	public unsafe delegate uint Pfnglgensymbolsextproc([NativeName(NativeNameType.Param, "datatype")] [NativeName(NativeNameType.Type, "GLenum")] uint datatype, [NativeName(NativeNameType.Param, "storagetype")] [NativeName(NativeNameType.Type, "GLenum")] uint storagetype, [NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLenum")] uint range, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLuint")] uint components);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate void Pfnglsetinvariantextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "void const *")] void* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate void Pfnglsetinvariantextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "void const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate void Pfnglsetlocalconstantextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "void const *")] void* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate void Pfnglsetlocalconstantextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "void const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate void Pfnglvariantbvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLbyte const *")] byte* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate void Pfnglvariantbvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLbyte const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate void Pfnglvariantsvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLshort const *")] short* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate void Pfnglvariantsvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLshort const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERS4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERS4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglvariantivextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLint const *")] int* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERS4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERS4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglvariantivextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLint const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
+	public unsafe delegate void Pfnglvariantfvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4IEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
+	public unsafe delegate void Pfnglvariantfvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params);
+	public unsafe delegate void Pfnglvariantdvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] nint @params);
+	public unsafe delegate void Pfnglvariantdvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERSI4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERSI4IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params);
+	public unsafe delegate void Pfnglvariantubvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERSI4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERSI4IVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] nint @params);
+	public unsafe delegate void Pfnglvariantubvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
+	public unsafe delegate void Pfnglvariantusvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLushort const *")] ushort* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
+	public unsafe delegate void Pfnglvariantusvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLushort const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglvariantuivextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] nint @params);
+	public unsafe delegate void Pfnglvariantuivextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "GLuint const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERSI4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERSI4UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglvariantpointerextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLuint")] uint stride, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "void const *")] void* addr);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETERSI4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETERSI4UIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] nint @params);
+	public unsafe delegate void Pfnglvariantpointerextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLuint")] uint stride, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "void const *")] nint addr);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglenablevariantclientstateextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglenablevariantclientstateextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] uint* @params);
+	public unsafe delegate void Pfngldisablevariantclientstateextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] nint @params);
+	public unsafe delegate void Pfngldisablevariantclientstateextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLECLIENTSTATEIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLECLIENTSTATEIEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate uint Pfnglbindlightparameterextproc([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLECLIENTSTATEIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLECLIENTSTATEIEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate uint Pfnglbindlightparameterextproc([NativeName(NativeNameType.Param, "light")] [NativeName(NativeNameType.Type, "GLenum")] uint light, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLECLIENTSTATEIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLECLIENTSTATEIEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate uint Pfnglbindmaterialparameterextproc([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLECLIENTSTATEIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLECLIENTSTATEIEXTPROC([NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate uint Pfnglbindmaterialparameterextproc([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFLOATI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFLOATIVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params);
+	public unsafe delegate uint Pfnglbindtexgenparameterextproc([NativeName(NativeNameType.Param, "unit")] [NativeName(NativeNameType.Type, "GLenum")] uint unit, [NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFLOATI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFLOATIVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] nint @params);
+	public unsafe delegate uint Pfnglbindtexgenparameterextproc([NativeName(NativeNameType.Param, "unit")] [NativeName(NativeNameType.Type, "GLenum")] uint unit, [NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLenum")] uint coord, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETDOUBLEI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETDOUBLEIVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] double* @params);
+	public unsafe delegate uint Pfnglbindtextureunitparameterextproc([NativeName(NativeNameType.Param, "unit")] [NativeName(NativeNameType.Type, "GLenum")] uint unit, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETDOUBLEI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETDOUBLEIVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] nint @params);
+	public unsafe delegate uint Pfnglbindtextureunitparameterextproc([NativeName(NativeNameType.Param, "unit")] [NativeName(NativeNameType.Type, "GLenum")] uint unit, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPOINTERI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPOINTERIVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void**")] void** @params);
+	public unsafe delegate uint Pfnglbindparameterextproc([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPOINTERI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPOINTERIVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void**")] nint @params);
+	public unsafe delegate uint Pfnglbindparameterextproc([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMSTRINGEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "const void*")] void* str);
+	public unsafe delegate byte Pfnglisvariantenabledextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMSTRINGEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "const void*")] nint str);
+	public unsafe delegate byte Pfnglisvariantenabledextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "cap")] [NativeName(NativeNameType.Type, "GLenum")] uint cap);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
+	public unsafe delegate void Pfnglgetvariantbooleanvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean *")] byte* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
+	public unsafe delegate void Pfnglgetvariantbooleanvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* @params);
+	public unsafe delegate void Pfnglgetvariantintegervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint *")] int* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint @params);
+	public unsafe delegate void Pfnglgetvariantintegervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLfloat")] float w);
+	public unsafe delegate void Pfnglgetvariantfloatvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat *")] float* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4FEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLfloat")] float w);
+	public unsafe delegate void Pfnglgetvariantfloatvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglgetvariantpointervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void * *")] void** data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDPROGRAMLOCALPARAMETER4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDPROGRAMLOCALPARAMETER4FVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglgetvariantpointervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void * *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERDVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] double* @params);
+	public unsafe delegate void Pfnglgetinvariantbooleanvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean *")] byte* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERDVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] nint @params);
+	public unsafe delegate void Pfnglgetinvariantbooleanvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglgetinvariantintegervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint *")] int* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMLOCALPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMLOCALPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglgetinvariantintegervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglgetinvariantfloatvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat *")] float* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglgetinvariantfloatvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMSTRINGEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "void*")] void* str);
+	public unsafe delegate void Pfnglgetlocalconstantbooleanvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean *")] byte* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDPROGRAMSTRINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDPROGRAMSTRINGEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "void*")] nint str);
+	public unsafe delegate void Pfnglgetlocalconstantbooleanvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLboolean *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDRENDERBUFFERSTORAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDRENDERBUFFERSTORAGEEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglgetlocalconstantintegervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint *")] int* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDRENDERBUFFERSTORAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDRENDERBUFFERSTORAGEEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglgetlocalconstantintegervextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLint *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDRENDERBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDRENDERBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglgetlocalconstantfloatvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat *")] float* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDRENDERBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDRENDERBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglgetlocalconstantfloatvextproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLfloat *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglvertexweightfextproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLfloat")] float weight);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglvertexweightfextproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLfloat")] float weight);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLECOVERAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLECOVERAGEEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "coverageSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int coverageSamples, [NativeName(NativeNameType.Param, "colorSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int colorSamples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglvertexweightfvextproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* weight);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLECOVERAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLECOVERAGEEXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer, [NativeName(NativeNameType.Param, "coverageSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int coverageSamples, [NativeName(NativeNameType.Param, "colorSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int colorSamples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglvertexweightfvextproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint weight);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCHECKNAMEDFRAMEBUFFERSTATUSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLCHECKNAMEDFRAMEBUFFERSTATUSEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglvertexweightpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCHECKNAMEDFRAMEBUFFERSTATUSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLCHECKNAMEDFRAMEBUFFERSTATUSEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglvertexweightpointerextproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURE1DEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate byte Pfnglacquirekeyedmutexwin32Extproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "GLuint64")] ulong key, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "GLuint")] uint timeout);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURE1DEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate byte Pfnglacquirekeyedmutexwin32Extproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "GLuint64")] ulong key, [NativeName(NativeNameType.Param, "timeout")] [NativeName(NativeNameType.Type, "GLuint")] uint timeout);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURE2DEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate byte Pfnglreleasekeyedmutexwin32Extproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "GLuint64")] ulong key);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURE2DEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate byte Pfnglreleasekeyedmutexwin32Extproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "key")] [NativeName(NativeNameType.Type, "GLuint64")] ulong key);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURE3DEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset);
+	public unsafe delegate void Pfnglwindowrectanglesextproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "box")] [NativeName(NativeNameType.Type, "GLint const *")] int* box);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURE3DEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset);
+	public unsafe delegate void Pfnglwindowrectanglesextproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "box")] [NativeName(NativeNameType.Type, "GLint const *")] nint box);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "renderbuffertarget")] [NativeName(NativeNameType.Type, "GLenum")] uint renderbuffertarget, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate GLsync Pfnglimportsyncextproc([NativeName(NativeNameType.Param, "external_sync_type")] [NativeName(NativeNameType.Type, "GLenum")] uint externalSyncType, [NativeName(NativeNameType.Param, "external_sync")] [NativeName(NativeNameType.Type, "GLintptr")] nint externalSync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "renderbuffertarget")] [NativeName(NativeNameType.Type, "GLenum")] uint renderbuffertarget, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate GLsync Pfnglimportsyncextproc([NativeName(NativeNameType.Param, "external_sync_type")] [NativeName(NativeNameType.Type, "GLenum")] uint externalSyncType, [NativeName(NativeNameType.Param, "external_sync")] [NativeName(NativeNameType.Type, "GLintptr")] nint externalSync, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglframeterminatorgremedyproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglframeterminatorgremedyproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENERATETEXTUREMIPMAPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENERATETEXTUREMIPMAPEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglstringmarkergremedyproc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "void const *")] void* str);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENERATETEXTUREMIPMAPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENERATETEXTUREMIPMAPEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglstringmarkergremedyproc([NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "void const *")] nint str);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENERATEMULTITEXMIPMAPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENERATEMULTITEXMIPMAPEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglimagetransformparameterihpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENERATEMULTITEXMIPMAPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENERATEMULTITEXMIPMAPEXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglimagetransformparameterihpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERDRAWBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERDRAWBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglimagetransformparameterfhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERDRAWBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERDRAWBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglimagetransformparameterfhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "bufs")] [NativeName(NativeNameType.Type, "const GLenum*")] uint* bufs);
+	public unsafe delegate void Pfnglimagetransformparameterivhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "bufs")] [NativeName(NativeNameType.Type, "const GLenum*")] nint bufs);
+	public unsafe delegate void Pfnglimagetransformparameterivhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERREADBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERREADBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglimagetransformparameterfvhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERREADBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERREADBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglimagetransformparameterfvhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglgetimagetransformparameterivhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglgetimagetransformparameterivhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "readBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint readBuffer, [NativeName(NativeNameType.Param, "writeBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint writeBuffer, [NativeName(NativeNameType.Param, "readOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint readOffset, [NativeName(NativeNameType.Param, "writeOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint writeOffset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
+	public unsafe delegate void Pfnglgetimagetransformparameterfvhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "readBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint readBuffer, [NativeName(NativeNameType.Param, "writeBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint writeBuffer, [NativeName(NativeNameType.Param, "readOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint readOffset, [NativeName(NativeNameType.Param, "writeOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint writeOffset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
+	public unsafe delegate void Pfnglgetimagetransformparameterfvhpproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTUREEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate void Pfnglmultimodedrawarraysibmproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum const *")] uint* mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint const *")] int* first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei const *")] int* count, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount, [NativeName(NativeNameType.Param, "modestride")] [NativeName(NativeNameType.Type, "GLint")] int modestride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTUREEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate void Pfnglmultimodedrawarraysibmproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum const *")] nint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint const *")] nint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei const *")] nint count, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount, [NativeName(NativeNameType.Param, "modestride")] [NativeName(NativeNameType.Type, "GLint")] int modestride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURELAYEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURELAYEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer);
+	public unsafe delegate void Pfnglmultimodedrawelementsibmproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum const *")] uint* mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei const *")] int* count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const * const *")] void** indices, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount, [NativeName(NativeNameType.Param, "modestride")] [NativeName(NativeNameType.Type, "GLint")] int modestride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTURELAYEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTURELAYEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer);
+	public unsafe delegate void Pfnglmultimodedrawelementsibmproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum const *")] nint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei const *")] nint count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "void const * const *")] nint indices, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount, [NativeName(NativeNameType.Param, "modestride")] [NativeName(NativeNameType.Type, "GLint")] int modestride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTUREFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTUREFACEEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
+	public unsafe delegate void Pfnglflushstaticdataibmproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERTEXTUREFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERTEXTUREFACEEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
+	public unsafe delegate void Pfnglflushstaticdataibmproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURERENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURERENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglcolorpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURERENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURERENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglcolorpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglsecondarycolorpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTITEXRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTITEXRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglsecondarycolorpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfngledgeflagpointerlistibmproc([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "GLboolean const * *")] byte** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfngledgeflagpointerlistibmproc([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "GLboolean const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYCOLOROFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYCOLOROFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglfogcoordpointerlistibmproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYCOLOROFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYCOLOROFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglfogcoordpointerlistibmproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYEDGEFLAGOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYEDGEFLAGOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglindexpointerlistibmproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYEDGEFLAGOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYEDGEFLAGOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglindexpointerlistibmproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYINDEXOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYINDEXOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglnormalpointerlistibmproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYINDEXOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYINDEXOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglnormalpointerlistibmproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYNORMALOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYNORMALOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfngltexcoordpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYNORMALOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYNORMALOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfngltexcoordpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYTEXCOORDOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYTEXCOORDOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglvertexpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYTEXCOORDOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYTEXCOORDOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglvertexpointerlistibmproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer, [NativeName(NativeNameType.Param, "ptrstride")] [NativeName(NativeNameType.Type, "GLint")] int ptrstride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYMULTITEXCOORDOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYMULTITEXCOORDOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglblendfuncseparateingrproc([NativeName(NativeNameType.Param, "sfactorRGB")] [NativeName(NativeNameType.Type, "GLenum")] uint sfactorRGB, [NativeName(NativeNameType.Param, "dfactorRGB")] [NativeName(NativeNameType.Type, "GLenum")] uint dfactorRGB, [NativeName(NativeNameType.Param, "sfactorAlpha")] [NativeName(NativeNameType.Type, "GLenum")] uint sfactorAlpha, [NativeName(NativeNameType.Param, "dfactorAlpha")] [NativeName(NativeNameType.Type, "GLenum")] uint dfactorAlpha);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYMULTITEXCOORDOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYMULTITEXCOORDOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "texunit")] [NativeName(NativeNameType.Type, "GLenum")] uint texunit, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglblendfuncseparateingrproc([NativeName(NativeNameType.Param, "sfactorRGB")] [NativeName(NativeNameType.Type, "GLenum")] uint sfactorRGB, [NativeName(NativeNameType.Param, "dfactorRGB")] [NativeName(NativeNameType.Type, "GLenum")] uint dfactorRGB, [NativeName(NativeNameType.Param, "sfactorAlpha")] [NativeName(NativeNameType.Type, "GLenum")] uint sfactorAlpha, [NativeName(NativeNameType.Param, "dfactorAlpha")] [NativeName(NativeNameType.Type, "GLenum")] uint dfactorAlpha);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYFOGCOORDOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYFOGCOORDOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglapplyframebufferattachmentcmaaintelproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYFOGCOORDOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYFOGCOORDOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglapplyframebufferattachmentcmaaintelproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYSECONDARYCOLOROFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYSECONDARYCOLOROFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglsynctextureintelproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYSECONDARYCOLOROFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYSECONDARYCOLOROFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglsynctextureintelproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "normalized")] [NativeName(NativeNameType.Type, "GLboolean")] byte normalized, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglunmaptexture2Dintelproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "normalized")] [NativeName(NativeNameType.Type, "GLboolean")] byte normalized, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglunmaptexture2Dintelproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBIOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBIOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void* Pfnglmaptexture2Dintelproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLbitfield")] uint access, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint *")] int* stride, [NativeName(NativeNameType.Param, "layout")] [NativeName(NativeNameType.Type, "GLenum *")] uint* layout);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBIOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBIOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate nint Pfnglmaptexture2Dintelproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLbitfield")] uint access, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLint *")] nint stride, [NativeName(NativeNameType.Param, "layout")] [NativeName(NativeNameType.Type, "GLenum *")] nint layout);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEVERTEXARRAYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEVERTEXARRAYEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array);
+	public unsafe delegate void Pfnglvertexpointervintelproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEVERTEXARRAYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEVERTEXARRAYEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array);
+	public unsafe delegate void Pfnglvertexpointervintelproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLEVERTEXARRAYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLEVERTEXARRAYEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array);
+	public unsafe delegate void Pfnglnormalpointervintelproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLEVERTEXARRAYEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLEVERTEXARRAYEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "array")] [NativeName(NativeNameType.Type, "GLenum")] uint array);
+	public unsafe delegate void Pfnglnormalpointervintelproc([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEVERTEXARRAYATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEVERTEXARRAYATTRIBEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglcolorpointervintelproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEVERTEXARRAYATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEVERTEXARRAYATTRIBEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfnglcolorpointervintelproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLEVERTEXARRAYATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLEVERTEXARRAYATTRIBEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfngltexcoordpointervintelproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] void** pointer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDISABLEVERTEXARRAYATTRIBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDISABLEVERTEXARRAYATTRIBEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+	public unsafe delegate void Pfngltexcoordpointervintelproc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const * *")] nint pointer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYINTEGERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYINTEGERVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint*")] int* param);
+	public unsafe delegate void Pfnglbeginperfqueryintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYINTEGERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYINTEGERVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint*")] nint param);
+	public unsafe delegate void Pfnglbeginperfqueryintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYPOINTERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYPOINTERVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "void**")] void** param);
+	public unsafe delegate void Pfnglcreateperfqueryintelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint *")] uint* queryHandle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYPOINTERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYPOINTERVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "void**")] nint param);
+	public unsafe delegate void Pfnglcreateperfqueryintelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint *")] nint queryHandle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYINTEGERI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYINTEGERIVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint*")] int* param);
+	public unsafe delegate void Pfngldeleteperfqueryintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYINTEGERI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYINTEGERIVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint*")] nint param);
+	public unsafe delegate void Pfngldeleteperfqueryintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYPOINTERI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYPOINTERIVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "void**")] void** param);
+	public unsafe delegate void Pfnglendperfqueryintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXARRAYPOINTERI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXARRAYPOINTERIVEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "void**")] nint param);
+	public unsafe delegate void Pfnglendperfqueryintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMAPNAMEDBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void* PFNGLMAPNAMEDBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint length, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLbitfield")] uint access);
+	public unsafe delegate void Pfnglgetfirstperfqueryidintelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint *")] uint* queryId);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMAPNAMEDBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint PFNGLMAPNAMEDBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint length, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLbitfield")] uint access);
+	public unsafe delegate void Pfnglgetfirstperfqueryidintelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint *")] nint queryId);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint length);
+	public unsafe delegate void Pfnglgetnextperfqueryidintelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "nextQueryId")] [NativeName(NativeNameType.Type, "GLuint *")] uint* nextQueryId);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint length);
+	public unsafe delegate void Pfnglgetnextperfqueryidintelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "nextQueryId")] [NativeName(NativeNameType.Type, "GLuint *")] nint nextQueryId);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSTORAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSTORAGEEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfnglgetperfcounterinfointelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "counterId")] [NativeName(NativeNameType.Type, "GLuint")] uint counterId, [NativeName(NativeNameType.Param, "counterNameLength")] [NativeName(NativeNameType.Type, "GLuint")] uint counterNameLength, [NativeName(NativeNameType.Param, "counterName")] [NativeName(NativeNameType.Type, "GLchar *")] byte* counterName, [NativeName(NativeNameType.Param, "counterDescLength")] [NativeName(NativeNameType.Type, "GLuint")] uint counterDescLength, [NativeName(NativeNameType.Param, "counterDesc")] [NativeName(NativeNameType.Type, "GLchar *")] byte* counterDesc, [NativeName(NativeNameType.Param, "counterOffset")] [NativeName(NativeNameType.Type, "GLuint *")] uint* counterOffset, [NativeName(NativeNameType.Param, "counterDataSize")] [NativeName(NativeNameType.Type, "GLuint *")] uint* counterDataSize, [NativeName(NativeNameType.Param, "counterTypeEnum")] [NativeName(NativeNameType.Type, "GLuint *")] uint* counterTypeEnum, [NativeName(NativeNameType.Param, "counterDataTypeEnum")] [NativeName(NativeNameType.Type, "GLuint *")] uint* counterDataTypeEnum, [NativeName(NativeNameType.Param, "rawCounterMaxValue")] [NativeName(NativeNameType.Type, "GLuint64 *")] ulong* rawCounterMaxValue);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSTORAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSTORAGEEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] nint data, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfnglgetperfcounterinfointelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "counterId")] [NativeName(NativeNameType.Type, "GLuint")] uint counterId, [NativeName(NativeNameType.Param, "counterNameLength")] [NativeName(NativeNameType.Type, "GLuint")] uint counterNameLength, [NativeName(NativeNameType.Param, "counterName")] [NativeName(NativeNameType.Type, "GLchar *")] nint counterName, [NativeName(NativeNameType.Param, "counterDescLength")] [NativeName(NativeNameType.Type, "GLuint")] uint counterDescLength, [NativeName(NativeNameType.Param, "counterDesc")] [NativeName(NativeNameType.Type, "GLchar *")] nint counterDesc, [NativeName(NativeNameType.Param, "counterOffset")] [NativeName(NativeNameType.Type, "GLuint *")] nint counterOffset, [NativeName(NativeNameType.Param, "counterDataSize")] [NativeName(NativeNameType.Type, "GLuint *")] nint counterDataSize, [NativeName(NativeNameType.Param, "counterTypeEnum")] [NativeName(NativeNameType.Type, "GLuint *")] nint counterTypeEnum, [NativeName(NativeNameType.Param, "counterDataTypeEnum")] [NativeName(NativeNameType.Type, "GLuint *")] nint counterDataTypeEnum, [NativeName(NativeNameType.Param, "rawCounterMaxValue")] [NativeName(NativeNameType.Type, "GLuint64 *")] nint rawCounterMaxValue);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARNAMEDBUFFERDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARNAMEDBUFFERDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data);
+	public unsafe delegate void Pfnglgetperfquerydataintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLuint")] uint flags, [NativeName(NativeNameType.Param, "dataSize")] [NativeName(NativeNameType.Type, "GLsizei")] int dataSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "bytesWritten")] [NativeName(NativeNameType.Type, "GLuint *")] uint* bytesWritten);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARNAMEDBUFFERDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARNAMEDBUFFERDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] nint data);
+	public unsafe delegate void Pfnglgetperfquerydataintelproc([NativeName(NativeNameType.Param, "queryHandle")] [NativeName(NativeNameType.Type, "GLuint")] uint queryHandle, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLuint")] uint flags, [NativeName(NativeNameType.Param, "dataSize")] [NativeName(NativeNameType.Type, "GLsizei")] int dataSize, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "bytesWritten")] [NativeName(NativeNameType.Type, "GLuint *")] nint bytesWritten);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] void* data);
+	public unsafe delegate void Pfnglgetperfqueryidbynameintelproc([NativeName(NativeNameType.Param, "queryName")] [NativeName(NativeNameType.Type, "GLchar *")] byte* queryName, [NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint *")] uint* queryId);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "const void*")] nint data);
+	public unsafe delegate void Pfnglgetperfqueryidbynameintelproc([NativeName(NativeNameType.Param, "queryName")] [NativeName(NativeNameType.Type, "GLchar *")] nint queryName, [NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint *")] nint queryId);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+	public unsafe delegate void Pfnglgetperfqueryinfointelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "queryNameLength")] [NativeName(NativeNameType.Type, "GLuint")] uint queryNameLength, [NativeName(NativeNameType.Param, "queryName")] [NativeName(NativeNameType.Type, "GLchar *")] byte* queryName, [NativeName(NativeNameType.Param, "dataSize")] [NativeName(NativeNameType.Type, "GLuint *")] uint* dataSize, [NativeName(NativeNameType.Param, "noCounters")] [NativeName(NativeNameType.Type, "GLuint *")] uint* noCounters, [NativeName(NativeNameType.Param, "noInstances")] [NativeName(NativeNameType.Type, "GLuint *")] uint* noInstances, [NativeName(NativeNameType.Param, "capsMask")] [NativeName(NativeNameType.Type, "GLuint *")] uint* capsMask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+	public unsafe delegate void Pfnglgetperfqueryinfointelproc([NativeName(NativeNameType.Param, "queryId")] [NativeName(NativeNameType.Type, "GLuint")] uint queryId, [NativeName(NativeNameType.Param, "queryNameLength")] [NativeName(NativeNameType.Type, "GLuint")] uint queryNameLength, [NativeName(NativeNameType.Param, "queryName")] [NativeName(NativeNameType.Type, "GLchar *")] nint queryName, [NativeName(NativeNameType.Param, "dataSize")] [NativeName(NativeNameType.Type, "GLuint *")] nint dataSize, [NativeName(NativeNameType.Param, "noCounters")] [NativeName(NativeNameType.Type, "GLuint *")] nint noCounters, [NativeName(NativeNameType.Param, "noInstances")] [NativeName(NativeNameType.Type, "GLuint *")] nint noInstances, [NativeName(NativeNameType.Param, "capsMask")] [NativeName(NativeNameType.Type, "GLuint *")] nint capsMask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglframebufferparameterimesaproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglframebufferparameterimesaproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x);
+	public unsafe delegate void Pfnglgetframebufferparameterivmesaproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x);
+	public unsafe delegate void Pfnglgetframebufferparameterivmesaproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
+	public unsafe delegate void Pfnglresizebuffersmesaproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
+	public unsafe delegate void Pfnglresizebuffersmesaproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
+	public unsafe delegate void Pfnglwindowpos2Dmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
+	public unsafe delegate void Pfnglwindowpos2Dmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
+	public unsafe delegate void Pfnglwindowpos2Dvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4DEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
+	public unsafe delegate void Pfnglwindowpos2Dvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos2Fmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM1DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM1DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos2Fmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos2Fvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos2Fvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos2Imesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos2Imesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos2Ivmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] int* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORM4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORM4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos2Ivmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos2Smesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLshort")] short x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLshort")] short y);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos2Smesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLshort")] short x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLshort")] short y);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos2Svmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLshort const *")] short* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos2Svmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLshort const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos3Dmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos3Dmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos3Dvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos3Dvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos3Fmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX2X4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX2X4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos3Fmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos3Fvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos3Fvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos3Imesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX3X4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX3X4DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos3Imesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos3Ivmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] int* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X2DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos3Ivmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* value);
+	public unsafe delegate void Pfnglwindowpos3Smesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLshort")] short x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLshort")] short y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLshort")] short z);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMUNIFORMMATRIX4X3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMUNIFORMMATRIX4X3DVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "transpose")] [NativeName(NativeNameType.Type, "GLboolean")] byte transpose, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint value);
+	public unsafe delegate void Pfnglwindowpos3Smesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLshort")] short x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLshort")] short y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLshort")] short z);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
+	public unsafe delegate void Pfnglwindowpos3Svmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLshort const *")] short* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
+	public unsafe delegate void Pfnglwindowpos3Svmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLshort const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width);
+	public unsafe delegate void Pfnglwindowpos4Dmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width);
+	public unsafe delegate void Pfnglwindowpos4Dmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglwindowpos4Dvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglwindowpos4Dvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
+	public unsafe delegate void Pfnglwindowpos4Fmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLfloat")] float w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
+	public unsafe delegate void Pfnglwindowpos4Fmesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLfloat")] float w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "fixedsamplelocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedsamplelocations);
+	public unsafe delegate void Pfnglwindowpos4Fvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "fixedsamplelocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedsamplelocations);
+	public unsafe delegate void Pfnglwindowpos4Fvmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "fixedsamplelocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedsamplelocations);
+	public unsafe delegate void Pfnglwindowpos4Imesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "fixedsamplelocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedsamplelocations);
+	public unsafe delegate void Pfnglwindowpos4Imesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "bindingindex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingindex, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride);
+	public unsafe delegate void Pfnglwindowpos4Ivmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] int* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "bindingindex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingindex, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride);
+	public unsafe delegate void Pfnglwindowpos4Ivmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "normalized")] [NativeName(NativeNameType.Type, "GLboolean")] byte normalized, [NativeName(NativeNameType.Param, "relativeoffset")] [NativeName(NativeNameType.Type, "GLuint")] uint relativeoffset);
+	public unsafe delegate void Pfnglwindowpos4Smesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLshort")] short x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLshort")] short y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLshort")] short z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLshort")] short w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "normalized")] [NativeName(NativeNameType.Type, "GLboolean")] byte normalized, [NativeName(NativeNameType.Param, "relativeoffset")] [NativeName(NativeNameType.Type, "GLuint")] uint relativeoffset);
+	public unsafe delegate void Pfnglwindowpos4Smesaproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLshort")] short x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLshort")] short y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLshort")] short z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLshort")] short w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "relativeoffset")] [NativeName(NativeNameType.Type, "GLuint")] uint relativeoffset);
+	public unsafe delegate void Pfnglwindowpos4Svmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLshort const *")] short* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "relativeoffset")] [NativeName(NativeNameType.Type, "GLuint")] uint relativeoffset);
+	public unsafe delegate void Pfnglwindowpos4Svmesaproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLshort const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "relativeoffset")] [NativeName(NativeNameType.Type, "GLuint")] uint relativeoffset);
+	public unsafe delegate void Pfnglbeginconditionalrendernvxproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "relativeoffset")] [NativeName(NativeNameType.Type, "GLuint")] uint relativeoffset);
+	public unsafe delegate void Pfnglbeginconditionalrendernvxproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "bindingindex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingindex);
+	public unsafe delegate void Pfnglendconditionalrendernvxproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "attribindex")] [NativeName(NativeNameType.Type, "GLuint")] uint attribindex, [NativeName(NativeNameType.Param, "bindingindex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingindex);
+	public unsafe delegate void Pfnglendconditionalrendernvxproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "bindingindex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingindex, [NativeName(NativeNameType.Param, "divisor")] [NativeName(NativeNameType.Type, "GLuint")] uint divisor);
+	public unsafe delegate void Pfngluploadgpumasknvxproc([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "bindingindex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingindex, [NativeName(NativeNameType.Param, "divisor")] [NativeName(NativeNameType.Type, "GLuint")] uint divisor);
+	public unsafe delegate void Pfngluploadgpumasknvxproc([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglmulticastviewportarrayvnvxproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglmulticastviewportarrayvnvxproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREPAGECOMMITMENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREPAGECOMMITMENTEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
+	public unsafe delegate void Pfnglmulticastviewportpositionwscalenvxproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "xcoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float xcoeff, [NativeName(NativeNameType.Param, "ycoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float ycoeff);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREPAGECOMMITMENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREPAGECOMMITMENTEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
+	public unsafe delegate void Pfnglmulticastviewportpositionwscalenvxproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "xcoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float xcoeff, [NativeName(NativeNameType.Param, "ycoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float ycoeff);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "divisor")] [NativeName(NativeNameType.Type, "GLuint")] uint divisor);
+	public unsafe delegate void Pfnglmulticastscissorarrayvnvxproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] int* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC([NativeName(NativeNameType.Param, "vaobj")] [NativeName(NativeNameType.Type, "GLuint")] uint vaobj, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "divisor")] [NativeName(NativeNameType.Type, "GLuint")] uint divisor);
+	public unsafe delegate void Pfnglmulticastscissorarrayvnvxproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOLORMASKINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOLORMASKINDEXEDEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLboolean")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "GLboolean")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "GLboolean")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "GLboolean")] byte a);
+	public unsafe delegate uint Pfnglasynccopybuffersubdatanvxproc([NativeName(NativeNameType.Param, "waitSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int waitSemaphoreCount, [NativeName(NativeNameType.Param, "waitSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* waitSemaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* fenceValueArray, [NativeName(NativeNameType.Param, "readGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint readGpu, [NativeName(NativeNameType.Param, "writeGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint writeGpuMask, [NativeName(NativeNameType.Param, "readBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint readBuffer, [NativeName(NativeNameType.Param, "writeBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint writeBuffer, [NativeName(NativeNameType.Param, "readOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint readOffset, [NativeName(NativeNameType.Param, "writeOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint writeOffset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "signalSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int signalSemaphoreCount, [NativeName(NativeNameType.Param, "signalSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* signalSemaphoreArray, [NativeName(NativeNameType.Param, "signalValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* signalValueArray);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOLORMASKINDEXEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOLORMASKINDEXEDEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLboolean")] byte r, [NativeName(NativeNameType.Param, "g")] [NativeName(NativeNameType.Type, "GLboolean")] byte g, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "GLboolean")] byte b, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "GLboolean")] byte a);
+	public unsafe delegate uint Pfnglasynccopybuffersubdatanvxproc([NativeName(NativeNameType.Param, "waitSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int waitSemaphoreCount, [NativeName(NativeNameType.Param, "waitSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] nint waitSemaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint fenceValueArray, [NativeName(NativeNameType.Param, "readGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint readGpu, [NativeName(NativeNameType.Param, "writeGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint writeGpuMask, [NativeName(NativeNameType.Param, "readBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint readBuffer, [NativeName(NativeNameType.Param, "writeBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint writeBuffer, [NativeName(NativeNameType.Param, "readOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint readOffset, [NativeName(NativeNameType.Param, "writeOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint writeOffset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "signalSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int signalSemaphoreCount, [NativeName(NativeNameType.Param, "signalSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] nint signalSemaphoreArray, [NativeName(NativeNameType.Param, "signalValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint signalValueArray);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWARRAYSINSTANCEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWARRAYSINSTANCEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLint")] int start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate uint Pfnglasynccopyimagesubdatanvxproc([NativeName(NativeNameType.Param, "waitSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int waitSemaphoreCount, [NativeName(NativeNameType.Param, "waitSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* waitSemaphoreArray, [NativeName(NativeNameType.Param, "waitValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* waitValueArray, [NativeName(NativeNameType.Param, "srcGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint srcGpu, [NativeName(NativeNameType.Param, "dstGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint dstGpuMask, [NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srcY")] [NativeName(NativeNameType.Type, "GLint")] int srcY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "srcWidth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcWidth, [NativeName(NativeNameType.Param, "srcHeight")] [NativeName(NativeNameType.Type, "GLsizei")] int srcHeight, [NativeName(NativeNameType.Param, "srcDepth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcDepth, [NativeName(NativeNameType.Param, "signalSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int signalSemaphoreCount, [NativeName(NativeNameType.Param, "signalSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* signalSemaphoreArray, [NativeName(NativeNameType.Param, "signalValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* signalValueArray);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWARRAYSINSTANCEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWARRAYSINSTANCEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLint")] int start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate uint Pfnglasynccopyimagesubdatanvxproc([NativeName(NativeNameType.Param, "waitSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int waitSemaphoreCount, [NativeName(NativeNameType.Param, "waitSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] nint waitSemaphoreArray, [NativeName(NativeNameType.Param, "waitValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint waitValueArray, [NativeName(NativeNameType.Param, "srcGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint srcGpu, [NativeName(NativeNameType.Param, "dstGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint dstGpuMask, [NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srcY")] [NativeName(NativeNameType.Type, "GLint")] int srcY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "srcWidth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcWidth, [NativeName(NativeNameType.Param, "srcHeight")] [NativeName(NativeNameType.Type, "GLsizei")] int srcHeight, [NativeName(NativeNameType.Param, "srcDepth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcDepth, [NativeName(NativeNameType.Param, "signalSemaphoreCount")] [NativeName(NativeNameType.Type, "GLsizei")] int signalSemaphoreCount, [NativeName(NativeNameType.Param, "signalSemaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] nint signalSemaphoreArray, [NativeName(NativeNameType.Param, "signalValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint signalValueArray);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWELEMENTSINSTANCEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWELEMENTSINSTANCEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate void Pfngllgpunamedbuffersubdatanvxproc([NativeName(NativeNameType.Param, "gpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint gpuMask, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWELEMENTSINSTANCEDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWELEMENTSINSTANCEDEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] nint indices, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate void Pfngllgpunamedbuffersubdatanvxproc([NativeName(NativeNameType.Param, "gpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint gpuMask, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWRANGEELEMENTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWRANGEELEMENTSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "end")] [NativeName(NativeNameType.Type, "GLuint")] uint end, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] void* indices);
+	public unsafe delegate void Pfngllgpucopyimagesubdatanvxproc([NativeName(NativeNameType.Param, "sourceGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint sourceGpu, [NativeName(NativeNameType.Param, "destinationGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint destinationGpuMask, [NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srxY")] [NativeName(NativeNameType.Type, "GLint")] int srxY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWRANGEELEMENTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWRANGEELEMENTSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "end")] [NativeName(NativeNameType.Type, "GLuint")] uint end, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const void*")] nint indices);
+	public unsafe delegate void Pfngllgpucopyimagesubdatanvxproc([NativeName(NativeNameType.Param, "sourceGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint sourceGpu, [NativeName(NativeNameType.Param, "destinationGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint destinationGpuMask, [NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srxY")] [NativeName(NativeNameType.Type, "GLint")] int srxY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBUFFERSTORAGEEXTERNALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBUFFERSTORAGEEXTERNALEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfngllgpuinterlocknvxproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBUFFERSTORAGEEXTERNALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBUFFERSTORAGEEXTERNALEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate void Pfngllgpuinterlocknvxproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate uint Pfnglcreateprogressfencenvxproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "clientBuffer")] [NativeName(NativeNameType.Type, "GLeglClientBufferEXT")] GLeglClientBufferEXT clientBuffer, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "GLbitfield")] uint flags);
+	public unsafe delegate uint Pfnglcreateprogressfencenvxproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDFEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLfloat")] float coord);
+	public unsafe delegate void Pfnglsignalsemaphoreui64Nvxproc([NativeName(NativeNameType.Param, "signalGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint signalGpu, [NativeName(NativeNameType.Param, "fenceObjectCount")] [NativeName(NativeNameType.Type, "GLsizei")] int fenceObjectCount, [NativeName(NativeNameType.Param, "semaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* semaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* fenceValueArray);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDFEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLfloat")] float coord);
+	public unsafe delegate void Pfnglsignalsemaphoreui64Nvxproc([NativeName(NativeNameType.Param, "signalGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint signalGpu, [NativeName(NativeNameType.Param, "fenceObjectCount")] [NativeName(NativeNameType.Type, "GLsizei")] int fenceObjectCount, [NativeName(NativeNameType.Param, "semaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] nint semaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint fenceValueArray);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDFVEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* coord);
+	public unsafe delegate void Pfnglwaitsemaphoreui64Nvxproc([NativeName(NativeNameType.Param, "waitGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint waitGpu, [NativeName(NativeNameType.Param, "fenceObjectCount")] [NativeName(NativeNameType.Type, "GLsizei")] int fenceObjectCount, [NativeName(NativeNameType.Param, "semaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* semaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* fenceValueArray);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDFVEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint coord);
+	public unsafe delegate void Pfnglwaitsemaphoreui64Nvxproc([NativeName(NativeNameType.Param, "waitGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint waitGpu, [NativeName(NativeNameType.Param, "fenceObjectCount")] [NativeName(NativeNameType.Type, "GLsizei")] int fenceObjectCount, [NativeName(NativeNameType.Param, "semaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] nint semaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint fenceValueArray);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDDEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLdouble")] double coord);
+	public unsafe delegate void Pfnglclientwaitsemaphoreui64Nvxproc([NativeName(NativeNameType.Param, "fenceObjectCount")] [NativeName(NativeNameType.Type, "GLsizei")] int fenceObjectCount, [NativeName(NativeNameType.Param, "semaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* semaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* fenceValueArray);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDDEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "GLdouble")] double coord);
+	public unsafe delegate void Pfnglclientwaitsemaphoreui64Nvxproc([NativeName(NativeNameType.Param, "fenceObjectCount")] [NativeName(NativeNameType.Type, "GLsizei")] int fenceObjectCount, [NativeName(NativeNameType.Param, "semaphoreArray")] [NativeName(NativeNameType.Type, "GLuint const *")] nint semaphoreArray, [NativeName(NativeNameType.Param, "fenceValueArray")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint fenceValueArray);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDDVEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* coord);
+	public unsafe delegate void Pfnglalphatocoveragedithercontrolnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDDVEXTPROC([NativeName(NativeNameType.Param, "coord")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint coord);
+	public unsafe delegate void Pfnglalphatocoveragedithercontrolnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDPOINTEREXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfnglmultidrawarraysindirectbindlessnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] void* indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFOGCOORDPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFOGCOORDPOINTEREXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfnglmultidrawarraysindirectbindlessnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] nint indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBLITFRAMEBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBLITFRAMEBUFFEREXTPROC([NativeName(NativeNameType.Param, "srcX0")] [NativeName(NativeNameType.Type, "GLint")] int srcX0, [NativeName(NativeNameType.Param, "srcY0")] [NativeName(NativeNameType.Type, "GLint")] int srcY0, [NativeName(NativeNameType.Param, "srcX1")] [NativeName(NativeNameType.Type, "GLint")] int srcX1, [NativeName(NativeNameType.Param, "srcY1")] [NativeName(NativeNameType.Type, "GLint")] int srcY1, [NativeName(NativeNameType.Param, "dstX0")] [NativeName(NativeNameType.Type, "GLint")] int dstX0, [NativeName(NativeNameType.Param, "dstY0")] [NativeName(NativeNameType.Type, "GLint")] int dstY0, [NativeName(NativeNameType.Param, "dstX1")] [NativeName(NativeNameType.Type, "GLint")] int dstX1, [NativeName(NativeNameType.Param, "dstY1")] [NativeName(NativeNameType.Type, "GLint")] int dstY1, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "GLenum")] uint filter);
+	public unsafe delegate void Pfnglmultidrawelementsindirectbindlessnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] void* indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBLITFRAMEBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBLITFRAMEBUFFEREXTPROC([NativeName(NativeNameType.Param, "srcX0")] [NativeName(NativeNameType.Type, "GLint")] int srcX0, [NativeName(NativeNameType.Param, "srcY0")] [NativeName(NativeNameType.Type, "GLint")] int srcY0, [NativeName(NativeNameType.Param, "srcX1")] [NativeName(NativeNameType.Type, "GLint")] int srcX1, [NativeName(NativeNameType.Param, "srcY1")] [NativeName(NativeNameType.Type, "GLint")] int srcY1, [NativeName(NativeNameType.Param, "dstX0")] [NativeName(NativeNameType.Type, "GLint")] int dstX0, [NativeName(NativeNameType.Param, "dstY0")] [NativeName(NativeNameType.Type, "GLint")] int dstY0, [NativeName(NativeNameType.Param, "dstX1")] [NativeName(NativeNameType.Type, "GLint")] int dstX1, [NativeName(NativeNameType.Param, "dstY1")] [NativeName(NativeNameType.Type, "GLint")] int dstY1, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "GLenum")] uint filter);
+	public unsafe delegate void Pfnglmultidrawelementsindirectbindlessnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] nint indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglmultidrawarraysindirectbindlesscountnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] void* indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "maxDrawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int maxDrawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglmultidrawarraysindirectbindlesscountnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] nint indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "maxDrawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int maxDrawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLISRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglmultidrawelementsindirectbindlesscountnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] void* indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "maxDrawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int maxDrawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLISRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglmultidrawelementsindirectbindlesscountnvproc([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "void const *")] nint indirect, [NativeName(NativeNameType.Param, "drawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawCount, [NativeName(NativeNameType.Param, "maxDrawCount")] [NativeName(NativeNameType.Type, "GLsizei")] int maxDrawCount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "vertexBufferCount")] [NativeName(NativeNameType.Type, "GLint")] int vertexBufferCount);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate ulong Pfnglgettexturehandlenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate ulong Pfnglgettexturehandlenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETERENDERBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETERENDERBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "renderbuffers")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* renderbuffers);
+	public unsafe delegate ulong Pfnglgettexturesamplerhandlenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "GLuint")] uint sampler);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETERENDERBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETERENDERBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "renderbuffers")] [NativeName(NativeNameType.Type, "const GLuint*")] nint renderbuffers);
+	public unsafe delegate ulong Pfnglgettexturesamplerhandlenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "GLuint")] uint sampler);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENRENDERBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENRENDERBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "renderbuffers")] [NativeName(NativeNameType.Type, "GLuint*")] uint* renderbuffers);
+	public unsafe delegate void Pfnglmaketexturehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENRENDERBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENRENDERBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "renderbuffers")] [NativeName(NativeNameType.Type, "GLuint*")] nint renderbuffers);
+	public unsafe delegate void Pfnglmaketexturehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLRENDERBUFFERSTORAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRENDERBUFFERSTORAGEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglmaketexturehandlenonresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLRENDERBUFFERSTORAGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRENDERBUFFERSTORAGEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglmaketexturehandlenonresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate ulong Pfnglgetimagehandlenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layered")] [NativeName(NativeNameType.Type, "GLboolean")] byte layered, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate ulong Pfnglgetimagehandlenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layered")] [NativeName(NativeNameType.Type, "GLboolean")] byte layered, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLISFRAMEBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISFRAMEBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer);
+	public unsafe delegate void Pfnglmakeimagehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLISFRAMEBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISFRAMEBUFFEREXTPROC([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer);
+	public unsafe delegate void Pfnglmakeimagehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDFRAMEBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDFRAMEBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer);
+	public unsafe delegate void Pfnglmakeimagehandlenonresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDFRAMEBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDFRAMEBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer);
+	public unsafe delegate void Pfnglmakeimagehandlenonresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETEFRAMEBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETEFRAMEBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "framebuffers")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* framebuffers);
+	public unsafe delegate void Pfngluniformhandleui64Nvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64")] ulong value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETEFRAMEBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETEFRAMEBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "framebuffers")] [NativeName(NativeNameType.Type, "const GLuint*")] nint framebuffers);
+	public unsafe delegate void Pfngluniformhandleui64Nvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64")] ulong value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENFRAMEBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENFRAMEBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "framebuffers")] [NativeName(NativeNameType.Type, "GLuint*")] uint* framebuffers);
+	public unsafe delegate void Pfngluniformhandleui64Vnvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENFRAMEBUFFERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENFRAMEBUFFERSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "framebuffers")] [NativeName(NativeNameType.Type, "GLuint*")] nint framebuffers);
+	public unsafe delegate void Pfngluniformhandleui64Vnvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglprogramuniformhandleui64Nvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64")] ulong value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglprogramuniformhandleui64Nvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64")] ulong value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURE1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate void Pfnglprogramuniformhandleui64Vnvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* values);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURE1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate void Pfnglprogramuniformhandleui64Vnvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint values);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURE2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate byte Pfnglistexturehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURE2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
+	public unsafe delegate byte Pfnglistexturehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset);
+	public unsafe delegate byte Pfnglisimagehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "textarget")] [NativeName(NativeNameType.Type, "GLenum")] uint textarget, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset);
+	public unsafe delegate byte Pfnglisimagehandleresidentnvproc([NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "GLuint64")] ulong handle);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "renderbuffertarget")] [NativeName(NativeNameType.Type, "GLenum")] uint renderbuffertarget, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglblendparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint")] int value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "renderbuffertarget")] [NativeName(NativeNameType.Type, "GLenum")] uint renderbuffertarget, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
+	public unsafe delegate void Pfnglblendparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint")] int value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglblendbarriernvproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglblendbarriernvproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENERATEMIPMAPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENERATEMIPMAPEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglviewportpositionwscalenvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "xcoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float xcoeff, [NativeName(NativeNameType.Param, "ycoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float ycoeff);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENERATEMIPMAPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENERATEMIPMAPEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglviewportpositionwscalenvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "xcoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float xcoeff, [NativeName(NativeNameType.Param, "ycoeff")] [NativeName(NativeNameType.Type, "GLfloat")] float ycoeff);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMPARAMETERIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMPARAMETERIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint")] int value);
+	public unsafe delegate void Pfnglcreatestatesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint *")] uint* states);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMPARAMETERIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMPARAMETERIEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint")] int value);
+	public unsafe delegate void Pfnglcreatestatesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint *")] nint states);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMENVPARAMETERS4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMENVPARAMETERS4FVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params);
+	public unsafe delegate void Pfngldeletestatesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* states);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMENVPARAMETERS4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMENVPARAMETERS4FVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint @params);
+	public unsafe delegate void Pfngldeletestatesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] nint states);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params);
+	public unsafe delegate byte Pfnglisstatenvproc([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "GLuint")] uint state);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint @params);
+	public unsafe delegate byte Pfnglisstatenvproc([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "GLuint")] uint state);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETUNIFORMUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETUNIFORMUIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglstatecapturenvproc([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "GLuint")] uint state, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETUNIFORMUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETUNIFORMUIVEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] nint @params);
+	public unsafe delegate void Pfnglstatecapturenvproc([NativeName(NativeNameType.Param, "state")] [NativeName(NativeNameType.Type, "GLuint")] uint state, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDFRAGDATALOCATIONEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDFRAGDATALOCATIONEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLuint")] uint color, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const GLchar*")] byte* name);
+	public unsafe delegate uint Pfnglgetcommandheadernvproc([NativeName(NativeNameType.Param, "tokenID")] [NativeName(NativeNameType.Type, "GLenum")] uint tokenID, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint")] uint size);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDFRAGDATALOCATIONEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDFRAGDATALOCATIONEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLuint")] uint color, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const GLchar*")] nint name);
+	public unsafe delegate uint Pfnglgetcommandheadernvproc([NativeName(NativeNameType.Param, "tokenID")] [NativeName(NativeNameType.Type, "GLenum")] uint tokenID, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint")] uint size);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFRAGDATALOCATIONEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int PFNGLGETFRAGDATALOCATIONEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const GLchar*")] byte* name);
+	public unsafe delegate ushort Pfnglgetstageindexnvproc([NativeName(NativeNameType.Param, "shadertype")] [NativeName(NativeNameType.Type, "GLenum")] uint shadertype);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETFRAGDATALOCATIONEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int PFNGLGETFRAGDATALOCATIONEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const GLchar*")] nint name);
+	public unsafe delegate ushort Pfnglgetstageindexnvproc([NativeName(NativeNameType.Param, "shadertype")] [NativeName(NativeNameType.Type, "GLenum")] uint shadertype);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM1UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM1UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0);
+	public unsafe delegate void Pfngldrawcommandsnvproc([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLintptr const *")] nint* indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] int* sizes, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM1UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM1UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0);
+	public unsafe delegate void Pfngldrawcommandsnvproc([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLintptr const *")] nint indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] nint sizes, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM2UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM2UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1);
+	public unsafe delegate void Pfngldrawcommandsaddressnvproc([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] int* sizes, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM2UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM2UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1);
+	public unsafe delegate void Pfngldrawcommandsaddressnvproc([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] nint sizes, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM3UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2);
+	public unsafe delegate void Pfngldrawcommandsstatesnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLintptr const *")] nint* indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] int* sizes, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* states, [NativeName(NativeNameType.Param, "fbos")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* fbos, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM3UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2);
+	public unsafe delegate void Pfngldrawcommandsstatesnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLintptr const *")] nint indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] nint sizes, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] nint states, [NativeName(NativeNameType.Param, "fbos")] [NativeName(NativeNameType.Type, "GLuint const *")] nint fbos, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM4UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLuint")] uint v3);
+	public unsafe delegate void Pfngldrawcommandsstatesaddressnvproc([NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLuint64 const *")] ulong* indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] int* sizes, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* states, [NativeName(NativeNameType.Param, "fbos")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* fbos, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM4UIEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "v0")] [NativeName(NativeNameType.Type, "GLuint")] uint v0, [NativeName(NativeNameType.Param, "v1")] [NativeName(NativeNameType.Type, "GLuint")] uint v1, [NativeName(NativeNameType.Param, "v2")] [NativeName(NativeNameType.Type, "GLuint")] uint v2, [NativeName(NativeNameType.Param, "v3")] [NativeName(NativeNameType.Type, "GLuint")] uint v3);
+	public unsafe delegate void Pfngldrawcommandsstatesaddressnvproc([NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "GLuint64 const *")] nint indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] nint sizes, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] nint states, [NativeName(NativeNameType.Param, "fbos")] [NativeName(NativeNameType.Type, "GLuint const *")] nint fbos, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM1UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM1UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate void Pfnglcreatecommandlistsnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "lists")] [NativeName(NativeNameType.Type, "GLuint *")] uint* lists);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM1UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM1UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate void Pfnglcreatecommandlistsnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "lists")] [NativeName(NativeNameType.Type, "GLuint *")] nint lists);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM2UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM2UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate void Pfngldeletecommandlistsnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "lists")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* lists);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM2UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM2UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate void Pfngldeletecommandlistsnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "lists")] [NativeName(NativeNameType.Type, "GLuint const *")] nint lists);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM3UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate byte Pfngliscommandlistnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM3UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate byte Pfngliscommandlistnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM4UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* value);
+	public unsafe delegate void Pfngllistdrawcommandsstatesclientnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list, [NativeName(NativeNameType.Param, "segment")] [NativeName(NativeNameType.Type, "GLuint")] uint segment, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "void const * *")] void** indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] int* sizes, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* states, [NativeName(NativeNameType.Param, "fbos")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* fbos, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUNIFORM4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUNIFORM4UIVEXTPROC([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "const GLuint*")] nint value);
+	public unsafe delegate void Pfngllistdrawcommandsstatesclientnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list, [NativeName(NativeNameType.Param, "segment")] [NativeName(NativeNameType.Type, "GLuint")] uint segment, [NativeName(NativeNameType.Param, "indirects")] [NativeName(NativeNameType.Type, "void const * *")] nint indirects, [NativeName(NativeNameType.Param, "sizes")] [NativeName(NativeNameType.Type, "GLsizei const *")] nint sizes, [NativeName(NativeNameType.Param, "states")] [NativeName(NativeNameType.Type, "GLuint const *")] nint states, [NativeName(NativeNameType.Param, "fbos")] [NativeName(NativeNameType.Type, "GLuint const *")] nint fbos, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x);
+	public unsafe delegate void Pfnglcommandlistsegmentsnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list, [NativeName(NativeNameType.Param, "segments")] [NativeName(NativeNameType.Type, "GLuint")] uint segments);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x);
+	public unsafe delegate void Pfnglcommandlistsegmentsnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list, [NativeName(NativeNameType.Param, "segments")] [NativeName(NativeNameType.Type, "GLuint")] uint segments);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y);
+	public unsafe delegate void Pfnglcompilecommandlistnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y);
+	public unsafe delegate void Pfnglcompilecommandlistnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z);
+	public unsafe delegate void Pfnglcallcommandlistnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z);
+	public unsafe delegate void Pfnglcallcommandlistnvproc([NativeName(NativeNameType.Param, "list")] [NativeName(NativeNameType.Type, "GLuint")] uint list);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
+	public unsafe delegate void Pfnglbeginconditionalrendernvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4IEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
+	public unsafe delegate void Pfnglbeginconditionalrendernvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x);
+	public unsafe delegate void Pfnglendconditionalrendernvproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x);
+	public unsafe delegate void Pfnglendconditionalrendernvproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y);
+	public unsafe delegate void Pfnglsubpixelprecisionbiasnvproc([NativeName(NativeNameType.Param, "xbits")] [NativeName(NativeNameType.Type, "GLuint")] uint xbits, [NativeName(NativeNameType.Param, "ybits")] [NativeName(NativeNameType.Type, "GLuint")] uint ybits);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y);
+	public unsafe delegate void Pfnglsubpixelprecisionbiasnvproc([NativeName(NativeNameType.Param, "xbits")] [NativeName(NativeNameType.Type, "GLuint")] uint xbits, [NativeName(NativeNameType.Param, "ybits")] [NativeName(NativeNameType.Type, "GLuint")] uint ybits);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z);
+	public unsafe delegate void Pfnglconservativerasterparameterfnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat")] float value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z);
+	public unsafe delegate void Pfnglconservativerasterparameterfnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat")] float value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
+	public unsafe delegate void Pfnglconservativerasterparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4UIEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
+	public unsafe delegate void Pfnglconservativerasterparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v);
+	public unsafe delegate void Pfnglcopyimagesubdatanvproc([NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srcY")] [NativeName(NativeNameType.Type, "GLint")] int srcY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] nint v);
+	public unsafe delegate void Pfnglcopyimagesubdatanvproc([NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srcY")] [NativeName(NativeNameType.Type, "GLint")] int srcY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v);
+	public unsafe delegate void Pfngldepthrangednvproc([NativeName(NativeNameType.Param, "zNear")] [NativeName(NativeNameType.Type, "GLdouble")] double zNear, [NativeName(NativeNameType.Param, "zFar")] [NativeName(NativeNameType.Type, "GLdouble")] double zFar);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] nint v);
+	public unsafe delegate void Pfngldepthrangednvproc([NativeName(NativeNameType.Param, "zNear")] [NativeName(NativeNameType.Type, "GLdouble")] double zNear, [NativeName(NativeNameType.Param, "zFar")] [NativeName(NativeNameType.Type, "GLdouble")] double zFar);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v);
+	public unsafe delegate void Pfnglcleardepthdnvproc([NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLdouble")] double depth);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] nint v);
+	public unsafe delegate void Pfnglcleardepthdnvproc([NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLdouble")] double depth);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v);
+	public unsafe delegate void Pfngldepthboundsdnvproc([NativeName(NativeNameType.Param, "zmin")] [NativeName(NativeNameType.Type, "GLdouble")] double zmin, [NativeName(NativeNameType.Param, "zmax")] [NativeName(NativeNameType.Type, "GLdouble")] double zmax);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4IVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] nint v);
+	public unsafe delegate void Pfngldepthboundsdnvproc([NativeName(NativeNameType.Param, "zmin")] [NativeName(NativeNameType.Type, "GLdouble")] double zmin, [NativeName(NativeNameType.Param, "zmax")] [NativeName(NativeNameType.Type, "GLdouble")] double zmax);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* v);
+	public unsafe delegate void Pfngldrawtexturenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "GLuint")] uint sampler, [NativeName(NativeNameType.Param, "x0")] [NativeName(NativeNameType.Type, "GLfloat")] float x0, [NativeName(NativeNameType.Param, "y0")] [NativeName(NativeNameType.Type, "GLfloat")] float y0, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "GLfloat")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "GLfloat")] float y1, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "s0")] [NativeName(NativeNameType.Type, "GLfloat")] float s0, [NativeName(NativeNameType.Param, "t0")] [NativeName(NativeNameType.Type, "GLfloat")] float t0, [NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "GLfloat")] float s1, [NativeName(NativeNameType.Param, "t1")] [NativeName(NativeNameType.Type, "GLfloat")] float t1);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI1UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI1UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] nint v);
+	public unsafe delegate void Pfngldrawtexturenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "GLuint")] uint sampler, [NativeName(NativeNameType.Param, "x0")] [NativeName(NativeNameType.Type, "GLfloat")] float x0, [NativeName(NativeNameType.Param, "y0")] [NativeName(NativeNameType.Type, "GLfloat")] float y0, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "GLfloat")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "GLfloat")] float y1, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "s0")] [NativeName(NativeNameType.Type, "GLfloat")] float s0, [NativeName(NativeNameType.Param, "t0")] [NativeName(NativeNameType.Type, "GLfloat")] float t0, [NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "GLfloat")] float s1, [NativeName(NativeNameType.Param, "t1")] [NativeName(NativeNameType.Type, "GLfloat")] float t1);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* v);
+	public unsafe delegate void Glvulkanprocnv();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI2UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI2UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] nint v);
+	public unsafe delegate void Glvulkanprocnv();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* v);
+	public unsafe delegate void Pfngldrawvkimagenvproc([NativeName(NativeNameType.Param, "vkImage")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkImage, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "GLuint")] uint sampler, [NativeName(NativeNameType.Param, "x0")] [NativeName(NativeNameType.Type, "GLfloat")] float x0, [NativeName(NativeNameType.Param, "y0")] [NativeName(NativeNameType.Type, "GLfloat")] float y0, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "GLfloat")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "GLfloat")] float y1, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "s0")] [NativeName(NativeNameType.Type, "GLfloat")] float s0, [NativeName(NativeNameType.Param, "t0")] [NativeName(NativeNameType.Type, "GLfloat")] float t0, [NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "GLfloat")] float s1, [NativeName(NativeNameType.Param, "t1")] [NativeName(NativeNameType.Type, "GLfloat")] float t1);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI3UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] nint v);
+	public unsafe delegate void Pfngldrawvkimagenvproc([NativeName(NativeNameType.Param, "vkImage")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkImage, [NativeName(NativeNameType.Param, "sampler")] [NativeName(NativeNameType.Type, "GLuint")] uint sampler, [NativeName(NativeNameType.Param, "x0")] [NativeName(NativeNameType.Type, "GLfloat")] float x0, [NativeName(NativeNameType.Param, "y0")] [NativeName(NativeNameType.Type, "GLfloat")] float y0, [NativeName(NativeNameType.Param, "x1")] [NativeName(NativeNameType.Type, "GLfloat")] float x1, [NativeName(NativeNameType.Param, "y1")] [NativeName(NativeNameType.Type, "GLfloat")] float y1, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "s0")] [NativeName(NativeNameType.Type, "GLfloat")] float s0, [NativeName(NativeNameType.Param, "t0")] [NativeName(NativeNameType.Type, "GLfloat")] float t0, [NativeName(NativeNameType.Param, "s1")] [NativeName(NativeNameType.Type, "GLfloat")] float s1, [NativeName(NativeNameType.Param, "t1")] [NativeName(NativeNameType.Type, "GLfloat")] float t1);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* v);
+	public unsafe delegate delegate*<void> Pfnglgetvkprocaddrnvproc([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLchar const *")] byte* name);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4UIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] nint v);
+	public unsafe delegate nint Pfnglgetvkprocaddrnvproc([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLchar const *")] nint name);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4BVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4BVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLbyte*")] byte* v);
+	public unsafe delegate void Pfnglwaitvksemaphorenvproc([NativeName(NativeNameType.Param, "vkSemaphore")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkSemaphore);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4BVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4BVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLbyte*")] nint v);
+	public unsafe delegate void Pfnglwaitvksemaphorenvproc([NativeName(NativeNameType.Param, "vkSemaphore")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkSemaphore);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4SVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4SVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v);
+	public unsafe delegate void Pfnglsignalvksemaphorenvproc([NativeName(NativeNameType.Param, "vkSemaphore")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkSemaphore);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4SVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4SVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] nint v);
+	public unsafe delegate void Pfnglsignalvksemaphorenvproc([NativeName(NativeNameType.Param, "vkSemaphore")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkSemaphore);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4UBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4UBVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLubyte*")] byte* v);
+	public unsafe delegate void Pfnglsignalvkfencenvproc([NativeName(NativeNameType.Param, "vkFence")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkFence);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4UBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4UBVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLubyte*")] nint v);
+	public unsafe delegate void Pfnglsignalvkfencenvproc([NativeName(NativeNameType.Param, "vkFence")] [NativeName(NativeNameType.Type, "GLuint64")] ulong vkFence);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4USVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4USVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLushort*")] ushort* v);
+	public unsafe delegate void Pfnglmapcontrolpointsnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "ustride")] [NativeName(NativeNameType.Type, "GLsizei")] int ustride, [NativeName(NativeNameType.Param, "vstride")] [NativeName(NativeNameType.Type, "GLsizei")] int vstride, [NativeName(NativeNameType.Param, "uorder")] [NativeName(NativeNameType.Type, "GLint")] int uorder, [NativeName(NativeNameType.Param, "vorder")] [NativeName(NativeNameType.Type, "GLint")] int vorder, [NativeName(NativeNameType.Param, "packed")] [NativeName(NativeNameType.Type, "GLboolean")] byte packed, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "void const *")] void* points);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBI4USVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBI4USVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLushort*")] nint v);
+	public unsafe delegate void Pfnglmapcontrolpointsnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "ustride")] [NativeName(NativeNameType.Type, "GLsizei")] int ustride, [NativeName(NativeNameType.Param, "vstride")] [NativeName(NativeNameType.Type, "GLsizei")] int vstride, [NativeName(NativeNameType.Param, "uorder")] [NativeName(NativeNameType.Type, "GLint")] int uorder, [NativeName(NativeNameType.Param, "vorder")] [NativeName(NativeNameType.Type, "GLint")] int vorder, [NativeName(NativeNameType.Param, "packed")] [NativeName(NativeNameType.Type, "GLboolean")] byte packed, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "void const *")] nint points);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBIPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBIPOINTEREXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfnglmapparameterivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBIPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBIPOINTEREXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfnglmapparameterivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXATTRIBIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXATTRIBIIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglmapparameterfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXATTRIBIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXATTRIBIIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglmapparameterfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXATTRIBIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXATTRIBIUIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglgetmapcontrolpointsnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "ustride")] [NativeName(NativeNameType.Type, "GLsizei")] int ustride, [NativeName(NativeNameType.Param, "vstride")] [NativeName(NativeNameType.Type, "GLsizei")] int vstride, [NativeName(NativeNameType.Param, "packed")] [NativeName(NativeNameType.Type, "GLboolean")] byte packed, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "void *")] void* points);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXATTRIBIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXATTRIBIUIVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] nint @params);
+	public unsafe delegate void Pfnglgetmapcontrolpointsnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "ustride")] [NativeName(NativeNameType.Type, "GLsizei")] int ustride, [NativeName(NativeNameType.Param, "vstride")] [NativeName(NativeNameType.Type, "GLsizei")] int vstride, [NativeName(NativeNameType.Param, "packed")] [NativeName(NativeNameType.Type, "GLboolean")] byte packed, [NativeName(NativeNameType.Param, "points")] [NativeName(NativeNameType.Type, "void *")] nint points);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETHISTOGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETHISTOGRAMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "reset")] [NativeName(NativeNameType.Type, "GLboolean")] byte reset, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "void*")] void* values);
+	public unsafe delegate void Pfnglgetmapparameterivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETHISTOGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETHISTOGRAMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "reset")] [NativeName(NativeNameType.Type, "GLboolean")] byte reset, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "void*")] nint values);
+	public unsafe delegate void Pfnglgetmapparameterivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETHISTOGRAMPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETHISTOGRAMPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglgetmapparameterfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETHISTOGRAMPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETHISTOGRAMPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglgetmapparameterfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETHISTOGRAMPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETHISTOGRAMPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglgetmapattribparameterivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETHISTOGRAMPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETHISTOGRAMPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglgetmapattribparameterivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMINMAXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMINMAXEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "reset")] [NativeName(NativeNameType.Type, "GLboolean")] byte reset, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "void*")] void* values);
+	public unsafe delegate void Pfnglgetmapattribparameterfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMINMAXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMINMAXEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "reset")] [NativeName(NativeNameType.Type, "GLboolean")] byte reset, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "values")] [NativeName(NativeNameType.Type, "void*")] nint values);
+	public unsafe delegate void Pfnglgetmapattribparameterfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMINMAXPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMINMAXPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglevalmapsnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMINMAXPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMINMAXPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglevalmapsnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMINMAXPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMINMAXPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglgetmultisamplefvnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "val")] [NativeName(NativeNameType.Type, "GLfloat *")] float* val);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMINMAXPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMINMAXPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglgetmultisamplefvnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "val")] [NativeName(NativeNameType.Type, "GLfloat *")] nint val);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLHISTOGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLHISTOGRAMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "sink")] [NativeName(NativeNameType.Type, "GLboolean")] byte sink);
+	public unsafe delegate void Pfnglsamplemaskindexednvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLHISTOGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLHISTOGRAMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "sink")] [NativeName(NativeNameType.Type, "GLboolean")] byte sink);
+	public unsafe delegate void Pfnglsamplemaskindexednvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMINMAXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMINMAXEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "sink")] [NativeName(NativeNameType.Type, "GLboolean")] byte sink);
+	public unsafe delegate void Pfngltexrenderbuffernvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMINMAXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMINMAXEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "sink")] [NativeName(NativeNameType.Type, "GLboolean")] byte sink);
+	public unsafe delegate void Pfngltexrenderbuffernvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "renderbuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint renderbuffer);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLRESETHISTOGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRESETHISTOGRAMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfngldeletefencesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* fences);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLRESETHISTOGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRESETHISTOGRAMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfngldeletefencesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "GLuint const *")] nint fences);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLRESETMINMAXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRESETMINMAXEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglgenfencesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "GLuint *")] uint* fences);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLRESETMINMAXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRESETMINMAXEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+	public unsafe delegate void Pfnglgenfencesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "fences")] [NativeName(NativeNameType.Type, "GLuint *")] nint fences);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLINDEXFUNCEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINDEXFUNCEXTPROC([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func, [NativeName(NativeNameType.Param, "ref")] [NativeName(NativeNameType.Type, "GLclampf")] float reference);
+	public unsafe delegate byte Pfnglisfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLINDEXFUNCEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINDEXFUNCEXTPROC([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func, [NativeName(NativeNameType.Param, "ref")] [NativeName(NativeNameType.Type, "GLclampf")] float reference);
+	public unsafe delegate byte Pfnglisfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLINDEXMATERIALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINDEXMATERIALEXTPROC([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate byte Pfngltestfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLINDEXMATERIALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINDEXMATERIALEXTPROC([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate byte Pfngltestfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLAPPLYTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLAPPLYTEXTUREEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglgetfenceivnvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLAPPLYTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLAPPLYTEXTUREEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglgetfenceivnvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURELIGHTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURELIGHTEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname);
+	public unsafe delegate void Pfnglfinishfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURELIGHTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURELIGHTEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname);
+	public unsafe delegate void Pfnglfinishfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREMATERIALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREMATERIALEXTPROC([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglsetfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence, [NativeName(NativeNameType.Param, "condition")] [NativeName(NativeNameType.Type, "GLenum")] uint condition);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTUREMATERIALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTUREMATERIALEXTPROC([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglsetfencenvproc([NativeName(NativeNameType.Param, "fence")] [NativeName(NativeNameType.Type, "GLuint")] uint fence, [NativeName(NativeNameType.Param, "condition")] [NativeName(NativeNameType.Type, "GLenum")] uint condition);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETUNSIGNEDBYTEVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETUNSIGNEDBYTEVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLubyte*")] byte* data);
+	public unsafe delegate void Pfnglfragmentcoveragecolornvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLuint")] uint color);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETUNSIGNEDBYTEVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETUNSIGNEDBYTEVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLubyte*")] nint data);
+	public unsafe delegate void Pfnglfragmentcoveragecolornvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLuint")] uint color);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETUNSIGNEDBYTEI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETUNSIGNEDBYTEIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLubyte*")] byte* data);
+	public unsafe delegate void Pfnglprogramnamedparameter4Fnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* name, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLfloat")] float w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETUNSIGNEDBYTEI_VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETUNSIGNEDBYTEIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "GLubyte*")] nint data);
+	public unsafe delegate void Pfnglprogramnamedparameter4Fnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint name, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLfloat")] float z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLfloat")] float w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETEMEMORYOBJECTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETEMEMORYOBJECTSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "memoryObjects")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* memoryObjects);
+	public unsafe delegate void Pfnglprogramnamedparameter4Fvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* name, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETEMEMORYOBJECTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETEMEMORYOBJECTSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "memoryObjects")] [NativeName(NativeNameType.Type, "const GLuint*")] nint memoryObjects);
+	public unsafe delegate void Pfnglprogramnamedparameter4Fvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint name, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLISMEMORYOBJECTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISMEMORYOBJECTEXTPROC([NativeName(NativeNameType.Param, "memoryObject")] [NativeName(NativeNameType.Type, "GLuint")] uint memoryObject);
+	public unsafe delegate void Pfnglprogramnamedparameter4Dnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* name, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLISMEMORYOBJECTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISMEMORYOBJECTEXTPROC([NativeName(NativeNameType.Param, "memoryObject")] [NativeName(NativeNameType.Type, "GLuint")] uint memoryObject);
+	public unsafe delegate void Pfnglprogramnamedparameter4Dnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint name, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCREATEMEMORYOBJECTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCREATEMEMORYOBJECTSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "memoryObjects")] [NativeName(NativeNameType.Type, "GLuint*")] uint* memoryObjects);
+	public unsafe delegate void Pfnglprogramnamedparameter4Dvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* name, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] double* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCREATEMEMORYOBJECTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCREATEMEMORYOBJECTSEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "memoryObjects")] [NativeName(NativeNameType.Type, "GLuint*")] nint memoryObjects);
+	public unsafe delegate void Pfnglprogramnamedparameter4Dvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint name, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLdouble const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMEMORYOBJECTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMEMORYOBJECTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "memoryObject")] [NativeName(NativeNameType.Type, "GLuint")] uint memoryObject, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params);
+	public unsafe delegate void Pfnglgetprogramnamedparameterfvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* name, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMEMORYOBJECTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMEMORYOBJECTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "memoryObject")] [NativeName(NativeNameType.Type, "GLuint")] uint memoryObject, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] nint @params);
+	public unsafe delegate void Pfnglgetprogramnamedparameterfvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint name, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMEMORYOBJECTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMEMORYOBJECTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "memoryObject")] [NativeName(NativeNameType.Type, "GLuint")] uint memoryObject, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglgetprogramnamedparameterdvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* name, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble *")] double* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETMEMORYOBJECTPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETMEMORYOBJECTPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "memoryObject")] [NativeName(NativeNameType.Type, "GLuint")] uint memoryObject, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglgetprogramnamedparameterdvnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "len")] [NativeName(NativeNameType.Type, "GLsizei")] int len, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint name, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglcoveragemodulationtablenvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglcoveragemodulationtablenvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM2DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM2DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglgetcoveragemodulationtablenvproc([NativeName(NativeNameType.Param, "bufSize")] [NativeName(NativeNameType.Type, "GLsizei")] int bufSize, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM2DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM2DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglgetcoveragemodulationtablenvproc([NativeName(NativeNameType.Param, "bufSize")] [NativeName(NativeNameType.Type, "GLsizei")] int bufSize, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglcoveragemodulationnvproc([NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLenum")] uint components);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglcoveragemodulationnvproc([NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLenum")] uint components);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM3DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM3DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglrenderbufferstoragemultisamplecoveragenvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "coverageSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int coverageSamples, [NativeName(NativeNameType.Param, "colorSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int colorSamples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM3DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM3DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglrenderbufferstoragemultisamplecoveragenvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "coverageSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int coverageSamples, [NativeName(NativeNameType.Param, "colorSamples")] [NativeName(NativeNameType.Type, "GLsizei")] int colorSamples, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBUFFERSTORAGEMEMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBUFFERSTORAGEMEMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglprogramvertexlimitnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "limit")] [NativeName(NativeNameType.Type, "GLint")] int limit);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBUFFERSTORAGEMEMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBUFFERSTORAGEMEMEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglprogramvertexlimitnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "limit")] [NativeName(NativeNameType.Type, "GLint")] int limit);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglframebuffertextureextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM2DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglframebuffertextureextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM2DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM2DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglframebuffertexturefaceextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM2DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM2DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglframebuffertexturefaceextproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglrendergpumasknvproc([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM3DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglrendergpumasknvproc([NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastbuffersubdatanvproc([NativeName(NativeNameType.Param, "gpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint gpuMask, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "fixedSampleLocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedSampleLocations, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastbuffersubdatanvproc([NativeName(NativeNameType.Param, "gpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint gpuMask, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSTORAGEMEMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSTORAGEMEMEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastcopybuffersubdatanvproc([NativeName(NativeNameType.Param, "readGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint readGpu, [NativeName(NativeNameType.Param, "writeGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint writeGpuMask, [NativeName(NativeNameType.Param, "readBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint readBuffer, [NativeName(NativeNameType.Param, "writeBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint writeBuffer, [NativeName(NativeNameType.Param, "readOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint readOffset, [NativeName(NativeNameType.Param, "writeOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint writeOffset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNAMEDBUFFERSTORAGEMEMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNAMEDBUFFERSTORAGEMEMEXTPROC([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastcopybuffersubdatanvproc([NativeName(NativeNameType.Param, "readGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint readGpu, [NativeName(NativeNameType.Param, "writeGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint writeGpuMask, [NativeName(NativeNameType.Param, "readBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint readBuffer, [NativeName(NativeNameType.Param, "writeBuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint writeBuffer, [NativeName(NativeNameType.Param, "readOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint readOffset, [NativeName(NativeNameType.Param, "writeOffset")] [NativeName(NativeNameType.Type, "GLintptr")] nint writeOffset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastcopyimagesubdatanvproc([NativeName(NativeNameType.Param, "srcGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint srcGpu, [NativeName(NativeNameType.Param, "dstGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint dstGpuMask, [NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srcY")] [NativeName(NativeNameType.Type, "GLint")] int srcY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "srcWidth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcWidth, [NativeName(NativeNameType.Param, "srcHeight")] [NativeName(NativeNameType.Type, "GLsizei")] int srcHeight, [NativeName(NativeNameType.Param, "srcDepth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcDepth);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGEMEM1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGEMEM1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastcopyimagesubdatanvproc([NativeName(NativeNameType.Param, "srcGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint srcGpu, [NativeName(NativeNameType.Param, "dstGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint dstGpuMask, [NativeName(NativeNameType.Param, "srcName")] [NativeName(NativeNameType.Type, "GLuint")] uint srcName, [NativeName(NativeNameType.Param, "srcTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint srcTarget, [NativeName(NativeNameType.Param, "srcLevel")] [NativeName(NativeNameType.Type, "GLint")] int srcLevel, [NativeName(NativeNameType.Param, "srcX")] [NativeName(NativeNameType.Type, "GLint")] int srcX, [NativeName(NativeNameType.Param, "srcY")] [NativeName(NativeNameType.Type, "GLint")] int srcY, [NativeName(NativeNameType.Param, "srcZ")] [NativeName(NativeNameType.Type, "GLint")] int srcZ, [NativeName(NativeNameType.Param, "dstName")] [NativeName(NativeNameType.Type, "GLuint")] uint dstName, [NativeName(NativeNameType.Param, "dstTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint dstTarget, [NativeName(NativeNameType.Param, "dstLevel")] [NativeName(NativeNameType.Type, "GLint")] int dstLevel, [NativeName(NativeNameType.Param, "dstX")] [NativeName(NativeNameType.Type, "GLint")] int dstX, [NativeName(NativeNameType.Param, "dstY")] [NativeName(NativeNameType.Type, "GLint")] int dstY, [NativeName(NativeNameType.Param, "dstZ")] [NativeName(NativeNameType.Type, "GLint")] int dstZ, [NativeName(NativeNameType.Param, "srcWidth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcWidth, [NativeName(NativeNameType.Param, "srcHeight")] [NativeName(NativeNameType.Type, "GLsizei")] int srcHeight, [NativeName(NativeNameType.Param, "srcDepth")] [NativeName(NativeNameType.Type, "GLsizei")] int srcDepth);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastblitframebuffernvproc([NativeName(NativeNameType.Param, "srcGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint srcGpu, [NativeName(NativeNameType.Param, "dstGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint dstGpu, [NativeName(NativeNameType.Param, "srcX0")] [NativeName(NativeNameType.Type, "GLint")] int srcX0, [NativeName(NativeNameType.Param, "srcY0")] [NativeName(NativeNameType.Type, "GLint")] int srcY0, [NativeName(NativeNameType.Param, "srcX1")] [NativeName(NativeNameType.Type, "GLint")] int srcX1, [NativeName(NativeNameType.Param, "srcY1")] [NativeName(NativeNameType.Type, "GLint")] int srcY1, [NativeName(NativeNameType.Param, "dstX0")] [NativeName(NativeNameType.Type, "GLint")] int dstX0, [NativeName(NativeNameType.Param, "dstY0")] [NativeName(NativeNameType.Type, "GLint")] int dstY0, [NativeName(NativeNameType.Param, "dstX1")] [NativeName(NativeNameType.Type, "GLint")] int dstX1, [NativeName(NativeNameType.Param, "dstY1")] [NativeName(NativeNameType.Type, "GLint")] int dstY1, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "GLenum")] uint filter);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURESTORAGEMEM1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURESTORAGEMEM1DEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
+	public unsafe delegate void Pfnglmulticastblitframebuffernvproc([NativeName(NativeNameType.Param, "srcGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint srcGpu, [NativeName(NativeNameType.Param, "dstGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint dstGpu, [NativeName(NativeNameType.Param, "srcX0")] [NativeName(NativeNameType.Type, "GLint")] int srcX0, [NativeName(NativeNameType.Param, "srcY0")] [NativeName(NativeNameType.Type, "GLint")] int srcY0, [NativeName(NativeNameType.Param, "srcX1")] [NativeName(NativeNameType.Type, "GLint")] int srcX1, [NativeName(NativeNameType.Param, "srcY1")] [NativeName(NativeNameType.Type, "GLint")] int srcY1, [NativeName(NativeNameType.Param, "dstX0")] [NativeName(NativeNameType.Type, "GLint")] int dstX0, [NativeName(NativeNameType.Param, "dstY0")] [NativeName(NativeNameType.Type, "GLint")] int dstY0, [NativeName(NativeNameType.Param, "dstX1")] [NativeName(NativeNameType.Type, "GLint")] int dstX1, [NativeName(NativeNameType.Param, "dstY1")] [NativeName(NativeNameType.Type, "GLint")] int dstY1, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint mask, [NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "GLenum")] uint filter);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTMEMORYFDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTMEMORYFDEXTPROC([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint64")] ulong size, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "fd")] [NativeName(NativeNameType.Type, "GLint")] int fd);
+	public unsafe delegate void Pfnglmulticastframebuffersamplelocationsfvnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTMEMORYFDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTMEMORYFDEXTPROC([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint64")] ulong size, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "fd")] [NativeName(NativeNameType.Type, "GLint")] int fd);
+	public unsafe delegate void Pfnglmulticastframebuffersamplelocationsfvnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTMEMORYWIN32HANDLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTMEMORYWIN32HANDLEEXTPROC([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint64")] ulong size, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle);
+	public unsafe delegate void Pfnglmulticastbarriernvproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTMEMORYWIN32HANDLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTMEMORYWIN32HANDLEEXTPROC([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint64")] ulong size, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] nint handle);
+	public unsafe delegate void Pfnglmulticastbarriernvproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTMEMORYWIN32NAMEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTMEMORYWIN32NAMEEXTPROC([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint64")] ulong size, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const void*")] void* name);
+	public unsafe delegate void Pfnglmulticastwaitsyncnvproc([NativeName(NativeNameType.Param, "signalGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint signalGpu, [NativeName(NativeNameType.Param, "waitGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint waitGpuMask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTMEMORYWIN32NAMEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTMEMORYWIN32NAMEEXTPROC([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLuint64")] ulong size, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const void*")] nint name);
+	public unsafe delegate void Pfnglmulticastwaitsyncnvproc([NativeName(NativeNameType.Param, "signalGpu")] [NativeName(NativeNameType.Type, "GLuint")] uint signalGpu, [NativeName(NativeNameType.Param, "waitGpuMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint waitGpuMask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTIDRAWARRAYSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTIDRAWARRAYSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "const GLint*")] int* first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "const GLsizei*")] int* count, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate void Pfnglmulticastgetqueryobjectivnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTIDRAWARRAYSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTIDRAWARRAYSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "const GLint*")] nint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "const GLsizei*")] nint count, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate void Pfnglmulticastgetqueryobjectivnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTIDRAWELEMENTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTIDRAWELEMENTSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "const GLsizei*")] int* count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const const void**")] void** indices, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate void Pfnglmulticastgetqueryobjectuivnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMULTIDRAWELEMENTSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMULTIDRAWELEMENTSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "const GLsizei*")] nint count, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "indices")] [NativeName(NativeNameType.Type, "const const void**")] nint indices, [NativeName(NativeNameType.Param, "primcount")] [NativeName(NativeNameType.Type, "GLsizei")] int primcount);
+	public unsafe delegate void Pfnglmulticastgetqueryobjectuivnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSAMPLEMASKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSAMPLEMASKEXTPROC([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLclampf")] float value, [NativeName(NativeNameType.Param, "invert")] [NativeName(NativeNameType.Type, "GLboolean")] byte invert);
+	public unsafe delegate void Pfnglmulticastgetqueryobjecti64Vnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64 *")] long* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSAMPLEMASKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSAMPLEMASKEXTPROC([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLclampf")] float value, [NativeName(NativeNameType.Param, "invert")] [NativeName(NativeNameType.Type, "GLboolean")] byte invert);
+	public unsafe delegate void Pfnglmulticastgetqueryobjecti64Vnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64 *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSAMPLEPATTERNEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSAMPLEPATTERNEXTPROC([NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "GLenum")] uint pattern);
+	public unsafe delegate void Pfnglmulticastgetqueryobjectui64Vnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64 *")] ulong* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSAMPLEPATTERNEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSAMPLEPATTERNEXTPROC([NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "GLenum")] uint pattern);
+	public unsafe delegate void Pfnglmulticastgetqueryobjectui64Vnvproc([NativeName(NativeNameType.Param, "gpu")] [NativeName(NativeNameType.Type, "GLuint")] uint gpu, [NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64 *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOLORTABLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOLORTABLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "table")] [NativeName(NativeNameType.Type, "const void*")] void* table);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Invproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOLORTABLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOLORTABLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalFormat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "table")] [NativeName(NativeNameType.Type, "const void*")] nint table);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Invproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOLORTABLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOLORTABLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] void* data);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOLORTABLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOLORTABLEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void*")] nint data);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOLORTABLEPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOLORTABLEPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglprogramlocalparametersi4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOLORTABLEPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOLORTABLEPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglprogramlocalparametersi4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOLORTABLEPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOLORTABLEPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Uinvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETCOLORTABLEPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETCOLORTABLEPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Uinvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERIEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERIEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+	public unsafe delegate void Pfnglprogramlocalparameteri4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERFEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
+	public unsafe delegate void Pfnglprogramlocalparametersi4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERFEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
+	public unsafe delegate void Pfnglprogramlocalparametersi4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params);
+	public unsafe delegate void Pfnglprogramenvparameteri4Invproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] nint @params);
+	public unsafe delegate void Pfnglprogramenvparameteri4Invproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLint")] int z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLint")] int w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglprogramenvparameteri4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPIXELTRANSFORMPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPIXELTRANSFORMPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglprogramenvparameteri4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglprogramenvparametersi4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglprogramenvparametersi4Ivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglprogramenvparameteri4Uinvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglprogramenvparameteri4Uinvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLuint")] uint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLuint")] uint y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLuint")] uint z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLuint")] uint w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPOINTPARAMETERFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOINTPARAMETERFEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
+	public unsafe delegate void Pfnglprogramenvparameteri4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPOINTPARAMETERFEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOINTPARAMETERFEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
+	public unsafe delegate void Pfnglprogramenvparameteri4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPOINTPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOINTPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* @params);
+	public unsafe delegate void Pfnglprogramenvparametersi4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPOINTPARAMETERFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOINTPARAMETERFVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint @params);
+	public unsafe delegate void Pfnglprogramenvparametersi4Uivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPOLYGONOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOLYGONOFFSETEXTPROC([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "bias")] [NativeName(NativeNameType.Type, "GLfloat")] float bias);
+	public unsafe delegate void Pfnglgetprogramlocalparameteriivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPOLYGONOFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOLYGONOFFSETEXTPROC([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "bias")] [NativeName(NativeNameType.Type, "GLfloat")] float bias);
+	public unsafe delegate void Pfnglgetprogramlocalparameteriivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPOLYGONOFFSETCLAMPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOLYGONOFFSETCLAMPEXTPROC([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "units")] [NativeName(NativeNameType.Type, "GLfloat")] float units, [NativeName(NativeNameType.Param, "clamp")] [NativeName(NativeNameType.Type, "GLfloat")] float clamp);
+	public unsafe delegate void Pfnglgetprogramlocalparameteriuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPOLYGONOFFSETCLAMPEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPOLYGONOFFSETCLAMPEXTPROC([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "units")] [NativeName(NativeNameType.Type, "GLfloat")] float units, [NativeName(NativeNameType.Param, "clamp")] [NativeName(NativeNameType.Type, "GLfloat")] float clamp);
+	public unsafe delegate void Pfnglgetprogramlocalparameteriuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPROVOKINGVERTEXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROVOKINGVERTEXEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglgetprogramenvparameteriivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPROVOKINGVERTEXEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPROVOKINGVERTEXEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfnglgetprogramenvparameteriivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLRASTERSAMPLESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRASTERSAMPLESEXTPROC([NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLuint")] uint samples, [NativeName(NativeNameType.Param, "fixedsamplelocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedsamplelocations);
+	public unsafe delegate void Pfnglgetprogramenvparameteriuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLRASTERSAMPLESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLRASTERSAMPLESEXTPROC([NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLuint")] uint samples, [NativeName(NativeNameType.Param, "fixedsamplelocations")] [NativeName(NativeNameType.Type, "GLboolean")] byte fixedsamplelocations);
+	public unsafe delegate void Pfnglgetprogramenvparameteriuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3BEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3BEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLbyte")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLbyte")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLbyte")] byte blue);
+	public unsafe delegate void Pfnglprogramsubroutineparametersuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3BEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3BEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLbyte")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLbyte")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLbyte")] byte blue);
+	public unsafe delegate void Pfnglprogramsubroutineparametersuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3BVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3BVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLbyte*")] byte* v);
+	public unsafe delegate void Pfnglgetprogramsubroutineparameteruivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLuint *")] uint* param);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3BVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3BVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLbyte*")] nint v);
+	public unsafe delegate void Pfnglgetprogramsubroutineparameteruivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLuint *")] nint param);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3DEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLdouble")] double red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLdouble")] double green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLdouble")] double blue);
+	public unsafe delegate void Pfnglvertex2Hnvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3DEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLdouble")] double red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLdouble")] double green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLdouble")] double blue);
+	public unsafe delegate void Pfnglvertex2Hnvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3DVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v);
+	public unsafe delegate void Pfnglvertex2Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3DVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint v);
+	public unsafe delegate void Pfnglvertex2Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3FEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLfloat")] float red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLfloat")] float green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLfloat")] float blue);
+	public unsafe delegate void Pfnglvertex3Hnvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3FEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3FEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLfloat")] float red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLfloat")] float green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLfloat")] float blue);
+	public unsafe delegate void Pfnglvertex3Hnvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3FVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* v);
+	public unsafe delegate void Pfnglvertex3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3FVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3FVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint v);
+	public unsafe delegate void Pfnglvertex3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3IEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLint")] int red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLint")] int green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLint")] int blue);
+	public unsafe delegate void Pfnglvertex4Hnvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3IEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3IEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLint")] int red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLint")] int green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLint")] int blue);
+	public unsafe delegate void Pfnglvertex4Hnvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3IVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] int* v);
+	public unsafe delegate void Pfnglvertex4Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3IVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3IVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLint*")] nint v);
+	public unsafe delegate void Pfnglvertex4Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3SEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3SEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLshort")] short red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLshort")] short green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLshort")] short blue);
+	public unsafe delegate void Pfnglnormal3Hnvproc([NativeName(NativeNameType.Param, "nx")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort nx, [NativeName(NativeNameType.Param, "ny")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort ny, [NativeName(NativeNameType.Param, "nz")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort nz);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3SEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3SEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLshort")] short red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLshort")] short green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLshort")] short blue);
+	public unsafe delegate void Pfnglnormal3Hnvproc([NativeName(NativeNameType.Param, "nx")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort nx, [NativeName(NativeNameType.Param, "ny")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort ny, [NativeName(NativeNameType.Param, "nz")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort nz);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3SVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3SVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] short* v);
+	public unsafe delegate void Pfnglnormal3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3SVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3SVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLshort*")] nint v);
+	public unsafe delegate void Pfnglnormal3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UBEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLubyte")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLubyte")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLubyte")] byte blue);
+	public unsafe delegate void Pfnglcolor3Hnvproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort blue);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UBEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UBEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLubyte")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLubyte")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLubyte")] byte blue);
+	public unsafe delegate void Pfnglcolor3Hnvproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort blue);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UBVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLubyte*")] byte* v);
+	public unsafe delegate void Pfnglcolor3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UBVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLubyte*")] nint v);
+	public unsafe delegate void Pfnglcolor3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UIEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLuint")] uint red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLuint")] uint green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLuint")] uint blue);
+	public unsafe delegate void Pfnglcolor4Hnvproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort alpha);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UIEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLuint")] uint red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLuint")] uint green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLuint")] uint blue);
+	public unsafe delegate void Pfnglcolor4Hnvproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort alpha);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UIVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* v);
+	public unsafe delegate void Pfnglcolor4Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3UIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3UIVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLuint*")] nint v);
+	public unsafe delegate void Pfnglcolor4Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3USEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3USEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLushort")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLushort")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLushort")] ushort blue);
+	public unsafe delegate void Pfngltexcoord1Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3USEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3USEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLushort")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLushort")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLushort")] ushort blue);
+	public unsafe delegate void Pfngltexcoord1Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3USVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3USVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLushort*")] ushort* v);
+	public unsafe delegate void Pfngltexcoord1Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLOR3USVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLOR3USVEXTPROC([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLushort*")] nint v);
+	public unsafe delegate void Pfngltexcoord1Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLORPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLORPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfngltexcoord2Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSECONDARYCOLORPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSECONDARYCOLORPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfngltexcoord2Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENSEMAPHORESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENSEMAPHORESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "semaphores")] [NativeName(NativeNameType.Type, "GLuint*")] uint* semaphores);
+	public unsafe delegate void Pfngltexcoord2Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENSEMAPHORESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENSEMAPHORESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "semaphores")] [NativeName(NativeNameType.Type, "GLuint*")] nint semaphores);
+	public unsafe delegate void Pfngltexcoord2Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETESEMAPHORESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETESEMAPHORESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "semaphores")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* semaphores);
+	public unsafe delegate void Pfngltexcoord3Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETESEMAPHORESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETESEMAPHORESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "semaphores")] [NativeName(NativeNameType.Type, "const GLuint*")] nint semaphores);
+	public unsafe delegate void Pfngltexcoord3Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLISSEMAPHOREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISSEMAPHOREEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore);
+	public unsafe delegate void Pfngltexcoord3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLISSEMAPHOREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISSEMAPHOREEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore);
+	public unsafe delegate void Pfngltexcoord3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSEMAPHOREPARAMETERUI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSEMAPHOREPARAMETERUI64VEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint64*")] ulong* @params);
+	public unsafe delegate void Pfngltexcoord4Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort q);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSEMAPHOREPARAMETERUI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSEMAPHOREPARAMETERUI64VEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint64*")] nint @params);
+	public unsafe delegate void Pfngltexcoord4Hnvproc([NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort q);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETSEMAPHOREPARAMETERUI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETSEMAPHOREPARAMETERUI64VEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64*")] ulong* @params);
+	public unsafe delegate void Pfngltexcoord4Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETSEMAPHOREPARAMETERUI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETSEMAPHOREPARAMETERUI64VEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64*")] nint @params);
+	public unsafe delegate void Pfngltexcoord4Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLWAITSEMAPHOREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLWAITSEMAPHOREEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures, [NativeName(NativeNameType.Param, "srcLayouts")] [NativeName(NativeNameType.Type, "const GLenum*")] uint* srcLayouts);
+	public unsafe delegate void Pfnglmultitexcoord1Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLWAITSEMAPHOREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLWAITSEMAPHOREEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "const GLuint*")] nint buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] nint textures, [NativeName(NativeNameType.Param, "srcLayouts")] [NativeName(NativeNameType.Type, "const GLenum*")] nint srcLayouts);
+	public unsafe delegate void Pfnglmultitexcoord1Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSIGNALSEMAPHOREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSIGNALSEMAPHOREEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures, [NativeName(NativeNameType.Param, "dstLayouts")] [NativeName(NativeNameType.Type, "const GLenum*")] uint* dstLayouts);
+	public unsafe delegate void Pfnglmultitexcoord1Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSIGNALSEMAPHOREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSIGNALSEMAPHOREEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "numBufferBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numBufferBarriers, [NativeName(NativeNameType.Param, "buffers")] [NativeName(NativeNameType.Type, "const GLuint*")] nint buffers, [NativeName(NativeNameType.Param, "numTextureBarriers")] [NativeName(NativeNameType.Type, "GLuint")] uint numTextureBarriers, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] nint textures, [NativeName(NativeNameType.Param, "dstLayouts")] [NativeName(NativeNameType.Type, "const GLenum*")] nint dstLayouts);
+	public unsafe delegate void Pfnglmultitexcoord1Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTSEMAPHOREFDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTSEMAPHOREFDEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "fd")] [NativeName(NativeNameType.Type, "GLint")] int fd);
+	public unsafe delegate void Pfnglmultitexcoord2Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTSEMAPHOREFDEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTSEMAPHOREFDEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "fd")] [NativeName(NativeNameType.Type, "GLint")] int fd);
+	public unsafe delegate void Pfnglmultitexcoord2Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] void* handle);
+	public unsafe delegate void Pfnglmultitexcoord2Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "handle")] [NativeName(NativeNameType.Type, "void*")] nint handle);
+	public unsafe delegate void Pfnglmultitexcoord2Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const void*")] void* name);
+	public unsafe delegate void Pfnglmultitexcoord3Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC([NativeName(NativeNameType.Param, "semaphore")] [NativeName(NativeNameType.Type, "GLuint")] uint semaphore, [NativeName(NativeNameType.Param, "handleType")] [NativeName(NativeNameType.Type, "GLenum")] uint handleType, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "const void*")] nint name);
+	public unsafe delegate void Pfnglmultitexcoord3Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLUSESHADERPROGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUSESHADERPROGRAMEXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
+	public unsafe delegate void Pfnglmultitexcoord3Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLUSESHADERPROGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLUSESHADERPROGRAMEXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
+	public unsafe delegate void Pfnglmultitexcoord3Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLACTIVEPROGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLACTIVEPROGRAMEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
+	public unsafe delegate void Pfnglmultitexcoord4Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort q);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLACTIVEPROGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLACTIVEPROGRAMEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program);
+	public unsafe delegate void Pfnglmultitexcoord4Hnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "s")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort s, [NativeName(NativeNameType.Param, "t")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort t, [NativeName(NativeNameType.Param, "r")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort r, [NativeName(NativeNameType.Param, "q")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort q);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCREATESHADERPROGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLCREATESHADERPROGRAMEXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "const GLchar*")] byte* str);
+	public unsafe delegate void Pfnglmultitexcoord4Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCREATESHADERPROGRAMEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLCREATESHADERPROGRAMEXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "const GLchar*")] nint str);
+	public unsafe delegate void Pfnglmultitexcoord4Hvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERFETCHBARRIEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERFETCHBARRIEREXTPROC();
+	public unsafe delegate void Pfnglfogcoordhnvproc([NativeName(NativeNameType.Param, "fog")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort fog);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERFETCHBARRIEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERFETCHBARRIEREXTPROC();
+	public unsafe delegate void Pfnglfogcoordhnvproc([NativeName(NativeNameType.Param, "fog")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort fog);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDIMAGETEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDIMAGETEXTUREEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layered")] [NativeName(NativeNameType.Type, "GLboolean")] byte layered, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLint")] int format);
+	public unsafe delegate void Pfnglfogcoordhvnvproc([NativeName(NativeNameType.Param, "fog")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* fog);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDIMAGETEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDIMAGETEXTUREEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layered")] [NativeName(NativeNameType.Type, "GLboolean")] byte layered, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLint")] int format);
+	public unsafe delegate void Pfnglfogcoordhvnvproc([NativeName(NativeNameType.Param, "fog")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint fog);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLMEMORYBARRIEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMEMORYBARRIEREXTPROC([NativeName(NativeNameType.Param, "barriers")] [NativeName(NativeNameType.Type, "GLbitfield")] uint barriers);
+	public unsafe delegate void Pfnglsecondarycolor3Hnvproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort blue);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLMEMORYBARRIEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLMEMORYBARRIEREXTPROC([NativeName(NativeNameType.Param, "barriers")] [NativeName(NativeNameType.Type, "GLbitfield")] uint barriers);
+	public unsafe delegate void Pfnglsecondarycolor3Hnvproc([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort blue);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSTENCILCLEARTAGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSTENCILCLEARTAGEXTPROC([NativeName(NativeNameType.Param, "stencilTagBits")] [NativeName(NativeNameType.Type, "GLsizei")] int stencilTagBits, [NativeName(NativeNameType.Param, "stencilClearTag")] [NativeName(NativeNameType.Type, "GLuint")] uint stencilClearTag);
+	public unsafe delegate void Pfnglsecondarycolor3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSTENCILCLEARTAGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSTENCILCLEARTAGEXTPROC([NativeName(NativeNameType.Param, "stencilTagBits")] [NativeName(NativeNameType.Type, "GLsizei")] int stencilTagBits, [NativeName(NativeNameType.Param, "stencilClearTag")] [NativeName(NativeNameType.Type, "GLuint")] uint stencilClearTag);
+	public unsafe delegate void Pfnglsecondarycolor3Hvnvproc([NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLACTIVESTENCILFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLACTIVESTENCILFACEEXTPROC([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
+	public unsafe delegate void Pfnglvertexweighthnvproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort weight);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLACTIVESTENCILFACEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLACTIVESTENCILFACEEXTPROC([NativeName(NativeNameType.Param, "face")] [NativeName(NativeNameType.Type, "GLenum")] uint face);
+	public unsafe delegate void Pfnglvertexweighthnvproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort weight);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSUBIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSUBIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels);
+	public unsafe delegate void Pfnglvertexweighthvnvproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* weight);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSUBIMAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSUBIMAGE1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] nint pixels);
+	public unsafe delegate void Pfnglvertexweighthvnvproc([NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint weight);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSUBIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSUBIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels);
+	public unsafe delegate void Pfnglvertexattrib1Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSUBIMAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSUBIMAGE2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] nint pixels);
+	public unsafe delegate void Pfnglvertexattrib1Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels);
+	public unsafe delegate void Pfnglvertexattrib1Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "border")] [NativeName(NativeNameType.Type, "GLint")] int border, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] nint pixels);
+	public unsafe delegate void Pfnglvertexattrib1Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] void* pixels);
+	public unsafe delegate void Pfnglvertexattrib2Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSUBIMAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSUBIMAGE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "pixels")] [NativeName(NativeNameType.Type, "const void*")] nint pixels);
+	public unsafe delegate void Pfnglvertexattrib2Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURELAYEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURELAYEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer);
+	public unsafe delegate void Pfnglvertexattrib2Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLFRAMEBUFFERTEXTURELAYEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLFRAMEBUFFERTEXTURELAYEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "attachment")] [NativeName(NativeNameType.Type, "GLenum")] uint attachment, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer);
+	public unsafe delegate void Pfnglvertexattrib2Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglvertexattrib3Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXBUFFEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXBUFFEREXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglvertexattrib3Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] int* @params);
+	public unsafe delegate void Pfnglvertexattrib3Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLint*")] nint @params);
+	public unsafe delegate void Pfnglvertexattrib3Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglvertexattrib4Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort w);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "const GLuint*")] nint @params);
+	public unsafe delegate void Pfnglvertexattrib4Hnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLhalfNV")] ushort w);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] int* @params);
+	public unsafe delegate void Pfnglvertexattrib4Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXPARAMETERIIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXPARAMETERIIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint*")] nint @params);
+	public unsafe delegate void Pfnglvertexattrib4Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] uint* @params);
+	public unsafe delegate void Pfnglvertexattribs1Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTEXPARAMETERIUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTEXPARAMETERIUIVEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint*")] nint @params);
+	public unsafe delegate void Pfnglvertexattribs1Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARCOLORIIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARCOLORIIEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLint")] int red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLint")] int green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLint")] int blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLint")] int alpha);
+	public unsafe delegate void Pfnglvertexattribs2Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARCOLORIIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARCOLORIIEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLint")] int red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLint")] int green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLint")] int blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLint")] int alpha);
+	public unsafe delegate void Pfnglvertexattribs2Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARCOLORIUIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARCOLORIUIEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLuint")] uint red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLuint")] uint green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLuint")] uint blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLuint")] uint alpha);
+	public unsafe delegate void Pfnglvertexattribs3Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCLEARCOLORIUIEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCLEARCOLORIUIEXTPROC([NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "GLuint")] uint red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "GLuint")] uint green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "GLuint")] uint blue, [NativeName(NativeNameType.Param, "alpha")] [NativeName(NativeNameType.Type, "GLuint")] uint alpha);
+	public unsafe delegate void Pfnglvertexattribs3Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLARETEXTURESRESIDENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLARETEXTURESRESIDENTEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures, [NativeName(NativeNameType.Param, "residences")] [NativeName(NativeNameType.Type, "GLboolean*")] byte* residences);
+	public unsafe delegate void Pfnglvertexattribs4Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] ushort* v);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLARETEXTURESRESIDENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLARETEXTURESRESIDENTEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] nint textures, [NativeName(NativeNameType.Param, "residences")] [NativeName(NativeNameType.Type, "GLboolean*")] nint residences);
+	public unsafe delegate void Pfnglvertexattribs4Hvnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLhalfNV const *")] nint v);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDTEXTUREEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
+	public unsafe delegate void Pfnglgetinternalformatsampleivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDTEXTUREEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
+	public unsafe delegate void Pfnglgetinternalformatsampleivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLsizei")] int samples, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETETEXTURESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETETEXTURESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures);
+	public unsafe delegate void Pfnglgetmemoryobjectdetachedresourcesuivnvproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETETEXTURESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETETEXTURESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] nint textures);
+	public unsafe delegate void Pfnglgetmemoryobjectdetachedresourcesuivnvproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENTEXTURESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENTEXTURESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint*")] uint* textures);
+	public unsafe delegate void Pfnglresetmemoryobjectparameternvproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENTEXTURESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGENTEXTURESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "GLuint*")] nint textures);
+	public unsafe delegate void Pfnglresetmemoryobjectparameternvproc([NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLISTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISTEXTUREEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
+	public unsafe delegate void Pfngltexattachmemorynvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLISTEXTUREEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate byte PFNGLISTEXTUREEXTPROC([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
+	public unsafe delegate void Pfngltexattachmemorynvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLPRIORITIZETEXTURESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPRIORITIZETEXTURESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* textures, [NativeName(NativeNameType.Param, "priorities")] [NativeName(NativeNameType.Type, "const GLclampf*")] float* priorities);
+	public unsafe delegate void Pfnglbufferattachmemorynvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLPRIORITIZETEXTURESEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLPRIORITIZETEXTURESEXTPROC([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "textures")] [NativeName(NativeNameType.Type, "const GLuint*")] nint textures, [NativeName(NativeNameType.Param, "priorities")] [NativeName(NativeNameType.Type, "const GLclampf*")] nint priorities);
+	public unsafe delegate void Pfnglbufferattachmemorynvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURENORMALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURENORMALEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfngltextureattachmemorynvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXTURENORMALEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXTURENORMALEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode);
+	public unsafe delegate void Pfngltextureattachmemorynvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGE1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width);
+	public unsafe delegate void Pfnglnamedbufferattachmemorynvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGE1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGE1DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width);
+	public unsafe delegate void Pfnglnamedbufferattachmemorynvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGE2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglbufferpagecommitmentmemnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "memOffset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong memOffset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGE2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGE2DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+	public unsafe delegate void Pfnglbufferpagecommitmentmemnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "memOffset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong memOffset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
+	public unsafe delegate void Pfngltexpagecommitmentmemnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXSTORAGE3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXSTORAGE3DEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "levels")] [NativeName(NativeNameType.Type, "GLsizei")] int levels, [NativeName(NativeNameType.Param, "internalformat")] [NativeName(NativeNameType.Type, "GLenum")] uint internalformat, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth);
+	public unsafe delegate void Pfngltexpagecommitmentmemnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETQUERYOBJECTI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETQUERYOBJECTI64VEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64*")] long* @params);
+	public unsafe delegate void Pfnglnamedbufferpagecommitmentmemnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "memOffset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong memOffset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETQUERYOBJECTI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETQUERYOBJECTI64VEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64*")] nint @params);
+	public unsafe delegate void Pfnglnamedbufferpagecommitmentmemnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "memOffset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong memOffset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETQUERYOBJECTUI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETQUERYOBJECTUI64VEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64*")] ulong* @params);
+	public unsafe delegate void Pfngltexturepagecommitmentmemnvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETQUERYOBJECTUI64VEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETQUERYOBJECTUI64VEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64*")] nint @params);
+	public unsafe delegate void Pfngltexturepagecommitmentmemnvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture, [NativeName(NativeNameType.Param, "layer")] [NativeName(NativeNameType.Type, "GLint")] int layer, [NativeName(NativeNameType.Param, "level")] [NativeName(NativeNameType.Type, "GLint")] int level, [NativeName(NativeNameType.Param, "xoffset")] [NativeName(NativeNameType.Type, "GLint")] int xoffset, [NativeName(NativeNameType.Param, "yoffset")] [NativeName(NativeNameType.Type, "GLint")] int yoffset, [NativeName(NativeNameType.Param, "zoffset")] [NativeName(NativeNameType.Type, "GLint")] int zoffset, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height, [NativeName(NativeNameType.Param, "depth")] [NativeName(NativeNameType.Type, "GLsizei")] int depth, [NativeName(NativeNameType.Param, "memory")] [NativeName(NativeNameType.Type, "GLuint")] uint memory, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLuint64")] ulong offset, [NativeName(NativeNameType.Param, "commit")] [NativeName(NativeNameType.Type, "GLboolean")] byte commit);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBEGINTRANSFORMFEEDBACKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBEGINTRANSFORMFEEDBACKEXTPROC([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode);
+	public unsafe delegate void Pfngldrawmeshtasksnvproc([NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBEGINTRANSFORMFEEDBACKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBEGINTRANSFORMFEEDBACKEXTPROC([NativeName(NativeNameType.Param, "primitiveMode")] [NativeName(NativeNameType.Type, "GLenum")] uint primitiveMode);
+	public unsafe delegate void Pfngldrawmeshtasksnvproc([NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENDTRANSFORMFEEDBACKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENDTRANSFORMFEEDBACKEXTPROC();
+	public unsafe delegate void Pfngldrawmeshtasksindirectnvproc([NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "GLintptr")] nint indirect);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENDTRANSFORMFEEDBACKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENDTRANSFORMFEEDBACKEXTPROC();
+	public unsafe delegate void Pfngldrawmeshtasksindirectnvproc([NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "GLintptr")] nint indirect);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
+	public unsafe delegate void Pfnglmultidrawmeshtasksindirectnvproc([NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "GLintptr")] nint indirect, [NativeName(NativeNameType.Param, "drawcount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawcount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDBUFFERRANGEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDBUFFERRANGEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint size);
+	public unsafe delegate void Pfnglmultidrawmeshtasksindirectnvproc([NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "GLintptr")] nint indirect, [NativeName(NativeNameType.Param, "drawcount")] [NativeName(NativeNameType.Type, "GLsizei")] int drawcount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDBUFFEROFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDBUFFEROFFSETEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglmultidrawmeshtasksindirectcountnvproc([NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "GLintptr")] nint indirect, [NativeName(NativeNameType.Param, "drawcount")] [NativeName(NativeNameType.Type, "GLintptr")] nint drawcount, [NativeName(NativeNameType.Param, "maxdrawcount")] [NativeName(NativeNameType.Type, "GLsizei")] int maxdrawcount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDBUFFEROFFSETEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDBUFFEROFFSETEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "offset")] [NativeName(NativeNameType.Type, "GLintptr")] nint offset);
+	public unsafe delegate void Pfnglmultidrawmeshtasksindirectcountnvproc([NativeName(NativeNameType.Param, "indirect")] [NativeName(NativeNameType.Type, "GLintptr")] nint indirect, [NativeName(NativeNameType.Param, "drawcount")] [NativeName(NativeNameType.Type, "GLintptr")] nint drawcount, [NativeName(NativeNameType.Param, "maxdrawcount")] [NativeName(NativeNameType.Type, "GLsizei")] int maxdrawcount, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDBUFFERBASEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDBUFFERBASEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglgenocclusionqueriesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "ids")] [NativeName(NativeNameType.Type, "GLuint *")] uint* ids);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDBUFFERBASEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDBUFFERBASEEXTPROC([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+	public unsafe delegate void Pfnglgenocclusionqueriesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "ids")] [NativeName(NativeNameType.Type, "GLuint *")] nint ids);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "varyings")] [NativeName(NativeNameType.Type, "const const GLchar**")] byte** varyings, [NativeName(NativeNameType.Param, "bufferMode")] [NativeName(NativeNameType.Type, "GLenum")] uint bufferMode);
+	public unsafe delegate void Pfngldeleteocclusionqueriesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "ids")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* ids);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "varyings")] [NativeName(NativeNameType.Type, "const const GLchar**")] nint varyings, [NativeName(NativeNameType.Param, "bufferMode")] [NativeName(NativeNameType.Type, "GLenum")] uint bufferMode);
+	public unsafe delegate void Pfngldeleteocclusionqueriesnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "ids")] [NativeName(NativeNameType.Type, "GLuint const *")] nint ids);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "bufSize")] [NativeName(NativeNameType.Type, "GLsizei")] int bufSize, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei*")] int* length, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizei*")] int* size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum*")] uint* type, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLchar*")] byte* name);
+	public unsafe delegate byte Pfnglisocclusionquerynvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "bufSize")] [NativeName(NativeNameType.Type, "GLsizei")] int bufSize, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei*")] nint length, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLsizei*")] nint size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum*")] nint type, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "GLchar*")] nint name);
+	public unsafe delegate byte Pfnglisocclusionquerynvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLARRAYELEMENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLARRAYELEMENTEXTPROC([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i);
+	public unsafe delegate void Pfnglbeginocclusionquerynvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLARRAYELEMENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLARRAYELEMENTEXTPROC([NativeName(NativeNameType.Param, "i")] [NativeName(NativeNameType.Type, "GLint")] int i);
+	public unsafe delegate void Pfnglbeginocclusionquerynvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLCOLORPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOLORPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfnglendocclusionquerynvproc();
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLCOLORPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLCOLORPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfnglendocclusionquerynvproc();
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWARRAYSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWARRAYSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count);
+	public unsafe delegate void Pfnglgetocclusionqueryivnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDRAWARRAYSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDRAWARRAYSEXTPROC([NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "GLenum")] uint mode, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLint")] int first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count);
+	public unsafe delegate void Pfnglgetocclusionqueryivnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLEDGEFLAGPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLEDGEFLAGPOINTEREXTPROC([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const GLboolean*")] byte* pointer);
+	public unsafe delegate void Pfnglgetocclusionqueryuivnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLEDGEFLAGPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLEDGEFLAGPOINTEREXTPROC([NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const GLboolean*")] nint pointer);
+	public unsafe delegate void Pfnglgetocclusionqueryuivnvproc([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPOINTERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPOINTERVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void**")] void** @params);
+	public unsafe delegate void Pfnglprogrambufferparametersfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "bindingIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingIndex, [NativeName(NativeNameType.Param, "wordIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint wordIndex, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETPOINTERVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETPOINTERVEXTPROC([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "void**")] nint @params);
+	public unsafe delegate void Pfnglprogrambufferparametersfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "bindingIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingIndex, [NativeName(NativeNameType.Param, "wordIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint wordIndex, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLINDEXPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINDEXPOINTEREXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfnglprogrambufferparametersiivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "bindingIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingIndex, [NativeName(NativeNameType.Param, "wordIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint wordIndex, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLINDEXPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINDEXPOINTEREXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfnglprogrambufferparametersiivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "bindingIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingIndex, [NativeName(NativeNameType.Param, "wordIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint wordIndex, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLNORMALPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNORMALPOINTEREXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfnglprogrambufferparametersiuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "bindingIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingIndex, [NativeName(NativeNameType.Param, "wordIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint wordIndex, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* @params);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLNORMALPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLNORMALPOINTEREXTPROC([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfnglprogrambufferparametersiuivnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "bindingIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint bindingIndex, [NativeName(NativeNameType.Param, "wordIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint wordIndex, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint const *")] nint @params);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXCOORDPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXCOORDPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate uint Pfnglgenpathsnvproc([NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLsizei")] int range);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLTEXCOORDPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLTEXCOORDPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate uint Pfnglgenpathsnvproc([NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLsizei")] int range);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfngldeletepathsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLsizei")] int range);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXPOINTEREXTPROC([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfngldeletepathsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLsizei")] int range);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL1DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x);
+	public unsafe delegate byte Pfnglispathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL1DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL1DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x);
+	public unsafe delegate byte Pfnglispathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL2DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
+	public unsafe delegate void Pfnglpathcommandsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "numCommands")] [NativeName(NativeNameType.Type, "GLsizei")] int numCommands, [NativeName(NativeNameType.Param, "commands")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* commands, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] void* coords);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL2DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL2DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y);
+	public unsafe delegate void Pfnglpathcommandsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "numCommands")] [NativeName(NativeNameType.Type, "GLsizei")] int numCommands, [NativeName(NativeNameType.Param, "commands")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint commands, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] nint coords);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL3DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
+	public unsafe delegate void Pfnglpathcoordsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] void* coords);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL3DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL3DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z);
+	public unsafe delegate void Pfnglpathcoordsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] nint coords);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL4DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL4DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
+	public unsafe delegate void Pfnglpathsubcommandsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "commandStart")] [NativeName(NativeNameType.Type, "GLsizei")] int commandStart, [NativeName(NativeNameType.Param, "commandsToDelete")] [NativeName(NativeNameType.Type, "GLsizei")] int commandsToDelete, [NativeName(NativeNameType.Param, "numCommands")] [NativeName(NativeNameType.Type, "GLsizei")] int numCommands, [NativeName(NativeNameType.Param, "commands")] [NativeName(NativeNameType.Type, "GLubyte const *")] byte* commands, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] void* coords);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL4DEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL4DEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLdouble")] double x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLdouble")] double y, [NativeName(NativeNameType.Param, "z")] [NativeName(NativeNameType.Type, "GLdouble")] double z, [NativeName(NativeNameType.Param, "w")] [NativeName(NativeNameType.Type, "GLdouble")] double w);
+	public unsafe delegate void Pfnglpathsubcommandsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "commandStart")] [NativeName(NativeNameType.Type, "GLsizei")] int commandStart, [NativeName(NativeNameType.Param, "commandsToDelete")] [NativeName(NativeNameType.Type, "GLsizei")] int commandsToDelete, [NativeName(NativeNameType.Param, "numCommands")] [NativeName(NativeNameType.Type, "GLsizei")] int numCommands, [NativeName(NativeNameType.Param, "commands")] [NativeName(NativeNameType.Type, "GLubyte const *")] nint commands, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] nint coords);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL1DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL1DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v);
+	public unsafe delegate void Pfnglpathsubcoordsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coordStart")] [NativeName(NativeNameType.Type, "GLsizei")] int coordStart, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] void* coords);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL1DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL1DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint v);
+	public unsafe delegate void Pfnglpathsubcoordsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coordStart")] [NativeName(NativeNameType.Type, "GLsizei")] int coordStart, [NativeName(NativeNameType.Param, "numCoords")] [NativeName(NativeNameType.Type, "GLsizei")] int numCoords, [NativeName(NativeNameType.Param, "coordType")] [NativeName(NativeNameType.Type, "GLenum")] uint coordType, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "void const *")] nint coords);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL2DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v);
+	public unsafe delegate void Pfnglpathstringnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei")] int length, [NativeName(NativeNameType.Param, "pathString")] [NativeName(NativeNameType.Type, "void const *")] void* pathString);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL2DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL2DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint v);
+	public unsafe delegate void Pfnglpathstringnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "format")] [NativeName(NativeNameType.Type, "GLenum")] uint format, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei")] int length, [NativeName(NativeNameType.Param, "pathString")] [NativeName(NativeNameType.Type, "void const *")] nint pathString);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL3DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v);
+	public unsafe delegate void Pfnglpathglyphsnvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] void* fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "charcodes")] [NativeName(NativeNameType.Type, "void const *")] void* charcodes, [NativeName(NativeNameType.Param, "handleMissingGlyphs")] [NativeName(NativeNameType.Type, "GLenum")] uint handleMissingGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL3DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL3DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint v);
+	public unsafe delegate void Pfnglpathglyphsnvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] nint fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "charcodes")] [NativeName(NativeNameType.Type, "void const *")] nint charcodes, [NativeName(NativeNameType.Param, "handleMissingGlyphs")] [NativeName(NativeNameType.Type, "GLenum")] uint handleMissingGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL4DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* v);
+	public unsafe delegate void Pfnglpathglyphrangenvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] void* fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "firstGlyph")] [NativeName(NativeNameType.Type, "GLuint")] uint firstGlyph, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "handleMissingGlyphs")] [NativeName(NativeNameType.Type, "GLenum")] uint handleMissingGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBL4DVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBL4DVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint v);
+	public unsafe delegate void Pfnglpathglyphrangenvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] nint fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "firstGlyph")] [NativeName(NativeNameType.Type, "GLuint")] uint firstGlyph, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "handleMissingGlyphs")] [NativeName(NativeNameType.Type, "GLenum")] uint handleMissingGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBLPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBLPOINTEREXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] void* pointer);
+	public unsafe delegate void Pfnglweightpathsnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "GLuint const *")] uint* paths, [NativeName(NativeNameType.Param, "weights")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* weights);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVERTEXATTRIBLPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVERTEXATTRIBLPOINTEREXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "GLint")] int size, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "const void*")] nint pointer);
+	public unsafe delegate void Pfnglweightpathsnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "GLuint const *")] nint paths, [NativeName(NativeNameType.Param, "weights")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint weights);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXATTRIBLDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXATTRIBLDVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] double* @params);
+	public unsafe delegate void Pfnglcopypathnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "srcPath")] [NativeName(NativeNameType.Type, "GLuint")] uint srcPath);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGETVERTEXATTRIBLDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLGETVERTEXATTRIBLDVEXTPROC([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLdouble*")] nint @params);
+	public unsafe delegate void Pfnglcopypathnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "srcPath")] [NativeName(NativeNameType.Type, "GLuint")] uint srcPath);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBEGINVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBEGINVERTEXSHADEREXTPROC();
+	public unsafe delegate void Pfnglinterpolatepathsnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "pathA")] [NativeName(NativeNameType.Type, "GLuint")] uint pathA, [NativeName(NativeNameType.Param, "pathB")] [NativeName(NativeNameType.Type, "GLuint")] uint pathB, [NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLfloat")] float weight);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBEGINVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBEGINVERTEXSHADEREXTPROC();
+	public unsafe delegate void Pfnglinterpolatepathsnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "pathA")] [NativeName(NativeNameType.Type, "GLuint")] uint pathA, [NativeName(NativeNameType.Param, "pathB")] [NativeName(NativeNameType.Type, "GLuint")] uint pathB, [NativeName(NativeNameType.Param, "weight")] [NativeName(NativeNameType.Type, "GLfloat")] float weight);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENDVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENDVERTEXSHADEREXTPROC();
+	public unsafe delegate void Pfngltransformpathnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "srcPath")] [NativeName(NativeNameType.Type, "GLuint")] uint srcPath, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* transformValues);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENDVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENDVERTEXSHADEREXTPROC();
+	public unsafe delegate void Pfngltransformpathnvproc([NativeName(NativeNameType.Param, "resultPath")] [NativeName(NativeNameType.Type, "GLuint")] uint resultPath, [NativeName(NativeNameType.Param, "srcPath")] [NativeName(NativeNameType.Type, "GLuint")] uint srcPath, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint transformValues);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDVERTEXSHADEREXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
+	public unsafe delegate void Pfnglpathparameterivnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint const *")] int* value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLBINDVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLBINDVERTEXSHADEREXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
+	public unsafe delegate void Pfnglpathparameterivnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint const *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENVERTEXSHADERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLGENVERTEXSHADERSEXTPROC([NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLuint")] uint range);
+	public unsafe delegate void Pfnglpathparameterinvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint")] int value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENVERTEXSHADERSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLGENVERTEXSHADERSEXTPROC([NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLuint")] uint range);
+	public unsafe delegate void Pfnglpathparameterinvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint")] int value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETEVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETEVERTEXSHADEREXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
+	public unsafe delegate void Pfnglpathparameterfvnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLDELETEVERTEXSHADEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLDELETEVERTEXSHADEREXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
+	public unsafe delegate void Pfnglpathparameterfvnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSHADEROP1EXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSHADEROP1EXTPROC([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1);
+	public unsafe delegate void Pfnglpathparameterfnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat")] float value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSHADEROP1EXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSHADEROP1EXTPROC([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1);
+	public unsafe delegate void Pfnglpathparameterfnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat")] float value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSHADEROP2EXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSHADEROP2EXTPROC([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2);
+	public unsafe delegate void Pfnglpathdasharraynvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "dashCount")] [NativeName(NativeNameType.Type, "GLsizei")] int dashCount, [NativeName(NativeNameType.Param, "dashArray")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* dashArray);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSHADEROP2EXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSHADEROP2EXTPROC([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2);
+	public unsafe delegate void Pfnglpathdasharraynvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "dashCount")] [NativeName(NativeNameType.Type, "GLsizei")] int dashCount, [NativeName(NativeNameType.Param, "dashArray")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint dashArray);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSHADEROP3EXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSHADEROP3EXTPROC([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2, [NativeName(NativeNameType.Param, "arg3")] [NativeName(NativeNameType.Type, "GLuint")] uint arg3);
+	public unsafe delegate void Pfnglpathstencilfuncnvproc([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func, [NativeName(NativeNameType.Param, "ref")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSHADEROP3EXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSHADEROP3EXTPROC([NativeName(NativeNameType.Param, "op")] [NativeName(NativeNameType.Type, "GLenum")] uint op, [NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "arg1")] [NativeName(NativeNameType.Type, "GLuint")] uint arg1, [NativeName(NativeNameType.Param, "arg2")] [NativeName(NativeNameType.Type, "GLuint")] uint arg2, [NativeName(NativeNameType.Param, "arg3")] [NativeName(NativeNameType.Type, "GLuint")] uint arg3);
+	public unsafe delegate void Pfnglpathstencilfuncnvproc([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func, [NativeName(NativeNameType.Param, "ref")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSWIZZLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSWIZZLEEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
+	public unsafe delegate void Pfnglpathstencildepthoffsetnvproc([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "units")] [NativeName(NativeNameType.Type, "GLfloat")] float units);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSWIZZLEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSWIZZLEEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
+	public unsafe delegate void Pfnglpathstencildepthoffsetnvproc([NativeName(NativeNameType.Param, "factor")] [NativeName(NativeNameType.Type, "GLfloat")] float factor, [NativeName(NativeNameType.Param, "units")] [NativeName(NativeNameType.Type, "GLfloat")] float units);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLWRITEMASKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLWRITEMASKEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
+	public unsafe delegate void Pfnglstencilfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLWRITEMASKEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLWRITEMASKEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "in")] [NativeName(NativeNameType.Type, "GLuint")] uint input, [NativeName(NativeNameType.Param, "outX")] [NativeName(NativeNameType.Type, "GLenum")] uint outX, [NativeName(NativeNameType.Param, "outY")] [NativeName(NativeNameType.Type, "GLenum")] uint outY, [NativeName(NativeNameType.Param, "outZ")] [NativeName(NativeNameType.Type, "GLenum")] uint outZ, [NativeName(NativeNameType.Param, "outW")] [NativeName(NativeNameType.Type, "GLenum")] uint outW);
+	public unsafe delegate void Pfnglstencilfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLINSERTCOMPONENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINSERTCOMPONENTEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
+	public unsafe delegate void Pfnglstencilstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLINSERTCOMPONENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLINSERTCOMPONENTEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
+	public unsafe delegate void Pfnglstencilstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLEXTRACTCOMPONENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLEXTRACTCOMPONENTEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
+	public unsafe delegate void Pfnglstencilfillpathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* transformValues);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLEXTRACTCOMPONENTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLEXTRACTCOMPONENTEXTPROC([NativeName(NativeNameType.Param, "res")] [NativeName(NativeNameType.Type, "GLuint")] uint res, [NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "GLuint")] uint src, [NativeName(NativeNameType.Param, "num")] [NativeName(NativeNameType.Type, "GLuint")] uint num);
+	public unsafe delegate void Pfnglstencilfillpathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint transformValues);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLGENSYMBOLSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLGENSYMBOLSEXTPROC([NativeName(NativeNameType.Param, "datatype")] [NativeName(NativeNameType.Type, "GLenum")] uint datatype, [NativeName(NativeNameType.Param, "storagetype")] [NativeName(NativeNameType.Type, "GLenum")] uint storagetype, [NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLenum")] uint range, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLuint")] uint components);
+	public unsafe delegate void Pfnglstencilstrokepathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* transformValues);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLGENSYMBOLSEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate uint PFNGLGENSYMBOLSEXTPROC([NativeName(NativeNameType.Param, "datatype")] [NativeName(NativeNameType.Type, "GLenum")] uint datatype, [NativeName(NativeNameType.Param, "storagetype")] [NativeName(NativeNameType.Type, "GLenum")] uint storagetype, [NativeName(NativeNameType.Param, "range")] [NativeName(NativeNameType.Type, "GLenum")] uint range, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLuint")] uint components);
+	public unsafe delegate void Pfnglstencilstrokepathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint transformValues);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSETINVARIANTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSETINVARIANTEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const void*")] void* addr);
+	public unsafe delegate void Pfnglpathcoverdepthfuncnvproc([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSETINVARIANTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSETINVARIANTEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const void*")] nint addr);
+	public unsafe delegate void Pfnglpathcoverdepthfuncnvproc([NativeName(NativeNameType.Param, "func")] [NativeName(NativeNameType.Type, "GLenum")] uint func);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLSETLOCALCONSTANTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSETLOCALCONSTANTEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const void*")] void* addr);
+	public unsafe delegate void Pfnglcoverfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLSETLOCALCONSTANTEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLSETLOCALCONSTANTEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const void*")] nint addr);
+	public unsafe delegate void Pfnglcoverfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTBVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLbyte*")] byte* addr);
+	public unsafe delegate void Pfnglcoverstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTBVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLbyte*")] nint addr);
+	public unsafe delegate void Pfnglcoverstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTSVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTSVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLshort*")] short* addr);
+	public unsafe delegate void Pfnglcoverfillpathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* transformValues);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTSVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTSVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLshort*")] nint addr);
+	public unsafe delegate void Pfnglcoverfillpathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint transformValues);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTIVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLint*")] int* addr);
+	public unsafe delegate void Pfnglcoverstrokepathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* transformValues);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTIVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLint*")] nint addr);
+	public unsafe delegate void Pfnglcoverstrokepathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint transformValues);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTFVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLfloat*")] float* addr);
+	public unsafe delegate void Pfnglgetpathparameterivnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint *")] int* value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTFVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTFVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLfloat*")] nint addr);
+	public unsafe delegate void Pfnglgetpathparameterivnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTDVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLdouble*")] double* addr);
+	public unsafe delegate void Pfnglgetpathparameterfvnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat *")] float* value);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTDVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTDVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLdouble*")] nint addr);
+	public unsafe delegate void Pfnglgetpathparameterfvnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat *")] nint value);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTUBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTUBVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLubyte*")] byte* addr);
+	public unsafe delegate void Pfnglgetpathcommandsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "commands")] [NativeName(NativeNameType.Type, "GLubyte *")] byte* commands);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTUBVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTUBVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLubyte*")] nint addr);
+	public unsafe delegate void Pfnglgetpathcommandsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "commands")] [NativeName(NativeNameType.Type, "GLubyte *")] nint commands);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTUSVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTUSVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLushort*")] ushort* addr);
+	public unsafe delegate void Pfnglgetpathcoordsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "GLfloat *")] float* coords);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTUSVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTUSVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLushort*")] nint addr);
+	public unsafe delegate void Pfnglgetpathcoordsnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "coords")] [NativeName(NativeNameType.Type, "GLfloat *")] nint coords);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTUIVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLuint*")] uint* addr);
+	public unsafe delegate void Pfnglgetpathdasharraynvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "dashArray")] [NativeName(NativeNameType.Type, "GLfloat *")] float* dashArray);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTUIVEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTUIVEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const GLuint*")] nint addr);
+	public unsafe delegate void Pfnglgetpathdasharraynvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "dashArray")] [NativeName(NativeNameType.Type, "GLfloat *")] nint dashArray);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTPOINTEREXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLuint")] uint stride, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const void*")] void* addr);
+	public unsafe delegate void Pfnglgetpathmetricsnvproc([NativeName(NativeNameType.Param, "metricQueryMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint metricQueryMask, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "metrics")] [NativeName(NativeNameType.Type, "GLfloat *")] float* metrics);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLVARIANTPOINTEREXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLVARIANTPOINTEREXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLuint")] uint stride, [NativeName(NativeNameType.Param, "addr")] [NativeName(NativeNameType.Type, "const void*")] nint addr);
+	public unsafe delegate void Pfnglgetpathmetricsnvproc([NativeName(NativeNameType.Param, "metricQueryMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint metricQueryMask, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "metrics")] [NativeName(NativeNameType.Type, "GLfloat *")] nint metrics);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEVARIANTCLIENTSTATEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEVARIANTCLIENTSTATEEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
+	public unsafe delegate void Pfnglgetpathmetricrangenvproc([NativeName(NativeNameType.Param, "metricQueryMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint metricQueryMask, [NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "metrics")] [NativeName(NativeNameType.Type, "GLfloat *")] float* metrics);
 
 	#else
-	[NativeName(NativeNameType.Delegate, "PFNGLENABLEVARIANTCLIENTSTATEEXTPROC")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void PFNGLENABLEVARIANTCLIENTSTATEEXTPROC([NativeName(NativeNameType.Param, "id")] [NativeName(NativeNameType.Type, "GLuint")] uint id);
+	public unsafe delegate void Pfnglgetpathmetricrangenvproc([NativeName(NativeNameType.Param, "metricQueryMask")] [NativeName(NativeNameType.Type, "GLbitfield")] uint metricQueryMask, [NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "stride")] [NativeName(NativeNameType.Type, "GLsizei")] int stride, [NativeName(NativeNameType.Param, "metrics")] [NativeName(NativeNameType.Type, "GLfloat *")] nint metrics);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathspacingnvproc([NativeName(NativeNameType.Param, "pathListMode")] [NativeName(NativeNameType.Type, "GLenum")] uint pathListMode, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "advanceScale")] [NativeName(NativeNameType.Type, "GLfloat")] float advanceScale, [NativeName(NativeNameType.Param, "kerningScale")] [NativeName(NativeNameType.Type, "GLfloat")] float kerningScale, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "returnedSpacing")] [NativeName(NativeNameType.Type, "GLfloat *")] float* returnedSpacing);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathspacingnvproc([NativeName(NativeNameType.Param, "pathListMode")] [NativeName(NativeNameType.Type, "GLenum")] uint pathListMode, [NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "advanceScale")] [NativeName(NativeNameType.Type, "GLfloat")] float advanceScale, [NativeName(NativeNameType.Param, "kerningScale")] [NativeName(NativeNameType.Type, "GLfloat")] float kerningScale, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "returnedSpacing")] [NativeName(NativeNameType.Type, "GLfloat *")] nint returnedSpacing);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglispointinfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglispointinfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglispointinstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglispointinstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat")] float x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat")] float y);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate float Pfnglgetpathlengthnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "startSegment")] [NativeName(NativeNameType.Type, "GLsizei")] int startSegment, [NativeName(NativeNameType.Param, "numSegments")] [NativeName(NativeNameType.Type, "GLsizei")] int numSegments);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate float Pfnglgetpathlengthnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "startSegment")] [NativeName(NativeNameType.Type, "GLsizei")] int startSegment, [NativeName(NativeNameType.Param, "numSegments")] [NativeName(NativeNameType.Type, "GLsizei")] int numSegments);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglpointalongpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "startSegment")] [NativeName(NativeNameType.Type, "GLsizei")] int startSegment, [NativeName(NativeNameType.Param, "numSegments")] [NativeName(NativeNameType.Type, "GLsizei")] int numSegments, [NativeName(NativeNameType.Param, "distance")] [NativeName(NativeNameType.Type, "GLfloat")] float distance, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat *")] float* x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat *")] float* y, [NativeName(NativeNameType.Param, "tangentX")] [NativeName(NativeNameType.Type, "GLfloat *")] float* tangentX, [NativeName(NativeNameType.Param, "tangentY")] [NativeName(NativeNameType.Type, "GLfloat *")] float* tangentY);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglpointalongpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "startSegment")] [NativeName(NativeNameType.Type, "GLsizei")] int startSegment, [NativeName(NativeNameType.Param, "numSegments")] [NativeName(NativeNameType.Type, "GLsizei")] int numSegments, [NativeName(NativeNameType.Param, "distance")] [NativeName(NativeNameType.Type, "GLfloat")] float distance, [NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLfloat *")] nint x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLfloat *")] nint y, [NativeName(NativeNameType.Param, "tangentX")] [NativeName(NativeNameType.Type, "GLfloat *")] nint tangentX, [NativeName(NativeNameType.Param, "tangentY")] [NativeName(NativeNameType.Type, "GLfloat *")] nint tangentY);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixload3X2Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* m);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixload3X2Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint m);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixload3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* m);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixload3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint m);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixloadtranspose3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* m);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixloadtranspose3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint m);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixmult3X2Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* m);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixmult3X2Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint m);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixmult3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* m);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixmult3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint m);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixmulttranspose3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* m);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmatrixmulttranspose3X3Fnvproc([NativeName(NativeNameType.Param, "matrixMode")] [NativeName(NativeNameType.Type, "GLenum")] uint matrixMode, [NativeName(NativeNameType.Param, "m")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint m);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverfillpathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverstrokepathnvproc([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "GLuint")] uint path, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverfillpathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* transformValues);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverfillpathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "fillMode")] [NativeName(NativeNameType.Type, "GLenum")] uint fillMode, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint transformValues);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverstrokepathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] void* paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* transformValues);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglstencilthencoverstrokepathinstancednvproc([NativeName(NativeNameType.Param, "numPaths")] [NativeName(NativeNameType.Type, "GLsizei")] int numPaths, [NativeName(NativeNameType.Param, "pathNameType")] [NativeName(NativeNameType.Type, "GLenum")] uint pathNameType, [NativeName(NativeNameType.Param, "paths")] [NativeName(NativeNameType.Type, "void const *")] nint paths, [NativeName(NativeNameType.Param, "pathBase")] [NativeName(NativeNameType.Type, "GLuint")] uint pathBase, [NativeName(NativeNameType.Param, "reference")] [NativeName(NativeNameType.Type, "GLint")] int reference, [NativeName(NativeNameType.Param, "mask")] [NativeName(NativeNameType.Type, "GLuint")] uint mask, [NativeName(NativeNameType.Param, "coverMode")] [NativeName(NativeNameType.Type, "GLenum")] uint coverMode, [NativeName(NativeNameType.Param, "transformType")] [NativeName(NativeNameType.Type, "GLenum")] uint transformType, [NativeName(NativeNameType.Param, "transformValues")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint transformValues);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate uint Pfnglpathglyphindexrangenvproc([NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] void* fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale, [NativeName(NativeNameType.Param, "baseAndCount")] [NativeName(NativeNameType.Type, "GLuint *")] uint* baseAndCount);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate uint Pfnglpathglyphindexrangenvproc([NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] nint fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale, [NativeName(NativeNameType.Param, "baseAndCount")] [NativeName(NativeNameType.Type, "GLuint *")] nint baseAndCount);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate uint Pfnglpathglyphindexarraynvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] void* fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "firstGlyphIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint firstGlyphIndex, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate uint Pfnglpathglyphindexarraynvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontName")] [NativeName(NativeNameType.Type, "void const *")] nint fontName, [NativeName(NativeNameType.Param, "fontStyle")] [NativeName(NativeNameType.Type, "GLbitfield")] uint fontStyle, [NativeName(NativeNameType.Param, "firstGlyphIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint firstGlyphIndex, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate uint Pfnglpathmemoryglyphindexarraynvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontSize")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint fontSize, [NativeName(NativeNameType.Param, "fontData")] [NativeName(NativeNameType.Type, "void const *")] void* fontData, [NativeName(NativeNameType.Param, "faceIndex")] [NativeName(NativeNameType.Type, "GLsizei")] int faceIndex, [NativeName(NativeNameType.Param, "firstGlyphIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint firstGlyphIndex, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate uint Pfnglpathmemoryglyphindexarraynvproc([NativeName(NativeNameType.Param, "firstPathName")] [NativeName(NativeNameType.Type, "GLuint")] uint firstPathName, [NativeName(NativeNameType.Param, "fontTarget")] [NativeName(NativeNameType.Type, "GLenum")] uint fontTarget, [NativeName(NativeNameType.Param, "fontSize")] [NativeName(NativeNameType.Type, "GLsizeiptr")] nint fontSize, [NativeName(NativeNameType.Param, "fontData")] [NativeName(NativeNameType.Type, "void const *")] nint fontData, [NativeName(NativeNameType.Param, "faceIndex")] [NativeName(NativeNameType.Type, "GLsizei")] int faceIndex, [NativeName(NativeNameType.Param, "firstGlyphIndex")] [NativeName(NativeNameType.Type, "GLuint")] uint firstGlyphIndex, [NativeName(NativeNameType.Param, "numGlyphs")] [NativeName(NativeNameType.Type, "GLsizei")] int numGlyphs, [NativeName(NativeNameType.Param, "pathParameterTemplate")] [NativeName(NativeNameType.Type, "GLuint")] uint pathParameterTemplate, [NativeName(NativeNameType.Param, "emScale")] [NativeName(NativeNameType.Type, "GLfloat")] float emScale);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprogrampathfragmentinputgennvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLint")] int components, [NativeName(NativeNameType.Param, "coeffs")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* coeffs);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprogrampathfragmentinputgennvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLint")] int components, [NativeName(NativeNameType.Param, "coeffs")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint coeffs);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetprogramresourcefvnvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "programInterface")] [NativeName(NativeNameType.Type, "GLenum")] uint programInterface, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "propCount")] [NativeName(NativeNameType.Type, "GLsizei")] int propCount, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "GLenum const *")] uint* props, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei *")] int* length, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetprogramresourcefvnvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "programInterface")] [NativeName(NativeNameType.Type, "GLenum")] uint programInterface, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "propCount")] [NativeName(NativeNameType.Type, "GLsizei")] int propCount, [NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "GLenum const *")] nint props, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei *")] nint length, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpathcolorgennvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLenum")] uint color, [NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode, [NativeName(NativeNameType.Param, "colorFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint colorFormat, [NativeName(NativeNameType.Param, "coeffs")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* coeffs);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpathcolorgennvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLenum")] uint color, [NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode, [NativeName(NativeNameType.Param, "colorFormat")] [NativeName(NativeNameType.Type, "GLenum")] uint colorFormat, [NativeName(NativeNameType.Param, "coeffs")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint coeffs);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpathtexgennvproc([NativeName(NativeNameType.Param, "texCoordSet")] [NativeName(NativeNameType.Type, "GLenum")] uint texCoordSet, [NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLint")] int components, [NativeName(NativeNameType.Param, "coeffs")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* coeffs);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpathtexgennvproc([NativeName(NativeNameType.Param, "texCoordSet")] [NativeName(NativeNameType.Type, "GLenum")] uint texCoordSet, [NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode, [NativeName(NativeNameType.Param, "components")] [NativeName(NativeNameType.Type, "GLint")] int components, [NativeName(NativeNameType.Param, "coeffs")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint coeffs);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpathfoggennvproc([NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpathfoggennvproc([NativeName(NativeNameType.Param, "genMode")] [NativeName(NativeNameType.Type, "GLenum")] uint genMode);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathcolorgenivnvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLenum")] uint color, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint *")] int* value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathcolorgenivnvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLenum")] uint color, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint *")] nint value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathcolorgenfvnvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLenum")] uint color, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat *")] float* value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathcolorgenfvnvproc([NativeName(NativeNameType.Param, "color")] [NativeName(NativeNameType.Type, "GLenum")] uint color, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat *")] nint value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathtexgenivnvproc([NativeName(NativeNameType.Param, "texCoordSet")] [NativeName(NativeNameType.Type, "GLenum")] uint texCoordSet, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint *")] int* value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathtexgenivnvproc([NativeName(NativeNameType.Param, "texCoordSet")] [NativeName(NativeNameType.Type, "GLenum")] uint texCoordSet, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLint *")] nint value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathtexgenfvnvproc([NativeName(NativeNameType.Param, "texCoordSet")] [NativeName(NativeNameType.Type, "GLenum")] uint texCoordSet, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat *")] float* value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetpathtexgenfvnvproc([NativeName(NativeNameType.Param, "texCoordSet")] [NativeName(NativeNameType.Type, "GLenum")] uint texCoordSet, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLfloat *")] nint value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpixeldatarangenvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei")] int length, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] void* pointer);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpixeldatarangenvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "GLsizei")] int length, [NativeName(NativeNameType.Param, "pointer")] [NativeName(NativeNameType.Type, "void const *")] nint pointer);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglflushpixeldatarangenvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglflushpixeldatarangenvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpointparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpointparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpointparameterivnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpointparameterivnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpresentframekeyednvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "minPresentTime")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong minPresentTime, [NativeName(NativeNameType.Param, "beginPresentTimeId")] [NativeName(NativeNameType.Type, "GLuint")] uint beginPresentTimeId, [NativeName(NativeNameType.Param, "presentDurationId")] [NativeName(NativeNameType.Type, "GLuint")] uint presentDurationId, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "target0")] [NativeName(NativeNameType.Type, "GLenum")] uint target0, [NativeName(NativeNameType.Param, "fill0")] [NativeName(NativeNameType.Type, "GLuint")] uint fill0, [NativeName(NativeNameType.Param, "key0")] [NativeName(NativeNameType.Type, "GLuint")] uint key0, [NativeName(NativeNameType.Param, "target1")] [NativeName(NativeNameType.Type, "GLenum")] uint target1, [NativeName(NativeNameType.Param, "fill1")] [NativeName(NativeNameType.Type, "GLuint")] uint fill1, [NativeName(NativeNameType.Param, "key1")] [NativeName(NativeNameType.Type, "GLuint")] uint key1);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpresentframekeyednvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "minPresentTime")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong minPresentTime, [NativeName(NativeNameType.Param, "beginPresentTimeId")] [NativeName(NativeNameType.Type, "GLuint")] uint beginPresentTimeId, [NativeName(NativeNameType.Param, "presentDurationId")] [NativeName(NativeNameType.Type, "GLuint")] uint presentDurationId, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "target0")] [NativeName(NativeNameType.Type, "GLenum")] uint target0, [NativeName(NativeNameType.Param, "fill0")] [NativeName(NativeNameType.Type, "GLuint")] uint fill0, [NativeName(NativeNameType.Param, "key0")] [NativeName(NativeNameType.Type, "GLuint")] uint key0, [NativeName(NativeNameType.Param, "target1")] [NativeName(NativeNameType.Type, "GLenum")] uint target1, [NativeName(NativeNameType.Param, "fill1")] [NativeName(NativeNameType.Type, "GLuint")] uint fill1, [NativeName(NativeNameType.Param, "key1")] [NativeName(NativeNameType.Type, "GLuint")] uint key1);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpresentframedualfillnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "minPresentTime")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong minPresentTime, [NativeName(NativeNameType.Param, "beginPresentTimeId")] [NativeName(NativeNameType.Type, "GLuint")] uint beginPresentTimeId, [NativeName(NativeNameType.Param, "presentDurationId")] [NativeName(NativeNameType.Type, "GLuint")] uint presentDurationId, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "target0")] [NativeName(NativeNameType.Type, "GLenum")] uint target0, [NativeName(NativeNameType.Param, "fill0")] [NativeName(NativeNameType.Type, "GLuint")] uint fill0, [NativeName(NativeNameType.Param, "target1")] [NativeName(NativeNameType.Type, "GLenum")] uint target1, [NativeName(NativeNameType.Param, "fill1")] [NativeName(NativeNameType.Type, "GLuint")] uint fill1, [NativeName(NativeNameType.Param, "target2")] [NativeName(NativeNameType.Type, "GLenum")] uint target2, [NativeName(NativeNameType.Param, "fill2")] [NativeName(NativeNameType.Type, "GLuint")] uint fill2, [NativeName(NativeNameType.Param, "target3")] [NativeName(NativeNameType.Type, "GLenum")] uint target3, [NativeName(NativeNameType.Param, "fill3")] [NativeName(NativeNameType.Type, "GLuint")] uint fill3);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglpresentframedualfillnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "minPresentTime")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong minPresentTime, [NativeName(NativeNameType.Param, "beginPresentTimeId")] [NativeName(NativeNameType.Type, "GLuint")] uint beginPresentTimeId, [NativeName(NativeNameType.Param, "presentDurationId")] [NativeName(NativeNameType.Type, "GLuint")] uint presentDurationId, [NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "GLenum")] uint type, [NativeName(NativeNameType.Param, "target0")] [NativeName(NativeNameType.Type, "GLenum")] uint target0, [NativeName(NativeNameType.Param, "fill0")] [NativeName(NativeNameType.Type, "GLuint")] uint fill0, [NativeName(NativeNameType.Param, "target1")] [NativeName(NativeNameType.Type, "GLenum")] uint target1, [NativeName(NativeNameType.Param, "fill1")] [NativeName(NativeNameType.Type, "GLuint")] uint fill1, [NativeName(NativeNameType.Param, "target2")] [NativeName(NativeNameType.Type, "GLenum")] uint target2, [NativeName(NativeNameType.Param, "fill2")] [NativeName(NativeNameType.Type, "GLuint")] uint fill2, [NativeName(NativeNameType.Param, "target3")] [NativeName(NativeNameType.Type, "GLenum")] uint target3, [NativeName(NativeNameType.Param, "fill3")] [NativeName(NativeNameType.Type, "GLuint")] uint fill3);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideoivnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideoivnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideouivnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] uint* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideouivnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideoi64Vnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64EXT *")] long* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideoi64Vnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint64EXT *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideoui64Vnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] ulong* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetvideoui64Vnvproc([NativeName(NativeNameType.Param, "video_slot")] [NativeName(NativeNameType.Type, "GLuint")] uint videoSlot, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprimitiverestartnvproc();
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprimitiverestartnvproc();
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprimitiverestartindexnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprimitiverestartindexnvproc([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int Pfnglqueryresourcenvproc([NativeName(NativeNameType.Param, "queryType")] [NativeName(NativeNameType.Type, "GLenum")] uint queryType, [NativeName(NativeNameType.Param, "tagId")] [NativeName(NativeNameType.Type, "GLint")] int tagId, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLint *")] int* buffer);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int Pfnglqueryresourcenvproc([NativeName(NativeNameType.Param, "queryType")] [NativeName(NativeNameType.Type, "GLenum")] uint queryType, [NativeName(NativeNameType.Param, "tagId")] [NativeName(NativeNameType.Type, "GLint")] int tagId, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLuint")] uint count, [NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLint *")] nint buffer);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgenqueryresourcetagnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "tagIds")] [NativeName(NativeNameType.Type, "GLint *")] int* tagIds);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgenqueryresourcetagnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "tagIds")] [NativeName(NativeNameType.Type, "GLint *")] nint tagIds);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfngldeletequeryresourcetagnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "tagIds")] [NativeName(NativeNameType.Type, "GLint const *")] int* tagIds);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfngldeletequeryresourcetagnvproc([NativeName(NativeNameType.Param, "n")] [NativeName(NativeNameType.Type, "GLsizei")] int n, [NativeName(NativeNameType.Param, "tagIds")] [NativeName(NativeNameType.Type, "GLint const *")] nint tagIds);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglqueryresourcetagnvproc([NativeName(NativeNameType.Param, "tagId")] [NativeName(NativeNameType.Type, "GLint")] int tagId, [NativeName(NativeNameType.Param, "tagString")] [NativeName(NativeNameType.Type, "GLchar const *")] byte* tagString);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglqueryresourcetagnvproc([NativeName(NativeNameType.Param, "tagId")] [NativeName(NativeNameType.Type, "GLint")] int tagId, [NativeName(NativeNameType.Param, "tagString")] [NativeName(NativeNameType.Type, "GLchar const *")] nint tagString);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterfvnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterfvnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterfnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterfnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLfloat")] float param);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterivnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] int* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterivnvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint const *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerparameterinvproc([NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "param")] [NativeName(NativeNameType.Type, "GLint")] int param);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerinputnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "input")] [NativeName(NativeNameType.Type, "GLenum")] uint input, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "GLenum")] uint mapping, [NativeName(NativeNameType.Param, "componentUsage")] [NativeName(NativeNameType.Type, "GLenum")] uint componentUsage);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerinputnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "input")] [NativeName(NativeNameType.Type, "GLenum")] uint input, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "GLenum")] uint mapping, [NativeName(NativeNameType.Param, "componentUsage")] [NativeName(NativeNameType.Type, "GLenum")] uint componentUsage);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombineroutputnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "abOutput")] [NativeName(NativeNameType.Type, "GLenum")] uint abOutput, [NativeName(NativeNameType.Param, "cdOutput")] [NativeName(NativeNameType.Type, "GLenum")] uint cdOutput, [NativeName(NativeNameType.Param, "sumOutput")] [NativeName(NativeNameType.Type, "GLenum")] uint sumOutput, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "GLenum")] uint scale, [NativeName(NativeNameType.Param, "bias")] [NativeName(NativeNameType.Type, "GLenum")] uint bias, [NativeName(NativeNameType.Param, "abDotProduct")] [NativeName(NativeNameType.Type, "GLboolean")] byte abDotProduct, [NativeName(NativeNameType.Param, "cdDotProduct")] [NativeName(NativeNameType.Type, "GLboolean")] byte cdDotProduct, [NativeName(NativeNameType.Param, "muxSum")] [NativeName(NativeNameType.Type, "GLboolean")] byte muxSum);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombineroutputnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "abOutput")] [NativeName(NativeNameType.Type, "GLenum")] uint abOutput, [NativeName(NativeNameType.Param, "cdOutput")] [NativeName(NativeNameType.Type, "GLenum")] uint cdOutput, [NativeName(NativeNameType.Param, "sumOutput")] [NativeName(NativeNameType.Type, "GLenum")] uint sumOutput, [NativeName(NativeNameType.Param, "scale")] [NativeName(NativeNameType.Type, "GLenum")] uint scale, [NativeName(NativeNameType.Param, "bias")] [NativeName(NativeNameType.Type, "GLenum")] uint bias, [NativeName(NativeNameType.Param, "abDotProduct")] [NativeName(NativeNameType.Type, "GLboolean")] byte abDotProduct, [NativeName(NativeNameType.Param, "cdDotProduct")] [NativeName(NativeNameType.Type, "GLboolean")] byte cdDotProduct, [NativeName(NativeNameType.Param, "muxSum")] [NativeName(NativeNameType.Type, "GLboolean")] byte muxSum);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglfinalcombinerinputnvproc([NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "input")] [NativeName(NativeNameType.Type, "GLenum")] uint input, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "GLenum")] uint mapping, [NativeName(NativeNameType.Param, "componentUsage")] [NativeName(NativeNameType.Type, "GLenum")] uint componentUsage);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglfinalcombinerinputnvproc([NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "input")] [NativeName(NativeNameType.Type, "GLenum")] uint input, [NativeName(NativeNameType.Param, "mapping")] [NativeName(NativeNameType.Type, "GLenum")] uint mapping, [NativeName(NativeNameType.Param, "componentUsage")] [NativeName(NativeNameType.Type, "GLenum")] uint componentUsage);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombinerinputparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombinerinputparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombinerinputparameterivnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombinerinputparameterivnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombineroutputparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombineroutputparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombineroutputparameterivnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombineroutputparameterivnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "portion")] [NativeName(NativeNameType.Type, "GLenum")] uint portion, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetfinalcombinerinputparameterfvnvproc([NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetfinalcombinerinputparameterfvnvproc([NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetfinalcombinerinputparameterivnvproc([NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] int* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetfinalcombinerinputparameterivnvproc([NativeName(NativeNameType.Param, "variable")] [NativeName(NativeNameType.Type, "GLenum")] uint variable, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLint *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerstageparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglcombinerstageparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombinerstageparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] float* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetcombinerstageparameterfvnvproc([NativeName(NativeNameType.Param, "stage")] [NativeName(NativeNameType.Type, "GLenum")] uint stage, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLfloat *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglframebuffersamplelocationsfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglframebuffersamplelocationsfvnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglnamedframebuffersamplelocationsfvnvproc([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] float* v);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglnamedframebuffersamplelocationsfvnvproc([NativeName(NativeNameType.Param, "framebuffer")] [NativeName(NativeNameType.Type, "GLuint")] uint framebuffer, [NativeName(NativeNameType.Param, "start")] [NativeName(NativeNameType.Type, "GLuint")] uint start, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLfloat const *")] nint v);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglresolvedepthvaluesnvproc();
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglresolvedepthvaluesnvproc();
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglscissorexclusivenvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglscissorexclusivenvproc([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "GLint")] int x, [NativeName(NativeNameType.Param, "y")] [NativeName(NativeNameType.Type, "GLint")] int y, [NativeName(NativeNameType.Param, "width")] [NativeName(NativeNameType.Type, "GLsizei")] int width, [NativeName(NativeNameType.Param, "height")] [NativeName(NativeNameType.Type, "GLsizei")] int height);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglscissorexclusivearrayvnvproc([NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] int* v);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglscissorexclusivearrayvnvproc([NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "GLint const *")] nint v);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakebufferresidentnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakebufferresidentnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakebuffernonresidentnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakebuffernonresidentnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglisbufferresidentnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglisbufferresidentnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakenamedbufferresidentnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakenamedbufferresidentnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "access")] [NativeName(NativeNameType.Type, "GLenum")] uint access);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakenamedbuffernonresidentnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglmakenamedbuffernonresidentnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglisnamedbufferresidentnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Pfnglisnamedbufferresidentnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetbufferparameterui64Vnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] ulong* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetbufferparameterui64Vnvproc([NativeName(NativeNameType.Param, "target")] [NativeName(NativeNameType.Type, "GLenum")] uint target, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetnamedbufferparameterui64Vnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] ulong* @params);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetnamedbufferparameterui64Vnvproc([NativeName(NativeNameType.Param, "buffer")] [NativeName(NativeNameType.Type, "GLuint")] uint buffer, [NativeName(NativeNameType.Param, "pname")] [NativeName(NativeNameType.Type, "GLenum")] uint pname, [NativeName(NativeNameType.Param, "params")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] nint @params);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetintegerui64Vnvproc([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] ulong* result);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetintegerui64Vnvproc([NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLenum")] uint value, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "GLuint64EXT *")] nint result);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfngluniformui64Nvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfngluniformui64Nvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfngluniformui64Vnvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT const *")] ulong* value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfngluniformui64Vnvproc([NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT const *")] nint value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprogramuniformui64Nvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprogramuniformui64Nvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT")] ulong value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprogramuniformui64Vnvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT const *")] ulong* value);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglprogramuniformui64Vnvproc([NativeName(NativeNameType.Param, "program")] [NativeName(NativeNameType.Type, "GLuint")] uint program, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint")] int location, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "GLuint64EXT const *")] nint value);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglbindshadingrateimagenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglbindshadingrateimagenvproc([NativeName(NativeNameType.Param, "texture")] [NativeName(NativeNameType.Type, "GLuint")] uint texture);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetshadingrateimagepalettenvproc([NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "GLuint")] uint viewport, [NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "GLuint")] uint entry, [NativeName(NativeNameType.Param, "rate")] [NativeName(NativeNameType.Type, "GLenum *")] uint* rate);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetshadingrateimagepalettenvproc([NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "GLuint")] uint viewport, [NativeName(NativeNameType.Param, "entry")] [NativeName(NativeNameType.Type, "GLuint")] uint entry, [NativeName(NativeNameType.Param, "rate")] [NativeName(NativeNameType.Type, "GLenum *")] nint rate);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetshadingratesamplelocationivnvproc([NativeName(NativeNameType.Param, "rate")] [NativeName(NativeNameType.Type, "GLenum")] uint rate, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLuint")] uint samples, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint *")] int* location);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglgetshadingratesamplelocationivnvproc([NativeName(NativeNameType.Param, "rate")] [NativeName(NativeNameType.Type, "GLenum")] uint rate, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLuint")] uint samples, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "GLuint")] uint index, [NativeName(NativeNameType.Param, "location")] [NativeName(NativeNameType.Type, "GLint *")] nint location);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingrateimagebarriernvproc([NativeName(NativeNameType.Param, "synchronize")] [NativeName(NativeNameType.Type, "GLboolean")] byte synchronize);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingrateimagebarriernvproc([NativeName(NativeNameType.Param, "synchronize")] [NativeName(NativeNameType.Type, "GLboolean")] byte synchronize);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingrateimagepalettenvproc([NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "GLuint")] uint viewport, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "rates")] [NativeName(NativeNameType.Type, "GLenum const *")] uint* rates);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingrateimagepalettenvproc([NativeName(NativeNameType.Param, "viewport")] [NativeName(NativeNameType.Type, "GLuint")] uint viewport, [NativeName(NativeNameType.Param, "first")] [NativeName(NativeNameType.Type, "GLuint")] uint first, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "GLsizei")] int count, [NativeName(NativeNameType.Param, "rates")] [NativeName(NativeNameType.Type, "GLenum const *")] nint rates);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingratesampleordernvproc([NativeName(NativeNameType.Param, "order")] [NativeName(NativeNameType.Type, "GLenum")] uint order);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingratesampleordernvproc([NativeName(NativeNameType.Param, "order")] [NativeName(NativeNameType.Type, "GLenum")] uint order);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingratesampleordercustomnvproc([NativeName(NativeNameType.Param, "rate")] [NativeName(NativeNameType.Type, "GLenum")] uint rate, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLuint")] uint samples, [NativeName(NativeNameType.Param, "locations")] [NativeName(NativeNameType.Type, "GLint const *")] int* locations);
+
+	#else
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Pfnglshadingratesampleordercustomnvproc([NativeName(NativeNameType.Param, "rate")] [NativeName(NativeNameType.Type, "GLenum")] uint rate, [NativeName(NativeNameType.Param, "samples")] [NativeName(NativeNameType.Type, "GLuint")] uint samples, [NativeName(NativeNameType.Param, "locations")] [NativeName(NativeNameType.Type, "GLint const *")] nint locations);
 
 	#endif
 

@@ -15,29 +15,22 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The scaling mode for a texture.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "SDL_ScaleMode")]
 	[Flags]
 	public enum SDLScaleMode : int
 	{
 		/// <summary>
 		/// nearest pixel sampling <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ScaleModeNearest")]
-		[NativeName(NativeNameType.Value, "0")]
 		Nearest = unchecked(0),
 
 		/// <summary>
 		/// linear filtering <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ScaleModeLinear")]
-		[NativeName(NativeNameType.Value, "1")]
 		Linear = unchecked(1),
 
 		/// <summary>
 		/// anisotropic filtering <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_ScaleModeBest")]
-		[NativeName(NativeNameType.Value, "2")]
 		Best = unchecked(2),
 	}
 }

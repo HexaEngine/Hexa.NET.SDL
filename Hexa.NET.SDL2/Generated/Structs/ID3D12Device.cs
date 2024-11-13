@@ -15,7 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL2
 {
-	[NativeName(NativeNameType.StructOrClass, "ID3D12Device")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct ID3D12Device
 	{

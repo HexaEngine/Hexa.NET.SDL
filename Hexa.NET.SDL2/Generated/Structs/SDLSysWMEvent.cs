@@ -19,29 +19,22 @@ namespace Hexa.NET.SDL2
 	/// <br/>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_SysWMEvent")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSysWMEvent
 	{
 		/// <summary>
 		/// ::SDL_SYSWMEVENT <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "type")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Type;
 
 		/// <summary>
 		/// In milliseconds, populated using SDL_GetTicks() <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "timestamp")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Timestamp;
 
 		/// <summary>
 		/// driver dependent data, defined in SDL_syswm.h <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "msg")]
-		[NativeName(NativeNameType.Type, "SDL_SysWMmsg*")]
 		public unsafe SDLSysWMMsg* Msg;
 
 

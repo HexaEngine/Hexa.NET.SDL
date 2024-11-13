@@ -15,36 +15,27 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.Enum, "WindowShapeMode")]
 	[Flags]
 	public enum WindowShapeMode : int
 	{
 		/// <summary>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "ShapeModeDefault")]
-		[NativeName(NativeNameType.Value, "0")]
 		Default = unchecked(0),
 
 		/// <summary>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "ShapeModeBinarizeAlpha")]
-		[NativeName(NativeNameType.Value, "1")]
 		BinarizeAlpha = unchecked(1),
 
 		/// <summary>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "ShapeModeReverseBinarizeAlpha")]
-		[NativeName(NativeNameType.Value, "2")]
 		ReverseBinarizeAlpha = unchecked(2),
 
 		/// <summary>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "ShapeModeColorKey")]
-		[NativeName(NativeNameType.Value, "3")]
 		ColorKey = unchecked(3),
 	}
 }

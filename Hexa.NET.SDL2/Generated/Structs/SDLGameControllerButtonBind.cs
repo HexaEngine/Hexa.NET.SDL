@@ -18,23 +18,16 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Get the SDL joystick layer binding for this controller button/axis mapping<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_GameControllerButtonBind")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLGameControllerButtonBind
 	{
-		[NativeName(NativeNameType.StructOrClass, "SDL_GameControllerButtonBind::")]
 		[StructLayout(LayoutKind.Explicit)]
 		public partial struct ValueUnion
 		{
-			[NativeName(NativeNameType.StructOrClass, "SDL_GameControllerButtonBind::::")]
 			[StructLayout(LayoutKind.Sequential)]
 			public partial struct HatUnion
 			{
-				[NativeName(NativeNameType.Field, "hat")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int Hat;
-				[NativeName(NativeNameType.Field, "hat_mask")]
-				[NativeName(NativeNameType.Type, "int")]
 				public int HatMask;
 
 				public unsafe HatUnion(int hat = default, int hatMask = default)
@@ -46,16 +39,10 @@ namespace Hexa.NET.SDL2
 
 			}
 
-			[NativeName(NativeNameType.Field, "button")]
-			[NativeName(NativeNameType.Type, "int")]
 			[FieldOffset(0)]
 			public int Button;
-			[NativeName(NativeNameType.Field, "axis")]
-			[NativeName(NativeNameType.Type, "int")]
 			[FieldOffset(0)]
 			public int Axis;
-			[NativeName(NativeNameType.Field, "hat")]
-			[NativeName(NativeNameType.Type, "")]
 			[FieldOffset(0)]
 			public HatUnion Hat;
 
@@ -69,11 +56,7 @@ namespace Hexa.NET.SDL2
 
 		}
 
-		[NativeName(NativeNameType.Field, "bindType")]
-		[NativeName(NativeNameType.Type, "SDL_GameControllerBindType")]
 		public SDLGameControllerBindType BindType;
-		[NativeName(NativeNameType.Field, "value")]
-		[NativeName(NativeNameType.Type, "")]
 		public ValueUnion Union;
 
 		public unsafe SDLGameControllerButtonBind(SDLGameControllerBindType bindType = default, ValueUnion union = default)

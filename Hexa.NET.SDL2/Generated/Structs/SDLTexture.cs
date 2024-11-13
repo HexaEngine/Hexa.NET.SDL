@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// An efficient driver-specific representation of pixel data<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Texture")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTexture
 	{

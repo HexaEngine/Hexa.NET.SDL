@@ -18,7 +18,6 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// The SDL thread structure, defined in SDL_thread.c <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_Thread")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLThread
 	{

@@ -18,29 +18,22 @@ namespace Hexa.NET.SDL2
 	/// <summary>
 	/// Individual button data.<br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_MessageBoxButtonData")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLMessageBoxButtonData
 	{
 		/// <summary>
 		/// ::SDL_MessageBoxButtonFlags <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "flags")]
-		[NativeName(NativeNameType.Type, "Uint32")]
 		public uint Flags;
 
 		/// <summary>
 		/// User defined button id (value returned via SDL_ShowMessageBox) <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "buttonid")]
-		[NativeName(NativeNameType.Type, "int")]
 		public int Buttonid;
 
 		/// <summary>
 		/// The UTF-8 button text <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "text")]
-		[NativeName(NativeNameType.Type, "const char*")]
 		public unsafe byte* Text;
 
 
