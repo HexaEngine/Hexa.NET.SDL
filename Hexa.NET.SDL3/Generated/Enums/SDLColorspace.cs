@@ -96,5 +96,19 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_BT2020_FULL")]
 		[NativeName(NativeNameType.Value, "0x22102609u")]
 		Bt2020Full = unchecked((int)0x22102609u),
+
+		/// <summary>
+		/// The default colorspace for RGB surfaces if no colorspace is specified <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_RGB_DEFAULT")]
+		[NativeName(NativeNameType.Value, "SDL_COLORSPACE_SRGB")]
+		RgbDefault = Srgb,
+
+		/// <summary>
+		/// The default colorspace for YUV surfaces if no colorspace is specified <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_COLORSPACE_YUV_DEFAULT")]
+		[NativeName(NativeNameType.Value, "SDL_COLORSPACE_JPEG")]
+		YuvDefault = Jpeg,
 	}
 }

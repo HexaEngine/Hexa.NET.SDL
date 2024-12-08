@@ -16,11 +16,15 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Internal surface data <br/>
+	/// An opaque handle representing a render pass.<br/>
+	/// This handle is transient and should not be held or referenced after<br/>
+	/// SDL_EndGPURenderPass is called.<br/>
+	/// <br/>
+	/// <br/>
 	/// </summary>
-	[NativeName(NativeNameType.StructOrClass, "SDL_SurfaceData")]
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPURenderPass")]
 	[StructLayout(LayoutKind.Sequential)]
-	public partial struct SDLSurfaceData
+	public partial struct SDLGPURenderPass
 	{
 
 

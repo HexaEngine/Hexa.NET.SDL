@@ -16,9 +16,9 @@ namespace Hexa.NET.SDL3
 	/// The SDL thread priority.<br/>
 	/// SDL will make system changes as necessary in order to apply the thread<br/>
 	/// priority. Code which attempts to control thread state related to priority<br/>
-	/// should be aware that calling SDL_SetThreadPriority may alter such state.<br/>
-	/// SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of this<br/>
-	/// behavior.<br/>
+	/// should be aware that calling SDL_SetCurrentThreadPriority may alter such<br/>
+	/// state. SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of<br/>
+	/// this behavior.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_ThreadPriority")]

@@ -15,6 +15,11 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
+	/// <summary>
+	/// The structure used to identify an SDL cursor.<br/>
+	/// This is opaque data.<br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Cursor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLCursor

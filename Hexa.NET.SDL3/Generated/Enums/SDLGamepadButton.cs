@@ -175,8 +175,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "25")]
 		Misc6 = unchecked(25),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_MAX")]
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_BUTTON_COUNT")]
 		[NativeName(NativeNameType.Value, "26")]
-		Max = unchecked(26),
+		Count = unchecked(26),
 	}
 }

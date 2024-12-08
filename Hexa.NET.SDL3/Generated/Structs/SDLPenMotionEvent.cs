@@ -69,14 +69,14 @@ namespace Hexa.NET.SDL3
 		public SDLPenInputFlags PenState;
 
 		/// <summary>
-		/// X position of pen on tablet <br/>
+		/// X coordinate, relative to window <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "x")]
 		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
-		/// Y position of pen on tablet <br/>
+		/// Y coordinate, relative to window <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "y")]
 		[NativeName(NativeNameType.Type, "float")]

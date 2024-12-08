@@ -64,14 +64,14 @@ namespace Hexa.NET.SDL3
 		public SDLPenInputFlags PenState;
 
 		/// <summary>
-		/// X position of pen on tablet <br/>
+		/// X coordinate, relative to window <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "x")]
 		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
-		/// Y position of pen on tablet <br/>
+		/// Y coordinate, relative to window <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "y")]
 		[NativeName(NativeNameType.Type, "float")]
@@ -85,14 +85,14 @@ namespace Hexa.NET.SDL3
 		public byte Button;
 
 		/// <summary>
-		/// SDL_PRESSED or SDL_RELEASED <br/>
+		/// true if the button is pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "Uint8")]
-		public byte State;
+		[NativeName(NativeNameType.Field, "down")]
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte Down;
 
 
-		public unsafe SDLPenButtonEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, SDLPenInputFlags penState = default, float x = default, float y = default, byte button = default, byte state = default)
+		public unsafe SDLPenButtonEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, SDLPenInputFlags penState = default, float x = default, float y = default, byte button = default, bool down = default)
 		{
 			Type = type;
 			Reserved = reserved;
@@ -103,7 +103,7 @@ namespace Hexa.NET.SDL3
 			X = x;
 			Y = y;
 			Button = button;
-			State = state;
+			Down = down ? (byte)1 : (byte)0;
 		}
 
 

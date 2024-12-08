@@ -13,7 +13,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Packed component order, high bit -> low bit. <br/>
+	/// Packed component order, high bit -> low bit.<br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PackedOrder")]
 	[Flags]

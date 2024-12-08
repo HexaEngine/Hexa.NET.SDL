@@ -18,11 +18,48 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// An efficient driver-specific representation of pixel data<br/>
 	/// <br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Texture")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLTexture
 	{
+		/// <summary>
+		/// The format of the texture, read-only <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "format")]
+		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
+		public SDLPixelFormat Format;
+
+		/// <summary>
+		/// The width of the texture, read-only. <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "w")]
+		[NativeName(NativeNameType.Type, "int")]
+		public int W;
+
+		/// <summary>
+		/// The height of the texture, read-only. <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "h")]
+		[NativeName(NativeNameType.Type, "int")]
+		public int H;
+
+		/// <summary>
+		/// Application reference count, used when freeing texture <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "refcount")]
+		[NativeName(NativeNameType.Type, "int")]
+		public int Refcount;
+
+
+		public unsafe SDLTexture(SDLPixelFormat format = default, int w = default, int h = default, int refcount = default)
+		{
+			Format = format;
+			W = w;
+			H = h;
+			Refcount = refcount;
+		}
 
 
 	}

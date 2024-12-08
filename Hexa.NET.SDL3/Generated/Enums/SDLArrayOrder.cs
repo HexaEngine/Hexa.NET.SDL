@@ -13,7 +13,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Array component order, low byte -> high byte. <br/>
+	/// Array component order, low byte -> high byte.<br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_ArrayOrder")]
 	[Flags]

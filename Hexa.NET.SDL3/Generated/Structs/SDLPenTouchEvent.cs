@@ -64,35 +64,35 @@ namespace Hexa.NET.SDL3
 		public SDLPenInputFlags PenState;
 
 		/// <summary>
-		/// X position of pen on tablet <br/>
+		/// X coordinate, relative to window <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "x")]
 		[NativeName(NativeNameType.Type, "float")]
 		public float X;
 
 		/// <summary>
-		/// Y position of pen on tablet <br/>
+		/// Y coordinate, relative to window <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "y")]
 		[NativeName(NativeNameType.Type, "float")]
 		public float Y;
 
 		/// <summary>
-		/// Non-zero if eraser end is used (not all pens support this). <br/>
+		/// true if eraser end is used (not all pens support this). <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "eraser")]
-		[NativeName(NativeNameType.Type, "Uint8")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Eraser;
 
 		/// <summary>
-		/// SDL_PRESSED (pen is touching) or SDL_RELEASED (pen is lifted off) <br/>
+		/// true if the pen is touching or false if the pen is lifted off <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "Uint8")]
-		public byte State;
+		[NativeName(NativeNameType.Field, "down")]
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte Down;
 
 
-		public unsafe SDLPenTouchEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, SDLPenInputFlags penState = default, float x = default, float y = default, byte eraser = default, byte state = default)
+		public unsafe SDLPenTouchEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, SDLPenInputFlags penState = default, float x = default, float y = default, bool eraser = default, bool down = default)
 		{
 			Type = type;
 			Reserved = reserved;
@@ -102,8 +102,8 @@ namespace Hexa.NET.SDL3
 			PenState = penState;
 			X = x;
 			Y = y;
-			Eraser = eraser;
-			State = state;
+			Eraser = eraser ? (byte)1 : (byte)0;
+			Down = down ? (byte)1 : (byte)0;
 		}
 
 

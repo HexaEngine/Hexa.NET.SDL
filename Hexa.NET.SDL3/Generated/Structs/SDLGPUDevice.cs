@@ -8,18 +8,23 @@
 // ------------------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	public enum SDLMessageBoxFlags : uint
+	/// <summary>
+	/// An opaque handle representing the SDL_GPU context.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.StructOrClass, "SDL_GPUDevice")]
+	[StructLayout(LayoutKind.Sequential)]
+	public partial struct SDLGPUDevice
 	{
-		Error = 0x00000010u,
-		Warning = 0x00000020u,
-		Information = 0x00000040u,
-		ButtonsLeftToRight = 0x00000080u,
-		ButtonsRightToLeft = 0x00000100u,
-		ButtonReturnkeyDefault = 0x00000001u,
-		ButtonEscapekeyDefault = 0x00000002u,
+
+
 	}
+
 }

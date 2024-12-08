@@ -16,8 +16,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// <br/>
 	/// The haptic structure used to identify an SDL haptic.<br/>
+	/// <br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Haptic")]

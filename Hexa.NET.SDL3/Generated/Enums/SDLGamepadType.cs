@@ -57,8 +57,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR")]
 		[NativeName(NativeNameType.Value, "10")]
 		NintendoSwitchJoyconPair = unchecked(10),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_TYPE_MAX")]
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_TYPE_COUNT")]
 		[NativeName(NativeNameType.Value, "11")]
-		Max = unchecked(11),
+		Count = unchecked(11),
 	}
 }

@@ -13,7 +13,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Bitmap pixel order, high bit -> low bit. <br/>
+	/// Bitmap pixel order, high bit -> low bit.<br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_BitmapOrder")]
 	[Flags]

@@ -35,16 +35,14 @@ namespace Hexa.NET.SDL3
 		Pressure = unchecked(0),
 
 		/// <summary>
-		/// Pen horizontal tilt angle.  Bidirectional: -90.0 to 90.0 (left-to-right).<br/>
-		/// The physical max/min tilt may be smaller than -90.0 / 90.0, check SDL_PenCapabilityInfo <br/>
+		/// Pen horizontal tilt angle.  Bidirectional: -90.0 to 90.0 (left-to-right). <br/>
 		/// </summary>
 		[NativeName(NativeNameType.EnumItem, "SDL_PEN_AXIS_XTILT")]
 		[NativeName(NativeNameType.Value, "1")]
 		Xtilt = unchecked(1),
 
 		/// <summary>
-		/// Pen vertical tilt angle.  Bidirectional: -90.0 to 90.0 (top-to-down).<br/>
-		/// The physical max/min tilt may be smaller than -90.0 / 90.0 check SDL_PenCapabilityInfo <br/>
+		/// Pen vertical tilt angle.  Bidirectional: -90.0 to 90.0 (top-to-down). <br/>
 		/// </summary>
 		[NativeName(NativeNameType.EnumItem, "SDL_PEN_AXIS_YTILT")]
 		[NativeName(NativeNameType.Value, "2")]
@@ -81,8 +79,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Total known pen axis types in this version of SDL. This number may grow in future releases! <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_PEN_NUM_AXES")]
+		[NativeName(NativeNameType.EnumItem, "SDL_PEN_AXIS_COUNT")]
 		[NativeName(NativeNameType.Value, "7")]
-		NumAxes = unchecked(7),
+		Count = unchecked(7),
 	}
 }

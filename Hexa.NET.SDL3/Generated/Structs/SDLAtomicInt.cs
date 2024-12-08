@@ -18,9 +18,10 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// A type representing an atomic integer value.<br/>
 	/// This can be used to manage a value that is synchronized across multiple<br/>
-	/// CPUs without a race condition; when an app sets a value with SDL_AtomicSet<br/>
-	/// all other threads, regardless of the CPU it is running on, will see that<br/>
-	/// value when retrieved with SDL_AtomicGet, regardless of CPU caches, etc.<br/>
+	/// CPUs without a race condition; when an app sets a value with<br/>
+	/// SDL_SetAtomicInt all other threads, regardless of the CPU it is running on,<br/>
+	/// will see that value when retrieved with SDL_GetAtomicInt, regardless of CPU<br/>
+	/// caches, etc.<br/>
 	/// This is also useful for atomic compare-and-swap operations: a thread can<br/>
 	/// change the value as long as its current value matches expectations. When<br/>
 	/// done in a loop, one can guarantee data consistency across threads without a<br/>
@@ -29,7 +30,7 @@ namespace Hexa.NET.SDL3
 	/// disasters with this, so in most cases, you _should_ use a mutex instead of<br/>
 	/// this!).<br/>
 	/// This is a struct so people don't accidentally use numeric operations on it<br/>
-	/// directly. You have to use SDL_Atomic* functions.<br/>
+	/// directly. You have to use SDL atomic functions.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>

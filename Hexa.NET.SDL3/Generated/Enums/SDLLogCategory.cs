@@ -14,9 +14,9 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// The predefined log categories<br/>
-	/// By default the application category is enabled at the INFO level, the<br/>
-	/// assert category is enabled at the WARN level, test is enabled at the<br/>
-	/// VERBOSE level and all other categories are enabled at the ERROR level.<br/>
+	/// By default the application and gpu categories are enabled at the INFO<br/>
+	/// level, the assert category is enabled at the WARN level, test is enabled at<br/>
+	/// the VERBOSE level and all other categories are enabled at the ERROR level.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_LogCategory")]
@@ -50,13 +50,9 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_LOG_CATEGORY_TEST")]
 		[NativeName(NativeNameType.Value, "8")]
 		Test = unchecked(8),
-		/// <summary>
-		/// Reserved for future SDL library use <br/>
-		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_LOG_CATEGORY_RESERVED1")]
+		[NativeName(NativeNameType.EnumItem, "SDL_LOG_CATEGORY_GPU")]
 		[NativeName(NativeNameType.Value, "9")]
-		Reserved1 = unchecked(9),
-
+		Gpu = unchecked(9),
 		/// <summary>
 		/// Reserved for future SDL library use <br/>
 		/// </summary>

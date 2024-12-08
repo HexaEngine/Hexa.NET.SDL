@@ -13,7 +13,8 @@ using HexaGen.Runtime;
 namespace Hexa.NET.SDL3
 {
 	/// <summary>
-	/// Packed component layout. <br/>
+	/// Packed component layout.<br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Enum, "SDL_PackedLayout")]
 	[Flags]

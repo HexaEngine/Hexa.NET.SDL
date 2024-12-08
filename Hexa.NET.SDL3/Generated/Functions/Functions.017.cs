@@ -18,1405 +18,2315 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumHapticAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			int ret = GetNumHapticAxesNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of haptic axes the device has.<br/>
-		/// The number of haptic axes might be useful if working with the<br/>
-		/// SDL_HapticDirection effect.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumHapticAxes")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetNumHapticAxes([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = GetNumHapticAxesNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
+		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticEffectSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		internal static byte WaitEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[805])(haptic, effect);
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[787])(evnt);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[805])((nint)haptic, (nint)effect);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[787])((nint)evnt);
 			#endif
 		}
 
 		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
 		{
-			int ret = HapticEffectSupportedNative(haptic, effect);
-			return ret;
+			byte ret = WaitEventNative(evnt);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// Wait indefinitely for the next available event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		[NativeName(NativeNameType.Func, "SDL_WaitEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
 		{
-			fixed (SDLHaptic* phaptic = &haptic)
+			fixed (SDLEvent* pevnt = &evnt)
 			{
-				int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, effect);
-				return ret;
+				byte ret = WaitEventNative((SDLEvent*)pevnt);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
+		/// system scheduling.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHapticEffect* peffect = &effect)
-			{
-				int ret = HapticEffectSupportedNative(haptic, (SDLHapticEffect*)peffect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check to see if an effect is supported by a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticEffectSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HapticEffectSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* peffect = &effect)
-				{
-					int ret = HapticEffectSupportedNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int CreateHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		internal static byte WaitEventTimeoutNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, SDLHapticEffect*, int>)funcTable[806])(haptic, effect);
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, int, byte>)funcTable[788])(evnt, timeoutMS);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[806])((nint)haptic, (nint)effect);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, byte>)funcTable[788])((nint)evnt, timeoutMS);
 			#endif
 		}
 
 		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
+		/// system scheduling.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
 		{
-			int ret = CreateHapticEffectNative(haptic, effect);
-			return ret;
+			byte ret = WaitEventTimeoutNative(evnt, timeoutMS);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
+		/// Wait until the specified timeout (in milliseconds) for the next available<br/>
+		/// event.<br/>
+		/// If `event` is not NULL, the next event is removed from the queue and stored<br/>
+		/// in the SDL_Event structure pointed to by `event`.<br/>
+		/// As this function may implicitly call SDL_PumpEvents(), you can only call<br/>
+		/// this function in the thread that initialized the video subsystem.<br/>
+		/// The timeout is not guaranteed, the actual wait time could be longer due to<br/>
+		/// system scheduling.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* effect)
+		[NativeName(NativeNameType.Func, "SDL_WaitEventTimeout")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool WaitEventTimeout([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
 		{
-			fixed (SDLHaptic* phaptic = &haptic)
+			fixed (SDLEvent* pevnt = &evnt)
 			{
-				int ret = CreateHapticEffectNative((SDLHaptic*)phaptic, effect);
-				return ret;
+				byte ret = WaitEventTimeoutNative((SDLEvent*)pevnt, timeoutMS);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// This function is thread-safe, and can be called from other threads safely.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHapticEffect* peffect = &effect)
-			{
-				int ret = CreateHapticEffectNative(haptic, (SDLHapticEffect*)peffect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a new haptic effect on a specified device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int CreateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* peffect = &effect)
-				{
-					int ret = CreateHapticEffectNative((SDLHaptic*)phaptic, (SDLHapticEffect*)peffect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_UpdateHapticEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpdateHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* data)
+		internal static byte PushEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, SDLHapticEffect*, int>)funcTable[807])(haptic, effect, data);
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, byte>)funcTable[789])(evnt);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, int>)funcTable[807])((nint)haptic, effect, (nint)data);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[789])((nint)evnt);
 			#endif
 		}
 
 		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_UpdateHapticEffect().<br/>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// This function is thread-safe, and can be called from other threads safely.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* data)
+		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt)
 		{
-			int ret = UpdateHapticEffectNative(haptic, effect, data);
-			return ret;
+			byte ret = PushEventNative(evnt);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_UpdateHapticEffect().<br/>
+		/// Add an event to the event queue.<br/>
+		/// The event queue can actually be used as a two way communication channel.<br/>
+		/// Not only can events be read from the queue, but the user can also push<br/>
+		/// their own events onto it. `event` is a pointer to the event structure you<br/>
+		/// wish to push onto the queue. The event is copied into the queue, and the<br/>
+		/// caller may dispose of the memory pointed to after SDL_PushEvent() returns.<br/>
+		/// Note: Pushing device input events onto the queue doesn't modify the state<br/>
+		/// of the device within SDL.<br/>
+		/// This function is thread-safe, and can be called from other threads safely.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter but events added with SDL_PeepEvents() do not.<br/>
+		/// For pushing application-specific events, please use SDL_RegisterEvents() to<br/>
+		/// get an event type that does not conflict with other code that also wants<br/>
+		/// its own custom event types.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] SDLHapticEffect* data)
+		[NativeName(NativeNameType.Func, "SDL_PushEvent")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool PushEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] ref SDLEvent evnt)
 		{
-			fixed (SDLHaptic* phaptic = &haptic)
+			fixed (SDLEvent* pevnt = &evnt)
 			{
-				int ret = UpdateHapticEffectNative((SDLHaptic*)phaptic, effect, data);
-				return ret;
+				byte ret = PushEventNative((SDLEvent*)pevnt);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_UpdateHapticEffect().<br/>
+		/// Set up a filter to process all events before they change internal state and<br/>
+		/// are posted to the internal event queue.<br/>
+		/// If the filter function returns true when called, then the event will be<br/>
+		/// added to the internal queue. If it returns false, then the event will be<br/>
+		/// dropped from the queue, but the internal state will still be updated. This<br/>
+		/// allows selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
+		/// event filter is only called when the window manager desires to close the<br/>
+		/// application window. If the event filter returns 1, then the window will be<br/>
+		/// closed, otherwise the window will remain open if possible.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_SetEventEnabled().<br/>
+		/// Note: If you just want to inspect events without filtering, you should use<br/>
+		/// SDL_AddEventWatch() instead.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
 		/// <br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect data)
-		{
-			fixed (SDLHapticEffect* pdata = &data)
-			{
-				int ret = UpdateHapticEffectNative(haptic, effect, (SDLHapticEffect*)pdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Update the properties of an effect.<br/>
-		/// Can be used dynamically, although behavior when dynamically changing<br/>
-		/// direction may be strange. Specifically the effect may re-upload itself and<br/>
-		/// start playing from the start. You also cannot change the type either when<br/>
-		/// running SDL_UpdateHapticEffect().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UpdateHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int UpdateHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "SDL_HapticEffect const *")] ref SDLHapticEffect data)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				fixed (SDLHapticEffect* pdata = &data)
-				{
-					int ret = UpdateHapticEffectNative((SDLHaptic*)phaptic, effect, (SDLHapticEffect*)pdata);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
+		/// SDL may call the filter callback at any time from any thread;<br/>
+		/// the application is responsible for locking resources the<br/>
+		/// callback touches that need to be protected.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RunHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, uint, int>)funcTable[808])(haptic, effect, iterations);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, uint, int>)funcTable[808])((nint)haptic, effect, iterations);
-			#endif
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RunHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
-		{
-			int ret = RunHapticEffectNative(haptic, effect, iterations);
-			return ret;
-		}
-
-		/// <summary>
-		/// Run the haptic effect on its associated haptic device.<br/>
-		/// To repeat the effect over and over indefinitely, set `iterations` to<br/>
-		/// `SDL_HAPTIC_INFINITY`. (Repeats the envelope - attack and fade.) To make<br/>
-		/// one instance of the effect last indefinitely (so the effect does not fade),<br/>
-		/// set the effect's `length` in its structure/union to `SDL_HAPTIC_INFINITY`<br/>
-		/// instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_RunHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int RunHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect, [NativeName(NativeNameType.Param, "iterations")] [NativeName(NativeNameType.Type, "Uint32")] uint iterations)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = RunHapticEffectNative((SDLHaptic*)phaptic, effect, iterations);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int StopHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[809])(haptic, effect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[809])((nint)haptic, effect);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int StopHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			int ret = StopHapticEffectNative(haptic, effect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop the haptic effect on its associated haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticEffect")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int StopHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = StopHapticEffectNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
 		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyHapticEffectNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		internal static void SetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHaptic*, int, void>)funcTable[810])(haptic, effect);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[790])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
 			#else
-			((delegate* unmanaged[Cdecl]<nint, int, void>)funcTable[810])((nint)haptic, effect);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[790])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
 			#endif
 		}
 
 		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
+		/// Set up a filter to process all events before they change internal state and<br/>
+		/// are posted to the internal event queue.<br/>
+		/// If the filter function returns true when called, then the event will be<br/>
+		/// added to the internal queue. If it returns false, then the event will be<br/>
+		/// dropped from the queue, but the internal state will still be updated. This<br/>
+		/// allows selective filtering of dynamically arriving events.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// On platforms that support it, if the quit event is generated by an<br/>
+		/// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the<br/>
+		/// application at the next event poll.<br/>
+		/// There is one caveat when dealing with the SDL_QuitEvent event type. The<br/>
+		/// event filter is only called when the window manager desires to close the<br/>
+		/// application window. If the event filter returns 1, then the window will be<br/>
+		/// closed, otherwise the window will remain open if possible.<br/>
+		/// Note: Disabled events never make it to the event filter function; see<br/>
+		/// SDL_SetEventEnabled().<br/>
+		/// Note: If you just want to inspect events without filtering, you should use<br/>
+		/// SDL_AddEventWatch() instead.<br/>
+		/// Note: Events pushed onto the queue with SDL_PushEvent() get passed through<br/>
+		/// the event filter, but events pushed onto the queue with SDL_PeepEvents() do<br/>
+		/// not.<br/>
 		/// <br/>
+		/// <br/>
+		/// SDL may call the filter callback at any time from any thread;<br/>
+		/// the application is responsible for locking resources the<br/>
+		/// callback touches that need to be protected.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[NativeName(NativeNameType.Func, "SDL_SetEventFilter")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		public static void SetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			DestroyHapticEffectNative(haptic, effect);
+			SetEventFilterNative(filter, userdata);
 		}
 
 		/// <summary>
-		/// Destroy a haptic effect on the device.<br/>
-		/// This will stop the effect if it's running. Effects are automatically<br/>
-		/// destroyed when the device is closed.<br/>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyHapticEffect")]
+		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetEventFilterNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter *")] delegate*<void*, SDLEvent*, bool>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>*, void**, byte>)funcTable[791])(filter, userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[791])((nint)filter, (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Query the current event filter.<br/>
+		/// This function can be used to "chain" filters, by saving the existing filter<br/>
+		/// before replacing it with a function that will call that saved filter.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetEventFilter")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetEventFilter([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter *")] delegate*<void*, SDLEvent*, bool>* filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void * *")] void** userdata)
+		{
+			byte ret = GetEventFilterNative(filter, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte AddEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, byte>)funcTable[792])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[792])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddEventWatch")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool AddEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			byte ret = AddEventWatchNative(filter, userdata);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
 		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyHapticEffect([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				DestroyHapticEffectNative((SDLHaptic*)phaptic, effect);
-			}
-		}
-
-		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
-		[return: NativeName(NativeNameType.Type, "int")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetHapticEffectStatusNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		internal static void RemoveEventWatchNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[811])(haptic, effect);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[793])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[811])((nint)haptic, effect);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[793])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
 			#endif
 		}
 
 		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetHapticEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
+		[NativeName(NativeNameType.Func, "SDL_RemoveEventWatch")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void RemoveEventWatch([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			int ret = GetHapticEffectStatusNative(haptic, effect);
-			return ret;
+			RemoveEventWatchNative(filter, userdata);
 		}
 
 		/// <summary>
-		/// Get the status of the current effect on the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_STATUS feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHapticEffectStatus")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int GetHapticEffectStatus([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "effect")] [NativeName(NativeNameType.Type, "int")] int effect)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = GetHapticEffectStatusNative((SDLHaptic*)phaptic, effect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns false.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetHapticGainNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		internal static void FilterEventsNative([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[812])(haptic, gain);
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, bool>, void*, void>)funcTable[794])((delegate*<void*, SDLEvent*, bool>)Utils.GetFunctionPointerForDelegate(filter), userdata);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[812])((nint)haptic, gain);
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[794])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns false.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHapticGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
+		[NativeName(NativeNameType.Func, "SDL_FilterEvents")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void FilterEvents([NativeName(NativeNameType.Param, "filter")] [NativeName(NativeNameType.Type, "SDL_EventFilter")] SDLEventFilter filter, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			int ret = SetHapticGainNative(haptic, gain);
-			return ret;
+			FilterEventsNative(filter, userdata);
 		}
 
 		/// <summary>
-		/// Set the global gain of the specified haptic device.<br/>
-		/// Device must support the SDL_HAPTIC_GAIN feature.<br/>
-		/// The user may specify the maximum gain by setting the environment variable<br/>
-		/// `SDL_HAPTIC_GAIN_MAX` which should be between 0 and 100. All calls to<br/>
-		/// SDL_SetHapticGain() will scale linearly using `SDL_HAPTIC_GAIN_MAX` as the<br/>
-		/// maximum.<br/>
+		/// Set the state of processing events by type.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHapticGain")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHapticGain([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "gain")] [NativeName(NativeNameType.Type, "int")] int gain)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = SetHapticGainNative((SDLHaptic*)phaptic, gain);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_SetEventEnabled")]
+		[return: NativeName(NativeNameType.Type, "void")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetHapticAutocenterNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		internal static void SetEventEnabledNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int, int>)funcTable[813])(haptic, autocenter);
+			((delegate* unmanaged[Cdecl]<uint, byte, void>)funcTable[795])(type, enabled);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[813])((nint)haptic, autocenter);
+			((delegate* unmanaged[Cdecl]<uint, byte, void>)funcTable[795])(type, enabled);
 			#endif
 		}
 
 		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// Set the state of processing events by type.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHapticAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
+		[NativeName(NativeNameType.Func, "SDL_SetEventEnabled")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetEventEnabled([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] bool enabled)
 		{
-			int ret = SetHapticAutocenterNative(haptic, autocenter);
-			return ret;
+			SetEventEnabledNative(type, enabled ? (byte)1 : (byte)0);
 		}
 
 		/// <summary>
-		/// Set the global autocenter of the device.<br/>
-		/// Autocenter should be between 0 and 100. Setting it to 0 will disable<br/>
-		/// autocentering.<br/>
-		/// Device must support the SDL_HAPTIC_AUTOCENTER feature.<br/>
+		/// Query the state of processing events by type.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHapticAutocenter")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHapticAutocenter([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "autocenter")] [NativeName(NativeNameType.Type, "int")] int autocenter)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = SetHapticAutocenterNative((SDLHaptic*)phaptic, autocenter);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
-		/// to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_EventEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PauseHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		internal static byte EventEnabledNative([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[814])(haptic);
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[796])(type);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[814])((nint)haptic);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[796])(type);
 			#endif
 		}
 
 		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
-		/// to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
+		/// Query the state of processing events by type.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PauseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
+		[NativeName(NativeNameType.Func, "SDL_EventEnabled")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EventEnabled([NativeName(NativeNameType.Param, "type")] [NativeName(NativeNameType.Type, "Uint32")] uint type)
 		{
-			int ret = PauseHapticNative(haptic);
-			return ret;
+			byte ret = EventEnabledNative(type);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Pause a haptic device.<br/>
-		/// Device must support the `SDL_HAPTIC_PAUSE` feature. Call SDL_ResumeHaptic()<br/>
-		/// to resume playback.<br/>
-		/// Do not modify the effects nor add new ones while the device is paused. That<br/>
-		/// can cause all sorts of weird errors.<br/>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PauseHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PauseHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = PauseHapticNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Resume a haptic device.<br/>
-		/// Call to unpause after SDL_PauseHaptic().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ResumeHapticNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[815])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[815])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Resume a haptic device.<br/>
-		/// Call to unpause after SDL_PauseHaptic().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ResumeHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			int ret = ResumeHapticNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Resume a haptic device.<br/>
-		/// Call to unpause after SDL_PauseHaptic().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResumeHaptic")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ResumeHaptic([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = ResumeHapticNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int StopHapticEffectsNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[816])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[816])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int StopHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			int ret = StopHapticEffectsNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop all the currently playing effects on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticEffects")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int StopHapticEffects([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = StopHapticEffectsNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HapticRumbleSupportedNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[817])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[817])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			int ret = HapticRumbleSupportedNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check whether rumble is supported on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HapticRumbleSupported")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HapticRumbleSupported([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = HapticRumbleSupportedNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int InitHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[818])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[818])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int InitHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			int ret = InitHapticRumbleNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Initialize a haptic device for simple rumble playback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InitHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int InitHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = InitHapticRumbleNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int PlayHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, float, uint, int>)funcTable[819])(haptic, strength, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, float, uint, int>)funcTable[819])((nint)haptic, strength, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PlayHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			int ret = PlayHapticRumbleNative(haptic, strength, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Run a simple rumble effect on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_PlayHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int PlayHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic, [NativeName(NativeNameType.Param, "strength")] [NativeName(NativeNameType.Type, "float")] float strength, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint32")] uint length)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = PlayHapticRumbleNative((SDLHaptic*)phaptic, strength, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int StopHapticRumbleNative([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHaptic*, int>)funcTable[820])(haptic);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[820])((nint)haptic);
-			#endif
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int StopHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] SDLHaptic* haptic)
-		{
-			int ret = StopHapticRumbleNative(haptic);
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop the simple rumble on a haptic device.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_StopHapticRumble")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int StopHapticRumble([NativeName(NativeNameType.Param, "haptic")] [NativeName(NativeNameType.Type, "SDL_Haptic *")] ref SDLHaptic haptic)
-		{
-			fixed (SDLHaptic* phaptic = &haptic)
-			{
-				int ret = StopHapticRumbleNative((SDLHaptic*)phaptic);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Initialize the HIDAPI library.<br/>
-		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
-		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
-		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
-		/// be called at the beginning of execution however, if there is a chance of<br/>
-		/// HIDAPI handles being opened by different threads simultaneously.<br/>
-		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_init")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidInitNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[821])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[821])();
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize the HIDAPI library.<br/>
-		/// This function initializes the HIDAPI library. Calling it is not strictly<br/>
-		/// necessary, as it will be called automatically by SDL_hid_enumerate() and<br/>
-		/// any of the SDL_hid_open_*() functions if it is needed. This function should<br/>
-		/// be called at the beginning of execution however, if there is a chance of<br/>
-		/// HIDAPI handles being opened by different threads simultaneously.<br/>
-		/// Each call to this function should have a matching call to SDL_hid_exit()<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_init")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidInit()
-		{
-			int ret = HidInitNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Finalize the HIDAPI library.<br/>
-		/// This function frees all of the static data associated with HIDAPI. It<br/>
-		/// should be called at the end of execution to avoid memory leaks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidExitNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[822])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[822])();
-			#endif
-		}
-
-		/// <summary>
-		/// Finalize the HIDAPI library.<br/>
-		/// This function frees all of the static data associated with HIDAPI. It<br/>
-		/// should be called at the end of execution to avoid memory leaks.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_exit")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidExit()
-		{
-			int ret = HidExitNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Check to see if devices may have been added or removed.<br/>
-		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
-		/// to see if there have been any system device changes since the last call to<br/>
-		/// this function. A change in the counter returned doesn't necessarily mean<br/>
-		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
-		/// updated device list.<br/>
-		/// Calling this function for the first time may cause a thread or other system<br/>
-		/// resource to be allocated to track device change notifications.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
+		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint HidDeviceChangeCountNative()
+		internal static uint RegisterEventsNative([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[823])();
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[797])(numevents);
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[823])();
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[797])(numevents);
 			#endif
 		}
 
 		/// <summary>
-		/// Check to see if devices may have been added or removed.<br/>
-		/// Enumerating the HID devices is an expensive operation, so you can call this<br/>
-		/// to see if there have been any system device changes since the last call to<br/>
-		/// this function. A change in the counter returned doesn't necessarily mean<br/>
-		/// that anything has changed, but you can call SDL_hid_enumerate() to get an<br/>
-		/// updated device list.<br/>
-		/// Calling this function for the first time may cause a thread or other system<br/>
-		/// resource to be allocated to track device change notifications.<br/>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_device_change_count")]
+		[NativeName(NativeNameType.Func, "SDL_RegisterEvents")]
 		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint HidDeviceChangeCount()
+		public static uint RegisterEvents([NativeName(NativeNameType.Param, "numevents")] [NativeName(NativeNameType.Type, "int")] int numevents)
 		{
-			uint ret = HidDeviceChangeCountNative();
+			uint ret = RegisterEventsNative(numevents);
 			return ret;
 		}
 
 		/// <summary>
-		/// Enumerate the HID Devices.<br/>
-		/// This function returns a linked list of all the HID devices attached to the<br/>
-		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
-		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
-		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
-		/// devices will be returned.<br/>
-		/// By default SDL will only enumerate controllers, to reduce risk of hanging<br/>
-		/// or crashing on bad drivers, but SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS<br/>
-		/// can be set to "0" to enumerate all HID devices.<br/>
+		/// Get window associated with an event.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDeviceInfo* HidEnumerateNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		internal static SDLWindow* GetWindowFromEventNative([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, SDLHidDeviceInfo*>)funcTable[824])(vendorId, productId);
+			return ((delegate* unmanaged[Cdecl]<SDLEvent*, SDLWindow*>)funcTable[798])(evnt);
 			#else
-			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint>)funcTable[824])(vendorId, productId);
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[798])((nint)evnt);
 			#endif
 		}
 
 		/// <summary>
-		/// Enumerate the HID Devices.<br/>
-		/// This function returns a linked list of all the HID devices attached to the<br/>
-		/// system which match vendor_id and product_id. If `vendor_id` is set to 0<br/>
-		/// then any vendor matches. If `product_id` is set to 0 then any product<br/>
-		/// matches. If `vendor_id` and `product_id` are both set to 0, then all HID<br/>
-		/// devices will be returned.<br/>
-		/// By default SDL will only enumerate controllers, to reduce risk of hanging<br/>
-		/// or crashing on bad drivers, but SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS<br/>
-		/// can be set to "0" to enumerate all HID devices.<br/>
+		/// Get window associated with an event.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_enumerate")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
-		public static SDLHidDeviceInfo* HidEnumerate([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId)
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindow* GetWindowFromEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt)
 		{
-			SDLHidDeviceInfo* ret = HidEnumerateNative(vendorId, productId);
+			SDLWindow* ret = GetWindowFromEventNative(evnt);
 			return ret;
 		}
 
 		/// <summary>
-		/// Free an enumeration linked list.<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
+		/// Get window associated with an event.<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidFreeEnumerationNative([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] SDLHidDeviceInfo* devs)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLHidDeviceInfo*, void>)funcTable[825])(devs);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[825])((nint)devs);
-			#endif
-		}
-
-		/// <summary>
-		/// Free an enumeration linked list.<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] SDLHidDeviceInfo* devs)
+		[NativeName(NativeNameType.Func, "SDL_GetWindowFromEvent")]
+		[return: NativeName(NativeNameType.Type, "SDL_Window *")]
+		public static SDLWindow* GetWindowFromEvent([NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] ref SDLEvent evnt)
 		{
-			HidFreeEnumerationNative(devs);
-		}
-
-		/// <summary>
-		/// Free an enumeration linked list.<br/>
-		/// This function frees a linked list created by SDL_hid_enumerate().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_free_enumeration")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidFreeEnumeration([NativeName(NativeNameType.Param, "devs")] [NativeName(NativeNameType.Type, "SDL_hid_device_info *")] ref SDLHidDeviceInfo devs)
-		{
-			fixed (SDLHidDeviceInfo* pdevs = &devs)
+			fixed (SDLEvent* pevnt = &evnt)
 			{
-				HidFreeEnumerationNative((SDLHidDeviceInfo*)pdevs);
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDevice* HidOpenNative([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] char* serialNumber)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<ushort, ushort, char*, SDLHidDevice*>)funcTable[826])(vendorId, productId, serialNumber);
-			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<ushort, ushort, nint, nint>)funcTable[826])(vendorId, productId, (nint)serialNumber);
-			#endif
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] char* serialNumber)
-		{
-			SDLHidDevice* ret = HidOpenNative(vendorId, productId, serialNumber);
-			return ret;
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] ref char serialNumber)
-		{
-			fixed (char* pserialNumber = &serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
+				SDLWindow* ret = GetWindowFromEventNative((SDLEvent*)pevnt);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
+		/// Get the directory where the application was run from.<br/>
+		/// SDL caches the result of this call internally, but the first call to this<br/>
+		/// function is not necessarily fast, so plan accordingly.<br/>
+		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
+		/// bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
 		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] ReadOnlySpan<char> serialNumber)
-		{
-			fixed (char* pserialNumber = serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, (char*)pserialNumber);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device using a Vendor ID (VID), Product ID (PID) and optionally<br/>
-		/// a serial number.<br/>
-		/// If `serial_number` is NULL, the first device with the specified VID and PID<br/>
-		/// is opened.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpen([NativeName(NativeNameType.Param, "vendor_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort vendorId, [NativeName(NativeNameType.Param, "product_id")] [NativeName(NativeNameType.Type, "unsigned short")] ushort productId, [NativeName(NativeNameType.Param, "serial_number")] [NativeName(NativeNameType.Type, "wchar const *")] string serialNumber)
-		{
-			fixed (char* pserialNumber = serialNumber)
-			{
-				SDLHidDevice* ret = HidOpenNative(vendorId, productId, pserialNumber);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
+		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDevice* HidOpenPathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		internal static byte* GetBasePathNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLHidDevice*>)funcTable[827])(path);
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[799])();
 			#else
-			return (SDLHidDevice*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[827])((nint)path);
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[799])();
 			#endif
 		}
 
 		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// Get the directory where the application was run from.<br/>
+		/// SDL caches the result of this call internally, but the first call to this<br/>
+		/// function is not necessarily fast, so plan accordingly.<br/>
+		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
+		/// bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetBasePath()
 		{
-			SDLHidDevice* ret = HidOpenPathNative(path);
+			byte* ret = GetBasePathNative();
 			return ret;
 		}
 
 		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// Get the directory where the application was run from.<br/>
+		/// SDL caches the result of this call internally, but the first call to this<br/>
+		/// function is not necessarily fast, so plan accordingly.<br/>
+		/// **macOS and iOS Specific Functionality**: If the application is in a ".app"<br/>
+		/// bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path)
+		[NativeName(NativeNameType.Func, "SDL_GetBasePath")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetBasePathS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetBasePathNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPrefPathNative([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[800])(org, app);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[800])((nint)org, (nint)app);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			byte* ret = GetPrefPathNative(org, app);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			fixed (byte* porg = &org)
+			{
+				byte* ret = GetPrefPathNative((byte*)porg, app);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			fixed (byte* porg = &org)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			fixed (byte* porg = org)
+			{
+				byte* ret = GetPrefPathNative((byte*)porg, app);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			fixed (byte* porg = org)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetPrefPathNative(pStr0, app);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] byte* app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, app));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
+		{
+			fixed (byte* papp = &app)
+			{
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
+		{
+			fixed (byte* papp = &app)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* papp = app)
+			{
+				byte* ret = GetPrefPathNative(org, (byte*)papp);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* papp = app)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, (byte*)papp));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = GetPrefPathNative(org, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] byte* org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (app != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(app);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(app, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, pStr0));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ref byte org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ref byte app)
+		{
+			fixed (byte* porg = &org)
+			{
+				fixed (byte* papp = &app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					byte* ret = GetPrefPathNative((byte*)porg, (byte*)papp);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> app)
+		{
+			fixed (byte* porg = org)
+			{
+				fixed (byte* papp = app)
+				{
+					string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, (byte*)papp));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* GetPrefPath([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (app != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(app);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = GetPrefPathNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On macOS, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as they are UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPrefPath")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string GetPrefPathS([NativeName(NativeNameType.Param, "org")] [NativeName(NativeNameType.Type, "char const *")] string org, [NativeName(NativeNameType.Param, "app")] [NativeName(NativeNameType.Type, "char const *")] string app)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (org != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(org);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(org, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (app != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(app);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(app, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(pStr0, pStr1));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetUserFolderNative([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFolder, byte*>)funcTable[801])(folder);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<SDLFolder, nint>)funcTable[801])(folder);
+			#endif
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetUserFolder([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
+		{
+			byte* ret = GetUserFolderNative(folder);
+			return ret;
+		}
+
+		/// <summary>
+		/// Finds the most suitable user folder for a specific purpose.<br/>
+		/// Many OSes provide certain standard folders for certain purposes, such as<br/>
+		/// storing pictures, music or videos for a certain user. This function gives<br/>
+		/// the path for many of those special locations.<br/>
+		/// This function is specifically for _user_ folders, which are meant for the<br/>
+		/// user to access and manage. For application-specific folders, meant to hold<br/>
+		/// data for the application to manage, see SDL_GetBasePath() and<br/>
+		/// SDL_GetPrefPath().<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// If NULL is returned, the error may be obtained with SDL_GetError().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetUserFolder")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetUserFolderS([NativeName(NativeNameType.Param, "folder")] [NativeName(NativeNameType.Type, "SDL_Folder")] SDLFolder folder)
+		{
+			string ret = Utils.DecodeStringUTF8(GetUserFolderNative(folder));
+			return ret;
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CreateDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[802])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[802])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			byte ret = CreateDirectoryNative(path);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path)
 		{
 			fixed (byte* ppath = &path)
 			{
-				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath);
-				return ret;
+				byte ret = CreateDirectoryNative((byte*)ppath);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
 		{
 			fixed (byte* ppath = path)
 			{
-				SDLHidDevice* ret = HidOpenPathNative((byte*)ppath);
-				return ret;
+				byte ret = CreateDirectoryNative((byte*)ppath);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Open a HID device by its path name.<br/>
-		/// The path name be determined by calling SDL_hid_enumerate(), or a<br/>
-		/// platform-specific path name can be used (eg: /dev/hidraw0 on Linux).<br/>
+		/// Create a directory, and any missing parent directories.<br/>
+		/// This reports success if `path` already exists as a directory.<br/>
+		/// If parent directories are missing, it will also create them. Note that if<br/>
+		/// this fails, it will not remove any parent directories it already made.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_open_path")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device *")]
-		public static SDLHidDevice* HidOpenPath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
+		[NativeName(NativeNameType.Func, "SDL_CreateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CreateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1435,1662 +2345,130 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			SDLHidDevice* ret = HidOpenPathNative(pStr0);
+			byte ret = CreateDirectoryNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns <br/>
+		/// <<br/>
+		/// = 0.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns -1. A successful return means a callback returned 1 to<br/>
+		/// halt enumeration, or all directory entries were enumerated.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidWriteNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		internal static byte EnumerateDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[828])(dev, data, length);
+			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, byte>)funcTable[803])(path, (delegate*<void*, byte*, byte*, SDLEnumerationResult>)Utils.GetFunctionPointerForDelegate(callback), userdata);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[828])((nint)dev, (nint)data, length);
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[803])((nint)path, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
 			#endif
 		}
 
 		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns <br/>
+		/// <<br/>
+		/// = 0.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns -1. A successful return means a callback returned 1 to<br/>
+		/// halt enumeration, or all directory entries were enumerated.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			int ret = HidWriteNative(dev, data, length);
-			return ret;
+			byte ret = EnumerateDirectoryNative(path, callback, userdata);
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns <br/>
+		/// <<br/>
+		/// = 0.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns -1. A successful return means a callback returned 1 to<br/>
+		/// halt enumeration, or all directory entries were enumerated.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			fixed (SDLHidDevice* pdev = &dev)
+			fixed (byte* ppath = &path)
 			{
-				int ret = HidWriteNative((SDLHidDevice*)pdev, data, length);
-				return ret;
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns <br/>
+		/// <<br/>
+		/// = 0.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns -1. A successful return means a callback returned 1 to<br/>
+		/// halt enumeration, or all directory entries were enumerated.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			fixed (byte* pdata = &data)
+			fixed (byte* ppath = path)
 			{
-				int ret = HidWriteNative(dev, (byte*)pdata, length);
-				return ret;
+				byte ret = EnumerateDirectoryNative((byte*)ppath, callback, userdata);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Write an Output report to a HID device.<br/>
-		/// The first byte of `data` must contain the Report ID. For devices which only<br/>
-		/// support a single report, this must be set to 0x0. The remaining bytes<br/>
-		/// contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_write() will always contain one more byte than the report contains.<br/>
-		/// For example, if a hid report is 16 bytes long, 17 bytes must be passed to<br/>
-		/// SDL_hid_write(), the Report ID (or 0x0, for devices with a single report),<br/>
-		/// followed by the report data (16 bytes). In this example, the length passed<br/>
-		/// in would be 17.<br/>
-		/// SDL_hid_write() will send the data on the first OUT endpoint, if one<br/>
-		/// exists. If it does not, it will send the data through the Control Endpoint<br/>
-		/// (Endpoint 0).<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_write")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidWrite([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidWriteNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidReadTimeoutNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int, int>)funcTable[829])(dev, data, length, milliseconds);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int, int>)funcTable[829])((nint)dev, (nint)data, length, milliseconds);
-			#endif
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			int ret = HidReadTimeoutNative(dev, data, length, milliseconds);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, data, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadTimeoutNative(dev, (byte*)pdata, length, milliseconds);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device with timeout.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read_timeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidReadTimeout([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length, [NativeName(NativeNameType.Param, "milliseconds")] [NativeName(NativeNameType.Type, "int")] int milliseconds)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadTimeoutNative((SDLHidDevice*)pdev, (byte*)pdata, length, milliseconds);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidReadNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[830])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[830])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidReadNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidReadNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidReadNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Read an Input report from a HID device.<br/>
-		/// Input reports are returned to the host through the INTERRUPT IN endpoint.<br/>
-		/// The first byte will contain the Report number if the device uses numbered<br/>
-		/// reports.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_read")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidRead([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidReadNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidSetNonblockingNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, int>)funcTable[831])(dev, nonblock);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[831])((nint)dev, nonblock);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
-		{
-			int ret = HidSetNonblockingNative(dev, nonblock);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the device handle to be non-blocking.<br/>
-		/// In non-blocking mode calls to SDL_hid_read() will return immediately with a<br/>
-		/// value of 0 if there is no data to be read. In blocking mode, SDL_hid_read()<br/>
-		/// will wait (block) until there is data to read before returning.<br/>
-		/// Nonblocking can be turned on and off at any time.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_set_nonblocking")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSetNonblocking([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "nonblock")] [NativeName(NativeNameType.Type, "int")] int nonblock)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidSetNonblockingNative((SDLHidDevice*)pdev, nonblock);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidSendFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[832])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[832])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidSendFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidSendFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Send a Feature report to the device.<br/>
-		/// Feature reports are sent over the Control endpoint as a Set_Report<br/>
-		/// transfer. The first byte of `data` must contain the Report ID. For devices<br/>
-		/// which only support a single report, this must be set to 0x0. The remaining<br/>
-		/// bytes contain the report data. Since the Report ID is mandatory, calls to<br/>
-		/// SDL_hid_send_feature_report() will always contain one more byte than the<br/>
-		/// report contains. For example, if a hid report is 16 bytes long, 17 bytes<br/>
-		/// must be passed to SDL_hid_send_feature_report(): the Report ID (or 0x0, for<br/>
-		/// devices which do not use numbered reports), followed by the report data (16<br/>
-		/// bytes). In this example, the length passed in would be 17.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_send_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidSendFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char const *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidSendFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetFeatureReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[833])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[833])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidGetFeatureReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidGetFeatureReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a feature report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_feature_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetFeatureReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidGetFeatureReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetInputReportNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[834])(dev, data, length);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[834])((nint)dev, (nint)data, length);
-			#endif
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			int ret = HidGetInputReportNative(dev, data, length);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetInputReportNative((SDLHidDevice*)pdev, data, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (byte* pdata = &data)
-			{
-				int ret = HidGetInputReportNative(dev, (byte*)pdata, length);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get an input report from a HID device.<br/>
-		/// Set the first byte of `data` to the Report ID of the report to be read.<br/>
-		/// Make sure to allow space for this extra byte in `data`. Upon return, the<br/>
-		/// first byte will still contain the Report ID, and the report data will start<br/>
-		/// in data[1].<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_input_report")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetInputReport([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte data, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "size_t")] nuint length)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pdata = &data)
-				{
-					int ret = HidGetInputReportNative((SDLHidDevice*)pdev, (byte*)pdata, length);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidCloseNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int>)funcTable[835])(dev);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[835])((nint)dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
-		{
-			int ret = HidCloseNative(dev);
-			return ret;
-		}
-
-		/// <summary>
-		/// Close a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_close")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidClose([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidCloseNative((SDLHidDevice*)pdev);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetManufacturerStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[836])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[836])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetManufacturerStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetManufacturerStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetManufacturerStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Manufacturer String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_manufacturer_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetManufacturerString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetManufacturerStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetProductStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[837])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[837])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetProductStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetProductStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetProductStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetProductStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Product String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_product_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetProductString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetProductStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetSerialNumberStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, char*, nuint, int>)funcTable[838])(dev, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[838])((nint)dev, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetSerialNumberStringNative(dev, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetSerialNumberStringNative(dev, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetSerialNumberStringNative(dev, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get The Serial Number String from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_serial_number_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetSerialNumberString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetSerialNumberStringNative((SDLHidDevice*)pdev, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetIndexedStringNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, int, char*, nuint, int>)funcTable[839])(dev, stringIndex, str, maxlen);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, nint, nuint, int>)funcTable[839])((nint)dev, stringIndex, (nint)str, maxlen);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			int ret = HidGetIndexedStringNative(dev, stringIndex, str, maxlen);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] char* str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, str, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (char* pstr = &str)
-			{
-				int ret = HidGetIndexedStringNative(dev, stringIndex, (char*)pstr, maxlen);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF16(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
-			}
-			int ret = HidGetIndexedStringNative(dev, stringIndex, pStr0, maxlen);
-			str = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref char str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (char* pstr = &str)
-				{
-					int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, (char*)pstr, maxlen);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string from a HID device, based on its string index.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_indexed_string")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetIndexedString([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "string_index")] [NativeName(NativeNameType.Type, "int")] int stringIndex, [NativeName(NativeNameType.Param, "string")] [NativeName(NativeNameType.Type, "wchar *")] ref string str, [NativeName(NativeNameType.Param, "maxlen")] [NativeName(NativeNameType.Type, "size_t")] nuint maxlen)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				char* pStr0 = null;
-				int pStrSize0 = 0;
-				if (str != null)
-				{
-					pStrSize0 = Utils.GetByteCountUTF16(str);
-					if (pStrSize0 >= Utils.MaxStackallocSize)
-					{
-						pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-					}
-					else
-					{
-						byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-						pStr0 = (char*)pStrStack0;
-					}
-					int pStrOffset0 = Utils.EncodeStringUTF16(str, pStr0, pStrSize0);
-					pStr0[pStrOffset0] = '\0';
-				}
-				int ret = HidGetIndexedStringNative((SDLHidDevice*)pdev, stringIndex, pStr0, maxlen);
-				str = Utils.DecodeStringUTF16(pStr0);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					Utils.Free(pStr0);
-				}
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the device info from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_device_info")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLHidDeviceInfo* HidGetDeviceInfoNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, SDLHidDeviceInfo*>)funcTable[840])(dev);
-			#else
-			return (SDLHidDeviceInfo*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[840])((nint)dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the device info from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_device_info")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
-		public static SDLHidDeviceInfo* HidGetDeviceInfo([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev)
-		{
-			SDLHidDeviceInfo* ret = HidGetDeviceInfoNative(dev);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the device info from a HID device.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_device_info")]
-		[return: NativeName(NativeNameType.Type, "SDL_hid_device_info *")]
-		public static SDLHidDeviceInfo* HidGetDeviceInfo([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				SDLHidDeviceInfo* ret = HidGetDeviceInfoNative((SDLHidDevice*)pdev);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HidGetReportDescriptorNative([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLHidDevice*, byte*, nuint, int>)funcTable[841])(dev, buf, bufSize);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nuint, int>)funcTable[841])((nint)dev, (nint)buf, bufSize);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			int ret = HidGetReportDescriptorNative(dev, buf, bufSize);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] byte* buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				int ret = HidGetReportDescriptorNative((SDLHidDevice*)pdev, buf, bufSize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] SDLHidDevice* dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			fixed (byte* pbuf = &buf)
-			{
-				int ret = HidGetReportDescriptorNative(dev, (byte*)pbuf, bufSize);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a report descriptor from a HID device.<br/>
-		/// User has to provide a preallocated buffer where descriptor will be copied<br/>
-		/// to. The recommended size for a preallocated buffer is 4096 bytes.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_get_report_descriptor")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int HidGetReportDescriptor([NativeName(NativeNameType.Param, "dev")] [NativeName(NativeNameType.Type, "SDL_hid_device *")] ref SDLHidDevice dev, [NativeName(NativeNameType.Param, "buf")] [NativeName(NativeNameType.Type, "unsigned char *")] ref byte buf, [NativeName(NativeNameType.Param, "buf_size")] [NativeName(NativeNameType.Type, "size_t")] nuint bufSize)
-		{
-			fixed (SDLHidDevice* pdev = &dev)
-			{
-				fixed (byte* pbuf = &buf)
-				{
-					int ret = HidGetReportDescriptorNative((SDLHidDevice*)pdev, (byte*)pbuf, bufSize);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void HidBleScanNative([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] int active)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, void>)funcTable[842])(active);
-			#else
-			((delegate* unmanaged[Cdecl]<int, void>)funcTable[842])(active);
-			#endif
-		}
-
-		/// <summary>
-		/// Start or stop a BLE scan on iOS and tvOS to pair Steam Controllers.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_hid_ble_scan")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void HidBleScan([NativeName(NativeNameType.Param, "active")] [NativeName(NativeNameType.Type, "SDL_bool")] int active)
-		{
-			HidBleScanNative(active);
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetHintWithPriorityNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLHintPriority, int>)funcTable[843])(name, value, priority);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, SDLHintPriority, int>)funcTable[843])((nint)name, (nint)value, priority);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			int ret = SetHintWithPriorityNative(name, value, priority);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = SetHintWithPriorityNative((byte*)pname, value, priority);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		/// Enumerate a directory through a callback function.<br/>
+		/// This function provides every directory entry through an app-provided<br/>
+		/// callback, called once for each directory entry, until all results have been<br/>
+		/// provided or the callback returns <br/>
+		/// <<br/>
+		/// = 0.<br/>
+		/// This will return false if there was a system problem in general, or if a<br/>
+		/// callback returns -1. A successful return means a callback returned 1 to<br/>
+		/// halt enumeration, or all directory entries were enumerated.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_EnumerateDirectory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool EnumerateDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] SDLEnumerateDirectoryCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (name != null)
+			if (path != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
+				pStrSize0 = Utils.GetByteCountUTF8(path);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -3100,81 +2478,103 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetHintWithPriorityNative(pStr0, value, priority);
+			byte ret = EnumerateDirectoryNative(pStr0, callback, userdata);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RemovePathNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
 		{
-			fixed (byte* pvalue = &value)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[804])(path);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[804])((nint)path);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path)
+		{
+			byte ret = RemovePathNative(path);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path)
+		{
+			fixed (byte* ppath = &path)
 			{
-				int ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret;
+				byte ret = RemovePathNative((byte*)ppath);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path)
 		{
-			fixed (byte* pvalue = value)
+			fixed (byte* ppath = path)
 			{
-				int ret = SetHintWithPriorityNative(name, (byte*)pvalue, priority);
-				return ret;
+				byte ret = RemovePathNative((byte*)ppath);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Remove a file or an empty directory.<br/>
+		/// Directories that are not empty will fail; this function will not recursely<br/>
+		/// delete directory trees.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		[NativeName(NativeNameType.Func, "SDL_RemovePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RemovePath([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (value != null)
+			if (path != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
+				pStrSize0 = Utils.GetByteCountUTF8(path);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -3184,87 +2584,133 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetHintWithPriorityNative(name, pStr0, priority);
+			byte ret = RemovePathNative(pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte RenamePathNative([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
 		{
-			fixed (byte* pname = &name)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[805])(oldpath, newpath);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[805])((nint)oldpath, (nint)newpath);
+			#endif
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte ret = RenamePathNative(oldpath, newpath);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
 			{
-				fixed (byte* pvalue = &value)
-				{
-					int ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret;
-				}
+				byte ret = RenamePathNative((byte*)poldpath, newpath);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
 		{
-			fixed (byte* pname = name)
+			fixed (byte* poldpath = oldpath)
 			{
-				fixed (byte* pvalue = value)
-				{
-					int ret = SetHintWithPriorityNative((byte*)pname, (byte*)pvalue, priority);
-					return ret;
-				}
+				byte ret = RenamePathNative((byte*)poldpath, newpath);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set a hint with a specific priority.<br/>
-		/// The priority controls the behavior when setting a hint that already has a<br/>
-		/// value. Hints will replace existing hints of their priority and lower.<br/>
-		/// Environment variables are considered to have override priority.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHintWithPriority")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHintWithPriority([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value, [NativeName(NativeNameType.Param, "priority")] [NativeName(NativeNameType.Type, "SDL_HintPriority")] SDLHintPriority priority)
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (name != null)
+			if (oldpath != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -3274,14 +2720,200 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RenamePathNative(pStr0, newpath);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
+		{
+			fixed (byte* pnewpath = &newpath)
+			{
+				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* pnewpath = newpath)
+			{
+				byte ret = RenamePathNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (newpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = RenamePathNative(oldpath, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				fixed (byte* pnewpath = &newpath)
+				{
+					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				fixed (byte* pnewpath = newpath)
+				{
+					byte ret = RenamePathNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Rename a file or directory.<br/>
+		/// If the file at `newpath` already exists, it will replaced.<br/>
+		/// Note that this will not copy files across filesystems/drives/volumes, as<br/>
+		/// that is a much more complicated (and possibly time-consuming) operation.<br/>
+		/// Which is to say, if this function fails, SDL_CopyFile() to a temporary file<br/>
+		/// in the same directory as `newpath`, then SDL_RenamePath() from the<br/>
+		/// temporary file to `newpath` and SDL_RemovePath() on `oldpath` might work<br/>
+		/// for files. Renaming a non-empty directory across filesystems is<br/>
+		/// dramatically more complex, however.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_RenamePath")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool RenamePath([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
 			byte* pStr1 = null;
 			int pStrSize1 = 0;
-			if (value != null)
+			if (newpath != null)
 			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
+				pStrSize1 = Utils.GetByteCountUTF8(newpath);
 				if (pStrSize1 >= Utils.MaxStackallocSize)
 				{
 					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
@@ -3291,10 +2923,1103 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
 					pStr1 = pStrStack1;
 				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
+				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			int ret = SetHintWithPriorityNative(pStr0, pStr1, priority);
+			byte ret = RenamePathNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CopyFileNative([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte>)funcTable[806])(oldpath, newpath);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[806])((nint)oldpath, (nint)newpath);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte ret = CopyFileNative(oldpath, newpath);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				byte ret = CopyFileNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				byte ret = CopyFileNative((byte*)poldpath, newpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CopyFileNative(pStr0, newpath);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
+		{
+			fixed (byte* pnewpath = &newpath)
+			{
+				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* pnewpath = newpath)
+			{
+				byte ret = CopyFileNative(oldpath, (byte*)pnewpath);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (newpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(newpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = CopyFileNative(oldpath, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ref byte newpath)
+		{
+			fixed (byte* poldpath = &oldpath)
+			{
+				fixed (byte* pnewpath = &newpath)
+				{
+					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> newpath)
+		{
+			fixed (byte* poldpath = oldpath)
+			{
+				fixed (byte* pnewpath = newpath)
+				{
+					byte ret = CopyFileNative((byte*)poldpath, (byte*)pnewpath);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a file.<br/>
+		/// If the file at `newpath` already exists, it will be overwritten with the<br/>
+		/// contents of the file at `oldpath`.<br/>
+		/// This function will block until the copy is complete, which might be a<br/>
+		/// significant time for large files on slow disks. On some platforms, the copy<br/>
+		/// can be handed off to the OS itself, but on others SDL might just open both<br/>
+		/// paths, and read from one and write to the other.<br/>
+		/// Note that this is not an atomic operation! If something tries to read from<br/>
+		/// `newpath` while the copy is in progress, it will see an incomplete copy of<br/>
+		/// the data, and if the calling thread terminates (or the power goes out)<br/>
+		/// during the copy, `oldpath`'s previous contents will be gone, replaced with<br/>
+		/// an incomplete copy of the data. To avoid this risk, it is recommended that<br/>
+		/// the app copy to a temporary file in the same directory as `newpath`, and if<br/>
+		/// the copy is successful, use SDL_RenamePath() to replace `newpath` with the<br/>
+		/// temporary file. This will ensure that reads of `newpath` will either see a<br/>
+		/// complete copy of the data, or it will see the pre-copy state of `newpath`.<br/>
+		/// This function attempts to synchronize the newly-copied data to disk before<br/>
+		/// returning, if the platform allows it, so that the renaming trick will not<br/>
+		/// have a problem in a system crash or power failure, where the file could be<br/>
+		/// renamed but the contents never made it from the system file cache to the<br/>
+		/// physical disk.<br/>
+		/// If the copy fails for any reason, the state of `newpath` is undefined. It<br/>
+		/// might be half a copy, it might be the untouched data of what was already<br/>
+		/// there, or it might be a zero-byte file, etc.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CopyFile")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyFile([NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] string oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] string newpath)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (oldpath != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(oldpath);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(oldpath, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (newpath != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(newpath);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(newpath, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte ret = CopyFileNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GetPathInfoNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, SDLPathInfo*, byte>)funcTable[807])(path, info);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, byte>)funcTable[807])((nint)path, (nint)info);
+			#endif
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		{
+			byte ret = GetPathInfoNative(path, info);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte ret = GetPathInfoNative((byte*)ppath, info);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte ret = GetPathInfoNative((byte*)ppath, info);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = GetPathInfoNative(pStr0, info);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			fixed (SDLPathInfo* pinfo = &info)
+			{
+				byte ret = GetPathInfoNative(path, (SDLPathInfo*)pinfo);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (SDLPathInfo* pinfo = &info)
+				{
+					byte ret = GetPathInfoNative((byte*)ppath, (SDLPathInfo*)pinfo);
+					return ret != 0;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get information about a filesystem path.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetPathInfo")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GetPathInfo([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] ref SDLPathInfo info)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (SDLPathInfo* pinfo = &info)
+			{
+				byte ret = GetPathInfoNative(pStr0, (SDLPathInfo*)pinfo);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte** GlobDirectoryNative([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLGlobFlags, int*, byte**>)funcTable[808])(path, pattern, flags, count);
+			#else
+			return (byte**)((delegate* unmanaged[Cdecl]<nint, nint, SDLGlobFlags, nint, nint>)funcTable[808])((nint)path, (nint)pattern, flags, (nint)count);
+			#endif
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte** ret = GlobDirectoryNative(path, pattern, flags, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobDirectoryNative(pStr0, pattern, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppattern = &pattern)
+			{
+				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pattern != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte** ret = GlobDirectoryNative(path, pStr0, flags, count);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] int* count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (pattern != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, count);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -3307,285 +4032,125 @@ namespace Hexa.NET.SDL3
 		}
 
 		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, int>)funcTable[844])(name, value);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[844])((nint)name, (nint)value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			int ret = SetHintNative(name, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			fixed (byte* pname = &name)
+			fixed (int* pcount = &count)
 			{
-				int ret = SetHintNative((byte*)pname, value);
+				byte** ret = GlobDirectoryNative(path, pattern, flags, (int*)pcount);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
-			fixed (byte* pname = name)
+			fixed (byte* ppath = &path)
 			{
-				int ret = SetHintNative((byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (int* pcount = &count)
 				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetHintNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				int ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pvalue = value)
-			{
-				int ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetHintNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					int ret = SetHintNative((byte*)pname, (byte*)pvalue);
+					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
-			fixed (byte* pname = name)
+			fixed (byte* ppath = path)
 			{
-				fixed (byte* pvalue = value)
+				fixed (int* pcount = &count)
 				{
-					int ret = SetHintNative((byte*)pname, (byte*)pvalue);
+					byte** ret = GlobDirectoryNative((byte*)ppath, pattern, flags, (int*)pcount);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
-		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] byte* pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
-			if (name != null)
+			if (path != null)
 			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
+				pStrSize0 = Utils.GetByteCountUTF8(path);
 				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
 					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
@@ -3595,14 +4160,248 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
 					pStr0 = pStrStack0;
 				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobDirectoryNative(pStr0, pattern, flags, (int*)pcount);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppattern = &pattern)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppattern = pattern)
+			{
+				fixed (int* pcount = &count)
+				{
+					byte** ret = GlobDirectoryNative(path, (byte*)ppattern, flags, (int*)pcount);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (pattern != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(pattern);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(pattern, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			fixed (int* pcount = &count)
+			{
+				byte** ret = GlobDirectoryNative(path, pStr0, flags, (int*)pcount);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ref byte path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ref byte pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppath = &path)
+			{
+				fixed (byte* ppattern = &pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			fixed (byte* ppath = path)
+			{
+				fixed (byte* ppattern = pattern)
+				{
+					fixed (int* pcount = &count)
+					{
+						byte** ret = GlobDirectoryNative((byte*)ppath, (byte*)ppattern, flags, (int*)pcount);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Enumerate a directory tree, filtered by pattern, and return a list.<br/>
+		/// Files are filtered out if they don't match the string in `pattern`, which<br/>
+		/// may contain wildcard characters '*' (match everything) and '?' (match one<br/>
+		/// character). If pattern is NULL, no filtering is done and all results are<br/>
+		/// returned. Subdirectories are permitted, and are specified with a path<br/>
+		/// separator of '/'. Wildcard characters '*' and '?' never match a path<br/>
+		/// separator.<br/>
+		/// `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching<br/>
+		/// case-insensitive.<br/>
+		/// The returned array is always NULL-terminated, for your iterating<br/>
+		/// convenience, but if `count` is non-NULL, on return it will contain the<br/>
+		/// number of items in the array, not counting the NULL terminator.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GlobDirectory")]
+		[return: NativeName(NativeNameType.Type, "char * *")]
+		public static byte** GlobDirectory([NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] string path, [NativeName(NativeNameType.Param, "pattern")] [NativeName(NativeNameType.Type, "char const *")] string pattern, [NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_GlobFlags")] SDLGlobFlags flags, [NativeName(NativeNameType.Param, "count")] [NativeName(NativeNameType.Type, "int *")] ref int count)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (path != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(path);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(path, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
 			byte* pStr1 = null;
 			int pStrSize1 = 0;
-			if (value != null)
+			if (pattern != null)
 			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
+				pStrSize1 = Utils.GetByteCountUTF8(pattern);
 				if (pStrSize1 >= Utils.MaxStackallocSize)
 				{
 					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
@@ -3612,1441 +4411,637 @@ namespace Hexa.NET.SDL3
 					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
 					pStr1 = pStrStack1;
 				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
+				int pStrOffset1 = Utils.EncodeStringUTF8(pattern, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			int ret = SetHintNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
+			fixed (int* pcount = &count)
 			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ResetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[845])(name);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[845])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			int ret = ResetHintNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = ResetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = ResetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHint")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ResetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = ResetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHints")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetHintsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[846])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[846])();
-			#endif
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ResetHints")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void ResetHints()
-		{
-			ResetHintsNative();
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetHintNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[847])(name);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[847])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			byte* ret = GetHintNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			string ret = Utils.DecodeStringUTF8(GetHintNative(name));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetHint([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, however the<br/>
-		/// return value only remains valid until the hint is changed; if<br/>
-		/// another thread might do so, the app should supply locks<br/>
-		/// and/or make a copy of the string. Note that using a hint<br/>
-		/// callback instead is always thread-safe, as SDL holds a lock<br/>
-		/// on the thread subsystem during the callback.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHint")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetHintS([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetHintNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetHintBooleanNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int, int>)funcTable[848])(name, defaultValue);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[848])((nint)name, defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			int ret = GetHintBooleanNative(name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = GetHintBooleanNative((byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = GetHintBooleanNative((byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetHintBoolean")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetHintBoolean([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GetHintBooleanNative(pStr0, defaultValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int AddHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, int>)funcTable[849])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[849])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			int ret = AddHintCallbackNative(name, callback, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = AddHintCallbackNative((byte*)pname, callback, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = AddHintCallbackNative((byte*)pname, callback, userdata);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add a function to watch a particular hint.<br/>
-		/// The callback function is called _during_ this function, to provide it an<br/>
-		/// initial value, and again each time the hint's value changes.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_AddHintCallback")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int AddHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = AddHintCallbackNative(pStr0, callback, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DelHintCallbackNative([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, delegate*<void*, byte*, byte*, byte*, void>, void*, void>)funcTable[850])(name, (delegate*<void*, byte*, byte*, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[850])((nint)name, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			DelHintCallbackNative(name, callback, userdata);
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = &name)
-			{
-				DelHintCallbackNative((byte*)pname, callback, userdata);
-			}
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			fixed (byte* pname = name)
-			{
-				DelHintCallbackNative((byte*)pname, callback, userdata);
-			}
-		}
-
-		/// <summary>
-		/// Remove a function watching a particular hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DelHintCallback")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DelHintCallback([NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_HintCallback")] SDLHintCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			DelHintCallbackNative(pStr0, callback, userdata);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		/// <summary>
-		/// Initialize the SDL library.<br/>
-		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
-		/// two may be used interchangeably. Though for readability of your code<br/>
-		/// SDL_InitSubSystem() might be preferred.<br/>
-		/// The file I/O (for example: SDL_IOFromFile) and threading (SDL_CreateThread)<br/>
-		/// subsystems are initialized by default. Message boxes<br/>
-		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
-		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
-		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
-		/// use them in your application.<br/>
-		/// Logging (such as SDL_Log) works without initialization, too.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_INIT_TIMER`: timer subsystem<br/>
-		/// - `SDL_INIT_AUDIO`: audio subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
-		/// events subsystem<br/>
-		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
-		/// - `SDL_INIT_GAMEPAD`: gamepad subsystem; automatically initializes the<br/>
-		/// joystick subsystem<br/>
-		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
-		/// - `SDL_INIT_SENSOR`: sensor subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_CAMERA`: camera subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
-		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
-		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
-		/// this call will increase the ref-count and return.<br/>
-		/// Consider reporting some basic metadata about your application before<br/>
-		/// calling SDL_Init, using either SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Init")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int InitNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLInitFlags, int>)funcTable[851])(flags);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLInitFlags, int>)funcTable[851])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Initialize the SDL library.<br/>
-		/// SDL_Init() simply forwards to calling SDL_InitSubSystem(). Therefore, the<br/>
-		/// two may be used interchangeably. Though for readability of your code<br/>
-		/// SDL_InitSubSystem() might be preferred.<br/>
-		/// The file I/O (for example: SDL_IOFromFile) and threading (SDL_CreateThread)<br/>
-		/// subsystems are initialized by default. Message boxes<br/>
-		/// (SDL_ShowSimpleMessageBox) also attempt to work without initializing the<br/>
-		/// video subsystem, in hopes of being useful in showing an error dialog when<br/>
-		/// SDL_Init fails. You must specifically initialize other subsystems if you<br/>
-		/// use them in your application.<br/>
-		/// Logging (such as SDL_Log) works without initialization, too.<br/>
-		/// `flags` may be any of the following OR'd together:<br/>
-		/// - `SDL_INIT_TIMER`: timer subsystem<br/>
-		/// - `SDL_INIT_AUDIO`: audio subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_VIDEO`: video subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_JOYSTICK`: joystick subsystem; automatically initializes the<br/>
-		/// events subsystem<br/>
-		/// - `SDL_INIT_HAPTIC`: haptic (force feedback) subsystem<br/>
-		/// - `SDL_INIT_GAMEPAD`: gamepad subsystem; automatically initializes the<br/>
-		/// joystick subsystem<br/>
-		/// - `SDL_INIT_EVENTS`: events subsystem<br/>
-		/// - `SDL_INIT_SENSOR`: sensor subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// - `SDL_INIT_CAMERA`: camera subsystem; automatically initializes the events<br/>
-		/// subsystem<br/>
-		/// Subsystem initialization is ref-counted, you must call SDL_QuitSubSystem()<br/>
-		/// for each SDL_InitSubSystem() to correctly shutdown a subsystem manually (or<br/>
-		/// call SDL_Quit() to force shutdown). If a subsystem is already loaded then<br/>
-		/// this call will increase the ref-count and return.<br/>
-		/// Consider reporting some basic metadata about your application before<br/>
-		/// calling SDL_Init, using either SDL_SetAppMetadata() or<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Init")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int Init([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			int ret = InitNative(flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Compatibility function to initialize the SDL library.<br/>
-		/// This function and SDL_Init() are interchangeable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int InitSubSystemNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLInitFlags, int>)funcTable[852])(flags);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<SDLInitFlags, int>)funcTable[852])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Compatibility function to initialize the SDL library.<br/>
-		/// This function and SDL_Init() are interchangeable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_InitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int InitSubSystem([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			int ret = InitSubSystemNative(flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Shut down specific SDL subsystems.<br/>
-		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
-		/// with SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QuitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QuitSubSystemNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLInitFlags, void>)funcTable[853])(flags);
-			#else
-			((delegate* unmanaged[Cdecl]<SDLInitFlags, void>)funcTable[853])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Shut down specific SDL subsystems.<br/>
-		/// You still need to call SDL_Quit() even if you close all open subsystems<br/>
-		/// with SDL_QuitSubSystem().<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_QuitSubSystem")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void QuitSubSystem([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			QuitSubSystemNative(flags);
-		}
-
-		/// <summary>
-		/// Get a mask of the specified subsystems which are currently initialized.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WasInit")]
-		[return: NativeName(NativeNameType.Type, "SDL_InitFlags")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLInitFlags WasInitNative([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLInitFlags, SDLInitFlags>)funcTable[854])(flags);
-			#else
-			return (SDLInitFlags)((delegate* unmanaged[Cdecl]<SDLInitFlags, SDLInitFlags>)funcTable[854])(flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a mask of the specified subsystems which are currently initialized.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WasInit")]
-		[return: NativeName(NativeNameType.Type, "SDL_InitFlags")]
-		public static SDLInitFlags WasInit([NativeName(NativeNameType.Param, "flags")] [NativeName(NativeNameType.Type, "SDL_InitFlags")] SDLInitFlags flags)
-		{
-			SDLInitFlags ret = WasInitNative(flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Clean up all initialized subsystems.<br/>
-		/// You should call this function even if you have already shutdown each<br/>
-		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
-		/// function even in the case of errors in initialization.<br/>
-		/// You can use this function with atexit() to ensure that it is run when your<br/>
-		/// application is shutdown, but it is not wise to do this from a library or<br/>
-		/// other dynamically loaded code.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Quit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void QuitNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[855])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[855])();
-			#endif
-		}
-
-		/// <summary>
-		/// Clean up all initialized subsystems.<br/>
-		/// You should call this function even if you have already shutdown each<br/>
-		/// initialized subsystem with SDL_QuitSubSystem(). It is safe to call this<br/>
-		/// function even in the case of errors in initialization.<br/>
-		/// You can use this function with atexit() to ensure that it is run when your<br/>
-		/// application is shutdown, but it is not wise to do this from a library or<br/>
-		/// other dynamically loaded code.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_Quit")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void Quit()
-		{
-			QuitNative();
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetAppMetadataNative([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*, int>)funcTable[856])(appname, appversion, appidentifier);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[856])((nint)appname, (nint)appversion, (nint)appidentifier);
-			#endif
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			int ret = SetAppMetadataNative(appname, appversion, appidentifier);
-			return ret;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ref byte appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = &appname)
-			{
-				int ret = SetAppMetadataNative((byte*)pappname, appversion, appidentifier);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = appname)
-			{
-				int ret = SetAppMetadataNative((byte*)pappname, appversion, appidentifier);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] string appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] byte* appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appname != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appname);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appname, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetAppMetadataNative(pStr0, appversion, appidentifier);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappversion = &appversion)
-			{
-				int ret = SetAppMetadataNative(appname, (byte*)pappversion, appidentifier);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappversion = appversion)
-			{
-				int ret = SetAppMetadataNative(appname, (byte*)pappversion, appidentifier);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] byte* appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appversion != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appversion);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appversion, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetAppMetadataNative(appname, pStr0, appidentifier);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ref byte appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ref byte appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = &appname)
-			{
-				fixed (byte* pappversion = &appversion)
-				{
-					int ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, appidentifier);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			fixed (byte* pappname = appname)
-			{
-				fixed (byte* pappversion = appversion)
-				{
-					int ret = SetAppMetadataNative((byte*)pappname, (byte*)pappversion, appidentifier);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Specify basic metadata about your app.<br/>
-		/// You can optionally provide metadata about your app to SDL. This is not<br/>
-		/// required, but strongly encouraged.<br/>
-		/// There are several locations where SDL can make use of metadata (an "About"<br/>
-		/// box in the macOS menu bar, the name of the app can be shown on some audio<br/>
-		/// mixers, etc). Any piece of metadata can be left as NULL, if a specific<br/>
-		/// detail doesn't make sense for the app.<br/>
-		/// This function should be called as early as possible, before SDL_Init.<br/>
-		/// Multiple calls to this function are allowed, but various state might not<br/>
-		/// change once it has been set up with a previous call to this function.<br/>
-		/// Passing a NULL removes any previous metadata.<br/>
-		/// This is a simplified interface for the most important information. You can<br/>
-		/// supply significantly more detailed metadata with<br/>
-		/// SDL_SetAppMetadataProperty().<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetAppMetadata")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetAppMetadata([NativeName(NativeNameType.Param, "appname")] [NativeName(NativeNameType.Type, "char const *")] string appname, [NativeName(NativeNameType.Param, "appversion")] [NativeName(NativeNameType.Type, "char const *")] string appversion, [NativeName(NativeNameType.Param, "appidentifier")] [NativeName(NativeNameType.Type, "char const *")] byte* appidentifier)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (appname != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(appname);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(appname, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (appversion != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(appversion);
+				byte** ret = GlobDirectoryNative(pStr0, pStr1, flags, (int*)pcount);
 				if (pStrSize1 >= Utils.MaxStackallocSize)
 				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+					Utils.Free(pStr1);
+				}
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					Utils.Free(pStr0);
+				}
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUSupportsShaderFormatsNative([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte*, byte>)funcTable[809])(formatFlags, name);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, nint, byte>)funcTable[809])(formatFlags, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			byte ret = GPUSupportsShaderFormatsNative(formatFlags, name);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				byte ret = GPUSupportsShaderFormatsNative(formatFlags, (byte*)pname);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsShaderFormats([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
 				}
 				else
 				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
 				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(appversion, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetAppMetadataNative(pStr0, pStr1, appidentifier);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
+			byte ret = GPUSupportsShaderFormatsNative(formatFlags, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
-				Utils.Free(pStr1);
+				Utils.Free(pStr0);
 			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte GPUSupportsPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[810])(props);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[810])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Checks for GPU runtime support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GPUSupportsProperties")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool GPUSupportsProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			byte ret = GPUSupportsPropertiesNative(props);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUDevice* CreateGPUDeviceNative([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] byte debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, byte*, SDLGPUDevice*>)funcTable[811])(formatFlags, debugMode, name);
+			#else
+			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<SDLGPUShaderFormat, byte, nint, nint>)funcTable[811])(formatFlags, debugMode, (nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
+		{
+			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, (byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevice* CreateGPUDevice([NativeName(NativeNameType.Param, "format_flags")] [NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")] SDLGPUShaderFormat formatFlags, [NativeName(NativeNameType.Param, "debug_mode")] [NativeName(NativeNameType.Type, "bool")] bool debugMode, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLGPUDevice* ret = CreateGPUDeviceNative(formatFlags, debugMode ? (byte)1 : (byte)0, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
 			return ret;
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOL`: enable debug mode properties<br/>
+		/// and validations, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOL`: enable to prefer energy<br/>
+		/// efficiency over maximum GPU performance, defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
+		/// use, if a specific one is desired.<br/>
+		/// These are the current shader format properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOL`: The app is able to<br/>
+		/// provide shaders for an NDA platform.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOL`: The app is able to<br/>
+		/// provide SPIR-V shaders if applicable.<br/>
+		/// - SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOL`: The app is able to provide<br/>
+		/// DXBC shaders if applicable<br/>
+		/// `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOL`: The app is able to<br/>
+		/// provide DXIL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOL`: The app is able to provide<br/>
+		/// MSL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOL`: The app is able to<br/>
+		/// provide Metal shader libraries if applicable.<br/>
+		/// With the D3D12 renderer:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
+		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDeviceWithProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUDevice* CreateGPUDeviceWithPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, SDLGPUDevice*>)funcTable[812])(props);
+			#else
+			return (SDLGPUDevice*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[812])(props);
+			#endif
+		}
+
+		/// <summary>
+		/// Creates a GPU context.<br/>
+		/// These are the supported properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOL`: enable debug mode properties<br/>
+		/// and validations, defaults to true.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOL`: enable to prefer energy<br/>
+		/// efficiency over maximum GPU performance, defaults to false.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to<br/>
+		/// use, if a specific one is desired.<br/>
+		/// These are the current shader format properties:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOL`: The app is able to<br/>
+		/// provide shaders for an NDA platform.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOL`: The app is able to<br/>
+		/// provide SPIR-V shaders if applicable.<br/>
+		/// - SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOL`: The app is able to provide<br/>
+		/// DXBC shaders if applicable<br/>
+		/// `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOL`: The app is able to<br/>
+		/// provide DXIL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOL`: The app is able to provide<br/>
+		/// MSL shaders if applicable.<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOL`: The app is able to<br/>
+		/// provide Metal shader libraries if applicable.<br/>
+		/// With the D3D12 renderer:<br/>
+		/// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to<br/>
+		/// use for all vertex semantics, default is "TEXCOORD".<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUDeviceWithProperties")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUDevice *")]
+		public static SDLGPUDevice* CreateGPUDeviceWithProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		{
+			SDLGPUDevice* ret = CreateGPUDeviceWithPropertiesNative(props);
+			return ret;
+		}
+
+		/// <summary>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DestroyGPUDeviceNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLGPUDevice*, void>)funcTable[813])(device);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[813])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			DestroyGPUDeviceNative(device);
+		}
+
+		/// <summary>
+		/// Destroys a GPU context previously returned by SDL_CreateGPUDevice.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_DestroyGPUDevice")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void DestroyGPUDevice([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				DestroyGPUDeviceNative((SDLGPUDevice*)pdevice);
+			}
+		}
+
+		/// <summary>
+		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumGPUDrivers")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetNumGPUDriversNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[814])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[814])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of GPU drivers compiled into SDL.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetNumGPUDrivers")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetNumGPUDrivers()
+		{
+			int ret = GetNumGPUDriversNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGPUDriverNative([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*>)funcTable[815])(index);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[815])(index);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGPUDriver([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		{
+			byte* ret = GetGPUDriverNative(index);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the name of a built in GPU driver.<br/>
+		/// The GPU drivers are presented in the order in which they are normally<br/>
+		/// checked during initialization.<br/>
+		/// The names of drivers are all simple, low-ASCII identifiers, like "vulkan",<br/>
+		/// "metal" or "direct3d12". These never have Unicode characters, and are not<br/>
+		/// meant to be proper names.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGPUDriverS([NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGPUDriverNative(index));
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetGPUDeviceDriverNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, byte*>)funcTable[816])(device);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[816])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGPUDeviceDriver([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			byte* ret = GetGPUDeviceDriverNative(device);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGPUDeviceDriverS([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative(device));
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetGPUDeviceDriver([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				byte* ret = GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns the name of the backend used to create this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUDeviceDriver")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetGPUDeviceDriverS([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				string ret = Utils.DecodeStringUTF8(GetGPUDeviceDriverNative((SDLGPUDevice*)pdevice));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Returns the supported shader formats for this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUShaderFormat GetGPUShaderFormatsNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUShaderFormat>)funcTable[817])(device);
+			#else
+			return (SDLGPUShaderFormat)((delegate* unmanaged[Cdecl]<nint, SDLGPUShaderFormat>)funcTable[817])((nint)device);
+			#endif
+		}
+
+		/// <summary>
+		/// Returns the supported shader formats for this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
+		public static SDLGPUShaderFormat GetGPUShaderFormats([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device)
+		{
+			SDLGPUShaderFormat ret = GetGPUShaderFormatsNative(device);
+			return ret;
+		}
+
+		/// <summary>
+		/// Returns the supported shader formats for this GPU context.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetGPUShaderFormats")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUShaderFormat")]
+		public static SDLGPUShaderFormat GetGPUShaderFormats([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] ref SDLGPUDevice device)
+		{
+			fixed (SDLGPUDevice* pdevice = &device)
+			{
+				SDLGPUShaderFormat ret = GetGPUShaderFormatsNative((SDLGPUDevice*)pdevice);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Creates a pipeline object to be used in a compute workflow.<br/>
+		/// Shader resource bindings must be authored to follow a particular order<br/>
+		/// depending on the shader format.<br/>
+		/// For SPIR-V shaders, use the following resource sets:<br/>
+		/// - 0: Sampled textures, followed by read-only storage textures, followed by<br/>
+		/// read-only storage buffers<br/>
+		/// - 1: Write-only storage textures, followed by write-only storage buffers<br/>
+		/// - 2: Uniform buffers<br/>
+		/// For DXBC Shader Model 5_0 shaders, use the following register order:<br/>
+		/// - t registers: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - u registers: Write-only storage textures, followed by write-only storage<br/>
+		/// buffers<br/>
+		/// - b registers: Uniform buffers<br/>
+		/// For DXIL shaders, use the following register order:<br/>
+		/// - (t[n], space0): Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by read-only storage buffers<br/>
+		/// - (u[n], space1): Write-only storage textures, followed by write-only<br/>
+		/// storage buffers<br/>
+		/// - (b[n], space2): Uniform buffers<br/>
+		/// For MSL/metallib, use the following order:<br/>
+		/// - [[buffer]]: Uniform buffers, followed by write-only storage buffers,<br/>
+		/// followed by write-only storage buffers<br/>
+		/// - [[texture]]: Sampled textures, followed by read-only storage textures,<br/>
+		/// followed by write-only storage textures<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CreateGPUComputePipeline")]
+		[return: NativeName(NativeNameType.Type, "SDL_GPUComputePipeline *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLGPUComputePipeline* CreateGPUComputePipelineNative([NativeName(NativeNameType.Param, "device")] [NativeName(NativeNameType.Type, "SDL_GPUDevice *")] SDLGPUDevice* device, [NativeName(NativeNameType.Param, "createinfo")] [NativeName(NativeNameType.Type, "SDL_GPUComputePipelineCreateInfo const *")] SDLGPUComputePipelineCreateInfo* createinfo)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLGPUDevice*, SDLGPUComputePipelineCreateInfo*, SDLGPUComputePipeline*>)funcTable[818])(device, createinfo);
+			#else
+			return (SDLGPUComputePipeline*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[818])((nint)device, (nint)createinfo);
+			#endif
 		}
 	}
 }

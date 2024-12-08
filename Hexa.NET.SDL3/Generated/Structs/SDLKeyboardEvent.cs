@@ -89,21 +89,21 @@ namespace Hexa.NET.SDL3
 		public ushort Raw;
 
 		/// <summary>
-		/// SDL_PRESSED or SDL_RELEASED <br/>
+		/// true if the key is pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "Uint8")]
-		public byte State;
+		[NativeName(NativeNameType.Field, "down")]
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte Down;
 
 		/// <summary>
-		/// Non-zero if this is a key repeat <br/>
+		/// true if this is a key repeat <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "repeat")]
-		[NativeName(NativeNameType.Type, "Uint8")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Repeat;
 
 
-		public unsafe SDLKeyboardEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, SDLScancode scancode = default, int key = default, SDLKeymod mod = default, ushort raw = default, byte state = default, byte repeat = default)
+		public unsafe SDLKeyboardEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, SDLScancode scancode = default, int key = default, SDLKeymod mod = default, ushort raw = default, bool down = default, bool repeat = default)
 		{
 			Type = type;
 			Reserved = reserved;
@@ -114,8 +114,8 @@ namespace Hexa.NET.SDL3
 			Key = key;
 			Mod = mod;
 			Raw = raw;
-			State = state;
-			Repeat = repeat;
+			Down = down ? (byte)1 : (byte)0;
+			Repeat = repeat ? (byte)1 : (byte)0;
 		}
 
 

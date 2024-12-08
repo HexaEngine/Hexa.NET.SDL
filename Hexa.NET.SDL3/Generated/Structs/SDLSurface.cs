@@ -28,48 +28,49 @@ namespace Hexa.NET.SDL3
 	/// remaining bytes to reach the pitch are used as padding to reach a desired<br/>
 	/// alignment, and have undefined contents.<br/>
 	/// <br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Surface")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSurface
 	{
 		/// <summary>
-		/// Read-only <br/>
+		/// The flags of the surface, read-only <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "flags")]
 		[NativeName(NativeNameType.Type, "SDL_SurfaceFlags")]
 		public SDLSurfaceFlags Flags;
 
 		/// <summary>
-		/// Read-only <br/>
+		/// The format of the surface, read-only <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "format")]
 		[NativeName(NativeNameType.Type, "SDL_PixelFormat")]
 		public SDLPixelFormat Format;
 
 		/// <summary>
-		/// Read-only <br/>
+		/// The width of the surface, read-only. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "w")]
 		[NativeName(NativeNameType.Type, "int")]
 		public int W;
 
 		/// <summary>
-		/// Read-only <br/>
+		/// The height of the surface, read-only. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "h")]
 		[NativeName(NativeNameType.Type, "int")]
 		public int H;
 
 		/// <summary>
-		/// Read-only <br/>
+		/// The distance in bytes between rows of pixels, read-only <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "pitch")]
 		[NativeName(NativeNameType.Type, "int")]
 		public int Pitch;
 
 		/// <summary>
-		/// Read-only pointer, writable pixels if non-NULL <br/>
+		/// A pointer to the pixels of the surface, the pixels are writeable if non-NULL <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "pixels")]
 		[NativeName(NativeNameType.Type, "void *")]
@@ -83,14 +84,14 @@ namespace Hexa.NET.SDL3
 		public int Refcount;
 
 		/// <summary>
-		/// Private <br/>
+		/// Reserved for internal use <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "internal")]
-		[NativeName(NativeNameType.Type, "SDL_SurfaceData *")]
-		public unsafe SDLSurfaceData* Internal;
+		[NativeName(NativeNameType.Field, "reserved")]
+		[NativeName(NativeNameType.Type, "void *")]
+		public unsafe void* Reserved;
 
 
-		public unsafe SDLSurface(SDLSurfaceFlags flags = default, SDLPixelFormat format = default, int w = default, int h = default, int pitch = default, void* pixels = default, int refcount = default, SDLSurfaceData* @internal = default)
+		public unsafe SDLSurface(SDLSurfaceFlags flags = default, SDLPixelFormat format = default, int w = default, int h = default, int pitch = default, void* pixels = default, int refcount = default, void* reserved = default)
 		{
 			Flags = flags;
 			Format = format;
@@ -99,7 +100,7 @@ namespace Hexa.NET.SDL3
 			Pitch = pitch;
 			Pixels = pixels;
 			Refcount = refcount;
-			Internal = @internal;
+			Reserved = reserved;
 		}
 
 

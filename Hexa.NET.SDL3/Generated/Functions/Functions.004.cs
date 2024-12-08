@@ -18,1416 +18,4154 @@ namespace Hexa.NET.SDL3
 	{
 
 		/// <summary>
-		/// Create a new read/write lock.<br/>
-		/// A read/write lock is useful for situations where you have multiple threads<br/>
-		/// trying to access a resource that is rarely updated. All threads requesting<br/>
-		/// a read-only lock will be allowed to run in parallel; if a thread requests a<br/>
-		/// write lock, it will be provided exclusive access. This makes it safe for<br/>
-		/// multiple threads to use a resource at the same time if they promise not to<br/>
-		/// change it, and when it has to be changed, the rwlock will serve as a<br/>
-		/// gateway to make sure those changes can be made safely.<br/>
-		/// In the right situation, a rwlock can be more efficient than a mutex, which<br/>
-		/// only lets a single thread proceed at a time, even if it won't be modifying<br/>
-		/// the data.<br/>
-		/// All newly-created read/write locks begin in the _unlocked_ state.<br/>
-		/// Calls to SDL_LockRWLockForReading() and SDL_LockRWLockForWriting will not<br/>
-		/// return while the rwlock is locked _for writing_ by another thread. See<br/>
-		/// SDL_TryLockRWLockForReading() and SDL_TryLockRWLockForWriting() to attempt<br/>
-		/// to lock without blocking.<br/>
-		/// SDL read/write locks are only recursive for read-only locks! They are not<br/>
-		/// guaranteed to be fair, or provide access in a FIFO manner! They are not<br/>
-		/// guaranteed to favor writers. You may not lock a rwlock for both read-only<br/>
-		/// and write access at the same time from the same thread (so you can't<br/>
-		/// promote your read-only lock to a write lock without unlocking first).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRWLock")]
-		[return: NativeName(NativeNameType.Type, "SDL_RWLock *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLRWLock* CreateRWLockNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWLock*>)funcTable[180])();
-			#else
-			return (SDLRWLock*)((delegate* unmanaged[Cdecl]<nint>)funcTable[180])();
-			#endif
-		}
-
-		/// <summary>
-		/// Create a new read/write lock.<br/>
-		/// A read/write lock is useful for situations where you have multiple threads<br/>
-		/// trying to access a resource that is rarely updated. All threads requesting<br/>
-		/// a read-only lock will be allowed to run in parallel; if a thread requests a<br/>
-		/// write lock, it will be provided exclusive access. This makes it safe for<br/>
-		/// multiple threads to use a resource at the same time if they promise not to<br/>
-		/// change it, and when it has to be changed, the rwlock will serve as a<br/>
-		/// gateway to make sure those changes can be made safely.<br/>
-		/// In the right situation, a rwlock can be more efficient than a mutex, which<br/>
-		/// only lets a single thread proceed at a time, even if it won't be modifying<br/>
-		/// the data.<br/>
-		/// All newly-created read/write locks begin in the _unlocked_ state.<br/>
-		/// Calls to SDL_LockRWLockForReading() and SDL_LockRWLockForWriting will not<br/>
-		/// return while the rwlock is locked _for writing_ by another thread. See<br/>
-		/// SDL_TryLockRWLockForReading() and SDL_TryLockRWLockForWriting() to attempt<br/>
-		/// to lock without blocking.<br/>
-		/// SDL read/write locks are only recursive for read-only locks! They are not<br/>
-		/// guaranteed to be fair, or provide access in a FIFO manner! They are not<br/>
-		/// guaranteed to favor writers. You may not lock a rwlock for both read-only<br/>
-		/// and write access at the same time from the same thread (so you can't<br/>
-		/// promote your read-only lock to a write lock without unlocking first).<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateRWLock")]
-		[return: NativeName(NativeNameType.Type, "SDL_RWLock *")]
-		public static SDLRWLock* CreateRWLock()
-		{
-			SDLRWLock* ret = CreateRWLockNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Lock the read/write lock for _read only_ operations.<br/>
-		/// This will block until the rwlock is available, which is to say it is not<br/>
-		/// locked for writing by any other thread. Of all threads waiting to lock the<br/>
-		/// rwlock, all may do so at the same time as long as they are requesting<br/>
-		/// read-only access; if a thread wants to lock for writing, only one may do so<br/>
-		/// at a time, and no other threads, read-only or not, may hold the lock at the<br/>
-		/// same time.<br/>
-		/// It is legal for the owning thread to lock an already-locked rwlock for<br/>
-		/// reading. It must unlock it the same number of times before it is actually<br/>
-		/// made available for other threads in the system (this is known as a<br/>
-		/// "recursive rwlock").<br/>
-		/// Note that locking for writing is not recursive (this is only available to<br/>
-		/// read-only locks).<br/>
-		/// It is illegal to request a read-only lock from a thread that already holds<br/>
-		/// the write lock. Doing so results in undefined behavior. Unlock the write<br/>
-		/// lock before requesting a read-only lock. (But, of course, if you have the<br/>
-		/// write lock, you don't need further locks to read in any case.)<br/>
-		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
-		/// having locked nothing. If the rwlock is valid, this function will always<br/>
-		/// block until it can lock the mutex, and return with it locked.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockRWLockForReading")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockRWLockForReadingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[181])(rwlock);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[181])((nint)rwlock);
-			#endif
-		}
-
-		/// <summary>
-		/// Lock the read/write lock for _read only_ operations.<br/>
-		/// This will block until the rwlock is available, which is to say it is not<br/>
-		/// locked for writing by any other thread. Of all threads waiting to lock the<br/>
-		/// rwlock, all may do so at the same time as long as they are requesting<br/>
-		/// read-only access; if a thread wants to lock for writing, only one may do so<br/>
-		/// at a time, and no other threads, read-only or not, may hold the lock at the<br/>
-		/// same time.<br/>
-		/// It is legal for the owning thread to lock an already-locked rwlock for<br/>
-		/// reading. It must unlock it the same number of times before it is actually<br/>
-		/// made available for other threads in the system (this is known as a<br/>
-		/// "recursive rwlock").<br/>
-		/// Note that locking for writing is not recursive (this is only available to<br/>
-		/// read-only locks).<br/>
-		/// It is illegal to request a read-only lock from a thread that already holds<br/>
-		/// the write lock. Doing so results in undefined behavior. Unlock the write<br/>
-		/// lock before requesting a read-only lock. (But, of course, if you have the<br/>
-		/// write lock, you don't need further locks to read in any case.)<br/>
-		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
-		/// having locked nothing. If the rwlock is valid, this function will always<br/>
-		/// block until it can lock the mutex, and return with it locked.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockRWLockForReading")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			LockRWLockForReadingNative(rwlock);
-		}
-
-		/// <summary>
-		/// Lock the read/write lock for _read only_ operations.<br/>
-		/// This will block until the rwlock is available, which is to say it is not<br/>
-		/// locked for writing by any other thread. Of all threads waiting to lock the<br/>
-		/// rwlock, all may do so at the same time as long as they are requesting<br/>
-		/// read-only access; if a thread wants to lock for writing, only one may do so<br/>
-		/// at a time, and no other threads, read-only or not, may hold the lock at the<br/>
-		/// same time.<br/>
-		/// It is legal for the owning thread to lock an already-locked rwlock for<br/>
-		/// reading. It must unlock it the same number of times before it is actually<br/>
-		/// made available for other threads in the system (this is known as a<br/>
-		/// "recursive rwlock").<br/>
-		/// Note that locking for writing is not recursive (this is only available to<br/>
-		/// read-only locks).<br/>
-		/// It is illegal to request a read-only lock from a thread that already holds<br/>
-		/// the write lock. Doing so results in undefined behavior. Unlock the write<br/>
-		/// lock before requesting a read-only lock. (But, of course, if you have the<br/>
-		/// write lock, you don't need further locks to read in any case.)<br/>
-		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
-		/// having locked nothing. If the rwlock is valid, this function will always<br/>
-		/// block until it can lock the mutex, and return with it locked.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockRWLockForReading")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
-		{
-			fixed (SDLRWLock* prwlock = &rwlock)
-			{
-				LockRWLockForReadingNative((SDLRWLock*)prwlock);
-			}
-		}
-
-		/// <summary>
-		/// Lock the read/write lock for _write_ operations.<br/>
-		/// This will block until the rwlock is available, which is to say it is not<br/>
-		/// locked for reading or writing by any other thread. Only one thread may hold<br/>
-		/// the lock when it requests write access; all other threads, whether they<br/>
-		/// also want to write or only want read-only access, must wait until the<br/>
-		/// writer thread has released the lock.<br/>
-		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
-		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
-		/// results in undefined behavior.<br/>
-		/// It is illegal to request a write lock from a thread that already holds a<br/>
-		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
-		/// read-only lock before requesting a write lock.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
-		/// having locked nothing. If the rwlock is valid, this function will always<br/>
-		/// block until it can lock the mutex, and return with it locked.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockRWLockForWriting")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockRWLockForWritingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[182])(rwlock);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[182])((nint)rwlock);
-			#endif
-		}
-
-		/// <summary>
-		/// Lock the read/write lock for _write_ operations.<br/>
-		/// This will block until the rwlock is available, which is to say it is not<br/>
-		/// locked for reading or writing by any other thread. Only one thread may hold<br/>
-		/// the lock when it requests write access; all other threads, whether they<br/>
-		/// also want to write or only want read-only access, must wait until the<br/>
-		/// writer thread has released the lock.<br/>
-		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
-		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
-		/// results in undefined behavior.<br/>
-		/// It is illegal to request a write lock from a thread that already holds a<br/>
-		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
-		/// read-only lock before requesting a write lock.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
-		/// having locked nothing. If the rwlock is valid, this function will always<br/>
-		/// block until it can lock the mutex, and return with it locked.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockRWLockForWriting")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			LockRWLockForWritingNative(rwlock);
-		}
-
-		/// <summary>
-		/// Lock the read/write lock for _write_ operations.<br/>
-		/// This will block until the rwlock is available, which is to say it is not<br/>
-		/// locked for reading or writing by any other thread. Only one thread may hold<br/>
-		/// the lock when it requests write access; all other threads, whether they<br/>
-		/// also want to write or only want read-only access, must wait until the<br/>
-		/// writer thread has released the lock.<br/>
-		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
-		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
-		/// results in undefined behavior.<br/>
-		/// It is illegal to request a write lock from a thread that already holds a<br/>
-		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
-		/// read-only lock before requesting a write lock.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return immediately<br/>
-		/// having locked nothing. If the rwlock is valid, this function will always<br/>
-		/// block until it can lock the mutex, and return with it locked.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_LockRWLockForWriting")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void LockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
-		{
-			fixed (SDLRWLock* prwlock = &rwlock)
-			{
-				LockRWLockForWritingNative((SDLRWLock*)prwlock);
-			}
-		}
-
-		/// <summary>
-		/// Try to lock a read/write lock _for reading_ without blocking.<br/>
-		/// This works just like SDL_LockRWLockForReading(), but if the rwlock is not<br/>
-		/// available, then this function returns `SDL_RWLOCK_TIMEDOUT` immediately.<br/>
-		/// This technique is useful if you need access to a resource but don't want to<br/>
-		/// wait for it, and will return to it to try again later.<br/>
-		/// Trying to lock for read-only access can succeed if other threads are<br/>
-		/// holding read-only locks, as this won't prevent access.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return 0<br/>
-		/// immediately having locked nothing. If rwlock is valid, this function will<br/>
-		/// always either lock the rwlock and return 0, or return SDL_RWLOCK_TIMEOUT<br/>
-		/// and lock nothing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForReading")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TryLockRWLockForReadingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWLock*, int>)funcTable[183])(rwlock);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[183])((nint)rwlock);
-			#endif
-		}
-
-		/// <summary>
-		/// Try to lock a read/write lock _for reading_ without blocking.<br/>
-		/// This works just like SDL_LockRWLockForReading(), but if the rwlock is not<br/>
-		/// available, then this function returns `SDL_RWLOCK_TIMEDOUT` immediately.<br/>
-		/// This technique is useful if you need access to a resource but don't want to<br/>
-		/// wait for it, and will return to it to try again later.<br/>
-		/// Trying to lock for read-only access can succeed if other threads are<br/>
-		/// holding read-only locks, as this won't prevent access.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return 0<br/>
-		/// immediately having locked nothing. If rwlock is valid, this function will<br/>
-		/// always either lock the rwlock and return 0, or return SDL_RWLOCK_TIMEOUT<br/>
-		/// and lock nothing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForReading")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TryLockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			int ret = TryLockRWLockForReadingNative(rwlock);
-			return ret;
-		}
-
-		/// <summary>
-		/// Try to lock a read/write lock _for reading_ without blocking.<br/>
-		/// This works just like SDL_LockRWLockForReading(), but if the rwlock is not<br/>
-		/// available, then this function returns `SDL_RWLOCK_TIMEDOUT` immediately.<br/>
-		/// This technique is useful if you need access to a resource but don't want to<br/>
-		/// wait for it, and will return to it to try again later.<br/>
-		/// Trying to lock for read-only access can succeed if other threads are<br/>
-		/// holding read-only locks, as this won't prevent access.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return 0<br/>
-		/// immediately having locked nothing. If rwlock is valid, this function will<br/>
-		/// always either lock the rwlock and return 0, or return SDL_RWLOCK_TIMEOUT<br/>
-		/// and lock nothing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForReading")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TryLockRWLockForReading([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
-		{
-			fixed (SDLRWLock* prwlock = &rwlock)
-			{
-				int ret = TryLockRWLockForReadingNative((SDLRWLock*)prwlock);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Try to lock a read/write lock _for writing_ without blocking.<br/>
-		/// This works just like SDL_LockRWLockForWriting(), but if the rwlock is not<br/>
-		/// available, this function returns `SDL_RWLOCK_TIMEDOUT` immediately.<br/>
-		/// This technique is useful if you need exclusive access to a resource but<br/>
-		/// don't want to wait for it, and will return to it to try again later.<br/>
-		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
-		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
-		/// results in undefined behavior.<br/>
-		/// It is illegal to request a write lock from a thread that already holds a<br/>
-		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
-		/// read-only lock before requesting a write lock.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return 0<br/>
-		/// immediately having locked nothing. If rwlock is valid, this function will<br/>
-		/// always either lock the rwlock and return 0, or return SDL_RWLOCK_TIMEOUT<br/>
-		/// and lock nothing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForWriting")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TryLockRWLockForWritingNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWLock*, int>)funcTable[184])(rwlock);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[184])((nint)rwlock);
-			#endif
-		}
-
-		/// <summary>
-		/// Try to lock a read/write lock _for writing_ without blocking.<br/>
-		/// This works just like SDL_LockRWLockForWriting(), but if the rwlock is not<br/>
-		/// available, this function returns `SDL_RWLOCK_TIMEDOUT` immediately.<br/>
-		/// This technique is useful if you need exclusive access to a resource but<br/>
-		/// don't want to wait for it, and will return to it to try again later.<br/>
-		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
-		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
-		/// results in undefined behavior.<br/>
-		/// It is illegal to request a write lock from a thread that already holds a<br/>
-		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
-		/// read-only lock before requesting a write lock.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return 0<br/>
-		/// immediately having locked nothing. If rwlock is valid, this function will<br/>
-		/// always either lock the rwlock and return 0, or return SDL_RWLOCK_TIMEOUT<br/>
-		/// and lock nothing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForWriting")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TryLockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			int ret = TryLockRWLockForWritingNative(rwlock);
-			return ret;
-		}
-
-		/// <summary>
-		/// Try to lock a read/write lock _for writing_ without blocking.<br/>
-		/// This works just like SDL_LockRWLockForWriting(), but if the rwlock is not<br/>
-		/// available, this function returns `SDL_RWLOCK_TIMEDOUT` immediately.<br/>
-		/// This technique is useful if you need exclusive access to a resource but<br/>
-		/// don't want to wait for it, and will return to it to try again later.<br/>
-		/// It is illegal for the owning thread to lock an already-locked rwlock for<br/>
-		/// writing (read-only may be locked recursively, writing can not). Doing so<br/>
-		/// results in undefined behavior.<br/>
-		/// It is illegal to request a write lock from a thread that already holds a<br/>
-		/// read-only lock. Doing so results in undefined behavior. Unlock the<br/>
-		/// read-only lock before requesting a write lock.<br/>
-		/// This function does not fail; if rwlock is NULL, it will return 0<br/>
-		/// immediately having locked nothing. If rwlock is valid, this function will<br/>
-		/// always either lock the rwlock and return 0, or return SDL_RWLOCK_TIMEOUT<br/>
-		/// and lock nothing.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryLockRWLockForWriting")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TryLockRWLockForWriting([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
-		{
-			fixed (SDLRWLock* prwlock = &rwlock)
-			{
-				int ret = TryLockRWLockForWritingNative((SDLRWLock*)prwlock);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Unlock the read/write lock.<br/>
-		/// Use this function to unlock the rwlock, whether it was locked for read-only<br/>
-		/// or write operations.<br/>
-		/// It is legal for the owning thread to lock an already-locked read-only lock.<br/>
-		/// It must unlock it the same number of times before it is actually made<br/>
-		/// available for other threads in the system (this is known as a "recursive<br/>
-		/// rwlock").<br/>
-		/// It is illegal to unlock a rwlock that has not been locked by the current<br/>
-		/// thread, and doing so results in undefined behavior.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockRWLock")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void UnlockRWLockNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[185])(rwlock);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[185])((nint)rwlock);
-			#endif
-		}
-
-		/// <summary>
-		/// Unlock the read/write lock.<br/>
-		/// Use this function to unlock the rwlock, whether it was locked for read-only<br/>
-		/// or write operations.<br/>
-		/// It is legal for the owning thread to lock an already-locked read-only lock.<br/>
-		/// It must unlock it the same number of times before it is actually made<br/>
-		/// available for other threads in the system (this is known as a "recursive<br/>
-		/// rwlock").<br/>
-		/// It is illegal to unlock a rwlock that has not been locked by the current<br/>
-		/// thread, and doing so results in undefined behavior.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockRWLock")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			UnlockRWLockNative(rwlock);
-		}
-
-		/// <summary>
-		/// Unlock the read/write lock.<br/>
-		/// Use this function to unlock the rwlock, whether it was locked for read-only<br/>
-		/// or write operations.<br/>
-		/// It is legal for the owning thread to lock an already-locked read-only lock.<br/>
-		/// It must unlock it the same number of times before it is actually made<br/>
-		/// available for other threads in the system (this is known as a "recursive<br/>
-		/// rwlock").<br/>
-		/// It is illegal to unlock a rwlock that has not been locked by the current<br/>
-		/// thread, and doing so results in undefined behavior.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_UnlockRWLock")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void UnlockRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
-		{
-			fixed (SDLRWLock* prwlock = &rwlock)
-			{
-				UnlockRWLockNative((SDLRWLock*)prwlock);
-			}
-		}
-
-		/// <summary>
-		/// Destroy a read/write lock created with SDL_CreateRWLock().<br/>
-		/// This function must be called on any read/write lock that is no longer<br/>
-		/// needed. Failure to destroy a rwlock will result in a system memory or<br/>
-		/// resource leak. While it is safe to destroy a rwlock that is _unlocked_, it<br/>
-		/// is not safe to attempt to destroy a locked rwlock, and may result in<br/>
-		/// undefined behavior depending on the platform.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyRWLock")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyRWLockNative([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRWLock*, void>)funcTable[186])(rwlock);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[186])((nint)rwlock);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a read/write lock created with SDL_CreateRWLock().<br/>
-		/// This function must be called on any read/write lock that is no longer<br/>
-		/// needed. Failure to destroy a rwlock will result in a system memory or<br/>
-		/// resource leak. While it is safe to destroy a rwlock that is _unlocked_, it<br/>
-		/// is not safe to attempt to destroy a locked rwlock, and may result in<br/>
-		/// undefined behavior depending on the platform.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyRWLock")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] SDLRWLock* rwlock)
-		{
-			DestroyRWLockNative(rwlock);
-		}
-
-		/// <summary>
-		/// Destroy a read/write lock created with SDL_CreateRWLock().<br/>
-		/// This function must be called on any read/write lock that is no longer<br/>
-		/// needed. Failure to destroy a rwlock will result in a system memory or<br/>
-		/// resource leak. While it is safe to destroy a rwlock that is _unlocked_, it<br/>
-		/// is not safe to attempt to destroy a locked rwlock, and may result in<br/>
-		/// undefined behavior depending on the platform.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyRWLock")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyRWLock([NativeName(NativeNameType.Param, "rwlock")] [NativeName(NativeNameType.Type, "SDL_RWLock *")] ref SDLRWLock rwlock)
-		{
-			fixed (SDLRWLock* prwlock = &rwlock)
-			{
-				DestroyRWLockNative((SDLRWLock*)prwlock);
-			}
-		}
-
-		/// <summary>
-		/// Create a semaphore.<br/>
-		/// This function creates a new semaphore and initializes it with the value<br/>
-		/// `initial_value`. Each wait operation on the semaphore will atomically<br/>
-		/// decrement the semaphore value and potentially block if the semaphore value<br/>
-		/// is 0. Each post operation will atomically increment the semaphore value and<br/>
-		/// wake waiting threads and allow them to retry the wait operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSemaphore")]
-		[return: NativeName(NativeNameType.Type, "SDL_Semaphore *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLSemaphore* CreateSemaphoreNative([NativeName(NativeNameType.Param, "initial_value")] [NativeName(NativeNameType.Type, "Uint32")] uint initialValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, SDLSemaphore*>)funcTable[187])(initialValue);
-			#else
-			return (SDLSemaphore*)((delegate* unmanaged[Cdecl]<uint, nint>)funcTable[187])(initialValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a semaphore.<br/>
-		/// This function creates a new semaphore and initializes it with the value<br/>
-		/// `initial_value`. Each wait operation on the semaphore will atomically<br/>
-		/// decrement the semaphore value and potentially block if the semaphore value<br/>
-		/// is 0. Each post operation will atomically increment the semaphore value and<br/>
-		/// wake waiting threads and allow them to retry the wait operation.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateSemaphore")]
-		[return: NativeName(NativeNameType.Type, "SDL_Semaphore *")]
-		public static SDLSemaphore* CreateSemaphore([NativeName(NativeNameType.Param, "initial_value")] [NativeName(NativeNameType.Type, "Uint32")] uint initialValue)
-		{
-			SDLSemaphore* ret = CreateSemaphoreNative(initialValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Destroy a semaphore.<br/>
-		/// It is not safe to destroy a semaphore if there are threads currently<br/>
-		/// waiting on it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroySemaphore")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroySemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSemaphore*, void>)funcTable[188])(sem);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[188])((nint)sem);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a semaphore.<br/>
-		/// It is not safe to destroy a semaphore if there are threads currently<br/>
-		/// waiting on it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroySemaphore")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroySemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			DestroySemaphoreNative(sem);
-		}
-
-		/// <summary>
-		/// Destroy a semaphore.<br/>
-		/// It is not safe to destroy a semaphore if there are threads currently<br/>
-		/// waiting on it.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroySemaphore")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroySemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
-		{
-			fixed (SDLSemaphore* psem = &sem)
-			{
-				DestroySemaphoreNative((SDLSemaphore*)psem);
-			}
-		}
-
-		/// <summary>
-		/// Wait until a semaphore has a positive value and then decrements it.<br/>
-		/// This function suspends the calling thread until either the semaphore<br/>
-		/// pointed to by `sem` has a positive value or the call is interrupted by a<br/>
-		/// signal or error. If the call is successful it will atomically decrement the<br/>
-		/// semaphore value.<br/>
-		/// This function is the equivalent of calling SDL_WaitSemaphoreTimeout() with<br/>
-		/// a time length of -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WaitSemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)funcTable[189])(sem);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[189])((nint)sem);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait until a semaphore has a positive value and then decrements it.<br/>
-		/// This function suspends the calling thread until either the semaphore<br/>
-		/// pointed to by `sem` has a positive value or the call is interrupted by a<br/>
-		/// signal or error. If the call is successful it will atomically decrement the<br/>
-		/// semaphore value.<br/>
-		/// This function is the equivalent of calling SDL_WaitSemaphoreTimeout() with<br/>
-		/// a time length of -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			int ret = WaitSemaphoreNative(sem);
-			return ret;
-		}
-
-		/// <summary>
-		/// Wait until a semaphore has a positive value and then decrements it.<br/>
-		/// This function suspends the calling thread until either the semaphore<br/>
-		/// pointed to by `sem` has a positive value or the call is interrupted by a<br/>
-		/// signal or error. If the call is successful it will atomically decrement the<br/>
-		/// semaphore value.<br/>
-		/// This function is the equivalent of calling SDL_WaitSemaphoreTimeout() with<br/>
-		/// a time length of -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
-		{
-			fixed (SDLSemaphore* psem = &sem)
-			{
-				int ret = WaitSemaphoreNative((SDLSemaphore*)psem);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// See if a semaphore has a positive value and decrement it if it does.<br/>
-		/// This function checks to see if the semaphore pointed to by `sem` has a<br/>
-		/// positive value and atomically decrements the semaphore value if it does. If<br/>
-		/// the semaphore doesn't have a positive value, the function immediately<br/>
-		/// returns SDL_MUTEX_TIMEDOUT.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryWaitSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int TryWaitSemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)funcTable[190])(sem);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[190])((nint)sem);
-			#endif
-		}
-
-		/// <summary>
-		/// See if a semaphore has a positive value and decrement it if it does.<br/>
-		/// This function checks to see if the semaphore pointed to by `sem` has a<br/>
-		/// positive value and atomically decrements the semaphore value if it does. If<br/>
-		/// the semaphore doesn't have a positive value, the function immediately<br/>
-		/// returns SDL_MUTEX_TIMEDOUT.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryWaitSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TryWaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			int ret = TryWaitSemaphoreNative(sem);
-			return ret;
-		}
-
-		/// <summary>
-		/// See if a semaphore has a positive value and decrement it if it does.<br/>
-		/// This function checks to see if the semaphore pointed to by `sem` has a<br/>
-		/// positive value and atomically decrements the semaphore value if it does. If<br/>
-		/// the semaphore doesn't have a positive value, the function immediately<br/>
-		/// returns SDL_MUTEX_TIMEDOUT.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_TryWaitSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int TryWaitSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
-		{
-			fixed (SDLSemaphore* psem = &sem)
-			{
-				int ret = TryWaitSemaphoreNative((SDLSemaphore*)psem);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Wait until a semaphore has a positive value and then decrements it.<br/>
-		/// This function suspends the calling thread until either the semaphore<br/>
-		/// pointed to by `sem` has a positive value, the call is interrupted by a<br/>
-		/// signal or error, or the specified time has elapsed. If the call is<br/>
-		/// successful it will atomically decrement the semaphore value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitSemaphoreTimeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WaitSemaphoreTimeoutNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int, int>)funcTable[191])(sem, timeoutMS);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[191])((nint)sem, timeoutMS);
-			#endif
-		}
-
-		/// <summary>
-		/// Wait until a semaphore has a positive value and then decrements it.<br/>
-		/// This function suspends the calling thread until either the semaphore<br/>
-		/// pointed to by `sem` has a positive value, the call is interrupted by a<br/>
-		/// signal or error, or the specified time has elapsed. If the call is<br/>
-		/// successful it will atomically decrement the semaphore value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitSemaphoreTimeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitSemaphoreTimeout([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
-		{
-			int ret = WaitSemaphoreTimeoutNative(sem, timeoutMS);
-			return ret;
-		}
-
-		/// <summary>
-		/// Wait until a semaphore has a positive value and then decrements it.<br/>
-		/// This function suspends the calling thread until either the semaphore<br/>
-		/// pointed to by `sem` has a positive value, the call is interrupted by a<br/>
-		/// signal or error, or the specified time has elapsed. If the call is<br/>
-		/// successful it will atomically decrement the semaphore value.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitSemaphoreTimeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitSemaphoreTimeout([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
-		{
-			fixed (SDLSemaphore* psem = &sem)
-			{
-				int ret = WaitSemaphoreTimeoutNative((SDLSemaphore*)psem, timeoutMS);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Atomically increment a semaphore's value and wake waiting threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SignalSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SignalSemaphoreNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, int>)funcTable[192])(sem);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[192])((nint)sem);
-			#endif
-		}
-
-		/// <summary>
-		/// Atomically increment a semaphore's value and wake waiting threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SignalSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SignalSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			int ret = SignalSemaphoreNative(sem);
-			return ret;
-		}
-
-		/// <summary>
-		/// Atomically increment a semaphore's value and wake waiting threads.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SignalSemaphore")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SignalSemaphore([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
-		{
-			fixed (SDLSemaphore* psem = &sem)
-			{
-				int ret = SignalSemaphoreNative((SDLSemaphore*)psem);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current value of a semaphore.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSemaphoreValue")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetSemaphoreValueNative([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSemaphore*, uint>)funcTable[193])(sem);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[193])((nint)sem);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current value of a semaphore.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSemaphoreValue")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint GetSemaphoreValue([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] SDLSemaphore* sem)
-		{
-			uint ret = GetSemaphoreValueNative(sem);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current value of a semaphore.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetSemaphoreValue")]
-		[return: NativeName(NativeNameType.Type, "Uint32")]
-		public static uint GetSemaphoreValue([NativeName(NativeNameType.Param, "sem")] [NativeName(NativeNameType.Type, "SDL_Semaphore *")] ref SDLSemaphore sem)
-		{
-			fixed (SDLSemaphore* psem = &sem)
-			{
-				uint ret = GetSemaphoreValueNative((SDLSemaphore*)psem);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a condition variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCondition")]
-		[return: NativeName(NativeNameType.Type, "SDL_Condition *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLCondition* CreateConditionNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCondition*>)funcTable[194])();
-			#else
-			return (SDLCondition*)((delegate* unmanaged[Cdecl]<nint>)funcTable[194])();
-			#endif
-		}
-
-		/// <summary>
-		/// Create a condition variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_CreateCondition")]
-		[return: NativeName(NativeNameType.Type, "SDL_Condition *")]
-		public static SDLCondition* CreateCondition()
-		{
-			SDLCondition* ret = CreateConditionNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Destroy a condition variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCondition")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLCondition*, void>)funcTable[195])(cond);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[195])((nint)cond);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a condition variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCondition")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
-		{
-			DestroyConditionNative(cond);
-		}
-
-		/// <summary>
-		/// Destroy a condition variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyCondition")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond)
-		{
-			fixed (SDLCondition* pcond = &cond)
-			{
-				DestroyConditionNative((SDLCondition*)pcond);
-			}
-		}
-
-		/// <summary>
-		/// Restart one of the threads that are waiting on the condition variable.<br/>
+		/// Compute the sine of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-1 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = 1`<br/>
+		/// This function operates on double-precision floating point values, use<br/>
+		/// SDL_sinf for single-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SignalCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_sin")]
+		[return: NativeName(NativeNameType.Type, "double")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SignalConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
+		internal static double SinNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCondition*, int>)funcTable[196])(cond);
+			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[153])(x);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[196])((nint)cond);
+			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[153])(x);
 			#endif
 		}
 
 		/// <summary>
-		/// Restart one of the threads that are waiting on the condition variable.<br/>
+		/// Compute the sine of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-1 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = 1`<br/>
+		/// This function operates on double-precision floating point values, use<br/>
+		/// SDL_sinf for single-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SignalCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SignalCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
+		[NativeName(NativeNameType.Func, "SDL_sin")]
+		[return: NativeName(NativeNameType.Type, "double")]
+		public static double Sin([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
-			int ret = SignalConditionNative(cond);
+			double ret = SinNative(x);
 			return ret;
 		}
 
 		/// <summary>
-		/// Restart one of the threads that are waiting on the condition variable.<br/>
+		/// Compute the sine of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-1 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = 1`<br/>
+		/// This function operates on single-precision floating point values, use<br/>
+		/// SDL_sinf for double-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SignalCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SignalCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond)
-		{
-			fixed (SDLCondition* pcond = &cond)
-			{
-				int ret = SignalConditionNative((SDLCondition*)pcond);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Restart all threads that are waiting on the condition variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BroadcastCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_sinf")]
+		[return: NativeName(NativeNameType.Type, "float")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int BroadcastConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
+		internal static float SinfNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCondition*, int>)funcTable[197])(cond);
+			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[154])(x);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[197])((nint)cond);
+			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[154])(x);
 			#endif
 		}
 
 		/// <summary>
-		/// Restart all threads that are waiting on the condition variable.<br/>
+		/// Compute the sine of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-1 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = 1`<br/>
+		/// This function operates on single-precision floating point values, use<br/>
+		/// SDL_sinf for double-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BroadcastCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int BroadcastCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond)
+		[NativeName(NativeNameType.Func, "SDL_sinf")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float Sinf([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
 		{
-			int ret = BroadcastConditionNative(cond);
+			float ret = SinfNative(x);
 			return ret;
 		}
 
 		/// <summary>
-		/// Restart all threads that are waiting on the condition variable.<br/>
+		/// Compute the square root of `x`.<br/>
+		/// Domain: `0 <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `0 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on double-precision floating point values, use<br/>
+		/// SDL_sqrtf for single-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_BroadcastCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int BroadcastCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond)
-		{
-			fixed (SDLCondition* pcond = &cond)
-			{
-				int ret = BroadcastConditionNative((SDLCondition*)pcond);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Wait until a condition variable is signaled.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
-		/// re-locked and the function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
-		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
-		/// a time length of -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[NativeName(NativeNameType.Func, "SDL_sqrt")]
+		[return: NativeName(NativeNameType.Type, "double")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WaitConditionNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		internal static double SqrtNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCondition*, SDLMutex*, int>)funcTable[198])(cond, mutex);
+			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[155])(x);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[198])((nint)cond, (nint)mutex);
+			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[155])(x);
 			#endif
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
-		/// re-locked and the function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
-		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
-		/// a time length of -1.<br/>
+		/// Compute the square root of `x`.<br/>
+		/// Domain: `0 <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `0 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on double-precision floating point values, use<br/>
+		/// SDL_sqrtf for single-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		[NativeName(NativeNameType.Func, "SDL_sqrt")]
+		[return: NativeName(NativeNameType.Type, "double")]
+		public static double Sqrt([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
 		{
-			int ret = WaitConditionNative(cond, mutex);
+			double ret = SqrtNative(x);
 			return ret;
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
-		/// re-locked and the function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
-		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
-		/// a time length of -1.<br/>
+		/// Compute the square root of `x`.<br/>
+		/// Domain: `0 <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `0 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on single-precision floating point values, use<br/>
+		/// SDL_sqrt for double-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex)
+		[NativeName(NativeNameType.Func, "SDL_sqrtf")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static float SqrtfNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
 		{
-			fixed (SDLCondition* pcond = &cond)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[156])(x);
+			#else
+			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[156])(x);
+			#endif
+		}
+
+		/// <summary>
+		/// Compute the square root of `x`.<br/>
+		/// Domain: `0 <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `0 <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on single-precision floating point values, use<br/>
+		/// SDL_sqrt for double-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_sqrtf")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float Sqrtf([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
+		{
+			float ret = SqrtfNative(x);
+			return ret;
+		}
+
+		/// <summary>
+		/// Compute the tangent of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-INF <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on double-precision floating point values, use<br/>
+		/// SDL_tanf for single-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_tan")]
+		[return: NativeName(NativeNameType.Type, "double")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static double TanNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<double, double>)funcTable[157])(x);
+			#else
+			return (double)((delegate* unmanaged[Cdecl]<double, double>)funcTable[157])(x);
+			#endif
+		}
+
+		/// <summary>
+		/// Compute the tangent of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-INF <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on double-precision floating point values, use<br/>
+		/// SDL_tanf for single-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_tan")]
+		[return: NativeName(NativeNameType.Type, "double")]
+		public static double Tan([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "double")] double x)
+		{
+			double ret = TanNative(x);
+			return ret;
+		}
+
+		/// <summary>
+		/// Compute the tangent of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-INF <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on single-precision floating point values, use<br/>
+		/// SDL_tanf for double-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_tanf")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static float TanfNative([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<float, float>)funcTable[158])(x);
+			#else
+			return (float)((delegate* unmanaged[Cdecl]<float, float>)funcTable[158])(x);
+			#endif
+		}
+
+		/// <summary>
+		/// Compute the tangent of `x`.<br/>
+		/// Domain: `-INF <br/>
+		/// <<br/>
+		/// = x <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// Range: `-INF <br/>
+		/// <<br/>
+		/// = y <br/>
+		/// <<br/>
+		/// = INF`<br/>
+		/// This function operates on single-precision floating point values, use<br/>
+		/// SDL_tanf for double-precision floats.<br/>
+		/// This function may use a different approximation across different versions,<br/>
+		/// platforms and configurations. i.e, it can return a different value given<br/>
+		/// the same input on different machines or operating systems, or if SDL is<br/>
+		/// updated.<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_tanf")]
+		[return: NativeName(NativeNameType.Type, "float")]
+		public static float Tanf([NativeName(NativeNameType.Param, "x")] [NativeName(NativeNameType.Type, "float")] float x)
+		{
+			float ret = TanfNative(x);
+			return ret;
+		}
+
+		/// <summary>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLIconv IconvOpenNative([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLIconv>)funcTable[159])(tocode, fromcode);
+			#else
+			return (SDLIconv)((delegate* unmanaged[Cdecl]<nint, nint, SDLIconv>)funcTable[159])((nint)tocode, (nint)fromcode);
+			#endif
+		}
+
+		/// <summary>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode)
+		{
+			SDLIconv ret = IconvOpenNative(tocode, fromcode);
+			return ret;
+		}
+
+		/// <summary>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode)
+		{
+			fixed (byte* ptocode = &tocode)
 			{
-				int ret = WaitConditionNative((SDLCondition*)pcond, mutex);
+				SDLIconv ret = IconvOpenNative((byte*)ptocode, fromcode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
-		/// re-locked and the function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
-		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
-		/// a time length of -1.<br/>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode)
 		{
-			fixed (SDLMutex* pmutex = &mutex)
+			fixed (byte* ptocode = tocode)
 			{
-				int ret = WaitConditionNative(cond, (SDLMutex*)pmutex);
+				SDLIconv ret = IconvOpenNative((byte*)ptocode, fromcode);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`. Once the condition variable is signaled, the mutex is<br/>
-		/// re-locked and the function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
-		/// This function is the equivalent of calling SDL_WaitConditionTimeout() with<br/>
-		/// a time length of -1.<br/>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitCondition")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitCondition([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex)
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode)
 		{
-			fixed (SDLCondition* pcond = &cond)
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
 			{
-				fixed (SDLMutex* pmutex = &mutex)
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					int ret = WaitConditionNative((SDLCondition*)pcond, (SDLMutex*)pmutex);
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLIconv ret = IconvOpenNative(pStr0, fromcode);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode)
+		{
+			fixed (byte* pfromcode = &fromcode)
+			{
+				SDLIconv ret = IconvOpenNative(tocode, (byte*)pfromcode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode)
+		{
+			fixed (byte* pfromcode = fromcode)
+			{
+				SDLIconv ret = IconvOpenNative(tocode, (byte*)pfromcode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fromcode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			SDLIconv ret = IconvOpenNative(tocode, pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pfromcode = &fromcode)
+				{
+					SDLIconv ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
 					return ret;
 				}
 			}
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
-		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
-		/// function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int WaitConditionTimeoutNative([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode)
 		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLCondition*, SDLMutex*, int, int>)funcTable[199])(cond, mutex, timeoutMS);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[199])((nint)cond, (nint)mutex, timeoutMS);
-			#endif
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					SDLIconv ret = IconvOpenNative((byte*)ptocode, (byte*)pfromcode);
+					return ret;
+				}
+			}
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
-		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
-		/// function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
+		/// This function allocates a context for the specified character set<br/>
+		/// conversion.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		[NativeName(NativeNameType.Func, "SDL_iconv_open")]
+		[return: NativeName(NativeNameType.Type, "SDL_iconv_t")]
+		public static SDLIconv IconvOpen([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode)
 		{
-			int ret = WaitConditionTimeoutNative(cond, mutex, timeoutMS);
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			SDLIconv ret = IconvOpenNative(pStr0, pStr1);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
 			return ret;
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
-		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
-		/// function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
+		/// This function frees a context used for character set conversion.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
+		[NativeName(NativeNameType.Func, "SDL_iconv_close")]
 		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] SDLMutex* mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int IconvCloseNative([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd)
 		{
-			fixed (SDLCondition* pcond = &cond)
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIconv, int>)funcTable[160])(cd);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<SDLIconv, int>)funcTable[160])(cd);
+			#endif
+		}
+
+		/// <summary>
+		/// This function frees a context used for character set conversion.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_close")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int IconvClose([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd)
+		{
+			int ret = IconvCloseNative(cd);
+			return ret;
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint IconvNative([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLIconv, byte**, nuint*, byte**, nuint*, nuint>)funcTable[161])(cd, inbuf, inbytesleft, outbuf, outbytesleft);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<SDLIconv, nint, nint, nint, nint, nuint>)funcTable[161])(cd, (nint)inbuf, (nint)inbytesleft, (nint)outbuf, (nint)outbytesleft);
+			#endif
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
+		{
+			nuint ret = IconvNative(cd, inbuf, inbytesleft, outbuf, outbytesleft);
+			return ret;
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
+		{
+			fixed (byte** pinbuf = &inbuf)
 			{
-				int ret = WaitConditionTimeoutNative((SDLCondition*)pcond, mutex, timeoutMS);
+				nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, outbytesleft);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
-		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
-		/// function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] SDLCondition* cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
 		{
-			fixed (SDLMutex* pmutex = &mutex)
+			fixed (nuint* pinbytesleft = &inbytesleft)
 			{
-				int ret = WaitConditionTimeoutNative(cond, (SDLMutex*)pmutex, timeoutMS);
+				nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, outbuf, outbytesleft);
 				return ret;
 			}
 		}
 
 		/// <summary>
-		/// Wait until a condition variable is signaled or a certain time has passed.<br/>
-		/// This function unlocks the specified `mutex` and waits for another thread to<br/>
-		/// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition<br/>
-		/// variable `cond`, or for the specified time to elapse. Once the condition<br/>
-		/// variable is signaled or the time elapsed, the mutex is re-locked and the<br/>
-		/// function returns.<br/>
-		/// The mutex must be locked before calling this function. Locking the mutex<br/>
-		/// recursively (more than once) is not supported and leads to undefined<br/>
-		/// behavior.<br/>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
 		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_WaitConditionTimeout")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int WaitConditionTimeout([NativeName(NativeNameType.Param, "cond")] [NativeName(NativeNameType.Type, "SDL_Condition *")] ref SDLCondition cond, [NativeName(NativeNameType.Param, "mutex")] [NativeName(NativeNameType.Type, "SDL_Mutex *")] ref SDLMutex mutex, [NativeName(NativeNameType.Param, "timeoutMS")] [NativeName(NativeNameType.Type, "Sint32")] int timeoutMS)
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
 		{
-			fixed (SDLCondition* pcond = &cond)
+			fixed (byte** pinbuf = &inbuf)
 			{
-				fixed (SDLMutex* pmutex = &mutex)
+				fixed (nuint* pinbytesleft = &inbytesleft)
 				{
-					int ret = WaitConditionTimeoutNative((SDLCondition*)pcond, (SDLMutex*)pmutex, timeoutMS);
+					nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, outbuf, outbytesleft);
 					return ret;
 				}
 			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
+		{
+			fixed (byte** poutbuf = &outbuf)
+			{
+				nuint ret = IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
+		{
+			fixed (byte** pinbuf = &inbuf)
+			{
+				fixed (byte** poutbuf = &outbuf)
+				{
+					nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, outbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
+		{
+			fixed (nuint* pinbytesleft = &inbytesleft)
+			{
+				fixed (byte** poutbuf = &outbuf)
+				{
+					nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, (byte**)poutbuf, outbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* outbytesleft)
+		{
+			fixed (byte** pinbuf = &inbuf)
+			{
+				fixed (nuint* pinbytesleft = &inbytesleft)
+				{
+					fixed (byte** poutbuf = &outbuf)
+					{
+						nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, (byte**)poutbuf, outbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (nuint* poutbytesleft = &outbytesleft)
+			{
+				nuint ret = IconvNative(cd, inbuf, inbytesleft, outbuf, (nuint*)poutbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (byte** pinbuf = &inbuf)
+			{
+				fixed (nuint* poutbytesleft = &outbytesleft)
+				{
+					nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, outbuf, (nuint*)poutbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (nuint* pinbytesleft = &inbytesleft)
+			{
+				fixed (nuint* poutbytesleft = &outbytesleft)
+				{
+					nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, outbuf, (nuint*)poutbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] byte** outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (byte** pinbuf = &inbuf)
+			{
+				fixed (nuint* pinbytesleft = &inbytesleft)
+				{
+					fixed (nuint* poutbytesleft = &outbytesleft)
+					{
+						nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, outbuf, (nuint*)poutbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (byte** poutbuf = &outbuf)
+			{
+				fixed (nuint* poutbytesleft = &outbytesleft)
+				{
+					nuint ret = IconvNative(cd, inbuf, inbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] nuint* inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (byte** pinbuf = &inbuf)
+			{
+				fixed (byte** poutbuf = &outbuf)
+				{
+					fixed (nuint* poutbytesleft = &outbytesleft)
+					{
+						nuint ret = IconvNative(cd, (byte**)pinbuf, inbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] byte** inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (nuint* pinbytesleft = &inbytesleft)
+			{
+				fixed (byte** poutbuf = &outbuf)
+				{
+					fixed (nuint* poutbytesleft = &outbytesleft)
+					{
+						nuint ret = IconvNative(cd, inbuf, (nuint*)pinbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts text between encodings, reading from and writing to<br/>
+		/// a buffer.<br/>
+		/// It returns the number of succesful conversions.<br/>
+		/// <br/>
+		/// On exit:<br/>
+		/// - inbuf will point to the beginning of the next multibyte<br/>
+		/// sequence. On error, this is the location of the problematic<br/>
+		/// input sequence. On success, this is the end of the input<br/>
+		/// sequence. - inbytesleft will be set to the number of bytes left<br/>
+		/// to convert, which will be 0 on success. - outbuf will point to<br/>
+		/// the location where to store the next output byte. - outbytesleft<br/>
+		/// will be set to the number of bytes left in the output buffer.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv")]
+		[return: NativeName(NativeNameType.Type, "size_t")]
+		public static nuint Iconv([NativeName(NativeNameType.Param, "cd")] [NativeName(NativeNameType.Type, "SDL_iconv_t")] SDLIconv cd, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const * *")] ref byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint inbytesleft, [NativeName(NativeNameType.Param, "outbuf")] [NativeName(NativeNameType.Type, "char * *")] ref byte* outbuf, [NativeName(NativeNameType.Param, "outbytesleft")] [NativeName(NativeNameType.Type, "size_t *")] ref nuint outbytesleft)
+		{
+			fixed (byte** pinbuf = &inbuf)
+			{
+				fixed (nuint* pinbytesleft = &inbytesleft)
+				{
+					fixed (byte** poutbuf = &outbuf)
+					{
+						fixed (nuint* poutbytesleft = &outbytesleft)
+						{
+							nuint ret = IconvNative(cd, (byte**)pinbuf, (nuint*)pinbytesleft, (byte**)poutbuf, (nuint*)poutbytesleft);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* IconvStringNative([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*, nuint, byte*>)funcTable[162])(tocode, fromcode, inbuf, inbytesleft);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint, nuint, nint>)funcTable[162])((nint)tocode, (nint)fromcode, (nint)inbuf, inbytesleft);
+			#endif
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* ret = IconvStringNative(tocode, fromcode, inbuf, inbytesleft);
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, fromcode, inbuf, inbytesleft));
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				byte* ret = IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				byte* ret = IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, fromcode, inbuf, inbytesleft));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = IconvStringNative(pStr0, fromcode, inbuf, inbytesleft);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, fromcode, inbuf, inbytesleft));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = &fromcode)
+			{
+				byte* ret = IconvStringNative(tocode, (byte*)pfromcode, inbuf, inbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = &fromcode)
+			{
+				string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, (byte*)pfromcode, inbuf, inbytesleft));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = fromcode)
+			{
+				byte* ret = IconvStringNative(tocode, (byte*)pfromcode, inbuf, inbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = fromcode)
+			{
+				string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, (byte*)pfromcode, inbuf, inbytesleft));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fromcode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = IconvStringNative(tocode, pStr0, inbuf, inbytesleft);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fromcode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, pStr0, inbuf, inbytesleft));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pfromcode = &fromcode)
+				{
+					byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, inbuf, inbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pfromcode = &fromcode)
+				{
+					string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, inbuf, inbytesleft));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, inbuf, inbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, inbuf, inbytesleft));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = IconvStringNative(pStr0, pStr1, inbuf, inbytesleft);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] byte* inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, pStr1, inbuf, inbytesleft));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pinbuf = &inbuf)
+			{
+				byte* ret = IconvStringNative(tocode, fromcode, (byte*)pinbuf, inbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pinbuf = &inbuf)
+			{
+				string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, fromcode, (byte*)pinbuf, inbytesleft));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pinbuf = inbuf)
+			{
+				byte* ret = IconvStringNative(tocode, fromcode, (byte*)pinbuf, inbytesleft);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pinbuf = inbuf)
+			{
+				string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, fromcode, (byte*)pinbuf, inbytesleft));
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (inbuf != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(inbuf, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = IconvStringNative(tocode, fromcode, pStr0, inbytesleft);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (inbuf != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(inbuf, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, fromcode, pStr0, inbytesleft));
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pinbuf = &inbuf)
+				{
+					byte* ret = IconvStringNative((byte*)ptocode, fromcode, (byte*)pinbuf, inbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pinbuf = &inbuf)
+				{
+					string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, fromcode, (byte*)pinbuf, inbytesleft));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pinbuf = inbuf)
+				{
+					byte* ret = IconvStringNative((byte*)ptocode, fromcode, (byte*)pinbuf, inbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pinbuf = inbuf)
+				{
+					string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, fromcode, (byte*)pinbuf, inbytesleft));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (inbuf != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = IconvStringNative(pStr0, fromcode, pStr1, inbytesleft);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] byte* fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (inbuf != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, fromcode, pStr1, inbytesleft));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = &fromcode)
+			{
+				fixed (byte* pinbuf = &inbuf)
+				{
+					byte* ret = IconvStringNative(tocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = &fromcode)
+			{
+				fixed (byte* pinbuf = &inbuf)
+				{
+					string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = fromcode)
+			{
+				fixed (byte* pinbuf = inbuf)
+				{
+					byte* ret = IconvStringNative(tocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* pfromcode = fromcode)
+			{
+				fixed (byte* pinbuf = inbuf)
+				{
+					string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fromcode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (inbuf != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = IconvStringNative(tocode, pStr0, pStr1, inbytesleft);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] byte* tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fromcode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (inbuf != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, pStr0, pStr1, inbytesleft));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pfromcode = &fromcode)
+				{
+					fixed (byte* pinbuf = &inbuf)
+					{
+						byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ref byte tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ref byte fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ref byte inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pfromcode = &fromcode)
+				{
+					fixed (byte* pinbuf = &inbuf)
+					{
+						string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					fixed (byte* pinbuf = inbuf)
+					{
+						byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					fixed (byte* pinbuf = inbuf)
+					{
+						string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static byte* IconvString([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* pStr2 = null;
+			int pStrSize2 = 0;
+			if (inbuf != null)
+			{
+				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize2 >= Utils.MaxStackallocSize)
+				{
+					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
+				}
+				else
+				{
+					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
+					pStr2 = pStrStack2;
+				}
+				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
+				pStr2[pStrOffset2] = 0;
+			}
+			byte* ret = IconvStringNative(pStr0, pStr1, pStr2, inbytesleft);
+			if (pStrSize2 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr2);
+			}
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Helper function to convert a string's encoding in one call.<br/>
+		/// This function converts a buffer or string between encodings in one pass.<br/>
+		/// The string does not need to be NULL-terminated; this function operates on<br/>
+		/// the number of bytes specified in `inbytesleft` whether there is a NULL<br/>
+		/// character anywhere in the buffer.<br/>
+		/// The returned string is owned by the caller, and should be passed to<br/>
+		/// SDL_free when no longer needed.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_iconv_string")]
+		[return: NativeName(NativeNameType.Type, "char *")]
+		public static string IconvStringS([NativeName(NativeNameType.Param, "tocode")] [NativeName(NativeNameType.Type, "char const *")] string tocode, [NativeName(NativeNameType.Param, "fromcode")] [NativeName(NativeNameType.Type, "char const *")] string fromcode, [NativeName(NativeNameType.Param, "inbuf")] [NativeName(NativeNameType.Type, "char const *")] string inbuf, [NativeName(NativeNameType.Param, "inbytesleft")] [NativeName(NativeNameType.Type, "size_t")] nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* pStr2 = null;
+			int pStrSize2 = 0;
+			if (inbuf != null)
+			{
+				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize2 >= Utils.MaxStackallocSize)
+				{
+					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
+				}
+				else
+				{
+					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
+					pStr2 = pStrStack2;
+				}
+				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
+				pStr2[pStrOffset2] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, pStr1, pStr2, inbytesleft));
+			if (pStrSize2 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr2);
+			}
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Don't include intrin.h here because it contains C++ code <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "__debugbreak")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DebugbreakNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[163])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[163])();
+			#endif
+		}
+
+		/// <summary>
+		/// Don't include intrin.h here because it contains C++ code <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "__debugbreak")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void Debugbreak()
+		{
+			DebugbreakNative();
+		}
+
+		/// <summary>
+		/// Set an application-defined assertion handler.<br/>
+		/// This function allows an application to show its own assertion UI and/or<br/>
+		/// force the response to an assertion failure. If the application doesn't<br/>
+		/// provide this, SDL will try to do the right thing, popping up a<br/>
+		/// system-specific GUI dialog, and probably minimizing any fullscreen windows.<br/>
+		/// This callback may fire from any thread, but it runs wrapped in a mutex, so<br/>
+		/// it will only fire from one thread at a time.<br/>
+		/// This callback is NOT reset to SDL's internal handler upon SDL_Quit()!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAssertionHandler")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetAssertionHandlerNative([NativeName(NativeNameType.Param, "handler")] [NativeName(NativeNameType.Type, "SDL_AssertionHandler")] SDLAssertionHandler handler, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>, void*, void>)funcTable[164])((delegate*<SDLAssertData*, void*, SDLAssertState>)Utils.GetFunctionPointerForDelegate(handler), userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[164])((nint)Utils.GetFunctionPointerForDelegate(handler), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an application-defined assertion handler.<br/>
+		/// This function allows an application to show its own assertion UI and/or<br/>
+		/// force the response to an assertion failure. If the application doesn't<br/>
+		/// provide this, SDL will try to do the right thing, popping up a<br/>
+		/// system-specific GUI dialog, and probably minimizing any fullscreen windows.<br/>
+		/// This callback may fire from any thread, but it runs wrapped in a mutex, so<br/>
+		/// it will only fire from one thread at a time.<br/>
+		/// This callback is NOT reset to SDL's internal handler upon SDL_Quit()!<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAssertionHandler")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void SetAssertionHandler([NativeName(NativeNameType.Param, "handler")] [NativeName(NativeNameType.Type, "SDL_AssertionHandler")] SDLAssertionHandler handler, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		{
+			SetAssertionHandlerNative(handler, userdata);
+		}
+
+		/// <summary>
+		/// Get the default assertion handler.<br/>
+		/// This returns the function pointer that is called by default when an<br/>
+		/// assertion is triggered. This is an internal function provided by SDL, that<br/>
+		/// is used for assertions when SDL_SetAssertionHandler() hasn't been used to<br/>
+		/// provide a different function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetDefaultAssertionHandler")]
+		[return: NativeName(NativeNameType.Type, "SDL_AssertionHandler")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static delegate*<SDLAssertData*, void*, SDLAssertState> GetDefaultAssertionHandlerNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<delegate*<SDLAssertData*, void*, SDLAssertState>>)funcTable[165])();
+			#else
+			return (delegate*<SDLAssertData*, void*, SDLAssertState>)((delegate* unmanaged[Cdecl]<nint>)funcTable[165])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the default assertion handler.<br/>
+		/// This returns the function pointer that is called by default when an<br/>
+		/// assertion is triggered. This is an internal function provided by SDL, that<br/>
+		/// is used for assertions when SDL_SetAssertionHandler() hasn't been used to<br/>
+		/// provide a different function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetDefaultAssertionHandler")]
+		[return: NativeName(NativeNameType.Type, "SDL_AssertionHandler")]
+		public static delegate*<SDLAssertData*, void*, SDLAssertState> GetDefaultAssertionHandler()
+		{
+			delegate*<SDLAssertData*, void*, SDLAssertState> ret = GetDefaultAssertionHandlerNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current assertion handler.<br/>
+		/// This returns the function pointer that is called when an assertion is<br/>
+		/// triggered. This is either the value last passed to<br/>
+		/// SDL_SetAssertionHandler(), or if no application-specified function is set,<br/>
+		/// is equivalent to calling SDL_GetDefaultAssertionHandler().<br/>
+		/// The parameter `puserdata` is a pointer to a void*, which will store the<br/>
+		/// "userdata" pointer that was passed to SDL_SetAssertionHandler(). This value<br/>
+		/// will always be NULL for the default handler. If you don't care about this<br/>
+		/// data, it is safe to pass a NULL pointer to this function to ignore it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAssertionHandler")]
+		[return: NativeName(NativeNameType.Type, "SDL_AssertionHandler")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static delegate*<SDLAssertData*, void*, SDLAssertState> GetAssertionHandlerNative([NativeName(NativeNameType.Param, "puserdata")] [NativeName(NativeNameType.Type, "void * *")] void** puserdata)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void**, delegate*<SDLAssertData*, void*, SDLAssertState>>)funcTable[166])(puserdata);
+			#else
+			return (delegate*<SDLAssertData*, void*, SDLAssertState>)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[166])((nint)puserdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current assertion handler.<br/>
+		/// This returns the function pointer that is called when an assertion is<br/>
+		/// triggered. This is either the value last passed to<br/>
+		/// SDL_SetAssertionHandler(), or if no application-specified function is set,<br/>
+		/// is equivalent to calling SDL_GetDefaultAssertionHandler().<br/>
+		/// The parameter `puserdata` is a pointer to a void*, which will store the<br/>
+		/// "userdata" pointer that was passed to SDL_SetAssertionHandler(). This value<br/>
+		/// will always be NULL for the default handler. If you don't care about this<br/>
+		/// data, it is safe to pass a NULL pointer to this function to ignore it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAssertionHandler")]
+		[return: NativeName(NativeNameType.Type, "SDL_AssertionHandler")]
+		public static delegate*<SDLAssertData*, void*, SDLAssertState> GetAssertionHandler([NativeName(NativeNameType.Param, "puserdata")] [NativeName(NativeNameType.Type, "void * *")] void** puserdata)
+		{
+			delegate*<SDLAssertData*, void*, SDLAssertState> ret = GetAssertionHandlerNative(puserdata);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a list of all assertion failures.<br/>
+		/// This function gets all assertions triggered since the last call to<br/>
+		/// SDL_ResetAssertionReport(), or the start of the program.<br/>
+		/// The proper way to examine this data looks something like this:<br/>
+		/// ```c<br/>
+		/// const SDL_AssertData *item = SDL_GetAssertionReport();<br/>
+		/// while (item) {<br/>
+		/// printf("'%s', %s (%s:%d), triggered %u times, always ignore: %s.\\n",<br/>
+		/// item->condition, item->function, item->filename,<br/>
+		/// item->linenum, item->trigger_count,<br/>
+		/// item->always_ignore ? "yes" : "no");<br/>
+		/// item = item->next;<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAssertionReport")]
+		[return: NativeName(NativeNameType.Type, "SDL_AssertData const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLAssertData* GetAssertionReportNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAssertData*>)funcTable[167])();
+			#else
+			return (SDLAssertData*)((delegate* unmanaged[Cdecl]<nint>)funcTable[167])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get a list of all assertion failures.<br/>
+		/// This function gets all assertions triggered since the last call to<br/>
+		/// SDL_ResetAssertionReport(), or the start of the program.<br/>
+		/// The proper way to examine this data looks something like this:<br/>
+		/// ```c<br/>
+		/// const SDL_AssertData *item = SDL_GetAssertionReport();<br/>
+		/// while (item) {<br/>
+		/// printf("'%s', %s (%s:%d), triggered %u times, always ignore: %s.\\n",<br/>
+		/// item->condition, item->function, item->filename,<br/>
+		/// item->linenum, item->trigger_count,<br/>
+		/// item->always_ignore ? "yes" : "no");<br/>
+		/// item = item->next;<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAssertionReport")]
+		[return: NativeName(NativeNameType.Type, "SDL_AssertData const *")]
+		public static SDLAssertData* GetAssertionReport()
+		{
+			SDLAssertData* ret = GetAssertionReportNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Clear the list of all assertion failures.<br/>
+		/// This function will clear the list of all assertions triggered up to that<br/>
+		/// point. Immediately following this call, SDL_GetAssertionReport will return<br/>
+		/// no items. In addition, any previously-triggered assertions will be reset to<br/>
+		/// a trigger_count of zero, and their always_ignore state will be false.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResetAssertionReport")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ResetAssertionReportNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[168])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[168])();
+			#endif
+		}
+
+		/// <summary>
+		/// Clear the list of all assertion failures.<br/>
+		/// This function will clear the list of all assertions triggered up to that<br/>
+		/// point. Immediately following this call, SDL_GetAssertionReport will return<br/>
+		/// no items. In addition, any previously-triggered assertions will be reset to<br/>
+		/// a trigger_count of zero, and their always_ignore state will be false.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ResetAssertionReport")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void ResetAssertionReport()
+		{
+			ResetAssertionReportNative();
+		}
+
+		/// <summary>
+		/// Try to lock a spin lock by setting it to a non-zero value.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte TryLockSpinlockNative([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] int* lock0)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, byte>)funcTable[169])(lock0);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[169])((nint)lock0);
+			#endif
+		}
+
+		/// <summary>
+		/// Try to lock a spin lock by setting it to a non-zero value.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockSpinlock([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] int* lock0)
+		{
+			byte ret = TryLockSpinlockNative(lock0);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Try to lock a spin lock by setting it to a non-zero value.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_TryLockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool TryLockSpinlock([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] ref int lock0)
+		{
+			fixed (int* plock0 = &lock0)
+			{
+				byte ret = TryLockSpinlockNative((int*)plock0);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Lock a spin lock by setting it to a non-zero value.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockSpinlockNative([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] int* lock0)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[170])(lock0);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[170])((nint)lock0);
+			#endif
+		}
+
+		/// <summary>
+		/// Lock a spin lock by setting it to a non-zero value.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockSpinlock([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] int* lock0)
+		{
+			LockSpinlockNative(lock0);
+		}
+
+		/// <summary>
+		/// Lock a spin lock by setting it to a non-zero value.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_LockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void LockSpinlock([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] ref int lock0)
+		{
+			fixed (int* plock0 = &lock0)
+			{
+				LockSpinlockNative((int*)plock0);
+			}
+		}
+
+		/// <summary>
+		/// Unlock a spin lock by setting it to 0.<br/>
+		/// Always returns immediately.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void UnlockSpinlockNative([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] int* lock0)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[171])(lock0);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[171])((nint)lock0);
+			#endif
+		}
+
+		/// <summary>
+		/// Unlock a spin lock by setting it to 0.<br/>
+		/// Always returns immediately.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockSpinlock([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] int* lock0)
+		{
+			UnlockSpinlockNative(lock0);
+		}
+
+		/// <summary>
+		/// Unlock a spin lock by setting it to 0.<br/>
+		/// Always returns immediately.<br/>
+		/// ***Please note that spinlocks are dangerous if you don't know what you're<br/>
+		/// doing. Please be careful using any sort of spinlock!***<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_UnlockSpinlock")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void UnlockSpinlock([NativeName(NativeNameType.Param, "lock")] [NativeName(NativeNameType.Type, "SDL_SpinLock *")] ref int lock0)
+		{
+			fixed (int* plock0 = &lock0)
+			{
+				UnlockSpinlockNative((int*)plock0);
+			}
+		}
+
+		/// <summary>
+		/// Insert a memory release barrier.<br/>
+		/// Memory barriers are designed to prevent reads and writes from being<br/>
+		/// reordered by the compiler and being seen out of order on multi-core CPUs.<br/>
+		/// A typical pattern would be for thread A to write some data and a flag, and<br/>
+		/// for thread B to read the flag and get the data. In this case you would<br/>
+		/// insert a release barrier between writing the data and the flag,<br/>
+		/// guaranteeing that the data write completes no later than the flag is<br/>
+		/// written, and you would insert an acquire barrier between reading the flag<br/>
+		/// and reading the data, to ensure that all the reads associated with the flag<br/>
+		/// have completed.<br/>
+		/// In this pattern you should always see a release barrier paired with an<br/>
+		/// acquire barrier and you should gate the data reads/writes with a single<br/>
+		/// flag variable.<br/>
+		/// For more information on these semantics, take a look at the blog post:<br/>
+		/// http://preshing.com/20120913/acquire-and-release-semantics<br/>
+		/// <br/>
+		/// Obviously this macro is safe to use from any thread at any<br/>
+		/// time, but if you find yourself needing this, you are probably<br/>
+		/// dealing with some very sensitive code; be careful!<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MemoryBarrierReleaseFunction")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void MemoryBarrierReleaseFunctionNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[172])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[172])();
+			#endif
+		}
+
+		/// <summary>
+		/// Insert a memory release barrier.<br/>
+		/// Memory barriers are designed to prevent reads and writes from being<br/>
+		/// reordered by the compiler and being seen out of order on multi-core CPUs.<br/>
+		/// A typical pattern would be for thread A to write some data and a flag, and<br/>
+		/// for thread B to read the flag and get the data. In this case you would<br/>
+		/// insert a release barrier between writing the data and the flag,<br/>
+		/// guaranteeing that the data write completes no later than the flag is<br/>
+		/// written, and you would insert an acquire barrier between reading the flag<br/>
+		/// and reading the data, to ensure that all the reads associated with the flag<br/>
+		/// have completed.<br/>
+		/// In this pattern you should always see a release barrier paired with an<br/>
+		/// acquire barrier and you should gate the data reads/writes with a single<br/>
+		/// flag variable.<br/>
+		/// For more information on these semantics, take a look at the blog post:<br/>
+		/// http://preshing.com/20120913/acquire-and-release-semantics<br/>
+		/// <br/>
+		/// Obviously this macro is safe to use from any thread at any<br/>
+		/// time, but if you find yourself needing this, you are probably<br/>
+		/// dealing with some very sensitive code; be careful!<br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MemoryBarrierReleaseFunction")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void MemoryBarrierReleaseFunction()
+		{
+			MemoryBarrierReleaseFunctionNative();
+		}
+
+		/// <summary>
+		/// Insert a memory acquire barrier.<br/>
+		/// Please refer to SDL_MemoryBarrierReleaseFunction for the details!<br/>
+		/// <br/>
+		/// Obviously this function is safe to use from any thread at any<br/>
+		/// time, but if you find yourself needing this, you are probably<br/>
+		/// dealing with some very sensitive code; be careful!<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MemoryBarrierAcquireFunction")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void MemoryBarrierAcquireFunctionNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[173])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[173])();
+			#endif
+		}
+
+		/// <summary>
+		/// Insert a memory acquire barrier.<br/>
+		/// Please refer to SDL_MemoryBarrierReleaseFunction for the details!<br/>
+		/// <br/>
+		/// Obviously this function is safe to use from any thread at any<br/>
+		/// time, but if you find yourself needing this, you are probably<br/>
+		/// dealing with some very sensitive code; be careful!<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_MemoryBarrierAcquireFunction")]
+		[return: NativeName(NativeNameType.Type, "void")]
+		public static void MemoryBarrierAcquireFunction()
+		{
+			MemoryBarrierAcquireFunctionNative();
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CompareAndSwapAtomicIntNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "int")] int oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "int")] int newval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAtomicInt*, int, int, byte>)funcTable[174])(a, oldval, newval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, int, int, byte>)funcTable[174])((nint)a, oldval, newval);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CompareAndSwapAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "int")] int oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "int")] int newval)
+		{
+			byte ret = CompareAndSwapAtomicIntNative(a, oldval, newval);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CompareAndSwapAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] ref SDLAtomicInt a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "int")] int oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "int")] int newval)
+		{
+			fixed (SDLAtomicInt* pa = &a)
+			{
+				byte ret = CompareAndSwapAtomicIntNative((SDLAtomicInt*)pa, oldval, newval);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a value.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetAtomicIntNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAtomicInt*, int, int>)funcTable[175])(a, v);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[175])((nint)a, v);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a value.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
+		{
+			int ret = SetAtomicIntNative(a, v);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a value.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int SetAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] ref SDLAtomicInt a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
+		{
+			fixed (SDLAtomicInt* pa = &a)
+			{
+				int ret = SetAtomicIntNative((SDLAtomicInt*)pa, v);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the value of an atomic variable.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetAtomicIntNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAtomicInt*, int>)funcTable[176])(a);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[176])((nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the value of an atomic variable.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a)
+		{
+			int ret = GetAtomicIntNative(a);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the value of an atomic variable.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int GetAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] ref SDLAtomicInt a)
+		{
+			fixed (SDLAtomicInt* pa = &a)
+			{
+				int ret = GetAtomicIntNative((SDLAtomicInt*)pa);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add to an atomic variable.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int AddAtomicIntNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAtomicInt*, int, int>)funcTable[177])(a, v);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[177])((nint)a, v);
+			#endif
+		}
+
+		/// <summary>
+		/// Add to an atomic variable.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] SDLAtomicInt* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
+		{
+			int ret = AddAtomicIntNative(a, v);
+			return ret;
+		}
+
+		/// <summary>
+		/// Add to an atomic variable.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_AddAtomicInt")]
+		[return: NativeName(NativeNameType.Type, "int")]
+		public static int AddAtomicInt([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicInt *")] ref SDLAtomicInt a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "int")] int v)
+		{
+			fixed (SDLAtomicInt* pa = &a)
+			{
+				int ret = AddAtomicIntNative((SDLAtomicInt*)pa, v);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CompareAndSwapAtomicU32Native([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] SDLAtomicU32* a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "Uint32")] uint oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "Uint32")] uint newval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAtomicU32*, uint, uint, byte>)funcTable[178])(a, oldval, newval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, uint, uint, byte>)funcTable[178])((nint)a, oldval, newval);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CompareAndSwapAtomicU32([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] SDLAtomicU32* a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "Uint32")] uint oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "Uint32")] uint newval)
+		{
+			byte ret = CompareAndSwapAtomicU32Native(a, oldval, newval);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CompareAndSwapAtomicU32([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] ref SDLAtomicU32 a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "Uint32")] uint oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "Uint32")] uint newval)
+		{
+			fixed (SDLAtomicU32* pa = &a)
+			{
+				byte ret = CompareAndSwapAtomicU32Native((SDLAtomicU32*)pa, oldval, newval);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a value.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint SetAtomicU32Native([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] SDLAtomicU32* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "Uint32")] uint v)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAtomicU32*, uint, uint>)funcTable[179])(a, v);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint, uint>)funcTable[179])((nint)a, v);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a value.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint SetAtomicU32([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] SDLAtomicU32* a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "Uint32")] uint v)
+		{
+			uint ret = SetAtomicU32Native(a, v);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an atomic variable to a value.<br/>
+		/// This function also acts as a full memory barrier.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint SetAtomicU32([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] ref SDLAtomicU32 a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "Uint32")] uint v)
+		{
+			fixed (SDLAtomicU32* pa = &a)
+			{
+				uint ret = SetAtomicU32Native((SDLAtomicU32*)pa, v);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the value of an atomic variable.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetAtomicU32Native([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] SDLAtomicU32* a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLAtomicU32*, uint>)funcTable[180])(a);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[180])((nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the value of an atomic variable.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetAtomicU32([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] SDLAtomicU32* a)
+		{
+			uint ret = GetAtomicU32Native(a);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the value of an atomic variable.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicU32")]
+		[return: NativeName(NativeNameType.Type, "Uint32")]
+		public static uint GetAtomicU32([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "SDL_AtomicU32 *")] ref SDLAtomicU32 a)
+		{
+			fixed (SDLAtomicU32* pa = &a)
+			{
+				uint ret = GetAtomicU32Native((SDLAtomicU32*)pa);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicPointer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte CompareAndSwapAtomicPointerNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void * *")] void** a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "void *")] void* oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "void *")] void* newval)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void**, void*, void*, byte>)funcTable[181])(a, oldval, newval);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, nint, nint, byte>)funcTable[181])((nint)a, (nint)oldval, (nint)newval);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a pointer to a new value if it is currently an old value.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_CompareAndSwapAtomicPointer")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CompareAndSwapAtomicPointer([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void * *")] void** a, [NativeName(NativeNameType.Param, "oldval")] [NativeName(NativeNameType.Type, "void *")] void* oldval, [NativeName(NativeNameType.Param, "newval")] [NativeName(NativeNameType.Type, "void *")] void* newval)
+		{
+			byte ret = CompareAndSwapAtomicPointerNative(a, oldval, newval);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set a pointer to a value atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicPointer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* SetAtomicPointerNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void * *")] void** a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "void *")] void* v)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void**, void*, void*>)funcTable[182])(a, v);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[182])((nint)a, (nint)v);
+			#endif
+		}
+
+		/// <summary>
+		/// Set a pointer to a value atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetAtomicPointer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* SetAtomicPointer([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void * *")] void** a, [NativeName(NativeNameType.Param, "v")] [NativeName(NativeNameType.Type, "void *")] void* v)
+		{
+			void* ret = SetAtomicPointerNative(a, v);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the value of a pointer atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicPointer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void* GetAtomicPointerNative([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void * *")] void** a)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<void**, void*>)funcTable[183])(a);
+			#else
+			return (void*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[183])((nint)a);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the value of a pointer atomically.<br/>
+		/// ***Note: If you don't know what this function is for, you shouldn't use<br/>
+		/// it!***<br/>
+		/// <br/>
+		/// <br/>
+		/// It is safe to call this function from any thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetAtomicPointer")]
+		[return: NativeName(NativeNameType.Type, "void *")]
+		public static void* GetAtomicPointer([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void * *")] void** a)
+		{
+			void* ret = GetAtomicPointerNative(a);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the SDL error message for the current thread.<br/>
+		/// Calling this function will replace any previous error message that was set.<br/>
+		/// This function always returns false, since SDL frequently uses false to<br/>
+		/// signify a failing result, leading to this idiom:<br/>
+		/// ```c<br/>
+		/// if (error_code) {<br/>
+		/// return SDL_SetError("This operation has failed: %d", error_code);<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte SetErrorNative([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte>)funcTable[184])(fmt);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<nint, byte>)funcTable[184])((nint)fmt);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the SDL error message for the current thread.<br/>
+		/// Calling this function will replace any previous error message that was set.<br/>
+		/// This function always returns false, since SDL frequently uses false to<br/>
+		/// signify a failing result, leading to this idiom:<br/>
+		/// ```c<br/>
+		/// if (error_code) {<br/>
+		/// return SDL_SetError("This operation has failed: %d", error_code);<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] byte* fmt)
+		{
+			byte ret = SetErrorNative(fmt);
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set the SDL error message for the current thread.<br/>
+		/// Calling this function will replace any previous error message that was set.<br/>
+		/// This function always returns false, since SDL frequently uses false to<br/>
+		/// signify a failing result, leading to this idiom:<br/>
+		/// ```c<br/>
+		/// if (error_code) {<br/>
+		/// return SDL_SetError("This operation has failed: %d", error_code);<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ref byte fmt)
+		{
+			fixed (byte* pfmt = &fmt)
+			{
+				byte ret = SetErrorNative((byte*)pfmt);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the SDL error message for the current thread.<br/>
+		/// Calling this function will replace any previous error message that was set.<br/>
+		/// This function always returns false, since SDL frequently uses false to<br/>
+		/// signify a failing result, leading to this idiom:<br/>
+		/// ```c<br/>
+		/// if (error_code) {<br/>
+		/// return SDL_SetError("This operation has failed: %d", error_code);<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> fmt)
+		{
+			fixed (byte* pfmt = fmt)
+			{
+				byte ret = SetErrorNative((byte*)pfmt);
+				return ret != 0;
+			}
+		}
+
+		/// <summary>
+		/// Set the SDL error message for the current thread.<br/>
+		/// Calling this function will replace any previous error message that was set.<br/>
+		/// This function always returns false, since SDL frequently uses false to<br/>
+		/// signify a failing result, leading to this idiom:<br/>
+		/// ```c<br/>
+		/// if (error_code) {<br/>
+		/// return SDL_SetError("This operation has failed: %d", error_code);<br/>
+		/// }<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_SetError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetError([NativeName(NativeNameType.Param, "fmt")] [NativeName(NativeNameType.Type, "char const *")] string fmt)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fmt != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fmt);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fmt, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte ret = SetErrorNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Set an error indicating that memory allocation failed.<br/>
+		/// This function does not do any memory allocation.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OutOfMemory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte OutOfMemoryNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[185])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[185])();
+			#endif
+		}
+
+		/// <summary>
+		/// Set an error indicating that memory allocation failed.<br/>
+		/// This function does not do any memory allocation.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_OutOfMemory")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool OutOfMemory()
+		{
+			byte ret = OutOfMemoryNative();
+			return ret != 0;
+		}
+
+		/// <summary>
+		/// Retrieve a message about the last error that occurred on the current<br/>
+		/// thread.<br/>
+		/// It is possible for multiple errors to occur before calling SDL_GetError().<br/>
+		/// Only the last error is returned.<br/>
+		/// The message is only applicable when an SDL function has signaled an error.<br/>
+		/// You must check the return values of SDL function calls to determine when to<br/>
+		/// appropriately call SDL_GetError(). You should *not* use the results of<br/>
+		/// SDL_GetError() to decide if an error has occurred! Sometimes SDL will set<br/>
+		/// an error string even when reporting success.<br/>
+		/// SDL will *not* clear the error string for successful API calls. You *must*<br/>
+		/// check return values for failure cases before you can assume the error<br/>
+		/// string applies.<br/>
+		/// Error strings are set per-thread, so an error set in a different thread<br/>
+		/// will not interfere with the current thread's operation.<br/>
+		/// The returned value is a thread-local string which will remain valid until<br/>
+		/// the current thread's error string is changed. The caller should make a copy<br/>
+		/// if the value is needed after the next SDL API call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetError")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetErrorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[186])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[186])();
+			#endif
+		}
+
+		/// <summary>
+		/// Retrieve a message about the last error that occurred on the current<br/>
+		/// thread.<br/>
+		/// It is possible for multiple errors to occur before calling SDL_GetError().<br/>
+		/// Only the last error is returned.<br/>
+		/// The message is only applicable when an SDL function has signaled an error.<br/>
+		/// You must check the return values of SDL function calls to determine when to<br/>
+		/// appropriately call SDL_GetError(). You should *not* use the results of<br/>
+		/// SDL_GetError() to decide if an error has occurred! Sometimes SDL will set<br/>
+		/// an error string even when reporting success.<br/>
+		/// SDL will *not* clear the error string for successful API calls. You *must*<br/>
+		/// check return values for failure cases before you can assume the error<br/>
+		/// string applies.<br/>
+		/// Error strings are set per-thread, so an error set in a different thread<br/>
+		/// will not interfere with the current thread's operation.<br/>
+		/// The returned value is a thread-local string which will remain valid until<br/>
+		/// the current thread's error string is changed. The caller should make a copy<br/>
+		/// if the value is needed after the next SDL API call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetError")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static byte* GetError()
+		{
+			byte* ret = GetErrorNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve a message about the last error that occurred on the current<br/>
+		/// thread.<br/>
+		/// It is possible for multiple errors to occur before calling SDL_GetError().<br/>
+		/// Only the last error is returned.<br/>
+		/// The message is only applicable when an SDL function has signaled an error.<br/>
+		/// You must check the return values of SDL function calls to determine when to<br/>
+		/// appropriately call SDL_GetError(). You should *not* use the results of<br/>
+		/// SDL_GetError() to decide if an error has occurred! Sometimes SDL will set<br/>
+		/// an error string even when reporting success.<br/>
+		/// SDL will *not* clear the error string for successful API calls. You *must*<br/>
+		/// check return values for failure cases before you can assume the error<br/>
+		/// string applies.<br/>
+		/// Error strings are set per-thread, so an error set in a different thread<br/>
+		/// will not interfere with the current thread's operation.<br/>
+		/// The returned value is a thread-local string which will remain valid until<br/>
+		/// the current thread's error string is changed. The caller should make a copy<br/>
+		/// if the value is needed after the next SDL API call.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_GetError")]
+		[return: NativeName(NativeNameType.Type, "char const *")]
+		public static string GetErrorS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetErrorNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Clear any previous error message for this thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte ClearErrorNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte>)funcTable[187])();
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<byte>)funcTable[187])();
+			#endif
+		}
+
+		/// <summary>
+		/// Clear any previous error message for this thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Func, "SDL_ClearError")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool ClearError()
+		{
+			byte ret = ClearErrorNative();
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1441,9 +4179,9 @@ namespace Hexa.NET.SDL3
 		internal static uint GetGlobalPropertiesNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[200])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[188])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[200])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[188])();
 			#endif
 		}
 
@@ -1475,9 +4213,9 @@ namespace Hexa.NET.SDL3
 		internal static uint CreatePropertiesNative()
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[201])();
+			return ((delegate* unmanaged[Cdecl]<uint>)funcTable[189])();
 			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[201])();
+			return (uint)((delegate* unmanaged[Cdecl]<uint>)funcTable[189])();
 			#endif
 		}
 
@@ -1510,14 +4248,14 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CopyProperties")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int CopyPropertiesNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint src, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dst)
+		internal static byte CopyPropertiesNative([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint src, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dst)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint, int>)funcTable[202])(src, dst);
+			return ((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[190])(src, dst);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, uint, int>)funcTable[202])(src, dst);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, uint, byte>)funcTable[190])(src, dst);
 			#endif
 		}
 
@@ -1533,11 +4271,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_CopyProperties")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int CopyProperties([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint src, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dst)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool CopyProperties([NativeName(NativeNameType.Param, "src")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint src, [NativeName(NativeNameType.Param, "dst")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint dst)
 		{
-			int ret = CopyPropertiesNative(src, dst);
-			return ret;
+			byte ret = CopyPropertiesNative(src, dst);
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1556,14 +4294,14 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockProperties")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int LockPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		internal static byte LockPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, int>)funcTable[203])(props);
+			return ((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[191])(props);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, int>)funcTable[203])(props);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, byte>)funcTable[191])(props);
 			#endif
 		}
 
@@ -1583,11 +4321,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_LockProperties")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int LockProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool LockProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
-			int ret = LockPropertiesNative(props);
-			return ret;
+			byte ret = LockPropertiesNative(props);
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1604,9 +4342,9 @@ namespace Hexa.NET.SDL3
 		internal static void UnlockPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
 		{
 			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[204])(props);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[192])(props);
 			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[204])(props);
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[192])(props);
 			#endif
 		}
 
@@ -1641,14 +4379,14 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetPointerPropertyWithCleanupNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		internal static byte SetPointerPropertyWithCleanupNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, delegate*<void*, void*, void>, void*, int>)funcTable[205])(props, name, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, delegate*<void*, void*, void>, void*, byte>)funcTable[193])(props, name, value, (delegate*<void*, void*, void>)Utils.GetFunctionPointerForDelegate(cleanup), userdata);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, int>)funcTable[205])(props, (nint)name, (nint)value, (nint)Utils.GetFunctionPointerForDelegate(cleanup), (nint)userdata);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint, nint, byte>)funcTable[193])(props, (nint)name, (nint)value, (nint)Utils.GetFunctionPointerForDelegate(cleanup), (nint)userdata);
 			#endif
 		}
 
@@ -1668,11 +4406,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
-			int ret = SetPointerPropertyWithCleanupNative(props, name, value, cleanup, userdata);
-			return ret;
+			byte ret = SetPointerPropertyWithCleanupNative(props, name, value, cleanup, userdata);
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1691,13 +4429,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			fixed (byte* pname = &name)
 			{
-				int ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, userdata);
-				return ret;
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, userdata);
+				return ret != 0;
 			}
 		}
 
@@ -1717,13 +4455,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			fixed (byte* pname = name)
 			{
-				int ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, userdata);
-				return ret;
+				byte ret = SetPointerPropertyWithCleanupNative(props, (byte*)pname, value, cleanup, userdata);
+				return ret != 0;
 			}
 		}
 
@@ -1743,8 +4481,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerPropertyWithCleanup")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerPropertyWithCleanup([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value, [NativeName(NativeNameType.Param, "cleanup")] [NativeName(NativeNameType.Type, "SDL_CleanupPropertyCallback")] SDLCleanupPropertyCallback cleanup, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1763,12 +4501,12 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetPointerPropertyWithCleanupNative(props, pStr0, value, cleanup, userdata);
+			byte ret = SetPointerPropertyWithCleanupNative(props, pStr0, value, cleanup, userdata);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1780,14 +4518,14 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetPointerPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		internal static byte SetPointerPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, int>)funcTable[206])(props, name, value);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, byte>)funcTable[194])(props, name, value);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[206])(props, (nint)name, (nint)value);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[194])(props, (nint)name, (nint)value);
 			#endif
 		}
 
@@ -1800,11 +4538,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
 		{
-			int ret = SetPointerPropertyNative(props, name, value);
-			return ret;
+			byte ret = SetPointerPropertyNative(props, name, value);
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1816,13 +4554,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
 		{
 			fixed (byte* pname = &name)
 			{
-				int ret = SetPointerPropertyNative(props, (byte*)pname, value);
-				return ret;
+				byte ret = SetPointerPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
 			}
 		}
 
@@ -1835,13 +4573,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
 		{
 			fixed (byte* pname = name)
 			{
-				int ret = SetPointerPropertyNative(props, (byte*)pname, value);
-				return ret;
+				byte ret = SetPointerPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
 			}
 		}
 
@@ -1854,8 +4592,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "void *")] void* value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1874,12 +4612,12 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetPointerPropertyNative(props, pStr0, value);
+			byte ret = SetPointerPropertyNative(props, pStr0, value);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1893,14 +4631,14 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetStringPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		internal static byte SetStringPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, int>)funcTable[207])(props, name, value);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, byte>)funcTable[195])(props, name, value);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[207])(props, (nint)name, (nint)value);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, nint, byte>)funcTable[195])(props, (nint)name, (nint)value);
 			#endif
 		}
 
@@ -1915,11 +4653,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
 		{
-			int ret = SetStringPropertyNative(props, name, value);
-			return ret;
+			byte ret = SetStringPropertyNative(props, name, value);
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1933,13 +4671,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
 		{
 			fixed (byte* pname = &name)
 			{
-				int ret = SetStringPropertyNative(props, (byte*)pname, value);
-				return ret;
+				byte ret = SetStringPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
 			}
 		}
 
@@ -1954,13 +4692,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
 		{
 			fixed (byte* pname = name)
 			{
-				int ret = SetStringPropertyNative(props, (byte*)pname, value);
-				return ret;
+				byte ret = SetStringPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
 			}
 		}
 
@@ -1975,8 +4713,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] byte* value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -1995,12 +4733,12 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetStringPropertyNative(props, pStr0, value);
+			byte ret = SetStringPropertyNative(props, pStr0, value);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -2014,13 +4752,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
 		{
 			fixed (byte* pvalue = &value)
 			{
-				int ret = SetStringPropertyNative(props, name, (byte*)pvalue);
-				return ret;
+				byte ret = SetStringPropertyNative(props, name, (byte*)pvalue);
+				return ret != 0;
 			}
 		}
 
@@ -2035,13 +4773,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
 		{
 			fixed (byte* pvalue = value)
 			{
-				int ret = SetStringPropertyNative(props, name, (byte*)pvalue);
-				return ret;
+				byte ret = SetStringPropertyNative(props, name, (byte*)pvalue);
+				return ret != 0;
 			}
 		}
 
@@ -2056,8 +4794,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2076,12 +4814,12 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetStringPropertyNative(props, name, pStr0);
+			byte ret = SetStringPropertyNative(props, name, pStr0);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -2095,15 +4833,15 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ref byte value)
 		{
 			fixed (byte* pname = &name)
 			{
 				fixed (byte* pvalue = &value)
 				{
-					int ret = SetStringPropertyNative(props, (byte*)pname, (byte*)pvalue);
-					return ret;
+					byte ret = SetStringPropertyNative(props, (byte*)pname, (byte*)pvalue);
+					return ret != 0;
 				}
 			}
 		}
@@ -2119,15 +4857,15 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> value)
 		{
 			fixed (byte* pname = name)
 			{
 				fixed (byte* pvalue = value)
 				{
-					int ret = SetStringPropertyNative(props, (byte*)pname, (byte*)pvalue);
-					return ret;
+					byte ret = SetStringPropertyNative(props, (byte*)pname, (byte*)pvalue);
+					return ret != 0;
 				}
 			}
 		}
@@ -2143,8 +4881,8 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "char const *")] string value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2180,7 +4918,7 @@ namespace Hexa.NET.SDL3
 				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
 				pStr1[pStrOffset1] = 0;
 			}
-			int ret = SetStringPropertyNative(props, pStr0, pStr1);
+			byte ret = SetStringPropertyNative(props, pStr0, pStr1);
 			if (pStrSize1 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr1);
@@ -2189,7 +4927,7 @@ namespace Hexa.NET.SDL3
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -2201,14 +4939,14 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
+		[return: NativeName(NativeNameType.Type, "bool")]
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetNumberPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		internal static byte SetNumberPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
 		{
 			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, long, int>)funcTable[208])(props, name, value);
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, long, byte>)funcTable[196])(props, name, value);
 			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, long, int>)funcTable[208])(props, (nint)name, value);
+			return (byte)((delegate* unmanaged[Cdecl]<uint, nint, long, byte>)funcTable[196])(props, (nint)name, value);
 			#endif
 		}
 
@@ -2221,11 +4959,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
 		{
-			int ret = SetNumberPropertyNative(props, name, value);
-			return ret;
+			byte ret = SetNumberPropertyNative(props, name, value);
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -2237,32 +4975,13 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
 		{
 			fixed (byte* pname = &name)
 			{
-				int ret = SetNumberPropertyNative(props, (byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set an integer property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = SetNumberPropertyNative(props, (byte*)pname, value);
-				return ret;
+				byte ret = SetNumberPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
 			}
 		}
 
@@ -2275,119 +4994,27 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetNumberPropertyNative(props, pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a floating point property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetFloatPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, float, int>)funcTable[209])(props, name, value);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, float, int>)funcTable[209])(props, (nint)name, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a floating point property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
-		{
-			int ret = SetFloatPropertyNative(props, name, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a floating point property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = SetFloatPropertyNative(props, (byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a floating point property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
 		{
 			fixed (byte* pname = name)
 			{
-				int ret = SetFloatPropertyNative(props, (byte*)pname, value);
-				return ret;
+				byte ret = SetNumberPropertyNative(props, (byte*)pname, value);
+				return ret != 0;
 			}
 		}
 
 		/// <summary>
-		/// Set a floating point property in a group of properties.<br/>
+		/// Set an integer property in a group of properties.<br/>
 		/// <br/>
 		/// <br/>
 		/// It is safe to call this function from any thread.<br/>
 		/// <br/>
 		/// <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "float")] float value)
+		[NativeName(NativeNameType.Func, "SDL_SetNumberProperty")]
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool SetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "Sint64")] long value)
 		{
 			byte* pStr0 = null;
 			int pStrSize0 = 0;
@@ -2406,2617 +5033,12 @@ namespace Hexa.NET.SDL3
 				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = 0;
 			}
-			int ret = SetFloatPropertyNative(props, pStr0, value);
+			byte ret = SetNumberPropertyNative(props, pStr0, value);
 			if (pStrSize0 >= Utils.MaxStackallocSize)
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a boolean property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetBooleanPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "SDL_bool")] int value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, int>)funcTable[210])(props, name, value);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, int, int>)funcTable[210])(props, (nint)name, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a boolean property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "SDL_bool")] int value)
-		{
-			int ret = SetBooleanPropertyNative(props, name, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a boolean property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "SDL_bool")] int value)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = SetBooleanPropertyNative(props, (byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a boolean property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "SDL_bool")] int value)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = SetBooleanPropertyNative(props, (byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a boolean property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_SetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int SetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "value")] [NativeName(NativeNameType.Type, "SDL_bool")] int value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = SetBooleanPropertyNative(props, pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether a property exists in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int HasPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int>)funcTable[211])(props, name);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, int>)funcTable[211])(props, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether a property exists in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			int ret = HasPropertyNative(props, name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether a property exists in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = HasPropertyNative(props, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return whether a property exists in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = HasPropertyNative(props, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Return whether a property exists in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_HasProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int HasProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = HasPropertyNative(props, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of a property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLPropertyType GetPropertyTypeNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, SDLPropertyType>)funcTable[212])(props, name);
-			#else
-			return (SDLPropertyType)((delegate* unmanaged[Cdecl]<uint, nint, SDLPropertyType>)funcTable[212])(props, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the type of a property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
-		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			SDLPropertyType ret = GetPropertyTypeNative(props, name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the type of a property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
-		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLPropertyType ret = GetPropertyTypeNative(props, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the type of a property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
-		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLPropertyType ret = GetPropertyTypeNative(props, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the type of a property in a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPropertyType")]
-		[return: NativeName(NativeNameType.Type, "SDL_PropertyType")]
-		public static SDLPropertyType GetPropertyType([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLPropertyType ret = GetPropertyTypeNative(props, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a pointer property from a group of properties.<br/>
-		/// By convention, the names of properties that SDL exposes on objects will<br/>
-		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
-		/// "SDL.internal.". These should be considered read-only and should not be<br/>
-		/// modified by applications.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetPointerProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void* GetPointerPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, void*, void*>)funcTable[213])(props, name, defaultValue);
-			#else
-			return (void*)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint>)funcTable[213])(props, (nint)name, (nint)defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a pointer property from a group of properties.<br/>
-		/// By convention, the names of properties that SDL exposes on objects will<br/>
-		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
-		/// "SDL.internal.". These should be considered read-only and should not be<br/>
-		/// modified by applications.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetPointerProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
-		{
-			void* ret = GetPointerPropertyNative(props, name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a pointer property from a group of properties.<br/>
-		/// By convention, the names of properties that SDL exposes on objects will<br/>
-		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
-		/// "SDL.internal.". These should be considered read-only and should not be<br/>
-		/// modified by applications.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetPointerProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				void* ret = GetPointerPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a pointer property from a group of properties.<br/>
-		/// By convention, the names of properties that SDL exposes on objects will<br/>
-		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
-		/// "SDL.internal.". These should be considered read-only and should not be<br/>
-		/// modified by applications.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetPointerProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				void* ret = GetPointerPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a pointer property from a group of properties.<br/>
-		/// By convention, the names of properties that SDL exposes on objects will<br/>
-		/// start with "SDL.", and properties that SDL uses internally will start with<br/>
-		/// "SDL.internal.". These should be considered read-only and should not be<br/>
-		/// modified by applications.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetPointerProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetPointerProperty")]
-		[return: NativeName(NativeNameType.Type, "void *")]
-		public static void* GetPointerProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "void *")] void* defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			void* ret = GetPointerPropertyNative(props, pStr0, defaultValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetStringPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, byte*, byte*>)funcTable[214])(props, name, defaultValue);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, nint, nint>)funcTable[214])(props, (nint)name, (nint)defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			byte* ret = GetStringPropertyNative(props, name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, defaultValue));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte* ret = GetStringPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, defaultValue));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				byte* ret = GetStringPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, defaultValue));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetStringPropertyNative(props, pStr0, defaultValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] byte* defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, pStr0, defaultValue));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultValue)
-		{
-			fixed (byte* pdefaultValue = &defaultValue)
-			{
-				byte* ret = GetStringPropertyNative(props, name, (byte*)pdefaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultValue)
-		{
-			fixed (byte* pdefaultValue = &defaultValue)
-			{
-				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, (byte*)pdefaultValue));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
-		{
-			fixed (byte* pdefaultValue = defaultValue)
-			{
-				byte* ret = GetStringPropertyNative(props, name, (byte*)pdefaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
-		{
-			fixed (byte* pdefaultValue = defaultValue)
-			{
-				string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, (byte*)pdefaultValue));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (defaultValue != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(defaultValue);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(defaultValue, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetStringPropertyNative(props, name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (defaultValue != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(defaultValue);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(defaultValue, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, name, pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pdefaultValue = &defaultValue)
-				{
-					byte* ret = GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ref byte defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pdefaultValue = &defaultValue)
-				{
-					string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pdefaultValue = defaultValue)
-				{
-					byte* ret = GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pdefaultValue = defaultValue)
-				{
-					string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, (byte*)pname, (byte*)pdefaultValue));
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static byte* GetStringProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (defaultValue != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(defaultValue);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(defaultValue, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* ret = GetStringPropertyNative(props, pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a string property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread, although<br/>
-		/// the data returned is not protected and could potentially be<br/>
-		/// freed if you call SDL_SetStringProperty() or<br/>
-		/// SDL_ClearProperty() on these properties from another thread.<br/>
-		/// If you need to avoid this, use SDL_LockProperties() and<br/>
-		/// SDL_UnlockProperties().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetStringProperty")]
-		[return: NativeName(NativeNameType.Type, "char const *")]
-		public static string GetStringPropertyS([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "char const *")] string defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (defaultValue != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(defaultValue);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(defaultValue, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetStringPropertyNative(props, pStr0, pStr1));
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a number property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a number property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static long GetNumberPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, long, long>)funcTable[215])(props, name, defaultValue);
-			#else
-			return (long)((delegate* unmanaged[Cdecl]<uint, nint, long, long>)funcTable[215])(props, (nint)name, defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a number property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a number property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
-		{
-			long ret = GetNumberPropertyNative(props, name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a number property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a number property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				long ret = GetNumberPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a number property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a number property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				long ret = GetNumberPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a number property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a number property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetNumberProperty")]
-		[return: NativeName(NativeNameType.Type, "Sint64")]
-		public static long GetNumberProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "Sint64")] long defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			long ret = GetNumberPropertyNative(props, pStr0, defaultValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a floating point property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a floating point property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static float GetFloatPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, float, float>)funcTable[216])(props, name, defaultValue);
-			#else
-			return (float)((delegate* unmanaged[Cdecl]<uint, nint, float, float>)funcTable[216])(props, (nint)name, defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a floating point property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a floating point property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
-		{
-			float ret = GetFloatPropertyNative(props, name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a floating point property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a floating point property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				float ret = GetFloatPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a floating point property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a floating point property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				float ret = GetFloatPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a floating point property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a floating point property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetFloatProperty")]
-		[return: NativeName(NativeNameType.Type, "float")]
-		public static float GetFloatProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "float")] float defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			float ret = GetFloatPropertyNative(props, pStr0, defaultValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a boolean property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a boolean property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetBooleanPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, int>)funcTable[217])(props, name, defaultValue);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, int, int>)funcTable[217])(props, (nint)name, defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a boolean property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a boolean property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			int ret = GetBooleanPropertyNative(props, name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a boolean property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a boolean property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = GetBooleanPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a boolean property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a boolean property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = GetBooleanPropertyNative(props, (byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a boolean property from a group of properties.<br/>
-		/// You can use SDL_GetPropertyType() to query whether the property exists and<br/>
-		/// is a boolean property.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_GetBooleanProperty")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int GetBooleanProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name, [NativeName(NativeNameType.Param, "default_value")] [NativeName(NativeNameType.Type, "SDL_bool")] int defaultValue)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GetBooleanPropertyNative(props, pStr0, defaultValue);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Clear a property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int ClearPropertyNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int>)funcTable[218])(props, name);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, int>)funcTable[218])(props, (nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Clear a property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] byte* name)
-		{
-			int ret = ClearPropertyNative(props, name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Clear a property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = ClearPropertyNative(props, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Clear a property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = ClearPropertyNative(props, (byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Clear a property from a group of properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_ClearProperty")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int ClearProperty([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "name")] [NativeName(NativeNameType.Type, "char const *")] string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = ClearPropertyNative(props, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Enumerate the properties contained in a group of properties.<br/>
-		/// The callback function is called for each property in the group of<br/>
-		/// properties. The properties are locked during enumeration.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EnumerateProperties")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int EnumeratePropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumeratePropertiesCallback")] SDLEnumeratePropertiesCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, delegate*<void*, uint, byte*, void>, void*, int>)funcTable[219])(props, (delegate*<void*, uint, byte*, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, nint, int>)funcTable[219])(props, (nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Enumerate the properties contained in a group of properties.<br/>
-		/// The callback function is called for each property in the group of<br/>
-		/// properties. The properties are locked during enumeration.<br/>
-		/// <br/>
-		/// <br/>
-		/// It is safe to call this function from any thread.<br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_EnumerateProperties")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int EnumerateProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumeratePropertiesCallback")] SDLEnumeratePropertiesCallback callback, [NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata)
-		{
-			int ret = EnumeratePropertiesNative(props, callback, userdata);
-			return ret;
-		}
-
-		/// <summary>
-		/// Destroy a group of properties.<br/>
-		/// All properties are deleted and their cleanup functions will be called, if<br/>
-		/// any.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should not be called while these properties are<br/>
-		/// locked or other threads might be setting or getting values<br/>
-		/// from these properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProperties")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void DestroyPropertiesNative([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[220])(props);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[220])(props);
-			#endif
-		}
-
-		/// <summary>
-		/// Destroy a group of properties.<br/>
-		/// All properties are deleted and their cleanup functions will be called, if<br/>
-		/// any.<br/>
-		/// <br/>
-		/// <br/>
-		/// This function should not be called while these properties are<br/>
-		/// locked or other threads might be setting or getting values<br/>
-		/// from these properties.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_DestroyProperties")]
-		[return: NativeName(NativeNameType.Type, "void")]
-		public static void DestroyProperties([NativeName(NativeNameType.Param, "props")] [NativeName(NativeNameType.Type, "SDL_PropertiesID")] uint props)
-		{
-			DestroyPropertiesNative(props);
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* IOFromFileNative([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*, SDLIOStream*>)funcTable[221])(file, mode);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[221])((nint)file, (nint)mode);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
-		{
-			SDLIOStream* ret = IOFromFileNative(file, mode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
-		{
-			fixed (byte* pfile = &file)
-			{
-				SDLIOStream* ret = IOFromFileNative((byte*)pfile, mode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
-		{
-			fixed (byte* pfile = file)
-			{
-				SDLIOStream* ret = IOFromFileNative((byte*)pfile, mode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] byte* mode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLIOStream* ret = IOFromFileNative(pStr0, mode);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] ref byte mode)
-		{
-			fixed (byte* pmode = &mode)
-			{
-				SDLIOStream* ret = IOFromFileNative(file, (byte*)pmode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mode)
-		{
-			fixed (byte* pmode = mode)
-			{
-				SDLIOStream* ret = IOFromFileNative(file, (byte*)pmode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] byte* file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] string mode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (mode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(mode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(mode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLIOStream* ret = IOFromFileNative(file, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ref byte file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] ref byte mode)
-		{
-			fixed (byte* pfile = &file)
-			{
-				fixed (byte* pmode = &mode)
-				{
-					SDLIOStream* ret = IOFromFileNative((byte*)pfile, (byte*)pmode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] ReadOnlySpan<byte> mode)
-		{
-			fixed (byte* pfile = file)
-			{
-				fixed (byte* pmode = mode)
-				{
-					SDLIOStream* ret = IOFromFileNative((byte*)pfile, (byte*)pmode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Use this function to create a new SDL_IOStream structure for reading from<br/>
-		/// and/or writing to a named file.<br/>
-		/// The `mode` string is treated roughly the same as in a call to the C<br/>
-		/// library's fopen(), even if SDL doesn't happen to use fopen() behind the<br/>
-		/// scenes.<br/>
-		/// Available `mode` strings:<br/>
-		/// - "r": Open a file for reading. The file must exist.<br/>
-		/// - "w": Create an empty file for writing. If a file with the same name<br/>
-		/// already exists its content is erased and the file is treated as a new<br/>
-		/// empty file.<br/>
-		/// - "a": Append to a file. Writing operations append data at the end of the<br/>
-		/// file. The file is created if it does not exist.<br/>
-		/// - "r+": Open a file for update both reading and writing. The file must<br/>
-		/// exist.<br/>
-		/// - "w+": Create an empty file for both reading and writing. If a file with<br/>
-		/// the same name already exists its content is erased and the file is<br/>
-		/// treated as a new empty file.<br/>
-		/// - "a+": Open a file for reading and appending. All writing operations are<br/>
-		/// performed at the end of the file, protecting the previous content to be<br/>
-		/// overwritten. You can reposition (fseek, rewind) the internal pointer to<br/>
-		/// anywhere in the file for reading, but writing operations will move it<br/>
-		/// back to the end of file. The file is created if it does not exist.<br/>
-		/// **NOTE**: In order to open a file as a binary file, a "b" character has to<br/>
-		/// be included in the `mode` string. This additional "b" character can either<br/>
-		/// be appended at the end of the string (thus making the following compound<br/>
-		/// modes: "rb", "wb", "ab", "r+b", "w+b", "a+b") or be inserted between the<br/>
-		/// letter and the "+" sign for the mixed modes ("rb+", "wb+", "ab+").<br/>
-		/// Additional characters may follow the sequence, although they should have no<br/>
-		/// effect. For example, "t" is sometimes appended to make explicit the file is<br/>
-		/// a text file.<br/>
-		/// This function supports Unicode filenames, but they must be encoded in UTF-8<br/>
-		/// format, regardless of the underlying operating system.<br/>
-		/// In Android, SDL_IOFromFile() can be used to open content:// URIs. As a<br/>
-		/// fallback, SDL_IOFromFile() will transparently open a matching filename in<br/>
-		/// the app's `assets`.<br/>
-		/// Closing the SDL_IOStream will close SDL's internal file handle.<br/>
-		/// The following properties may be set at creation time by SDL:<br/>
-		/// - `SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER`: a pointer, that can be cast<br/>
-		/// to a win32 `HANDLE`, that this SDL_IOStream is using to access the<br/>
-		/// filesystem. If the program isn't running on Windows, or SDL used some<br/>
-		/// other method to access the filesystem, this property will not be set.<br/>
-		/// - `SDL_PROP_IOSTREAM_STDIO_FILE_POINTER`: a pointer, that can be cast to a<br/>
-		/// stdio `FILE *`, that this SDL_IOStream is using to access the filesystem.<br/>
-		/// If SDL used some other method to access the filesystem, this property<br/>
-		/// will not be set. PLEASE NOTE that if SDL is using a different C runtime<br/>
-		/// than your app, trying to use this pointer will almost certainly result in<br/>
-		/// a crash! This is mostly a problem on Windows; make sure you build SDL and<br/>
-		/// your app with the same compiler and settings to avoid it.<br/>
-		/// - `SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER`: a pointer, that can be cast<br/>
-		/// to an Android NDK `AAsset *`, that this SDL_IOStream is using to access<br/>
-		/// the filesystem. If SDL used some other method to access the filesystem,<br/>
-		/// this property will not be set.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromFile")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromFile([NativeName(NativeNameType.Param, "file")] [NativeName(NativeNameType.Type, "char const *")] string file, [NativeName(NativeNameType.Param, "mode")] [NativeName(NativeNameType.Type, "char const *")] string mode)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (file != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(file);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(file, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (mode != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(mode);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(mode, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLIOStream* ret = IOFromFileNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-write memory buffer for use with<br/>
-		/// SDL_IOStream.<br/>
-		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
-		/// certain size, for both read and write access.<br/>
-		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
-		/// provide must remain valid until you close the stream. Closing the stream<br/>
-		/// will not free the original buffer.<br/>
-		/// If you need to make sure the SDL_IOStream never writes to the memory<br/>
-		/// buffer, you should use SDL_IOFromConstMem() with a read-only buffer of<br/>
-		/// memory instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromMem")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* IOFromMemNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, nuint, SDLIOStream*>)funcTable[222])(mem, size);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[222])((nint)mem, size);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-write memory buffer for use with<br/>
-		/// SDL_IOStream.<br/>
-		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
-		/// certain size, for both read and write access.<br/>
-		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
-		/// provide must remain valid until you close the stream. Closing the stream<br/>
-		/// will not free the original buffer.<br/>
-		/// If you need to make sure the SDL_IOStream never writes to the memory<br/>
-		/// buffer, you should use SDL_IOFromConstMem() with a read-only buffer of<br/>
-		/// memory instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromMem")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		public static SDLIOStream* IOFromMem([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			SDLIOStream* ret = IOFromMemNative(mem, size);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to prepare a read-only memory buffer for use with<br/>
-		/// SDL_IOStream.<br/>
-		/// This function sets up an SDL_IOStream struct based on a memory area of a<br/>
-		/// certain size. It assumes the memory area is not writable.<br/>
-		/// Attempting to write to this SDL_IOStream stream will report an error<br/>
-		/// without writing to the memory buffer.<br/>
-		/// This memory buffer is not copied by the SDL_IOStream; the pointer you<br/>
-		/// provide must remain valid until you close the stream. Closing the stream<br/>
-		/// will not free the original buffer.<br/>
-		/// If you need to write to a memory buffer, you should use SDL_IOFromMem()<br/>
-		/// with a writable buffer of memory instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[NativeName(NativeNameType.Func, "SDL_IOFromConstMem")]
-		[return: NativeName(NativeNameType.Type, "SDL_IOStream *")]
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLIOStream* IOFromConstMemNative([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void const *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<void*, nuint, SDLIOStream*>)funcTable[223])(mem, size);
-			#else
-			return (SDLIOStream*)((delegate* unmanaged[Cdecl]<nint, nuint, nint>)funcTable[223])((nint)mem, size);
-			#endif
+			return ret != 0;
 		}
 	}
 }

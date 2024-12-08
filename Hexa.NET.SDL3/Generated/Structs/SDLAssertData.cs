@@ -27,11 +27,11 @@ namespace Hexa.NET.SDL3
 	public partial struct SDLAssertData
 	{
 		/// <summary>
-		/// SDL_TRUE if app should always continue when assertion is triggered. <br/>
+		/// true if app should always continue when assertion is triggered. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "always_ignore")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int AlwaysIgnore;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte AlwaysIgnore;
 
 		/// <summary>
 		/// Number of times this assertion has been triggered. <br/>
@@ -76,9 +76,9 @@ namespace Hexa.NET.SDL3
 		public unsafe SDLAssertData* Next;
 
 
-		public unsafe SDLAssertData(int alwaysIgnore = default, uint triggerCount = default, byte* condition = default, byte* filename = default, int linenum = default, byte* function = default, SDLAssertData* next = default)
+		public unsafe SDLAssertData(bool alwaysIgnore = default, uint triggerCount = default, byte* condition = default, byte* filename = default, int linenum = default, byte* function = default, SDLAssertData* next = default)
 		{
-			AlwaysIgnore = alwaysIgnore;
+			AlwaysIgnore = alwaysIgnore ? (byte)1 : (byte)0;
 			TriggerCount = triggerCount;
 			Condition = condition;
 			Filename = filename;

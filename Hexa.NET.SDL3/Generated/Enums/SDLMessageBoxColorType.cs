@@ -38,8 +38,8 @@ namespace Hexa.NET.SDL3
 		/// <summary>
 		/// Size of the colors array of SDL_MessageBoxColorScheme. <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_MAX")]
+		[NativeName(NativeNameType.EnumItem, "SDL_MESSAGEBOX_COLOR_COUNT")]
 		[NativeName(NativeNameType.Value, "5")]
-		Max = unchecked(5),
+		Count = unchecked(5),
 	}
 }

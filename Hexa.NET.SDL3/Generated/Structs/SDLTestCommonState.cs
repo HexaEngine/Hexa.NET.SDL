@@ -55,8 +55,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "SDL_WindowFlags")]
 		public SDLWindowFlags WindowFlags;
 		[NativeName(NativeNameType.Field, "flash_on_focus_loss")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int FlashOnFocusLoss;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte FlashOnFocusLoss;
 		[NativeName(NativeNameType.Field, "window_x")]
 		[NativeName(NativeNameType.Type, "int")]
 		public int WindowX;
@@ -94,14 +94,11 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "int")]
 		public int LogicalH;
 		[NativeName(NativeNameType.Field, "auto_scale_content")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int AutoScaleContent;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte AutoScaleContent;
 		[NativeName(NativeNameType.Field, "logical_presentation")]
 		[NativeName(NativeNameType.Type, "SDL_RendererLogicalPresentation")]
 		public SDLRendererLogicalPresentation LogicalPresentation;
-		[NativeName(NativeNameType.Field, "logical_scale_mode")]
-		[NativeName(NativeNameType.Type, "SDL_ScaleMode")]
-		public SDLScaleMode LogicalScaleMode;
 		[NativeName(NativeNameType.Field, "scale")]
 		[NativeName(NativeNameType.Type, "float")]
 		public float Scale;
@@ -112,11 +109,11 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "float")]
 		public float RefreshRate;
 		[NativeName(NativeNameType.Field, "fill_usable_bounds")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int FillUsableBounds;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte FillUsableBounds;
 		[NativeName(NativeNameType.Field, "fullscreen_exclusive")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int FullscreenExclusive;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte FullscreenExclusive;
 		[NativeName(NativeNameType.Field, "fullscreen_mode")]
 		[NativeName(NativeNameType.Type, "SDL_DisplayMode")]
 		public SDLDisplayMode FullscreenMode;
@@ -126,6 +123,9 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Field, "windows")]
 		[NativeName(NativeNameType.Type, "SDL_Window * *")]
 		public unsafe SDLWindow** Windows;
+		[NativeName(NativeNameType.Field, "gpudriver")]
+		[NativeName(NativeNameType.Type, "char const *")]
+		public unsafe byte* Gpudriver;
 		/// <summary>
 		/// Renderer info <br/>
 		/// </summary>
@@ -137,8 +137,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "int")]
 		public int RenderVsync;
 		[NativeName(NativeNameType.Field, "skip_renderer")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int SkipRenderer;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte SkipRenderer;
 		[NativeName(NativeNameType.Field, "renderers")]
 		[NativeName(NativeNameType.Type, "SDL_Renderer * *")]
 		public unsafe SDLRenderer** Renderers;
@@ -239,10 +239,26 @@ namespace Hexa.NET.SDL3
 		public SDLRect Confine;
 
 		[NativeName(NativeNameType.Field, "hide_cursor")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int HideCursor;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte HideCursor;
+		/// <summary>
+		/// Options info <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "common_argparser")]
+		[NativeName(NativeNameType.Type, "SDLTest_ArgumentParser")]
+		public SDLTestArgumentParser CommonArgparser;
 
-		public unsafe SDLTestCommonState(byte** argv = default, SDLInitFlags flags = default, SDLTestVerboseFlags verbose = default, byte* videodriver = default, int displayIndex = default, uint displayID = default, byte* windowTitle = default, byte* windowIcon = default, SDLWindowFlags windowFlags = default, int flashOnFocusLoss = default, int windowX = default, int windowY = default, int windowW = default, int windowH = default, int windowMinw = default, int windowMinh = default, int windowMaxw = default, int windowMaxh = default, float windowMinAspect = default, float windowMaxAspect = default, int logicalW = default, int logicalH = default, int autoScaleContent = default, SDLRendererLogicalPresentation logicalPresentation = default, SDLScaleMode logicalScaleMode = default, float scale = default, int depth = default, float refreshRate = default, int fillUsableBounds = default, int fullscreenExclusive = default, SDLDisplayMode fullscreenMode = default, int numWindows = default, SDLWindow** windows = default, byte* renderdriver = default, int renderVsync = default, int skipRenderer = default, SDLRenderer** renderers = default, SDLTexture** targets = default, byte* audiodriver = default, SDLAudioFormat audioFormat = default, int audioChannels = default, int audioFreq = default, uint audioId = default, int glRedSize = default, int glGreenSize = default, int glBlueSize = default, int glAlphaSize = default, int glBufferSize = default, int glDepthSize = default, int glStencilSize = default, int glDoubleBuffer = default, int glAccumRedSize = default, int glAccumGreenSize = default, int glAccumBlueSize = default, int glAccumAlphaSize = default, int glStereo = default, int glMultisamplebuffers = default, int glMultisamplesamples = default, int glRetainedBacking = default, int glAccelerated = default, int glMajorVersion = default, int glMinorVersion = default, int glDebug = default, int glProfileMask = default, SDLRect confine = default, int hideCursor = default)
+		[NativeName(NativeNameType.Field, "video_argparser")]
+		[NativeName(NativeNameType.Type, "SDLTest_ArgumentParser")]
+		public SDLTestArgumentParser VideoArgparser;
+		[NativeName(NativeNameType.Field, "audio_argparser")]
+		[NativeName(NativeNameType.Type, "SDLTest_ArgumentParser")]
+		public SDLTestArgumentParser AudioArgparser;
+		[NativeName(NativeNameType.Field, "argparser")]
+		[NativeName(NativeNameType.Type, "SDLTest_ArgumentParser *")]
+		public unsafe SDLTestArgumentParser* Argparser;
+
+		public unsafe SDLTestCommonState(byte** argv = default, SDLInitFlags flags = default, SDLTestVerboseFlags verbose = default, byte* videodriver = default, int displayIndex = default, uint displayID = default, byte* windowTitle = default, byte* windowIcon = default, SDLWindowFlags windowFlags = default, bool flashOnFocusLoss = default, int windowX = default, int windowY = default, int windowW = default, int windowH = default, int windowMinw = default, int windowMinh = default, int windowMaxw = default, int windowMaxh = default, float windowMinAspect = default, float windowMaxAspect = default, int logicalW = default, int logicalH = default, bool autoScaleContent = default, SDLRendererLogicalPresentation logicalPresentation = default, float scale = default, int depth = default, float refreshRate = default, bool fillUsableBounds = default, bool fullscreenExclusive = default, SDLDisplayMode fullscreenMode = default, int numWindows = default, SDLWindow** windows = default, byte* gpudriver = default, byte* renderdriver = default, int renderVsync = default, bool skipRenderer = default, SDLRenderer** renderers = default, SDLTexture** targets = default, byte* audiodriver = default, SDLAudioFormat audioFormat = default, int audioChannels = default, int audioFreq = default, uint audioId = default, int glRedSize = default, int glGreenSize = default, int glBlueSize = default, int glAlphaSize = default, int glBufferSize = default, int glDepthSize = default, int glStencilSize = default, int glDoubleBuffer = default, int glAccumRedSize = default, int glAccumGreenSize = default, int glAccumBlueSize = default, int glAccumAlphaSize = default, int glStereo = default, int glMultisamplebuffers = default, int glMultisamplesamples = default, int glRetainedBacking = default, int glAccelerated = default, int glMajorVersion = default, int glMinorVersion = default, int glDebug = default, int glProfileMask = default, SDLRect confine = default, bool hideCursor = default, SDLTestArgumentParser commonArgparser = default, SDLTestArgumentParser videoArgparser = default, SDLTestArgumentParser audioArgparser = default, SDLTestArgumentParser* argparser = default)
 		{
 			Argv = argv;
 			Flags = flags;
@@ -253,7 +269,7 @@ namespace Hexa.NET.SDL3
 			WindowTitle = windowTitle;
 			WindowIcon = windowIcon;
 			WindowFlags = windowFlags;
-			FlashOnFocusLoss = flashOnFocusLoss;
+			FlashOnFocusLoss = flashOnFocusLoss ? (byte)1 : (byte)0;
 			WindowX = windowX;
 			WindowY = windowY;
 			WindowW = windowW;
@@ -266,20 +282,20 @@ namespace Hexa.NET.SDL3
 			WindowMaxAspect = windowMaxAspect;
 			LogicalW = logicalW;
 			LogicalH = logicalH;
-			AutoScaleContent = autoScaleContent;
+			AutoScaleContent = autoScaleContent ? (byte)1 : (byte)0;
 			LogicalPresentation = logicalPresentation;
-			LogicalScaleMode = logicalScaleMode;
 			Scale = scale;
 			Depth = depth;
 			RefreshRate = refreshRate;
-			FillUsableBounds = fillUsableBounds;
-			FullscreenExclusive = fullscreenExclusive;
+			FillUsableBounds = fillUsableBounds ? (byte)1 : (byte)0;
+			FullscreenExclusive = fullscreenExclusive ? (byte)1 : (byte)0;
 			FullscreenMode = fullscreenMode;
 			NumWindows = numWindows;
 			Windows = windows;
+			Gpudriver = gpudriver;
 			Renderdriver = renderdriver;
 			RenderVsync = renderVsync;
-			SkipRenderer = skipRenderer;
+			SkipRenderer = skipRenderer ? (byte)1 : (byte)0;
 			Renderers = renderers;
 			Targets = targets;
 			Audiodriver = audiodriver;
@@ -309,7 +325,11 @@ namespace Hexa.NET.SDL3
 			GlDebug = glDebug;
 			GlProfileMask = glProfileMask;
 			Confine = confine;
-			HideCursor = hideCursor;
+			HideCursor = hideCursor ? (byte)1 : (byte)0;
+			CommonArgparser = commonArgparser;
+			VideoArgparser = videoArgparser;
+			AudioArgparser = audioArgparser;
+			Argparser = argparser;
 		}
 
 

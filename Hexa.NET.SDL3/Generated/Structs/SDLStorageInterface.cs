@@ -22,6 +22,8 @@ namespace Hexa.NET.SDL3
 	/// create a custom SDL_Storage object.<br/>
 	/// It is not usually necessary to do this; SDL provides standard<br/>
 	/// implementations for many things you might expect to do with an SDL_Storage.<br/>
+	/// This structure should be initialized using SDL_INIT_INTERFACE()<br/>
+	/// <br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_StorageInterface")]
@@ -29,73 +31,80 @@ namespace Hexa.NET.SDL3
 	public partial struct SDLStorageInterface
 	{
 		/// <summary>
+		/// The version of this interface <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "version")]
+		[NativeName(NativeNameType.Type, "Uint32")]
+		public uint Version;
+
+		/// <summary>
 		/// Called when the storage is closed <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "close")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Close;
 
 		/// <summary>
 		/// Optional, returns whether the storage is currently ready for access <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "ready")]
-		[NativeName(NativeNameType.Type, "SDL_bool (*)(void * userdata) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata) *")]
 		public unsafe void* Ready;
 
 		/// <summary>
 		/// Enumerate a directory, optional for write-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "enumerate")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * path, SDL_EnumerateDirectoryCallback callback, void * callback_userdata) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, SDL_EnumerateDirectoryCallback callback, void * callback_userdata) *")]
 		public unsafe void* Enumerate;
 
 		/// <summary>
 		/// Get path information, optional for write-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "info")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * path, SDL_PathInfo * info) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, SDL_PathInfo * info) *")]
 		public unsafe void* Info;
 
 		/// <summary>
 		/// Read a file from storage, optional for write-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "read_file")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * path, void * destination, Uint64 length) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, void * destination, Uint64 length) *")]
 		public unsafe void* ReadFile;
 
 		/// <summary>
 		/// Write a file to storage, optional for read-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "write_file")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * path, void const * source, Uint64 length) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path, void const * source, Uint64 length) *")]
 		public unsafe void* WriteFile;
 
 		/// <summary>
 		/// Create a directory, optional for read-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "mkdir")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * path) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path) *")]
 		public unsafe void* Mkdir;
 
 		/// <summary>
 		/// Remove a file or empty directory, optional for read-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "remove")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * path) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * path) *")]
 		public unsafe void* Remove;
 
 		/// <summary>
 		/// Rename a path, optional for read-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "rename")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * oldpath, char const * newpath) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * oldpath, char const * newpath) *")]
 		public unsafe void* Rename;
 
 		/// <summary>
 		/// Copy a file, optional for read-only storage <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "copy")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, char const * oldpath, char const * newpath) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, char const * oldpath, char const * newpath) *")]
 		public unsafe void* Copy;
 
 		/// <summary>
@@ -106,18 +115,19 @@ namespace Hexa.NET.SDL3
 		public unsafe void* SpaceRemaining;
 
 
-		public unsafe SDLStorageInterface(delegate*<void*, int> close = default, delegate*<void*, int> ready = default, delegate*<void*, byte*, delegate*<void*, byte*, byte*, int>, void*, int> enumerate = default, delegate*<void*, byte*, SDLPathInfo*, int> info = default, delegate*<void*, byte*, void*, ulong, int> readFile = default, delegate*<void*, byte*, void*, ulong, int> writeFile = default, delegate*<void*, byte*, int> mkdir = default, delegate*<void*, byte*, int> remove = default, delegate*<void*, byte*, byte*, int> rename = default, delegate*<void*, byte*, byte*, int> copy = default, delegate*<void*, ulong> spaceRemaining = default)
+		public unsafe SDLStorageInterface(uint version = default, delegate*<void*, bool> close = default, delegate*<void*, bool> ready = default, delegate*<void*, byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, bool> enumerate = default, delegate*<void*, byte*, SDLPathInfo*, bool> info = default, delegate*<void*, byte*, void*, ulong, bool> readFile = default, delegate*<void*, byte*, void*, ulong, bool> writeFile = default, delegate*<void*, byte*, bool> mkdir = default, delegate*<void*, byte*, bool> remove = default, delegate*<void*, byte*, byte*, bool> rename = default, delegate*<void*, byte*, byte*, bool> copy = default, delegate*<void*, ulong> spaceRemaining = default)
 		{
-			Close = (delegate*<void*, int>*)close;
-			Ready = (delegate*<void*, int>*)ready;
-			Enumerate = (delegate*<void*, byte*, delegate*<void*, byte*, byte*, int>, void*, int>*)enumerate;
-			Info = (delegate*<void*, byte*, SDLPathInfo*, int>*)info;
-			ReadFile = (delegate*<void*, byte*, void*, ulong, int>*)readFile;
-			WriteFile = (delegate*<void*, byte*, void*, ulong, int>*)writeFile;
-			Mkdir = (delegate*<void*, byte*, int>*)mkdir;
-			Remove = (delegate*<void*, byte*, int>*)remove;
-			Rename = (delegate*<void*, byte*, byte*, int>*)rename;
-			Copy = (delegate*<void*, byte*, byte*, int>*)copy;
+			Version = version;
+			Close = (delegate*<void*, bool>*)close;
+			Ready = (delegate*<void*, bool>*)ready;
+			Enumerate = (delegate*<void*, byte*, delegate*<void*, byte*, byte*, SDLEnumerationResult>, void*, bool>*)enumerate;
+			Info = (delegate*<void*, byte*, SDLPathInfo*, bool>*)info;
+			ReadFile = (delegate*<void*, byte*, void*, ulong, bool>*)readFile;
+			WriteFile = (delegate*<void*, byte*, void*, ulong, bool>*)writeFile;
+			Mkdir = (delegate*<void*, byte*, bool>*)mkdir;
+			Remove = (delegate*<void*, byte*, bool>*)remove;
+			Rename = (delegate*<void*, byte*, byte*, bool>*)rename;
+			Copy = (delegate*<void*, byte*, byte*, bool>*)copy;
 			SpaceRemaining = (delegate*<void*, ulong>*)spaceRemaining;
 		}
 

@@ -33,12 +33,5 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_LINEAR")]
 		[NativeName(NativeNameType.Value, "1")]
 		Linear = unchecked(1),
-
-		/// <summary>
-		/// anisotropic filtering <br/>
-		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_SCALEMODE_BEST")]
-		[NativeName(NativeNameType.Value, "2")]
-		Best = unchecked(2),
 	}
 }

@@ -48,10 +48,10 @@ namespace Hexa.NET.SDL3
 		public uint Which;
 
 		/// <summary>
-		/// zero if a playback device, non-zero if a recording device. <br/>
+		/// false if a playback device, true if a recording device. <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "recording")]
-		[NativeName(NativeNameType.Type, "Uint8")]
+		[NativeName(NativeNameType.Type, "bool")]
 		public byte Recording;
 
 		[NativeName(NativeNameType.Field, "padding1")]
@@ -64,13 +64,13 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding3;
 
-		public unsafe SDLAudioDeviceEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint which = default, byte recording = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
+		public unsafe SDLAudioDeviceEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint which = default, bool recording = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
 		{
 			Type = type;
 			Reserved = reserved;
 			Timestamp = timestamp;
 			Which = which;
-			Recording = recording;
+			Recording = recording ? (byte)1 : (byte)0;
 			Padding1 = padding1;
 			Padding2 = padding2;
 			Padding3 = padding3;

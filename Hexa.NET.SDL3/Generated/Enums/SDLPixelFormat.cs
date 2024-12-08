@@ -488,5 +488,30 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_EXTERNAL_OES")]
 		[NativeName(NativeNameType.Value, "0x2053454fu")]
 		ExternalOes = unchecked((int)0x2053454fu),
+
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBA32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_ABGR8888")]
+		Rgba32 = Abgr8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ARGB32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_BGRA8888")]
+		Argb32 = Bgra8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRA32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_ARGB8888")]
+		Bgra32 = Argb8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_ABGR32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_RGBA8888")]
+		Abgr32 = Rgba8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_RGBX32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_XBGR8888")]
+		Rgbx32 = Xbgr8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XRGB32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_BGRX8888")]
+		Xrgb32 = Bgrx8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_BGRX32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_XRGB8888")]
+		Bgrx32 = Xrgb8888,
+		[NativeName(NativeNameType.EnumItem, "SDL_PIXELFORMAT_XBGR32")]
+		[NativeName(NativeNameType.Value, "SDL_PIXELFORMAT_RGBX8888")]
+		Xbgr32 = Rgbx8888,
 	}
 }

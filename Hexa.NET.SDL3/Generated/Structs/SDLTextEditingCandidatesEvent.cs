@@ -69,14 +69,23 @@ namespace Hexa.NET.SDL3
 		public int SelectedCandidate;
 
 		/// <summary>
-		/// SDL_TRUE if the list is horizontal, SDL_FALSE if it's vertical <br/>
+		/// true if the list is horizontal, false if it's vertical <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "horizontal")]
-		[NativeName(NativeNameType.Type, "SDL_bool")]
-		public int Horizontal;
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte Horizontal;
 
+		[NativeName(NativeNameType.Field, "padding1")]
+		[NativeName(NativeNameType.Type, "Uint8")]
+		public byte Padding1;
+		[NativeName(NativeNameType.Field, "padding2")]
+		[NativeName(NativeNameType.Type, "Uint8")]
+		public byte Padding2;
+		[NativeName(NativeNameType.Field, "padding3")]
+		[NativeName(NativeNameType.Type, "Uint8")]
+		public byte Padding3;
 
-		public unsafe SDLTextEditingCandidatesEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, byte** candidates = default, int numCandidates = default, int selectedCandidate = default, int horizontal = default)
+		public unsafe SDLTextEditingCandidatesEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, byte** candidates = default, int numCandidates = default, int selectedCandidate = default, bool horizontal = default, byte padding1 = default, byte padding2 = default, byte padding3 = default)
 		{
 			Type = type;
 			Reserved = reserved;
@@ -85,7 +94,10 @@ namespace Hexa.NET.SDL3
 			Candidates = candidates;
 			NumCandidates = numCandidates;
 			SelectedCandidate = selectedCandidate;
-			Horizontal = horizontal;
+			Horizontal = horizontal ? (byte)1 : (byte)0;
+			Padding1 = padding1;
+			Padding2 = padding2;
+			Padding3 = padding3;
 		}
 
 

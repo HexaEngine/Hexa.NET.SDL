@@ -55,5 +55,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_TYPE_THROTTLE")]
 		[NativeName(NativeNameType.Value, "9")]
 		Throttle = unchecked(9),
+		[NativeName(NativeNameType.EnumItem, "SDL_JOYSTICK_TYPE_COUNT")]
+		[NativeName(NativeNameType.Value, "10")]
+		Count = unchecked(10),
 	}
 }

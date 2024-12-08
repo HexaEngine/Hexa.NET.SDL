@@ -160,8 +160,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "19")]
 		WResize = unchecked(19),
 
-		[NativeName(NativeNameType.EnumItem, "SDL_NUM_SYSTEM_CURSORS")]
+		[NativeName(NativeNameType.EnumItem, "SDL_SYSTEM_CURSOR_COUNT")]
 		[NativeName(NativeNameType.Value, "20")]
-		NumSystemCursors = unchecked(20),
+		Count = unchecked(20),
 	}
 }

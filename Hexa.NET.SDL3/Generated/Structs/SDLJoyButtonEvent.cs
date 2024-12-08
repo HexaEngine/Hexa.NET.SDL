@@ -55,11 +55,11 @@ namespace Hexa.NET.SDL3
 		public byte Button;
 
 		/// <summary>
-		/// SDL_PRESSED or SDL_RELEASED <br/>
+		/// true if the button is pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "Uint8")]
-		public byte State;
+		[NativeName(NativeNameType.Field, "down")]
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte Down;
 
 		[NativeName(NativeNameType.Field, "padding1")]
 		[NativeName(NativeNameType.Type, "Uint8")]
@@ -68,14 +68,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Type, "Uint8")]
 		public byte Padding2;
 
-		public unsafe SDLJoyButtonEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, int which = default, byte button = default, byte state = default, byte padding1 = default, byte padding2 = default)
+		public unsafe SDLJoyButtonEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, int which = default, byte button = default, bool down = default, byte padding1 = default, byte padding2 = default)
 		{
 			Type = type;
 			Reserved = reserved;
 			Timestamp = timestamp;
 			Which = which;
 			Button = button;
-			State = state;
+			Down = down ? (byte)1 : (byte)0;
 			Padding1 = padding1;
 			Padding2 = padding2;
 		}

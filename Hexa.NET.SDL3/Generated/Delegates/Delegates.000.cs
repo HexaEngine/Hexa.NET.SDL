@@ -115,25 +115,55 @@ namespace Hexa.NET.SDL3
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
+	/// If the stream is buffering, make sure the data is written out.<br/>
+	/// On failure, you should set `*status` to a value from the<br/>
+	/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
+	/// a successful flush.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "flush")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Flush([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] SDLIOStatus* status);
+
+	#else
+	/// <summary>
+	/// If the stream is buffering, make sure the data is written out.<br/>
+	/// On failure, you should set `*status` to a value from the<br/>
+	/// SDL_IOStatus enum. You do not have to explicitly set this on<br/>
+	/// a successful flush.<br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "flush")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate byte Flush([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "status")] [NativeName(NativeNameType.Type, "SDL_IOStatus *")] nint status);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
 	/// Close and free any allocated resources.<br/>
+	/// This does not guarantee file writes will sync to physical media; they<br/>
+	/// can be in the system's file cache, waiting to go to disk.<br/>
 	/// The SDL_IOStream is still destroyed even if this fails, so clean up anything<br/>
-	/// even if flushing to disk returns an error.<br/>
+	/// even if flushing buffers, etc, returns an error.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "close")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Close([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
+	public unsafe delegate byte Close([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
 	#else
 	/// <summary>
 	/// Close and free any allocated resources.<br/>
+	/// This does not guarantee file writes will sync to physical media; they<br/>
+	/// can be in the system's file cache, waiting to go to disk.<br/>
 	/// The SDL_IOStream is still destroyed even if this fails, so clean up anything<br/>
-	/// even if flushing to disk returns an error.<br/>
+	/// even if flushing buffers, etc, returns an error.<br/>
 	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "close")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Close([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
+	public unsafe delegate byte Close([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
 	#endif
 
@@ -179,7 +209,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "Rumble")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Rumble([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble);
+	public unsafe delegate byte Rumble([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble);
 
 	#else
 	/// <summary>
@@ -187,7 +217,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "Rumble")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Rumble([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble);
+	public unsafe delegate byte Rumble([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "low_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort lowFrequencyRumble, [NativeName(NativeNameType.Param, "high_frequency_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort highFrequencyRumble);
 
 	#endif
 
@@ -197,7 +227,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "RumbleTriggers")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int RumbleTriggers([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble);
+	public unsafe delegate byte RumbleTriggers([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble);
 
 	#else
 	/// <summary>
@@ -205,7 +235,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "RumbleTriggers")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int RumbleTriggers([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble);
+	public unsafe delegate byte RumbleTriggers([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "left_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort leftRumble, [NativeName(NativeNameType.Param, "right_rumble")] [NativeName(NativeNameType.Type, "Uint16")] ushort rightRumble);
 
 	#endif
 
@@ -215,7 +245,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SetLED")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SetLED([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue);
+	public unsafe delegate byte SetLED([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue);
 
 	#else
 	/// <summary>
@@ -223,7 +253,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SetLED")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SetLED([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue);
+	public unsafe delegate byte SetLED([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "red")] [NativeName(NativeNameType.Type, "Uint8")] byte red, [NativeName(NativeNameType.Param, "green")] [NativeName(NativeNameType.Type, "Uint8")] byte green, [NativeName(NativeNameType.Param, "blue")] [NativeName(NativeNameType.Type, "Uint8")] byte blue);
 
 	#endif
 
@@ -233,7 +263,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SendEffect")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SendEffect([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size);
+	public unsafe delegate byte SendEffect([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] void* data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size);
 
 	#else
 	/// <summary>
@@ -241,7 +271,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SendEffect")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SendEffect([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size);
+	public unsafe delegate byte SendEffect([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void const *")] nint data, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "int")] int size);
 
 	#endif
 
@@ -251,7 +281,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SetSensorsEnabled")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SetSensorsEnabled([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] int enabled);
+	public unsafe delegate byte SetSensorsEnabled([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled);
 
 	#else
 	/// <summary>
@@ -259,7 +289,25 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SetSensorsEnabled")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SetSensorsEnabled([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "SDL_bool")] int enabled);
+	public unsafe delegate byte SetSensorsEnabled([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "enabled")] [NativeName(NativeNameType.Type, "bool")] byte enabled);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// Cleans up the userdata when the joystick is detached <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Cleanup")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Cleanup([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
+
+	#else
+	/// <summary>
+	/// Cleans up the userdata when the joystick is detached <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "Cleanup")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Cleanup([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
 	#endif
 
@@ -269,7 +317,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "ready")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Ready([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
+	public unsafe delegate byte Ready([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
 
 	#else
 	/// <summary>
@@ -277,7 +325,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "ready")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Ready([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
+	public unsafe delegate byte Ready([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
 
 	#endif
 
@@ -287,7 +335,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "enumerate")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Enumerate([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, int> callback, [NativeName(NativeNameType.Param, "callback_userdata")] [NativeName(NativeNameType.Type, "void *")] void* callbackUserdata);
+	public unsafe delegate byte Enumerate([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] delegate*<void*, byte*, byte*, SDLEnumerationResult> callback, [NativeName(NativeNameType.Param, "callback_userdata")] [NativeName(NativeNameType.Type, "void *")] void* callbackUserdata);
 
 	#else
 	/// <summary>
@@ -295,7 +343,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "enumerate")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Enumerate([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] nint callback, [NativeName(NativeNameType.Param, "callback_userdata")] [NativeName(NativeNameType.Type, "void *")] nint callbackUserdata);
+	public unsafe delegate byte Enumerate([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "callback")] [NativeName(NativeNameType.Type, "SDL_EnumerateDirectoryCallback")] nint callback, [NativeName(NativeNameType.Param, "callback_userdata")] [NativeName(NativeNameType.Type, "void *")] nint callbackUserdata);
 
 	#endif
 
@@ -305,7 +353,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "info")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Info([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info);
+	public unsafe delegate byte Info([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] SDLPathInfo* info);
 
 	#else
 	/// <summary>
@@ -313,7 +361,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "info")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Info([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] nint info);
+	public unsafe delegate byte Info([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "info")] [NativeName(NativeNameType.Type, "SDL_PathInfo *")] nint info);
 
 	#endif
 
@@ -323,7 +371,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "read_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int ReadFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "void *")] void* destination, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
+	public unsafe delegate byte ReadFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "void *")] void* destination, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
 	#else
 	/// <summary>
@@ -331,7 +379,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "read_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int ReadFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "void *")] nint destination, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
+	public unsafe delegate byte ReadFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "destination")] [NativeName(NativeNameType.Type, "void *")] nint destination, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
 	#endif
 
@@ -341,7 +389,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "write_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int WriteFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "void const *")] void* source, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
+	public unsafe delegate byte WriteFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "void const *")] void* source, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
 	#else
 	/// <summary>
@@ -349,7 +397,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "write_file")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int WriteFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "void const *")] nint source, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
+	public unsafe delegate byte WriteFile([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path, [NativeName(NativeNameType.Param, "source")] [NativeName(NativeNameType.Type, "void const *")] nint source, [NativeName(NativeNameType.Param, "length")] [NativeName(NativeNameType.Type, "Uint64")] ulong length);
 
 	#endif
 
@@ -359,7 +407,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "mkdir")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Mkdir([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path);
+	public unsafe delegate byte Mkdir([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path);
 
 	#else
 	/// <summary>
@@ -367,7 +415,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "mkdir")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Mkdir([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path);
+	public unsafe delegate byte Mkdir([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path);
 
 	#endif
 
@@ -377,7 +425,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "remove")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Remove([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path);
+	public unsafe delegate byte Remove([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] byte* path);
 
 	#else
 	/// <summary>
@@ -385,7 +433,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "remove")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Remove([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path);
+	public unsafe delegate byte Remove([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "path")] [NativeName(NativeNameType.Type, "char const *")] nint path);
 
 	#endif
 
@@ -395,7 +443,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "rename")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Rename([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath);
+	public unsafe delegate byte Rename([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath);
 
 	#else
 	/// <summary>
@@ -403,7 +451,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "rename")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Rename([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] nint oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] nint newpath);
+	public unsafe delegate byte Rename([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] nint oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] nint newpath);
 
 	#endif
 
@@ -413,7 +461,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "copy")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Copy([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath);
+	public unsafe delegate byte Copy([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] byte* oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] byte* newpath);
 
 	#else
 	/// <summary>
@@ -421,7 +469,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "copy")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int Copy([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] nint oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] nint newpath);
+	public unsafe delegate byte Copy([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "oldpath")] [NativeName(NativeNameType.Type, "char const *")] nint oldpath, [NativeName(NativeNameType.Param, "newpath")] [NativeName(NativeNameType.Type, "char const *")] nint newpath);
 
 	#endif
 
@@ -440,6 +488,50 @@ namespace Hexa.NET.SDL3
 	[NativeName(NativeNameType.Delegate, "space_remaining")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate ulong SpaceRemaining([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
+	/// Parse an argument. <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "parse_arguments")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int ParseArguments([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
+
+	#else
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
+	/// Parse an argument. <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "parse_arguments")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int ParseArguments([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] nint argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
+	/// Finalize this argument parser. Called once before parsing the first argument. <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "finalize")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Finalize([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
+
+	#else
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
+	/// Finalize this argument parser. Called once before parsing the first argument. <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "finalize")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void Finalize([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
 
 	#endif
 
@@ -473,7 +565,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "testSetUp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void TestSetUp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
+	public unsafe delegate void TestSetUp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] void** arg);
 
 	#else
 	/// <summary>
@@ -483,7 +575,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "testSetUp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void TestSetUp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
+	public unsafe delegate void TestSetUp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] nint arg);
 
 	#endif
 
@@ -510,11 +602,29 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback used to implement SDL_malloc().<br/>
+	/// SDL will always ensure that the passed `size` is greater than 0.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_malloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void* SDLMallocFunc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
 	#else
+	/// <summary>
+	/// A callback used to implement SDL_malloc().<br/>
+	/// SDL will always ensure that the passed `size` is greater than 0.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_malloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLMallocFunc([NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
@@ -522,11 +632,31 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback used to implement SDL_calloc().<br/>
+	/// SDL will always ensure that the passed `nmemb` and `size` are both greater<br/>
+	/// than 0.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_calloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void* SDLCallocFunc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
 	#else
+	/// <summary>
+	/// A callback used to implement SDL_calloc().<br/>
+	/// SDL will always ensure that the passed `nmemb` and `size` are both greater<br/>
+	/// than 0.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_calloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLCallocFunc([NativeName(NativeNameType.Param, "nmemb")] [NativeName(NativeNameType.Type, "size_t")] nuint nmemb, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
@@ -534,11 +664,29 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback used to implement SDL_realloc().<br/>
+	/// SDL will always ensure that the passed `size` is greater than 0.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_realloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void* SDLReallocFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
 
 	#else
+	/// <summary>
+	/// A callback used to implement SDL_realloc().<br/>
+	/// SDL will always ensure that the passed `size` is greater than 0.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_realloc_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate nint SDLReallocFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] nint mem, [NativeName(NativeNameType.Param, "size")] [NativeName(NativeNameType.Type, "size_t")] nuint size);
@@ -546,11 +694,29 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback used to implement SDL_free().<br/>
+	/// SDL will always ensure that the passed `mem` is a non-NULL pointer.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_free_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLFreeFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] void* mem);
 
 	#else
+	/// <summary>
+	/// A callback used to implement SDL_free().<br/>
+	/// SDL will always ensure that the passed `mem` is a non-NULL pointer.<br/>
+	/// <br/>
+	/// <br/>
+	/// It should be safe to call this callback from any thread.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_free_func")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLFreeFunc([NativeName(NativeNameType.Param, "mem")] [NativeName(NativeNameType.Type, "void *")] nint mem);
@@ -558,11 +724,23 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback used with SDL sorting and binary search functions.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallback([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] void* a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] void* b);
 
 	#else
+	/// <summary>
+	/// A callback used with SDL sorting and binary search functions.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallback([NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] nint a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] nint b);
@@ -570,11 +748,23 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// A callback used with SDL sorting and binary search functions.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback_r")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallbackR([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] void* a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] void* b);
 
 	#else
+	/// <summary>
+	/// A callback used with SDL sorting and binary search functions.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_CompareCallback_r")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate int SDLCompareCallbackR([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "a")] [NativeName(NativeNameType.Type, "void const *")] nint a, [NativeName(NativeNameType.Param, "b")] [NativeName(NativeNameType.Type, "void const *")] nint b);
@@ -861,60 +1051,6 @@ namespace Hexa.NET.SDL3
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
-	/// EGL attribute initialization callback types.<br/>
-	/// <br/>
-	/// </summary>
-	[NativeName(NativeNameType.Delegate, "SDL_EGLAttribArrayCallback")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint* SDLEGLAttribArrayCallback();
-
-	#else
-	/// <summary>
-	/// EGL attribute initialization callback types.<br/>
-	/// <br/>
-	/// </summary>
-	[NativeName(NativeNameType.Delegate, "SDL_EGLAttribArrayCallback")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint SDLEGLAttribArrayCallback();
-
-	#endif
-
-	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "SDL_EGLIntArrayCallback")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int* SDLEGLIntArrayCallback();
-
-	#else
-	[NativeName(NativeNameType.Delegate, "SDL_EGLIntArrayCallback")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate nint SDLEGLIntArrayCallback();
-
-	#endif
-
-	#if NET5_0_OR_GREATER
-	/// <summary>
-	/// Callback used for hit-testing.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
-	[NativeName(NativeNameType.Delegate, "SDL_HitTest")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate SDLHitTestResult SDLHitTest([NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* win, [NativeName(NativeNameType.Param, "area")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* area, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data);
-
-	#else
-	/// <summary>
-	/// Callback used for hit-testing.<br/>
-	/// <br/>
-	/// <br/>
-	/// </summary>
-	[NativeName(NativeNameType.Delegate, "SDL_HitTest")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate SDLHitTestResult SDLHitTest([NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "SDL_Window *")] nint win, [NativeName(NativeNameType.Param, "area")] [NativeName(NativeNameType.Type, "SDL_Point const *")] nint area, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data);
-
-	#endif
-
-	#if NET5_0_OR_GREATER
-	/// <summary>
 	/// Callback function that will be called when data for the specified mime-type<br/>
 	/// is requested by the OS.<br/>
 	/// The callback function is called with NULL as the mime_type when the<br/>
@@ -968,6 +1104,118 @@ namespace Hexa.NET.SDL3
 	[NativeName(NativeNameType.Delegate, "SDL_ClipboardCleanupCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public unsafe delegate void SDLClipboardCleanupCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// EGL platform attribute initialization callback.<br/>
+	/// This is called when SDL is attempting to create an EGL context, to let the<br/>
+	/// app add extra attributes to its eglGetPlatformDisplay() call.<br/>
+	/// The callback should return a pointer to an EGL attribute array terminated<br/>
+	/// with `EGL_NONE`. If this function returns NULL, the SDL_CreateWindow<br/>
+	/// process will fail gracefully.<br/>
+	/// The returned pointer should be allocated with SDL_malloc() and will be<br/>
+	/// passed to SDL_free().<br/>
+	/// The arrays returned by each callback will be appended to the existing<br/>
+	/// attribute arrays defined by SDL.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLAttribArrayCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate nint* SDLEGLAttribArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata);
+
+	#else
+	/// <summary>
+	/// EGL platform attribute initialization callback.<br/>
+	/// This is called when SDL is attempting to create an EGL context, to let the<br/>
+	/// app add extra attributes to its eglGetPlatformDisplay() call.<br/>
+	/// The callback should return a pointer to an EGL attribute array terminated<br/>
+	/// with `EGL_NONE`. If this function returns NULL, the SDL_CreateWindow<br/>
+	/// process will fail gracefully.<br/>
+	/// The returned pointer should be allocated with SDL_malloc() and will be<br/>
+	/// passed to SDL_free().<br/>
+	/// The arrays returned by each callback will be appended to the existing<br/>
+	/// attribute arrays defined by SDL.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLAttribArrayCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate nint SDLEGLAttribArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// EGL surface/context attribute initialization callback types.<br/>
+	/// This is called when SDL is attempting to create an EGL surface, to let the<br/>
+	/// app add extra attributes to its eglCreateWindowSurface() or<br/>
+	/// eglCreateContext calls.<br/>
+	/// For convenience, the EGLDisplay and EGLConfig to use are provided to the<br/>
+	/// callback.<br/>
+	/// The callback should return a pointer to an EGL attribute array terminated<br/>
+	/// with `EGL_NONE`. If this function returns NULL, the SDL_CreateWindow<br/>
+	/// process will fail gracefully.<br/>
+	/// The returned pointer should be allocated with SDL_malloc() and will be<br/>
+	/// passed to SDL_free().<br/>
+	/// The arrays returned by each callback will be appended to the existing<br/>
+	/// attribute arrays defined by SDL.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLIntArrayCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int* SDLEGLIntArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "SDL_EGLDisplay")] SDLEGLDisplay display, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "SDL_EGLConfig")] SDLEGLConfig config);
+
+	#else
+	/// <summary>
+	/// EGL surface/context attribute initialization callback types.<br/>
+	/// This is called when SDL is attempting to create an EGL surface, to let the<br/>
+	/// app add extra attributes to its eglCreateWindowSurface() or<br/>
+	/// eglCreateContext calls.<br/>
+	/// For convenience, the EGLDisplay and EGLConfig to use are provided to the<br/>
+	/// callback.<br/>
+	/// The callback should return a pointer to an EGL attribute array terminated<br/>
+	/// with `EGL_NONE`. If this function returns NULL, the SDL_CreateWindow<br/>
+	/// process will fail gracefully.<br/>
+	/// The returned pointer should be allocated with SDL_malloc() and will be<br/>
+	/// passed to SDL_free().<br/>
+	/// The arrays returned by each callback will be appended to the existing<br/>
+	/// attribute arrays defined by SDL.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_EGLIntArrayCallback")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate nint SDLEGLIntArrayCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "display")] [NativeName(NativeNameType.Type, "SDL_EGLDisplay")] SDLEGLDisplay display, [NativeName(NativeNameType.Param, "config")] [NativeName(NativeNameType.Type, "SDL_EGLConfig")] SDLEGLConfig config);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// Callback used for hit-testing.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_HitTest")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLHitTestResult SDLHitTest([NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "SDL_Window *")] SDLWindow* win, [NativeName(NativeNameType.Param, "area")] [NativeName(NativeNameType.Type, "SDL_Point const *")] SDLPoint* area, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data);
+
+	#else
+	/// <summary>
+	/// Callback used for hit-testing.<br/>
+	/// <br/>
+	/// <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDL_HitTest")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLHitTestResult SDLHitTest([NativeName(NativeNameType.Param, "win")] [NativeName(NativeNameType.Type, "SDL_Window *")] nint win, [NativeName(NativeNameType.Param, "area")] [NativeName(NativeNameType.Type, "SDL_Point const *")] nint area, [NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data);
 
 	#endif
 
@@ -1034,7 +1282,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_EventFilter")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLEventFilter([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt);
+	public unsafe delegate byte SDLEventFilter([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt);
 
 	#else
 	/// <summary>
@@ -1049,31 +1297,45 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_EventFilter")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLEventFilter([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] nint evnt);
+	public unsafe delegate byte SDLEventFilter([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] nint evnt);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
 	/// <summary>
-	/// Callback for directory enumeration. Return 1 to keep enumerating,<br/>
-	/// 0 to stop enumerating (no error), -1 to stop enumerating and<br/>
-	/// report an error. `dirname` is the directory being enumerated,<br/>
-	/// `fname` is the enumerated entry. <br/>
+	/// Callback for directory enumeration.<br/>
+	/// Enumeration of directory entries will continue until either all entries<br/>
+	/// have been provided to the callback, or the callback has requested a stop<br/>
+	/// through its return value.<br/>
+	/// Returning SDL_ENUM_CONTINUE will let enumeration proceed, calling the<br/>
+	/// callback with further entries. SDL_ENUM_SUCCESS and SDL_ENUM_FAILURE will<br/>
+	/// terminate the enumeration early, and dictate the return value of the<br/>
+	/// enumeration function itself.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_EnumerateDirectoryCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLEnumerateDirectoryCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "dirname")] [NativeName(NativeNameType.Type, "char const *")] byte* dirname, [NativeName(NativeNameType.Param, "fname")] [NativeName(NativeNameType.Type, "char const *")] byte* fname);
+	public unsafe delegate SDLEnumerationResult SDLEnumerateDirectoryCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "dirname")] [NativeName(NativeNameType.Type, "char const *")] byte* dirname, [NativeName(NativeNameType.Param, "fname")] [NativeName(NativeNameType.Type, "char const *")] byte* fname);
 
 	#else
 	/// <summary>
-	/// Callback for directory enumeration. Return 1 to keep enumerating,<br/>
-	/// 0 to stop enumerating (no error), -1 to stop enumerating and<br/>
-	/// report an error. `dirname` is the directory being enumerated,<br/>
-	/// `fname` is the enumerated entry. <br/>
+	/// Callback for directory enumeration.<br/>
+	/// Enumeration of directory entries will continue until either all entries<br/>
+	/// have been provided to the callback, or the callback has requested a stop<br/>
+	/// through its return value.<br/>
+	/// Returning SDL_ENUM_CONTINUE will let enumeration proceed, calling the<br/>
+	/// callback with further entries. SDL_ENUM_SUCCESS and SDL_ENUM_FAILURE will<br/>
+	/// terminate the enumeration early, and dictate the return value of the<br/>
+	/// enumeration function itself.<br/>
+	/// <br/>
+	/// <br/>
+	/// <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_EnumerateDirectoryCallback")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLEnumerateDirectoryCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "dirname")] [NativeName(NativeNameType.Type, "char const *")] nint dirname, [NativeName(NativeNameType.Param, "fname")] [NativeName(NativeNameType.Type, "char const *")] nint fname);
+	public unsafe delegate SDLEnumerationResult SDLEnumerateDirectoryCallback([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "dirname")] [NativeName(NativeNameType.Type, "char const *")] nint dirname, [NativeName(NativeNameType.Param, "fname")] [NativeName(NativeNameType.Type, "char const *")] nint fname);
 
 	#endif
 
@@ -1114,9 +1376,59 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLAppResult SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] void** appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] byte** argv);
+
+	#else
+	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLAppResult SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] nint appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] nint argv);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLAppResult SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate);
+
+	#else
+	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLAppResult SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLAppResult SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] SDLEvent* evnt);
+
+	#else
+	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate SDLAppResult SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event *")] nint evnt);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_AppResult")] SDLAppResult result);
+
+	#else
+	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate, [NativeName(NativeNameType.Param, "result")] [NativeName(NativeNameType.Type, "SDL_AppResult")] SDLAppResult result);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// The prototype for the log output callback function.<br/>
-	/// This function is called by SDL when there is new text to be logged.<br/>
+	/// This function is called by SDL when there is new text to be logged. A mutex<br/>
+	/// is held so that this function is never called by more than one thread at<br/>
+	/// once.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
@@ -1127,7 +1439,9 @@ namespace Hexa.NET.SDL3
 	#else
 	/// <summary>
 	/// The prototype for the log output callback function.<br/>
-	/// This function is called by SDL when there is new text to be logged.<br/>
+	/// This function is called by SDL when there is new text to be logged. A mutex<br/>
+	/// is held so that this function is never called by more than one thread at<br/>
+	/// once.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
@@ -1140,9 +1454,8 @@ namespace Hexa.NET.SDL3
 	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// A callback to be used with SDL_SetWindowsMessageHook.<br/>
-	/// This callback may modify the message, and should return SDL_TRUE if the<br/>
-	/// message should continue to be processed, or SDL_FALSE to prevent further<br/>
-	/// processing.<br/>
+	/// This callback may modify the message, and should return true if the message<br/>
+	/// should continue to be processed, or false to prevent further processing.<br/>
 	/// As this is processing a message directly from the Windows event loop, this<br/>
 	/// callback should do the minimum required work and return quickly.<br/>
 	/// <br/>
@@ -1154,14 +1467,13 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_WindowsMessageHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLWindowsMessageHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "msg")] [NativeName(NativeNameType.Type, "MSG *")] Msg* msg);
+	public unsafe delegate byte SDLWindowsMessageHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "msg")] [NativeName(NativeNameType.Type, "MSG *")] Msg* msg);
 
 	#else
 	/// <summary>
 	/// A callback to be used with SDL_SetWindowsMessageHook.<br/>
-	/// This callback may modify the message, and should return SDL_TRUE if the<br/>
-	/// message should continue to be processed, or SDL_FALSE to prevent further<br/>
-	/// processing.<br/>
+	/// This callback may modify the message, and should return true if the message<br/>
+	/// should continue to be processed, or false to prevent further processing.<br/>
 	/// As this is processing a message directly from the Windows event loop, this<br/>
 	/// callback should do the minimum required work and return quickly.<br/>
 	/// <br/>
@@ -1173,19 +1485,19 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDL_WindowsMessageHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLWindowsMessageHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "msg")] [NativeName(NativeNameType.Type, "MSG *")] nint msg);
+	public unsafe delegate byte SDLWindowsMessageHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "msg")] [NativeName(NativeNameType.Type, "MSG *")] nint msg);
 
 	#endif
 
 	#if NET5_0_OR_GREATER
 	[NativeName(NativeNameType.Delegate, "SDL_X11EventHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] XEvent* xevent);
+	public unsafe delegate byte SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] void* userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] XEvent* xevent);
 
 	#else
 	[NativeName(NativeNameType.Delegate, "SDL_X11EventHook")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] nint xevent);
+	public unsafe delegate byte SDLX11EventHook([NativeName(NativeNameType.Param, "userdata")] [NativeName(NativeNameType.Type, "void *")] nint userdata, [NativeName(NativeNameType.Param, "xevent")] [NativeName(NativeNameType.Type, "XEvent *")] nint xevent);
 
 	#endif
 
@@ -3206,54 +3518,6 @@ namespace Hexa.NET.SDL3
 	#endif
 
 	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] void** appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] byte** argv);
-
-	#else
-	[NativeName(NativeNameType.Delegate, "SDL_AppInit_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLAppInitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void * *")] nint appstate, [NativeName(NativeNameType.Param, "argc")] [NativeName(NativeNameType.Type, "int")] int argc, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char *[-1]")] nint argv);
-
-	#endif
-
-	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate);
-
-	#else
-	[NativeName(NativeNameType.Delegate, "SDL_AppIterate_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLAppIterateFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate);
-
-	#endif
-
-	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] SDLEvent* evnt);
-
-	#else
-	[NativeName(NativeNameType.Delegate, "SDL_AppEvent_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate int SDLAppEventFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate, [NativeName(NativeNameType.Param, "event")] [NativeName(NativeNameType.Type, "SDL_Event const *")] nint evnt);
-
-	#endif
-
-	#if NET5_0_OR_GREATER
-	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] void* appstate);
-
-	#else
-	[NativeName(NativeNameType.Delegate, "SDL_AppQuit_func")]
-	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void SDLAppQuitFunc([NativeName(NativeNameType.Param, "appstate")] [NativeName(NativeNameType.Type, "void *")] nint appstate);
-
-	#endif
-
-	#if NET5_0_OR_GREATER
 	/// <summary>
 	/// The prototype for the application's main() function<br/>
 	/// <br/>
@@ -3279,11 +3543,57 @@ namespace Hexa.NET.SDL3
 	/// <summary>
 	/// !<br/>
 	/// <<br/>
+	/// Function pointer parsing one argument at argv[index], returning the number of parsed arguments,<br/>
+	/// or a negative value when the argument is invalid <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_ParseArgumentsFp")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int SDLTestParseArgumentsFp([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] void* data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] byte** argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
+
+	#else
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
+	/// Function pointer parsing one argument at argv[index], returning the number of parsed arguments,<br/>
+	/// or a negative value when the argument is invalid <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_ParseArgumentsFp")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate int SDLTestParseArgumentsFp([NativeName(NativeNameType.Param, "data")] [NativeName(NativeNameType.Type, "void *")] nint data, [NativeName(NativeNameType.Param, "argv")] [NativeName(NativeNameType.Type, "char * *")] nint argv, [NativeName(NativeNameType.Param, "index")] [NativeName(NativeNameType.Type, "int")] int index);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
+	/// Finalize the argument parser. <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_FinalizeArgumentParserFp")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLTestFinalizeArgumentParserFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
+
+	#else
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
+	/// Finalize the argument parser. <br/>
+	/// </summary>
+	[NativeName(NativeNameType.Delegate, "SDLTest_FinalizeArgumentParserFp")]
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public unsafe delegate void SDLTestFinalizeArgumentParserFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
+
+	#endif
+
+	#if NET5_0_OR_GREATER
+	/// <summary>
+	/// !<br/>
+	/// <<br/>
 	/// Function pointer to a test case setup function (run before every test) <br/>
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseSetUpFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void SDLTestTestCaseSetUpFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] void* arg);
+	public unsafe delegate void SDLTestTestCaseSetUpFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] void** arg);
 
 	#else
 	/// <summary>
@@ -3293,7 +3603,7 @@ namespace Hexa.NET.SDL3
 	/// </summary>
 	[NativeName(NativeNameType.Delegate, "SDLTest_TestCaseSetUpFp")]
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-	public unsafe delegate void SDLTestTestCaseSetUpFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void *")] nint arg);
+	public unsafe delegate void SDLTestTestCaseSetUpFp([NativeName(NativeNameType.Param, "arg")] [NativeName(NativeNameType.Type, "void * *")] nint arg);
 
 	#endif
 

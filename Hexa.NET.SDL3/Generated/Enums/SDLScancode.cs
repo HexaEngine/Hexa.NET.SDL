@@ -1479,11 +1479,10 @@ namespace Hexa.NET.SDL3
 		Reserved = unchecked(400),
 
 		/// <summary>
-		/// not a key, just marks the number of scancodes<br/>
-		/// for array bounds <br/>
+		/// not a key, just marks the number of scancodes for array bounds <br/>
 		/// </summary>
-		[NativeName(NativeNameType.EnumItem, "SDL_NUM_SCANCODES")]
+		[NativeName(NativeNameType.EnumItem, "SDL_SCANCODE_COUNT")]
 		[NativeName(NativeNameType.Value, "512")]
-		NumScancodes = unchecked(512),
+		Count = unchecked(512),
 	}
 }

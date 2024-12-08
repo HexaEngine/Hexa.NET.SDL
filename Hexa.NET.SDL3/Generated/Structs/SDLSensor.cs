@@ -15,12 +15,6 @@ using HexaGen.Runtime;
 
 namespace Hexa.NET.SDL3
 {
-	/// <summary>
-	/// SDL_sensor.h<br/>
-	/// In order to use these functions, SDL_Init() must have been called<br/>
-	/// with the SDL_INIT_SENSOR flag.  This causes SDL to scan the system<br/>
-	/// for sensors, and load appropriate drivers.<br/>
-	/// </summary>
 	[NativeName(NativeNameType.StructOrClass, "SDL_Sensor")]
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLSensor

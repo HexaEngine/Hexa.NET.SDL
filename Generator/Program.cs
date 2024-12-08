@@ -3,6 +3,7 @@ using HexaGen;
 using HexaGen.Patching;
 using System.Text.RegularExpressions;
 using System.Text;
+using HexaGen.Metadata;
 
 // SDL2
 List<string> filesSdl2 = [.. Directory.GetFiles("include")];
@@ -42,6 +43,7 @@ BatchGenerator batch = new();
 batch.Start()
 
     // SDL 2
+
     .Setup<CsCodeGenerator>("sdl2/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))
     .AddPrePatch(new EnumNamePatch())
@@ -52,7 +54,7 @@ batch.Start()
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))
     .AddPrePatch(new ConstantsToEnumPatch("SDL_BLENDMODE_", "SDLBlendMode", "uint"))
     //.AddPrePatch(new ConstantsToEnumPatch("SDL_WINDOW_", "SDLWindowFlags", "uint"))
-    .AddPrePatch(new ConstantsToEnumPatch("SDL_MESSAGEBOX_", "SDLMessageBoxFlags", "uint"))
+    //.AddPrePatch(new ConstantsToEnumPatch("SDL_MESSAGEBOX_", "SDLMessageBoxFlags", "uint"))
     //.AddPrePatch(new ConstantsToEnumPatch("SDL_BUTTON_", "SDLMouseButtonFlags", "uint"))
     //.AddPrePatch(new ConstantsToEnumPatch("SDL_INIT_", "SDLInitFlags", "uint"))
     .AddPrePatch(new ConstantsToEnumPatch("SDL_GLOB_", "SDLGlobFlags", "uint"))
@@ -61,6 +63,10 @@ batch.Start()
     .AddPrePatch(new ConstantsToEnumPatch("SDL_SURFACE_", "SDLSurfaceFlags", "uint"))
     .AddPrePatch(new ConstantsToEnumPatch("SDL_MESSAGEBOX_BUTTON_", "SDLMessageBoxButtonFlags", "uint"))
     .AddPrePatch(new ConstantsToEnumPatch("VERBOSE_", "SDLTestVerboseFlags", "uint"))
+    .AddPrePatch(new ConstantsToEnumPatch("SDL_GPU_BUFFERUSAGE_", "SDLGPUBufferUsageFlags", "uint"))
+    //.AddPrePatch(new ConstantsToEnumPatch("SDL_GPU_COLORCOMPONENT_", "SDLGPUColorComponentFlags", "byte"))
+    .AddPrePatch(new ConstantsToEnumPatch("SDL_GPU_SHADERFORMAT_", "SDLGPUShaderFormat", "uint"))
+    .AddPrePatch(new ConstantsToEnumPatch("SDL_GPU_TEXTUREUSAGE_", "SDLGPUTextureUsageFlags", "uint"))
     .Generate(filesSdl3, "../../../../Hexa.NET.SDL3/Generated")
 
     .Finish();

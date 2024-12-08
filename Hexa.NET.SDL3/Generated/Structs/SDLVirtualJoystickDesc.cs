@@ -17,7 +17,8 @@ namespace Hexa.NET.SDL3
 {
 	/// <summary>
 	/// The structure that describes a virtual joystick.<br/>
-	/// All elements of this structure are optional and can be left 0.<br/>
+	/// This structure should be initialized using SDL_INIT_INTERFACE(). All<br/>
+	/// elements of this structure are optional.<br/>
 	/// <br/>
 	/// <br/>
 	/// </summary>
@@ -25,6 +26,13 @@ namespace Hexa.NET.SDL3
 	[StructLayout(LayoutKind.Sequential)]
 	public partial struct SDLVirtualJoystickDesc
 	{
+		/// <summary>
+		/// the version of this interface <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "version")]
+		[NativeName(NativeNameType.Type, "Uint32")]
+		public uint Version;
+
 		/// <summary>
 		/// `SDL_JoystickType` <br/>
 		/// </summary>
@@ -171,40 +179,48 @@ namespace Hexa.NET.SDL3
 		/// Implements SDL_RumbleJoystick() <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "Rumble")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble) *")]
 		public unsafe void* Rumble;
 
 		/// <summary>
 		/// Implements SDL_RumbleJoystickTriggers() <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "RumbleTriggers")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, Uint16 left_rumble, Uint16 right_rumble) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, Uint16 left_rumble, Uint16 right_rumble) *")]
 		public unsafe void* RumbleTriggers;
 
 		/// <summary>
 		/// Implements SDL_SetJoystickLED() <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "SetLED")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, Uint8 red, Uint8 green, Uint8 blue) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, Uint8 red, Uint8 green, Uint8 blue) *")]
 		public unsafe void* SetLED;
 
 		/// <summary>
 		/// Implements SDL_SendJoystickEffect() <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "SendEffect")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, void const * data, int size) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, void const * data, int size) *")]
 		public unsafe void* SendEffect;
 
 		/// <summary>
 		/// Implements SDL_SetGamepadSensorEnabled() <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Field, "SetSensorsEnabled")]
-		[NativeName(NativeNameType.Type, "int (*)(void * userdata, SDL_bool enabled) *")]
+		[NativeName(NativeNameType.Type, "bool (*)(void * userdata, bool enabled) *")]
 		public unsafe void* SetSensorsEnabled;
 
+		/// <summary>
+		/// Cleans up the userdata when the joystick is detached <br/>
+		/// </summary>
+		[NativeName(NativeNameType.Field, "Cleanup")]
+		[NativeName(NativeNameType.Type, "void (*)(void * userdata) *")]
+		public unsafe void* Cleanup;
 
-		public unsafe SDLVirtualJoystickDesc(ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, ushort* padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDesc* touchpads = default, SDLVirtualJoystickSensorDesc* sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, int> rumble = default, delegate*<void*, ushort, ushort, int> rumbleTriggers = default, delegate*<void*, byte, byte, byte, int> setLed = default, delegate*<void*, void*, int, int> sendEffect = default, delegate*<void*, int, int> setSensorsEnabled = default)
+
+		public unsafe SDLVirtualJoystickDesc(uint version = default, ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, ushort* padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDesc* touchpads = default, SDLVirtualJoystickSensorDesc* sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, bool> rumble = default, delegate*<void*, ushort, ushort, bool> rumbleTriggers = default, delegate*<void*, byte, byte, byte, bool> setLed = default, delegate*<void*, void*, int, bool> sendEffect = default, delegate*<void*, byte, bool> setSensorsEnabled = default, delegate*<void*, void> cleanup = default)
 		{
+			Version = version;
 			Type = type;
 			Padding = padding;
 			VendorId = vendorId;
@@ -228,15 +244,17 @@ namespace Hexa.NET.SDL3
 			Userdata = userdata;
 			Update = (delegate*<void*, void>*)update;
 			SetPlayerIndex = (delegate*<void*, int, void>*)setPlayerIndex;
-			Rumble = (delegate*<void*, ushort, ushort, int>*)rumble;
-			RumbleTriggers = (delegate*<void*, ushort, ushort, int>*)rumbleTriggers;
-			SetLED = (delegate*<void*, byte, byte, byte, int>*)setLed;
-			SendEffect = (delegate*<void*, void*, int, int>*)sendEffect;
-			SetSensorsEnabled = (delegate*<void*, int, int>*)setSensorsEnabled;
+			Rumble = (delegate*<void*, ushort, ushort, bool>*)rumble;
+			RumbleTriggers = (delegate*<void*, ushort, ushort, bool>*)rumbleTriggers;
+			SetLED = (delegate*<void*, byte, byte, byte, bool>*)setLed;
+			SendEffect = (delegate*<void*, void*, int, bool>*)sendEffect;
+			SetSensorsEnabled = (delegate*<void*, byte, bool>*)setSensorsEnabled;
+			Cleanup = (delegate*<void*, void>*)cleanup;
 		}
 
-		public unsafe SDLVirtualJoystickDesc(ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, Span<ushort> padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDesc* touchpads = default, SDLVirtualJoystickSensorDesc* sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, int> rumble = default, delegate*<void*, ushort, ushort, int> rumbleTriggers = default, delegate*<void*, byte, byte, byte, int> setLed = default, delegate*<void*, void*, int, int> sendEffect = default, delegate*<void*, int, int> setSensorsEnabled = default)
+		public unsafe SDLVirtualJoystickDesc(uint version = default, ushort type = default, ushort padding = default, ushort vendorId = default, ushort productId = default, ushort naxes = default, ushort nbuttons = default, ushort nballs = default, ushort nhats = default, ushort ntouchpads = default, ushort nsensors = default, Span<ushort> padding2 = default, uint buttonMask = default, uint axisMask = default, byte* name = default, SDLVirtualJoystickTouchpadDesc* touchpads = default, SDLVirtualJoystickSensorDesc* sensors = default, void* userdata = default, delegate*<void*, void> update = default, delegate*<void*, int, void> setPlayerIndex = default, delegate*<void*, ushort, ushort, bool> rumble = default, delegate*<void*, ushort, ushort, bool> rumbleTriggers = default, delegate*<void*, byte, byte, byte, bool> setLed = default, delegate*<void*, void*, int, bool> sendEffect = default, delegate*<void*, byte, bool> setSensorsEnabled = default, delegate*<void*, void> cleanup = default)
 		{
+			Version = version;
 			Type = type;
 			Padding = padding;
 			VendorId = vendorId;
@@ -260,11 +278,12 @@ namespace Hexa.NET.SDL3
 			Userdata = userdata;
 			Update = (delegate*<void*, void>*)update;
 			SetPlayerIndex = (delegate*<void*, int, void>*)setPlayerIndex;
-			Rumble = (delegate*<void*, ushort, ushort, int>*)rumble;
-			RumbleTriggers = (delegate*<void*, ushort, ushort, int>*)rumbleTriggers;
-			SetLED = (delegate*<void*, byte, byte, byte, int>*)setLed;
-			SendEffect = (delegate*<void*, void*, int, int>*)sendEffect;
-			SetSensorsEnabled = (delegate*<void*, int, int>*)setSensorsEnabled;
+			Rumble = (delegate*<void*, ushort, ushort, bool>*)rumble;
+			RumbleTriggers = (delegate*<void*, ushort, ushort, bool>*)rumbleTriggers;
+			SetLED = (delegate*<void*, byte, byte, byte, bool>*)setLed;
+			SendEffect = (delegate*<void*, void*, int, bool>*)sendEffect;
+			SetSensorsEnabled = (delegate*<void*, byte, bool>*)setSensorsEnabled;
+			Cleanup = (delegate*<void*, void>*)cleanup;
 		}
 
 

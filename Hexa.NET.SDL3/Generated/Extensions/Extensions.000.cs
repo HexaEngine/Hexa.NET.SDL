@@ -517,11 +517,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_GL_DestroyContext")]
-		[return: NativeName(NativeNameType.Type, "int")]
-		public static int DestroyContext(this SDLGLContext context)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool DestroyContext(this SDLGLContext context)
 		{
-			int ret = SDL.GLDestroyContextNative(context);
-			return ret;
+			byte ret = SDL.GLDestroyContextNative(context);
+			return ret != 0;
 		}
 
 		/// <summary>
@@ -1222,11 +1222,11 @@ namespace Hexa.NET.SDL3
 		/// <br/>
 		/// </summary>
 		[NativeName(NativeNameType.Func, "SDL_Vulkan_GetPresentationSupport")]
-		[return: NativeName(NativeNameType.Type, "SDL_bool")]
-		public static int VulkanGetPresentationSupport(this VkInstance instance, [NativeName(NativeNameType.Param, "physicalDevice")] [NativeName(NativeNameType.Type, "VkPhysicalDevice")] VkPhysicalDevice physicalDevice, [NativeName(NativeNameType.Param, "queueFamilyIndex")] [NativeName(NativeNameType.Type, "Uint32")] uint queueFamilyIndex)
+		[return: NativeName(NativeNameType.Type, "bool")]
+		public static bool VulkanGetPresentationSupport(this VkInstance instance, [NativeName(NativeNameType.Param, "physicalDevice")] [NativeName(NativeNameType.Type, "VkPhysicalDevice")] VkPhysicalDevice physicalDevice, [NativeName(NativeNameType.Param, "queueFamilyIndex")] [NativeName(NativeNameType.Type, "Uint32")] uint queueFamilyIndex)
 		{
-			int ret = SDL.VulkanGetPresentationSupportNative(instance, physicalDevice, queueFamilyIndex);
-			return ret;
+			byte ret = SDL.VulkanGetPresentationSupportNative(instance, physicalDevice, queueFamilyIndex);
+			return ret != 0;
 		}
 
 	}

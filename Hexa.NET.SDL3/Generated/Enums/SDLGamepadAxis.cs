@@ -48,8 +48,8 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_RIGHT_TRIGGER")]
 		[NativeName(NativeNameType.Value, "5")]
 		RightTrigger = unchecked(5),
-		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_MAX")]
+		[NativeName(NativeNameType.EnumItem, "SDL_GAMEPAD_AXIS_COUNT")]
 		[NativeName(NativeNameType.Value, "6")]
-		Max = unchecked(6),
+		Count = unchecked(6),
 	}
 }

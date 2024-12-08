@@ -62,11 +62,11 @@ namespace Hexa.NET.SDL3
 		public byte Button;
 
 		/// <summary>
-		/// SDL_PRESSED or SDL_RELEASED <br/>
+		/// true if the button is pressed <br/>
 		/// </summary>
-		[NativeName(NativeNameType.Field, "state")]
-		[NativeName(NativeNameType.Type, "Uint8")]
-		public byte State;
+		[NativeName(NativeNameType.Field, "down")]
+		[NativeName(NativeNameType.Type, "bool")]
+		public byte Down;
 
 		/// <summary>
 		/// 1 for single-click, 2 for double-click, etc. <br/>
@@ -93,7 +93,7 @@ namespace Hexa.NET.SDL3
 		public float Y;
 
 
-		public unsafe SDLMouseButtonEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, byte button = default, byte state = default, byte clicks = default, byte padding = default, float x = default, float y = default)
+		public unsafe SDLMouseButtonEvent(SDLEventType type = default, uint reserved = default, ulong timestamp = default, uint windowID = default, uint which = default, byte button = default, bool down = default, byte clicks = default, byte padding = default, float x = default, float y = default)
 		{
 			Type = type;
 			Reserved = reserved;
@@ -101,7 +101,7 @@ namespace Hexa.NET.SDL3
 			WindowID = windowID;
 			Which = which;
 			Button = button;
-			State = state;
+			Down = down ? (byte)1 : (byte)0;
 			Clicks = clicks;
 			Padding = padding;
 			X = x;

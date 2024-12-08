@@ -22,6 +22,13 @@ namespace Hexa.NET.SDL3
 	public enum SDLAudioFormat : int
 	{
 		/// <summary>
+		/// Unspecified audio format <br/>
+		/// </summary>
+		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_UNKNOWN")]
+		[NativeName(NativeNameType.Value, "0x0000u")]
+		Unknown = unchecked((int)0x0000u),
+
+		/// <summary>
 		/// Unsigned 8-bit samples <br/>
 		/// </summary>
 		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_U8")]
@@ -76,5 +83,15 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_F32BE")]
 		[NativeName(NativeNameType.Value, "0x9120u")]
 		F32Be = unchecked((int)0x9120u),
+
+		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S16")]
+		[NativeName(NativeNameType.Value, "SDL_AUDIO_S16LE")]
+		S16 = S16Le,
+		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_S32")]
+		[NativeName(NativeNameType.Value, "SDL_AUDIO_S32LE")]
+		S32 = S32Le,
+		[NativeName(NativeNameType.EnumItem, "SDL_AUDIO_F32")]
+		[NativeName(NativeNameType.Value, "SDL_AUDIO_F32LE")]
+		F32 = F32Le,
 	}
 }

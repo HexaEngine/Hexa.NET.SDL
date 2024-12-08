@@ -26,14 +26,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "1")]
 		public const int SDL_PLATFORM_WIN32 = 1;
 
-		[NativeName(NativeNameType.Const, "SDL_FALSE")]
-		[NativeName(NativeNameType.Value, "0")]
-		public const int SDL_FALSE = 0;
-
-		[NativeName(NativeNameType.Const, "SDL_TRUE")]
-		[NativeName(NativeNameType.Value, "1")]
-		public const int SDL_TRUE = 1;
-
 		[NativeName(NativeNameType.Const, "SDL_FLT_EPSILON")]
 		[NativeName(NativeNameType.Value, "1.1920928955078125e-07F")]
 		public const float SDL_FLT_EPSILON = 1.1920928955078125e-07F;
@@ -70,6 +62,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"X\"")]
 		public const string SDL_PRIX32 = "X";
 
+		[NativeName(NativeNameType.Const, "SDL_PRILL_PREFIX")]
+		[NativeName(NativeNameType.Value, "\"I64\"")]
+		public const string SDL_PRILL_PREFIX = "I64";
+
 		[NativeName(NativeNameType.Const, "SDL_INVALID_UNICODE_CODEPOINT")]
 		[NativeName(NativeNameType.Value, "0xFFFD")]
 		public const int SDL_INVALID_UNICODE_CODEPOINT = 0xFFFD;
@@ -94,30 +90,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "4321")]
 		public const int SDL_BIG_ENDIAN = 4321;
 
-		[NativeName(NativeNameType.Const, "SDL_MUTEX_TIMEDOUT")]
-		[NativeName(NativeNameType.Value, "1")]
-		public const int SDL_MUTEX_TIMEDOUT = 1;
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER")]
-		[NativeName(NativeNameType.Value, "\"SDL.iostream.windows.handle\"")]
-		public const string SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER = "SDL.iostream.windows.handle";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_STDIO_FILE_POINTER")]
-		[NativeName(NativeNameType.Value, "\"SDL.iostream.stdio.file\"")]
-		public const string SDL_PROP_IOSTREAM_STDIO_FILE_POINTER = "SDL.iostream.stdio.file";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER")]
-		[NativeName(NativeNameType.Value, "\"SDL.iostream.android.aasset\"")]
-		public const string SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER = "SDL.iostream.android.aasset";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER")]
-		[NativeName(NativeNameType.Value, "\"SDL.iostream.dynamic.memory\"")]
-		public const string SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER = "SDL.iostream.dynamic.memory";
-
-		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER")]
-		[NativeName(NativeNameType.Value, "\"SDL.iostream.dynamic.chunksize\"")]
-		public const string SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER = "SDL.iostream.dynamic.chunksize";
-
 		[NativeName(NativeNameType.Const, "SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER")]
 		[NativeName(NativeNameType.Value, "\"SDL.thread.create.entry_function\"")]
 		public const string SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER = "SDL.thread.create.entry_function";
@@ -134,6 +106,38 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL.thread.create.stacksize\"")]
 		public const string SDL_PROP_THREAD_CREATE_STACKSIZE_NUMBER = "SDL.thread.create.stacksize";
 
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.windows.handle\"")]
+		public const string SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER = "SDL.iostream.windows.handle";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_STDIO_FILE_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.stdio.file\"")]
+		public const string SDL_PROP_IOSTREAM_STDIO_FILE_POINTER = "SDL.iostream.stdio.file";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.file_descriptor\"")]
+		public const string SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER = "SDL.iostream.file_descriptor";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.android.aasset\"")]
+		public const string SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER = "SDL.iostream.android.aasset";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_MEMORY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.memory.base\"")]
+		public const string SDL_PROP_IOSTREAM_MEMORY_POINTER = "SDL.iostream.memory.base";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.memory.size\"")]
+		public const string SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER = "SDL.iostream.memory.size";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.dynamic.memory\"")]
+		public const string SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER = "SDL.iostream.dynamic.memory";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.iostream.dynamic.chunksize\"")]
+		public const string SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER = "SDL.iostream.dynamic.chunksize";
+
 		[NativeName(NativeNameType.Const, "SDL_AUDIO_MASK_BITSIZE")]
 		[NativeName(NativeNameType.Value, "(0xFFu)")]
 		public const uint SDL_AUDIO_MASK_BITSIZE = (0xFFu);
@@ -142,9 +146,17 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "255")]
 		public const int SDL_ALPHA_OPAQUE = 255;
 
+		[NativeName(NativeNameType.Const, "SDL_ALPHA_OPAQUE_FLOAT")]
+		[NativeName(NativeNameType.Value, "1.0f")]
+		public const float SDL_ALPHA_OPAQUE_FLOAT = 1.0f;
+
 		[NativeName(NativeNameType.Const, "SDL_ALPHA_TRANSPARENT")]
 		[NativeName(NativeNameType.Value, "0")]
 		public const int SDL_ALPHA_TRANSPARENT = 0;
+
+		[NativeName(NativeNameType.Const, "SDL_ALPHA_TRANSPARENT_FLOAT")]
+		[NativeName(NativeNameType.Value, "0.0f")]
+		public const float SDL_ALPHA_TRANSPARENT_FLOAT = 0.0f;
 
 		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT")]
 		[NativeName(NativeNameType.Value, "\"SDL.surface.SDR_white_point\"")]
@@ -157,6 +169,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING")]
 		[NativeName(NativeNameType.Value, "\"SDL.surface.tonemap\"")]
 		public const string SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING = "SDL.surface.tonemap";
+
+		[NativeName(NativeNameType.Const, "SDL_CACHELINE_SIZE")]
+		[NativeName(NativeNameType.Value, "128")]
+		public const int SDL_CACHELINE_SIZE = 128;
 
 		[NativeName(NativeNameType.Const, "SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER")]
 		[NativeName(NativeNameType.Value, "\"SDL.video.wayland.wl_display\"")]
@@ -390,10 +406,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL.window.vivante.surface\"")]
 		public const string SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER = "SDL.window.vivante.surface";
 
-		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WINRT_WINDOW_POINTER")]
-		[NativeName(NativeNameType.Value, "\"SDL.window.winrt.window\"")]
-		public const string SDL_PROP_WINDOW_WINRT_WINDOW_POINTER = "SDL.window.winrt.window";
-
 		[NativeName(NativeNameType.Const, "SDL_PROP_WINDOW_WIN32_HWND_POINTER")]
 		[NativeName(NativeNameType.Value, "\"SDL.window.win32.hwnd\"")]
 		public const string SDL_PROP_WINDOW_WIN32_HWND_POINTER = "SDL.window.win32.hwnd";
@@ -458,10 +470,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "(-1)")]
 		public const int SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE = (-1);
 
-		[NativeName(NativeNameType.Const, "SDL_CACHELINE_SIZE")]
-		[NativeName(NativeNameType.Value, "128")]
-		public const int SDL_CACHELINE_SIZE = 128;
-
 		[NativeName(NativeNameType.Const, "SDL_STANDARD_GRAVITY")]
 		[NativeName(NativeNameType.Value, "9.80665f")]
 		public const float SDL_STANDARD_GRAVITY = 9.80665f;
@@ -473,10 +481,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_JOYSTICK_AXIS_MIN")]
 		[NativeName(NativeNameType.Value, "-32768")]
 		public const int SDL_JOYSTICK_AXIS_MIN = -32768;
-
-		[NativeName(NativeNameType.Const, "SDL_IPHONE_MAX_GFORCE")]
-		[NativeName(NativeNameType.Value, "5.0")]
-		public const double SDL_IPHONE_MAX_GFORCE = 5.0;
 
 		[NativeName(NativeNameType.Const, "SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN")]
 		[NativeName(NativeNameType.Value, "\"SDL.joystick.cap.mono_led\"")]
@@ -1586,33 +1590,69 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL.textinput.android.inputtype\"")]
 		public const string SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER = "SDL.textinput.android.inputtype";
 
-		[NativeName(NativeNameType.Const, "SDL_BUTTON_LEFT")]
-		[NativeName(NativeNameType.Value, "1")]
-		public const int SDL_BUTTON_LEFT = 1;
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_R_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.r\"")]
+		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_R_FLOAT = "SDL.gpu.createtexture.d3d12.clear.r";
 
-		[NativeName(NativeNameType.Const, "SDL_BUTTON_MIDDLE")]
-		[NativeName(NativeNameType.Value, "2")]
-		public const int SDL_BUTTON_MIDDLE = 2;
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_G_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.g\"")]
+		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_G_FLOAT = "SDL.gpu.createtexture.d3d12.clear.g";
 
-		[NativeName(NativeNameType.Const, "SDL_BUTTON_RIGHT")]
-		[NativeName(NativeNameType.Value, "3")]
-		public const int SDL_BUTTON_RIGHT = 3;
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_B_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.b\"")]
+		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_B_FLOAT = "SDL.gpu.createtexture.d3d12.clear.b";
 
-		[NativeName(NativeNameType.Const, "SDL_BUTTON_X1")]
-		[NativeName(NativeNameType.Value, "4")]
-		public const int SDL_BUTTON_X1 = 4;
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_A_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.a\"")]
+		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_A_FLOAT = "SDL.gpu.createtexture.d3d12.clear.a";
 
-		[NativeName(NativeNameType.Const, "SDL_BUTTON_X2")]
-		[NativeName(NativeNameType.Value, "5")]
-		public const int SDL_BUTTON_X2 = 5;
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_DEPTH_FLOAT")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.depth\"")]
+		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_DEPTH_FLOAT = "SDL.gpu.createtexture.d3d12.clear.depth";
 
-		[NativeName(NativeNameType.Const, "SDL_RELEASED")]
-		[NativeName(NativeNameType.Value, "0")]
-		public const int SDL_RELEASED = 0;
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_STENCIL_UINT8")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.stencil\"")]
+		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_STENCIL_UINT8 = "SDL.gpu.createtexture.d3d12.clear.stencil";
 
-		[NativeName(NativeNameType.Const, "SDL_PRESSED")]
-		[NativeName(NativeNameType.Value, "1")]
-		public const int SDL_PRESSED = 1;
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.debugmode\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOL = "SDL.gpu.device.create.debugmode";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.preferlowpower\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOL = "SDL.gpu.device.create.preferlowpower";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.name\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING = "SDL.gpu.device.create.name";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.private\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOL = "SDL.gpu.device.create.shaders.private";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.spirv\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOL = "SDL.gpu.device.create.shaders.spirv";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.dxbc\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOL = "SDL.gpu.device.create.shaders.dxbc";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.dxil\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOL = "SDL.gpu.device.create.shaders.dxil";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.msl\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOL = "SDL.gpu.device.create.shaders.msl";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOL")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.shaders.metallib\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOL = "SDL.gpu.device.create.shaders.metallib";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING")]
+		[NativeName(NativeNameType.Value, "\"SDL.gpu.device.create.d3d12.semantic\"")]
+		public const string SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING = "SDL.gpu.device.create.d3d12.semantic";
 
 		[NativeName(NativeNameType.Const, "SDL_HAPTIC_POLAR")]
 		[NativeName(NativeNameType.Value, "0")]
@@ -1846,6 +1886,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_UDEV\"")]
 		public const string SDL_HINT_HIDAPI_UDEV = "SDL_HIDAPI_UDEV";
 
+		[NativeName(NativeNameType.Const, "SDL_HINT_GPU_DRIVER")]
+		[NativeName(NativeNameType.Value, "\"SDL_GPU_DRIVER\"")]
+		public const string SDL_HINT_GPU_DRIVER = "SDL_GPU_DRIVER";
+
 		[NativeName(NativeNameType.Const, "SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS")]
 		[NativeName(NativeNameType.Value, "\"SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS\"")]
 		public const string SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS = "SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS";
@@ -1985,6 +2029,10 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAMDECK\"")]
 		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK = "SDL_JOYSTICK_HIDAPI_STEAMDECK";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI")]
+		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_STEAM_HORI\"")]
+		public const string SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI = "SDL_JOYSTICK_HIDAPI_STEAM_HORI";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_JOYSTICK_HIDAPI_SWITCH")]
 		[NativeName(NativeNameType.Value, "\"SDL_JOYSTICK_HIDAPI_SWITCH\"")]
@@ -2206,14 +2254,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_ORIENTATIONS\"")]
 		public const string SDL_HINT_ORIENTATIONS = "SDL_ORIENTATIONS";
 
-		[NativeName(NativeNameType.Const, "SDL_HINT_PEN_DELAY_MOUSE_BUTTON")]
-		[NativeName(NativeNameType.Value, "\"SDL_PEN_DELAY_MOUSE_BUTTON\"")]
-		public const string SDL_HINT_PEN_DELAY_MOUSE_BUTTON = "SDL_PEN_DELAY_MOUSE_BUTTON";
-
-		[NativeName(NativeNameType.Const, "SDL_HINT_PEN_NOT_MOUSE")]
-		[NativeName(NativeNameType.Value, "\"SDL_PEN_NOT_MOUSE\"")]
-		public const string SDL_HINT_PEN_NOT_MOUSE = "SDL_PEN_NOT_MOUSE";
-
 		[NativeName(NativeNameType.Const, "SDL_HINT_POLL_SENTINEL")]
 		[NativeName(NativeNameType.Value, "\"SDL_POLL_SENTINEL\"")]
 		public const string SDL_HINT_POLL_SENTINEL = "SDL_POLL_SENTINEL";
@@ -2237,6 +2277,14 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_VULKAN_DEBUG")]
 		[NativeName(NativeNameType.Value, "\"SDL_RENDER_VULKAN_DEBUG\"")]
 		public const string SDL_HINT_RENDER_VULKAN_DEBUG = "SDL_RENDER_VULKAN_DEBUG";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_GPU_DEBUG")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_GPU_DEBUG\"")]
+		public const string SDL_HINT_RENDER_GPU_DEBUG = "SDL_RENDER_GPU_DEBUG";
+
+		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_GPU_LOW_POWER")]
+		[NativeName(NativeNameType.Value, "\"SDL_RENDER_GPU_LOW_POWER\"")]
+		public const string SDL_HINT_RENDER_GPU_LOW_POWER = "SDL_RENDER_GPU_LOW_POWER";
 
 		[NativeName(NativeNameType.Const, "SDL_HINT_RENDER_DRIVER")]
 		[NativeName(NativeNameType.Value, "\"SDL_RENDER_DRIVER\"")]
@@ -2510,18 +2558,6 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_WINDOWS_ERASE_BACKGROUND_MODE\"")]
 		public const string SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE = "SDL_WINDOWS_ERASE_BACKGROUND_MODE";
 
-		[NativeName(NativeNameType.Const, "SDL_HINT_WINRT_HANDLE_BACK_BUTTON")]
-		[NativeName(NativeNameType.Value, "\"SDL_WINRT_HANDLE_BACK_BUTTON\"")]
-		public const string SDL_HINT_WINRT_HANDLE_BACK_BUTTON = "SDL_WINRT_HANDLE_BACK_BUTTON";
-
-		[NativeName(NativeNameType.Const, "SDL_HINT_WINRT_PRIVACY_POLICY_LABEL")]
-		[NativeName(NativeNameType.Value, "\"SDL_WINRT_PRIVACY_POLICY_LABEL\"")]
-		public const string SDL_HINT_WINRT_PRIVACY_POLICY_LABEL = "SDL_WINRT_PRIVACY_POLICY_LABEL";
-
-		[NativeName(NativeNameType.Const, "SDL_HINT_WINRT_PRIVACY_POLICY_URL")]
-		[NativeName(NativeNameType.Value, "\"SDL_WINRT_PRIVACY_POLICY_URL\"")]
-		public const string SDL_HINT_WINRT_PRIVACY_POLICY_URL = "SDL_WINRT_PRIVACY_POLICY_URL";
-
 		[NativeName(NativeNameType.Const, "SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT")]
 		[NativeName(NativeNameType.Value, "\"SDL_X11_FORCE_OVERRIDE_REDIRECT\"")]
 		public const string SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT = "SDL_X11_FORCE_OVERRIDE_REDIRECT";
@@ -2538,9 +2574,9 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL_XINPUT_ENABLED\"")]
 		public const string SDL_HINT_XINPUT_ENABLED = "SDL_XINPUT_ENABLED";
 
-		[NativeName(NativeNameType.Const, "SDL_INIT_TIMER")]
-		[NativeName(NativeNameType.Value, "0x00000001u")]
-		public const uint SDL_INIT_TIMER = 0x00000001u;
+		[NativeName(NativeNameType.Const, "SDL_HINT_ASSERT")]
+		[NativeName(NativeNameType.Value, "\"SDL_ASSERT\"")]
+		public const string SDL_HINT_ASSERT = "SDL_ASSERT";
 
 		[NativeName(NativeNameType.Const, "SDL_INIT_AUDIO")]
 		[NativeName(NativeNameType.Value, "0x00000010u")]
@@ -2601,6 +2637,86 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Const, "SDL_PROP_APP_METADATA_TYPE_STRING")]
 		[NativeName(NativeNameType.Value, "\"SDL.app.metadata.type\"")]
 		public const string SDL_PROP_APP_METADATA_TYPE_STRING = "SDL.app.metadata.type";
+
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_ERROR")]
+		[NativeName(NativeNameType.Value, "0x00000010u")]
+		public const uint SDL_MESSAGEBOX_ERROR = 0x00000010u;
+
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_WARNING")]
+		[NativeName(NativeNameType.Value, "0x00000020u")]
+		public const uint SDL_MESSAGEBOX_WARNING = 0x00000020u;
+
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_INFORMATION")]
+		[NativeName(NativeNameType.Value, "0x00000040u")]
+		public const uint SDL_MESSAGEBOX_INFORMATION = 0x00000040u;
+
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT")]
+		[NativeName(NativeNameType.Value, "0x00000080u")]
+		public const uint SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 0x00000080u;
+
+		[NativeName(NativeNameType.Const, "SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT")]
+		[NativeName(NativeNameType.Value, "0x00000100u")]
+		public const uint SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 0x00000100u;
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_ARGS_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.args\"")]
+		public const string SDL_PROP_PROCESS_CREATE_ARGS_POINTER = "SDL.process.create.args";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.environment\"")]
+		public const string SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER = "SDL.process.create.environment";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDIN_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdin_option\"")]
+		public const string SDL_PROP_PROCESS_CREATE_STDIN_NUMBER = "SDL.process.create.stdin_option";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDIN_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdin_source\"")]
+		public const string SDL_PROP_PROCESS_CREATE_STDIN_POINTER = "SDL.process.create.stdin_source";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdout_option\"")]
+		public const string SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER = "SDL.process.create.stdout_option";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDOUT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stdout_source\"")]
+		public const string SDL_PROP_PROCESS_CREATE_STDOUT_POINTER = "SDL.process.create.stdout_source";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDERR_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stderr_option\"")]
+		public const string SDL_PROP_PROCESS_CREATE_STDERR_NUMBER = "SDL.process.create.stderr_option";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDERR_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stderr_source\"")]
+		public const string SDL_PROP_PROCESS_CREATE_STDERR_POINTER = "SDL.process.create.stderr_source";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.stderr_to_stdout\"")]
+		public const string SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN = "SDL.process.create.stderr_to_stdout";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.create.background\"")]
+		public const string SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN = "SDL.process.create.background";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_PID_NUMBER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.pid\"")]
+		public const string SDL_PROP_PROCESS_PID_NUMBER = "SDL.process.pid";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_STDIN_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.stdin\"")]
+		public const string SDL_PROP_PROCESS_STDIN_POINTER = "SDL.process.stdin";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_STDOUT_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.stdout\"")]
+		public const string SDL_PROP_PROCESS_STDOUT_POINTER = "SDL.process.stdout";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_STDERR_POINTER")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.stderr\"")]
+		public const string SDL_PROP_PROCESS_STDERR_POINTER = "SDL.process.stderr";
+
+		[NativeName(NativeNameType.Const, "SDL_PROP_PROCESS_BACKGROUND_BOOLEAN")]
+		[NativeName(NativeNameType.Value, "\"SDL.process.background\"")]
+		public const string SDL_PROP_PROCESS_BACKGROUND_BOOLEAN = "SDL.process.background";
 
 		[NativeName(NativeNameType.Const, "SDL_SOFTWARE_RENDERER")]
 		[NativeName(NativeNameType.Value, "\"software\"")]
@@ -2971,8 +3087,8 @@ namespace Hexa.NET.SDL3
 		public const int SDL_MINOR_VERSION = 1;
 
 		[NativeName(NativeNameType.Const, "SDL_MICRO_VERSION")]
-		[NativeName(NativeNameType.Value, "2")]
-		public const int SDL_MICRO_VERSION = 2;
+		[NativeName(NativeNameType.Value, "3")]
+		public const int SDL_MICRO_VERSION = 3;
 
 		[NativeName(NativeNameType.Const, "KHRONOS_SUPPORT_INT64")]
 		[NativeName(NativeNameType.Value, "1")]
