@@ -11,16 +11,16 @@ jobs:
           - os: ubuntu-latest
             arch: x86_64
             cmake-arch: x64
-#          - os: linux
-#            arch: arm64
-#            cmake-arch: aarch64
-#            runner-label: self-hosted
+          - os: linux
+            arch: arm64
+            cmake-arch: aarch64
+            runner-label: self-hosted
           - os: windows-latest
             arch: x86_64
             cmake-arch: x64
-          - os: windows-latest
-            arch: x86
-            cmake-arch: win32
+#          - os: windows-latest
+#            arch: x86
+#            cmake-arch: win32
           - os: windows-latest
             arch: arm64
             cmake-arch: arm64
@@ -78,7 +78,7 @@ jobs:
       if: matrix.os == 'linux' || matrix.os == 'ubuntu-latest'
       run: cmake -S SDL -B SDL/build -DSDL_STATIC=OFF -DSDL_SHARED=ON
 
-    - name: Configure SDL2 with CMake for macOS ARM64
+    - name: Configure SDL3 with CMake for macOS ARM64
       if: matrix.os == 'macos-latest'
       run: cmake -S SDL -B SDL/build -DCMAKE_OSX_ARCHITECTURES=${{ matrix.cmake-arch }} -DSDL_STATIC=OFF -DSDL_SHARED=ON
 
@@ -86,7 +86,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: cmake -S SDL -B SDL/build -A ${{ matrix.cmake-arch }} -DSDL_STATIC=OFF -DSDL_SHARED=ON
 
-    - name: Build SDL2
+    - name: Build SDL3
       run: cmake --build SDL/build --config Release
 
     - name: Move Windows binaries
@@ -97,7 +97,7 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4.3.4
       with:
-        name: sdl2-${{ matrix.os }}-${{ matrix.arch }}-artifacts 
+        name: sdl3-${{ matrix.os }}-${{ matrix.arch }}-artifacts 
         path: |
           SDL/build/*.dll
           SDL/build/*.so
