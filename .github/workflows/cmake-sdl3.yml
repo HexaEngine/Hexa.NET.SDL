@@ -31,7 +31,7 @@ jobs:
             arch: arm64
             cmake-arch: arm64
     steps:
-    - uses: actions/checkout@v4.x
+    - uses: actions/checkout@v4.1.7
       with:
         repository: 'libsdl-org/SDL'
         ref: 'preview-3.1.3'
