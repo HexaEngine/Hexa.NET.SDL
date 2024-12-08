@@ -1,0 +1,18 @@
+{
+  "BaseConfig": {
+    "Url": "file://base.json"
+  },
+  "Namespace": "Hexa.NET.SDL3",
+  "ApiName": "SDL",
+  "LibName": "SDL3",
+  "TypeMappings": {
+    "MD5UINT4": "uint",
+    "SDL_Time": "long",
+    "SDL_CameraID": "uint",
+    "SDL_HapticID": "uint",
+    "SDL_KeyboardID": "uint",
+    "SDL_MouseID": "uint",
+    "SDL_PenID": "uint",
+    "SDL_EGLAttrib": "nint"
+  }
+}

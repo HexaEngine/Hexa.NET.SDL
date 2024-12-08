@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleImGui", "ExampleImGu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleAndroid", "ExampleAndroid\ExampleAndroid.csproj", "{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.NET.SDL3", "Hexa.NET.SDL3\Hexa.NET.SDL3.csproj", "{179AEDDE-27F9-40A9-80C1-74ABCE079385}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{179AEDDE-27F9-40A9-80C1-74ABCE079385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{179AEDDE-27F9-40A9-80C1-74ABCE079385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{179AEDDE-27F9-40A9-80C1-74ABCE079385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{179AEDDE-27F9-40A9-80C1-74ABCE079385}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
