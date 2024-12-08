@@ -18,541 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort ReadLE16(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ushort ret = ReadLE16Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ushort ReadBE16Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[200])(src);
-			#else
-			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[200])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort ReadBE16(SDLRWops* src)
-		{
-			ushort ret = ReadBE16Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ushort ReadBE16(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ushort ret = ReadBE16Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint ReadLE32Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[201])(src);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[201])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadLE32(SDLRWops* src)
-		{
-			uint ret = ReadLE32Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadLE32(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				uint ret = ReadLE32Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint ReadBE32Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[202])(src);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[202])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadBE32(SDLRWops* src)
-		{
-			uint ret = ReadBE32Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint ReadBE32(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				uint ret = ReadBE32Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong ReadLE64Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[203])(src);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[203])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadLE64(SDLRWops* src)
-		{
-			ulong ret = ReadLE64Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
-		/// and return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadLE64(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ulong ret = ReadLE64Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ulong ReadBE64Native(SDLRWops* src)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[204])(src);
-			#else
-			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[204])((nint)src);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadBE64(SDLRWops* src)
-		{
-			ulong ret = ReadBE64Native(src);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
-		/// return in native format.<br/>
-		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
-		/// the native byte order.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ulong ReadBE64(ref SDLRWops src)
-		{
-			fixed (SDLRWops* psrc = &src)
-			{
-				ulong ret = ReadBE64Native((SDLRWops*)psrc);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteU8Native(SDLRWops* dst, byte value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, nuint>)funcTable[205])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, byte, nuint>)funcTable[205])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteU8(SDLRWops* dst, byte value)
-		{
-			nuint ret = WriteU8Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write a byte to an SDL_RWops.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteU8(ref SDLRWops dst, byte value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteU8Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteLE16Native(SDLRWops* dst, ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[206])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[206])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE16(SDLRWops* dst, ushort value)
-		{
-			nuint ret = WriteLE16Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE16(ref SDLRWops dst, ushort value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteLE16Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteBE16Native(SDLRWops* dst, ushort value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[207])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[207])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE16(SDLRWops* dst, ushort value)
-		{
-			nuint ret = WriteBE16Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE16(ref SDLRWops dst, ushort value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteBE16Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteLE32Native(SDLRWops* dst, uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[208])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[208])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE32(SDLRWops* dst, uint value)
-		{
-			nuint ret = WriteLE32Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// little-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in little-endian<br/>
-		/// format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteLE32(ref SDLRWops dst, uint value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteLE32Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint WriteBE32Native(SDLRWops* dst, uint value)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[209])(dst, value);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[209])((nint)dst, value);
-			#endif
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE32(SDLRWops* dst, uint value)
-		{
-			nuint ret = WriteBE32Native(dst, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
-		/// big-endian data.<br/>
-		/// SDL byteswaps the data only if necessary, so the application always<br/>
-		/// specifies native format, and the data written will be in big-endian format.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static nuint WriteBE32(ref SDLRWops dst, uint value)
-		{
-			fixed (SDLRWops* pdst = &dst)
-			{
-				nuint ret = WriteBE32Native((SDLRWops*)pdst, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
 		/// Use this function to write 64 bits in native format to a SDL_RWops as<br/>
 		/// little-endian data.<br/>
 		/// SDL byteswaps the data only if necessary, so the application always<br/>
@@ -1509,7 +974,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -1596,7 +1061,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -1679,7 +1144,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -1765,7 +1230,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -1851,7 +1316,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -1955,7 +1420,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2041,7 +1506,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2130,7 +1595,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2219,7 +1684,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2326,7 +1791,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2412,7 +1877,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2501,7 +1966,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2590,7 +2055,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2697,7 +2162,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2786,7 +2251,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2878,7 +2343,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -2970,7 +2435,7 @@ namespace Hexa.NET.SDL2
 		/// frames_ (with stereo output, two samples--left and right--would make a<br/>
 		/// single sample frame). This number should be a power of two, and may be<br/>
 		/// adjusted by the audio driver to a value more suitable for the hardware.<br/>
-		/// Good values seem to range between 512 and 8096 inclusive, depending on<br/>
+		/// Good values seem to range between 512 and 4096 inclusive, depending on<br/>
 		/// the application and CPU speed. Smaller values reduce latency, but can<br/>
 		/// lead to underflow if the application is doing heavy processing and cannot<br/>
 		/// fill the audio buffer in time. Note that the number of sample frames is<br/>
@@ -5022,6 +4487,567 @@ namespace Hexa.NET.SDL2
 			((delegate* unmanaged[Cdecl]<byte*, byte*, uint, int, void>)funcTable[238])(dst, src, len, volume);
 			#else
 			((delegate* unmanaged[Cdecl]<nint, nint, uint, int, void>)funcTable[238])((nint)dst, (nint)src, len, volume);
+			#endif
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(byte* dst, byte* src, uint len, int volume)
+		{
+			MixAudioNative(dst, src, len, volume);
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(ref byte dst, byte* src, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				MixAudioNative((byte*)pdst, src, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(byte* dst, ref byte src, uint len, int volume)
+		{
+			fixed (byte* psrc = &src)
+			{
+				MixAudioNative(dst, (byte*)psrc, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// This function is a legacy means of mixing audio.<br/>
+		/// This function is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
+		/// ```<br/>
+		/// ...where `format` is the obtained format of the audio device from the<br/>
+		/// legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudio(ref byte dst, ref byte src, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					MixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void MixAudioFormatNative(byte* dst, byte* src, ushort format, uint len, int volume)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)funcTable[239])(dst, src, format, len, volume);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)funcTable[239])((nint)dst, (nint)src, format, len, volume);
+			#endif
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(byte* dst, byte* src, ushort format, uint len, int volume)
+		{
+			MixAudioFormatNative(dst, src, format, len, volume);
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(ref byte dst, byte* src, ushort format, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				MixAudioFormatNative((byte*)pdst, src, format, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(byte* dst, ref byte src, ushort format, uint len, int volume)
+		{
+			fixed (byte* psrc = &src)
+			{
+				MixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
+			}
+		}
+
+		/// <summary>
+		/// Mix audio data in a specified format.<br/>
+		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
+		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
+		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
+		/// `format` data.<br/>
+		/// This is provided for convenience -- you can mix your own audio data.<br/>
+		/// Do not use this function for mixing together more than two streams of<br/>
+		/// sample data. The output from repeated application of this function may be<br/>
+		/// distorted by clipping, because there is no accumulator with greater range<br/>
+		/// than the input (not to mention this being an inefficient way of doing it).<br/>
+		/// It is a common misconception that this function is required to write audio<br/>
+		/// data to an output stream in an audio callback. While you can do that,<br/>
+		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
+		/// audio stream with a volume adjustment.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void MixAudioFormat(ref byte dst, ref byte src, ushort format, uint len, int volume)
+		{
+			fixed (byte* pdst = &dst)
+			{
+				fixed (byte* psrc = &src)
+				{
+					MixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Queue more audio on non-callback devices.<br/>
+		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
+		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
+		/// -1 to signify an error if you use it with capture devices.<br/>
+		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
+		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
+		/// method), or you can supply no callback, and then SDL will expect you to<br/>
+		/// supply data at regular intervals (push method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Queued data will drain to the device as<br/>
+		/// necessary without further intervention from you. If the device needs audio<br/>
+		/// but there is not enough queued, it will play silence to make up the<br/>
+		/// difference. This means you will have skips in your audio playback if you<br/>
+		/// aren't routinely queueing sufficient data.<br/>
+		/// This function copies the supplied data, so you are safe to free it when the<br/>
+		/// function returns. This function is thread-safe, but queueing to the same<br/>
+		/// device from two threads at once does not promise which buffer will be<br/>
+		/// queued first.<br/>
+		/// You may not queue audio on a device that is using an application-supplied<br/>
+		/// callback; doing so returns an error. You have to use the audio callback or<br/>
+		/// queue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
+		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
+		/// before queuing audio.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int QueueAudioNative(uint dev, void* data, uint len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)funcTable[240])(dev, data, len);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)funcTable[240])(dev, (nint)data, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Queue more audio on non-callback devices.<br/>
+		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
+		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
+		/// -1 to signify an error if you use it with capture devices.<br/>
+		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
+		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
+		/// method), or you can supply no callback, and then SDL will expect you to<br/>
+		/// supply data at regular intervals (push method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Queued data will drain to the device as<br/>
+		/// necessary without further intervention from you. If the device needs audio<br/>
+		/// but there is not enough queued, it will play silence to make up the<br/>
+		/// difference. This means you will have skips in your audio playback if you<br/>
+		/// aren't routinely queueing sufficient data.<br/>
+		/// This function copies the supplied data, so you are safe to free it when the<br/>
+		/// function returns. This function is thread-safe, but queueing to the same<br/>
+		/// device from two threads at once does not promise which buffer will be<br/>
+		/// queued first.<br/>
+		/// You may not queue audio on a device that is using an application-supplied<br/>
+		/// callback; doing so returns an error. You have to use the audio callback or<br/>
+		/// queue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
+		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
+		/// before queuing audio.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int QueueAudio(uint dev, void* data, uint len)
+		{
+			int ret = QueueAudioNative(dev, data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Dequeue more audio on non-callback devices.<br/>
+		/// If you are looking to queue audio for output on a non-callback playback<br/>
+		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
+		/// return 0 if you use it with playback devices.<br/>
+		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
+		/// supply a callback that SDL triggers with some frequency as the device<br/>
+		/// records more audio data, (push method), or you can supply no callback, and<br/>
+		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
+		/// method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Data from the device will keep queuing as<br/>
+		/// necessary without further intervention from you. This means you will<br/>
+		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
+		/// Capture devices will not queue data when paused; if you are expecting to<br/>
+		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
+		/// to stop the capture device from queueing more data. This can be useful<br/>
+		/// during, say, level loading times. When unpaused, capture devices will start<br/>
+		/// queueing data from that point, having flushed any capturable data available<br/>
+		/// while paused.<br/>
+		/// This function is thread-safe, but dequeueing from the same device from two<br/>
+		/// threads at once does not promise which thread will dequeue data first.<br/>
+		/// You may not dequeue audio from a device that is using an<br/>
+		/// application-supplied callback; doing so returns an error. You have to use<br/>
+		/// the audio callback, or dequeue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint DequeueAudioNative(uint dev, void* data, uint len)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)funcTable[241])(dev, data, len);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)funcTable[241])(dev, (nint)data, len);
+			#endif
+		}
+
+		/// <summary>
+		/// Dequeue more audio on non-callback devices.<br/>
+		/// If you are looking to queue audio for output on a non-callback playback<br/>
+		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
+		/// return 0 if you use it with playback devices.<br/>
+		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
+		/// supply a callback that SDL triggers with some frequency as the device<br/>
+		/// records more audio data, (push method), or you can supply no callback, and<br/>
+		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
+		/// method) with this function.<br/>
+		/// There are no limits on the amount of data you can queue, short of<br/>
+		/// exhaustion of address space. Data from the device will keep queuing as<br/>
+		/// necessary without further intervention from you. This means you will<br/>
+		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
+		/// Capture devices will not queue data when paused; if you are expecting to<br/>
+		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
+		/// to stop the capture device from queueing more data. This can be useful<br/>
+		/// during, say, level loading times. When unpaused, capture devices will start<br/>
+		/// queueing data from that point, having flushed any capturable data available<br/>
+		/// while paused.<br/>
+		/// This function is thread-safe, but dequeueing from the same device from two<br/>
+		/// threads at once does not promise which thread will dequeue data first.<br/>
+		/// You may not dequeue audio from a device that is using an<br/>
+		/// application-supplied callback; doing so returns an error. You have to use<br/>
+		/// the audio callback, or dequeue audio with this function, but not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint DequeueAudio(uint dev, void* data, uint len)
+		{
+			uint ret = DequeueAudioNative(dev, data, len);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of bytes of still-queued audio.<br/>
+		/// For playback devices: this is the number of bytes that have been queued for<br/>
+		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
+		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
+		/// byte boundary of what has been played. It's possible that we just gave the<br/>
+		/// hardware several kilobytes right before you called this function, but it<br/>
+		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
+		/// For capture devices, this is the number of bytes that have been captured by<br/>
+		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
+		/// time, so this only informs of the lower-bound of available data.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetQueuedAudioSizeNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of bytes of still-queued audio.<br/>
+		/// For playback devices: this is the number of bytes that have been queued for<br/>
+		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
+		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
+		/// byte boundary of what has been played. It's possible that we just gave the<br/>
+		/// hardware several kilobytes right before you called this function, but it<br/>
+		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
+		/// For capture devices, this is the number of bytes that have been captured by<br/>
+		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
+		/// time, so this only informs of the lower-bound of available data.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
+		/// handles locking internally for this function.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetQueuedAudioSize(uint dev)
+		{
+			uint ret = GetQueuedAudioSizeNative(dev);
+			return ret;
+		}
+
+		/// <summary>
+		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
+		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
+		/// output devices, the hardware will start playing silence if more audio isn't<br/>
+		/// queued. For capture devices, the hardware will start filling the empty<br/>
+		/// queue with new data if the capture device isn't paused.<br/>
+		/// This will not prevent playback of queued audio that's already been sent to<br/>
+		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
+		/// of a second of audio that might still be heard. This can be useful if you<br/>
+		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
+		/// during a level change in your game.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
+		/// queue; SDL handles locking internally for this function.<br/>
+		/// This function always succeeds and thus returns void.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ClearQueuedAudioNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
+			#endif
+		}
+
+		/// <summary>
+		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
+		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
+		/// output devices, the hardware will start playing silence if more audio isn't<br/>
+		/// queued. For capture devices, the hardware will start filling the empty<br/>
+		/// queue with new data if the capture device isn't paused.<br/>
+		/// This will not prevent playback of queued audio that's already been sent to<br/>
+		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
+		/// of a second of audio that might still be heard. This can be useful if you<br/>
+		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
+		/// during a level change in your game.<br/>
+		/// You may not queue or dequeue audio on a device that is using an<br/>
+		/// application-supplied callback; calling this function on such a device<br/>
+		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
+		/// not both.<br/>
+		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
+		/// queue; SDL handles locking internally for this function.<br/>
+		/// This function always succeeds and thus returns void.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ClearQueuedAudio(uint dev)
+		{
+			ClearQueuedAudioNative(dev);
+		}
+
+		/// <summary>
+		/// This function is a legacy means of locking the audio device.<br/>
+		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
+		/// is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_LockAudioDevice(1);<br/>
+		/// ```<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockAudioNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
+			#endif
+		}
+
+		/// <summary>
+		/// This function is a legacy means of locking the audio device.<br/>
+		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
+		/// is equivalent to calling...<br/>
+		/// ```c<br/>
+		/// SDL_LockAudioDevice(1);<br/>
+		/// ```<br/>
+		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void LockAudio()
+		{
+			LockAudioNative();
+		}
+
+		/// <summary>
+		/// Use this function to lock out the audio callback function for a specified<br/>
+		/// device.<br/>
+		/// The lock manipulated by these functions protects the audio callback<br/>
+		/// function specified in SDL_OpenAudioDevice(). During a<br/>
+		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
+		/// that the callback function for that device is not running, even if the<br/>
+		/// device is not paused. While a device is locked, any other unpaused,<br/>
+		/// unlocked devices may still run their callbacks.<br/>
+		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
+		/// obtains this lock before calling your function, and releases it when the<br/>
+		/// function returns.<br/>
+		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
+		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
+		/// your application locks the device, sets a few variables and unlocks again.<br/>
+		/// Do not do heavy work while holding the lock for a device.<br/>
+		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
+		/// it an equivalent number of times. The callback will not run until the<br/>
+		/// device has been unlocked completely in this way. If your application fails<br/>
+		/// to unlock the device appropriately, your callback will never run, you might<br/>
+		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
+		/// deadlock.<br/>
+		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
+		/// at once, not only will you block the audio callback, you'll block the other<br/>
+		/// thread.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void LockAudioDeviceNative(uint dev)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
 			#endif
 		}
 	}

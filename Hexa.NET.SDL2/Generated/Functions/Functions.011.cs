@@ -18,610 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, byte* value)
-		{
-			SDLBool ret = SetHintNative(name, value);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ref byte name, byte* value)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = SetHintNative((byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ReadOnlySpan<byte> name, byte* value)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLBool ret = SetHintNative((byte*)pname, value);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(string name, byte* value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintNative(pStr0, value);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, ref byte value)
-		{
-			fixed (byte* pvalue = &value)
-			{
-				SDLBool ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pvalue = value)
-			{
-				SDLBool ret = SetHintNative(name, (byte*)pvalue);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(byte* name, string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (value != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(value);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(value, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = SetHintNative(name, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ref byte name, ref byte value)
-		{
-			fixed (byte* pname = &name)
-			{
-				fixed (byte* pvalue = &value)
-				{
-					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(ReadOnlySpan<byte> name, ReadOnlySpan<byte> value)
-		{
-			fixed (byte* pname = name)
-			{
-				fixed (byte* pvalue = value)
-				{
-					SDLBool ret = SetHintNative((byte*)pname, (byte*)pvalue);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a hint with normal priority.<br/>
-		/// Hints will not be set if there is an existing override hint or environment<br/>
-		/// variable that takes precedence. You can use SDL_SetHintWithPriority() to<br/>
-		/// set the hint with override priority instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool SetHint(string name, string value)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (value != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(value);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(value, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			SDLBool ret = SetHintNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool ResetHintNative(byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool>)funcTable[691])(name);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[691])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(byte* name)
-		{
-			SDLBool ret = ResetHintNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = ResetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				SDLBool ret = ResetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Reset a hint to the default value.<br/>
-		/// This will reset a hint to the value of the environment variable, or NULL if<br/>
-		/// the environment isn't set. Callbacks will be called normally with this<br/>
-		/// change.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool ResetHint(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLBool ret = ResetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ResetHintsNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[692])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[692])();
-			#endif
-		}
-
-		/// <summary>
-		/// Reset all hints to the default values.<br/>
-		/// This will reset all hints to the value of the associated environment<br/>
-		/// variable, or NULL if the environment isn't set. Callbacks will be called<br/>
-		/// normally with this change.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ResetHints()
-		{
-			ResetHintsNative();
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* GetHintNative(byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, byte*>)funcTable[693])(name);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[693])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(byte* name)
-		{
-			byte* ret = GetHintNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(byte* name)
-		{
-			string ret = Utils.DecodeStringUTF8(GetHintNative(name));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				byte* ret = GetHintNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				string ret = Utils.DecodeStringUTF8(GetHintNative((byte*)pname));
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetHint(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = GetHintNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the value of a hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetHintS(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(GetHintNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool GetHintBooleanNative(byte* name, SDLBool defaultValue)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, SDLBool, SDLBool>)funcTable[694])(name, defaultValue);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool, SDLBool>)funcTable[694])((nint)name, defaultValue);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetHintBoolean(byte* name, SDLBool defaultValue)
-		{
-			SDLBool ret = GetHintBooleanNative(name, defaultValue);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the boolean value of a hint variable.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool GetHintBoolean(ref byte name, SDLBool defaultValue)
-		{
-			fixed (byte* pname = &name)
-			{
-				SDLBool ret = GetHintBooleanNative((byte*)pname, defaultValue);
-				return ret;
-			}
-		}
-
-		/// <summary>
 		/// Get the boolean value of a hint variable.<br/>
 		/// <br/>
 		/// <br/>
@@ -5024,6 +4420,600 @@ namespace Hexa.NET.SDL2
 			{
 				int ret = GetTextureColorModNative(texture, r, (byte*)pg, b);
 				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pg = &g)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, byte* b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, b);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, byte* b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, byte* r, byte* g, ref byte b)
+		{
+			fixed (byte* pb = &b)
+			{
+				int ret = GetTextureColorModNative(texture, r, g, (byte*)pb);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, byte* g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetTextureColorModNative(texture, (byte*)pr, g, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (byte* pg = &g)
+			{
+				fixed (byte* pb = &b)
+				{
+					int ret = GetTextureColorModNative(texture, r, (byte*)pg, (byte*)pb);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (byte* pr = &r)
+			{
+				fixed (byte* pg = &g)
+				{
+					fixed (byte* pb = &b)
+					{
+						int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, (byte*)pb);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the additional color value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, ref byte b)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* pr = &r)
+				{
+					fixed (byte* pg = &g)
+					{
+						fixed (byte* pb = &b)
+						{
+							int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureAlphaModNative(SDLTexture* texture, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, int>)funcTable[737])(texture, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[737])((nint)texture, alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureAlphaMod(SDLTexture* texture, byte alpha)
+		{
+			int ret = SetTextureAlphaModNative(texture, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set an additional alpha value multiplied into render copy operations.<br/>
+		/// When this texture is rendered, during the copy operation the source alpha<br/>
+		/// value is modulated by this alpha value according to the following formula:<br/>
+		/// `srcA = srcA * (alpha / 255)`<br/>
+		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
+		/// if alpha modulation is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureAlphaMod(ref SDLTexture texture, byte alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureAlphaModNative(SDLTexture* texture, byte* alpha)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, int>)funcTable[738])(texture, alpha);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[738])((nint)texture, (nint)alpha);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(SDLTexture* texture, byte* alpha)
+		{
+			int ret = GetTextureAlphaModNative(texture, alpha);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(ref SDLTexture texture, byte* alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(SDLTexture* texture, ref byte alpha)
+		{
+			fixed (byte* palpha = &alpha)
+			{
+				int ret = GetTextureAlphaModNative(texture, (byte*)palpha);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the additional alpha value multiplied into render copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureAlphaMod(ref SDLTexture texture, ref byte alpha)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (byte* palpha = &alpha)
+				{
+					int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, int>)funcTable[739])(texture, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[739])((nint)texture, blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureBlendMode(SDLTexture* texture, SDLBlendMode blendMode)
+		{
+			int ret = SetTextureBlendModeNative(texture, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
+		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
+		/// and this function returns -1.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureBlendMode(ref SDLTexture texture, SDLBlendMode blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode* blendMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, int>)funcTable[740])(texture, blendMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[740])((nint)texture, (nint)blendMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(SDLTexture* texture, SDLBlendMode* blendMode)
+		{
+			int ret = GetTextureBlendModeNative(texture, blendMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(ref SDLTexture texture, SDLBlendMode* blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(SDLTexture* texture, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLBlendMode* pblendMode = &blendMode)
+			{
+				int ret = GetTextureBlendModeNative(texture, (SDLBlendMode*)pblendMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the blend mode used for texture copy operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureBlendMode(ref SDLTexture texture, ref SDLBlendMode blendMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLBlendMode* pblendMode = &blendMode)
+				{
+					int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode scaleMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)funcTable[741])(texture, scaleMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)funcTable[741])((nint)texture, scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
+		{
+			int ret = SetTextureScaleModeNative(texture, scaleMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the scale mode used for texture scale operations.<br/>
+		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SetTextureScaleMode(ref SDLTexture texture, SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode* scaleMode)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)funcTable[742])(texture, scaleMode);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[742])((nint)texture, (nint)scaleMode);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
+		{
+			int ret = GetTextureScaleModeNative(texture, scaleMode);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(ref SDLTexture texture, SDLScaleMode* scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLScaleMode* pscaleMode = &scaleMode)
+			{
+				int ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the scale mode used for texture scale operations.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetTextureScaleMode(ref SDLTexture texture, ref SDLScaleMode scaleMode)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLScaleMode* pscaleMode = &scaleMode)
+				{
+					int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
+					return ret;
+				}
 			}
 		}
 	}

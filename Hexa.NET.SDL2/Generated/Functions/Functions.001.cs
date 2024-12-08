@@ -17,522 +17,6 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint Utf8StrlenNative(byte* str)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, nuint>)funcTable[56])(str);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint>)funcTable[56])((nint)str);
-			#endif
-		}
-
-		public static nuint Utf8Strlen(byte* str)
-		{
-			nuint ret = Utf8StrlenNative(str);
-			return ret;
-		}
-
-		public static nuint Utf8Strlen(ref byte str)
-		{
-			fixed (byte* pstr = &str)
-			{
-				nuint ret = Utf8StrlenNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		public static nuint Utf8Strlen(ReadOnlySpan<byte> str)
-		{
-			fixed (byte* pstr = str)
-			{
-				nuint ret = Utf8StrlenNative((byte*)pstr);
-				return ret;
-			}
-		}
-
-		public static nuint Utf8Strlen(string str)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			nuint ret = Utf8StrlenNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static nuint Utf8StrnlenNative(byte* str, nuint bytes)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, nuint, nuint>)funcTable[57])(str, bytes);
-			#else
-			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint, nuint>)funcTable[57])((nint)str, bytes);
-			#endif
-		}
-
-		public static nuint Utf8Strnlen(byte* str, nuint bytes)
-		{
-			nuint ret = Utf8StrnlenNative(str, bytes);
-			return ret;
-		}
-
-		public static nuint Utf8Strnlen(ref byte str, nuint bytes)
-		{
-			fixed (byte* pstr = &str)
-			{
-				nuint ret = Utf8StrnlenNative((byte*)pstr, bytes);
-				return ret;
-			}
-		}
-
-		public static nuint Utf8Strnlen(ReadOnlySpan<byte> str, nuint bytes)
-		{
-			fixed (byte* pstr = str)
-			{
-				nuint ret = Utf8StrnlenNative((byte*)pstr, bytes);
-				return ret;
-			}
-		}
-
-		public static nuint Utf8Strnlen(string str, nuint bytes)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			nuint ret = Utf8StrnlenNative(pStr0, bytes);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* ItoaNative(int value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*, int, byte*>)funcTable[58])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint, int, nint>)funcTable[58])(value, (nint)str, radix);
-			#endif
-		}
-
-		public static byte* Itoa(int value, byte* str, int radix)
-		{
-			byte* ret = ItoaNative(value, str, radix);
-			return ret;
-		}
-
-		public static string ItoaS(int value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(ItoaNative(value, str, radix));
-			return ret;
-		}
-
-		public static byte* Itoa(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = ItoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		public static string ItoaS(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(ItoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		public static byte* Itoa(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = ItoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		public static string ItoaS(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(ItoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* UitoaNative(uint value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[59])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[59])(value, (nint)str, radix);
-			#endif
-		}
-
-		public static byte* Uitoa(uint value, byte* str, int radix)
-		{
-			byte* ret = UitoaNative(value, str, radix);
-			return ret;
-		}
-
-		public static string UitoaS(uint value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(UitoaNative(value, str, radix));
-			return ret;
-		}
-
-		public static byte* Uitoa(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = UitoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		public static string UitoaS(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(UitoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		public static byte* Uitoa(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = UitoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		public static string UitoaS(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(UitoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* LtoaNative(int value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte*, int, byte*>)funcTable[60])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<int, nint, int, nint>)funcTable[60])(value, (nint)str, radix);
-			#endif
-		}
-
-		public static byte* Ltoa(int value, byte* str, int radix)
-		{
-			byte* ret = LtoaNative(value, str, radix);
-			return ret;
-		}
-
-		public static string LtoaS(int value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(LtoaNative(value, str, radix));
-			return ret;
-		}
-
-		public static byte* Ltoa(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = LtoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		public static string LtoaS(int value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(LtoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		public static byte* Ltoa(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = LtoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		public static string LtoaS(int value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(LtoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* UltoaNative(uint value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[61])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[61])(value, (nint)str, radix);
-			#endif
-		}
-
-		public static byte* Ultoa(uint value, byte* str, int radix)
-		{
-			byte* ret = UltoaNative(value, str, radix);
-			return ret;
-		}
-
-		public static string UltoaS(uint value, byte* str, int radix)
-		{
-			string ret = Utils.DecodeStringUTF8(UltoaNative(value, str, radix));
-			return ret;
-		}
-
-		public static byte* Ultoa(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				byte* ret = UltoaNative(value, (byte*)pstr, radix);
-				return ret;
-			}
-		}
-
-		public static string UltoaS(uint value, ref byte str, int radix)
-		{
-			fixed (byte* pstr = &str)
-			{
-				string ret = Utils.DecodeStringUTF8(UltoaNative(value, (byte*)pstr, radix));
-				return ret;
-			}
-		}
-
-		public static byte* Ultoa(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* ret = UltoaNative(value, pStr0, radix);
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		public static string UltoaS(uint value, ref string str, int radix)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(str);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(UltoaNative(value, pStr0, radix));
-			str = Utils.DecodeStringUTF8(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static byte* LltoaNative(long value, byte* str, int radix)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<long, byte*, int, byte*>)funcTable[62])(value, str, radix);
-			#else
-			return (byte*)((delegate* unmanaged[Cdecl]<long, nint, int, nint>)funcTable[62])(value, (nint)str, radix);
-			#endif
-		}
-
 		public static byte* Lltoa(long value, byte* str, int radix)
 		{
 			byte* ret = LltoaNative(value, str, radix);
@@ -5026,6 +4510,544 @@ namespace Hexa.NET.SDL2
 					return ret;
 				}
 			}
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* IconvString(byte* tocode, string fromcode, string inbuf, nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fromcode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (inbuf != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* ret = IconvStringNative(tocode, pStr0, pStr1, inbytesleft);
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static string IconvStringS(byte* tocode, string fromcode, string inbuf, nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (fromcode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (inbuf != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, pStr0, pStr1, inbytesleft));
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* IconvString(ref byte tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pfromcode = &fromcode)
+				{
+					fixed (byte* pinbuf = &inbuf)
+					{
+						byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static string IconvStringS(ref byte tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
+		{
+			fixed (byte* ptocode = &tocode)
+			{
+				fixed (byte* pfromcode = &fromcode)
+				{
+					fixed (byte* pinbuf = &inbuf)
+					{
+						string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* IconvString(ReadOnlySpan<byte> tocode, ReadOnlySpan<byte> fromcode, ReadOnlySpan<byte> inbuf, nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					fixed (byte* pinbuf = inbuf)
+					{
+						byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static string IconvStringS(ReadOnlySpan<byte> tocode, ReadOnlySpan<byte> fromcode, ReadOnlySpan<byte> inbuf, nuint inbytesleft)
+		{
+			fixed (byte* ptocode = tocode)
+			{
+				fixed (byte* pfromcode = fromcode)
+				{
+					fixed (byte* pinbuf = inbuf)
+					{
+						string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static byte* IconvString(string tocode, string fromcode, string inbuf, nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* pStr2 = null;
+			int pStrSize2 = 0;
+			if (inbuf != null)
+			{
+				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize2 >= Utils.MaxStackallocSize)
+				{
+					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
+				}
+				else
+				{
+					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
+					pStr2 = pStrStack2;
+				}
+				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
+				pStr2[pStrOffset2] = 0;
+			}
+			byte* ret = IconvStringNative(pStr0, pStr1, pStr2, inbytesleft);
+			if (pStrSize2 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr2);
+			}
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// This function converts a buffer or string between encodings in one pass,<br/>
+		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
+		/// <br/>
+		/// </summary>
+		public static string IconvStringS(string tocode, string fromcode, string inbuf, nuint inbytesleft)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (tocode != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(tocode);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* pStr1 = null;
+			int pStrSize1 = 0;
+			if (fromcode != null)
+			{
+				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
+				if (pStrSize1 >= Utils.MaxStackallocSize)
+				{
+					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
+				}
+				else
+				{
+					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
+					pStr1 = pStrStack1;
+				}
+				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
+				pStr1[pStrOffset1] = 0;
+			}
+			byte* pStr2 = null;
+			int pStrSize2 = 0;
+			if (inbuf != null)
+			{
+				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
+				if (pStrSize2 >= Utils.MaxStackallocSize)
+				{
+					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
+				}
+				else
+				{
+					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
+					pStr2 = pStrStack2;
+				}
+				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
+				pStr2[pStrOffset2] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, pStr1, pStr2, inbytesleft));
+			if (pStrSize2 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr2);
+			}
+			if (pStrSize1 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr1);
+			}
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int MainNative(int argc, byte** argv)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte**, int>)funcTable[127])(argc, argv);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[127])(argc, (nint)argv);
+			#endif
+		}
+
+		public static int Main(int argc, byte** argv)
+		{
+			int ret = MainNative(argc, argv);
+			return ret;
+		}
+
+		public static int Main(int argc, string[] argv)
+		{
+			byte** pStrArray0 = null;
+			int pStrArray0Size = Utils.GetByteCountArray(argv);
+			if (argv != null)
+			{
+				if (pStrArray0Size > Utils.MaxStackallocSize)
+				{
+					pStrArray0 = (byte**)Utils.Alloc<byte>(pStrArray0Size);
+				}
+				else
+				{
+					byte* pStrArray0Stack = stackalloc byte[pStrArray0Size];
+					pStrArray0 = (byte**)pStrArray0Stack;
+				}
+			}
+			for (int i = 0; i < argv.Length; i++)
+			{
+				pStrArray0[i] = (byte*)Utils.StringToUTF8Ptr(argv[i]);
+			}
+			int ret = MainNative(argc, pStrArray0);
+			for (int i = 0; i < argv.Length; i++)
+			{
+				Utils.Free(pStrArray0[i]);
+			}
+			if (pStrArray0Size >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStrArray0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
+		/// point.<br/>
+		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
+		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
+		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
+		/// including SDL.h.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetMainReadyNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
+			#endif
+		}
+
+		/// <summary>
+		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
+		/// point.<br/>
+		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
+		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
+		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
+		/// including SDL.h.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetMainReady()
+		{
+			SetMainReadyNative();
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RegisterAppNative(byte* name, uint style, void* hInst)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, uint, void*, int>)funcTable[129])(name, style, hInst);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, uint, nint, int>)funcTable[129])((nint)name, style, (nint)hInst);
+			#endif
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(byte* name, uint style, void* hInst)
+		{
+			int ret = RegisterAppNative(name, style, hInst);
+			return ret;
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(ref byte name, uint style, void* hInst)
+		{
+			fixed (byte* pname = &name)
+			{
+				int ret = RegisterAppNative((byte*)pname, style, hInst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(ReadOnlySpan<byte> name, uint style, void* hInst)
+		{
+			fixed (byte* pname = name)
+			{
+				int ret = RegisterAppNative((byte*)pname, style, hInst);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Register a win32 window class for SDL's use.<br/>
+		/// This can be called to set the application window class at startup. It is<br/>
+		/// safe to call this multiple times, as long as every call is eventually<br/>
+		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
+		/// while a previous registration is still active will be ignored, other than<br/>
+		/// to increment a counter.<br/>
+		/// Most applications do not need to, and should not, call this directly; SDL<br/>
+		/// will call it when initializing the video subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RegisterApp(string name, uint style, void* hInst)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = RegisterAppNative(pStr0, style, hInst);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
 		}
 	}
 }

@@ -18,572 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Get the instance ID of a sensor.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetInstanceID(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = SensorGetInstanceIDNative((SDLSensor*)psensor);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetDataNative(SDLSensor* sensor, float* data, int numValues)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, int>)funcTable[549])(sensor, data, numValues);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[549])((nint)sensor, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(SDLSensor* sensor, float* data, int numValues)
-		{
-			int ret = SensorGetDataNative(sensor, data, numValues);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(ref SDLSensor sensor, float* data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = SensorGetDataNative((SDLSensor*)psensor, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(SDLSensor* sensor, ref float data, int numValues)
-		{
-			fixed (float* pdata = &data)
-			{
-				int ret = SensorGetDataNative(sensor, (float*)pdata, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetData(ref SDLSensor sensor, ref float data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = SensorGetDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SensorGetDataWithTimestampNative(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSensor*, ulong*, float*, int, int>)funcTable[550])(sensor, timestamp, data, numValues);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)funcTable[550])((nint)sensor, (nint)timestamp, (nint)data, numValues);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
-		{
-			int ret = SensorGetDataWithTimestampNative(sensor, timestamp, data, numValues);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, float* data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, float* data, int numValues)
-		{
-			fixed (ulong* ptimestamp = &timestamp)
-			{
-				int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, data, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, float* data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (ulong* ptimestamp = &timestamp)
-				{
-					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, data, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, ref float data, int numValues)
-		{
-			fixed (float* pdata = &data)
-			{
-				int ret = SensorGetDataWithTimestampNative(sensor, timestamp, (float*)pdata, numValues);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, ref float data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, ref float data, int numValues)
-		{
-			fixed (ulong* ptimestamp = &timestamp)
-			{
-				fixed (float* pdata = &data)
-				{
-					int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, (float*)pdata, numValues);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of an opened sensor with the timestamp of the last<br/>
-		/// update.<br/>
-		/// The number of values and interpretation of the data is sensor dependent.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, ref float data, int numValues)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				fixed (ulong* ptimestamp = &timestamp)
-				{
-					fixed (float* pdata = &data)
-					{
-						int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, (float*)pdata, numValues);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SensorCloseNative(SDLSensor* sensor)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)funcTable[551])(sensor);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[551])((nint)sensor);
-			#endif
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SensorClose(SDLSensor* sensor)
-		{
-			SensorCloseNative(sensor);
-		}
-
-		/// <summary>
-		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SensorClose(ref SDLSensor sensor)
-		{
-			fixed (SDLSensor* psensor = &sensor)
-			{
-				SensorCloseNative((SDLSensor*)psensor);
-			}
-		}
-
-		/// <summary>
-		/// Update the current state of the open sensors.<br/>
-		/// This is called automatically by the event loop if sensor events are<br/>
-		/// enabled.<br/>
-		/// This needs to be called from the thread that initialized the sensor<br/>
-		/// subsystem.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SensorUpdateNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
-			#endif
-		}
-
-		/// <summary>
-		/// Update the current state of the open sensors.<br/>
-		/// This is called automatically by the event loop if sensor events are<br/>
-		/// enabled.<br/>
-		/// This needs to be called from the thread that initialized the sensor<br/>
-		/// subsystem.<br/>
-		/// <br/>
-		/// </summary>
-		public static void SensorUpdate()
-		{
-			SensorUpdateNative();
-		}
-
-		/// <summary>
-		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
-		/// You can call this function several times, if needed, to load different<br/>
-		/// database files.<br/>
-		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
-		/// version will overwrite the one currently loaded.<br/>
-		/// Mappings not belonging to the current platform or with no platform field<br/>
-		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
-		/// Windows, etc).<br/>
-		/// This function will load the text database entirely in memory before<br/>
-		/// processing it, so take this into consideration if you are in a memory<br/>
-		/// constrained environment.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerAddMappingsFromRWNative(SDLRWops* rw, int freerw)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, int>)funcTable[553])(rw, freerw);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[553])((nint)rw, freerw);
-			#endif
-		}
-
-		/// <summary>
-		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
-		/// You can call this function several times, if needed, to load different<br/>
-		/// database files.<br/>
-		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
-		/// version will overwrite the one currently loaded.<br/>
-		/// Mappings not belonging to the current platform or with no platform field<br/>
-		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
-		/// Windows, etc).<br/>
-		/// This function will load the text database entirely in memory before<br/>
-		/// processing it, so take this into consideration if you are in a memory<br/>
-		/// constrained environment.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMappingsFromRW(SDLRWops* rw, int freerw)
-		{
-			int ret = GameControllerAddMappingsFromRWNative(rw, freerw);
-			return ret;
-		}
-
-		/// <summary>
-		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
-		/// You can call this function several times, if needed, to load different<br/>
-		/// database files.<br/>
-		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
-		/// version will overwrite the one currently loaded.<br/>
-		/// Mappings not belonging to the current platform or with no platform field<br/>
-		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
-		/// Windows, etc).<br/>
-		/// This function will load the text database entirely in memory before<br/>
-		/// processing it, so take this into consideration if you are in a memory<br/>
-		/// constrained environment.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMappingsFromRW(ref SDLRWops rw, int freerw)
-		{
-			fixed (SDLRWops* prw = &rw)
-			{
-				int ret = GameControllerAddMappingsFromRWNative((SDLRWops*)prw, freerw);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerAddMappingNative(byte* mappingString)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[554])(mappingString);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[554])((nint)mappingString);
-			#endif
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(byte* mappingString)
-		{
-			int ret = GameControllerAddMappingNative(mappingString);
-			return ret;
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(ref byte mappingString)
-		{
-			fixed (byte* pmappingString = &mappingString)
-			{
-				int ret = GameControllerAddMappingNative((byte*)pmappingString);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(ReadOnlySpan<byte> mappingString)
-		{
-			fixed (byte* pmappingString = mappingString)
-			{
-				int ret = GameControllerAddMappingNative((byte*)pmappingString);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
-		/// controller to have a different binding.<br/>
-		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
-		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
-		/// string for the device and mappings are controller mappings to joystick<br/>
-		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
-		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
-		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
-		/// |} Buttons can be used as a controller axes and vice versa.<br/>
-		/// This string shows an example of a valid mapping for a controller:<br/>
-		/// ```c<br/>
-		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
-		/// ```<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerAddMapping(string mappingString)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (mappingString != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(mappingString);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(mappingString, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GameControllerAddMappingNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of mappings installed.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerNumMappingsNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of mappings installed.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerNumMappings()
-		{
-			int ret = GameControllerNumMappingsNative();
-			return ret;
-		}
-
-		/// <summary>
 		/// Get the mapping at a particular index.<br/>
 		/// <br/>
 		/// <br/>
@@ -5023,6 +4457,584 @@ namespace Hexa.NET.SDL2
 			#else
 			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[633])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
 			#endif
+		}
+
+		/// <summary>
+		/// Add a callback to be triggered when an event is added to the event queue.<br/>
+		/// `filter` will be called when an event happens, and its return value is<br/>
+		/// ignored.<br/>
+		/// **WARNING**: Be very careful of what you do in the event filter function,<br/>
+		/// as it may run in a different thread!<br/>
+		/// If the quit event is generated by a signal (e.g. SIGINT), it will bypass<br/>
+		/// the internal queue and be delivered to the watch callback immediately, and<br/>
+		/// arrive at the next event poll.<br/>
+		/// Note: the callback is called for events posted by the user through<br/>
+		/// SDL_PushEvent(), but not for disabled events, nor for events by a filter<br/>
+		/// callback set with SDL_SetEventFilter(), nor for events posted by the user<br/>
+		/// through SDL_PeepEvents().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void AddEventWatch(SDLEventFilter filter, void* userdata)
+		{
+			AddEventWatchNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void DelEventWatchNative(SDLEventFilter filter, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[634])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[634])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Remove an event watch callback added with SDL_AddEventWatch().<br/>
+		/// This function takes the same input as SDL_AddEventWatch() to identify and<br/>
+		/// delete the corresponding callback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void DelEventWatch(SDLEventFilter filter, void* userdata)
+		{
+			DelEventWatchNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns 0.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void FilterEventsNative(SDLEventFilter filter, void* userdata)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<delegate*<void*, SDLEvent*, int>, void*, void>)funcTable[635])((delegate*<void*, SDLEvent*, int>)Utils.GetFunctionPointerForDelegate(filter), userdata);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[635])((nint)Utils.GetFunctionPointerForDelegate(filter), (nint)userdata);
+			#endif
+		}
+
+		/// <summary>
+		/// Run a specific filter function on the current event queue, removing any<br/>
+		/// events for which the filter returns 0.<br/>
+		/// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),<br/>
+		/// this function does not change the filter permanently, it only uses the<br/>
+		/// supplied filter until this function returns.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void FilterEvents(SDLEventFilter filter, void* userdata)
+		{
+			FilterEventsNative(filter, userdata);
+		}
+
+		/// <summary>
+		/// Set the state of processing events by type.<br/>
+		/// `state` may be any of the following:<br/>
+		/// - `SDL_QUERY`: returns the current processing state of the specified event<br/>
+		/// - `SDL_IGNORE` (aka `SDL_DISABLE`): the event will automatically be dropped<br/>
+		/// from the event queue and will not be filtered<br/>
+		/// - `SDL_ENABLE`: the event will be processed normally<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte EventStateNative(uint type, int state)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, int, byte>)funcTable[636])(type, state);
+			#else
+			return (byte)((delegate* unmanaged[Cdecl]<uint, int, byte>)funcTable[636])(type, state);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the state of processing events by type.<br/>
+		/// `state` may be any of the following:<br/>
+		/// - `SDL_QUERY`: returns the current processing state of the specified event<br/>
+		/// - `SDL_IGNORE` (aka `SDL_DISABLE`): the event will automatically be dropped<br/>
+		/// from the event queue and will not be filtered<br/>
+		/// - `SDL_ENABLE`: the event will be processed normally<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte EventState(uint type, int state)
+		{
+			byte ret = EventStateNative(type, state);
+			return ret;
+		}
+
+		/// <summary>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
+		/// Calling this function with `numevents` <br/>
+		/// <<br/>
+		/// = 0 is an error and will return<br/>
+		/// (Uint32)-1.<br/>
+		/// Note, (Uint32)-1 means the maximum unsigned 32-bit integer value (or<br/>
+		/// 0xFFFFFFFF), but is clearer to write.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint RegisterEventsNative(int numevents)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, uint>)funcTable[637])(numevents);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<int, uint>)funcTable[637])(numevents);
+			#endif
+		}
+
+		/// <summary>
+		/// Allocate a set of user-defined events, and return the beginning event<br/>
+		/// number for that set of events.<br/>
+		/// Calling this function with `numevents` <br/>
+		/// <<br/>
+		/// = 0 is an error and will return<br/>
+		/// (Uint32)-1.<br/>
+		/// Note, (Uint32)-1 means the maximum unsigned 32-bit integer value (or<br/>
+		/// 0xFFFFFFFF), but is clearer to write.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint RegisterEvents(int numevents)
+		{
+			uint ret = RegisterEventsNative(numevents);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the directory where the application was run from.<br/>
+		/// This is not necessarily a fast call, so you should call this once near<br/>
+		/// startup and save the string if you need it.<br/>
+		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
+		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetBasePathNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*>)funcTable[638])();
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint>)funcTable[638])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the directory where the application was run from.<br/>
+		/// This is not necessarily a fast call, so you should call this once near<br/>
+		/// startup and save the string if you need it.<br/>
+		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
+		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetBasePath()
+		{
+			byte* ret = GetBasePathNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the directory where the application was run from.<br/>
+		/// This is not necessarily a fast call, so you should call this once near<br/>
+		/// startup and save the string if you need it.<br/>
+		/// **Mac OS X and iOS Specific Functionality**: If the application is in a<br/>
+		/// ".app" bundle, this function returns the Resource directory (e.g.<br/>
+		/// MyApp.app/Contents/Resources/). This behaviour can be overridden by adding<br/>
+		/// a property to the Info.plist file. Adding a string key with the name<br/>
+		/// SDL_FILESYSTEM_BASE_DIR_TYPE with a supported value will change the<br/>
+		/// behaviour.<br/>
+		/// Supported values for the SDL_FILESYSTEM_BASE_DIR_TYPE property (Given an<br/>
+		/// application in /Applications/SDLApp/MyApp.app):<br/>
+		/// - `resource`: bundle resource directory (the default). For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/Contents/Resources`<br/>
+		/// - `bundle`: the Bundle directory. For example:<br/>
+		/// `/Applications/SDLApp/MyApp.app/`<br/>
+		/// - `parent`: the containing directory of the bundle. For example:<br/>
+		/// `/Applications/SDLApp/`<br/>
+		/// **Nintendo 3DS Specific Functionality**: This function returns "romfs"<br/>
+		/// directory of the application as it is uncommon to store resources outside<br/>
+		/// the executable. As such it is not a writable directory.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetBasePathS()
+		{
+			string ret = Utils.DecodeStringUTF8(GetBasePathNative());
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* GetPrefPathNative(byte* org, byte* app)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, byte*, byte*>)funcTable[639])(org, app);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<nint, nint, nint>)funcTable[639])((nint)org, (nint)app);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrefPath(byte* org, byte* app)
+		{
+			byte* ret = GetPrefPathNative(org, app);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(byte* org, byte* app)
+		{
+			string ret = Utils.DecodeStringUTF8(GetPrefPathNative(org, app));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetPrefPath(ref byte org, byte* app)
+		{
+			fixed (byte* porg = &org)
+			{
+				byte* ret = GetPrefPathNative((byte*)porg, app);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the user-and-app-specific path where files can be written.<br/>
+		/// Get the "pref dir". This is meant to be where users can write personal<br/>
+		/// files (preferences and save games, etc) that are specific to your<br/>
+		/// application. This directory is unique per user, per application.<br/>
+		/// This function will decide the appropriate location in the native<br/>
+		/// filesystem, create the directory if necessary, and return a string of the<br/>
+		/// absolute path to the directory in UTF-8 encoding.<br/>
+		/// On Windows, the string might look like:<br/>
+		/// `C:<br/>
+		/// \<br/>
+		/// Users<br/>
+		/// \<br/>
+		/// bob<br/>
+		/// \<br/>
+		/// AppData<br/>
+		/// \<br/>
+		/// Roaming<br/>
+		/// \<br/>
+		/// My Company<br/>
+		/// \<br/>
+		/// My Program Name<br/>
+		/// \<br/>
+		/// `<br/>
+		/// On Linux, the string might look like:<br/>
+		/// `/home/bob/.local/share/My Program Name/`<br/>
+		/// On Mac OS X, the string might look like:<br/>
+		/// `/Users/bob/Library/Application Support/My Program Name/`<br/>
+		/// You should assume the path returned by this function is the only safe place<br/>
+		/// to write files (and that SDL_GetBasePath(), while it might be writable, or<br/>
+		/// even the parent of the returned path, isn't where you should be writing<br/>
+		/// things).<br/>
+		/// Both the org and app strings may become part of a directory name, so please<br/>
+		/// follow these rules:<br/>
+		/// - Try to use the same org string (_including case-sensitivity_) for all<br/>
+		/// your applications that use this function.<br/>
+		/// - Always use a unique app string for each one, and make sure it never<br/>
+		/// changes for an app once you've decided on it.<br/>
+		/// - Unicode characters are legal, as long as it's UTF-8 encoded, but...<br/>
+		/// - ...only use letters, numbers, and spaces. Avoid punctuation like "Game<br/>
+		/// Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.<br/>
+		/// The returned path is guaranteed to end with a path separator ('<br/>
+		/// \<br/>
+		/// ' on<br/>
+		/// Windows, '/' on most other platforms).<br/>
+		/// The pointer returned is owned by the caller. Please call SDL_free() on the<br/>
+		/// pointer when done with it.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetPrefPathS(ref byte org, byte* app)
+		{
+			fixed (byte* porg = &org)
+			{
+				string ret = Utils.DecodeStringUTF8(GetPrefPathNative((byte*)porg, app));
+				return ret;
+			}
 		}
 	}
 }

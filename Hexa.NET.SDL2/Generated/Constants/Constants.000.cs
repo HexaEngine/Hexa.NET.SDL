@@ -692,7 +692,7 @@ namespace Hexa.NET.SDL2
 
 		public const int SDL_MINOR_VERSION = 30;
 
-		public const int SDL_PATCHLEVEL = 8;
+		public const int SDL_PATCHLEVEL = 10;
 
 		public const uint SDL_INIT_TIMER = 0x00000001u;
 

@@ -18,602 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Toggle VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RenderSetVSyncNative(SDLRenderer* renderer, int vsync)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, int, int>)funcTable[803])(renderer, vsync);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[803])((nint)renderer, vsync);
-			#endif
-		}
-
-		/// <summary>
-		/// Toggle VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetVSync(SDLRenderer* renderer, int vsync)
-		{
-			int ret = RenderSetVSyncNative(renderer, vsync);
-			return ret;
-		}
-
-		/// <summary>
-		/// Toggle VSync of the given renderer.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RenderSetVSync(ref SDLRenderer renderer, int vsync)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				int ret = RenderSetVSyncNative((SDLRenderer*)prenderer, vsync);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a window that can be shaped with the specified position, dimensions,<br/>
-		/// and flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* CreateShapedWindowNative(byte* title, uint x, uint y, uint w, uint h, uint flags)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, uint, uint, uint, uint, uint, SDLWindow*>)funcTable[804])(title, x, y, w, h, flags);
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint, uint, uint, uint, uint, uint, nint>)funcTable[804])((nint)title, x, y, w, h, flags);
-			#endif
-		}
-
-		/// <summary>
-		/// Create a window that can be shaped with the specified position, dimensions,<br/>
-		/// and flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* CreateShapedWindow(byte* title, uint x, uint y, uint w, uint h, uint flags)
-		{
-			SDLWindow* ret = CreateShapedWindowNative(title, x, y, w, h, flags);
-			return ret;
-		}
-
-		/// <summary>
-		/// Create a window that can be shaped with the specified position, dimensions,<br/>
-		/// and flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* CreateShapedWindow(ref byte title, uint x, uint y, uint w, uint h, uint flags)
-		{
-			fixed (byte* ptitle = &title)
-			{
-				SDLWindow* ret = CreateShapedWindowNative((byte*)ptitle, x, y, w, h, flags);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a window that can be shaped with the specified position, dimensions,<br/>
-		/// and flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* CreateShapedWindow(ReadOnlySpan<byte> title, uint x, uint y, uint w, uint h, uint flags)
-		{
-			fixed (byte* ptitle = title)
-			{
-				SDLWindow* ret = CreateShapedWindowNative((byte*)ptitle, x, y, w, h, flags);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Create a window that can be shaped with the specified position, dimensions,<br/>
-		/// and flags.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* CreateShapedWindow(string title, uint x, uint y, uint w, uint h, uint flags)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (title != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(title);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(title, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			SDLWindow* ret = CreateShapedWindowNative(pStr0, x, y, w, h, flags);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether the given window is a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsShapedWindowNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[805])(window);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[805])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Return whether the given window is a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsShapedWindow(SDLWindow* window)
-		{
-			SDLBool ret = IsShapedWindowNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Return whether the given window is a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsShapedWindow(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLBool ret = IsShapedWindowNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetWindowShapeNative(SDLWindow* window, SDLSurface* shape, SDLWindowShapeMode* shapeMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLSurface*, SDLWindowShapeMode*, int>)funcTable[806])(window, shape, shapeMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int>)funcTable[806])((nint)window, (nint)shape, (nint)shapeMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(SDLWindow* window, SDLSurface* shape, SDLWindowShapeMode* shapeMode)
-		{
-			int ret = SetWindowShapeNative(window, shape, shapeMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(ref SDLWindow window, SDLSurface* shape, SDLWindowShapeMode* shapeMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				int ret = SetWindowShapeNative((SDLWindow*)pwindow, shape, shapeMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(SDLWindow* window, ref SDLSurface shape, SDLWindowShapeMode* shapeMode)
-		{
-			fixed (SDLSurface* pshape = &shape)
-			{
-				int ret = SetWindowShapeNative(window, (SDLSurface*)pshape, shapeMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(ref SDLWindow window, ref SDLSurface shape, SDLWindowShapeMode* shapeMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLSurface* pshape = &shape)
-				{
-					int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)pshape, shapeMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(SDLWindow* window, SDLSurface* shape, ref SDLWindowShapeMode shapeMode)
-		{
-			fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
-			{
-				int ret = SetWindowShapeNative(window, shape, (SDLWindowShapeMode*)pshapeMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(ref SDLWindow window, SDLSurface* shape, ref SDLWindowShapeMode shapeMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
-				{
-					int ret = SetWindowShapeNative((SDLWindow*)pwindow, shape, (SDLWindowShapeMode*)pshapeMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(SDLWindow* window, ref SDLSurface shape, ref SDLWindowShapeMode shapeMode)
-		{
-			fixed (SDLSurface* pshape = &shape)
-			{
-				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
-				{
-					int ret = SetWindowShapeNative(window, (SDLSurface*)pshape, (SDLWindowShapeMode*)pshapeMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the shape and parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetWindowShape(ref SDLWindow window, ref SDLSurface shape, ref SDLWindowShapeMode shapeMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLSurface* pshape = &shape)
-				{
-					fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
-					{
-						int ret = SetWindowShapeNative((SDLWindow*)pwindow, (SDLSurface*)pshape, (SDLWindowShapeMode*)pshapeMode);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the shape parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetShapedWindowModeNative(SDLWindow* window, SDLWindowShapeMode* shapeMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLWindowShapeMode*, int>)funcTable[807])(window, shapeMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[807])((nint)window, (nint)shapeMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the shape parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetShapedWindowMode(SDLWindow* window, SDLWindowShapeMode* shapeMode)
-		{
-			int ret = GetShapedWindowModeNative(window, shapeMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the shape parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetShapedWindowMode(ref SDLWindow window, SDLWindowShapeMode* shapeMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				int ret = GetShapedWindowModeNative((SDLWindow*)pwindow, shapeMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the shape parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetShapedWindowMode(SDLWindow* window, ref SDLWindowShapeMode shapeMode)
-		{
-			fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
-			{
-				int ret = GetShapedWindowModeNative(window, (SDLWindowShapeMode*)pshapeMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the shape parameters of a shaped window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetShapedWindowMode(ref SDLWindow window, ref SDLWindowShapeMode shapeMode)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (SDLWindowShapeMode* pshapeMode = &shapeMode)
-				{
-					int ret = GetShapedWindowModeNative((SDLWindow*)pwindow, (SDLWindowShapeMode*)pshapeMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowsMessageHookNative(SDLWindowsMessageHook callback, void* userdata)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<delegate*<void*, void*, uint, ulong, long, void>, void*, void>)funcTable[808])((delegate*<void*, void*, uint, ulong, long, void>)Utils.GetFunctionPointerForDelegate(callback), userdata);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, void>)funcTable[808])((nint)Utils.GetFunctionPointerForDelegate(callback), (nint)userdata);
-			#endif
-		}
-
-		/// <summary>
-		/// Set a callback for every Windows message, run before TranslateMessage().<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowsMessageHook(SDLWindowsMessageHook callback, void* userdata)
-		{
-			SetWindowsMessageHookNative(callback, userdata);
-		}
-
-		/// <summary>
-		/// Get the D3D9 adapter index that matches the specified display index.<br/>
-		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
-		/// controls on which monitor a full screen application will appear.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int Direct3D9GetAdapterIndexNative(int displayIndex)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, int>)funcTable[809])(displayIndex);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, int>)funcTable[809])(displayIndex);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D9 adapter index that matches the specified display index.<br/>
-		/// The returned adapter index can be passed to `IDirect3D9::CreateDevice` and<br/>
-		/// controls on which monitor a full screen application will appear.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int Direct3D9GetAdapterIndex(int displayIndex)
-		{
-			int ret = Direct3D9GetAdapterIndexNative(displayIndex);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static IDirect3DDevice9* RenderGetD3D9DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, IDirect3DDevice9*>)funcTable[810])(renderer);
-			#else
-			return (IDirect3DDevice9*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[810])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static IDirect3DDevice9* RenderGetD3D9Device(SDLRenderer* renderer)
-		{
-			IDirect3DDevice9* ret = RenderGetD3D9DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D9 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static IDirect3DDevice9* RenderGetD3D9Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				IDirect3DDevice9* ret = RenderGetD3D9DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ID3D11Device* RenderGetD3D11DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D11Device*>)funcTable[811])(renderer);
-			#else
-			return (ID3D11Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[811])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D11Device* RenderGetD3D11Device(SDLRenderer* renderer)
-		{
-			ID3D11Device* ret = RenderGetD3D11DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D11 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D11Device* RenderGetD3D11Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				ID3D11Device* ret = RenderGetD3D11DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static ID3D12Device* RenderGetD3D12DeviceNative(SDLRenderer* renderer)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, ID3D12Device*>)funcTable[812])(renderer);
-			#else
-			return (ID3D12Device*)((delegate* unmanaged[Cdecl]<nint, nint>)funcTable[812])((nint)renderer);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D12Device* RenderGetD3D12Device(SDLRenderer* renderer)
-		{
-			ID3D12Device* ret = RenderGetD3D12DeviceNative(renderer);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the D3D12 device associated with a renderer.<br/>
-		/// Once you are done using the device, you should release it to avoid a<br/>
-		/// resource leak.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static ID3D12Device* RenderGetD3D12Device(ref SDLRenderer renderer)
-		{
-			fixed (SDLRenderer* prenderer = &renderer)
-			{
-				ID3D12Device* ret = RenderGetD3D12DeviceNative((SDLRenderer*)prenderer);
-				return ret;
-			}
-		}
-
-		/// <summary>
 		/// Get the DXGI Adapter and Output indices for the specified display index.<br/>
 		/// The DXGI Adapter and Output indices can be passed to `EnumAdapters` and<br/>
 		/// `EnumOutputs` respectively to get the objects required to create a DX10 or<br/>
@@ -5016,6 +4420,607 @@ namespace Hexa.NET.SDL2
 			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
 			#else
 			((delegate* unmanaged[Cdecl]<byte, byte, byte, void>)funcTable[1007])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Ub(byte red, byte green, byte blue)
+		{
+			GlColor3UbNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UiNative(uint red, uint green, uint blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Ui(uint red, uint green, uint blue)
+		{
+			GlColor3UiNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UsNative(ushort red, ushort green, ushort blue)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
+			#else
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
+			#endif
+		}
+
+		public static void GlColor3Us(ushort red, ushort green, ushort blue)
+		{
+			GlColor3UsNative(red, green, blue);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4BNative(byte red, byte green, byte blue, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4B(byte red, byte green, byte blue, byte alpha)
+		{
+			GlColor4BNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4DNative(double red, double green, double blue, double alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4D(double red, double green, double blue, double alpha)
+		{
+			GlColor4DNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4FNative(float red, float green, float blue, float alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4F(float red, float green, float blue, float alpha)
+		{
+			GlColor4FNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4INative(int red, int green, int blue, int alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4I(int red, int green, int blue, int alpha)
+		{
+			GlColor4INative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4SNative(short red, short green, short blue, short alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4S(short red, short green, short blue, short alpha)
+		{
+			GlColor4SNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UbNative(byte red, byte green, byte blue, byte alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Ub(byte red, byte green, byte blue, byte alpha)
+		{
+			GlColor4UbNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UiNative(uint red, uint green, uint blue, uint alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Ui(uint red, uint green, uint blue, uint alpha)
+		{
+			GlColor4UiNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UsNative(ushort red, ushort green, ushort blue, ushort alpha)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
+			#else
+			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
+			#endif
+		}
+
+		public static void GlColor4Us(ushort red, ushort green, ushort blue, ushort alpha)
+		{
+			GlColor4UsNative(red, green, blue, alpha);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1018])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1018])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Bv(byte* v)
+		{
+			GlColor3BvNative(v);
+		}
+
+		public static void GlColor3Bv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor3Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlColor3BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor3Bv(string v)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (v != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(v);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GlColor3BvNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1019])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1019])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Dv(double* v)
+		{
+			GlColor3DvNative(v);
+		}
+
+		public static void GlColor3Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlColor3DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1020])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1020])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Fv(float* v)
+		{
+			GlColor3FvNative(v);
+		}
+
+		public static void GlColor3Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlColor3FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1021])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1021])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Iv(int* v)
+		{
+			GlColor3IvNative(v);
+		}
+
+		public static void GlColor3Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlColor3IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1022])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1022])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Sv(short* v)
+		{
+			GlColor3SvNative(v);
+		}
+
+		public static void GlColor3Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlColor3SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UbvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1023])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1023])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Ubv(byte* v)
+		{
+			GlColor3UbvNative(v);
+		}
+
+		public static void GlColor3Ubv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor3UbvNative((byte*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UivNative(uint* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1024])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1024])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Uiv(uint* v)
+		{
+			GlColor3UivNative(v);
+		}
+
+		public static void GlColor3Uiv(ref uint v)
+		{
+			fixed (uint* pv = &v)
+			{
+				GlColor3UivNative((uint*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor3UsvNative(ushort* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1025])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1025])((nint)v);
+			#endif
+		}
+
+		public static void GlColor3Usv(ushort* v)
+		{
+			GlColor3UsvNative(v);
+		}
+
+		public static void GlColor3Usv(ref ushort v)
+		{
+			fixed (ushort* pv = &v)
+			{
+				GlColor3UsvNative((ushort*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4BvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1026])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1026])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Bv(byte* v)
+		{
+			GlColor4BvNative(v);
+		}
+
+		public static void GlColor4Bv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor4BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor4Bv(ReadOnlySpan<byte> v)
+		{
+			fixed (byte* pv = v)
+			{
+				GlColor4BvNative((byte*)pv);
+			}
+		}
+
+		public static void GlColor4Bv(string v)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (v != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(v);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			GlColor4BvNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4DvNative(double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1027])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1027])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Dv(double* v)
+		{
+			GlColor4DvNative(v);
+		}
+
+		public static void GlColor4Dv(ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlColor4DvNative((double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4FvNative(float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1028])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1028])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Fv(float* v)
+		{
+			GlColor4FvNative(v);
+		}
+
+		public static void GlColor4Fv(ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlColor4FvNative((float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4IvNative(int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1029])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1029])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Iv(int* v)
+		{
+			GlColor4IvNative(v);
+		}
+
+		public static void GlColor4Iv(ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlColor4IvNative((int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4SvNative(short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1030])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1030])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Sv(short* v)
+		{
+			GlColor4SvNative(v);
+		}
+
+		public static void GlColor4Sv(ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlColor4SvNative((short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UbvNative(byte* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1031])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Ubv(byte* v)
+		{
+			GlColor4UbvNative(v);
+		}
+
+		public static void GlColor4Ubv(ref byte v)
+		{
+			fixed (byte* pv = &v)
+			{
+				GlColor4UbvNative((byte*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UivNative(uint* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1032])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1032])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Uiv(uint* v)
+		{
+			GlColor4UivNative(v);
+		}
+
+		public static void GlColor4Uiv(ref uint v)
+		{
+			fixed (uint* pv = &v)
+			{
+				GlColor4UivNative((uint*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlColor4UsvNative(ushort* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1033])(v);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1033])((nint)v);
+			#endif
+		}
+
+		public static void GlColor4Usv(ushort* v)
+		{
+			GlColor4UsvNative(v);
+		}
+
+		public static void GlColor4Usv(ref ushort v)
+		{
+			fixed (ushort* pv = &v)
+			{
+				GlColor4UsvNative((ushort*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlTexCoord1DNative(double s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
+			#else
+			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
 			#endif
 		}
 	}

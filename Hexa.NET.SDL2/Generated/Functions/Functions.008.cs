@@ -18,573 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// See SDL_Scancode and SDL_Keycode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static byte* GetKeyName(int key)
-		{
-			byte* ret = GetKeyNameNative(key);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a human-readable name for a key.<br/>
-		/// See SDL_Scancode and SDL_Keycode for details.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static string GetKeyNameS(int key)
-		{
-			string ret = Utils.DecodeStringUTF8(GetKeyNameNative(key));
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetKeyFromNameNative(byte* name)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[450])(name);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[450])((nint)name);
-			#endif
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(byte* name)
-		{
-			int ret = GetKeyFromNameNative(name);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(ref byte name)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(ReadOnlySpan<byte> name)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = GetKeyFromNameNative((byte*)pname);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get a key code from a human-readable name.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetKeyFromName(string name)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = GetKeyFromNameNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events.<br/>
-		/// This function will start accepting Unicode text input events in the focused<br/>
-		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
-		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
-		/// pair with SDL_StopTextInput().<br/>
-		/// On some platforms using this function activates the screen keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void StartTextInputNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
-			#endif
-		}
-
-		/// <summary>
-		/// Start accepting Unicode text input events.<br/>
-		/// This function will start accepting Unicode text input events in the focused<br/>
-		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
-		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
-		/// pair with SDL_StopTextInput().<br/>
-		/// On some platforms using this function activates the screen keyboard.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void StartTextInput()
-		{
-			StartTextInputNative();
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsTextInputActiveNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether or not Unicode text input events are enabled.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsTextInputActive()
-		{
-			SDLBool ret = IsTextInputActiveNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void StopTextInputNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
-			#endif
-		}
-
-		/// <summary>
-		/// Stop receiving any text input events.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void StopTextInput()
-		{
-			StopTextInputNative();
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ClearCompositionNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
-			#endif
-		}
-
-		/// <summary>
-		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ClearComposition()
-		{
-			ClearCompositionNative();
-		}
-
-		/// <summary>
-		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsTextInputShownNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
-			#endif
-		}
-
-		/// <summary>
-		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsTextInputShown()
-		{
-			SDLBool ret = IsTextInputShownNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
-		/// will place a window with word suggestions near it, without covering the<br/>
-		/// text being inputted.<br/>
-		/// To start text input in a given location, this function is intended to be<br/>
-		/// called before SDL_StartTextInput, although some platforms support moving<br/>
-		/// the rectangle even while text input (and a composition) is active.<br/>
-		/// Note: If you want to use the system native IME window, try setting hint<br/>
-		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
-		/// any feedback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetTextInputRectNative(SDLRect* rect)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLRect*, void>)funcTable[456])(rect);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[456])((nint)rect);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
-		/// will place a window with word suggestions near it, without covering the<br/>
-		/// text being inputted.<br/>
-		/// To start text input in a given location, this function is intended to be<br/>
-		/// called before SDL_StartTextInput, although some platforms support moving<br/>
-		/// the rectangle even while text input (and a composition) is active.<br/>
-		/// Note: If you want to use the system native IME window, try setting hint<br/>
-		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
-		/// any feedback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetTextInputRect(SDLRect* rect)
-		{
-			SetTextInputRectNative(rect);
-		}
-
-		/// <summary>
-		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
-		/// will place a window with word suggestions near it, without covering the<br/>
-		/// text being inputted.<br/>
-		/// To start text input in a given location, this function is intended to be<br/>
-		/// called before SDL_StartTextInput, although some platforms support moving<br/>
-		/// the rectangle even while text input (and a composition) is active.<br/>
-		/// Note: If you want to use the system native IME window, try setting hint<br/>
-		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
-		/// any feedback.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetTextInputRect(ref SDLRect rect)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				SetTextInputRectNative((SDLRect*)prect);
-			}
-		}
-
-		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasScreenKeyboardSupportNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the platform has screen keyboard support.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasScreenKeyboardSupport()
-		{
-			SDLBool ret = HasScreenKeyboardSupportNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool IsScreenKeyboardShownNative(SDLWindow* window)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[458])(window);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[458])((nint)window);
-			#endif
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsScreenKeyboardShown(SDLWindow* window)
-		{
-			SDLBool ret = IsScreenKeyboardShownNative(window);
-			return ret;
-		}
-
-		/// <summary>
-		/// Check whether the screen keyboard is shown for given window.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IsScreenKeyboardShown(ref SDLWindow window)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SDLBool ret = IsScreenKeyboardShownNative((SDLWindow*)pwindow);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLWindow* GetMouseFocusNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[459])();
-			#else
-			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[459])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the window which currently has mouse focus.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLWindow* GetMouseFocus()
-		{
-			SDLWindow* ret = GetMouseFocusNative();
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetMouseStateNative(int* x, int* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[460])(x, y);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[460])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(int* x, int* y)
-		{
-			uint ret = GetMouseStateNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(ref int x, int* y)
-		{
-			fixed (int* px = &x)
-			{
-				uint ret = GetMouseStateNative((int*)px, y);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(int* x, ref int y)
-		{
-			fixed (int* py = &y)
-			{
-				uint ret = GetMouseStateNative(x, (int*)py);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Retrieve the current state of the mouse.<br/>
-		/// The current button state is returned as a button bitmask, which can be<br/>
-		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
-		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
-		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
-		/// either `x` or `y`.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetMouseState(ref int x, ref int y)
-		{
-			fixed (int* px = &x)
-			{
-				fixed (int* py = &y)
-				{
-					uint ret = GetMouseStateNative((int*)px, (int*)py);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetGlobalMouseStateNative(int* x, int* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[461])(x, y);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[461])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetGlobalMouseState(int* x, int* y)
-		{
-			uint ret = GetGlobalMouseStateNative(x, y);
-			return ret;
-		}
-
-		/// <summary>
 		/// Get the current state of the mouse in relation to the desktop.<br/>
 		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
 		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
@@ -5023,6 +4456,572 @@ namespace Hexa.NET.SDL2
 		public static int SensorGetInstanceID(SDLSensor* sensor)
 		{
 			int ret = SensorGetInstanceIDNative(sensor);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the instance ID of a sensor.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetInstanceID(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = SensorGetInstanceIDNative((SDLSensor*)psensor);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetDataNative(SDLSensor* sensor, float* data, int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, float*, int, int>)funcTable[549])(sensor, data, numValues);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[549])((nint)sensor, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(SDLSensor* sensor, float* data, int numValues)
+		{
+			int ret = SensorGetDataNative(sensor, data, numValues);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(ref SDLSensor sensor, float* data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = SensorGetDataNative((SDLSensor*)psensor, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(SDLSensor* sensor, ref float data, int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				int ret = SensorGetDataNative(sensor, (float*)pdata, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetData(ref SDLSensor sensor, ref float data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = SensorGetDataNative((SDLSensor*)psensor, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SensorGetDataWithTimestampNative(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSensor*, ulong*, float*, int, int>)funcTable[550])(sensor, timestamp, data, numValues);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, int, int>)funcTable[550])((nint)sensor, (nint)timestamp, (nint)data, numValues);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, float* data, int numValues)
+		{
+			int ret = SensorGetDataWithTimestampNative(sensor, timestamp, data, numValues);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, float* data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, float* data, int numValues)
+		{
+			fixed (ulong* ptimestamp = &timestamp)
+			{
+				int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, data, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, float* data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (ulong* ptimestamp = &timestamp)
+				{
+					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, data, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ulong* timestamp, ref float data, int numValues)
+		{
+			fixed (float* pdata = &data)
+			{
+				int ret = SensorGetDataWithTimestampNative(sensor, timestamp, (float*)pdata, numValues);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ulong* timestamp, ref float data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, timestamp, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(SDLSensor* sensor, ref ulong timestamp, ref float data, int numValues)
+		{
+			fixed (ulong* ptimestamp = &timestamp)
+			{
+				fixed (float* pdata = &data)
+				{
+					int ret = SensorGetDataWithTimestampNative(sensor, (ulong*)ptimestamp, (float*)pdata, numValues);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of an opened sensor with the timestamp of the last<br/>
+		/// update.<br/>
+		/// The number of values and interpretation of the data is sensor dependent.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int SensorGetDataWithTimestamp(ref SDLSensor sensor, ref ulong timestamp, ref float data, int numValues)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				fixed (ulong* ptimestamp = &timestamp)
+				{
+					fixed (float* pdata = &data)
+					{
+						int ret = SensorGetDataWithTimestampNative((SDLSensor*)psensor, (ulong*)ptimestamp, (float*)pdata, numValues);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SensorCloseNative(SDLSensor* sensor)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLSensor*, void>)funcTable[551])(sensor);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[551])((nint)sensor);
+			#endif
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SensorClose(SDLSensor* sensor)
+		{
+			SensorCloseNative(sensor);
+		}
+
+		/// <summary>
+		/// Close a sensor previously opened with SDL_SensorOpen().<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SensorClose(ref SDLSensor sensor)
+		{
+			fixed (SDLSensor* psensor = &sensor)
+			{
+				SensorCloseNative((SDLSensor*)psensor);
+			}
+		}
+
+		/// <summary>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
+		/// enabled.<br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SensorUpdateNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[552])();
+			#endif
+		}
+
+		/// <summary>
+		/// Update the current state of the open sensors.<br/>
+		/// This is called automatically by the event loop if sensor events are<br/>
+		/// enabled.<br/>
+		/// This needs to be called from the thread that initialized the sensor<br/>
+		/// subsystem.<br/>
+		/// <br/>
+		/// </summary>
+		public static void SensorUpdate()
+		{
+			SensorUpdateNative();
+		}
+
+		/// <summary>
+		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerAddMappingsFromRWNative(SDLRWops* rw, int freerw)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, int, int>)funcTable[553])(rw, freerw);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int, int>)funcTable[553])((nint)rw, freerw);
+			#endif
+		}
+
+		/// <summary>
+		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMappingsFromRW(SDLRWops* rw, int freerw)
+		{
+			int ret = GameControllerAddMappingsFromRWNative(rw, freerw);
+			return ret;
+		}
+
+		/// <summary>
+		/// Load a set of Game Controller mappings from a seekable SDL data stream.<br/>
+		/// You can call this function several times, if needed, to load different<br/>
+		/// database files.<br/>
+		/// If a new mapping is loaded for an already known controller GUID, the later<br/>
+		/// version will overwrite the one currently loaded.<br/>
+		/// Mappings not belonging to the current platform or with no platform field<br/>
+		/// specified will be ignored (i.e. mappings for Linux will be ignored in<br/>
+		/// Windows, etc).<br/>
+		/// This function will load the text database entirely in memory before<br/>
+		/// processing it, so take this into consideration if you are in a memory<br/>
+		/// constrained environment.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMappingsFromRW(ref SDLRWops rw, int freerw)
+		{
+			fixed (SDLRWops* prw = &rw)
+			{
+				int ret = GameControllerAddMappingsFromRWNative((SDLRWops*)prw, freerw);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerAddMappingNative(byte* mappingString)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[554])(mappingString);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[554])((nint)mappingString);
+			#endif
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(byte* mappingString)
+		{
+			int ret = GameControllerAddMappingNative(mappingString);
+			return ret;
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(ref byte mappingString)
+		{
+			fixed (byte* pmappingString = &mappingString)
+			{
+				int ret = GameControllerAddMappingNative((byte*)pmappingString);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(ReadOnlySpan<byte> mappingString)
+		{
+			fixed (byte* pmappingString = mappingString)
+			{
+				int ret = GameControllerAddMappingNative((byte*)pmappingString);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Add support for controllers that SDL is unaware of or to cause an existing<br/>
+		/// controller to have a different binding.<br/>
+		/// The mapping string has the format "GUID,name,mapping", where GUID is the<br/>
+		/// string value from SDL_JoystickGetGUIDString(), name is the human readable<br/>
+		/// string for the device and mappings are controller mappings to joystick<br/>
+		/// ones. Under Windows there is a reserved GUID of "xinput" that covers all<br/>
+		/// XInput devices. The mapping format for joystick is: {| |bX |a joystick<br/>
+		/// button, index X |- |hX.Y |hat X with value Y |- |aX |axis X of the joystick<br/>
+		/// |} Buttons can be used as a controller axes and vice versa.<br/>
+		/// This string shows an example of a valid mapping for a controller:<br/>
+		/// ```c<br/>
+		/// "341a3608000000000000504944564944,Afterglow PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7"<br/>
+		/// ```<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerAddMapping(string mappingString)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (mappingString != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(mappingString);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(mappingString, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = GameControllerAddMappingNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the number of mappings installed.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerNumMappingsNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of mappings installed.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerNumMappings()
+		{
+			int ret = GameControllerNumMappingsNative();
 			return ret;
 		}
 	}

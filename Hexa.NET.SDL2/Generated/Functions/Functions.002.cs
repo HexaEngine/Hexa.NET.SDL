@@ -18,544 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(byte* tocode, string fromcode, string inbuf, nuint inbytesleft)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fromcode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (inbuf != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* ret = IconvStringNative(tocode, pStr0, pStr1, inbytesleft);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(byte* tocode, string fromcode, string inbuf, nuint inbytesleft)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (fromcode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(fromcode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(fromcode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (inbuf != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(inbuf);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(inbuf, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(IconvStringNative(tocode, pStr0, pStr1, inbytesleft));
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(ref byte tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = &tocode)
-			{
-				fixed (byte* pfromcode = &fromcode)
-				{
-					fixed (byte* pinbuf = &inbuf)
-					{
-						byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(ref byte tocode, ref byte fromcode, ref byte inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = &tocode)
-			{
-				fixed (byte* pfromcode = &fromcode)
-				{
-					fixed (byte* pinbuf = &inbuf)
-					{
-						string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(ReadOnlySpan<byte> tocode, ReadOnlySpan<byte> fromcode, ReadOnlySpan<byte> inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = tocode)
-			{
-				fixed (byte* pfromcode = fromcode)
-				{
-					fixed (byte* pinbuf = inbuf)
-					{
-						byte* ret = IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(ReadOnlySpan<byte> tocode, ReadOnlySpan<byte> fromcode, ReadOnlySpan<byte> inbuf, nuint inbytesleft)
-		{
-			fixed (byte* ptocode = tocode)
-			{
-				fixed (byte* pfromcode = fromcode)
-				{
-					fixed (byte* pinbuf = inbuf)
-					{
-						string ret = Utils.DecodeStringUTF8(IconvStringNative((byte*)ptocode, (byte*)pfromcode, (byte*)pinbuf, inbytesleft));
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static byte* IconvString(string tocode, string fromcode, string inbuf, nuint inbytesleft)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tocode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tocode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (fromcode != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* pStr2 = null;
-			int pStrSize2 = 0;
-			if (inbuf != null)
-			{
-				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
-				if (pStrSize2 >= Utils.MaxStackallocSize)
-				{
-					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
-				}
-				else
-				{
-					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
-					pStr2 = pStrStack2;
-				}
-				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
-				pStr2[pStrOffset2] = 0;
-			}
-			byte* ret = IconvStringNative(pStr0, pStr1, pStr2, inbytesleft);
-			if (pStrSize2 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr2);
-			}
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// This function converts a buffer or string between encodings in one pass,<br/>
-		/// returning a string that must be freed with SDL_free() or NULL on error.<br/>
-		/// <br/>
-		/// </summary>
-		public static string IconvStringS(string tocode, string fromcode, string inbuf, nuint inbytesleft)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (tocode != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(tocode);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(tocode, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			byte* pStr1 = null;
-			int pStrSize1 = 0;
-			if (fromcode != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF8(fromcode);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<byte>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF8(fromcode, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = 0;
-			}
-			byte* pStr2 = null;
-			int pStrSize2 = 0;
-			if (inbuf != null)
-			{
-				pStrSize2 = Utils.GetByteCountUTF8(inbuf);
-				if (pStrSize2 >= Utils.MaxStackallocSize)
-				{
-					pStr2 = Utils.Alloc<byte>(pStrSize2 + 1);
-				}
-				else
-				{
-					byte* pStrStack2 = stackalloc byte[pStrSize2 + 1];
-					pStr2 = pStrStack2;
-				}
-				int pStrOffset2 = Utils.EncodeStringUTF8(inbuf, pStr2, pStrSize2);
-				pStr2[pStrOffset2] = 0;
-			}
-			string ret = Utils.DecodeStringUTF8(IconvStringNative(pStr0, pStr1, pStr2, inbytesleft));
-			if (pStrSize2 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr2);
-			}
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int MainNative(int argc, byte** argv)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int, byte**, int>)funcTable[127])(argc, argv);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int, nint, int>)funcTable[127])(argc, (nint)argv);
-			#endif
-		}
-
-		public static int Main(int argc, byte** argv)
-		{
-			int ret = MainNative(argc, argv);
-			return ret;
-		}
-
-		public static int Main(int argc, string[] argv)
-		{
-			byte** pStrArray0 = null;
-			int pStrArray0Size = Utils.GetByteCountArray(argv);
-			if (argv != null)
-			{
-				if (pStrArray0Size > Utils.MaxStackallocSize)
-				{
-					pStrArray0 = (byte**)Utils.Alloc<byte>(pStrArray0Size);
-				}
-				else
-				{
-					byte* pStrArray0Stack = stackalloc byte[pStrArray0Size];
-					pStrArray0 = (byte**)pStrArray0Stack;
-				}
-			}
-			for (int i = 0; i < argv.Length; i++)
-			{
-				pStrArray0[i] = (byte*)Utils.StringToUTF8Ptr(argv[i]);
-			}
-			int ret = MainNative(argc, pStrArray0);
-			for (int i = 0; i < argv.Length; i++)
-			{
-				Utils.Free(pStrArray0[i]);
-			}
-			if (pStrArray0Size >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStrArray0);
-			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
-		/// point.<br/>
-		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
-		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
-		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
-		/// including SDL.h.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetMainReadyNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[128])();
-			#endif
-		}
-
-		/// <summary>
-		/// Circumvent failure of SDL_Init() when not using SDL_main() as an entry<br/>
-		/// point.<br/>
-		/// This function is defined in SDL_main.h, along with the preprocessor rule to<br/>
-		/// redefine main() as SDL_main(). Thus to ensure that your main() function<br/>
-		/// will not be changed it is necessary to define SDL_MAIN_HANDLED before<br/>
-		/// including SDL.h.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetMainReady()
-		{
-			SetMainReadyNative();
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int RegisterAppNative(byte* name, uint style, void* hInst)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<byte*, uint, void*, int>)funcTable[129])(name, style, hInst);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, uint, nint, int>)funcTable[129])((nint)name, style, (nint)hInst);
-			#endif
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(byte* name, uint style, void* hInst)
-		{
-			int ret = RegisterAppNative(name, style, hInst);
-			return ret;
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(ref byte name, uint style, void* hInst)
-		{
-			fixed (byte* pname = &name)
-			{
-				int ret = RegisterAppNative((byte*)pname, style, hInst);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(ReadOnlySpan<byte> name, uint style, void* hInst)
-		{
-			fixed (byte* pname = name)
-			{
-				int ret = RegisterAppNative((byte*)pname, style, hInst);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Register a win32 window class for SDL's use.<br/>
-		/// This can be called to set the application window class at startup. It is<br/>
-		/// safe to call this multiple times, as long as every call is eventually<br/>
-		/// paired with a call to SDL_UnregisterApp, but a second registration attempt<br/>
-		/// while a previous registration is still active will be ignored, other than<br/>
-		/// to increment a counter.<br/>
-		/// Most applications do not need to, and should not, call this directly; SDL<br/>
-		/// will call it when initializing the video subsystem.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int RegisterApp(string name, uint style, void* hInst)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (name != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(name);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			int ret = RegisterAppNative(pStr0, style, hInst);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
-		}
-
-		/// <summary>
 		/// Deregister the win32 window class from an SDL_RegisterApp call.<br/>
 		/// This can be called to undo the effects of SDL_RegisterApp.<br/>
 		/// Most applications do not need to, and should not, call this directly; SDL<br/>
@@ -5018,6 +4480,541 @@ namespace Hexa.NET.SDL2
 		{
 			ushort ret = ReadLE16Native(src);
 			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort ReadLE16(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ushort ret = ReadLE16Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ushort ReadBE16Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort>)funcTable[200])(src);
+			#else
+			return (ushort)((delegate* unmanaged[Cdecl]<nint, ushort>)funcTable[200])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort ReadBE16(SDLRWops* src)
+		{
+			ushort ret = ReadBE16Native(src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 16 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ushort ReadBE16(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ushort ret = ReadBE16Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint ReadLE32Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[201])(src);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[201])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadLE32(SDLRWops* src)
+		{
+			uint ret = ReadLE32Native(src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadLE32(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				uint ret = ReadLE32Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint ReadBE32Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint>)funcTable[202])(src);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, uint>)funcTable[202])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadBE32(SDLRWops* src)
+		{
+			uint ret = ReadBE32Native(src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 32 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint ReadBE32(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				uint ret = ReadBE32Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong ReadLE64Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[203])(src);
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[203])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadLE64(SDLRWops* src)
+		{
+			ulong ret = ReadLE64Native(src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of little-endian data from an SDL_RWops<br/>
+		/// and return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadLE64(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ulong ret = ReadLE64Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static ulong ReadBE64Native(SDLRWops* src)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ulong>)funcTable[204])(src);
+			#else
+			return (ulong)((delegate* unmanaged[Cdecl]<nint, ulong>)funcTable[204])((nint)src);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadBE64(SDLRWops* src)
+		{
+			ulong ret = ReadBE64Native(src);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to read 64 bits of big-endian data from an SDL_RWops and<br/>
+		/// return in native format.<br/>
+		/// SDL byteswaps the data only if necessary, so the data returned will be in<br/>
+		/// the native byte order.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static ulong ReadBE64(ref SDLRWops src)
+		{
+			fixed (SDLRWops* psrc = &src)
+			{
+				ulong ret = ReadBE64Native((SDLRWops*)psrc);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write a byte to an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteU8Native(SDLRWops* dst, byte value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, byte, nuint>)funcTable[205])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, byte, nuint>)funcTable[205])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write a byte to an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteU8(SDLRWops* dst, byte value)
+		{
+			nuint ret = WriteU8Native(dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write a byte to an SDL_RWops.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteU8(ref SDLRWops dst, byte value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteU8Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteLE16Native(SDLRWops* dst, ushort value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[206])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[206])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE16(SDLRWops* dst, ushort value)
+		{
+			nuint ret = WriteLE16Native(dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE16(ref SDLRWops dst, ushort value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteLE16Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteBE16Native(SDLRWops* dst, ushort value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, ushort, nuint>)funcTable[207])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, ushort, nuint>)funcTable[207])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE16(SDLRWops* dst, ushort value)
+		{
+			nuint ret = WriteBE16Native(dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 16 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE16(ref SDLRWops dst, ushort value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteBE16Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteLE32Native(SDLRWops* dst, uint value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[208])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[208])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE32(SDLRWops* dst, uint value)
+		{
+			nuint ret = WriteLE32Native(dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// little-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in little-endian<br/>
+		/// format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteLE32(ref SDLRWops dst, uint value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteLE32Native((SDLRWops*)pdst, value);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint WriteBE32Native(SDLRWops* dst, uint value)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRWops*, uint, nuint>)funcTable[209])(dst, value);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, uint, nuint>)funcTable[209])((nint)dst, value);
+			#endif
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE32(SDLRWops* dst, uint value)
+		{
+			nuint ret = WriteBE32Native(dst, value);
+			return ret;
+		}
+
+		/// <summary>
+		/// Use this function to write 32 bits in native format to a SDL_RWops as<br/>
+		/// big-endian data.<br/>
+		/// SDL byteswaps the data only if necessary, so the application always<br/>
+		/// specifies native format, and the data written will be in big-endian format.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static nuint WriteBE32(ref SDLRWops dst, uint value)
+		{
+			fixed (SDLRWops* pdst = &dst)
+			{
+				nuint ret = WriteBE32Native((SDLRWops*)pdst, value);
+				return ret;
+			}
 		}
 	}
 }

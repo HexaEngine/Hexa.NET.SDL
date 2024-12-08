@@ -921,29 +921,11 @@ namespace Hexa.NET.SDL2
 
 		public static nuint Wcslen(string wstr)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (wstr != null)
+			fixed (char* pwstr = wstr)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(wstr);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(wstr, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				nuint ret = WcslenNative(pwstr);
+				return ret;
 			}
-			nuint ret = WcslenNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1019,29 +1001,11 @@ namespace Hexa.NET.SDL2
 
 		public static nuint Wcslcpy(char* dst, string src, nuint maxlen)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (src != null)
+			fixed (char* psrc = src)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(src);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(src, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				nuint ret = WcslcpyNative(dst, psrc, maxlen);
+				return ret;
 			}
-			nuint ret = WcslcpyNative(dst, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static nuint Wcslcpy(ref char dst, ref char src, nuint maxlen)
@@ -1087,34 +1051,16 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (src != null)
+			fixed (char* psrc = src)
 			{
-				pStrSize1 = Utils.GetByteCountUTF16(src);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
+				nuint ret = WcslcpyNative(pStr0, psrc, maxlen);
+				dst = Utils.DecodeStringUTF16(pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
+					Utils.Free(pStr0);
 				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(src, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
+				return ret;
 			}
-			nuint ret = WcslcpyNative(pStr0, pStr1, maxlen);
-			dst = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1190,29 +1136,11 @@ namespace Hexa.NET.SDL2
 
 		public static nuint Wcslcat(char* dst, string src, nuint maxlen)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (src != null)
+			fixed (char* psrc = src)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(src);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(src, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				nuint ret = WcslcatNative(dst, psrc, maxlen);
+				return ret;
 			}
-			nuint ret = WcslcatNative(dst, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static nuint Wcslcat(ref char dst, ref char src, nuint maxlen)
@@ -1258,34 +1186,16 @@ namespace Hexa.NET.SDL2
 				int pStrOffset0 = Utils.EncodeStringUTF16(dst, pStr0, pStrSize0);
 				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (src != null)
+			fixed (char* psrc = src)
 			{
-				pStrSize1 = Utils.GetByteCountUTF16(src);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
+				nuint ret = WcslcatNative(pStr0, psrc, maxlen);
+				dst = Utils.DecodeStringUTF16(pStr0);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
 				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
+					Utils.Free(pStr0);
 				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(src, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
+				return ret;
 			}
-			nuint ret = WcslcatNative(pStr0, pStr1, maxlen);
-			dst = Utils.DecodeStringUTF16(pStr0);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1348,56 +1258,20 @@ namespace Hexa.NET.SDL2
 
 		public static char* Wcsdup(string wstr)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (wstr != null)
+			fixed (char* pwstr = wstr)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(wstr);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(wstr, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				char* ret = WcsdupNative(pwstr);
+				return ret;
 			}
-			char* ret = WcsdupNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static string WcsdupS(string wstr)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (wstr != null)
+			fixed (char* pwstr = wstr)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(wstr);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(wstr, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				string ret = Utils.DecodeStringUTF16(WcsdupNative(pwstr));
+				return ret;
 			}
-			string ret = Utils.DecodeStringUTF16(WcsdupNative(pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1460,56 +1334,20 @@ namespace Hexa.NET.SDL2
 
 		public static char* Wcsstr(string haystack, char* needle)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (haystack != null)
+			fixed (char* phaystack = haystack)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(haystack);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(haystack, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				char* ret = WcsstrNative(phaystack, needle);
+				return ret;
 			}
-			char* ret = WcsstrNative(pStr0, needle);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static string WcsstrS(string haystack, char* needle)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (haystack != null)
+			fixed (char* phaystack = haystack)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(haystack);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(haystack, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				string ret = Utils.DecodeStringUTF16(WcsstrNative(phaystack, needle));
+				return ret;
 			}
-			string ret = Utils.DecodeStringUTF16(WcsstrNative(pStr0, needle));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static char* Wcsstr(char* haystack, ref char needle)
@@ -1550,56 +1388,20 @@ namespace Hexa.NET.SDL2
 
 		public static char* Wcsstr(char* haystack, string needle)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (needle != null)
+			fixed (char* pneedle = needle)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(needle);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(needle, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				char* ret = WcsstrNative(haystack, pneedle);
+				return ret;
 			}
-			char* ret = WcsstrNative(haystack, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static string WcsstrS(char* haystack, string needle)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (needle != null)
+			fixed (char* pneedle = needle)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(needle);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(needle, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, pneedle));
+				return ret;
 			}
-			string ret = Utils.DecodeStringUTF16(WcsstrNative(haystack, pStr0));
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static char* Wcsstr(ref char haystack, ref char needle)
@@ -1652,98 +1454,26 @@ namespace Hexa.NET.SDL2
 
 		public static char* Wcsstr(string haystack, string needle)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (haystack != null)
+			fixed (char* phaystack = haystack)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(haystack);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (char* pneedle = needle)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					char* ret = WcsstrNative(phaystack, pneedle);
+					return ret;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(haystack, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (needle != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(needle);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(needle, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			char* ret = WcsstrNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static string WcsstrS(string haystack, string needle)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (haystack != null)
+			fixed (char* phaystack = haystack)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(haystack);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (char* pneedle = needle)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					string ret = Utils.DecodeStringUTF16(WcsstrNative(phaystack, pneedle));
+					return ret;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(haystack, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (needle != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(needle);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(needle, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			string ret = Utils.DecodeStringUTF16(WcsstrNative(pStr0, pStr1));
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1782,29 +1512,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcscmp(string str1, char* str2)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcscmpNative(pstr1, str2);
+				return ret;
 			}
-			int ret = WcscmpNative(pStr0, str2);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcscmp(char* str1, ref char str2)
@@ -1827,29 +1539,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcscmp(char* str1, string str2)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str2 != null)
+			fixed (char* pstr2 = str2)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str2, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcscmpNative(str1, pstr2);
+				return ret;
 			}
-			int ret = WcscmpNative(str1, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcscmp(ref char str1, ref char str2)
@@ -1878,50 +1572,14 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcscmp(string str1, string str2)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (char* pstr2 = str2)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					int ret = WcscmpNative(pstr1, pstr2);
+					return ret;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (str2 != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(str2, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			int ret = WcscmpNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1960,29 +1618,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcsncmp(string str1, char* str2, nuint maxlen)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcsncmpNative(pstr1, str2, maxlen);
+				return ret;
 			}
-			int ret = WcsncmpNative(pStr0, str2, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcsncmp(char* str1, ref char str2, nuint maxlen)
@@ -2005,29 +1645,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcsncmp(char* str1, string str2, nuint maxlen)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str2 != null)
+			fixed (char* pstr2 = str2)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str2, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcsncmpNative(str1, pstr2, maxlen);
+				return ret;
 			}
-			int ret = WcsncmpNative(str1, pStr0, maxlen);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcsncmp(ref char str1, ref char str2, nuint maxlen)
@@ -2056,50 +1678,14 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcsncmp(string str1, string str2, nuint maxlen)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (char* pstr2 = str2)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					int ret = WcsncmpNative(pstr1, pstr2, maxlen);
+					return ret;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (str2 != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(str2, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			int ret = WcsncmpNative(pStr0, pStr1, maxlen);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2138,29 +1724,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcscasecmp(string str1, char* str2)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcscasecmpNative(pstr1, str2);
+				return ret;
 			}
-			int ret = WcscasecmpNative(pStr0, str2);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcscasecmp(char* str1, ref char str2)
@@ -2183,29 +1751,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcscasecmp(char* str1, string str2)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str2 != null)
+			fixed (char* pstr2 = str2)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str2, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcscasecmpNative(str1, pstr2);
+				return ret;
 			}
-			int ret = WcscasecmpNative(str1, pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcscasecmp(ref char str1, ref char str2)
@@ -2234,50 +1784,14 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcscasecmp(string str1, string str2)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (char* pstr2 = str2)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					int ret = WcscasecmpNative(pstr1, pstr2);
+					return ret;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (str2 != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(str2, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			int ret = WcscasecmpNative(pStr0, pStr1);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2316,29 +1830,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcsncasecmp(string str1, char* str2, nuint len)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcsncasecmpNative(pstr1, str2, len);
+				return ret;
 			}
-			int ret = WcsncasecmpNative(pStr0, str2, len);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcsncasecmp(char* str1, ref char str2, nuint len)
@@ -2361,29 +1857,11 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcsncasecmp(char* str1, string str2, nuint len)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str2 != null)
+			fixed (char* pstr2 = str2)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str2, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
+				int ret = WcsncasecmpNative(str1, pstr2, len);
+				return ret;
 			}
-			int ret = WcsncasecmpNative(str1, pStr0, len);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		public static int Wcsncasecmp(ref char str1, ref char str2, nuint len)
@@ -2412,50 +1890,14 @@ namespace Hexa.NET.SDL2
 
 		public static int Wcsncasecmp(string str1, string str2, nuint len)
 		{
-			char* pStr0 = null;
-			int pStrSize0 = 0;
-			if (str1 != null)
+			fixed (char* pstr1 = str1)
 			{
-				pStrSize0 = Utils.GetByteCountUTF16(str1);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
+				fixed (char* pstr2 = str2)
 				{
-					pStr0 = Utils.Alloc<char>(pStrSize0 + 1);
+					int ret = WcsncasecmpNative(pstr1, pstr2, len);
+					return ret;
 				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = (char*)pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF16(str1, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = '\0';
 			}
-			char* pStr1 = null;
-			int pStrSize1 = 0;
-			if (str2 != null)
-			{
-				pStrSize1 = Utils.GetByteCountUTF16(str2);
-				if (pStrSize1 >= Utils.MaxStackallocSize)
-				{
-					pStr1 = Utils.Alloc<char>(pStrSize1 + 1);
-				}
-				else
-				{
-					byte* pStrStack1 = stackalloc byte[pStrSize1 + 1];
-					pStr1 = (char*)pStrStack1;
-				}
-				int pStrOffset1 = Utils.EncodeStringUTF16(str2, pStr1, pStrSize1);
-				pStr1[pStrOffset1] = '\0';
-			}
-			int ret = WcsncasecmpNative(pStr0, pStr1, len);
-			if (pStrSize1 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr1);
-			}
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-			return ret;
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -5054,6 +4496,522 @@ namespace Hexa.NET.SDL2
 				}
 				return ret;
 			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint Utf8StrlenNative(byte* str)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint>)funcTable[56])(str);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint>)funcTable[56])((nint)str);
+			#endif
+		}
+
+		public static nuint Utf8Strlen(byte* str)
+		{
+			nuint ret = Utf8StrlenNative(str);
+			return ret;
+		}
+
+		public static nuint Utf8Strlen(ref byte str)
+		{
+			fixed (byte* pstr = &str)
+			{
+				nuint ret = Utf8StrlenNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		public static nuint Utf8Strlen(ReadOnlySpan<byte> str)
+		{
+			fixed (byte* pstr = str)
+			{
+				nuint ret = Utf8StrlenNative((byte*)pstr);
+				return ret;
+			}
+		}
+
+		public static nuint Utf8Strlen(string str)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = Utf8StrlenNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static nuint Utf8StrnlenNative(byte* str, nuint bytes)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, nuint, nuint>)funcTable[57])(str, bytes);
+			#else
+			return (nuint)((delegate* unmanaged[Cdecl]<nint, nuint, nuint>)funcTable[57])((nint)str, bytes);
+			#endif
+		}
+
+		public static nuint Utf8Strnlen(byte* str, nuint bytes)
+		{
+			nuint ret = Utf8StrnlenNative(str, bytes);
+			return ret;
+		}
+
+		public static nuint Utf8Strnlen(ref byte str, nuint bytes)
+		{
+			fixed (byte* pstr = &str)
+			{
+				nuint ret = Utf8StrnlenNative((byte*)pstr, bytes);
+				return ret;
+			}
+		}
+
+		public static nuint Utf8Strnlen(ReadOnlySpan<byte> str, nuint bytes)
+		{
+			fixed (byte* pstr = str)
+			{
+				nuint ret = Utf8StrnlenNative((byte*)pstr, bytes);
+				return ret;
+			}
+		}
+
+		public static nuint Utf8Strnlen(string str, nuint bytes)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			nuint ret = Utf8StrnlenNative(pStr0, bytes);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* ItoaNative(int value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*, int, byte*>)funcTable[58])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint, int, nint>)funcTable[58])(value, (nint)str, radix);
+			#endif
+		}
+
+		public static byte* Itoa(int value, byte* str, int radix)
+		{
+			byte* ret = ItoaNative(value, str, radix);
+			return ret;
+		}
+
+		public static string ItoaS(int value, byte* str, int radix)
+		{
+			string ret = Utils.DecodeStringUTF8(ItoaNative(value, str, radix));
+			return ret;
+		}
+
+		public static byte* Itoa(int value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = ItoaNative(value, (byte*)pstr, radix);
+				return ret;
+			}
+		}
+
+		public static string ItoaS(int value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(ItoaNative(value, (byte*)pstr, radix));
+				return ret;
+			}
+		}
+
+		public static byte* Itoa(int value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = ItoaNative(value, pStr0, radix);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string ItoaS(int value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(ItoaNative(value, pStr0, radix));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* UitoaNative(uint value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[59])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[59])(value, (nint)str, radix);
+			#endif
+		}
+
+		public static byte* Uitoa(uint value, byte* str, int radix)
+		{
+			byte* ret = UitoaNative(value, str, radix);
+			return ret;
+		}
+
+		public static string UitoaS(uint value, byte* str, int radix)
+		{
+			string ret = Utils.DecodeStringUTF8(UitoaNative(value, str, radix));
+			return ret;
+		}
+
+		public static byte* Uitoa(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = UitoaNative(value, (byte*)pstr, radix);
+				return ret;
+			}
+		}
+
+		public static string UitoaS(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(UitoaNative(value, (byte*)pstr, radix));
+				return ret;
+			}
+		}
+
+		public static byte* Uitoa(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = UitoaNative(value, pStr0, radix);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string UitoaS(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(UitoaNative(value, pStr0, radix));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* LtoaNative(int value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int, byte*, int, byte*>)funcTable[60])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<int, nint, int, nint>)funcTable[60])(value, (nint)str, radix);
+			#endif
+		}
+
+		public static byte* Ltoa(int value, byte* str, int radix)
+		{
+			byte* ret = LtoaNative(value, str, radix);
+			return ret;
+		}
+
+		public static string LtoaS(int value, byte* str, int radix)
+		{
+			string ret = Utils.DecodeStringUTF8(LtoaNative(value, str, radix));
+			return ret;
+		}
+
+		public static byte* Ltoa(int value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = LtoaNative(value, (byte*)pstr, radix);
+				return ret;
+			}
+		}
+
+		public static string LtoaS(int value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(LtoaNative(value, (byte*)pstr, radix));
+				return ret;
+			}
+		}
+
+		public static byte* Ltoa(int value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = LtoaNative(value, pStr0, radix);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string LtoaS(int value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(LtoaNative(value, pStr0, radix));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* UltoaNative(uint value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<uint, byte*, int, byte*>)funcTable[61])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<uint, nint, int, nint>)funcTable[61])(value, (nint)str, radix);
+			#endif
+		}
+
+		public static byte* Ultoa(uint value, byte* str, int radix)
+		{
+			byte* ret = UltoaNative(value, str, radix);
+			return ret;
+		}
+
+		public static string UltoaS(uint value, byte* str, int radix)
+		{
+			string ret = Utils.DecodeStringUTF8(UltoaNative(value, str, radix));
+			return ret;
+		}
+
+		public static byte* Ultoa(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				byte* ret = UltoaNative(value, (byte*)pstr, radix);
+				return ret;
+			}
+		}
+
+		public static string UltoaS(uint value, ref byte str, int radix)
+		{
+			fixed (byte* pstr = &str)
+			{
+				string ret = Utils.DecodeStringUTF8(UltoaNative(value, (byte*)pstr, radix));
+				return ret;
+			}
+		}
+
+		public static byte* Ultoa(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			byte* ret = UltoaNative(value, pStr0, radix);
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		public static string UltoaS(uint value, ref string str, int radix)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (str != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(str);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(str, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			string ret = Utils.DecodeStringUTF8(UltoaNative(value, pStr0, radix));
+			str = Utils.DecodeStringUTF8(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static byte* LltoaNative(long value, byte* str, int radix)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<long, byte*, int, byte*>)funcTable[62])(value, str, radix);
+			#else
+			return (byte*)((delegate* unmanaged[Cdecl]<long, nint, int, nint>)funcTable[62])(value, (nint)str, radix);
+			#endif
 		}
 	}
 }

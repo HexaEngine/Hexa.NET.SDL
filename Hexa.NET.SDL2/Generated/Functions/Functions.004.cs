@@ -18,567 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(byte* dst, byte* src, uint len, int volume)
-		{
-			MixAudioNative(dst, src, len, volume);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(ref byte dst, byte* src, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				MixAudioNative((byte*)pdst, src, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(byte* dst, ref byte src, uint len, int volume)
-		{
-			fixed (byte* psrc = &src)
-			{
-				MixAudioNative(dst, (byte*)psrc, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// This function is a legacy means of mixing audio.<br/>
-		/// This function is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_MixAudioFormat(dst, src, format, len, volume);<br/>
-		/// ```<br/>
-		/// ...where `format` is the obtained format of the audio device from the<br/>
-		/// legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudio(ref byte dst, ref byte src, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					MixAudioNative((byte*)pdst, (byte*)psrc, len, volume);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void MixAudioFormatNative(byte* dst, byte* src, ushort format, uint len, int volume)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, byte*, ushort, uint, int, void>)funcTable[239])(dst, src, format, len, volume);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, ushort, uint, int, void>)funcTable[239])((nint)dst, (nint)src, format, len, volume);
-			#endif
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(byte* dst, byte* src, ushort format, uint len, int volume)
-		{
-			MixAudioFormatNative(dst, src, format, len, volume);
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(ref byte dst, byte* src, ushort format, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				MixAudioFormatNative((byte*)pdst, src, format, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(byte* dst, ref byte src, ushort format, uint len, int volume)
-		{
-			fixed (byte* psrc = &src)
-			{
-				MixAudioFormatNative(dst, (byte*)psrc, format, len, volume);
-			}
-		}
-
-		/// <summary>
-		/// Mix audio data in a specified format.<br/>
-		/// This takes an audio buffer `src` of `len` bytes of `format` data and mixes<br/>
-		/// it into `dst`, performing addition, volume adjustment, and overflow<br/>
-		/// clipping. The buffer pointed to by `dst` must also be `len` bytes of<br/>
-		/// `format` data.<br/>
-		/// This is provided for convenience -- you can mix your own audio data.<br/>
-		/// Do not use this function for mixing together more than two streams of<br/>
-		/// sample data. The output from repeated application of this function may be<br/>
-		/// distorted by clipping, because there is no accumulator with greater range<br/>
-		/// than the input (not to mention this being an inefficient way of doing it).<br/>
-		/// It is a common misconception that this function is required to write audio<br/>
-		/// data to an output stream in an audio callback. While you can do that,<br/>
-		/// SDL_MixAudioFormat() is really only needed when you're mixing a single<br/>
-		/// audio stream with a volume adjustment.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void MixAudioFormat(ref byte dst, ref byte src, ushort format, uint len, int volume)
-		{
-			fixed (byte* pdst = &dst)
-			{
-				fixed (byte* psrc = &src)
-				{
-					MixAudioFormatNative((byte*)pdst, (byte*)psrc, format, len, volume);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Queue more audio on non-callback devices.<br/>
-		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
-		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
-		/// -1 to signify an error if you use it with capture devices.<br/>
-		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
-		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
-		/// method), or you can supply no callback, and then SDL will expect you to<br/>
-		/// supply data at regular intervals (push method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Queued data will drain to the device as<br/>
-		/// necessary without further intervention from you. If the device needs audio<br/>
-		/// but there is not enough queued, it will play silence to make up the<br/>
-		/// difference. This means you will have skips in your audio playback if you<br/>
-		/// aren't routinely queueing sufficient data.<br/>
-		/// This function copies the supplied data, so you are safe to free it when the<br/>
-		/// function returns. This function is thread-safe, but queueing to the same<br/>
-		/// device from two threads at once does not promise which buffer will be<br/>
-		/// queued first.<br/>
-		/// You may not queue audio on a device that is using an application-supplied<br/>
-		/// callback; doing so returns an error. You have to use the audio callback or<br/>
-		/// queue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
-		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
-		/// before queuing audio.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int QueueAudioNative(uint dev, void* data, uint len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, int>)funcTable[240])(dev, data, len);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<uint, nint, uint, int>)funcTable[240])(dev, (nint)data, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Queue more audio on non-callback devices.<br/>
-		/// If you are looking to retrieve queued audio from a non-callback capture<br/>
-		/// device, you want SDL_DequeueAudio() instead. SDL_QueueAudio() will return<br/>
-		/// -1 to signify an error if you use it with capture devices.<br/>
-		/// SDL offers two ways to feed audio to the device: you can either supply a<br/>
-		/// callback that SDL triggers with some frequency to obtain more audio (pull<br/>
-		/// method), or you can supply no callback, and then SDL will expect you to<br/>
-		/// supply data at regular intervals (push method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Queued data will drain to the device as<br/>
-		/// necessary without further intervention from you. If the device needs audio<br/>
-		/// but there is not enough queued, it will play silence to make up the<br/>
-		/// difference. This means you will have skips in your audio playback if you<br/>
-		/// aren't routinely queueing sufficient data.<br/>
-		/// This function copies the supplied data, so you are safe to free it when the<br/>
-		/// function returns. This function is thread-safe, but queueing to the same<br/>
-		/// device from two threads at once does not promise which buffer will be<br/>
-		/// queued first.<br/>
-		/// You may not queue audio on a device that is using an application-supplied<br/>
-		/// callback; doing so returns an error. You have to use the audio callback or<br/>
-		/// queue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before queueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// Note that SDL2 does not support planar audio. You will need to resample<br/>
-		/// from planar audio formats into a non-planar one (see SDL_AudioFormat)<br/>
-		/// before queuing audio.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int QueueAudio(uint dev, void* data, uint len)
-		{
-			int ret = QueueAudioNative(dev, data, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Dequeue more audio on non-callback devices.<br/>
-		/// If you are looking to queue audio for output on a non-callback playback<br/>
-		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
-		/// return 0 if you use it with playback devices.<br/>
-		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
-		/// supply a callback that SDL triggers with some frequency as the device<br/>
-		/// records more audio data, (push method), or you can supply no callback, and<br/>
-		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
-		/// method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Data from the device will keep queuing as<br/>
-		/// necessary without further intervention from you. This means you will<br/>
-		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
-		/// Capture devices will not queue data when paused; if you are expecting to<br/>
-		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
-		/// to stop the capture device from queueing more data. This can be useful<br/>
-		/// during, say, level loading times. When unpaused, capture devices will start<br/>
-		/// queueing data from that point, having flushed any capturable data available<br/>
-		/// while paused.<br/>
-		/// This function is thread-safe, but dequeueing from the same device from two<br/>
-		/// threads at once does not promise which thread will dequeue data first.<br/>
-		/// You may not dequeue audio from a device that is using an<br/>
-		/// application-supplied callback; doing so returns an error. You have to use<br/>
-		/// the audio callback, or dequeue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint DequeueAudioNative(uint dev, void* data, uint len)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, void*, uint, uint>)funcTable[241])(dev, data, len);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, nint, uint, uint>)funcTable[241])(dev, (nint)data, len);
-			#endif
-		}
-
-		/// <summary>
-		/// Dequeue more audio on non-callback devices.<br/>
-		/// If you are looking to queue audio for output on a non-callback playback<br/>
-		/// device, you want SDL_QueueAudio() instead. SDL_DequeueAudio() will always<br/>
-		/// return 0 if you use it with playback devices.<br/>
-		/// SDL offers two ways to retrieve audio from a capture device: you can either<br/>
-		/// supply a callback that SDL triggers with some frequency as the device<br/>
-		/// records more audio data, (push method), or you can supply no callback, and<br/>
-		/// then SDL will expect you to retrieve data at regular intervals (pull<br/>
-		/// method) with this function.<br/>
-		/// There are no limits on the amount of data you can queue, short of<br/>
-		/// exhaustion of address space. Data from the device will keep queuing as<br/>
-		/// necessary without further intervention from you. This means you will<br/>
-		/// eventually run out of memory if you aren't routinely dequeueing data.<br/>
-		/// Capture devices will not queue data when paused; if you are expecting to<br/>
-		/// not need captured audio for some length of time, use SDL_PauseAudioDevice()<br/>
-		/// to stop the capture device from queueing more data. This can be useful<br/>
-		/// during, say, level loading times. When unpaused, capture devices will start<br/>
-		/// queueing data from that point, having flushed any capturable data available<br/>
-		/// while paused.<br/>
-		/// This function is thread-safe, but dequeueing from the same device from two<br/>
-		/// threads at once does not promise which thread will dequeue data first.<br/>
-		/// You may not dequeue audio from a device that is using an<br/>
-		/// application-supplied callback; doing so returns an error. You have to use<br/>
-		/// the audio callback, or dequeue audio with this function, but not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before dequeueing; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint DequeueAudio(uint dev, void* data, uint len)
-		{
-			uint ret = DequeueAudioNative(dev, data, len);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of bytes of still-queued audio.<br/>
-		/// For playback devices: this is the number of bytes that have been queued for<br/>
-		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
-		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
-		/// byte boundary of what has been played. It's possible that we just gave the<br/>
-		/// hardware several kilobytes right before you called this function, but it<br/>
-		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
-		/// For capture devices, this is the number of bytes that have been captured by<br/>
-		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
-		/// time, so this only informs of the lower-bound of available data.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetQueuedAudioSizeNative(uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<uint, uint>)funcTable[242])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of bytes of still-queued audio.<br/>
-		/// For playback devices: this is the number of bytes that have been queued for<br/>
-		/// playback with SDL_QueueAudio(), but have not yet been sent to the hardware.<br/>
-		/// Once we've sent it to the hardware, this function can not decide the exact<br/>
-		/// byte boundary of what has been played. It's possible that we just gave the<br/>
-		/// hardware several kilobytes right before you called this function, but it<br/>
-		/// hasn't played any of it yet, or maybe half of it, etc.<br/>
-		/// For capture devices, this is the number of bytes that have been captured by<br/>
-		/// the device and are waiting for you to dequeue. This number may grow at any<br/>
-		/// time, so this only informs of the lower-bound of available data.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before querying; SDL<br/>
-		/// handles locking internally for this function.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetQueuedAudioSize(uint dev)
-		{
-			uint ret = GetQueuedAudioSizeNative(dev);
-			return ret;
-		}
-
-		/// <summary>
-		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
-		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
-		/// output devices, the hardware will start playing silence if more audio isn't<br/>
-		/// queued. For capture devices, the hardware will start filling the empty<br/>
-		/// queue with new data if the capture device isn't paused.<br/>
-		/// This will not prevent playback of queued audio that's already been sent to<br/>
-		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
-		/// of a second of audio that might still be heard. This can be useful if you<br/>
-		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
-		/// during a level change in your game.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
-		/// queue; SDL handles locking internally for this function.<br/>
-		/// This function always succeeds and thus returns void.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void ClearQueuedAudioNative(uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[243])(dev);
-			#endif
-		}
-
-		/// <summary>
-		/// Drop any queued audio data waiting to be sent to the hardware.<br/>
-		/// Immediately after this call, SDL_GetQueuedAudioSize() will return 0. For<br/>
-		/// output devices, the hardware will start playing silence if more audio isn't<br/>
-		/// queued. For capture devices, the hardware will start filling the empty<br/>
-		/// queue with new data if the capture device isn't paused.<br/>
-		/// This will not prevent playback of queued audio that's already been sent to<br/>
-		/// the hardware, as we can not undo that, so expect there to be some fraction<br/>
-		/// of a second of audio that might still be heard. This can be useful if you<br/>
-		/// want to, say, drop any pending music or any unprocessed microphone input<br/>
-		/// during a level change in your game.<br/>
-		/// You may not queue or dequeue audio on a device that is using an<br/>
-		/// application-supplied callback; calling this function on such a device<br/>
-		/// always returns 0. You have to use the audio callback or queue audio, but<br/>
-		/// not both.<br/>
-		/// You should not call SDL_LockAudio() on the device before clearing the<br/>
-		/// queue; SDL handles locking internally for this function.<br/>
-		/// This function always succeeds and thus returns void.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void ClearQueuedAudio(uint dev)
-		{
-			ClearQueuedAudioNative(dev);
-		}
-
-		/// <summary>
-		/// This function is a legacy means of locking the audio device.<br/>
-		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
-		/// is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_LockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockAudioNative()
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
-			#else
-			((delegate* unmanaged[Cdecl]<void>)funcTable[244])();
-			#endif
-		}
-
-		/// <summary>
-		/// This function is a legacy means of locking the audio device.<br/>
-		/// New programs might want to use SDL_LockAudioDevice() instead. This function<br/>
-		/// is equivalent to calling...<br/>
-		/// ```c<br/>
-		/// SDL_LockAudioDevice(1);<br/>
-		/// ```<br/>
-		/// ...and is only useful if you used the legacy SDL_OpenAudio() function.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void LockAudio()
-		{
-			LockAudioNative();
-		}
-
-		/// <summary>
-		/// Use this function to lock out the audio callback function for a specified<br/>
-		/// device.<br/>
-		/// The lock manipulated by these functions protects the audio callback<br/>
-		/// function specified in SDL_OpenAudioDevice(). During a<br/>
-		/// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed<br/>
-		/// that the callback function for that device is not running, even if the<br/>
-		/// device is not paused. While a device is locked, any other unpaused,<br/>
-		/// unlocked devices may still run their callbacks.<br/>
-		/// Calling this function from inside your audio callback is unnecessary. SDL<br/>
-		/// obtains this lock before calling your function, and releases it when the<br/>
-		/// function returns.<br/>
-		/// You should not hold the lock longer than absolutely necessary. If you hold<br/>
-		/// it too long, you'll experience dropouts in your audio playback. Ideally,<br/>
-		/// your application locks the device, sets a few variables and unlocks again.<br/>
-		/// Do not do heavy work while holding the lock for a device.<br/>
-		/// It is safe to lock the audio device multiple times, as long as you unlock<br/>
-		/// it an equivalent number of times. The callback will not run until the<br/>
-		/// device has been unlocked completely in this way. If your application fails<br/>
-		/// to unlock the device appropriately, your callback will never run, you might<br/>
-		/// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably<br/>
-		/// deadlock.<br/>
-		/// Internally, the audio device lock is a mutex; if you lock from two threads<br/>
-		/// at once, not only will you block the audio callback, you'll block the other<br/>
-		/// thread.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void LockAudioDeviceNative(uint dev)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, void>)funcTable[245])(dev);
-			#endif
-		}
-
-		/// <summary>
 		/// Use this function to lock out the audio callback function for a specified<br/>
 		/// device.<br/>
 		/// The lock manipulated by these functions protects the audio callback<br/>
@@ -5023,6 +4462,565 @@ namespace Hexa.NET.SDL2
 				fixed (int* px2 = &x2)
 				{
 					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, y2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, y2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, int* y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						fixed (int* px2 = &x2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (int* py2 = &y2)
+			{
+				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, (int*)py2);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, int* x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (int* px2 = &x2)
+			{
+				fixed (int* py2 = &y2)
+				{
+					SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, (int*)py2);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px2 = &x2)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (int* py1 = &y1)
+			{
+				fixed (int* px2 = &x2)
+				{
+					fixed (int* py2 = &y2)
+					{
+						SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, (int*)py2);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (int* px1 = &x1)
+			{
+				fixed (int* py1 = &y1)
+				{
+					fixed (int* px2 = &x2)
+					{
+						fixed (int* py2 = &y2)
+						{
+							SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Calculate the intersection of a rectangle and line segment.<br/>
+		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
+		/// contained entirely within the rectangle or that does not intersect will<br/>
+		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
+		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
+		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, ref int y2)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				fixed (int* px1 = &x1)
+				{
+					fixed (int* py1 = &y1)
+					{
+						fixed (int* px2 = &x2)
+						{
+							fixed (int* py2 = &y2)
+							{
+								SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasIntersectionFNative(SDLFRect* a, SDLFRect* b)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLBool>)funcTable[298])(a, b);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[298])((nint)a, (nint)b);
+			#endif
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(SDLFRect* a, SDLFRect* b)
+		{
+			SDLBool ret = HasIntersectionFNative(a, b);
+			return ret;
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(ref SDLFRect a, SDLFRect* b)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, b);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(SDLFRect* a, ref SDLFRect b)
+		{
+			fixed (SDLFRect* pb = &b)
+			{
+				SDLBool ret = HasIntersectionFNative(a, (SDLFRect*)pb);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Determine whether two rectangles intersect with float precision.<br/>
+		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasIntersectionF(ref SDLFRect a, ref SDLFRect b)
+		{
+			fixed (SDLFRect* pa = &a)
+			{
+				fixed (SDLFRect* pb = &b)
+				{
+					SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)pb);
 					return ret;
 				}
 			}

@@ -47,7 +47,7 @@ batch.Start()
     .Setup<CsCodeGenerator>("sdl2/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))
     .AddPrePatch(new EnumNamePatch())
-    .Generate(["sdl2/include/main.h"], "../../../../Hexa.NET.SDL2/Generated", [.. Directory.GetFiles("include")])
+    .Generate(["sdl2/include/main.h"], "../../../../Hexa.NET.SDL2/Generated", [.. Directory.GetFiles("sdl2/include")])
 
     // SDL 3
     .Setup<CsCodeGenerator>("sdl3/generator.json")

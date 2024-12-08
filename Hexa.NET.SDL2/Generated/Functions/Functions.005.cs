@@ -18,565 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, y2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, int* y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, y2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, int* y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* px2 = &x2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, y2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (int* py2 = &y2)
-			{
-				SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, x2, (int*)py2);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, x2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, x2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, x2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, x2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, x2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, x2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, int* x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, x2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (int* px2 = &x2)
-			{
-				fixed (int* py2 = &y2)
-				{
-					SDLBool ret = IntersectRectAndLineNative(rect, x1, y1, (int*)px2, (int*)py2);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, y1, (int*)px2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, y1, (int*)px2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, int* y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, y1, (int*)px2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, int* x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (int* py1 = &y1)
-			{
-				fixed (int* px2 = &x2)
-				{
-					fixed (int* py2 = &y2)
-					{
-						SDLBool ret = IntersectRectAndLineNative(rect, x1, (int*)py1, (int*)px2, (int*)py2);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, int* x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, x1, (int*)py1, (int*)px2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(SDLRect* rect, ref int x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (int* px1 = &x1)
-			{
-				fixed (int* py1 = &y1)
-				{
-					fixed (int* px2 = &x2)
-					{
-						fixed (int* py2 = &y2)
-						{
-							SDLBool ret = IntersectRectAndLineNative(rect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Calculate the intersection of a rectangle and line segment.<br/>
-		/// This function is used to clip a line segment to a rectangle. A line segment<br/>
-		/// contained entirely within the rectangle or that does not intersect will<br/>
-		/// remain unchanged. A line segment that crosses the rectangle at either or<br/>
-		/// both ends will be clipped to the boundary of the rectangle and the new<br/>
-		/// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool IntersectRectAndLine(ref SDLRect rect, ref int x1, ref int y1, ref int x2, ref int y2)
-		{
-			fixed (SDLRect* prect = &rect)
-			{
-				fixed (int* px1 = &x1)
-				{
-					fixed (int* py1 = &y1)
-					{
-						fixed (int* px2 = &x2)
-						{
-							fixed (int* py2 = &y2)
-							{
-								SDLBool ret = IntersectRectAndLineNative((SDLRect*)prect, (int*)px1, (int*)py1, (int*)px2, (int*)py2);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static SDLBool HasIntersectionFNative(SDLFRect* a, SDLFRect* b)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLFRect*, SDLFRect*, SDLBool>)funcTable[298])(a, b);
-			#else
-			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, nint, SDLBool>)funcTable[298])((nint)a, (nint)b);
-			#endif
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(SDLFRect* a, SDLFRect* b)
-		{
-			SDLBool ret = HasIntersectionFNative(a, b);
-			return ret;
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(ref SDLFRect a, SDLFRect* b)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, b);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(SDLFRect* a, ref SDLFRect b)
-		{
-			fixed (SDLFRect* pb = &b)
-			{
-				SDLBool ret = HasIntersectionFNative(a, (SDLFRect*)pb);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Determine whether two rectangles intersect with float precision.<br/>
-		/// If either pointer is NULL the function will return SDL_FALSE.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static SDLBool HasIntersectionF(ref SDLFRect a, ref SDLFRect b)
-		{
-			fixed (SDLFRect* pa = &a)
-			{
-				fixed (SDLFRect* pb = &b)
-				{
-					SDLBool ret = HasIntersectionFNative((SDLFRect*)pa, (SDLFRect*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
 		/// Calculate the intersection of two rectangles with float precision.<br/>
 		/// If `result` is NULL then this function will return SDL_FALSE.<br/>
 		/// <br/>
@@ -5014,6 +4455,575 @@ namespace Hexa.NET.SDL2
 				{
 					int ret = SoftStretchNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
 					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
+		/// format.<br/>
+		/// Please use SDL_BlitScaled() instead.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int SoftStretchLinearNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[337])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[337])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			int ret = SoftStretchLinearNative(src, srcrect, dst, dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = SoftStretchLinearNative(src, srcrect, (SDLSurface*)pdst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = SoftStretchLinearNative(src, srcrect, dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = SoftStretchLinearNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
+		/// <br/>
+		/// </summary>
+		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						fixed (SDLRect* pdstrect = &dstrect)
+						{
+							int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int UpperBlitScaledNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[338])(src, srcrect, dst, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[338])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			int ret = UpperBlitScaledNative(src, srcrect, dst, dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, dst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* pdst = &dst)
+			{
+				int ret = UpperBlitScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLSurface* pdst = &dst)
+				{
+					int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLSurface* pdst = &dst)
+					{
+						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = UpperBlitScaledNative(src, srcrect, dst, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Perform a scaled surface copy to a destination surface.<br/>
+		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
+		/// merely a macro for this function with a less confusing name.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
+		{
+			fixed (SDLSurface* psrc = &src)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
+						return ret;
+					}
 				}
 			}
 		}

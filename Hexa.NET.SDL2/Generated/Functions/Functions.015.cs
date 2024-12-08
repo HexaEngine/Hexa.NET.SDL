@@ -17,607 +17,6 @@ namespace Hexa.NET.SDL2
 	public unsafe partial class SDL
 	{
 
-		public static void GlColor3Ub(byte red, byte green, byte blue)
-		{
-			GlColor3UbNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UiNative(uint red, uint green, uint blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, void>)funcTable[1008])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3Ui(uint red, uint green, uint blue)
-		{
-			GlColor3UiNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UsNative(ushort red, ushort green, ushort blue)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
-			#else
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, void>)funcTable[1009])(red, green, blue);
-			#endif
-		}
-
-		public static void GlColor3Us(ushort red, ushort green, ushort blue)
-		{
-			GlColor3UsNative(red, green, blue);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4BNative(byte red, byte green, byte blue, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1010])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4B(byte red, byte green, byte blue, byte alpha)
-		{
-			GlColor4BNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4DNative(double red, double green, double blue, double alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<double, double, double, double, void>)funcTable[1011])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4D(double red, double green, double blue, double alpha)
-		{
-			GlColor4DNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4FNative(float red, float green, float blue, float alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<float, float, float, float, void>)funcTable[1012])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4F(float red, float green, float blue, float alpha)
-		{
-			GlColor4FNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4INative(int red, int green, int blue, int alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<int, int, int, int, void>)funcTable[1013])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4I(int red, int green, int blue, int alpha)
-		{
-			GlColor4INative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4SNative(short red, short green, short blue, short alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<short, short, short, short, void>)funcTable[1014])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4S(short red, short green, short blue, short alpha)
-		{
-			GlColor4SNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UbNative(byte red, byte green, byte blue, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<byte, byte, byte, byte, void>)funcTable[1015])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4Ub(byte red, byte green, byte blue, byte alpha)
-		{
-			GlColor4UbNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UiNative(uint red, uint green, uint blue, uint alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<uint, uint, uint, uint, void>)funcTable[1016])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4Ui(uint red, uint green, uint blue, uint alpha)
-		{
-			GlColor4UiNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UsNative(ushort red, ushort green, ushort blue, ushort alpha)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
-			#else
-			((delegate* unmanaged[Cdecl]<ushort, ushort, ushort, ushort, void>)funcTable[1017])(red, green, blue, alpha);
-			#endif
-		}
-
-		public static void GlColor4Us(ushort red, ushort green, ushort blue, ushort alpha)
-		{
-			GlColor4UsNative(red, green, blue, alpha);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3BvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1018])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1018])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Bv(byte* v)
-		{
-			GlColor3BvNative(v);
-		}
-
-		public static void GlColor3Bv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor3BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor3Bv(ReadOnlySpan<byte> v)
-		{
-			fixed (byte* pv = v)
-			{
-				GlColor3BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor3Bv(string v)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (v != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(v);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			GlColor3BvNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3DvNative(double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1019])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1019])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Dv(double* v)
-		{
-			GlColor3DvNative(v);
-		}
-
-		public static void GlColor3Dv(ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlColor3DvNative((double*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3FvNative(float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1020])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1020])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Fv(float* v)
-		{
-			GlColor3FvNative(v);
-		}
-
-		public static void GlColor3Fv(ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlColor3FvNative((float*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3IvNative(int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1021])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1021])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Iv(int* v)
-		{
-			GlColor3IvNative(v);
-		}
-
-		public static void GlColor3Iv(ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlColor3IvNative((int*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3SvNative(short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1022])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1022])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Sv(short* v)
-		{
-			GlColor3SvNative(v);
-		}
-
-		public static void GlColor3Sv(ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlColor3SvNative((short*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UbvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1023])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1023])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Ubv(byte* v)
-		{
-			GlColor3UbvNative(v);
-		}
-
-		public static void GlColor3Ubv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor3UbvNative((byte*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UivNative(uint* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1024])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1024])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Uiv(uint* v)
-		{
-			GlColor3UivNative(v);
-		}
-
-		public static void GlColor3Uiv(ref uint v)
-		{
-			fixed (uint* pv = &v)
-			{
-				GlColor3UivNative((uint*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor3UsvNative(ushort* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1025])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1025])((nint)v);
-			#endif
-		}
-
-		public static void GlColor3Usv(ushort* v)
-		{
-			GlColor3UsvNative(v);
-		}
-
-		public static void GlColor3Usv(ref ushort v)
-		{
-			fixed (ushort* pv = &v)
-			{
-				GlColor3UsvNative((ushort*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4BvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1026])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1026])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Bv(byte* v)
-		{
-			GlColor4BvNative(v);
-		}
-
-		public static void GlColor4Bv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor4BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor4Bv(ReadOnlySpan<byte> v)
-		{
-			fixed (byte* pv = v)
-			{
-				GlColor4BvNative((byte*)pv);
-			}
-		}
-
-		public static void GlColor4Bv(string v)
-		{
-			byte* pStr0 = null;
-			int pStrSize0 = 0;
-			if (v != null)
-			{
-				pStrSize0 = Utils.GetByteCountUTF8(v);
-				if (pStrSize0 >= Utils.MaxStackallocSize)
-				{
-					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
-				}
-				else
-				{
-					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
-					pStr0 = pStrStack0;
-				}
-				int pStrOffset0 = Utils.EncodeStringUTF8(v, pStr0, pStrSize0);
-				pStr0[pStrOffset0] = 0;
-			}
-			GlColor4BvNative(pStr0);
-			if (pStrSize0 >= Utils.MaxStackallocSize)
-			{
-				Utils.Free(pStr0);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4DvNative(double* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double*, void>)funcTable[1027])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1027])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Dv(double* v)
-		{
-			GlColor4DvNative(v);
-		}
-
-		public static void GlColor4Dv(ref double v)
-		{
-			fixed (double* pv = &v)
-			{
-				GlColor4DvNative((double*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4FvNative(float* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<float*, void>)funcTable[1028])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1028])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Fv(float* v)
-		{
-			GlColor4FvNative(v);
-		}
-
-		public static void GlColor4Fv(ref float v)
-		{
-			fixed (float* pv = &v)
-			{
-				GlColor4FvNative((float*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4IvNative(int* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<int*, void>)funcTable[1029])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1029])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Iv(int* v)
-		{
-			GlColor4IvNative(v);
-		}
-
-		public static void GlColor4Iv(ref int v)
-		{
-			fixed (int* pv = &v)
-			{
-				GlColor4IvNative((int*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4SvNative(short* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<short*, void>)funcTable[1030])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1030])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Sv(short* v)
-		{
-			GlColor4SvNative(v);
-		}
-
-		public static void GlColor4Sv(ref short v)
-		{
-			fixed (short* pv = &v)
-			{
-				GlColor4SvNative((short*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UbvNative(byte* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<byte*, void>)funcTable[1031])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1031])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Ubv(byte* v)
-		{
-			GlColor4UbvNative(v);
-		}
-
-		public static void GlColor4Ubv(ref byte v)
-		{
-			fixed (byte* pv = &v)
-			{
-				GlColor4UbvNative((byte*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UivNative(uint* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<uint*, void>)funcTable[1032])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1032])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Uiv(uint* v)
-		{
-			GlColor4UivNative(v);
-		}
-
-		public static void GlColor4Uiv(ref uint v)
-		{
-			fixed (uint* pv = &v)
-			{
-				GlColor4UivNative((uint*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlColor4UsvNative(ushort* v)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<ushort*, void>)funcTable[1033])(v);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[1033])((nint)v);
-			#endif
-		}
-
-		public static void GlColor4Usv(ushort* v)
-		{
-			GlColor4UsvNative(v);
-		}
-
-		public static void GlColor4Usv(ref ushort v)
-		{
-			fixed (ushort* pv = &v)
-			{
-				GlColor4UsvNative((ushort*)pv);
-			}
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GlTexCoord1DNative(double s)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
-			#else
-			((delegate* unmanaged[Cdecl]<double, void>)funcTable[1034])(s);
-			#endif
-		}
-
 		public static void GlTexCoord1D(double s)
 		{
 			GlTexCoord1DNative(s);
@@ -5023,6 +4422,606 @@ namespace Hexa.NET.SDL2
 			((delegate* unmanaged[Cdecl]<uint, int, void*, void>)funcTable[1264])(target, lod, img);
 			#else
 			((delegate* unmanaged[Cdecl]<uint, int, nint, void>)funcTable[1264])(target, lod, (nint)img);
+			#endif
+		}
+
+		public static void GlGetCompressedTexImage(uint target, int lod, void* img)
+		{
+			GlGetCompressedTexImageNative(target, lod, img);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1DNative(uint target, double s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1265])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, void>)funcTable[1265])(target, s);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1D(uint target, double s)
+		{
+			GlMultiTexCoord1DNative(target, s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1DvNative(uint target, double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1266])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1266])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1Dv(uint target, double* v)
+		{
+			GlMultiTexCoord1DvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord1Dv(uint target, ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord1DvNative(target, (double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1FNative(uint target, float s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1267])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, void>)funcTable[1267])(target, s);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1F(uint target, float s)
+		{
+			GlMultiTexCoord1FNative(target, s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1FvNative(uint target, float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1268])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1268])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1Fv(uint target, float* v)
+		{
+			GlMultiTexCoord1FvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord1Fv(uint target, ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord1FvNative(target, (float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1INative(uint target, int s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1269])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, void>)funcTable[1269])(target, s);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1I(uint target, int s)
+		{
+			GlMultiTexCoord1INative(target, s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1IvNative(uint target, int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1270])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1270])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1Iv(uint target, int* v)
+		{
+			GlMultiTexCoord1IvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord1Iv(uint target, ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord1IvNative(target, (int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1SNative(uint target, short s)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1271])(target, s);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, void>)funcTable[1271])(target, s);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1S(uint target, short s)
+		{
+			GlMultiTexCoord1SNative(target, s);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord1SvNative(uint target, short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1272])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1272])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord1Sv(uint target, short* v)
+		{
+			GlMultiTexCoord1SvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord1Sv(uint target, ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlMultiTexCoord1SvNative(target, (short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2DNative(uint target, double s, double t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1273])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, void>)funcTable[1273])(target, s, t);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2D(uint target, double s, double t)
+		{
+			GlMultiTexCoord2DNative(target, s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2DvNative(uint target, double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1274])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1274])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2Dv(uint target, double* v)
+		{
+			GlMultiTexCoord2DvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord2Dv(uint target, ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord2DvNative(target, (double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2FNative(uint target, float s, float t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1275])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, void>)funcTable[1275])(target, s, t);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2F(uint target, float s, float t)
+		{
+			GlMultiTexCoord2FNative(target, s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2FvNative(uint target, float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1276])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1276])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2Fv(uint target, float* v)
+		{
+			GlMultiTexCoord2FvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord2Fv(uint target, ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord2FvNative(target, (float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2INative(uint target, int s, int t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1277])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, void>)funcTable[1277])(target, s, t);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2I(uint target, int s, int t)
+		{
+			GlMultiTexCoord2INative(target, s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2IvNative(uint target, int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1278])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1278])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2Iv(uint target, int* v)
+		{
+			GlMultiTexCoord2IvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord2Iv(uint target, ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord2IvNative(target, (int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2SNative(uint target, short s, short t)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1279])(target, s, t);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, short, void>)funcTable[1279])(target, s, t);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2S(uint target, short s, short t)
+		{
+			GlMultiTexCoord2SNative(target, s, t);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord2SvNative(uint target, short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1280])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1280])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord2Sv(uint target, short* v)
+		{
+			GlMultiTexCoord2SvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord2Sv(uint target, ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlMultiTexCoord2SvNative(target, (short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3DNative(uint target, double s, double t, double r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1281])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, void>)funcTable[1281])(target, s, t, r);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3D(uint target, double s, double t, double r)
+		{
+			GlMultiTexCoord3DNative(target, s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3DvNative(uint target, double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1282])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1282])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3Dv(uint target, double* v)
+		{
+			GlMultiTexCoord3DvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord3Dv(uint target, ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord3DvNative(target, (double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3FNative(uint target, float s, float t, float r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1283])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, void>)funcTable[1283])(target, s, t, r);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3F(uint target, float s, float t, float r)
+		{
+			GlMultiTexCoord3FNative(target, s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3FvNative(uint target, float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1284])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1284])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3Fv(uint target, float* v)
+		{
+			GlMultiTexCoord3FvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord3Fv(uint target, ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord3FvNative(target, (float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3INative(uint target, int s, int t, int r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1285])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, void>)funcTable[1285])(target, s, t, r);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3I(uint target, int s, int t, int r)
+		{
+			GlMultiTexCoord3INative(target, s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3IvNative(uint target, int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1286])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1286])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3Iv(uint target, int* v)
+		{
+			GlMultiTexCoord3IvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord3Iv(uint target, ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord3IvNative(target, (int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3SNative(uint target, short s, short t, short r)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1287])(target, s, t, r);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, void>)funcTable[1287])(target, s, t, r);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3S(uint target, short s, short t, short r)
+		{
+			GlMultiTexCoord3SNative(target, s, t, r);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord3SvNative(uint target, short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1288])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1288])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord3Sv(uint target, short* v)
+		{
+			GlMultiTexCoord3SvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord3Sv(uint target, ref short v)
+		{
+			fixed (short* pv = &v)
+			{
+				GlMultiTexCoord3SvNative(target, (short*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4DNative(uint target, double s, double t, double r, double q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, double, double, double, double, void>)funcTable[1289])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4D(uint target, double s, double t, double r, double q)
+		{
+			GlMultiTexCoord4DNative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4DvNative(uint target, double* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, double*, void>)funcTable[1290])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1290])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4Dv(uint target, double* v)
+		{
+			GlMultiTexCoord4DvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord4Dv(uint target, ref double v)
+		{
+			fixed (double* pv = &v)
+			{
+				GlMultiTexCoord4DvNative(target, (double*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4FNative(uint target, float s, float t, float r, float q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, float, float, float, float, void>)funcTable[1291])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4F(uint target, float s, float t, float r, float q)
+		{
+			GlMultiTexCoord4FNative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4FvNative(uint target, float* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, float*, void>)funcTable[1292])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1292])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4Fv(uint target, float* v)
+		{
+			GlMultiTexCoord4FvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord4Fv(uint target, ref float v)
+		{
+			fixed (float* pv = &v)
+			{
+				GlMultiTexCoord4FvNative(target, (float*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4INative(uint target, int s, int t, int r, int q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, int, int, int, int, void>)funcTable[1293])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4I(uint target, int s, int t, int r, int q)
+		{
+			GlMultiTexCoord4INative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4IvNative(uint target, int* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, int*, void>)funcTable[1294])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1294])(target, (nint)v);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4Iv(uint target, int* v)
+		{
+			GlMultiTexCoord4IvNative(target, v);
+		}
+
+		public static void GlMultiTexCoord4Iv(uint target, ref int v)
+		{
+			fixed (int* pv = &v)
+			{
+				GlMultiTexCoord4IvNative(target, (int*)pv);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4SNative(uint target, short s, short t, short r, short q)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, short, short, short, short, void>)funcTable[1295])(target, s, t, r, q);
+			#endif
+		}
+
+		public static void GlMultiTexCoord4S(uint target, short s, short t, short r, short q)
+		{
+			GlMultiTexCoord4SNative(target, s, t, r, q);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GlMultiTexCoord4SvNative(uint target, short* v)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<uint, short*, void>)funcTable[1296])(target, v);
+			#else
+			((delegate* unmanaged[Cdecl]<uint, nint, void>)funcTable[1296])(target, (nint)v);
 			#endif
 		}
 	}

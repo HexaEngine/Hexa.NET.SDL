@@ -18,600 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, b);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, byte* b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, b);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, byte* b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, b);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(SDLTexture* texture, byte* r, byte* g, ref byte b)
-		{
-			fixed (byte* pb = &b)
-			{
-				int ret = GetTextureColorModNative(texture, r, g, (byte*)pb);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, byte* g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, g, (byte*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, byte* g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetTextureColorModNative(texture, (byte*)pr, g, (byte*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, byte* g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, g, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(SDLTexture* texture, byte* r, ref byte g, ref byte b)
-		{
-			fixed (byte* pg = &g)
-			{
-				fixed (byte* pb = &b)
-				{
-					int ret = GetTextureColorModNative(texture, r, (byte*)pg, (byte*)pb);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(ref SDLTexture texture, byte* r, ref byte g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetTextureColorModNative((SDLTexture*)ptexture, r, (byte*)pg, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(SDLTexture* texture, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (byte* pr = &r)
-			{
-				fixed (byte* pg = &g)
-				{
-					fixed (byte* pb = &b)
-					{
-						int ret = GetTextureColorModNative(texture, (byte*)pr, (byte*)pg, (byte*)pb);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the additional color value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureColorMod(ref SDLTexture texture, ref byte r, ref byte g, ref byte b)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* pr = &r)
-				{
-					fixed (byte* pg = &g)
-					{
-						fixed (byte* pb = &b)
-						{
-							int ret = GetTextureColorModNative((SDLTexture*)ptexture, (byte*)pr, (byte*)pg, (byte*)pb);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
-		/// if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureAlphaModNative(SDLTexture* texture, byte alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte, int>)funcTable[737])(texture, alpha);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, byte, int>)funcTable[737])((nint)texture, alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
-		/// if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureAlphaMod(SDLTexture* texture, byte alpha)
-		{
-			int ret = SetTextureAlphaModNative(texture, alpha);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set an additional alpha value multiplied into render copy operations.<br/>
-		/// When this texture is rendered, during the copy operation the source alpha<br/>
-		/// value is modulated by this alpha value according to the following formula:<br/>
-		/// `srcA = srcA * (alpha / 255)`<br/>
-		/// Alpha modulation is not always supported by the renderer; it will return -1<br/>
-		/// if alpha modulation is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureAlphaMod(ref SDLTexture texture, byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureAlphaModNative(SDLTexture* texture, byte* alpha)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, byte*, int>)funcTable[738])(texture, alpha);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[738])((nint)texture, (nint)alpha);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureAlphaMod(SDLTexture* texture, byte* alpha)
-		{
-			int ret = GetTextureAlphaModNative(texture, alpha);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureAlphaMod(ref SDLTexture texture, byte* alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, alpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureAlphaMod(SDLTexture* texture, ref byte alpha)
-		{
-			fixed (byte* palpha = &alpha)
-			{
-				int ret = GetTextureAlphaModNative(texture, (byte*)palpha);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the additional alpha value multiplied into render copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureAlphaMod(ref SDLTexture texture, ref byte alpha)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (byte* palpha = &alpha)
-				{
-					int ret = GetTextureAlphaModNative((SDLTexture*)ptexture, (byte*)palpha);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode, int>)funcTable[739])(texture, blendMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLBlendMode, int>)funcTable[739])((nint)texture, blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureBlendMode(SDLTexture* texture, SDLBlendMode blendMode)
-		{
-			int ret = SetTextureBlendModeNative(texture, blendMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the blend mode for a texture, used by SDL_RenderCopy().<br/>
-		/// If the blend mode is not supported, the closest supported mode is chosen<br/>
-		/// and this function returns -1.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureBlendMode(ref SDLTexture texture, SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureBlendModeNative(SDLTexture* texture, SDLBlendMode* blendMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLBlendMode*, int>)funcTable[740])(texture, blendMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[740])((nint)texture, (nint)blendMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureBlendMode(SDLTexture* texture, SDLBlendMode* blendMode)
-		{
-			int ret = GetTextureBlendModeNative(texture, blendMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureBlendMode(ref SDLTexture texture, SDLBlendMode* blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, blendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureBlendMode(SDLTexture* texture, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLBlendMode* pblendMode = &blendMode)
-			{
-				int ret = GetTextureBlendModeNative(texture, (SDLBlendMode*)pblendMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the blend mode used for texture copy operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureBlendMode(ref SDLTexture texture, ref SDLBlendMode blendMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLBlendMode* pblendMode = &blendMode)
-				{
-					int ret = GetTextureBlendModeNative((SDLTexture*)ptexture, (SDLBlendMode*)pblendMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode, int>)funcTable[741])(texture, scaleMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, SDLScaleMode, int>)funcTable[741])((nint)texture, scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureScaleMode(SDLTexture* texture, SDLScaleMode scaleMode)
-		{
-			int ret = SetTextureScaleModeNative(texture, scaleMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Set the scale mode used for texture scale operations.<br/>
-		/// If the scale mode is not supported, the closest supported mode is chosen.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int SetTextureScaleMode(ref SDLTexture texture, SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = SetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GetTextureScaleModeNative(SDLTexture* texture, SDLScaleMode* scaleMode)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLTexture*, SDLScaleMode*, int>)funcTable[742])(texture, scaleMode);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[742])((nint)texture, (nint)scaleMode);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(SDLTexture* texture, SDLScaleMode* scaleMode)
-		{
-			int ret = GetTextureScaleModeNative(texture, scaleMode);
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(ref SDLTexture texture, SDLScaleMode* scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, scaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(SDLTexture* texture, ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLScaleMode* pscaleMode = &scaleMode)
-			{
-				int ret = GetTextureScaleModeNative(texture, (SDLScaleMode*)pscaleMode);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Get the scale mode used for texture scale operations.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetTextureScaleMode(ref SDLTexture texture, ref SDLScaleMode scaleMode)
-		{
-			fixed (SDLTexture* ptexture = &texture)
-			{
-				fixed (SDLScaleMode* pscaleMode = &scaleMode)
-				{
-					int ret = GetTextureScaleModeNative((SDLTexture*)ptexture, (SDLScaleMode*)pscaleMode);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
 		/// Associate a user-specified pointer with a texture.<br/>
 		/// <br/>
 		/// <br/>
@@ -5025,6 +4431,609 @@ namespace Hexa.NET.SDL2
 			{
 				int ret = RenderDrawRectNative((SDLRenderer*)prenderer, rect);
 				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRect(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = RenderDrawRectNative(renderer, (SDLRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw a rectangle on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRect(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = RenderDrawRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderDrawRectsNative(SDLRenderer* renderer, SDLRect* rects, int count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)funcTable[777])(renderer, rects, count);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[777])((nint)renderer, (nint)rects, count);
+			#endif
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRects(SDLRenderer* renderer, SDLRect* rects, int count)
+		{
+			int ret = RenderDrawRectsNative(renderer, rects, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRects(ref SDLRenderer renderer, SDLRect* rects, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, rects, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRects(SDLRenderer* renderer, ref SDLRect rects, int count)
+		{
+			fixed (SDLRect* prects = &rects)
+			{
+				int ret = RenderDrawRectsNative(renderer, (SDLRect*)prects, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Draw some number of rectangles on the current rendering target.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderDrawRects(ref SDLRenderer renderer, ref SDLRect rects, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prects = &rects)
+				{
+					int ret = RenderDrawRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
+		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
+		/// color's alpha value is ignored unless blending is enabled with the<br/>
+		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderFillRectNative(SDLRenderer* renderer, SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int>)funcTable[778])(renderer, rect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int>)funcTable[778])((nint)renderer, (nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
+		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
+		/// color's alpha value is ignored unless blending is enabled with the<br/>
+		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRect(SDLRenderer* renderer, SDLRect* rect)
+		{
+			int ret = RenderFillRectNative(renderer, rect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
+		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
+		/// color's alpha value is ignored unless blending is enabled with the<br/>
+		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRect(ref SDLRenderer renderer, SDLRect* rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderFillRectNative((SDLRenderer*)prenderer, rect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
+		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
+		/// color's alpha value is ignored unless blending is enabled with the<br/>
+		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRect(SDLRenderer* renderer, ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				int ret = RenderFillRectNative(renderer, (SDLRect*)prect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Fill a rectangle on the current rendering target with the drawing color.<br/>
+		/// The current drawing color is set by SDL_SetRenderDrawColor(), and the<br/>
+		/// color's alpha value is ignored unless blending is enabled with the<br/>
+		/// appropriate call to SDL_SetRenderDrawBlendMode().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRect(ref SDLRenderer renderer, ref SDLRect rect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prect = &rect)
+				{
+					int ret = RenderFillRectNative((SDLRenderer*)prenderer, (SDLRect*)prect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderFillRectsNative(SDLRenderer* renderer, SDLRect* rects, int count)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLRect*, int, int>)funcTable[779])(renderer, rects, count);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, int, int>)funcTable[779])((nint)renderer, (nint)rects, count);
+			#endif
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRects(SDLRenderer* renderer, SDLRect* rects, int count)
+		{
+			int ret = RenderFillRectsNative(renderer, rects, count);
+			return ret;
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRects(ref SDLRenderer renderer, SDLRect* rects, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderFillRectsNative((SDLRenderer*)prenderer, rects, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRects(SDLRenderer* renderer, ref SDLRect rects, int count)
+		{
+			fixed (SDLRect* prects = &rects)
+			{
+				int ret = RenderFillRectsNative(renderer, (SDLRect*)prects, count);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Fill some number of rectangles on the current rendering target with the<br/>
+		/// drawing color.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderFillRects(ref SDLRenderer renderer, ref SDLRect rects, int count)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* prects = &rects)
+				{
+					int ret = RenderFillRectsNative((SDLRenderer*)prenderer, (SDLRect*)prects, count);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int RenderCopyNative(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, SDLRect* dstrect)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLRenderer*, SDLTexture*, SDLRect*, SDLRect*, int>)funcTable[780])(renderer, texture, srcrect, dstrect);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[780])((nint)renderer, (nint)texture, (nint)srcrect, (nint)dstrect);
+			#endif
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, SDLRect* dstrect)
+		{
+			int ret = RenderCopyNative(renderer, texture, srcrect, dstrect);
+			return ret;
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, SDLRect* srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, ref SDLTexture texture, SDLRect* srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, SDLRect* srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, ref SDLRect srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, dstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, ref SDLRect srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, (SDLRect*)psrcrect, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, ref SDLTexture texture, ref SDLRect srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* psrcrect = &srcrect)
+				{
+					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, ref SDLRect srcrect, SDLRect* dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* psrcrect = &srcrect)
+					{
+						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, (SDLRect*)psrcrect, dstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* pdstrect = &dstrect)
+			{
+				int ret = RenderCopyNative(renderer, texture, srcrect, (SDLRect*)pdstrect);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, SDLTexture* texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyNative((SDLRenderer*)prenderer, texture, srcrect, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, ref SDLTexture texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLTexture* ptexture = &texture)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyNative(renderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(ref SDLRenderer renderer, ref SDLTexture texture, SDLRect* srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRenderer* prenderer = &renderer)
+			{
+				fixed (SDLTexture* ptexture = &texture)
+				{
+					fixed (SDLRect* pdstrect = &dstrect)
+					{
+						int ret = RenderCopyNative((SDLRenderer*)prenderer, (SDLTexture*)ptexture, srcrect, (SDLRect*)pdstrect);
+						return ret;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Copy a portion of the texture to the current rendering target.<br/>
+		/// The texture is blended with the destination based on its blend mode set<br/>
+		/// with SDL_SetTextureBlendMode().<br/>
+		/// The texture color is affected based on its color modulation set by<br/>
+		/// SDL_SetTextureColorMod().<br/>
+		/// The texture alpha is affected based on its alpha modulation set by<br/>
+		/// SDL_SetTextureAlphaMod().<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int RenderCopy(SDLRenderer* renderer, SDLTexture* texture, ref SDLRect srcrect, ref SDLRect dstrect)
+		{
+			fixed (SDLRect* psrcrect = &srcrect)
+			{
+				fixed (SDLRect* pdstrect = &dstrect)
+				{
+					int ret = RenderCopyNative(renderer, texture, (SDLRect*)psrcrect, (SDLRect*)pdstrect);
+					return ret;
+				}
 			}
 		}
 	}

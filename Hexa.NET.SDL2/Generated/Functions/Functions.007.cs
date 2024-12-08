@@ -18,576 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(SDLWindow* window, ref int top, ref int left, ref int bottom, ref int right)
-		{
-			fixed (int* ptop = &top)
-			{
-				fixed (int* pleft = &left)
-				{
-					fixed (int* pbottom = &bottom)
-					{
-						fixed (int* pright = &right)
-						{
-							int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window's borders (decorations) around the client area.<br/>
-		/// Note: If this function fails (returns -1), the size values will be<br/>
-		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
-		/// window in question was borderless.<br/>
-		/// Note: This function may fail on systems where the window has not yet been<br/>
-		/// decorated by the display server (for example, immediately after calling<br/>
-		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
-		/// window has been presented and composited, so that the window system has a<br/>
-		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
-		/// This function also returns -1 if getting the information is not supported.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, ref int bottom, ref int right)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ptop = &top)
-				{
-					fixed (int* pleft = &left)
-					{
-						fixed (int* pbottom = &bottom)
-						{
-							fixed (int* pright = &right)
-							{
-								int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
-								return ret;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowSizeInPixelsNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[381])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[381])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, int* w, int* h)
-		{
-			GetWindowSizeInPixelsNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				GetWindowSizeInPixelsNative(window, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				GetWindowSizeInPixelsNative(window, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(SDLWindow* window, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowSizeInPixelsNative(window, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the size of a window in pixels.<br/>
-		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
-		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
-		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
-		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowMinimumSizeNative(SDLWindow* window, int minW, int minH)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[382])(window, minW, minH);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[382])((nint)window, minW, minH);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMinimumSize(SDLWindow* window, int minW, int minH)
-		{
-			SetWindowMinimumSizeNative(window, minW, minH);
-		}
-
-		/// <summary>
-		/// Set the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMinimumSize(ref SDLWindow window, int minW, int minH)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowMinimumSizeNative((SDLWindow*)pwindow, minW, minH);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowMinimumSizeNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[383])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[383])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, int* w, int* h)
-		{
-			GetWindowMinimumSizeNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				GetWindowMinimumSizeNative(window, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				GetWindowMinimumSizeNative(window, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(SDLWindow* window, ref int w, ref int h)
-		{
-			fixed (int* pw = &w)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowMinimumSizeNative(window, (int*)pw, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the minimum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					fixed (int* ph = &h)
-					{
-						GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Set the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void SetWindowMaximumSizeNative(SDLWindow* window, int maxW, int maxH)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[384])(window, maxW, maxH);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[384])((nint)window, maxW, maxH);
-			#endif
-		}
-
-		/// <summary>
-		/// Set the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMaximumSize(SDLWindow* window, int maxW, int maxH)
-		{
-			SetWindowMaximumSizeNative(window, maxW, maxH);
-		}
-
-		/// <summary>
-		/// Set the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void SetWindowMaximumSize(ref SDLWindow window, int maxW, int maxH)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				SetWindowMaximumSizeNative((SDLWindow*)pwindow, maxW, maxH);
-			}
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static void GetWindowMaximumSizeNative(SDLWindow* window, int* w, int* h)
-		{
-			#if NET5_0_OR_GREATER
-			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[385])(window, w, h);
-			#else
-			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[385])((nint)window, (nint)w, (nint)h);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(SDLWindow* window, int* w, int* h)
-		{
-			GetWindowMaximumSizeNative(window, w, h);
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(ref SDLWindow window, int* w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(SDLWindow* window, ref int w, int* h)
-		{
-			fixed (int* pw = &w)
-			{
-				GetWindowMaximumSizeNative(window, (int*)pw, h);
-			}
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(ref SDLWindow window, ref int w, int* h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* pw = &w)
-				{
-					GetWindowMaximumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(SDLWindow* window, int* w, ref int h)
-		{
-			fixed (int* ph = &h)
-			{
-				GetWindowMaximumSizeNative(window, w, (int*)ph);
-			}
-		}
-
-		/// <summary>
-		/// Get the maximum size of a window's client area.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static void GetWindowMaximumSize(ref SDLWindow window, int* w, ref int h)
-		{
-			fixed (SDLWindow* pwindow = &window)
-			{
-				fixed (int* ph = &h)
-				{
-					GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
-				}
-			}
-		}
-
-		/// <summary>
 		/// Get the maximum size of a window's client area.<br/>
 		/// <br/>
 		/// <br/>
@@ -5022,6 +4452,573 @@ namespace Hexa.NET.SDL2
 			#else
 			return (byte*)((delegate* unmanaged[Cdecl]<int, nint>)funcTable[449])(key);
 			#endif
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a key.<br/>
+		/// See SDL_Scancode and SDL_Keycode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static byte* GetKeyName(int key)
+		{
+			byte* ret = GetKeyNameNative(key);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a human-readable name for a key.<br/>
+		/// See SDL_Scancode and SDL_Keycode for details.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static string GetKeyNameS(int key)
+		{
+			string ret = Utils.DecodeStringUTF8(GetKeyNameNative(key));
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GetKeyFromNameNative(byte* name)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<byte*, int>)funcTable[450])(name);
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<nint, int>)funcTable[450])((nint)name);
+			#endif
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(byte* name)
+		{
+			int ret = GetKeyFromNameNative(name);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(ref byte name)
+		{
+			fixed (byte* pname = &name)
+			{
+				int ret = GetKeyFromNameNative((byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(ReadOnlySpan<byte> name)
+		{
+			fixed (byte* pname = name)
+			{
+				int ret = GetKeyFromNameNative((byte*)pname);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get a key code from a human-readable name.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetKeyFromName(string name)
+		{
+			byte* pStr0 = null;
+			int pStrSize0 = 0;
+			if (name != null)
+			{
+				pStrSize0 = Utils.GetByteCountUTF8(name);
+				if (pStrSize0 >= Utils.MaxStackallocSize)
+				{
+					pStr0 = Utils.Alloc<byte>(pStrSize0 + 1);
+				}
+				else
+				{
+					byte* pStrStack0 = stackalloc byte[pStrSize0 + 1];
+					pStr0 = pStrStack0;
+				}
+				int pStrOffset0 = Utils.EncodeStringUTF8(name, pStr0, pStrSize0);
+				pStr0[pStrOffset0] = 0;
+			}
+			int ret = GetKeyFromNameNative(pStr0);
+			if (pStrSize0 >= Utils.MaxStackallocSize)
+			{
+				Utils.Free(pStr0);
+			}
+			return ret;
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events.<br/>
+		/// This function will start accepting Unicode text input events in the focused<br/>
+		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
+		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
+		/// pair with SDL_StopTextInput().<br/>
+		/// On some platforms using this function activates the screen keyboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void StartTextInputNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[451])();
+			#endif
+		}
+
+		/// <summary>
+		/// Start accepting Unicode text input events.<br/>
+		/// This function will start accepting Unicode text input events in the focused<br/>
+		/// SDL window, and start emitting SDL_TextInputEvent (SDL_TEXTINPUT) and<br/>
+		/// SDL_TextEditingEvent (SDL_TEXTEDITING) events. Please use this function in<br/>
+		/// pair with SDL_StopTextInput().<br/>
+		/// On some platforms using this function activates the screen keyboard.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void StartTextInput()
+		{
+			StartTextInputNative();
+		}
+
+		/// <summary>
+		/// Check whether or not Unicode text input events are enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsTextInputActiveNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[452])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether or not Unicode text input events are enabled.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsTextInputActive()
+		{
+			SDLBool ret = IsTextInputActiveNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Stop receiving any text input events.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void StopTextInputNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[453])();
+			#endif
+		}
+
+		/// <summary>
+		/// Stop receiving any text input events.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void StopTextInput()
+		{
+			StopTextInputNative();
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void ClearCompositionNative()
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
+			#else
+			((delegate* unmanaged[Cdecl]<void>)funcTable[454])();
+			#endif
+		}
+
+		/// <summary>
+		/// Dismiss the composition window/IME without disabling the subsystem.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void ClearComposition()
+		{
+			ClearCompositionNative();
+		}
+
+		/// <summary>
+		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsTextInputShownNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[455])();
+			#endif
+		}
+
+		/// <summary>
+		/// Returns if an IME Composite or Candidate window is currently shown.<br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsTextInputShown()
+		{
+			SDLBool ret = IsTextInputShownNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
+		/// will place a window with word suggestions near it, without covering the<br/>
+		/// text being inputted.<br/>
+		/// To start text input in a given location, this function is intended to be<br/>
+		/// called before SDL_StartTextInput, although some platforms support moving<br/>
+		/// the rectangle even while text input (and a composition) is active.<br/>
+		/// Note: If you want to use the system native IME window, try setting hint<br/>
+		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
+		/// any feedback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetTextInputRectNative(SDLRect* rect)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLRect*, void>)funcTable[456])(rect);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, void>)funcTable[456])((nint)rect);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
+		/// will place a window with word suggestions near it, without covering the<br/>
+		/// text being inputted.<br/>
+		/// To start text input in a given location, this function is intended to be<br/>
+		/// called before SDL_StartTextInput, although some platforms support moving<br/>
+		/// the rectangle even while text input (and a composition) is active.<br/>
+		/// Note: If you want to use the system native IME window, try setting hint<br/>
+		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
+		/// any feedback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTextInputRect(SDLRect* rect)
+		{
+			SetTextInputRectNative(rect);
+		}
+
+		/// <summary>
+		/// Set the rectangle used to type Unicode text inputs. Native input methods<br/>
+		/// will place a window with word suggestions near it, without covering the<br/>
+		/// text being inputted.<br/>
+		/// To start text input in a given location, this function is intended to be<br/>
+		/// called before SDL_StartTextInput, although some platforms support moving<br/>
+		/// the rectangle even while text input (and a composition) is active.<br/>
+		/// Note: If you want to use the system native IME window, try setting hint<br/>
+		/// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you<br/>
+		/// any feedback.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetTextInputRect(ref SDLRect rect)
+		{
+			fixed (SDLRect* prect = &rect)
+			{
+				SetTextInputRectNative((SDLRect*)prect);
+			}
+		}
+
+		/// <summary>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool HasScreenKeyboardSupportNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<SDLBool>)funcTable[457])();
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether the platform has screen keyboard support.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool HasScreenKeyboardSupport()
+		{
+			SDLBool ret = HasScreenKeyboardSupportNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLBool IsScreenKeyboardShownNative(SDLWindow* window)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*, SDLBool>)funcTable[458])(window);
+			#else
+			return (SDLBool)((delegate* unmanaged[Cdecl]<nint, SDLBool>)funcTable[458])((nint)window);
+			#endif
+		}
+
+		/// <summary>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsScreenKeyboardShown(SDLWindow* window)
+		{
+			SDLBool ret = IsScreenKeyboardShownNative(window);
+			return ret;
+		}
+
+		/// <summary>
+		/// Check whether the screen keyboard is shown for given window.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLBool IsScreenKeyboardShown(ref SDLWindow window)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SDLBool ret = IsScreenKeyboardShownNative((SDLWindow*)pwindow);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static SDLWindow* GetMouseFocusNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<SDLWindow*>)funcTable[459])();
+			#else
+			return (SDLWindow*)((delegate* unmanaged[Cdecl]<nint>)funcTable[459])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the window which currently has mouse focus.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static SDLWindow* GetMouseFocus()
+		{
+			SDLWindow* ret = GetMouseFocusNative();
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetMouseStateNative(int* x, int* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[460])(x, y);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[460])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(int* x, int* y)
+		{
+			uint ret = GetMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(ref int x, int* y)
+		{
+			fixed (int* px = &x)
+			{
+				uint ret = GetMouseStateNative((int*)px, y);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(int* x, ref int y)
+		{
+			fixed (int* py = &y)
+			{
+				uint ret = GetMouseStateNative(x, (int*)py);
+				return ret;
+			}
+		}
+
+		/// <summary>
+		/// Retrieve the current state of the mouse.<br/>
+		/// The current button state is returned as a button bitmask, which can be<br/>
+		/// tested using the `SDL_BUTTON(X)` macros (where `X` is generally 1 for the<br/>
+		/// left, 2 for middle, 3 for the right button), and `x` and `y` are set to the<br/>
+		/// mouse cursor position relative to the focus window. You can pass NULL for<br/>
+		/// either `x` or `y`.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetMouseState(ref int x, ref int y)
+		{
+			fixed (int* px = &x)
+			{
+				fixed (int* py = &y)
+				{
+					uint ret = GetMouseStateNative((int*)px, (int*)py);
+					return ret;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the current state of the mouse in relation to the desktop.<br/>
+		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
+		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
+		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
+		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
+		/// track the mouse while dragging a window, where coordinates relative to a<br/>
+		/// window might not be in sync at all times.<br/>
+		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
+		/// from the last pump of the event queue. This function, however, queries the<br/>
+		/// OS for the current mouse position, and as such, might be a slightly less<br/>
+		/// efficient function. Unless you know what you're doing and have a good<br/>
+		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetGlobalMouseStateNative(int* x, int* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[461])(x, y);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[461])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of the mouse in relation to the desktop.<br/>
+		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
+		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
+		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
+		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
+		/// track the mouse while dragging a window, where coordinates relative to a<br/>
+		/// window might not be in sync at all times.<br/>
+		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
+		/// from the last pump of the event queue. This function, however, queries the<br/>
+		/// OS for the current mouse position, and as such, might be a slightly less<br/>
+		/// efficient function. Unless you know what you're doing and have a good<br/>
+		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetGlobalMouseState(int* x, int* y)
+		{
+			uint ret = GetGlobalMouseStateNative(x, y);
+			return ret;
 		}
 	}
 }

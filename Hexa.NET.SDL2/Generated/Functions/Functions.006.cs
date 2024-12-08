@@ -18,575 +18,6 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a fast, low quality, stretch blit between two surfaces of the same<br/>
-		/// format.<br/>
-		/// Please use SDL_BlitScaled() instead.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretch(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = SoftStretchNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int SoftStretchLinearNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[337])(src, srcrect, dst, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[337])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			int ret = SoftStretchLinearNative(src, srcrect, dst, dstrect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = SoftStretchLinearNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = SoftStretchLinearNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = SoftStretchLinearNative(src, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchLinearNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = SoftStretchLinearNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform bilinear scaling between two surfaces of the same format, 32BPP.<br/>
-		/// <br/>
-		/// </summary>
-		public static int SoftStretchLinear(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						fixed (SDLRect* pdstrect = &dstrect)
-						{
-							int ret = SoftStretchLinearNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, (SDLRect*)pdstrect);
-							return ret;
-						}
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int UpperBlitScaledNative(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<SDLSurface*, SDLRect*, SDLSurface*, SDLRect*, int>)funcTable[338])(src, srcrect, dst, dstrect);
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<nint, nint, nint, nint, int>)funcTable[338])((nint)src, (nint)srcrect, (nint)dst, (nint)dstrect);
-			#endif
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			int ret = UpperBlitScaledNative(src, srcrect, dst, dstrect);
-			return ret;
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, dst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* pdst = &dst)
-			{
-				int ret = UpperBlitScaledNative(src, srcrect, (SDLSurface*)pdst, dstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLSurface* pdst = &dst)
-				{
-					int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLSurface* pdst = &dst)
-					{
-						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, (SDLSurface*)pdst, dstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* pdstrect = &dstrect)
-			{
-				int ret = UpperBlitScaledNative(src, srcrect, dst, (SDLRect*)pdstrect);
-				return ret;
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret;
-					}
-				}
-			}
-		}
-
-		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
 		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
 		/// merely a macro for this function with a less confusing name.<br/>
@@ -5027,6 +4458,576 @@ namespace Hexa.NET.SDL2
 							return ret;
 						}
 					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(SDLWindow* window, ref int top, ref int left, ref int bottom, ref int right)
+		{
+			fixed (int* ptop = &top)
+			{
+				fixed (int* pleft = &left)
+				{
+					fixed (int* pbottom = &bottom)
+					{
+						fixed (int* pright = &right)
+						{
+							int ret = GetWindowBordersSizeNative(window, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
+							return ret;
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window's borders (decorations) around the client area.<br/>
+		/// Note: If this function fails (returns -1), the size values will be<br/>
+		/// initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the<br/>
+		/// window in question was borderless.<br/>
+		/// Note: This function may fail on systems where the window has not yet been<br/>
+		/// decorated by the display server (for example, immediately after calling<br/>
+		/// SDL_CreateWindow). It is recommended that you wait at least until the<br/>
+		/// window has been presented and composited, so that the window system has a<br/>
+		/// chance to decorate the window and provide the border dimensions to SDL.<br/>
+		/// This function also returns -1 if getting the information is not supported.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GetWindowBordersSize(ref SDLWindow window, ref int top, ref int left, ref int bottom, ref int right)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ptop = &top)
+				{
+					fixed (int* pleft = &left)
+					{
+						fixed (int* pbottom = &bottom)
+						{
+							fixed (int* pright = &right)
+							{
+								int ret = GetWindowBordersSizeNative((SDLWindow*)pwindow, (int*)ptop, (int*)pleft, (int*)pbottom, (int*)pright);
+								return ret;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowSizeInPixelsNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[381])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[381])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindow* window, int* w, int* h)
+		{
+			GetWindowSizeInPixelsNative(window, w, h);
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindow* window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GetWindowSizeInPixelsNative(window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindow* window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GetWindowSizeInPixelsNative(window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowSizeInPixelsNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(SDLWindow* window, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowSizeInPixelsNative(window, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the size of a window in pixels.<br/>
+		/// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI<br/>
+		/// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a<br/>
+		/// platform with high-DPI support (Apple calls this "Retina"), and not<br/>
+		/// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowSizeInPixels(ref SDLWindow window, ref int w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						GetWindowSizeInPixelsNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowMinimumSizeNative(SDLWindow* window, int minW, int minH)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[382])(window, minW, minH);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[382])((nint)window, minW, minH);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMinimumSize(SDLWindow* window, int minW, int minH)
+		{
+			SetWindowMinimumSizeNative(window, minW, minH);
+		}
+
+		/// <summary>
+		/// Set the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMinimumSize(ref SDLWindow window, int minW, int minH)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowMinimumSizeNative((SDLWindow*)pwindow, minW, minH);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowMinimumSizeNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[383])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[383])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindow* window, int* w, int* h)
+		{
+			GetWindowMinimumSizeNative(window, w, h);
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindow* window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GetWindowMinimumSizeNative(window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindow* window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GetWindowMinimumSizeNative(window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowMinimumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(SDLWindow* window, ref int w, ref int h)
+		{
+			fixed (int* pw = &w)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowMinimumSizeNative(window, (int*)pw, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the minimum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMinimumSize(ref SDLWindow window, ref int w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					fixed (int* ph = &h)
+					{
+						GetWindowMinimumSizeNative((SDLWindow*)pwindow, (int*)pw, (int*)ph);
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Set the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void SetWindowMaximumSizeNative(SDLWindow* window, int maxW, int maxH)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int, int, void>)funcTable[384])(window, maxW, maxH);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, int, int, void>)funcTable[384])((nint)window, maxW, maxH);
+			#endif
+		}
+
+		/// <summary>
+		/// Set the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMaximumSize(SDLWindow* window, int maxW, int maxH)
+		{
+			SetWindowMaximumSizeNative(window, maxW, maxH);
+		}
+
+		/// <summary>
+		/// Set the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void SetWindowMaximumSize(ref SDLWindow window, int maxW, int maxH)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				SetWindowMaximumSizeNative((SDLWindow*)pwindow, maxW, maxH);
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static void GetWindowMaximumSizeNative(SDLWindow* window, int* w, int* h)
+		{
+			#if NET5_0_OR_GREATER
+			((delegate* unmanaged[Cdecl]<SDLWindow*, int*, int*, void>)funcTable[385])(window, w, h);
+			#else
+			((delegate* unmanaged[Cdecl]<nint, nint, nint, void>)funcTable[385])((nint)window, (nint)w, (nint)h);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(SDLWindow* window, int* w, int* h)
+		{
+			GetWindowMaximumSizeNative(window, w, h);
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(ref SDLWindow window, int* w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(SDLWindow* window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GetWindowMaximumSizeNative(window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GetWindowMaximumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(SDLWindow* window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GetWindowMaximumSizeNative(window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
 				}
 			}
 		}
