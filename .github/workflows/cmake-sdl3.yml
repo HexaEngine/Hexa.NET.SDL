@@ -11,10 +11,10 @@ jobs:
           - os: ubuntu-latest
             arch: x86_64
             cmake-arch: x64
-          - os: linux
-            arch: arm64
-            cmake-arch: aarch64
-            runner-label: self-hosted
+#          - os: linux
+#            arch: arm64
+#            cmake-arch: aarch64
+#            runner-label: self-hosted
           - os: windows-latest
             arch: x86_64
             cmake-arch: x64
