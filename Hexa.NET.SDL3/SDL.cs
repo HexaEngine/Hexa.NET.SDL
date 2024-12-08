@@ -1,15 +1,35 @@
 ﻿namespace Hexa.NET.SDL3
 {
-    public static partial class SDL
+    using HexaGen.Runtime;
+    using System.Runtime.InteropServices;
+
+    public static unsafe partial class SDL
     {
         static SDL()
         {
             InitApi();
         }
 
+        public static Exception? GetErrorAsException()
+        {
+            byte* ex = GetError();
+
+            if (ex == null || ex[0] == '\0')
+            {
+                return null;
+            }
+
+            return new Exception(Utils.DecodeStringUTF8(ex));
+        }
+
         public static string GetLibraryName()
         {
-            return "sdl3";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return "SDL3";
+            }
+
+            return "libSDL3";
         }
     }
 }

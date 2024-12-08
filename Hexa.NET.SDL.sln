@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexa.NET.SDL2", "Hexa.NET.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Generator.csproj", "{E23DD7CA-8C27-4B28-A04C-323F85301CDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{FD826B07-B533-4229-AF02-6D1734E64044}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example (SDL2)", "Example (SDL2)\Example (SDL2).csproj", "{FD826B07-B533-4229-AF02-6D1734E64044}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleImGui", "ExampleImGui\ExampleImGui.csproj", "{38502E55-8C18-4B2B-851D-D3533AE25003}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleAndroid", "ExampleAndroid\ExampleAndroid.csproj", "{0F0F9B1E-C6AE-43F1-9936-A3ADEDDCBCD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.NET.SDL3", "Hexa.NET.SDL3\Hexa.NET.SDL3.csproj", "{179AEDDE-27F9-40A9-80C1-74ABCE079385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example (SDL3)", "Example (SDL3)\Example (SDL3).csproj", "{329A4F65-AB5D-428B-85CB-8A7199E3CC5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{179AEDDE-27F9-40A9-80C1-74ABCE079385}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{179AEDDE-27F9-40A9-80C1-74ABCE079385}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{179AEDDE-27F9-40A9-80C1-74ABCE079385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329A4F65-AB5D-428B-85CB-8A7199E3CC5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329A4F65-AB5D-428B-85CB-8A7199E3CC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329A4F65-AB5D-428B-85CB-8A7199E3CC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329A4F65-AB5D-428B-85CB-8A7199E3CC5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
