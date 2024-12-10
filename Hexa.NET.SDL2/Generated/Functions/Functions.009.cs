@@ -18,6 +18,32 @@ namespace Hexa.NET.SDL2
 	{
 
 		/// <summary>
+		/// Get the number of mappings installed.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static int GameControllerNumMappingsNative()
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
+			#else
+			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
+			#endif
+		}
+
+		/// <summary>
+		/// Get the number of mappings installed.<br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static int GameControllerNumMappings()
+		{
+			int ret = GameControllerNumMappingsNative();
+			return ret;
+		}
+
+		/// <summary>
 		/// Get the mapping at a particular index.<br/>
 		/// <br/>
 		/// <br/>

@@ -23,6 +23,68 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		public static void GetWindowMaximumSize(SDLWindow* window, ref int w, int* h)
+		{
+			fixed (int* pw = &w)
+			{
+				GetWindowMaximumSizeNative(window, (int*)pw, h);
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(ref SDLWindow window, ref int w, int* h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* pw = &w)
+				{
+					GetWindowMaximumSizeNative((SDLWindow*)pwindow, (int*)pw, h);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(SDLWindow* window, int* w, ref int h)
+		{
+			fixed (int* ph = &h)
+			{
+				GetWindowMaximumSizeNative(window, w, (int*)ph);
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static void GetWindowMaximumSize(ref SDLWindow window, int* w, ref int h)
+		{
+			fixed (SDLWindow* pwindow = &window)
+			{
+				fixed (int* ph = &h)
+				{
+					GetWindowMaximumSizeNative((SDLWindow*)pwindow, w, (int*)ph);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Get the maximum size of a window's client area.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		public static void GetWindowMaximumSize(SDLWindow* window, ref int w, ref int h)
 		{
 			fixed (int* pw = &w)
@@ -4969,56 +5031,6 @@ namespace Hexa.NET.SDL2
 					return ret;
 				}
 			}
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static uint GetGlobalMouseStateNative(int* x, int* y)
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[461])(x, y);
-			#else
-			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[461])((nint)x, (nint)y);
-			#endif
-		}
-
-		/// <summary>
-		/// Get the current state of the mouse in relation to the desktop.<br/>
-		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
-		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
-		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
-		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
-		/// track the mouse while dragging a window, where coordinates relative to a<br/>
-		/// window might not be in sync at all times.<br/>
-		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
-		/// from the last pump of the event queue. This function, however, queries the<br/>
-		/// OS for the current mouse position, and as such, might be a slightly less<br/>
-		/// efficient function. Unless you know what you're doing and have a good<br/>
-		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static uint GetGlobalMouseState(int* x, int* y)
-		{
-			uint ret = GetGlobalMouseStateNative(x, y);
-			return ret;
 		}
 	}
 }

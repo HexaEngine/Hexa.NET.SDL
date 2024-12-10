@@ -8,8 +8,8 @@ unsafe
 
     var window = SDL.CreateWindow("Test Window", 32, 32, 1280, 720, (uint)SDLWindowFlags.Resizable);
     var windowId = SDL.GetWindowID(window);
-
-    SDLEvent sdlEvent = default;
+    SDL.UpperBlit
+        SDLEvent sdlEvent = default;
     bool exiting = false;
     while (!exiting)
     {

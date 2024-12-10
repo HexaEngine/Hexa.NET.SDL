@@ -1,12 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using HexaGen;
 using HexaGen.Patching;
-using System.Text.RegularExpressions;
 using System.Text;
-using HexaGen.Metadata;
+using System.Text.RegularExpressions;
 
 // SDL2
-List<string> filesSdl2 = [.. Directory.GetFiles("include")];
+List<string> filesSdl2 = [.. Directory.GetFiles("sdl2/include")];
 
 // SDL3
 Regex regex = new("#include <(.*)>", RegexOptions.Multiline | RegexOptions.Compiled);
@@ -39,15 +38,12 @@ for (int i = filesSdl3.Count - 1; i >= 0; i--)
     }
 }
 
-BatchGenerator batch = new();
-batch.Start()
-
+BatchGenerator.Create()
     // SDL 2
-
     .Setup<CsCodeGenerator>("sdl2/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))
     .AddPrePatch(new EnumNamePatch())
-    .Generate(["sdl2/include/main.h"], "../../../../Hexa.NET.SDL2/Generated", [.. Directory.GetFiles("sdl2/include")])
+    .Generate(["sdl2/include/main.h"], "../../../../Hexa.NET.SDL2/Generated", filesSdl2)
 
     // SDL 3
     .Setup<CsCodeGenerator>("sdl3/generator.json")

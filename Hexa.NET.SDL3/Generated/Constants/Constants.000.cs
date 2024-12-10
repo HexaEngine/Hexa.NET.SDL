@@ -1590,6 +1590,26 @@ namespace Hexa.NET.SDL3
 		[NativeName(NativeNameType.Value, "\"SDL.textinput.android.inputtype\"")]
 		public const string SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER = "SDL.textinput.android.inputtype";
 
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_LEFT")]
+		[NativeName(NativeNameType.Value, "1")]
+		public const int SDL_BUTTON_LEFT = 1;
+
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_MIDDLE")]
+		[NativeName(NativeNameType.Value, "2")]
+		public const int SDL_BUTTON_MIDDLE = 2;
+
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_RIGHT")]
+		[NativeName(NativeNameType.Value, "3")]
+		public const int SDL_BUTTON_RIGHT = 3;
+
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_X1")]
+		[NativeName(NativeNameType.Value, "4")]
+		public const int SDL_BUTTON_X1 = 4;
+
+		[NativeName(NativeNameType.Const, "SDL_BUTTON_X2")]
+		[NativeName(NativeNameType.Value, "5")]
+		public const int SDL_BUTTON_X2 = 5;
+
 		[NativeName(NativeNameType.Const, "SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_R_FLOAT")]
 		[NativeName(NativeNameType.Value, "\"SDL.gpu.createtexture.d3d12.clear.r\"")]
 		public const string SDL_PROP_GPU_CREATETEXTURE_D3D12_CLEAR_R_FLOAT = "SDL.gpu.createtexture.d3d12.clear.r";

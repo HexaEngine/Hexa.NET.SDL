@@ -34,6 +34,56 @@ namespace Hexa.NET.SDL2
 		/// <br/>
 		/// <br/>
 		/// </summary>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		internal static uint GetGlobalMouseStateNative(int* x, int* y)
+		{
+			#if NET5_0_OR_GREATER
+			return ((delegate* unmanaged[Cdecl]<int*, int*, uint>)funcTable[461])(x, y);
+			#else
+			return (uint)((delegate* unmanaged[Cdecl]<nint, nint, uint>)funcTable[461])((nint)x, (nint)y);
+			#endif
+		}
+
+		/// <summary>
+		/// Get the current state of the mouse in relation to the desktop.<br/>
+		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
+		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
+		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
+		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
+		/// track the mouse while dragging a window, where coordinates relative to a<br/>
+		/// window might not be in sync at all times.<br/>
+		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
+		/// from the last pump of the event queue. This function, however, queries the<br/>
+		/// OS for the current mouse position, and as such, might be a slightly less<br/>
+		/// efficient function. Unless you know what you're doing and have a good<br/>
+		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
+		public static uint GetGlobalMouseState(int* x, int* y)
+		{
+			uint ret = GetGlobalMouseStateNative(x, y);
+			return ret;
+		}
+
+		/// <summary>
+		/// Get the current state of the mouse in relation to the desktop.<br/>
+		/// This works similarly to SDL_GetMouseState(), but the coordinates will be<br/>
+		/// reported relative to the top-left of the desktop. This can be useful if you<br/>
+		/// need to track the mouse outside of a specific window and SDL_CaptureMouse()<br/>
+		/// doesn't fit your needs. For example, it could be useful if you need to<br/>
+		/// track the mouse while dragging a window, where coordinates relative to a<br/>
+		/// window might not be in sync at all times.<br/>
+		/// Note: SDL_GetMouseState() returns the mouse position as SDL understands it<br/>
+		/// from the last pump of the event queue. This function, however, queries the<br/>
+		/// OS for the current mouse position, and as such, might be a slightly less<br/>
+		/// efficient function. Unless you know what you're doing and have a good<br/>
+		/// reason to use this function, you probably want SDL_GetMouseState() instead.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// </summary>
 		public static uint GetGlobalMouseState(ref int x, int* y)
 		{
 			fixed (int* px = &x)
@@ -4996,32 +5046,6 @@ namespace Hexa.NET.SDL2
 			{
 				Utils.Free(pStr0);
 			}
-			return ret;
-		}
-
-		/// <summary>
-		/// Get the number of mappings installed.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal static int GameControllerNumMappingsNative()
-		{
-			#if NET5_0_OR_GREATER
-			return ((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
-			#else
-			return (int)((delegate* unmanaged[Cdecl]<int>)funcTable[555])();
-			#endif
-		}
-
-		/// <summary>
-		/// Get the number of mappings installed.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int GameControllerNumMappings()
-		{
-			int ret = GameControllerNumMappingsNative();
 			return ret;
 		}
 	}

@@ -3558,6 +3558,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
+		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(src, srcrect, dst, dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3574,6 +3576,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(ref src, srcrect, dst, dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3589,6 +3593,8 @@ namespace Hexa.NET.SDL2
 				return ret;
 			}
 		}
+
+		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(src, ref srcrect, dst, dstrect);
 
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
@@ -3609,6 +3615,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlit(ref src, ref srcrect, dst, dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3624,6 +3632,8 @@ namespace Hexa.NET.SDL2
 				return ret;
 			}
 		}
+
+		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(src, srcrect, ref dst, dstrect);
 
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
@@ -3644,6 +3654,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(ref src, srcrect, ref dst, dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3662,6 +3674,8 @@ namespace Hexa.NET.SDL2
 				}
 			}
 		}
+
+		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(src, ref srcrect, ref dst, dstrect);
 
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
@@ -3685,6 +3699,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlit(ref src, ref srcrect, ref dst, dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3700,6 +3716,8 @@ namespace Hexa.NET.SDL2
 				return ret;
 			}
 		}
+
+		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, dst, ref dstrect);
 
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
@@ -3720,6 +3738,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, dst, ref dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3738,6 +3758,8 @@ namespace Hexa.NET.SDL2
 				}
 			}
 		}
+
+		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(src, ref srcrect, dst, ref dstrect);
 
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
@@ -3761,6 +3783,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlit(ref src, ref srcrect, dst, ref dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3779,6 +3803,8 @@ namespace Hexa.NET.SDL2
 				}
 			}
 		}
+
+		public static int BlitSurface(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(src, srcrect, ref dst, ref dstrect);
 
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
@@ -3802,6 +3828,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitSurface(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(ref src, srcrect, ref dst, ref dstrect);
+
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
 		/// SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a<br/>
@@ -3823,6 +3851,8 @@ namespace Hexa.NET.SDL2
 				}
 			}
 		}
+
+		public static int BlitSurface(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(src, ref srcrect, ref dst, ref dstrect);
 
 		/// <summary>
 		/// Perform a fast blit from the source surface to the destination surface.<br/>
@@ -3848,6 +3878,8 @@ namespace Hexa.NET.SDL2
 				}
 			}
 		}
+
+		public static int BlitSurface(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, ref SDLRect dstrect) => UpperBlit(ref src, ref srcrect, ref dst, ref dstrect);
 
 		/// <summary>
 		/// Perform low-level surface blitting only.<br/>
@@ -4825,6 +4857,8 @@ namespace Hexa.NET.SDL2
 			return ret;
 		}
 
+		public static int BlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(src, srcrect, dst, dstrect);
+
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
 		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
@@ -4841,6 +4875,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitScaled(ref SDLSurface src, SDLRect* srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(ref src, srcrect, dst, dstrect);
+
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
 		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
@@ -4856,6 +4892,8 @@ namespace Hexa.NET.SDL2
 				return ret;
 			}
 		}
+
+		public static int BlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(src, ref srcrect, dst, dstrect);
 
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
@@ -4876,6 +4914,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, SDLRect* dstrect) => UpperBlitScaled(ref src, ref srcrect, dst, dstrect);
+
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
 		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
@@ -4891,6 +4931,8 @@ namespace Hexa.NET.SDL2
 				return ret;
 			}
 		}
+
+		public static int BlitScaled(SDLSurface* src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(src, srcrect, ref dst, dstrect);
 
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
@@ -4911,6 +4953,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitScaled(ref SDLSurface src, SDLRect* srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(ref src, srcrect, ref dst, dstrect);
+
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
 		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
@@ -4929,6 +4973,8 @@ namespace Hexa.NET.SDL2
 				}
 			}
 		}
+
+		public static int BlitScaled(SDLSurface* src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(src, ref srcrect, ref dst, dstrect);
 
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
@@ -4952,6 +4998,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitScaled(ref SDLSurface src, ref SDLRect srcrect, ref SDLSurface dst, SDLRect* dstrect) => UpperBlitScaled(ref src, ref srcrect, ref dst, dstrect);
+
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
 		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
@@ -4968,6 +5016,8 @@ namespace Hexa.NET.SDL2
 			}
 		}
 
+		public static int BlitScaled(SDLSurface* src, SDLRect* srcrect, SDLSurface* dst, ref SDLRect dstrect) => UpperBlitScaled(src, srcrect, dst, ref dstrect);
+
 		/// <summary>
 		/// Perform a scaled surface copy to a destination surface.<br/>
 		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
@@ -4983,47 +5033,6 @@ namespace Hexa.NET.SDL2
 				{
 					int ret = UpperBlitScaledNative((SDLSurface*)psrc, srcrect, dst, (SDLRect*)pdstrect);
 					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(SDLSurface* src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLRect* psrcrect = &srcrect)
-			{
-				fixed (SDLRect* pdstrect = &dstrect)
-				{
-					int ret = UpperBlitScaledNative(src, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-					return ret;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Perform a scaled surface copy to a destination surface.<br/>
-		/// SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is<br/>
-		/// merely a macro for this function with a less confusing name.<br/>
-		/// <br/>
-		/// <br/>
-		/// </summary>
-		public static int UpperBlitScaled(ref SDLSurface src, ref SDLRect srcrect, SDLSurface* dst, ref SDLRect dstrect)
-		{
-			fixed (SDLSurface* psrc = &src)
-			{
-				fixed (SDLRect* psrcrect = &srcrect)
-				{
-					fixed (SDLRect* pdstrect = &dstrect)
-					{
-						int ret = UpperBlitScaledNative((SDLSurface*)psrc, (SDLRect*)psrcrect, dst, (SDLRect*)pdstrect);
-						return ret;
-					}
 				}
 			}
 		}
